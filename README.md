@@ -50,6 +50,6 @@ Something something good Samaritan, benefit the community, searchable knowledge-
     ├── Run-PLEXOS.md
     └── Setup-PLEXOS.md
     ```
-* Images and similar modular content go in `docs/assets/` of both the repository and the Wiki of this repository, so as to be easily and mutually referred to throughout various pages. GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink.
+* Images and similar modular content go in `assets/` in the root of both the repository and the Wiki of this repository, so as to be easily and mutually referred to throughout various pages. GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink.
 
-* Modules directories should go in `docs`, and the Wiki directories should go in the root of the Wiki repository. The `README.md` is responsible for sorting the modules into a reasonable traversable hierarchy, sorted by expected user-competency and expertise with HPC principles or specific components of your module (e.g. expertise in python).
+* Modules directories should go in the root of the repository, both here and the wiki. The `README.md` is responsible for sorting the modules into a reasonably traversable hierarchy, sorted by expected user-competency and expertise with HPC principles or specific components of your module (e.g. expertise in python).
