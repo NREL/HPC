@@ -1,6 +1,5 @@
-# NREL HPC Community Repository
-
 ![NREL HPC stand-in logo generated with machine learning.](assets/hpc.png)
+# NREL HPC Community Repository
 
 ## Who can contribute?
 Can you read this? Then you! Or anyone who's itching. Simply consult the short [style guidelines](#style-guidelines) below to get familiar with our content standards (an old college try is probably sufficient).
