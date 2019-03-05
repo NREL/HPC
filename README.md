@@ -27,7 +27,7 @@ Something something good Samaritan, benefit the community, searchable knowledge-
 * Per application/language/objective tutorials should have a dedicated directory and relevant source code or scripts stored within that, accompanied by a `README.md` briefly walking through how to interact with the content present there.
   * Long-form, highly verbose documentation should be contained in the relevant section of the Wiki of this repository, and referred to within the README of the respective content directory.
 
-  * Example:
+    Example:
     ```bash 
     plexos-hpc-walkthrough
     ├── data
