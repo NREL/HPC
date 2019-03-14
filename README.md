@@ -63,7 +63,7 @@ Under development! Just don't put PDFs in here please.
     ├── env-6.4.2.sh
     ├── env-7.3.3.sh
     ├── env-7.4.2.sh
-    ├── README.md  # Contains enough instruction to use these scripts. Links to [Wiki](https://github.com/NREL/HPC/wiki) for extra info.
+    ├── README.md  # Contains enough instruction to use these scripts. Links to the wiki for extra info.
     └── util
         └── get_week.py
     ```
