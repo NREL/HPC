@@ -14,7 +14,6 @@ The second of our series, Eagle Workshop - Advanced Slurm Techniques, covered to
 *   Parallelizing with SLURM.
 *   Remote exclusive GPU usage, requesting GPU nodes.
 *   Using "srun" in place of mpirun.
-*   Please bring your questions and working examples.
 
 The resources used during this presentation are available here:
 
