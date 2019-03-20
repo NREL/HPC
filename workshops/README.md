@@ -7,7 +7,7 @@ For a schedule and calendar invitations detailing upcoming workshops can be foun
 ---
 ## Workshop - Slurm: Advanced Techniques (held March 20th, 2019)
 
-In the second of our series, Eagle Workshop - Advanced Slurm Techniques, we will be covering topics that will be beneficial for job management.
+The second of our series, Eagle Workshop - Advanced Slurm Techniques, covered topics beneficial for job management:
 
 *   Job monitoring and forensics: usage examples on sreport, sacct, sinfo and sview (FastX).
 *   Advanced srun and sbatch functions (flags).
