@@ -40,10 +40,7 @@
     and the corresponding [Wiki](https://github.com/NREL/HPC/wiki) directory featuring thorough, verbose walkthroughs and explanations:
     ```bash
     plexos-hpc-walkthrough
-    ├── install-git-bash.md
     ├── initial-session.md
-    ├── login-hpc.md
-    ├── obtain-account.md
     ├── README.md  # The "home page" of the module which introduces, links to, and structures neighboring pages.
     ├── run-magma.md
     ├── run-plexos.md
