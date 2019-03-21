@@ -6,17 +6,13 @@
 * No capitals or spaces (with the exception of any `README.md` files serving as landing pages within directories per GitHub markdown rendering). Separate words in the filename with underscores or hyphens&mdash;whichever reduces ambiguity the most and is most pleasant for you to type. For example, a potential filename containing a hyphenated command `llvm-g++`. Underscores make it clear that the command has a hyphen: `how_to_use_llvm-g++.md` vs `how-to-use-llvm-g++.md`. 
   * Spaces aren't allowed because referencing such files by name from a command-line has extra caveats, and is generally a pain if you aren't prepared.
   * If you are fond of word-wise traversal in text-editors you may prefer hyphens more often. Whichever is more sensible for your tastes and the content.
-* Markdown files carry a ".md" extension. `(ba)?sh`
+* Markdown files carry a ".md" extension.
 * Files should be named in a way that makes clear their content and role in the training scheme, but should not carry metadata. GitHub is a revision control system, so don't use filenames for versioning, ownership, or stamping date/time.
 
 #### Content organization and flow
 * The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
 * Where you can assume that a user should have worked through training materials conceptually prior to the current ones, cross-reference them (mention and hyperlink). This also applies to information on the HPC website. In general, where you can refer someone to well crafted information online that's more extensive or well constructed than you have time or space to write, do so through a hyperlink.
-  * **Images and other reusable non-textual files go in `assets/`** in the root of both the repository and the [Wiki](https://github.com/NREL/HPC/wiki) of this repository, so as to be easily and mutually referred to throughout various pages. GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink (or hyperlinked thumbnail image of the video). If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or 
-  ```
-  a codeblock
-  ```
-  will suffice.
+  * **Images and other reusable non-textual files go in `assets/`** in the root of both the repository and the [Wiki](https://github.com/NREL/HPC/wiki) of this repository, so as to be easily and mutually referred to throughout various pages. GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink (or hyperlinked thumbnail image of the video). If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.
 
 * As the content generation process evolves, some contributions will undoubtedly stand out as exemplary. Don't be shy about copying those in style, syntax, etc.
 
