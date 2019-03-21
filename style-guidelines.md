@@ -27,7 +27,7 @@
 
     Example:
     ```bash 
-    plexos-hpc-walkthrough
+    plexos-quickstart
     ├── data
     │   └── RTS-GMLC-6.400.xml
     ├── env-6.4.2.sh
@@ -39,7 +39,7 @@
     ```
     and the corresponding [Wiki](https://github.com/NREL/HPC/wiki) directory featuring thorough, verbose walkthroughs and explanations:
     ```bash
-    plexos-hpc-walkthrough
+    plexos-quickstart
     ├── initial-session.md
     ├── README.md  # The "home page" of the module which introduces, links to, and structures neighboring pages.
     ├── run-magma.md
