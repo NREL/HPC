@@ -5,7 +5,19 @@ This section contains links to the finalized presentations and materials we used
 For a schedule and calendar invitations detailing upcoming workshops can be found on [our HPC training page.](https://www.nrel.gov/hpc/training.html "NREL HPC training"). This page will also contain information on recurring/episodic and recently held workshops.
 
 ---
-## Workshop - Slurm: Advanced Techniques
+## Workshop - Slurm: Advanced Techniques (held March 20th, 2019)
+
+The second of our series, Eagle Workshop - Advanced Slurm Techniques, covered topics beneficial for job management:
+
+*   Job monitoring and forensics: usage examples on sreport, sacct, sinfo and sview (FastX).
+*   Advanced srun and sbatch functions (flags).
+*   Parallelizing with SLURM.
+*   Remote exclusive GPU usage, requesting GPU nodes.
+*   Using "srun" in place of mpirun.
+
+The resources used during this presentation are available here:
+
+*
 
 ## Workshop - Slurm: New NREL Capabilities (held March 8th, 2019)
 
