@@ -14,7 +14,7 @@ If you have a specific procedure for getting new-hires up-to-speed with your sof
 3. `git add` the change(s)
 4. `git commit` with a useful commit message!
 5. `git push`
-6. Make a pull-request (shiny green button on the repo's GitHub webpage.)
+6. Make a pull-request (shiny green button on your fork of the repo's GitHub webpage.)
 
 ### Why should I contribute?
 Something something good Samaritan, benefit the community, searchable knowledge-base, etc. 
