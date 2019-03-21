@@ -10,7 +10,7 @@ One such feature of GitHub's frontend is the "[Wiki](https://github.com/NREL/HPC
 ## Files and directories
 
 ### Naming files
-* Files need an appropriate extension so it is obvious what purpose it serves. Compiled binaries shouldn't be pushed here (the most common type of extension-lacking files) so there's no reason a file should be without an extension.
+* Files need an appropriate extension so it is obvious what purpose they serve. Compiled binaries shouldn't be pushed here (the most common type of extension-lacking files) so there's no reason a file should be without an extension.
   * This includes Markdown files, which should carry a ".md" extension (not .txt or lackthereof).
 * No capitals or spaces (with the exception of any `README.md` files serving as landing pages within directories per GitHub markdown rendering). Separate words in the filename with underscores or hyphens&mdash;whichever reduces ambiguity the most and is most pleasant for you to type.
   * For example, using underscores in a potential filename containing a hyphenated command like `llvm-g++` would make it clear that the command has a hyphen: `how_to_use_llvm-g++.md` vs `how-to-use-llvm-g++.md`. 
