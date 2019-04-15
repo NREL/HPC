@@ -67,9 +67,9 @@ HPC  # i.e. the root of this repo
 ├── assets
 │   ...
 │   └── <...>  # This directory should contain all non-text files used within other markdown files.
+├── CONTRIBUTING.md  # This is the document you're currently reading.
 ├── LICENSE.txt
 ├── README.md  # The homepage of the repository. Should contain a link to each module's README.
-├── CONTRIBUTING.md  # This is the document you're currently reading.
 └── <...>      # Modules that exist or will exist
     ...
     ├─ README.md  # Any directory should contain a "README.md" to serve as the landing page.
