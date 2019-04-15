@@ -8,7 +8,7 @@ Can you read this? Then you! Simply consult the short [style guidelines](#style-
 ### What should be contributed?
 * Tutorials on your software-stack of choice (something you'd give a new member of your team)
 * Scripts/notebooks/cheatsheets that automate a convoluted task or explain something succinctly
-* Explanations of system aspects of Linux abd specific NREL HPC systems (e.g. "What is the `/var` directory for?")
+* Explanations of system aspects of Linux and specific NREL HPC systems (e.g. "What is the `/var` directory for?")
 * Anything you think another HPC user might benefit from!
 
 ### How do I contribute?
