@@ -2,6 +2,8 @@
 
 Thank you for taking an interest in contributing to our repository! Please consult the information below (we tried to keep it brief and reasonable) prior to making a pull request. These guidelines help avoid hassle between us (the maintainers) and you (the contributors) that give us a common target to shoot for, and makes what our standards are transparent and obvious.
 
+If you desire, you may credit yourself as author within any content you contribute.
+
 ### Who can contribute?
 Can you read this? Then you! Simply consult the short [style guidelines](#style-guidelines) below to get familiar with our content standards.
 
@@ -109,11 +111,13 @@ Example of a module directory:
 
 ### Markdown content and structure
 * The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
+
 * Where you can assume that a user should have worked through training materials conceptually prior to the current ones, cross-reference them (mention and hyperlink). This also applies to information on the HPC website. In general, where you can refer someone to well crafted information online that's more extensive or well constructed than you have time or space to write, do so through a hyperlink.
-  * **Images and other reusable non-textual files go in `assets/`** in the root of both the repository and the [Wiki](https://github.com/NREL/HPC/wiki) of this repository, so as to be easily and mutually referred to throughout various pages. GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink (or hyperlinked thumbnail image of the video). If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.
+
+* **Images and other reusable non-textual files go in `assets/`** in the root of both the repository and the [Wiki](https://github.com/NREL/HPC/wiki) of this repository, so as to be easily and mutually referred to throughout various pages. GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink (or hyperlinked thumbnail image of the video). If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.
+
+### General Advice
 
 * As the content generation process evolves, some contributions will undoubtedly stand out as exemplary. Don't be shy about copying those in style, syntax, etc.
 
 * Always preview the rendered output. GitHub's specific rendering has unique features and inconsistencies with other platforms.
-
-

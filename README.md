@@ -11,7 +11,7 @@ Please give a quick read to our [contribution guidelines](CONTRIBUTING.md) for a
 
 ## How to Use This Repository
 
-The contents here are designed to simply be `git clone`able onto NREL HPC systems and able to be intuitively traversed from within a terminal. Each directory serves as a conceptual module (and may contain sub-modules that assume familiarity with the information in the parent). The README of each of these modules should serve as a starting point for how to use the contents that are contained within the directory, such as how to compile/execute any source code/scripts. When necessary, the README will link to a synonymous entry in this repository's Wiki for long-form, verbose explanations of the module's content. This split is intended to keep the contents of the base modules minimal and approachable, as well as simpler to sift through.
+The contents here are designed to simply be `git clone`able onto NREL HPC systems and able to be intuitively traversed from within a terminal. Each directory serves as a conceptual module (and may contain sub-modules that assume familiarity with the information in the parent). The `README.md` file within each of these modules should serve as a starting point for how to use the contents that are contained within the directory, such as how to compile/execute any source code/scripts. When necessary, the README will link to a synonymous entry in this repository's Wiki for long-form, verbose explanations of the module's content. This split is intended to keep the contents of the base modules minimal and approachable, as well as simpler to sift through.
 
 Also consult the table of contents below for a comprehensive hierarchy so you may quickly find available utilities that are relevant to you.
 
