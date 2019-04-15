@@ -17,6 +17,12 @@ Also consult the table of contents below for a comprehensive hierarchy so you ma
 
 # Table of Contents
 
+## Utilities and Tools
+
+[Workshops and Presentations Hosted by NREL HPC Operations Team](/workshops/README.md)
+
+## Tutorials
+
 ### Beginner
 * [Markdown](/markdown/README.md)
 * [Git](/git/README.md)
