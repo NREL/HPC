@@ -9,15 +9,14 @@ For a schedule and calendar invitations detailing upcoming workshops can be foun
 
 The second of our series, Eagle Workshop - Advanced Slurm Techniques, covered topics beneficial for job management:
 
-*   Job monitoring and forensics: usage examples on sreport, sacct, sinfo and sview (FastX).
-*   Advanced srun and sbatch functions (flags).
-*   Parallelizing with SLURM.
-*   Remote exclusive GPU usage, requesting GPU nodes.
-*   Using "srun" in place of mpirun.
+* Job monitoring and forensics: usage examples on sreport, sacct, sinfo, and sview (FastX)
+* Advanced srun and sbatch functions (flags)
+* Parallelizing with SLURM
+* Remote exclusive GPU usage, requesting GPU nodes.
 
 The resources used during this presentation are available here:
 
-*
+* [Presentation Slides](https://www.nrel.gov/hpc/assets/pdfs/slurm-advanced-topics.pdf)
 
 ## Workshop - Slurm: New NREL Capabilities (held March 8th, 2019)
 
