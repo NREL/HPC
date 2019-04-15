@@ -7,7 +7,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 
 ### Contributions are welcomed and encouraged!
 
-Please give a quick read to our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted. We try to keep them short and reasonable!
+Please give a quick read to our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted.
 
 ## How to Use This Repository
 
