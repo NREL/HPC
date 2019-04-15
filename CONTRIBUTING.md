@@ -62,7 +62,7 @@ One such feature of GitHub's frontend is the "[Wiki](https://github.com/NREL/HPC
 
 ### Directory structure
 
-Here is a brief overview of how files and directories should be organized within this repository. Explicitly listed files or directories should remain fixed in location and name, and assumed to exist as such by other files:
+Here is a brief overview of how files and directories should be organized within this repository. Explicitly named files or directories should remain fixed in location and name, and assumed to exist as such by other files:
 
 ```bash 
 HPC  # i.e. the root of this repo
