@@ -19,7 +19,7 @@ Also consult the table of contents below for a comprehensive hierarchy so you ma
 
 ## Utilities and Tools
 
-[Workshops and Presentations Hosted by NREL HPC Operations Team](/workshops/README.md)
+* [Workshops and Presentations Hosted by NREL HPC Operations Team](/workshops/README.md)
 
 ## Tutorials
 
