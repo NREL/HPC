@@ -20,7 +20,7 @@ If the below instructions are foreign to you, consider giving a reading to the [
    * `git clone https://github.com/`\<your GitHub username\>`/HPC` for only the base repo.
    * `git clone https://github.com/`\<your GitHub username\>`/HPC.wiki` to clone and edit the [Wiki](https://github.com/NREL/HPC/wiki) if you intend to have highly verbose documetation.
      
-     **Note that there does not have to be an entry for your content in both repos. If you only want to construct explanitory documents, they do not need a directory in the base repo. Similarly, example or utility scripts that don't need a lot of explanation don't need an entry in the [Wiki](https://github.com/NREL/HPC/wiki).** For more info on the intended purpose of each repo, see the [style guidelines](#style-guidelines) below.
+     ***Note that there does not have to be an entry for your content in both repos.** If you only want to construct explanitory documents, they do not need a directory in the base repo. Similarly, example or utility scripts that don't need a lot of explanation don't need an entry in the [Wiki](https://github.com/NREL/HPC/wiki). For more info on the intended purpose of each repo, see the [style guidelines](#style-guidelines) below.*
 3. Change something (_after_ consulting the [style guidelines](#style-guidelines))
 4. `git add` the change(s)
 5. `git commit` with a useful commit message!
