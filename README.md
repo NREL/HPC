@@ -1,24 +1,20 @@
-# NREL HPC Community Repository (Warning: still a WIP)
+<!-- ![NREL HPC stand-in logo generated with machine learning.](assets/hpc.png) -->
+<p align="center"><img src="assets/hpc.png"/></p>
 
-![NREL HPC stand-in logo generated with machine learning.](assets/hpc.png)
+## Welcome!
 
-### Who can contribute?
-Can you read this? Then you! Or anyone who's itching. Simply consult the short [style guidelines](style-guidelines.md) below to get familiar with our content standards (an old college try is probably sufficient).
+This repository serves as a collection of walkthroughs, utilities, and other resources to improve the NREL HPC user's quality of life, both novice and veteran.
 
-### What needs contributed?
-If you have a specific procedure for getting new-hires up-to-speed with your software stack or a convoluted process you'd like to capture all the details of, we encourage you to author or copy in some instructions and demos that will serve as an example for others to refer to. Things like demo job scripts, example source code, jupyter notebooks, and any other document-style formats that others could easily follow along with are welcome.
+### Contributions are welcomed and encouraged!
 
-### How do I contribute?
-1. Fork
-2. Change something (_after_ consulting the [style guidelines](style-guidelines.md)&mdash;they're reasonable!)
-3. `git add` the change(s)
-4. `git commit` with a useful commit message!
-5. `git push`
-6. Make a pull-request (shiny green button on your fork of the repo's GitHub webpage.)
+Please give a quick read to our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted. We try to keep them short and reasonable!
 
-### Why should I contribute?
-Something something good Samaritan, benefit the community, searchable knowledge-base, etc. 
+## How to Use This Repository
 
----
+The contents here are designed to simply be `git clone`able onto NREL HPC systems and able to be intuitively traversed from within a terminal. Each directory serves as a conceptual module (and may contain sub-modules that assume familiarity with the information in the parent). The README of each of these modules should serve as a starting point for how to use the contents that are contained within the directory, such as how to compile/execute any source code/scripts. When necessary, the README will link to a synonymous entry in this repository's Wiki for long-form, verbose explanations of the module's content. This split is intended to keep the contents of the base modules minimal and approachable, as well as simpler to sift through.
 
-## Coming soon: Table of contents
+Also consult the table of contents below for a comprehensive hierarchy so you may quickly find available utilities that are relevant to you.
+
+# Table of Contents
+
+Coming soon
