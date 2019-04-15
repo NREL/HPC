@@ -1,8 +1,9 @@
 <!-- ![NREL HPC stand-in logo generated with machine learning.](assets/hpc.png) -->
 <p align="center"><img src="assets/hpc.png"/></p>
 
-## Welcome!
+---
 
+### Welcome!
 This repository serves as a collection of walkthroughs, utilities, and other resources to improve the NREL HPC user's quality of life, both novice and veteran.
 
 ### Contributions are welcomed and encouraged!
@@ -17,15 +18,16 @@ Also consult the table of contents below for a comprehensive hierarchy so you ma
 
 # Table of Contents
 
-## Utilities and Tools
+### Utilities and Tools
 
 * [Workshops and Presentations Hosted by NREL HPC Operations Team](/workshops/README.md)
 
-## Tutorials
+### Tutorials
 
-### Beginner
+#### Beginner
 * [Markdown](/markdown/README.md)
 * [Git](/git/README.md)
-### Intermediate
 
-### Advanced
+#### Intermediate
+
+#### Advanced
