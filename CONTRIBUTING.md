@@ -17,8 +17,8 @@ If the below instructions are foreign to you, consider giving a reading to the [
 
 1. Fork
 2. _(optional)_ To edit locally on your machine, do either of:
-   * `git clone https://github.com/NREL/HPC` for only the base repo.
-   * `git clone https://github.com/NREL/HPC.wiki` to clone and edit the [Wiki](https://github.com/NREL/HPC/wiki) if you intend to have highly verbose documetation.
+   * `git clone https://github.com/`\<your GitHub username\>`/HPC` for only the base repo.
+   * `git clone https://github.com/`\<your GitHub username\>`/HPC.wiki` to clone and edit the [Wiki](https://github.com/NREL/HPC/wiki) if you intend to have highly verbose documetation.
      
      **Note that there does not have to be an entry for your content in both repos. If you only want to construct explanitory documents, they do not need a directory in the base repo. Similarly, example or utility scripts that don't need a lot of explanation don't need an entry in the [Wiki](https://github.com/NREL/HPC/wiki).** For more info on the intended purpose of each repo, see the [style guidelines](##style-guidelines) below.
 3. Change something (_after_ consulting the [style guidelines](##style-guidelines))
