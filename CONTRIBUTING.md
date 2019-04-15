@@ -40,7 +40,7 @@ Something something good Samaritan, benefit the community, searchable knowledge-
 >### That said, still getting familiar with the details below will improve the chance your contributions are submitted in a a readily-acceptable format.
 
 ### ***New to Markdown?***
-Appropriately enough, we have a documentation for that! Simply start with the [README in the Markdown module](/markdown/README.md). Not to mention, the raw-contents any `.md` file can be used as a reference for how to style content a certain way.
+Appropriately enough, we have a documentation for that! Simply start with the [README in the Markdown module](/markdown/README.md). Not to mention, the raw-contents of any `.md` file can be used as a reference for how to style content a certain way.
 
 Note that git (the version control protocol) is not equivalent to GitHub (the git repository hosting web service, which implements the git protocol). This is an important distinction to be sure of before proceeding. There are other git-hosting services such as GitLab which function similarly to GitHub, but both use the git protocol. These hosting-services provide different decorative features to make the repositories more visually pleasing/intuitive to interact with.
 
