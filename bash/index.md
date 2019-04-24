@@ -14,6 +14,8 @@
     * [ ] [mutex](http://wiki.bash-hackers.org/howto/mutex)
     * [ ] [terminalcodes](http://wiki.bash-hackers.org/scripting/terminalcodes)
     * [ ] [style](http://wiki.bash-hackers.org/scripting/style)
+    * [ ] [builtins](https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html#Bourne-Shell-Builtins)
+    * [ ] [may be handy](https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php)
 
 # Bash Shell Scripts
 Bash (**B**ourne **A**gain **Sh**ell) is one of the most widely available and used command line shell applications. Along with basic shell functionality, it offers a wide variety of features which, if utilized thoughtfully, can create powerful automated execution sequences that run software, manipulate text and files, parallelize otherwise single-process software, or anything else you may want to do from the command line. This article lists various syntaxes and common script modules to serve as a high-level resource for creating effective and succinct scripts that behave as you intend. This page also catalogs some of the more obscure features that Bash offers and attempts to provide example situations where they may be of use.
