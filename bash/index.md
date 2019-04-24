@@ -18,17 +18,79 @@
 # Bash Shell Scripts
 Bash (**B**ourne **A**gain **Sh**ell) is one of the most widely available and used command line shell applications. Along with basic shell functionality, it offers a wide variety of features which, if utilized thoughtfully, can create powerful automated execution sequences that run software, manipulate text and files, parallelize otherwise single-process software, or anything else you may want to do from the command line. This article lists various syntaxes and common script modules to serve as a high-level resource for creating effective and succinct scripts that behave as you intend. This page also catalogs some of the more obscure features that Bash offers and attempts to provide example situations where they may be of use.
 
-By a large margin, shell scripts are the most common way our HPC community submits jobs. Usually running a large parallel workload requires some initialization of the software environment before revving up the CPUs. This usually involves declaring environment  variables(  link to env variables), creating files that the software will run on, loading modules and libraries that the software needs to run, etc. Bash can even be used to launch several single-core jobs, effectively taking on the roll of an ad hoc batch executer. Below is (in no particular order) a list of tips, tricks, good practices, and common pitfalls when it comes to writing effective Bash scripts.
+Shell scripts are one of the most common ways our HPC community submits jobs. Usually running a large parallel workload requires some initialization of the software environment before revving up the CPUs. This usually involves declaring environment  variables, creating files that the software will run on, loading modules and libraries that the software needs to run, etc. Bash can even be used to launch several single-core jobs, effectively taking on the roll of an ad hoc batch executer. Below is (in no particular order) a list of tips, tricks, and good practices when it comes to writing effective Bash scripts.
 
-  
+## Bash Looks Weird
 
-* * *
+If you read a bash script, you may default to your usual (or nonexistent) understanding of how code generally words&mdash;that is the binary/kernel which digests the code you write (compilers for C, python interpreter, Java Virtual Machine for Java, etc.) interprets the text into some sort of data structure which enforces the priority of certain commands over others (much like PEMDOS for math) and generates some execution of operations based on that data structure. Bash is not quite as fancy, as many aspects of its "language" are actually just the names of compiled binaries which do the heavy lifting. Much the same way you can run `python` or `ssh` in a command line, under the hood normal bash operations such as `if`, `echo`, and `exit` are actually just programs that expect a certain cadence for the arguments you give it. A block such as:
 
-## For Beginners and the Unfamiliar
+```bash
+if [ $(true)$? ]; then echo "If this wasn't echoed, something has gone horribly awry."; fi
+```
+This is really just a sequence of executing many compiled applications or shell built-ins with arguments&mdash;the names of these commands were just chosen to read as a typical programming grammar. A good example is the program `[` which is just an oddly-named command you can invoke. This is why you need to have a space between the brackets and your conditional, because the conditional itself is passed as an argument to the command `[`. In languages like C it's common to write the syntax as `if (conditional) { ...; }`. Otherwise, if you try to run `if [true]` you will likely get an error saying there isn't a command called `[true]` that you can run. This is also why you often see stray semicolons that seem somewhat arbitrary, as semicolons separate the execution of two binaries. Take this snippet for example:
+```bash
+echo "First message." ; echo "Second message."
+```
+This is equivalent to:
+```bash
+echo "First message."
+echo "Second message."
+```
+In the first snippet, if the semicolon was not present, the second `echo` would be interpreted as an argument to the first echo and would end up outputting: `First message. echo Second message.`
 
-## Gotchas
+Bash interprets `;` and `\n` (newline) as separators. If you need to pass these characters into a function (for example, common in `find`'s `-exec` flag) you need to escape them with a `\`. This is useful for placing arguments on separate lines to improve readability like this example:
+```bash
+chromium-browser \
+--start-fullscreen \
+--new-window \
+--incognito \
+'https://google.com'
+```
 
-`export`, `source`, and `declare`
+Similarly, normal if-then-else control flow that you would expect of any programming/scripting language has the same caveats. Consider this snippet:
+```bash
+if [ true ]
+then
+  echo "true is true"
+else
+  echo "false is true?"
+fi
+```
+If we break down what's essentially happening here (omitting some of the technical details):
+*   `if` invokes `[` (which is an alias for the program `test`) 
+    *   `[` invokes the command `true` as which returns an empty string.
+    *   `]` indicates no more arguments are present.
+    *   `true` returns an empty string
+    *   since `true` returned an empty string, this is the same as running `test` with no arguments
+    *   `test` with no arguments returns a non-error exit code because it behaved as expected.
+    *   `if` interprets a success exit code (`0`) as a truism and runs the `then`.
+*   the `then` command will execute anything it's given until `else`, `elif`, or `fi`
+*   the `else` command is the same as `then` but will only execute if `if` returned an erroneous exit code.
+*   the `fi` command indicates that no more conditional branches exist relative to the logical expression given to the original `if`.
+
+All this to say, this is why you often see if-then-else blocks written succinctly as `if [ <CONDITIONAL> ]; then <COMMANDS>; fi` with seemingly arbitrary semicolons and spaces. It is exactly why things work this way that bash is able to execute arbitrary executables (some of which _you_ may end up writing) and not require something like Python's subprocess module.
+
+This is just to give you an understanding for _why_ some of the syntax you will encounter is the way it is. Everything in bash is either a command or an argument to a command.
+
+
+## Common Pitfalls
+
+### Brackets
+
+#### Usage:
+##### Bad:
+> * `[cmd]`   - tries to find a command called `[cmd]`
+> * `[cmd ]`  - tries to find a command called `[cmd` and pass `]` as an argument to it
+> * `[ cmd]`  - tries to pass `cmd]` as an argument to `[` which expects an argument of `]` that isn't technically provided.
+
+##### Good:
+> * `[`**_**`cmd`**_**`]`
+
+#### Types
+
+
+
+### Booleans (true/false)
 
 * `if true;`
 * `if [ true ];`
@@ -37,58 +99,15 @@ By a large margin, shell scripts are the most common way our HPC community submi
 * `if [ false ];`
 * `if [ "false" ];`
 
+### Variables & Arrays
+
+`export`, `source`, and `declare`
+
+### 
+
 `` `echo hi` ``, `$(echo hi)`, and `$((echo hi))`
 
-`[ cmd ]`, `[[ cmd ]]` and `(( cmd ))`
 
-### How Bash Works
-
-If you read a bash script, you may default to your usual (or nonexistent) understanding of how code generally words--that is the binary/kernel which digests the code you write (compilers for C, cython interpreter for python, Java Virtual Machine for Java, etc.) interprets the text into some sort of data structure which enforces the priority of certain commands over others (much like PEMDOS for math) and generates some execution of operations based on that data structure. Bash is not quite as fancy, as many aspects of its "language" are actually just the names of compiled binaries which do the heavy lifting. Much the same way you can run `python` or `ssh` in a command line, under the hood normal bash operations such as `if`, `echo`, and `exit` are actually just programs that expect a certain cadence for the arguments you give it. A block such as:
-
-`if [[ true ]]; then echo "If this wasn't echoed, something has gone horribly awry."`
-
-Is really just a sequence of executing many compiled applications with arguments, the names of these commands were just chosen to give the appearance of a proper scripting language. A good example are the programs `[[`and `]]` which are indeed actual, compiled binaries written in C. This is why you need to have a space between `[[` and `]]` and your conditional, whereas in languages like C it's common to write the syntax as `if (conditional) { ...; }`. Otherwise, if you try to run `if [[TRUE]]` you will likely get an error telling you that there isn't a program called `[[TRUE]]` that you can run. This is also why you often see stray semicolons that seem somewhat arbitrary, as semicolons separate the execution of two binaries. Take this snippet for example:
-
-`echo "First message." ; echo "Second message."`
-
-This is identical to:
-
-`echo "First message."`
-
-`echo "Second message."`
-
-In the first snippet, if the semicolon was not present, the second `echo` would be interpreted as an argument to the first echo and would end up printing: `First message. echo Second message.`
-
-Similarly, normal if-then-else control flow that you would expect of any programming/scripting language has the same caveats. Consider this snippet:
-
-  
-
-  
-
-if \[\[ true \]\]
-
-then
-
-echo "true is true"
-
-else
-
-echo "false is true?"
-
-fi
-
-  
-
-If we break down what's essentially happening here (omitting some of the technical details) what's happening is:
-
-*   *   `if` invokes `[[` (which is an alias for the program `test`) which takes `true` as logical expression to evaluate. `]]` indicates the end of the logical expression.
-    *   `then` will execute anything it's given until another `if`, `else`, `elif`, or `fi` if `[[` returns a normal exit code.
-    *   `else` will execute if `[[` returned an erroneous exit code.
-    *   `fi` indicates that no more conditional branches exist relative to the logical expression given to the original `if`.
-
-All this to say, this is why you often see if-then-else blocks written succinctly as `if [[ CONDITIONAL ]]; then stuff; fi` with seemingly arbitrary semicolons. It is exactly why things work this way that bash is able to execute arbitrary executables (some of which _you_ may end up writing) and not require something like Python's subprocess module.
-
-This is just to give you an understanding for _why_ some of the syntax you will encounter is the way it is.
 
   
 
