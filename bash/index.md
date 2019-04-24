@@ -1,6 +1,6 @@
 
   * [ ] TO DO: Digest Bash Hacker's Wiki
-    * [brackets](https://dev.to/rpalo/bash-brackets-quick-reference-4eh6)
+    * [ ] [brackets](https://dev.to/rpalo/bash-brackets-quick-reference-4eh6)
     * [ ] [getopts_tutorial](http://wiki.bash-hackers.org/howto/getopts_tutorial)
     * [ ] [brace](http://wiki.bash-hackers.org/syntax/expansion/brace)
     * [ ] [tilde](http://wiki.bash-hackers.org/syntax/expansion/tilde)
