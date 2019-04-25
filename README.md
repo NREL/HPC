@@ -1,11 +1,3 @@
-<p align="center"><img src="assets/hpc.png"/></p>
-<p align="center">
-<a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="https://img.shields.io/badge/license-GPL--3.0-blue.svg"></a>
-<img src="https://img.shields.io/github/repo-size/NREL/HPC.svg?label=size">
-<a href="https://github.com/NREL/HPC/issues/"><img src="https://img.shields.io/github/issues/NREL/HPC.svg"></a>
-<a href="https://github.com/NREL/HPC/fork"><img src="https://img.shields.io/github/forks/NREL/HPC.svg?style=social"></a>
-</p>
-
 This repository serves as a collection of walkthroughs, utilities, and other resources to improve the NREL HPC user's quality of life, both novice and veteran.
 
 ## How to Use This Repository
