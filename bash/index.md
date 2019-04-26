@@ -1,21 +1,21 @@
 
-  * [ ] TO DO: Digest Bash Hacker's Wiki
-    * [ ] [brackets](https://dev.to/rpalo/bash-brackets-quick-reference-4eh6)
-    * [ ] [getopts_tutorial](http://wiki.bash-hackers.org/howto/getopts_tutorial)
-    * [ ] [brace](http://wiki.bash-hackers.org/syntax/expansion/brace)
-    * [ ] [tilde](http://wiki.bash-hackers.org/syntax/expansion/tilde)
-    * [ ] [conditional_expression](http://wiki.bash-hackers.org/syntax/ccmd/conditional_expression)
-    * [ ] [dissectabadoneliner](http://wiki.bash-hackers.org/howto/dissectabadoneliner)
-    * [ ] [calculate-dc](http://wiki.bash-hackers.org/howto/calculate-dc)
-    * [ ] [redirection_tutorial](http://wiki.bash-hackers.org/howto/redirection_tutorial)
-    * [ ] [collapsing_functions i.e. JavaScript-tier goodness](http://wiki.bash-hackers.org/howto/collapsing_functions)
-    * [ ] [edit-ed](http://wiki.bash-hackers.org/howto/edit-ed)
-    * [ ] [conffile](http://wiki.bash-hackers.org/howto/conffile)
-    * [ ] [mutex](http://wiki.bash-hackers.org/howto/mutex)
-    * [ ] [terminalcodes](http://wiki.bash-hackers.org/scripting/terminalcodes)
-    * [ ] [style](http://wiki.bash-hackers.org/scripting/style)
-    * [ ] [builtins](https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html#Bourne-Shell-Builtins)
-    * [ ] [may be handy](https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php)
+  * [ ]  TO DO: Digest Bash Hacker's Wiki
+    * [ ]  [brackets](https://dev.to/rpalo/bash-brackets-quick-reference-4eh6)
+    * [ ]  [getopts_tutorial](http://wiki.bash-hackers.org/howto/getopts_tutorial)
+    * [ ]  [brace](http://wiki.bash-hackers.org/syntax/expansion/brace)
+    * [ ]  [tilde](http://wiki.bash-hackers.org/syntax/expansion/tilde)
+    * [ ]  [conditional_expression](http://wiki.bash-hackers.org/syntax/ccmd/conditional_expression)
+    * [ ]  [dissectabadoneliner](http://wiki.bash-hackers.org/howto/dissectabadoneliner)
+    * [ ]  [calculate-dc](http://wiki.bash-hackers.org/howto/calculate-dc)
+    * [ ]  [redirection_tutorial](http://wiki.bash-hackers.org/howto/redirection_tutorial)
+    * [ ]  [collapsing_functions i.e. JavaScript-tier goodness](http://wiki.bash-hackers.org/howto/collapsing_functions)
+    * [ ]  [edit-ed](http://wiki.bash-hackers.org/howto/edit-ed)
+    * [ ]  [conffile](http://wiki.bash-hackers.org/howto/conffile)
+    * [ ]  [mutex](http://wiki.bash-hackers.org/howto/mutex)
+    * [ ]  [terminalcodes](http://wiki.bash-hackers.org/scripting/terminalcodes)
+    * [ ]  [style](http://wiki.bash-hackers.org/scripting/style)
+    * [ ]  [builtins](https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html#Bourne-Shell-Builtins)
+    * [ ]  [may be handy](https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php)
 
 # Bash Shell Scripts
 Bash (**B**ourne **A**gain **Sh**ell) is one of the most widely available and used command line shell applications. Along with basic shell functionality, it offers a wide variety of features which, if utilized thoughtfully, can create powerful automated execution sequences that run software, manipulate text and files, parallelize otherwise single-process software, or anything else you may want to do from the command line. This article lists various syntaxes and common script modules to serve as a high-level resource for creating effective and succinct scripts that behave as you intend. This page also catalogs some of the more obscure features that Bash offers and attempts to provide example situations where they may be of use.
