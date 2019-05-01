@@ -70,7 +70,6 @@ All this to say, this is why you often see if-then-else blocks written succinctl
 This is just to give you an understanding for _why_ some of the syntax you will encounter is the way it is. Everything in bash is either a command or an argument to a command.
 
 ---
-
 <br>
 
 ## Parentheses, Braces, and Brackets
