@@ -82,11 +82,11 @@ This is just to give you an understanding for _why_ some of the syntax you will
 Bash utilizes many flavors of symbolic enclosures. This section will detail the purpose, function, and nuances of what they provide.
 
 Specifically, unique pair-wise symbols recognized by bash are:
-* [`( )`](#single-parentheses)
-* [`[ ]`](#single-brackets)
-* [`{ }`](#single-braces)
-* [`(( ))`](#double-parentheses)
-* [`[[ ]]`](#double-brackets)
+* [`( )`](#--single-parentheses)
+* [`[ ]`](#--single-brackets)
+* [`{ }`](#--single-braces)
+* [`(( ))`](#--double-parentheses)
+* [`[[ ]]`](#--double-brackets)
   
 ### `( )` (Single Parentheses)
 
