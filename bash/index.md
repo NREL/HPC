@@ -69,11 +69,11 @@ All this to say, this is why you often see if-then-else blocks written succinctl
 
 This is just to give you an understanding for _why_ some of the syntax you will encounter is the way it is. Everything in bash is either a command or an argument to a command.
 
+---
 
-#
-## Common Pitfalls
+<br>
 
-### <u>Parentheses, Braces, and Brackets</u>
+## Parentheses, Braces, and Brackets
 
 Bash utilizes many flavors of symbolic enclosures. This section will detail the purpose, function, and nuances of what they provide.
 
@@ -84,7 +84,7 @@ Specifically, unique pair-wise symbols recognized by bash are:
 * [`(( ))`](#double-parentheses)
 * [`[[ ]]`](#double-brackets)
   
-#### `( )` (Single Parentheses)
+### `( )` (Single Parentheses)
 
 Expressions wrapped in single parantheses denote either the creation of a subshell for provided expressions, or the creation of a bash array variable if used in assignment. If subshell parentheses are prefixed with a `$`, the expression will be replaced with stdout from the subshell's execution. Below are some examples for when single parantheses signify different functionality:
 
@@ -97,10 +97,10 @@ Expressions wrapped in single parantheses denote either the creation of a subshe
 |                                                 	|                                                                                                      	|
 
 
-#### `[ ]` (Single Brackets)
-#### `{ }` (Single Braces)
-#### `(( ))` (Double Parentheses)
-#### `[[ ]]` (Double Brackets)
+### `[ ]` (Single Brackets)
+### `{ }` (Single Braces)
+### `(( ))` (Double Parentheses)
+### `[[ ]]` (Double Brackets)
 
 #### Usage:
 Erroneous:
