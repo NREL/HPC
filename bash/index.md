@@ -17,10 +17,15 @@
     * [ ]  [builtins](https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html#Bourne-Shell-Builtins)
     * [ ]  [may be handy](https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php)
 
-# Bash Shell Scripts
+* TOC
+{:toc}
+
 Bash (**B**ourne **A**gain **Sh**ell) is one of the most widely available and used command line shell applications. Along with basic shell functionality, it offers a wide variety of features which, if utilized thoughtfully, can create powerful automated execution sequences that run software, manipulate text and files, parallelize otherwise single-process software, or anything else you may want to do from the command line. This article lists various syntaxes and common script modules to serve as a high-level resource for creating effective and succinct scripts that behave as you intend. This page also catalogs some of the more obscure features that Bash offers and attempts to provide example situations where they may be of use.
 
 Shell scripts are one of the most common ways our HPC community submits jobs. Usually running a large parallel workload requires some initialization of the software environment before revving up the CPUs. This usually involves declaring environment  variables, creating files that the software will run on, loading modules and libraries that the software needs to run, etc. Bash can even be used to launch several single-core jobs, effectively taking on the roll of an ad hoc batch executer. Below is (in no particular order) a list of tips, tricks, and good practices when it comes to writing effective Bash scripts.
+
+---
+<br>
 
 ## Bash Scripting Syntax
 
