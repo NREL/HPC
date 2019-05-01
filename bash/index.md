@@ -69,8 +69,8 @@ All this to say, this is why you often see if-then-else blocks written succinctl
 
 This is just to give you an understanding for _why_ some of the syntax you will encounter is the way it is. Everything in bash is either a command or an argument to a command.
 
----
 
+#
 ## Common Pitfalls
 
 ### <u>Parentheses, Braces, and Brackets</u>
@@ -86,7 +86,7 @@ Specifically, unique pair-wise symbols recognized by bash are:
   
 #### `( )` (Single Parentheses)
 
-Expressions wrapped in single parantheses denote either the creation of a subshell for provided expressions, or the creation of a bash array variable if used in assignment. If subshell parentheses are prefixed with a `$`, the expression will be replaced with stdout from the child process. Below are some examples for when single parantheses signify different functionality:
+Expressions wrapped in single parantheses denote either the creation of a subshell for provided expressions, or the creation of a bash array variable if used in assignment. If subshell parentheses are prefixed with a `$`, the expression will be replaced with stdout from the subshell's execution. Below are some examples for when single parantheses signify different functionality:
 
 | Command                           	| Behavior      	|
 |-------------------------------------------------	|------------------------------------------------------------------------------------------------------	|
@@ -96,7 +96,6 @@ Expressions wrapped in single parantheses denote either the creation of a subshe
 | ``test_var=(`ls -1`)`` or `test_var=($(ls -1))` 	| Evaluate `ls -1` and capture the output as an array.                                                 	|
 |                                                 	|                                                                                                      	|
 
-Anything placed within a pair of single brackets will be executed as its own sequence of commands in a subshell as a child process. A typical usage is to group several chained commands together 
 
 #### `[ ]` (Single Brackets)
 #### `{ }` (Single Braces)
