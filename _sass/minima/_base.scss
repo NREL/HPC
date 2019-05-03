@@ -220,8 +220,8 @@ pre {
     @media screen and (min-width: $on-large-toc) {
         position: fixed;
         left: $spacing-unit;
-        max-width: calc(100% - #{$content-width});
-        max-width: -webkit-calc(100% - #{$content-width});
+        max-width: calc(100% - #{$on-large-toc});
+        max-width: -webkit-calc(100% - #{$on-large-toc});
     }
 }
 
