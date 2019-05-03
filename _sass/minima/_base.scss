@@ -202,7 +202,7 @@ pre {
 
 .wrapper {
     max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
-    max-width : calc(#{$content-width} - (#{$spacing-unit}));
+    max-width: calc(#{$content-width} - (#{$spacing-unit}));
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit / 2;
@@ -210,19 +210,18 @@ pre {
     @extend %clearfix;
     @media screen and (min-width: $on-large) {
         max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
-        max-width : calc(#{$content-width} - (#{$spacing-unit} * 2));
+        max-width: calc(#{$content-width} - (#{$spacing-unit} * 2));
         padding-right: $spacing-unit;
         padding-left: $spacing-unit;
     }
 }
 
 #markdown-toc {
-    position: fixed;
-    left: 5%;
-    max-width: 20%;
     @media screen and (min-width: $on-large) {
-        position: initial;
-        max-width: inherit;
+        position: fixed;
+        left: 5%;
+        max-width: calc(100% - #{$content-width});
+        max-width: -webkit-calc(100% - #{$content-width});
     }
 }
 
