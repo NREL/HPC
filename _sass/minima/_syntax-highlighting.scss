@@ -4,9 +4,7 @@
 
 .highlight {
     @extend %vertical-rhythm;
-    .highlighter-rouge & {
-        background: #eef;
-    }
+    .highlighter-rouge & {}
     .c {
         color: #998;
         font-style: italic
