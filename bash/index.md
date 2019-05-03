@@ -83,9 +83,12 @@ Bash utilizes many flavors of symbolic enclosures. This section will detail the 
 
 Specifically, unique pair-wise symbols recognized by bash are:
 * [`( )`](#--single-parentheses)
+* [`$( )` or `` ` ` ``](#or-----dollar-prefixed-single-parentheses-or-backticks)
 * [`[ ]`](#--single-brackets)
 * [`{ }`](#--single-braces)
+* [`${ }`](#dollar-prefixed-single-braces)
 * [`(( ))`](#--double-parentheses)
+* [`$(( ))`](#dollar-prefixed-double-parentheses)
 * [`[[ ]]`](#--double-brackets)
   
 ### `( )` (Single Parentheses)
@@ -100,10 +103,14 @@ Expressions wrapped in single parantheses denote either the creation of a subshe
 | ``test_var=(`ls -1`)`` or `test_var=($(ls -1))` 	| Evaluate `ls -1` and capture the output as an array.                                                 	|
 |                                                 	|                                                                                                      	|
 
+### `$( )` or  `` ` ` `` (Dollar Prefixed Single Parentheses or Backticks)
+
 
 ### `[ ]` (Single Brackets)
 ### `{ }` (Single Braces)
+### `${ }` (Dollar Prefixed Single Braces)
 ### `(( ))` (Double Parentheses)
+### `$(( ))` (Dollar Prefixed Double Parentheses)
 ### `[[ ]]` (Double Brackets)
 
 #### Usage:
