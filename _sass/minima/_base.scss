@@ -220,7 +220,7 @@ pre {
 #markdown-toc {
     @media screen and (min-width: $on-large-toc) {
         position: fixed;
-        left: $spacing-unit;
+        left: 10px;
         max-width: calc(100% - #{$on-large-toc});
         max-width: -webkit-calc(100% - #{$on-large-toc});
     }
