@@ -83,7 +83,7 @@ Bash utilizes many flavors of symbolic enclosures. This section will detail the 
 
 Specifically, unique pair-wise symbols recognized by bash are:
 * [`( )`](#--single-parentheses)
-* [`$( )` or `` ` ` ``](#--or-----dollar-prefixed-single-parentheses-or-backticks)
+* [`$( )` or `` ` ` ``](#--or----dollar-prefixed-single-parentheses-or-backticks)
 * [`[ ]`](#--single-brackets)
 * [`{ }`](#--single-braces)
 * [`${ }`](#--dollar-prefixed-single-braces)
