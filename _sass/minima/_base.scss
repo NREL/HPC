@@ -222,8 +222,8 @@ pre {
     @media screen and (min-width: $on-large-toc) {
         position: fixed;
         left: 10px;
-        max-width: calc(100% - #{$on-large});
-        max-width: -webkit-calc(100% - #{$on-large});
+        max-width: calc(100% - #{$on-palm});
+        max-width: -webkit-calc(100% - #{$on-palm});
     }
 }
 
