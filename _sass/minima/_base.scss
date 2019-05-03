@@ -177,17 +177,18 @@ pre,
 code {
     @include relative-font-size(0.8);
     border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
+    border-radius: 4px;
 }
 
 code {
     padding: 1px 5px;
+    background-color: #eef;
 }
 
 pre {
     padding: 8px 12px;
     overflow-x: auto;
+    margin: 15px;
     >code {
         border: 0;
         padding-right: 0;
