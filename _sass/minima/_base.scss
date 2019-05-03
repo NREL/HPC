@@ -175,7 +175,7 @@ blockquote {
 
 pre,
 code {
-    @include relative-font-size(0.9375);
+    @include relative-font-size(0.8);
     border: 1px solid $grey-color-light;
     border-radius: 3px;
     background-color: #eef;
@@ -201,16 +201,28 @@ pre {
  */
 
 .wrapper {
-    max-width: 55%;
+    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
+    max-width : calc(#{$content-width} - (#{$spacing-unit}));
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit / 2;
     padding-left: $spacing-unit / 2;
     @extend %clearfix;
     @media screen and (min-width: $on-large) {
-        max-width: 50%;
+        max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
+        max-width : calc(#{$content-width} - (#{$spacing-unit} * 2));
         padding-right: $spacing-unit;
         padding-left: $spacing-unit;
+    }
+}
+
+#markdown-toc {
+    position: fixed;
+    left: 5%;
+    max-width: 20%;
+    @media screen and (min-width: $on-large) {
+        position: initial;
+        max-width: inherit;
     }
 }
 
