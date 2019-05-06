@@ -17,8 +17,8 @@ print_hi('Tom')
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
-[Full link to repo][https://github.com/NREL/HPC/tree/master/stream_benchmark]
-[Short link to repo][./HPC/tree/master/stream_benchmark]
+[Full link to repo](https://github.com/NREL/HPC/tree/master/stream_benchmark)
+[Short link to repo](./HPC/tree/master/stream_benchmark)
 
 
 [jekyll-docs]: http://jekyllrb.com/docs/home
