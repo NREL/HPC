@@ -1,6 +1,7 @@
 ---
 title: "Bash"
 categories: tutorial
+layout: default
 ---
 
   * [ ]  TO DO: Digest Bash Hacker's Wiki
