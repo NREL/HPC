@@ -132,7 +132,7 @@ func (){ echo hi;}    # OK
 func () { echo hi;}   # OK
 func () { echo hi; }  # OK
 ```
-
+<br>
 
 ## `$( )` (Dollar Prefixed Single Parentheses)
 
