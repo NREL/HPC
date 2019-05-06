@@ -1,3 +1,7 @@
+---
+title: "Bash"
+categories: tutorial
+---
 
   * [ ]  TO DO: Digest Bash Hacker's Wiki
     * [ ]  [brackets](https://dev.to/rpalo/bash-brackets-quick-reference-4eh6)
@@ -27,7 +31,7 @@ Shell scripts are one of the most common ways our HPC community submits jobs. Us
 ---
 <br>
 
-## Bash Scripting Syntax
+# Bash Scripting Syntax
 
 If you read a bash script, you may default to your usual (or nonexistent) understanding of how code generally words&mdash;that is the binary/kernel which digests the code you write (compilers for C, python interpreter, Java Virtual Machine for Java, etc.) interprets the text into some sort of data structure which enforces the priority of certain commands over others (much like PEMDOS for math) and generates some execution of operations based on that data structure. Bash is not quite as fancy, as many aspects of its "language" are actually just the names of compiled binaries which do the heavy lifting. Much the same way you can run `python` or `ssh` in a command line, under the hood normal bash operations such as `if`, `echo`, and `exit` are actually just programs that expect a certain cadence for the arguments you give it. A block such as:
 
@@ -77,21 +81,22 @@ This is just to give you an understanding for _why_ some of the syntax you will
 ---
 <br>
 
-## Parentheses, Braces, and Brackets
+# Parentheses, Braces, and Brackets
 
 Bash utilizes many flavors of symbolic enclosures. This section will detail the purpose, function, and nuances of what they provide.
 
 Specifically, unique pair-wise symbols recognized by bash are:
 * [`( )`](#--single-parentheses)
-* [`$( )` or `` ` ` ``](#--or----dollar-prefixed-single-parentheses-or-backticks)
+* [`$( )`](#--dollar-prefixed-single-parentheses)
 * [`[ ]`](#--single-brackets)
 * [`{ }`](#--single-braces)
 * [`${ }`](#--dollar-prefixed-single-braces)
+* [`` ` ` ``](#--backticks)
 * [`(( ))`](#--double-parentheses)
 * [`$(( ))`](#--dollar-prefixed-double-parentheses)
 * [`[[ ]]`](#--double-brackets)
   
-### `( )` (Single Parentheses)
+## `( )` (Single Parentheses)
 
 Expressions wrapped in single parantheses denote either the creation of a subshell for provided expressions, or the creation of a bash array variable if used in assignment. If subshell parentheses are prefixed with a `$`, the expression will be replaced with stdout from the subshell's execution. Below are some examples for when single parantheses signify different functionality:
 
@@ -103,17 +108,18 @@ Expressions wrapped in single parantheses denote either the creation of a subshe
 | ``test_var=(`ls -1`)`` or `test_var=($(ls -1))` 	| Evaluate `ls -1` and capture the output as an array.                                                 	|
 |                                                 	|                                                                                                      	|
 
-### `$( )` or  `` ` ` `` (Dollar Prefixed Single Parentheses or Backticks)
+## `$( )` (Dollar Prefixed Single Parentheses)
 
 
-### `[ ]` (Single Brackets)
-### `{ }` (Single Braces)
-### `${ }` (Dollar Prefixed Single Braces)
-### `(( ))` (Double Parentheses)
-### `$(( ))` (Dollar Prefixed Double Parentheses)
-### `[[ ]]` (Double Brackets)
+## `[ ]` (Single Brackets)
+## `{ }` (Single Braces)
+## `${ }` (Dollar Prefixed Single Braces)
+## `` ` ` `` (Backticks)
+## `(( ))` (Double Parentheses)
+## `$(( ))` (Dollar Prefixed Double Parentheses)
+## `[[ ]]` (Double Brackets)
 
-#### Usage:
+### Usage:
 Erroneous:
 * `[cmd]`   - tries to find a command called `[cmd]` which likely doesn't exist
 * `[cmd ]`  - tries to find a command called `[cmd` and pass `]` as an argument to it
@@ -126,7 +132,7 @@ Correct:
 
 
 
-### Booleans (true/false)
+## Booleans (true/false)
 
 * `if true;`
 * `if [ true ];`
@@ -135,11 +141,11 @@ Correct:
 * `if [ false ];`
 * `if [ "false" ];`
 
-### Variables & Arrays
+## Variables & Arrays
 
 `export`, `source`, and `declare`
 
-### 
+## 
 
 `` `echo hi` ``, `$(echo hi)`, and `$((echo hi))`
 
