@@ -99,15 +99,39 @@ Specifically, unique pair-wise symbols recognized by bash are:
   
 ## `( )` (Single Parentheses)
 
-Expressions wrapped in single parantheses denote either the creation of a subshell for provided expressions, or the creation of a bash array variable if used in assignment. If subshell parentheses are prefixed with a `$`, the expression will be replaced with stdout from the subshell's execution. Below are some examples for when single parantheses signify different functionality:
+There are 3 features in Bash which are denoted by a pair of parentheses, which are Bash subshells, Bash array declarations, and Bash function declarations. See the table below for when each feature is enacted:
 
-| Command                           	| Behavior      	|
-|-------------------------------------------------	|------------------------------------------------------------------------------------------------------	|
-| `(ls -1 | head -n 1)`                           	| Run the command in a subshell. This will return the exit code of the last process that was ran.      	|
-| `test_var=(ls -1)`                              	| Create a bash array with the elements `ls` and `-1`, meaning `${test_var[1]}` will evaluate to `-1`. 	|
-| `test_var=$(ls -1)`                             	| Evaluate `ls -1` and capture the output as a string.                                                 	|
-| ``test_var=(`ls -1`)`` or `test_var=($(ls -1))` 	| Evaluate `ls -1` and capture the output as an array.                                                 	|
-|                                                 	|                                                                                                      	|
+| Syntax | Bash Feature |
+|-------------------------------------------------	| ------------------------------------------------------------------------------------------------------	|
+| Command/line begins with `(` | Run the contained expression(s) in a subshell. This will pass everything until a closing `)` to a child-fork of Bash that inherits the environment from the invoking Bash instance, and exits with the exit code of the last command the subshell exitted with. See the section on [subshells](#subshells) for more info. |
+| A valid Bash identifier is set equal to a parnethetically enclosed list of items<br>(.e.g. `arr=("a" "b" "c")` )                             	| Creates a Bash array with elements enclosed by the parentheses. The default indexing of the elements is numerically incremental from 0 in the given order, but this order can be overridden or string-based keys can be used. See the section on [arrays](#arrays) for more info. |
+| A valid Bash identifier is followed by `()` and contains some function(s) enclosed by `{ }`<br>(i.e. `func() { echo "test"; } ` ) | Declare a function which can be re/used throughout a Bash script. See the either of ["`{ }`"](#--single-braces) or [functions](#functions) for more info. | 
+| | |
+
+Note that whitespace is required, prohibited, or ignored in selection situations. See this block for specific examples of how to use whitespace in the various contexts of parantheses:
+```bash
+### Subshells
+(echo hi)   # OK
+( echo hi)  # OK
+(echo hi )  # OK
+( echo hi ) # OK
+
+### Arrays
+arr=("a" "b" "c")   # Array of 3 strings
+arr =("a" "b" "c")    # ERROR
+arr= ("a" "b" "c")    # ERROR
+arr = ("a" "b" "c")   # ERROR
+arr=("a""b""c")     # Array of one element that is "abc"
+arr=("a","b","c")   # Array of one element that is "a,b,c"
+
+### Functions 
+func(){echo hi;} # ERROR
+func(){ echo hi;}     # OK
+func (){ echo hi;}    # OK
+func () { echo hi;}   # OK
+func () { echo hi; }  # OK
+```
+
 
 ## `$( )` (Dollar Prefixed Single Parentheses)
 
@@ -119,6 +143,18 @@ Expressions wrapped in single parantheses denote either the creation of a subshe
 ## `(( ))` (Double Parentheses)
 ## `$(( ))` (Dollar Prefixed Double Parentheses)
 ## `[[ ]]` (Double Brackets)
+
+## Nuanced Examples of Enclosure Usage
+
+
+| Command | Behavior |
+|-------------------------------------------------	|------------------------------------------------------------------------------------------------------	|
+| `(ls -1 | head -n 1)` | Run the command in a subshell. This will return the exit code of the last process that was ran. |
+| `test_var=(ls -1)` | Create a bash array with the elements `ls` and `-1`, meaning `${test_var[1]}` will evaluate to `-1`. 	|
+| `test_var=$(ls -1)` | Evaluate `ls -1` and capture the output as a string. |
+| ``test_var=(`ls -1`)`` or `test_var=($(ls -1))` 	| Evaluate `ls -1` and capture the output as an array. |
+| | |
+
 
 ### Usage:
 Erroneous:
