@@ -108,7 +108,7 @@ There are 3 features in Bash which are denoted by a pair of parentheses, which a
 | A valid Bash identifier is followed by `()` and contains some function(s) enclosed by `{ }`<br>(i.e. `func() { echo "test"; } ` ) | Declare a function which can be re/used throughout a Bash script. See the either of ["`{ }`"](#--single-braces) or [functions](#functions) for more info. | 
 | | |
 
-Note that whitespace is required, prohibited, or ignored in selection situations. See this block for specific examples of how to use whitespace in the various contexts of parantheses:
+Note that whitespace is required, prohibited, or ignored in certain situations. See this block for specific examples of how to use whitespace in the various contexts of parantheses:
 ```bash
 ### Subshells
 (echo hi)   # OK
@@ -123,6 +123,7 @@ arr= ("a" "b" "c")    # ERROR
 arr = ("a" "b" "c")   # ERROR
 arr=("a""b""c")     # Array of one element that is "abc"
 arr=("a","b","c")   # Array of one element that is "a,b,c"
+arr=("a", "b", "c") # ${arr[0]} == "a,"
 
 ### Functions 
 func(){echo hi;} # ERROR
