@@ -66,7 +66,7 @@ In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla e
 - First item, yo
 - Second item, dawg
 - Third item, what what?!
-- Fourth item, fo sheezy my neezy
+- Fourth item
 
 ### Oh hai, an ordered list!!
 
@@ -75,7 +75,7 @@ In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla e
 1. First item, yo
 2. Second item, dawg
 3. Third item, what what?!
-4. Fourth item, fo sheezy my neezy
+4. Fourth item
 
 
 
