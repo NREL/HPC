@@ -215,6 +215,7 @@ pre {
     @media screen and (min-width: $on-large) {
         max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
         max-width: calc(#{$content-width} - (#{$spacing-unit} * 2));
+        min-width: 16em;
         padding-right: $spacing-unit;
         padding-left: $spacing-unit;
     }
