@@ -29,6 +29,7 @@ Please see our [contribution guidelines](CONTRIBUTING.md) for a rundown on how w
 > * [Git](/git/README.md)
 
 > #### Intermediate
+> * [Git](/gpu/README.md)
 >  * [HPC Benchmarking: STREAM](/stream_benchmark/StreamTutorial.ipynb)
 
 > #### Advanced
