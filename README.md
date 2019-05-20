@@ -1,4 +1,4 @@
-<!-- <p align="center"><img src="assets/hpc.png"/></p> -->
+<p align="center"><img src="assets/logo-small.png"/></p>
 <p align="center">
 <img src="https://img.shields.io/github/repo-size/NREL/HPC.svg?label=size">
 <a href="https://github.com/NREL/HPC/issues/"><img src="https://img.shields.io/github/issues/NREL/HPC.svg"></a>
