@@ -1,4 +1,7 @@
-<p align=center><sub><i>by Slava Barsu</i></sub></p>
+<p align=center>
+<sub><i>by Slava Barsu</i></sub>
+</p>
+
 
 # Hierarchical Engine for Large-scale Infrastructure Co-Simulation (HELICS)
 
