@@ -1,26 +1,27 @@
-# HELICS v2.0.0 with MPI support for Eagle *<sub>by Slava Barsuk</sub>*
+*<sub>by Slava Barsuk</sub>*
+
+# Hierarchical Engine for Large-scale Infrastructure Co-Simulation (HELICS)
 
 
-This procedure describes how to build with modules.
+This procedure describes how to build softare with modules. This tutorial will cover compiling HELICS v2.0.0 with MPI support for NREL HPC Systems.
 
 ## Environment Setup
 
-helics is built with cmake, so it is very important to have a clean environment.
-Do not mix module and conda enviroments. It may change the search order of libraries discovery for cmake
+HELICS is built with cmake, so it is very important to have a clean environment.
+Do not mix module and conda enviroment,as it may change the search order of library discovery for `cmake`
 
 Required modules for helics build:
-
+```
  boost/1.69.0/gcc-7.3.0
  gcc/7.3.0
  openmpi/3.1.3/gcc-7.3.0
  cmake/3.12.3 
-
+```
 For this particular build helics module was created:
 
-The content of  helics-2.0.0.lua file:
-help([[****
-helics cosimulation software
-]])
+Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with these contents:
+```lua
+help([[****helics cosimulation software]])
 
 whatis("Name: helics")
 whatis("Version: 2.0.0")
@@ -40,6 +41,7 @@ prepend_path("LD_LIBRARY_PATH",pathJoin(base,"lib"))
 prepend_path("LIBRARY_PATH",pathJoin(base,"lib"))
 prepend_path("PATH",pathJoin(base,"bin"))
 prepend_path("PYTHONPATH",pathJoin(base,"python"))
+```
 
 Correct CMAKE_PREFIX_PATH is important for the proper libraries discovery by cmake
 
