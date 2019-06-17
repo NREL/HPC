@@ -25,4 +25,4 @@ plugins:
  - jekyll-feed
  - jekyll-seo-tag
 
- redirects: yes
+redirects: yes
