@@ -19,8 +19,9 @@ Required modules for helics build:
 ```
 For this particular build helics module was created:
 
-<!-- Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with these contents: -->
-Now create a [`helics-2.0.0.lua`]({% link _includes/helics-2.0.0.lua %}) file and populate it with these contents:
+
+{% link _includes/helics-2.0.0.lua %}
+Now create a [`helics-2.0.0.lua`]() file and populate it with these contents:
 
 
 ```lua
