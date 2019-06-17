@@ -20,6 +20,11 @@ Required modules for helics build:
 For this particular build helics module was created:
 
 Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with these contents:
+
+Embed test:
+{% include_relative heclis-2.0.0.lua %}
+
+
 ```lua
 help([[****helics cosimulation software]])
 
@@ -47,7 +52,7 @@ Correct CMAKE_PREFIX_PATH is important for the proper libraries discovery by cma
 
 For some reason helics build is not friendly with Intel icc compiler. I was not able to make a clean build with icc
 
-2. Create directory structure 
+1. Create directory structure 
 
 helics installation was build for the following directory:
 
