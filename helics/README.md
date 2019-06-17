@@ -20,12 +20,8 @@ Required modules for helics build:
 For this particular build helics module was created:
 
 Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with these contents:
-<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<embed src="helics-2.0.0.lua">
-</code>
-</pre>
-</div>
-</div>
+
+{% include /helics/helics-2.0.0.lua %}
 
 ```lua
 help([[****helics cosimulation software]])
