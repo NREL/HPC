@@ -1,4 +1,4 @@
-*<sub>by Slava Barsuk</sub>*
+<p align=center><sub><i>by Slava Barsu</i></sub></p>
 
 # Hierarchical Engine for Large-scale Infrastructure Co-Simulation (HELICS)
 
@@ -25,9 +25,8 @@ Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with th
 {% include helics-2.0.0.lua %}
 ```
 
-Correct CMAKE_PREFIX_PATH is important for the proper libraries discovery by cmake
+Having a correct `CMAKE_PREFIX_PATH` is important for the proper libraries discovery by `cmake`
 
-For some reason helics build is not friendly with Intel icc compiler. I was not able to make a clean build with icc
 
 1. Create directory structure 
 
