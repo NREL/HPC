@@ -1,4 +1,4 @@
-<p align=center>
+* <p align=center>
 <sub><i>by Slava Barsu</i></sub>
 </p>
 
