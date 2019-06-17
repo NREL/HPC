@@ -1,5 +1,5 @@
 
-<div><p align=center>
+<div><p align="center">
 <sub><i>by Slava Barsu</i></sub>
 </p></div>
 
