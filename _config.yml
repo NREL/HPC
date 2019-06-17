@@ -24,5 +24,6 @@ theme: minima
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
+ - jekyll-include_snippet
 
-redirects: yes
+ redirects: yes

@@ -21,11 +21,12 @@ For this particular build helics module was created:
 
 Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with these contents:
 
-Embed test:
-{% include_relative heclis-2.0.0.lua %}
-
-
 ```lua
+a=""
+
+<embed src="helics-2.0.0.lua">
+
+b=""
 help([[****helics cosimulation software]])
 
 whatis("Name: helics")
