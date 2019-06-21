@@ -4,7 +4,7 @@
 </p>
 
 
-# Hierarchical Engine for Large-scale Infrastructure Co-Simulation (HELICS)
+# Hierarchical Engine for Large-scale Infrastructure Co-Simulation ([HELICS](https://github.com/GMLC-TDC/HELICS-src))
 
 
 This procedure describes how to build softare with modules. This tutorial will cover compiling HELICS v2.0.0 with MPI support for NREL HPC Systems.
@@ -31,8 +31,7 @@ Now create a [`helics-2.0.0.lua`](helics-2.0.0.lua) file and populate it with th
 
 Having a correct `CMAKE_PREFIX_PATH` is important for the proper libraries discovery by `cmake`
 
-
-1. Create directory structure 
+## Create directory structure 
 
 helics installation was build for the following directory:
 
