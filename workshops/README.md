@@ -35,12 +35,12 @@ This workshop covered the following features which are new to the NREL HPC work
 
 The resources used during this presentation are available here:
 
-* [New Features Offered by Slurm - Presentation Slides](/hpc/assets/pdfs/slurm-new-nrel-capabilities-presentation.pdf)
+* [New Features Offered by Slurm - Presentation Slides](https://www.nrel.gov/hpc/assets/pdfs/slurm-new-nrel-capabilities-presentation.pdf)
 
 ## Transition from Peregrine to Eagle (held January 11th, 2019)
 
 The HPC Operations team held workshops for providing live assistance with acclimating to Eagle, and is developing similar sessions to help users get the most out of HPC resources. The resources used during these presentations are available here:
 
-* [Transitioning from Peregrine to Eagle - Presentation Slides](/hpc/assets/pdfs/peregrine-to-eagle-transition-presentation.pdf "Peregrine to Eagle Presentation Slides")
-* [Separate instructions for how to use Globus to migrate files quickly and reliably](/hpc/assets/pdfs/using-globus-to-move-data-from-peregrine-to-eagle.pdf)
-* [PBS to Slurm Analogous Command Cheat Sheet](/hpc/assets/pdfs/pbs-to-slurm-translation-sheet.pdf)
+* [Transitioning from Peregrine to Eagle - Presentation Slides](https://www.nrel.gov/hpc/assets/pdfs/peregrine-to-eagle-transition-presentation.pdf "Peregrine to Eagle Presentation Slides")
+* [Separate instructions for how to use Globus to migrate files quickly and reliably](https://www.nrel.gov/hpc/assets/pdfs/using-globus-to-move-data-from-peregrine-to-eagle.pdf)
+* [PBS to Slurm Analogous Command Cheat Sheet](https://www.nrel.gov/hpc/assets/pdfs/pbs-to-slurm-translation-sheet.pdf)
