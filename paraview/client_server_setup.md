@@ -73,5 +73,4 @@ That's it!  You can now `File > Open` your data files as you normally would, but
 ### General Tips
 * The amount of time you can spend in a post-processing session is limited by the time limit specified when reserving the compute nodes in Step 1.  If saving a large time series to a video file, your reservation time may expire before the video is finished.  Keep this in mind and make sure you reserve the nodes long enough to complete your job.
 * Adding more parallel processes in Step 2, e.g., `-n 36`, doesn't necessarily mean you'll be splitting the data into 36 blocks for each operation.  ParaView has the *capability* to use 36 parallel processes, but may use many fewer as it calculates the right balance between computational power and the additional overhead of communication between processors.
-* Although this tutorial will be sufficient for most workflows, special cases may require tweaking additional options to more finely control the client-server workload balance.  For help identifying bottlenecks or taking the next step toward ParaView batch scripting automation, [contact Kenny Gruchalla](Kenny.Gruchalla@nrel.gov).
 
