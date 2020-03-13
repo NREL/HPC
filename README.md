@@ -5,16 +5,15 @@
 <img src="https://img.shields.io/github/stars/NREL/HPC.svg?style=social">
 </p>
 
-This repository serves as a collection of walkthroughs, utilities, and other resources to improve the NREL HPC user's quality of life, both novice and veteran.
+This repository serves as a collection of walkthroughs, utilities, and other resources to improve the NREL HPC user's quality of life, both novice and veteran. 
+
+If you need help with a specific topic please open an [issue](https://github.com/NREL/HPC/issues/new). Please share any resources you may have using a pull request and see our [contributing](#Contributing) details below. 
 
 ### How to Use This Repository
 
 1. [Login to an NREL HPC system](https://www.nrel.gov/hpc/system-access.html)
 2. From your login shell, run `git clone https://github.com/NREL/HPC`
 3. View the `README.md` within any directories that interest you, or see the [table of contents](#table-of-contents) below.
-
-### Contributing
-Please see our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted.
 
 ## Table of Contents
 
@@ -24,13 +23,19 @@ Please see our [contribution guidelines](CONTRIBUTING.md) for a rundown on how w
 
 ### 🎓 Tutorials
 > #### Beginner
-> * [Markdown](/markdown/README.md)
-> * [Bash](/bash/README.md)
-> * [Git](/git/README.md)
+> * [Markdown](/beginner/markdown/README.md)
+> * [Bash](/beginner/bash/README.md)
+> * [Git](/beginner/git/README.md)
 
 > #### Intermediate
-> * [Git](/gpu/README.md)
->  * [HPC Benchmarking: STREAM](/stream_benchmark/StreamTutorial.ipynb)
+> * [Git](/intermediate/gpu/README.md)
+>  * [HPC Benchmarking: STREAM](/intermediate/stream_benchmark/StreamTutorial.ipynb)
 
 > #### Advanced
 >  * [\<PLACEHOLDER\>](/markdown/README.md)
+
+> #### Programming languages
+> * [C](/languages/c)
+
+### Contributing
+Please see our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted.
