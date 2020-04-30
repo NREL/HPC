@@ -33,6 +33,12 @@ Dask-MPI can be used to parallelize calculations across a number of nodes as par
 ### Install
 **Note:** The version of dask-mpi installed via Conda may be incompatible with the MPI libaries on Eagle. Use the pip install instead. 
 
+```
+conda create -n daskmpi python=3.7
+conda activate daskmpi
+pip install dask-mpi
+```
+
 **Python script**: This script holds the calculation to be performed in the test function. The script relies on the Dask cluster setup on MPI which is created in the 
 ```python
 from dask_mpi import initialize
@@ -92,7 +98,7 @@ cluster = SLURMCluster(
    memory='24GB',
    queue='short',
    project='<hpc account>',
-   walltime='04:00:00',
+   walltime='00:30:00',
    interface='ib0',
    processes=17,
 )
