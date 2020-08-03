@@ -38,6 +38,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 ## 📈 Applications
 * [Paraview](/applications/paraview)
 * [Plexos](/applications/plexos-hpc-walkthrough)
+* [Plexos Quick-start](/applications/plexos-quick-start)
 
 ## ℹ️ Programming languages
 * [C](/languages/c)
