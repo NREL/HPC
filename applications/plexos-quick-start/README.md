@@ -71,7 +71,7 @@ and
 
 wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/simple
 
-## TO RUN:
+## To run:
 
 Edit the files simple and enhanced as shown above.  Then:
 
@@ -82,7 +82,7 @@ sbatch enhanced
 
 ## Notes
 - The files in the week.tgz tar ball will be deleted since we have copies of them.
-- The program tymer is a simple timing routine.  "tymer -h" will show usage
+- The program tymer is a simple timing routine.  "tymer -h" will show usage.  
 
 
 # simple
