@@ -1,5 +1,5 @@
 # plexos
-The two sbatch files in show below will download a data set and
+The two sbatch files shown below will download a data set and
 run a plexos example.  These work on Eagle as of 07/24/2020.
 
 They will create a new directory for each run.  
@@ -60,7 +60,6 @@ for the second example on the page:
 https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
 
 You can download these scripts from the page:
-
 
 https://github.nrel.gov/tkaiser2/plexos
 
