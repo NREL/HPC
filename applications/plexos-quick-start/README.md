@@ -123,7 +123,7 @@ ls -lt
 mono $PLEXOS/PLEXOS64.exe -n "one_week_model.xml" -m DAY_AHEAD &> mono_log.$SLURM_JOB_ID || echo "mono fail"
 
 # Remove the files in the *tgz file.  We don't need them anymore.
-tar -tzf week.tgz | sed "s,/.*,," | sort -u  | while IFS= read -r line ; do rm -rf "$line" ; done
+tar -tzf week.tgz | grep -v tymer |sed "s,/.*,," | sort -u  | while IFS= read -r line ; do rm -rf "$line" ; done
 
 # Copy slurm stderr & stdout to this directory.  
 cp ../std*.$SLURM_JOB_ID . || echo "No std*.$SLURM_JOB_ID"
@@ -208,7 +208,7 @@ for attempt in a b c d e ; do
 done
 
 # Remove the files in the *tgz file.  We don't need them anymore.
-tar -tzf week.tgz | sed "s,/.*,," | sort -u  | while IFS= read -r line ; do rm -rf "$line" ; done
+tar -tzf week.tgz | grep -v tymer |sed "s,/.*,," | sort -u  | while IFS= read -r line ; do rm -rf "$line" ; done
 
 # Copy slurm stderr & stdout to this directory.  
 # You will need to change the next line to point to the directory specified in the header.
