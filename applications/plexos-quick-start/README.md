@@ -1,11 +1,20 @@
-# plexos
+# Plexos
 The two sbatch files shown below will download a data set and
-run a plexos example.  These work on Eagle as of 07/24/2020.
+run a Plexos example.  These work on Eagle as of 07/24/2020.
 
 They will create a new directory for each run.  
 
 The scripts will pull a copy of the data set from this repository,
 the week.tgz file. Unpack it and then run using the files.  
+
+The data in week.tgz is generated following the instructions
+for the second example on the page:
+
+https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
+
+This page gives additional instructions for setting up more
+complete environment for running Plexos, but is overkill for our
+purposed here.  
 
 Both scripts will need at lease minor modifications to run for
 an arbitrary user.  The line
@@ -51,13 +60,6 @@ can also be notified of failures by uncommenting the
 
 The program tymer is a simple timing routine.  
 
-Finally, in both scripts the files in the week.tgz tar ball 
-will be deleted since we have copies of them.
-
-The data in week.tgz is generated following the instructions
-for the second example on the page:
-
-https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
 
 You can download these scripts from the page:
 
@@ -78,6 +80,9 @@ Edit the files simple and enhanced as shown above.  Then:
 sbatch simple
 
 sbatch enhanced
+
+
+Note: the files in the week.tgz tar ball will be deleted since we have copies of them.
 
 # simple
 ```
