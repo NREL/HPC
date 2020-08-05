@@ -51,14 +51,12 @@ printenv > env
 ls -lt 
 
 There have been instances of runs failing because of 
-license issues.  This script will try multiple times
+license issues.  This "enhanced" script will try multiple times
 to run if there is a license failure.  It will also 
 report the ability to see various machines using the
 ping command.  This will only occur on failure.  You
 can also be notified of failures by uncommenting the
 "mail" line.
-
-The program tymer is a simple timing routine.  
 
 
 You can download these scripts from the page:
@@ -82,7 +80,10 @@ sbatch simple
 sbatch enhanced
 
 
-Note: the files in the week.tgz tar ball will be deleted since we have copies of them.
+## Notes
+- The files in the week.tgz tar ball will be deleted since we have copies of them.
+- The program tymer is a simple timing routine.  "tymer -h" will show usage
+
 
 # simple
 ```
