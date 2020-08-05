@@ -1,8 +1,8 @@
 # plexos
-The two sbatch files in scripts will download a data set and
+The two sbatch files in show below will download a data set and
 run a plexos example.  These work on Eagle as of 07/24/2020.
 
-The each create a new directory for each run.  
+They will create a new directory for each run.  
 
 The scripts will pull a copy of the data set from this repository,
 the week.tgz file. Unpack it and then run using the files.  
@@ -58,6 +58,19 @@ The data in week.tgz is generated following the instructions
 for the second example on the page:
 
 https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
+
+You can download these scripts from the page:
+
+
+https://github.nrel.gov/tkaiser2/plexos
+
+or 
+
+wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/enhanced
+
+and 
+
+wget https://github.nrel.gov/tkaiser2/plexos/blob/master/scripts/simple
 
 TO RUN:
 
