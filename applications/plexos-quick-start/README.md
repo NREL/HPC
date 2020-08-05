@@ -69,9 +69,9 @@ wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/enhanced
 
 and 
 
-wget https://github.nrel.gov/tkaiser2/plexos/blob/master/scripts/simple
+wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/simple
 
-TO RUN:
+## TO RUN:
 
 Edit the files simple and enhanced as shown above.  Then:
 
