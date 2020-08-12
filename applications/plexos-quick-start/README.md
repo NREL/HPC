@@ -73,11 +73,26 @@ wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/simple
 
 ## To run:
 
+If you have never run Plexos on Eagle you will need to set up the license.
+There is a script to do that.  Download it and run it.
+
+```
+wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/makelicense
+chmod 700 makelicense
+./makelicense
+```
+
 Edit the files simple and enhanced as shown above.  Then:
 
+```
 sbatch simple
+```
 
+or
+
+```
 sbatch enhanced
+```
 
 
 ## Notes
