@@ -1,7 +1,6 @@
-# High-quality rendering on peregrine with ParaView 
+# High-quality Rendering on Eagle With ParaView 
 
-How to use batch ParaView with OSPRay to generate single frames and
-animations on peregrine
+How to use ParaView in batch mode to generate single frames and animations on Eagle
 
 ![](/assets/paraview.png)
 
@@ -10,52 +9,65 @@ Step-by-step guide
 
   
 
-1.  Log on to a peregrine login node:
+1.  Begin by connecting to an Eagle login node:
 
-        ssh peregrine
-
+        ssh {username}@eagle.hpc.nrel.gov
      
 
-2.  Start an interactive session:  
+2.  Request an interactive compute session:
 
-        qsub -A YOURALLOC -I
-
+        srun -A {allocation} -t 60 --pty $SHELL
      
 
 3.  Once the session starts, load the appropriate modules:  
 
         module purge
-        module load gcc/6.2.0 openmpi-gcc/2.0.1-6.2.0 python/2.7.6 paraview/5.4.1-compute
+        module load paraview/osmesa
 
+    Note: In this case, we select the `paraview/osmesa` module as opposed to the default ParaView build, 
+    as the osmesa version is built for rendering using offscreen methods suitable for compute nodes.
      
 
-4.  And start your render job:  
+4.  and start your render job:  
 
-        pvbatch --use-offscreen-rendering pvrender.py
+        srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py
 
- 
+    where `render_sphere.py` is a simple ParaView Python script to add a sphere source and 
+    save an image.
 
-Once you feel that your script is automated enough, start submitting
-batch jobs.
 
-1.  Prepare your script for `qsub`. A short job might look like this:  
+Tweaking the visualization options contained in the `pvrender.py` file inevitably requires some amount of trial 
+and error and is most easily accomplished in an interactive compute session like the one outlined above.  Once 
+you feel that your script is sufficiently automated, you can start submitting batch jobs that require no user interaction.
+
+1.  Prepare your script for `sbatch`. A minimal example of a batch script named `batch_render.sh` could look like:  
 
         #!/bin/bash
-        #PBS -A YOURALLOC
-        #PBS -l nodes=1:ppn=1
-        #PBS -l walltime=0:01:00
-        #PBS -q short
-        module purge
-        module load gcc/6.2.0 openmpi-gcc/2.0.1-6.2.0 python/2.7.6 paraview/5.4.1-compute
-        pvbatch --use-offscreen-rendering pvrender.py
 
-     
+        #SBATCH --account={allocation}
+        #SBATCH --time=60:00
+        #SBATCH --job-name=pvrender
+        #SBATCH --nodes=2
+
+        module purge
+        module load paraview/osmesa
+
+        srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py 1 &
+        srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py 2 &
+        srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py 3 &
+
+        wait
+
+    where we run multiple instances of our dummy sphere example, highlighting that different options can be
+    passed to each to post-process a large batch of simulated results on a single node.  Note also that for more 
+    computationally intensize rendering or larger file sizes (e.g., tens of millions of cells) the option `-n 1` 
+    option can be set as suggested in the [client-server guide](client_server_setup.md).
+
 
 2.  Submit the job and wait:  
 
-        qsub batchrender.sh
+        sbatch batch_render.sh
 
-     
 
 Creating the ParaView python script
 -----------------------------------
@@ -65,8 +77,7 @@ is to run a fresh session of ParaView (use version 5.x on your local
 machine) and select "Tools→Start Trace," then "OK". Perform all the
 actions you need to set your scene and save a screenshot. Then select
 "Tools → Stop Trace" and save the resulting python script (we will use
-`pvrender.py` in these examples).
-
+`render_sphere.py` in these examples).
  
 
 Here are some useful components to add to your ParaView Python script.
@@ -77,22 +88,25 @@ Here are some useful components to add to your ParaView Python script.
         import sys
         doframe = 0
         if len(sys.argv) > 1:
-          doframe = int(sys.argv[1])
+            doframe = int(sys.argv[1])
         infile = "output%05d.dat" % doframe
 
     Note that `pvbatch` will pass any arguments after the script name to
     the script itself. So you can do the following to render frame 45:
 
-        pvbatch --use-offscreen-rendering pvrender.py 45
+        srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py 45
 
-    But were you to use this in a `qsub` script, your script would need
-    to have the line
+    You could programmatically change this value inside the `sbatch` script, your script would need
+    to iterate using something like:
 
-        pvbatch --use-offscreen-rendering pvrender.py $1
+        for frame in 45 46 47 48
+        do
+            srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py $frame
+        done
 
-    And you would need to submit the script as such:
+<!--     And you would need to submit the script as such:
 
-        qsub -F "45" batchrender.sh
+        sbatch -F "45" batchrender.sh -->
 
      
 
@@ -103,7 +117,7 @@ Here are some useful components to add to your ParaView Python script.
 
      
 
--   Enable OSPRay rendering and set parameters for high-quality output:
+<!-- -   Enable OSPRay rendering and set parameters for high-quality output:
 
         renderView1.LightScale = 1.5
         renderView1.AmbientSamples = 4
@@ -111,7 +125,7 @@ Here are some useful components to add to your ParaView Python script.
         renderView1.Shadows = 1
         renderView1.EnableOSPRay = 1
 
-     
+ -->     
 
 -   Don't forget to actually render the image!
 
@@ -122,7 +136,7 @@ Here are some useful components to add to your ParaView Python script.
 
  
 
-Attachments:
+<!-- Attachments:
 ------------
 
 ![](images/icons/bullet_blue.gif)
@@ -131,3 +145,4 @@ Attachments:
 Document generated by Confluence on 2019-04-03 10:15
 
 [Atlassian](http://www.atlassian.com/)
+ -->
