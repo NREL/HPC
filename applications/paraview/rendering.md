@@ -4,20 +4,15 @@ How to use ParaView in batch mode to generate single frames and animations on Ea
 
 ![](/assets/paraview.png)
 
-Step-by-step guide
-------------------
-
-  
+## Building PvBatch Scripts in Interactive Environments  
 
 1.  Begin by connecting to an Eagle login node:
 
         ssh {username}@eagle.hpc.nrel.gov
-     
 
 2.  Request an interactive compute session:
 
         srun -A {allocation} -t 60 --pty $SHELL
-     
 
 3.  Once the session starts, load the appropriate modules:  
 
@@ -26,7 +21,6 @@ Step-by-step guide
 
     Note: In this case, we select the `paraview/osmesa` module as opposed to the default ParaView build, 
     as the osmesa version is built for rendering using offscreen methods suitable for compute nodes.
-     
 
 4.  and start your render job:  
 
@@ -35,6 +29,7 @@ Step-by-step guide
     where `render_sphere.py` is a simple ParaView Python script to add a sphere source and 
     save an image.
 
+## Transitioning to Batch Post-Processing   
 
 Tweaking the visualization options contained in the `pvrender.py` file inevitably requires some amount of trial 
 and error and is most easily accomplished in an interactive compute session like the one outlined above.  Once 
@@ -69,8 +64,7 @@ you feel that your script is sufficiently automated, you can start submitting ba
         sbatch batch_render.sh
 
 
-Creating the ParaView python script
------------------------------------
+## Tips on Creating the PvBatch Python Script
 
 Your ParaView python script can be made in a number of ways. The easiest
 is to run a fresh session of ParaView (use version 5.x on your local
