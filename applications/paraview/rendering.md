@@ -90,7 +90,7 @@ Here are some useful components to add to your ParaView Python script.
 
         srun -n 1 pvbatch --force-offscreen-rendering render_sphere.py 45
 
-    You could programmatically change this value inside the `sbatch` script, your script would need
+    You could programmatically change this value inside the `batch_render.sh` script, your script would need
     to iterate using something like:
 
         for frame in 45 46 47 48
@@ -102,14 +102,10 @@ Here are some useful components to add to your ParaView Python script.
 
         sbatch -F "45" batchrender.sh -->
 
-     
-
 -   Set the output image size to match FHD or UHD standards:
 
         renderView1.ViewSize = [3840, 2160]
         renderView1.ViewSize = [1920, 1080]
-
-     
 
 <!-- -   Enable OSPRay rendering and set parameters for high-quality output:
 
@@ -120,15 +116,10 @@ Here are some useful components to add to your ParaView Python script.
         renderView1.EnableOSPRay = 1
 
  -->     
-
 -   Don't forget to actually render the image!
 
         pngname = "image%05d.png" % doframe
         SaveScreenshot(pngname, renderView1)
-
- 
-
- 
 
 <!-- Attachments:
 ------------
