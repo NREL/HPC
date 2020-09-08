@@ -23,6 +23,8 @@ export METIS_LIBRARY=${HOME}/.conda-envs/<conda_environment>/lib
 
 # Directory for keeping source code and build products
 export MYAPPS=${HOME}/apps
+# Location of header files
+export MYINC=${MYAPPS}/include
 # Location of static and dynamic libraries
 export MYLIB=${MYAPPS}/lib
 ```
@@ -66,7 +68,7 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
 5. `cd ThirdParty/HSL`
 6. copy the HSL source code to the current directory and unpack it
 7. create a link called `coinhsl` that points to the HSL source code (or rename the directory)
-8. `cd ../..`
+8. Go back to coinbrew root directory: `cd ../..`
 9. Configure and build everything:
 `./coinbrew build Ipopt --disable-java --prefix="${MYAPPS}" --with-metis-cflags="-I${MYINC}" --with-metis-lflags="-L${MYLIB} -lmetis" --with-lapack-lflags="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl" --with-lapack-cflags="-m64 -I${MKLROOT}/include" ADD_CFLAGS="-march=skylake-avx512" ADD_FCFLAGS="-march=skylake-avx512" ADD_FFLAGS="-march=skylake-avx512"`
     * `build Ipopt` tells `coinbrew` to configure and build Ipopt and its dependencies
@@ -80,6 +82,14 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
 **Note**: When linking with MKL libraries, Intel's [link line advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) is extremely helpful.
 
 **Note**: When compiling Julia with MKL libraries, the single dynamic library interface is used to link against.  This is why we are also using that linking method.  Using a different linking method will cause unusual behaviors when using Ipopt with Julia (e.g. through JuMP).
+
+### Running Ipopt
+
+When running your custom Ipopt build, you will need to do two things:
+1. Load the same MKL module you compiled against:
+`module load mkl`
+2. Add the directory containing Ipopt and HSL libraries to your LD_LIBRARY_PATH:
+`export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MYLIB}`
 
 ### Using Custom Ipopt with JuMP
 
