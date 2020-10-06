@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-10-05T21:02:48-05:00</updated><id>/feed.xml</id><entry><title type="html">First post</title><link href="/2020/09/22/post2.html" rel="alternate" type="text/html" title="First post" /><published>2020-09-22T00:00:00-05:00</published><updated>2020-09-22T00:00:00-05:00</updated><id>/2020/09/22/post2</id><content type="html" xml:base="/2020/09/22/post2.html">&lt;h1 id=&quot;interesting-blog-post&quot;&gt;Interesting blog post&lt;/h1&gt;
+
+&lt;p&gt;Some interesting stuff&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ls
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>First Last</name></author><summary type="html">Interesting blog post</summary></entry><entry><title type="html">First post</title><link href="/2020/09/22/post1.html" rel="alternate" type="text/html" title="First post" /><published>2020-09-22T00:00:00-05:00</published><updated>2020-09-22T00:00:00-05:00</updated><id>/2020/09/22/post1</id><content type="html" xml:base="/2020/09/22/post1.html">&lt;h1 id=&quot;interesting-blog-post&quot;&gt;Interesting blog post&lt;/h1&gt;
+
+&lt;p&gt;Some interesting stuff&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ls
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>First Last</name></author><summary type="html">Interesting blog post</summary></entry><entry><title type="html">Another post</title><link href="/2020/09/21/post2.html" rel="alternate" type="text/html" title="Another post" /><published>2020-09-21T00:00:00-05:00</published><updated>2020-09-21T00:00:00-05:00</updated><id>/2020/09/21/post2</id><content type="html" xml:base="/2020/09/21/post2.html">&lt;h1 id=&quot;yet-another-blog&quot;&gt;Yet Another Blog&lt;/h1&gt;
+
+&lt;p&gt;Blog with normal markdown&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Another Post</name></author><summary type="html">Yet Another Blog</summary></entry></feed>
