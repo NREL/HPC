@@ -1,0 +1,24 @@
+&THE_INPUT NCOLOR=4,FORCE=F,nstates=22,num_gen=200,num_genes=1000,do_one=F,the_top=T,fitmax=1.0,seed=-4321 /
+ar ok tx la mo xx 
+az ca nm ut nv xx 
+ca az nv or xx 
+co nm ut wy ne ks xx 
+ia mo ne sd mn xx 
+id wa or nv ut wy mt xx 
+ks ne co ok mo xx 
+la tx ar xx 
+mn ia sd nd xx 
+mo ar ok ks ne ia xx 
+mt wy id nd xx 
+nd mt sd wy xx 
+ne sd wy co ks mo ia xx 
+nm az co ok tx mn xx 
+nv ca or id ut az xx 
+ok ks nm tx ar mo xx 
+or ca wa id xx 
+sd nd wy ne ia mn xx 
+tx ok nm la ar xx 
+ut nv az co wy id xx 
+wa id or mt xx 
+wy co mt id ut nd sd ne xx 
+
