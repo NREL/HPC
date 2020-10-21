@@ -6,6 +6,7 @@ A collection of modules and tools for developing HPC Python scripts. These resou
 * [Dask](https://github.com/dask/dask) 
     * [Dask-MPI](https://github.com/dask/dask-mpi): deploy workers across MPI ranks
 * [MPI4Py](https://github.com/mpi4py/mpi4py): Python MPI bindings
+* [Ray](https://github.com/ray-project/ray): Distributed Python
 
 ### GPU
 * [CuPy](https://github.com/cupy/cupy): GPU accelerated NumPy implementation
