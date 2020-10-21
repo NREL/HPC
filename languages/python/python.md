@@ -2,8 +2,7 @@
 layout: default
 title: Python
 has_children: true
-grand_parent: Programming Languages
-parent: Python
+parent: Programming Languages
 ---
 
 # Python

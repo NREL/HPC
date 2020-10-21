@@ -4,6 +4,7 @@ color_scheme: nrel
 plugins:
     - jekyll-paginate
     - jekyll-feed
+    - jekyll-remote-theme
 
 paginate: 3
 paginate_path: /blog/page:num

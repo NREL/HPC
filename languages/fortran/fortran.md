@@ -2,6 +2,9 @@
 layout: default
 title: Fortran
 has_children: true
-grand_parent: Programming Languages
-parent: Fortran
+parent: Programming Languages
 ---
+
+# Fortran
+
+Resources for the Fortran programming language.
