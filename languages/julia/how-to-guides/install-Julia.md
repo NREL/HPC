@@ -1,8 +1,10 @@
-﻿# Installing Julia on Eagle
+# Installing Julia on Eagle
 
 ## Anaconda
 Older versions of Julia are available from conda-forge channel:
 ```
+conda create -n julia-env
+source activate julia-env
 conda install -c conda-forge julia
 ```
 
@@ -10,9 +12,17 @@ conda install -c conda-forge julia
 
 ### Prerequisites
 
-A working version of Spack.  For instructions on getting spack setup see the [github repository](https://github.com/spack/spack).
+A working version of Spack.  For detailed instructions on getting spack setup see the [github repository](https://github.com/spack/spack).  Briefly, this can be done with the following:
+```
+git clone https://github.com/spack/spack.git
+cd spack
+git checkout releases/v0.15 # Change to desired release
+. share/spack/setup-env.sh # Activate spack shell support
+```
 
 ### Instructions
+
+**NOTE:** Steps 1 and 2 may be skipped when using the develop branch or any release branch after v0.15.
 
 1. In the spack repository, open the file `var/spack/repos/builtin/packages/julia/package.py` in your favorite editor.
 2. There is an if-else statement under the if statement 
