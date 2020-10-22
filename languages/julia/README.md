@@ -23,25 +23,8 @@ Below is a brief list of the demos and how to guides along with the path of the 
 
 ### Requirements and Installation
 
-Running the demos requires the python modules `mpi4py` and `julia`.  These can both be installed with `pip`:
-```
-conda create -n julia_hpc_demos python=3 # create a conda environment for this
-conda activate julia_hpc_demos
-pip install mpi4py
-pip install julia # Julia must already be installed
-```
-Note that `mpi4py` requires that MPI is already installed and accessible.  On Eagle, this can be easily done:
-```
-module load mpi
-mpicc --version # test to make sure it worked
-```
-For more information, see the [mpi4py documentation](https://mpi4py.readthedocs.io/en/stable/)
+Running the demos requires the python modules `mpi4py` and `julia`. For details on installing these modules, see the 'Environment Setup' section of the [README found in the demos/scripts directory](demos/scripts/README.md).
 
-The `julia` module requires that `Julia` (the executable) is already installed.  Once `Julia` and `julia` are both installed, you need to install some julia packages as well.  This can be done through python:
-```
-python
-# in python interpreter window
-import julia
-julia.install()
-```
-For more information as well as any issues that arise, look at the [PyJulia documentation](https://pyjulia.readthedocs.io/en/latest/installation.html).
+For more information on mpi4py, see the [mpi4py documentation](https://mpi4py.readthedocs.io/en/stable/)
+
+For more information on PyJulia, see the [PyJulia documentation](https://pyjulia.readthedocs.io/en/latest/installation.html).
