@@ -11,6 +11,7 @@ A collection of modules and tools for developing HPC Python scripts. These resou
 ### GPU
 * [CuPy](https://github.com/cupy/cupy): GPU accelerated NumPy implementation
 * [cuDF](https://github.com/rapidsai/cudf): GPU accelerated dataframes, efficient for use with strings and numerics
+* [CuML](https://github.com/NREL/HPC/blob/hpc-python/languages/python/hpc_python.md): Scikit-learn and other ML on GPU
 
 ### Speed
 * [UCX-Py](https://ucx-py.readthedocs.io/en/latest/): UCX bindings to take advantage of NVLINK or Infiniband
