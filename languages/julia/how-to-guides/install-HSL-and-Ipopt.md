@@ -1,4 +1,3 @@
-﻿
 # Obtaining HSL Source Code
 
 Go to the [HSL Ipopt site](http://www.hsl.rl.ac.uk/ipopt/) and click on one of the links on the right below either "Coin-HSL Full (RC)" or "Coin-HSL Full (Stable)" that says "source".  After filling out the form for a personal license, HSL will email you a link to download the source code.  This normally takes about a day.
@@ -33,7 +32,7 @@ These can be added to the .bash_profile file (or equivalent for other shells).  
 
 ### Prerequisites
 
-As noted in the [Ipopt install instructions](https://coin-or.github.io/Ipopt/INSTALL.html), we will need `pkg-config` as well as a C and Fortran compiler.  `pkg-config` is available by default on Eagle.  For the compilers, we will be using the GNU compiler suite (gcc and gfortran).  These can be accessed on Eagle by loading the appropriate module.  In theory, this should work with any version of the GNU compilers but we used version 8.2.0.  These can be loaded by typing `module load gcc/8.2.0`.
+As noted in the [Ipopt install instructions](https://coin-or.github.io/Ipopt/INSTALL.html), we will need `pkg-config` as well as a C and Fortran compiler.  `pkg-config` is available by default on Eagle.  For the compilers, we will be using the GNU compiler suite (gcc and gfortran).  These can be accessed on Eagle by loading the appropriate module.  This should work with any version of the GNU compilers but we used version 8.4.0.  These can be loaded by typing `module load gcc/8.4.0`.
 
 ### Metis (Optional)
 
@@ -41,6 +40,8 @@ Metis helps the HSL solvers perform better.  Therefore it is recommended that yo
 
 On Eagle, the easiest way to install Metis is to use anaconda:
 ```
+conda create -n metis-env
+source activate metis-env
 conda install -c conda-forge metis
 ```
 **Note**: The conda executable is accessed on Eagle by loading the conda module: `module load conda`
@@ -60,14 +61,14 @@ This has a couple of advantages.  First, the coinbrew build will automatically a
 
 We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to build Ipopt along with the dependencies ASL, HSL and Mumps libraries.
 
-1. `module load gcc/8.2.0 mkl conda`
-2. clone (or download) the [coinbrew](https://github.com/coin-or/coinbrew) repo
+1. `module load gcc/8.4.0 mkl`
+2. Clone (or download) the [coinbrew](https://github.com/coin-or/coinbrew) repo. If you download the repo you may have to change the permissions on the `coinbrew` *script* before using it: `chmod u+x coinbrew/coinbrew`
 3. cd into the directory
-4. `./coinbrew fetch Ipopt:stable/3.13`
-    * this fetches the branch `stable/3.13` of the Ipopt repository as well as the dependencies COIN-OR repositories `ThirdParty-ASL`, `ThirdParty-HSL` and `ThirdParty-Mumps`
+4. `./coinbrew fetch Ipopt@stable/3.13`
+    * This fetches the branch `stable/3.13` of the Ipopt repository as well as the dependencies COIN-OR repositories `ThirdParty-ASL`, `ThirdParty-HSL` and `ThirdParty-Mumps` (other versions of Ipopt can also be downloaded in this manner)
 5. `cd ThirdParty/HSL`
-6. copy the HSL source code to the current directory and unpack it
-7. create a link called `coinhsl` that points to the HSL source code (or rename the directory)
+6. Copy the HSL source code to the current directory and unpack it
+7. Create a link called `coinhsl` that points to the HSL source code (or rename the directory)
 8. Go back to coinbrew root directory: `cd ../..`
 9. Configure and build everything:
 `./coinbrew build Ipopt --disable-java --prefix="${MYAPPS}" --with-metis-cflags="-I${MYINC}" --with-metis-lflags="-L${MYLIB} -lmetis" --with-lapack-lflags="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl" --with-lapack-cflags="-m64 -I${MKLROOT}/include" ADD_CFLAGS="-march=skylake-avx512" ADD_FCFLAGS="-march=skylake-avx512" ADD_FFLAGS="-march=skylake-avx512"`
@@ -150,10 +151,10 @@ Metis is also available from Anaconda.
 
 We will use a COIN-OR repo for building the library. It is [ThirdParty-HSL](https://github.com/coin-or-tools/ThirdParty-HSL).
 
-1. clone (or download) the [ThirdParty-HSL](https://github.com/coin-or-tools/ThirdParty-HSL) repo
-2. cd into the directory
-3. copy to current directory and unpack the HSL source code
-4. create a link called "coinhsl" that points to the HSL source code (or rename the directory)
+1. Clone (or download) the [ThirdParty-HSL](https://github.com/coin-or-tools/ThirdParty-HSL) repo. If you download the repo you may have to change the permissions on the `coinbrew` *script* before using it: `chmod u+x coinbrew/coinbrew`
+2. `cd` into the directory
+3. Copy to current directory and unpack the HSL source code
+4. Create a link called "coinhsl" that points to the HSL source code (or rename the directory)
 5. `mkdir build && cd build` -- not necessary but recommended
 6. `../configure F77=gfortran-9 FC=gfortran-9 CC=gcc-9 --prefix="${MYAPPS}" --with-metis --with-metis-lflags="-L${METIS_LIBRARY} -lmetis" --with-metis-cflags="-I${METIS_HEADER}"` -- setup for building; "CC=", "F77=" and "FC=" say to use "gcc-9" as the C compiler and "gfortran-9" for the fortran and fortran 77 compilers, "--with-metis" says to use Metis in the build, "--with-metis-lflags" gives the linker the location and name of the metis library, "--with-metis-cflags" gives the compiler the location of the metis header "metis.h" and "--prefix=" says to install the library in "${MYAPPS}".
 7. `make && make install`
@@ -163,6 +164,8 @@ We will use a COIN-OR repo for building the library. It is [ThirdParty-HSL](http
 Ipopt has a feature called the linear solver loader (read about it [here](https://coin-or.github.io/Ipopt/INSTALL.html#LINEARSOLVERLOADER)) which allows for loading linear solvers from a dynamic library at run time.  We will use this feature to use the HSL solvers.
 
 The only thing you have to do is to make the HSL dynamic library findable.  This is done by adding the directory containing the HSL library to the environment variable "DYLD_LIBRARY_PATH".  This was done in the "Environment" section.  So we should be good to go.  To use the new linear solvers just use the `linear_solver="<solver>"` argument to `Ipopt.Optimizer`.
+
+**Note**: The Ipopt build that comes with Ipopt.jl seems to expect the HSL library to have the name "libhsl.dylib". The repo "ThirdParty-HSL" builds the library "libcoinhsl.dylib".  The simplest fix is to go to `${MYLIB}` and put in a link that points "libhsl.dylib" to "libcoinhsl.dylib".
 
 The following julia code is useful for testing the HSL linear solvers are working
 
@@ -174,6 +177,4 @@ m = JuMP.Model(()->Ipopt.Optimizer(linear_solver="ma97"))
 @objective(m, Min, x^2)
 JuMP.optimize!(m)
 ```
-
-**Note**: The Ipopt build that comes with Ipopt.jl seems to expect the HSL library to have the name "libhsl.dylib". The repo "ThirdParty-HSL" builds the library "libcoinhsl.dylib".  The simplest fix is to go to `${MYLIB}` and put in a link that points "libhsl.dylib" to "libcoinhsl.dylib".
 
