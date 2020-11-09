@@ -1,6 +1,5 @@
 ---
 layout: default
-permalink: /blog/
 ---
 
 <script src="/assets/clipboard.min.js"></script>
@@ -22,4 +21,19 @@ permalink: /blog/
     </div>
         
     {% endfor %}
-  </div>
+</div>
+<hr class="solid">
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">
+      Previous
+    </a>
+  {% else %}
+    <span class="previous">Previous</span>
+  {% endif %}
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+  {% else %}
+    <span class="next ">Next</span>
+  {% endif %}
+</div>

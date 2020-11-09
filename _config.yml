@@ -9,3 +9,7 @@ plugins:
 paginate: 3
 paginate_path: /blog/page:num
 search_enabled: true
+title: NREL docs
+collections:
+    announcements:
+        output: true
