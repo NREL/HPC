@@ -15,25 +15,41 @@ Dask provides a way to parallelize Python code either on a single node or across
 Dask can be used locally on your laptop or an individual node. Additionally, it provides wrappers for multiprocessing and threadpools. The advantage of using `LocalCluster` though is you can easily drop in another cluster configuration to further parallelize. 
 
 ```python
-import socket
 from distributed import Client, LocalCluster
 import dask
-from collections import Counter
+import time
+import random 
 
-def test():
-   return socket.gethostname()
+@dask.delayed
+def inc(x):
+    time.sleep(random.random())
+    return x + 1
 
-def main():
+@dask.delayed
+def dec(x):
+    time.sleep(random.random())
+    return x - 1
+
+@dask.delayed
+def add(x, y):
+    time.sleep(random.random())
+    return x + y
+
+def main ():
    cluster = LocalCluster(n_workers=2)
    client = Client(cluster)
+   zs = []
+   for i in range(256):
+      x = inc(i)
+      y = dec(x)
+      z = add(x, y)
+      zs.append(z)
+   
+   result = dask.compute(*zs)
+   print (result)
 
-   result = []
-   for i in range (0,20):
-      result.append(client.submit(test).result())
-      
-   print (Counter(result))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
    main()
 ```
 
@@ -51,81 +67,108 @@ pip install dask-mpi
 
 **Python script**: This script holds the calculation to be performed in the test function. The script relies on the Dask cluster setup on MPI which is created in the 
 ```python
-from dask_mpi import initialize
-from dask.distributed import Client, wait
-import socket
+from distributed import Client, LocalCluster
+import dask
 import time
-from collections import Counter
+from dask_mpi import initialize
+import random 
 
-def test():
-   return socket.gethostname()
-   
-def main():
-   initialize(interface='ib0')
+@dask.delayed
+def inc(x):
+    time.sleep(random.random())
+    return x + 1
+
+@dask.delayed
+def dec(x):
+    time.sleep(random.random())
+    return x - 1
+
+@dask.delayed
+def add(x, y):
+    time.sleep(random.random())
+    return x + y
+
+def main ():
+   initialize(nanny=False,
+      interface='ib0',
+      protocol='tcp',
+      memory_limit=0.8,
+      local_directory='/tmp/scratch/dask',
+      nthreads=1)
+
    client = Client()
-   time.sleep(15)
+   zs = []
+   for i in range(256):
+      x = inc(i)
+      y = dec(x)
+      z = add(x, y)
+      zs.append(z)
+   
+   result = dask.compute(*zs)
+   print (result)
 
-   result = []
 
-   for i in range (0,100):
-      result.append(client.submit(test).result())
-      time.sleep(1)
-      
-   out = str(Counter(result))
-   print (f'nodes: {out}')
-
-main()
+if __name__ == "__main__":
+   main()
 ```
-**sbatch script**: This runs the above python script using MPI.
-```shell
-#!/bin/bash 
-#SBATCH --nodes=2
-#SBATCH --time=01:00:00
-#SBATCH --account=<hpc account>
-#SBATCH --partition=<Eagle partition>
 
-module purge
-ml intel-mpi/2018.0.3 
-mpiexec -np 4 \
-    python mpi_dask.py  \
-    --scheduler-file scheduler.json \
-    --interface ib0 \
-    --no-nanny \
-    --nthreads 5
+Running the above script with MPI will automatically set a Dask worker on each MPI rank. 
+```shell
+mpiexec -np 30 python dask_mpi.py
 ```
 
 ## Dask jobqueue
 Dask can also run using the Slurm scheduler already installed on Eagle. The Jobqueue library can handle submission of a computation to the cluster. This is particularly useful when running an interactive notebook or similar and you need to scale workers. 
 
 ```python
+import dask
+import time
 from dask_jobqueue import SLURMCluster
-import socket
 from distributed import Client
-from collections import Counter
+import random 
 
-cluster = SLURMCluster(
-   cores=18,
-   memory='24GB',
-   queue='short',
-   project='<hpc account>',
-   walltime='00:30:00',
-   interface='ib0',
-   processes=17,
-)
+@dask.delayed
+def inc(x):
+    time.sleep(random.random())
+    return x + 1
 
-client = Client(cluster)
+@dask.delayed
+def dec(x):
+    time.sleep(random.random())
+    return x - 1
 
-def test():
-   return socket.gethostname()
+@dask.delayed
+def add(x, y):
+    time.sleep(random.random())
+    return x + y
 
-result = []
-cluster.scale(jobs=2)
+def main ():
+   cluster = SLURMCluster(
+      cores=18,
+      memory='24GB',
+      queue='short',
+      project='hpcapps',
+      walltime='00:30:00',
+      interface='ib0',
+      processes=18,
+   )
+   cluster.scale(jobs=2)
 
-for i in range (0,2000):
-   result.append(client.submit(test).result())
+   client = Client(cluster)
+   zs = []
+   for i in range(256):
+      x = inc(i)
+      y = dec(x)
+      z = add(x, y)
+      zs.append(z)
    
-print (Counter(result))
-print (cluster.job_script())
+  
+   result = dask.compute(*zs)
+   print (result)
+
+
+if __name__ == "__main__":
+   main()
 
 ```
 
