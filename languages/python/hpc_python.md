@@ -16,6 +16,8 @@ A collection of modules and tools for developing HPC Python scripts. These resou
 ### Speed
 * [UCX-Py](https://ucx-py.readthedocs.io/en/latest/): UCX bindings to take advantage of NVLINK or Infiniband
 * [Numba](http://numba.pydata.org/): Numba makes Python code fast
+* [Modin](https://github.com/modin-project/modin) Drop in replacement for Pandas and Dask, can distribute operations 
+
 
 ### Integrate
 * [pvpython](https://kitware.github.io/paraview-docs/latest/python/)
