@@ -10,9 +10,9 @@ permalink: /blog/
 <div class="posts">
     {% for post in paginator.posts %}
     <div class="w3-card-4">
-          <h1> 
+          <h2> 
               <a href="{{ post.url | prepend: site.baseurl}}">{{ post.title }}</a>
-          </h1>
+          </h2>
           <h3> Author: {{ post.author }}</h3>
           <h4> Posted: {{ post.postdate }}</h4>
         
