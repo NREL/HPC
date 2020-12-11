@@ -8,7 +8,7 @@ parent: Intermediate
 # JupyterHub
 Prior to using Jupyterhub, you will have had to have logged into Eagle via the command line at least once.
 
-Given that, to start using Jupyterhub on Eagle, go to https://europa.hpc.nrel.gov in your local machine's browser, and log in with your Eagle username and password. 
+Given that, to start using Jupyterhub on Eagle, go to [Europa](https://europa.hpc.nrel.gov) in your local machine's browser, and log in with your Eagle username and password. 
 You should land in your home directory, and see everything there via the standard Jupyter file listing.
 
 From the "New" pulldown on the right hand side, you can start a notebook, open a terminal, or create a file or folder. 
@@ -24,7 +24,7 @@ Alternatively, you can start a Terminal, and use the usual conda commands from t
 
 ## Creating a custom environment to access from the notebook
 
-Start a Terminal session, and follow the instructions on the [HPC website](https://www.nrel.gov/hpc/software-python.html) 
+Start a Terminal session, and follow the instructions on the [HPC website](https://www.nrel.gov/hpc/eagle-software-python.html) 
 to create an environment. Now, to make this environment visible from your future notebooks, run the following command:
 
 ```

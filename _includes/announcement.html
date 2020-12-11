@@ -1,6 +1,6 @@
 {% for announcement in site.announcements limit:1 %}
 <div>
-    <a href='{{ announcement.url }}'> Read {{ announcement.title }}</a>
+    <a href='{{ announcement.url | prepend: site.baseurl}}'> Read {{ announcement.title }}</a>
     <p>This month's topics include: {{ announcement.brief }}</p>
 </div>    
 
