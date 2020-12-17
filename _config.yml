@@ -10,7 +10,7 @@ paginate: 3
 paginate_path: /blog/page:num
 baseurl: /HPC
 search_enabled: true
-title: NREL docs
+title: NREL HPC github.io
 collections:
     announcements:
         output: true
