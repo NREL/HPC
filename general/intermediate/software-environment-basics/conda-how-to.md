@@ -1,4 +1,4 @@
-## How to use conda on peregrine
+## How to use conda on Eagle
 Anaconda provides python functionality on Eagle. The default environment contains commonly used mathematic and scientific libraries optimized with MKL. Any additional libraries can be installed with a custom environment.
 
 ```
@@ -262,7 +262,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-Similarly, modules can be removed from `environment.yml` prior to calling `conda env update` to remove packages from the environment (though you may consider using [`conda clean`](https://conda.io/docs/commands/conda-clean.html) for this).
+Similarly, modules can be removed from `environment.yml` prior to calling `conda env update` to remove packages from the environment (though you may consider using [`conda clean`](https://docs.conda.io/projects/conda/en/latest/commands/clean.html) for this).
 
 #### Updating an environment via `conda install`
 
