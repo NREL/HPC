@@ -1,4 +1,4 @@
-# Building packages on Peregrine for individual or project use.
+# Building packages on Eagle for individual or project use.
 This training module will walk through how to build a reasonably complex package, OpenMPI, and deploy
 it for use by yourself or members of a project.
 
@@ -16,7 +16,7 @@ programming interfaces that change rapidly. A source code build might
 have code to adapt to the (older, newer) libraries you have available,
 whereas a binary distribution will likely not. In other cases, a binary
 distribution may be associated with a particular Linux distribution and
-version different from Peregrine's. One example is a package for Linux
+version different from Eagle's. One example is a package for Linux
 version X+1 (with a shiny new libc). If you try to run this on Linux
 version X, you will almost certainly get errors associated with the
 GLIBC version required. If you build the application against your own,
