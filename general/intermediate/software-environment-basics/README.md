@@ -1,6 +1,6 @@
 # software-environment-basics
 
-Peregine uses [environment modules](http://modules.sourceforge.net/) to enable use of multiple software packages. There is a [detailed guide](https://www.nrel.gov/hpc/peregrine-environment-modules.html) to finding and using modules.  The following guides show how to utilize the more complex modules:
+Peregine uses [environment modules](http://modules.sourceforge.net/) to enable use of multiple software packages. There is a [detailed guide](https://www.nrel.gov/hpc/eagle-environment-modules.html) to finding and using modules.  The following guides show how to utilize the more complex modules:
 
 1) [Anaconda](conda-how-to.md)
 
