@@ -1,5 +1,5 @@
 ## How to use conda on peregrine
-Anaconda provides python functionality on peregrine.  The default environment contains commonly used mathematic and scientific libraries optimized with the MKL.  Any additional libraries can be installed with a custom environment.
+Anaconda provides python functionality on Eagle. The default environment contains commonly used mathematic and scientific libraries optimized with MKL. Any additional libraries can be installed with a custom environment.
 
 ```
 module purge; module load conda
@@ -11,7 +11,7 @@ Table of Contents
 
 
 ### Creating a custom environment
-Custom environments can be created with [conda create](https://conda.io/docs/commands/conda-create.html) or [conda env create](https://conda.io/docs/commands/env/conda-env-create.html).  Conda create accepts package names in the command path, whereas conda env create requires the use of an environment.yml file.  This [environment.yml](https://github.nrel.gov/hsorense/conda-peregrine/blob/master/environment.yml) is used to create Peregrine's default conda environment.  It can be copied and modified for a custom enviornment.  Be sure to change the name to something other than default or root, or omit it altogether and use the command line option.
+Custom environments can be created with [conda create](https://docs.conda.io/projects/conda/en/latest/commands/create.html) or [conda env create](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).  `conda create` accepts package names in the command path, whereas `conda env create` requires the use of an environment.yml file.  This [environment.yml](https://github.nrel.gov/hsorense/conda-peregrine/blob/master/environment.yml) is used to create Eagle's default conda environment.  It can be copied and modified for a custom enviornment.  Be sure to change the name to something other than default or root, or omit it altogether and use the command line option.
 
 The default location for custom environments is $HOME/.conda-envs . A custom directory can be used with the command line options for path and name.  Environments tend to use large amounts of disk.  If you are getting messages about going over the quota but can't find where the usage is, check the environments directory and remove unused ones.  
 
