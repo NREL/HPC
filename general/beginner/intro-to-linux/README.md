@@ -2,7 +2,7 @@
 
 If you haven’t used a Linux system, here are some good online tutorials:
 
-[HPC University - Introduction to Linux](hpcuniversity.org/trainingMaterials/31)
+[HPC University - Introduction to Linux](http://hpcuniversity.org/trainingMaterials/31)
 
 [Linux Command - Learning the Shell](http://linuxcommand.org/lc3_learning_the_shell.php)
 
