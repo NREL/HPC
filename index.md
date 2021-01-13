@@ -24,3 +24,8 @@ Monthly announcements on the state of the HPC and upcoming changes users should 
 These docs are driven by the NREL HPC community. If you would like to contribute or recommend a topic to be covered please open an issue or pull request in the repository. 
 
 [Docs repository](https://github.com/NREL/hpc){: .btn .btn-blue }
+
+## Calendar
+Calendar of training events and office hours for NREL's HPC. 
+
+{% include calendar.html %}
