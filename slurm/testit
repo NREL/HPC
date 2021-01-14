@@ -1,0 +1,98 @@
+#source testit | tee ../logfile
+#My account on Eagle
+export ACC=hpcapps
+
+# keep timings
+rm -rf record
+source/tymer record "starting"
+
+# build stuff
+cd source
+
+# Only source jupyter.sh one time so comment it out after
+# your first run.  
+#
+source jupyter.sh
+#
+# It creates a useful jupyter environment with mpi4py
+# and a number of other things including a module "spam"
+# that can be used to map tasks to cores.  
+# Here it is only  used for the example multimax.sh.  
+# multimax.sh will "run" without it but the reseluts are 
+# not meaningfull.
+
+make-dist-clean
+make install
+make clean
+
+
+
+cd ..
+source/tymer record "did install"
+sleep 2
+
+#we'll use this to "find" all files created by all scripts
+stamp=`date +"%Y-%m-%d %H:%M:%S"`
+
+#we'll use this to "find" files created by a single script
+last="NONE"
+#date in the future
+now="2121-01-01"
+
+#scripts to run
+scripts="hostname.sh multinode-task-per-core.sh openmp.sh simple.sh hybrid.sh affinity.sh newdir.sh fromenv.sh mpmd.sh mpmd2.sh multi.sh gpucpu.sh FAN.sh uselist.sh redirect.sh multimax.sh local.sh"
+
+for s in $scripts ; do
+#wait until the queue is clear of my jobs
+    squeue -u $USER | grep $USER
+    while [ $? -eq 0 ] ; do
+      sleep 10
+      echo job in queue
+      squeue -u $USER | grep $USER
+    done
+    echo +++++++++++++
+    source/tymer record "finished $last"
+    find . -type f -newermt "$now" | grep -v record
+    source/tymer record "submitting $s"
+    now=`date +"%Y-%m-%d %H:%M:%S"`
+    last=$s
+    echo +++++++++++++
+    if [ $s == "FAN.sh" ] ; then
+        ./FAN.sh $ACC
+        sleep 5
+        continue
+    fi
+    if [ $s == "uselist.sh" ] ; then
+        sbatch -p short -A $ACC --array=1-24 uselist.sh
+        sleep 5
+        continue
+    fi
+    sbatch -p debug -A $ACC $s
+    sleep 5
+done
+
+source/tymer record "done launching all jobs"
+#wait until they finish
+squeue -u $USER | grep $USER
+while [ $? -eq 0 ] ; do
+  sleep 10
+  echo job in queue
+  squeue -u $USER | grep $USER
+done
+source/tymer record "all jobss finished"
+find . -type f -newermt "$now" | grep -v record
+
+echo TIMINGS:
+cat record
+
+cat << HERE
+To clean up run this...
+cd source ; make dist-clean ; cd 
+Then remove the following files.
+There will be a list in "newfiles"
+HERE
+ls -lt `find . -type f -newermt "$stamp"`
+echo -n files=\" > newfiles
+ls `find . -type f -newermt "$stamp"` >> newfiles
+echo \" >>newfiles
+
