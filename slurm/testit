@@ -21,7 +21,7 @@ source jupyter.sh
 # multimax.sh will "run" without it but the reseluts are 
 # not meaningfull.
 
-make-dist-clean
+make dist-clean
 make install
 make clean
 
