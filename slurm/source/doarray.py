@@ -37,10 +37,10 @@ size=24
 # make list of inputs
 l=open("in_list","w")
 for x in range(0,size):
-	n1=int(random.random()*100)+2
-	n2=int(random.random()*100)+2
-	n3=int(random.random()*100)+2
-	n4=int(random.random()*100)+2
+	n1=int(random.random()*99)+2
+	n2=int(random.random()*99)+2
+	n3=int(random.random()*99)+2
+	n4=int(random.random()*99)+2
 	n5=400
 	l.write("%d %d %d %d %d\n" % (n1,n2,n3,n4,n5))
 l.close()
