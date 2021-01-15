@@ -52,10 +52,10 @@ clean:
 	rm -rf afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
 
 install: recurse
-	cp  afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
+	cp  in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
 
 dist-clean: clean
-	rm -rf  ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc
+	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc
 
 #.PHONY: afile
 
