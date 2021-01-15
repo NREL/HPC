@@ -33,11 +33,6 @@ the matricies.
 
 """
 
-if len(sys.argv[1]) < 2 :
-	print("USAGE:")
-	print(sys.argv[0]+" account")
-	sys.exit()
-account=sys.argv[1]
 size=24
 # make list of inputs
 l=open("in_list","w")
@@ -49,6 +44,12 @@ for x in range(0,size):
 	n5=400
 	l.write("%d %d %d %d %d\n" % (n1,n2,n3,n4,n5))
 l.close()
+print("created in_list")
+if len(sys.argv) < 2 :
+	print("\nNormal USAGE:")
+	print(sys.argv[0]+" account")
+	sys.exit()
+account=sys.argv[1]
 command="sbatch -A ACCOUNT --array=1-COUNT uselist.sh"
 command=command.replace("ACCOUNT",account)
 command=command.replace("COUNT",str(size))
