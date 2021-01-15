@@ -63,8 +63,10 @@ for s in $scripts ; do
         continue
     fi
     if [ $s == "uselist.sh" ] ; then
-## a wrapper script creates the input for this job and then runs:
+## A wrapper script creates the input file for this "in_list"
+## for this job and then runs:
 ##        sbatch -p short -A $ACC --array=1-24 uselist.sh
+## It could be launched directly if you copy in_list from source.
         ./doarray.py $ACC
         sleep 5
         continue
