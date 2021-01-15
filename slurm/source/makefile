@@ -17,7 +17,7 @@ recurse:
 	source $$MODULESHOME/init/bash ; ml $(MOD)  ; $(MAKE) -f $(firstword $(MAKEFILE_LIST)) programs
 
 #here we list the real targets
-programs: phostone stf_01 f_ex02 c_ex02 mpigpu slowinvert purempi afile invertc
+programs: phostone stf_01 f_ex02 c_ex02 mpigpu slowinvert purempi afile invertc in_list
 
 phostone: phostone.c 
 	$(MPICC) -fopenmp phostone.c -o phostone
@@ -40,6 +40,9 @@ slowinvert: slowinvert.f90
 c_ex02: c_ex02.c
 	$(MPICC)  c_ex02.c -o c_ex02
 
+in_list:
+	./doarray.py
+
 mpigpu: hysub.cu hymain.c
 	nvcc -c hysub.cu
 	$(MPICC) hymain.c hysub.o -lcudart -lstdc++ -o mpigpu
@@ -49,10 +52,10 @@ afile:
 	echo line2 >> afile
 
 clean:
-	rm -rf afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
+	rm -rf in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
 
 install: recurse
-	cp  in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
+	cp     in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
 
 dist-clean: clean
 	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc

@@ -12,7 +12,16 @@ cd source
 # Only source jupyter.sh one time so comment it out after
 # your first run.  
 #
+module purge
+ml conda
+conda env list | grep dompt > /dev/null
+if [ $? -eq 1 ] ; then
 source jupyter.sh
+else
+conda env list | grep dompt
+fi
+module purge
+
 #
 # It creates a useful jupyter environment with mpi4py
 # and a number of other things including a module "spam"
@@ -63,11 +72,13 @@ for s in $scripts ; do
         continue
     fi
     if [ $s == "uselist.sh" ] ; then
-## A wrapper script creates the input file for this "in_list"
+## ./doarray.py is a wrappper script creates the input "in_list"
 ## for this job and then runs:
 ##        sbatch -p short -A $ACC --array=1-24 uselist.sh
-## It could be launched directly if you copy in_list from source.
+## It can be launched directly since there is a file in_list in
+## the directory created when doing a make install.
         ./doarray.py $ACC
+##        sbatch -p short -A $ACC --array=1-24 uselist.sh
         sleep 5
         continue
     fi
