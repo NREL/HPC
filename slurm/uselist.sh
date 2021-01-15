@@ -52,6 +52,7 @@ As a convenience we have the  python script doarray.py that creates the
 input file in_file and then runs this script.  doarray.py takes an account
 string as input.
 
+Or, you can get a version of in_list from source/in_list and run directly.
 
 ++++
 
