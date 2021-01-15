@@ -1,6 +1,14 @@
-#source testit | tee ../logfile
-#My account on Eagle
-export ACC=hpcapps
+#!/usr/bin/bash
+#####  ./testit myaccount | tee ../logfile
+#The account on Eagle defaults to hcpapps
+#else put it on the command line.
+if [ "$#" -eq 1 ]; then
+  export ACC=$1
+else
+  echo USAGE:
+  echo $0 ACCOUNT
+  exit
+fi
 
 # keep timings
 rm -rf record
