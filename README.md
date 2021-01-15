@@ -36,13 +36,17 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 * [HPC Benchmarking: STREAM](/general/advanced/stream_benchmark/StreamTutorial.ipynb)
 
 ## 📈 Applications
+* [Gaussian](/applications/gaussian)
+* [Lammps](/applications/lammps)
 * [Paraview](/applications/paraview)
 * [Plexos](/applications/plexos-hpc-walkthrough)
 * [Plexos Quick-start](/applications/plexos-quick-start)
+* [VASP](/applications/vasp)
 
 ## ℹ️ Programming languages
 * [C](/languages/c)
 * [Fortran](/languages/fortran)
+* [Julia](/languages/julia)
 * [Python](/languages/python)
 
 ## 🔧 Utilities and Tools
