@@ -4,17 +4,26 @@
 MOD=mpt  mkl cuda gcc/8.4.0
 MPICC=mpicc
 MPIFC=mpif90
+
 FC=ifort
+
+#MOD=intel-mpi/2020.1.217 mkl cuda
+#MPICC=mpiicc
+#MPIFC=mpiifort
+
 
 #set the module and call make again
 recurse: 
 	source $$MODULESHOME/init/bash ; ml $(MOD)  ; $(MAKE) -f $(firstword $(MAKEFILE_LIST)) programs
 
 #here we list the real targets
-programs: phostone stf_01 f_ex02 c_ex02 mpigpu slowinvert purempi afile
+programs: phostone stf_01 f_ex02 c_ex02 mpigpu slowinvert purempi afile invertc
 
 phostone: phostone.c 
 	$(MPICC) -fopenmp phostone.c -o phostone
+
+invertc: invertc.c 
+	gcc -fopenmp invertc.c -o invertc
 
 purempi: phostone.c 
 	$(MPICC) -DSTUBS phostone.c -o purempi
@@ -40,13 +49,13 @@ afile:
 	echo line2 >> afile
 
 clean:
-	rm -rf afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build
+	rm -rf afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
 
 install: recurse
-	cp  afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi ..
+	cp  afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
 
 dist-clean: clean
-	rm -rf  ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi
+	rm -rf  ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc
 
 #.PHONY: afile
 

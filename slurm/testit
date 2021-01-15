@@ -63,7 +63,9 @@ for s in $scripts ; do
         continue
     fi
     if [ $s == "uselist.sh" ] ; then
-        sbatch -p short -A $ACC --array=1-24 uselist.sh
+## a wrapper script creates the input for this job and then runs:
+##        sbatch -p short -A $ACC --array=1-24 uselist.sh
+        ./doarray.py $ACC
         sleep 5
         continue
     fi
