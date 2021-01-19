@@ -1,12 +1,18 @@
 # Sample Slurm Batch Scripts
 
-A showcase various programflow techniques by leveraging bash and slurm features.  For MPI examples we assume we will be using Intel MPI but the scripts will work with mpt also.  OpenMP programs are compiled with Intel compilers unless otherwise noted.  
+Showcase various program flow techniques by leveraging bash and slurm features.  For 
+MPI examples we assume we will be using mpt MPI but the scripts will work with Intel 
+also.  OpenMP programs are compiled with Intel compilers unless otherwise noted.  
 
-These examples run quickly and most can be run in the debug partition.  The submission line is of the form
+These examples run quickly and most can be run in the debug partition.  For most 
+scripts The submission line is of the form
 
 ```
 sbatch –A myaccount --partition=debug --nodes=N script-to-run
 ```
+
+See testit for more details.
+
 
 * [`hostname.sh`](./hostname.sh) - Simple script that just does hostname on all cores.  
 
@@ -53,7 +59,9 @@ sbatch –A myaccount --partition=debug --nodes=N script-to-run
 ### Note:
 
 ```
-These files are in a subdirectory for organizational purposes.  After checkout, go to this directory and do a make install which will compile and copy files up on level.  Also, you can create a python environment for the examples by sourcing the file jupyter.sh.
+These files are in a subdirectory for organizational purposes.  After checkout, go 
+to this directory and do a make install which will compile and copy files up on level.  
+Also, you can create a python environment for the examples by sourcing the file jupyter.sh.
  
 ```
 
