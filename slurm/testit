@@ -1,12 +1,17 @@
 #!/usr/bin/bash
 #####  ./testit myaccount | tee ../logfile
-#The account on Eagle defaults to hcpapps
-#else put it on the command line.
+#run with your Eagle account on the command line.
 if [ "$#" -eq 1 ]; then
   export ACC=$1
 else
   echo USAGE:
   echo $0 ACCOUNT
+  echo " "
+  echo OPTIONALLY:
+  echo "        export DOCONDA=1"
+  echo "before running to create a new conda"
+  echo "environment \"dompt\" with jupyter, mpi4py"
+  echo "mpi4py, and several other useful modules."
   exit
 fi
 
@@ -17,18 +22,20 @@ source/tymer record "starting"
 # build stuff
 cd source
 
-# Only source jupyter.sh one time so comment it out after
-# your first run.  
-#
-module purge
-ml conda
-conda env list | grep dompt > /dev/null
-if [ $? -eq 1 ] ; then
-source jupyter.sh
-else
-conda env list | grep dompt
-fi
-module purge
+if [ "$DOCONDA" == 1 ] ; then 
+# Only source jupyter.sh one time so we check if
+# the environment it creates exists.  Also we
+# check the variable DOCONDA is set to ensure
+# the user actuall wants to do the build
+    echo "Checking your conda environment"
+    module purge
+    ml conda
+    conda env list | grep dompt > /dev/null
+    if [ $? -eq 1 ] ; then
+        source jupyter.sh
+    else
+        conda env list | grep dompt
+    fi
 
 #
 # It creates a useful jupyter environment with mpi4py
@@ -37,7 +44,9 @@ module purge
 # Here it is only  used for the example multimax.sh.  
 # multimax.sh will "run" without it but the reseluts are 
 # not meaningfull.
+fi
 
+module purge
 make dist-clean
 make install
 make clean
@@ -57,7 +66,7 @@ last="NONE"
 now="2121-01-01"
 
 #scripts to run
-scripts="hostname.sh multinode-task-per-core.sh openmp.sh simple.sh hybrid.sh affinity.sh newdir.sh fromenv.sh mpmd.sh mpmd2.sh multi.sh gpucpu.sh FAN.sh uselist.sh redirect.sh multimax.sh local.sh"
+scripts="hostname.sh multinode-task-per-core.sh openmp.sh simple.sh hybrid.sh affinity.sh newdir.sh fromenv.sh mpmd.sh mpmd2.sh multi.sh gpucpu.sh CHAIN.sh FAN.sh uselist.sh redirect.sh multimax.sh local.sh"
 
 for s in $scripts ; do
 #wait until the queue is clear of my jobs
@@ -74,8 +83,11 @@ for s in $scripts ; do
     now=`date +"%Y-%m-%d %H:%M:%S"`
     last=$s
     echo +++++++++++++
-    if [ $s == "FAN.sh" ] ; then
-        ./FAN.sh $ACC
+## FAN.sh and CHAIN.sh are not slrum scripts.  They are normal bash scripts
+## that launch slurm workflows.  They in turn launch old_new.sh several times
+## with dependicies.
+    if [ $s == "FAN.sh" ] || [ $s == "CHAIN.sh" ] ; then
+        ./$s $ACC
         sleep 5
         continue
     fi

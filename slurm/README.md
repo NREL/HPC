@@ -67,7 +67,9 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 * [`f_ex02.f90`](source/f_ex02.f90) - Same as c_ex02.c but in Fortran.
 
 
-* [`makefile`](source/makefile) - Makefile for examples. Loads module then compiles.
+* [`makefile`](source/makefile) - Makefile for examples. Loads MPT module then compiles.
+
+* [`makefile.intel`](source/makefile) - Makefile for examples. Loads INTEL MPI module then compiles.
 
 * [`hymain.c`](source/hymain.c) - MPI program that calls a routine that uses GPUs.
 
@@ -83,7 +85,7 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 
 * [`setup.py`](source/setup.py) - Build file for spam.c. See multimax.sh.
 
-* [`jupyter.sh`](source/jupyter.sh) - Create jupyter/mpi4py/pandas environment with a user defined version of  MPI. 
+* [`jupyter.sh`](source/jupyter.sh) - Create jupyter/mpi4py/pandas environment with a user defined version of MPI. 
 
 * [`tunnel.sh`](source/tunnel.sh) - Bash function for creating a ssh tunnel to connect to a jupyter notebook.  
  
@@ -95,9 +97,25 @@ You can get copies of the scripts without comments by running the command:
 for script in `ls *sh` ; do
     out=`echo $script | sed s/.sh$/.slurm/`
     echo $out
+    chmod 750 $out
     sed  '/:<<++++/,/^++++/d' $script > $out
 done
 ```
 
 
+```
+These scripts are designed to run using mpt MPI.  You can create scripts
+for using Intel MPI by running the following commands.
 
+for script in `ls *sh` ; do
+    out=`echo $script | sed s/.sh$/.impi/`
+    echo $out
+    sed  's,module load mpt,module load intel-mpi/2020.1.217,' $script > $out
+    chmod 750 $out
+done
+
+To make the examples with Intel MPI run make makefile.intel in the source directory.
+
+To build the conda enviroment with Intel MPI change the module load command in source/jupyter.sh.
+
+```
