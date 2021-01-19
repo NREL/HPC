@@ -60,7 +60,7 @@ See testit for more details.
 
 ```
 These files are in a subdirectory for organizational purposes.  After checkout, go 
-to this directory and do a make install which will compile and copy files up on level.  
+to this directory and do a make install which will compile and copy files up one level.  
 Also, you can create a python environment for the examples by sourcing the file jupyter.sh.
  
 ```
@@ -109,6 +109,7 @@ Also, you can create a python environment for the examples by sourcing the file 
 ### Remove block comments
 ```
 You can get copies of the scripts without block comments by running the command:
+
 for script in `ls *sh` ; do
     out=`echo $script | sed s/.sh$/.slurm/`
     echo $out
@@ -130,7 +131,7 @@ for script in `ls *sh` ; do
     chmod 750 $out
 done
 
-To make the examples with Intel MPI run make makefile.intel in the source directory.
+Make the examples with Intel MPI by running make makefile.intel in the source directory.
 
 Change old_new.sh to old_new.intel in FAN.intel and CHAIN.intel.
 
