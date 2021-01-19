@@ -1,6 +1,6 @@
 # Sample Slurm Batch Scripts
 
-Showcase various program flow techniques by leveraging bash and slurm features.  For 
+Thes scripts showcase various program flow techniques by leveraging bash and slurm features.  For 
 MPI examples we assume we will be using mpt MPI but the scripts will work with Intel 
 also.  
 
@@ -122,7 +122,7 @@ done
 
 ```
 These scripts are set up to run using mpt MPI.  You can create scripts
-for using Intel MPI by running the following commands.
+for using Intel MPI by running the following commands in the slurm directory.
 
 for script in `ls *sh` ; do
     out=`echo $script | sed s/.sh$/.impi/`
@@ -131,9 +131,9 @@ for script in `ls *sh` ; do
     chmod 750 $out
 done
 
-Make the examples with Intel MPI by running make makefile.intel in the source directory.
-
 Change old_new.sh to old_new.intel in FAN.intel and CHAIN.intel.
+
+Make the examples with Intel MPI by running make makefile.intel in the source directory.
 
 To build the conda enviroment with Intel MPI change the module load command in source/jupyter.sh.
 
