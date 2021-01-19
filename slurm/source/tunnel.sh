@@ -6,7 +6,8 @@ Bash function, tunnel, to set up a ssh tunnel to connect to a jupyter
 notebook running on Eagle or a compute node.
 
 To install tunnel cut off this header and add the remains in your .bashrc 
-file or save it to dotunnel and do a source dotunnel.
+file on your DESKTOP MACHINE NOT EAGLE or save it to dotunnel and do a 
+source dotunnel.
 
 Usage:
 
@@ -37,8 +38,8 @@ tunnel() {
 # Bash function to set up a ssh tunnel to connect to a jupyter 
 # notebook running on Eagle or a compute node.
 # 
-# To use this add it in your .bashrc file or save it to dotunnel
-# and do a source dotunnel.
+# To use this add it in your .bashrc file on your DESKTOP MACHINE
+# NOT EAGLE  or save it to dotunnel and do a source dotunnel. 
 #
 # Takes two arguments, the node running our notebook and port number
 # from the http string returned by jupyter.
