@@ -44,8 +44,9 @@ sbatch –A myaccount --partition=debug --nodes=N script-to-run
 
 * [`multimax.sh`](./multimax.sh) - Multiple nodes, multiple jobs concurrently with also forcing affinity.
 
-
 * [`local.sh`](./local.sh) - slurm script showing how to use local \"tmp\" disk.
+
+* [`testit`](./testit) - A bash script for running all of the examples.
 
 
 ## Source code, extra scripts, and makefile to use with the above scripts.
@@ -65,7 +66,6 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 * [`c_ex02.c`](source/c_ex02.c0) - Simple example in C.
 
 * [`f_ex02.f90`](source/f_ex02.f90) - Same as c_ex02.c but in Fortran.
-
 
 * [`makefile`](source/makefile) - Makefile for examples. Loads MPT module then compiles.
 
@@ -102,6 +102,7 @@ for script in `ls *sh` ; do
 done
 ```
 
+###Intel MPI
 
 ```
 These scripts are designed to run using mpt MPI.  You can create scripts
@@ -115,6 +116,8 @@ for script in `ls *sh` ; do
 done
 
 To make the examples with Intel MPI run make makefile.intel in the source directory.
+
+Change old_new.sh to old_new.intel in FAN.intel and CHAIN.intel.
 
 To build the conda enviroment with Intel MPI change the module load command in source/jupyter.sh.
 
