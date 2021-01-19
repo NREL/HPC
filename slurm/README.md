@@ -5,7 +5,7 @@ MPI examples we assume we will be using mpt MPI but the scripts will work with I
 also.  OpenMP programs are compiled with Intel compilers unless otherwise noted.  
 
 These examples run quickly and most can be run in the debug partition.  For most 
-scripts The submission line is of the form
+scripts the submission line is of the form:
 
 ```
 sbatch –A myaccount --partition=debug --nodes=N script-to-run
