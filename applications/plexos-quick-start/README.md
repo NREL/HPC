@@ -230,4 +230,4 @@ tar -tzf week.tgz | grep -v tymer |sed "s,/.*,," | sort -u  | while IFS= read -r
 cp /scratch/USER/slurmout/std*.$SLURM_JOB_ID . || echo "No std*.$SLURM_JOB_ID"
 
 ```
-* [`plexos-hpc-walkthrough.tgz`](./plexos-hpc-walkthrough.tgz) - Archive of plexos worlkthrough from 2019-2020
+* [`plexos-hpc-walkthrough.tgz`](./plexos-hpc-walkthrough.tgz) - Archive of plexos 2019-2020 walk-through
