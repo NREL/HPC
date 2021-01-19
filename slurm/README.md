@@ -104,8 +104,8 @@ You can get copies of the scripts without block comments by running the command:
 for script in `ls *sh` ; do
     out=`echo $script | sed s/.sh$/.slurm/`
     echo $out
-    chmod 750 $out
     sed  '/:<<++++/,/^++++/d' $script > $out
+    chmod 750 $out
 done
 ```
 
