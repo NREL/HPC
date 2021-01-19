@@ -10,12 +10,12 @@ else
   echo OPTIONALLY:
   echo "        export DOCONDA=1"
   echo "before running to create a new conda"
-  echo "environment \"dompt\" with jupyter, mpi4py"
-  echo "mpi4py, and several other useful modules."
+  echo "environment 'dompt' with jupyter, mpi4py"
+  echo "scipy, and several other useful modules."
   exit
 fi
 
-# keep timings
+# keep timings using "tymer" in file record
 rm -rf record
 source/tymer record "starting"
 
@@ -26,7 +26,7 @@ if [ "$DOCONDA" == 1 ] ; then
 # Only source jupyter.sh one time so we check if
 # the environment it creates exists.  Also we
 # check the variable DOCONDA is set to ensure
-# the user actuall wants to do the build
+# the user actually wants to do the build.
     echo "Checking your conda environment"
     module purge
     ml conda
@@ -42,7 +42,7 @@ if [ "$DOCONDA" == 1 ] ; then
 # and a number of other things including a module "spam"
 # that can be used to map tasks to cores.  
 # Here it is only  used for the example multimax.sh.  
-# multimax.sh will "run" without it but the reseluts are 
+# multimax.sh will "run" without it but the results are 
 # not meaningfull.
 fi
 
