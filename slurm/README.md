@@ -98,8 +98,9 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 * [`slurm_variables`](source/slurm_variables) - List of slurm variables.
 
 
+### Remove block comments
 ```
-You can get copies of the scripts without comments by running the command:
+You can get copies of the scripts without block comments by running the command:
 for script in `ls *sh` ; do
     out=`echo $script | sed s/.sh$/.slurm/`
     echo $out
@@ -111,7 +112,7 @@ done
 ### Intel MPI
 
 ```
-These scripts are designed to run using mpt MPI.  You can create scripts
+These scripts are set up to run using mpt MPI.  You can create scripts
 for using Intel MPI by running the following commands.
 
 for script in `ls *sh` ; do
