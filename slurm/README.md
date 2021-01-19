@@ -50,7 +50,7 @@ sbatch –A myaccount --partition=debug --nodes=N script-to-run
 
 
 ## Source code, extra scripts, and makefile to use with the above scripts.
-###Note:
+### Note:
 
 ```
 These files are in a subdirectory for organizational purposes.  After checkout, go to this directory and do a make install which will compile and copy files up on level.  Also, you can create a python environment for the examples by sourcing the file jupyter.sh.
@@ -102,7 +102,7 @@ for script in `ls *sh` ; do
 done
 ```
 
-###Intel MPI
+### Intel MPI
 
 ```
 These scripts are designed to run using mpt MPI.  You can create scripts
