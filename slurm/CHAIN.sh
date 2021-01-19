@@ -13,6 +13,9 @@ See FAN.sh for a complete descrption.
 
 ++++
 
+# Here is the script we will run
+export SCRIPT=old_new.sh
+
 if [ -z ${1+x} ]; then
 	echo USAGE:
 	echo $0 account
@@ -23,13 +26,13 @@ export ACC=$1
 
 unset OLD_DIR
 export NEW_DIR=job1
-jid=`sbatch -A $ACC old_new.sh | awk '{print $NF }'`
+jid=`sbatch -A $ACC $SCRIPT | awk '{print $NF }'`
 echo $jid
  
 for job in job2 job3 job4 job5 ; do
   export OLD_DIR=$NEW_DIR
   export NEW_DIR=$job
-  jid=`sbatch -A $ACC --dependency=afterok:$jid old_new.sh | awk '{print $NF }'`
+  jid=`sbatch -A $ACC --dependency=afterok:$jid $SCRIPT | awk '{print $NF }'`
   echo $jid
 done
 
