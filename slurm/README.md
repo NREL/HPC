@@ -75,7 +75,11 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 
 * [`hysub.cu`](source/hysub.cu) - Simple routine that accesses GPUs. 
 
-* [`slowinvert.f90`](source/slowinvert.f90) - Matrix inversion program with a single thread assigned to each invert.
+* [`invertc.c`](source/invertc.c) - Matrix inversion program with a thread assigned to each of 4 inverts.
+
+* [`slowinvert.f90`](source/slowinvert.f90) - Matrix inversion program with a single thread assigned to each of many inverts.
+
+* [`logfile`](source/logfile) - example output from running testit.
 
 * [`report.py`](source/report.py) - A python mpi4py program for showing mapping tasks to cores.
 
