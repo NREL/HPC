@@ -79,7 +79,7 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 
 * [`slowinvert.f90`](source/slowinvert.f90) - Matrix inversion program with a single thread assigned to each of many inverts.
 
-* [`logfile`](source/logfile) - example output from running testit.
+* [`logfile`](source/logfile) - Example output from running testit.
 
 * [`report.py`](source/report.py) - A python mpi4py program for showing mapping tasks to cores.
 
@@ -94,6 +94,8 @@ These files are in a subdirectory for organizational purposes.  After checkout, 
 * [`tunnel.sh`](source/tunnel.sh) - Bash function for creating a ssh tunnel to connect to a jupyter notebook.  
  
 * [`tymer`](source/tymer) - Glorified wall clock timer.
+
+* [`slurm_variables`](source/slurm_variables) - List of slurm variables.
 
 
 ```
