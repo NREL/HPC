@@ -1,224 +1,8 @@
-1610678037.003211 Thu Jan 14 19:33:57 2021      0.000      0.000 starting
-Collecting package metadata (current_repodata.json): ...working... done
-Solving environment: ...working... failed with repodata from current_repodata.json, will retry with next repodata source.
-Collecting package metadata (repodata.json): ...working... done
-Solving environment: ...working... done
-
-## Package Plan ##
-
-  environment location: /home/tkaiser2/.conda-envs/dompt
-
-  added / updated specs:
-    - dask
-    - jupyter
-    - matplotlib
-    - pandas
-    - python=3.8
-    - scipy
-    - xlwt
-
-
-The following NEW packages will be INSTALLED:
-
-  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main
-  argon2-cffi        pkgs/main/linux-64::argon2-cffi-20.1.0-py38h7b6447c_1
-  async_generator    pkgs/main/noarch::async_generator-1.10-py_0
-  attrs              pkgs/main/noarch::attrs-20.3.0-pyhd3eb1b0_0
-  backcall           pkgs/main/noarch::backcall-0.2.0-py_0
-  blas               pkgs/main/linux-64::blas-1.0-mkl
-  bleach             pkgs/main/noarch::bleach-3.2.1-py_0
-  bokeh              pkgs/main/linux-64::bokeh-2.2.3-py38_0
-  ca-certificates    pkgs/main/linux-64::ca-certificates-2020.12.8-h06a4308_0
-  certifi            pkgs/main/linux-64::certifi-2020.12.5-py38h06a4308_0
-  cffi               pkgs/main/linux-64::cffi-1.14.4-py38h261ae71_0
-  click              pkgs/main/noarch::click-7.1.2-py_0
-  cloudpickle        pkgs/main/noarch::cloudpickle-1.6.0-py_0
-  cycler             pkgs/main/linux-64::cycler-0.10.0-py38_0
-  cytoolz            pkgs/main/linux-64::cytoolz-0.11.0-py38h7b6447c_0
-  dask               pkgs/main/noarch::dask-2020.12.0-pyhd3eb1b0_0
-  dask-core          pkgs/main/noarch::dask-core-2020.12.0-pyhd3eb1b0_0
-  dbus               pkgs/main/linux-64::dbus-1.13.18-hb2f20db_0
-  decorator          pkgs/main/noarch::decorator-4.4.2-py_0
-  defusedxml         pkgs/main/noarch::defusedxml-0.6.0-py_0
-  distributed        pkgs/main/linux-64::distributed-2020.12.0-py38h06a4308_0
-  entrypoints        pkgs/main/linux-64::entrypoints-0.3-py38_0
-  expat              pkgs/main/linux-64::expat-2.2.10-he6710b0_2
-  fontconfig         pkgs/main/linux-64::fontconfig-2.13.0-h9420a91_0
-  freetype           pkgs/main/linux-64::freetype-2.10.4-h5ab3b9f_0
-  fsspec             pkgs/main/noarch::fsspec-0.8.3-py_0
-  glib               pkgs/main/linux-64::glib-2.66.1-h92f7085_0
-  gst-plugins-base   pkgs/main/linux-64::gst-plugins-base-1.14.0-h8213a91_2
-  gstreamer          pkgs/main/linux-64::gstreamer-1.14.0-h28cd5cc_2
-  heapdict           pkgs/main/noarch::heapdict-1.0.1-py_0
-  icu                pkgs/main/linux-64::icu-58.2-he6710b0_3
-  importlib-metadata pkgs/main/noarch::importlib-metadata-2.0.0-py_1
-  importlib_metadata pkgs/main/noarch::importlib_metadata-2.0.0-1
-  intel-openmp       pkgs/main/linux-64::intel-openmp-2020.2-254
-  ipykernel          pkgs/main/linux-64::ipykernel-5.3.4-py38h5ca1d4c_0
-  ipython            pkgs/main/linux-64::ipython-7.19.0-py38hb070fc8_0
-  ipython_genutils   pkgs/main/noarch::ipython_genutils-0.2.0-pyhd3eb1b0_1
-  ipywidgets         pkgs/main/noarch::ipywidgets-7.6.3-pyhd3eb1b0_1
-  jedi               pkgs/main/linux-64::jedi-0.18.0-py38h06a4308_0
-  jinja2             pkgs/main/noarch::jinja2-2.11.2-py_0
-  jpeg               pkgs/main/linux-64::jpeg-9b-h024ee3a_2
-  jsonschema         pkgs/main/noarch::jsonschema-3.2.0-py_2
-  jupyter            pkgs/main/linux-64::jupyter-1.0.0-py38_7
-  jupyter_client     pkgs/main/noarch::jupyter_client-6.1.7-py_0
-  jupyter_console    pkgs/main/noarch::jupyter_console-6.2.0-py_0
-  jupyter_core       pkgs/main/linux-64::jupyter_core-4.7.0-py38h06a4308_0
-  jupyterlab_pygmen~ pkgs/main/noarch::jupyterlab_pygments-0.1.2-py_0
-  jupyterlab_widgets pkgs/main/noarch::jupyterlab_widgets-1.0.0-pyhd3eb1b0_1
-  kiwisolver         pkgs/main/linux-64::kiwisolver-1.3.0-py38h2531618_0
-  lcms2              pkgs/main/linux-64::lcms2-2.11-h396b838_0
-  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.33.1-h53a641e_7
-  libedit            pkgs/main/linux-64::libedit-3.1.20191231-h14c3975_1
-  libffi             pkgs/main/linux-64::libffi-3.3-he6710b0_2
-  libgcc-ng          pkgs/main/linux-64::libgcc-ng-9.1.0-hdf63c60_0
-  libgfortran-ng     pkgs/main/linux-64::libgfortran-ng-7.3.0-hdf63c60_0
-  libpng             pkgs/main/linux-64::libpng-1.6.37-hbc83047_0
-  libsodium          pkgs/main/linux-64::libsodium-1.0.18-h7b6447c_0
-  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-9.1.0-hdf63c60_0
-  libtiff            pkgs/main/linux-64::libtiff-4.1.0-h2733197_1
-  libuuid            pkgs/main/linux-64::libuuid-1.0.3-h1bed415_2
-  libxcb             pkgs/main/linux-64::libxcb-1.14-h7b6447c_0
-  libxml2            pkgs/main/linux-64::libxml2-2.9.10-hb55368b_3
-  locket             pkgs/main/linux-64::locket-0.2.0-py38_1
-  lz4-c              pkgs/main/linux-64::lz4-c-1.9.2-heb0550a_3
-  markupsafe         pkgs/main/linux-64::markupsafe-1.1.1-py38h7b6447c_0
-  matplotlib         pkgs/main/linux-64::matplotlib-3.3.2-h06a4308_0
-  matplotlib-base    pkgs/main/linux-64::matplotlib-base-3.3.2-py38h817c723_0
-  mistune            pkgs/main/linux-64::mistune-0.8.4-py38h7b6447c_1000
-  mkl                pkgs/main/linux-64::mkl-2020.2-256
-  mkl-service        pkgs/main/linux-64::mkl-service-2.3.0-py38he904b0f_0
-  mkl_fft            pkgs/main/linux-64::mkl_fft-1.2.0-py38h23d657b_0
-  mkl_random         pkgs/main/linux-64::mkl_random-1.1.1-py38h0573a6f_0
-  msgpack-python     pkgs/main/linux-64::msgpack-python-1.0.1-py38hff7bd54_0
-  nbclient           pkgs/main/noarch::nbclient-0.5.1-py_0
-  nbconvert          pkgs/main/linux-64::nbconvert-6.0.7-py38_0
-  nbformat           pkgs/main/noarch::nbformat-5.1.1-pyhd3eb1b0_1
-  ncurses            pkgs/main/linux-64::ncurses-6.2-he6710b0_1
-  nest-asyncio       pkgs/main/noarch::nest-asyncio-1.4.3-pyhd3eb1b0_0
-  notebook           pkgs/main/linux-64::notebook-6.1.6-py38h06a4308_0
-  numpy              pkgs/main/linux-64::numpy-1.19.2-py38h54aff64_0
-  numpy-base         pkgs/main/linux-64::numpy-base-1.19.2-py38hfa32c7d_0
-  olefile            pkgs/main/noarch::olefile-0.46-py_0
-  openssl            pkgs/main/linux-64::openssl-1.1.1i-h27cfd23_0
-  packaging          pkgs/main/noarch::packaging-20.8-pyhd3eb1b0_0
-  pandas             pkgs/main/linux-64::pandas-1.2.0-py38ha9443f7_0
-  pandoc             pkgs/main/linux-64::pandoc-2.11-hb0f4dca_0
-  pandocfilters      pkgs/main/linux-64::pandocfilters-1.4.3-py38h06a4308_1
-  parso              pkgs/main/noarch::parso-0.7.0-py_0
-  partd              pkgs/main/noarch::partd-1.1.0-py_0
-  pcre               pkgs/main/linux-64::pcre-8.44-he6710b0_0
-  pexpect            pkgs/main/noarch::pexpect-4.8.0-pyhd3eb1b0_3
-  pickleshare        pkgs/main/noarch::pickleshare-0.7.5-pyhd3eb1b0_1003
-  pillow             pkgs/main/linux-64::pillow-8.1.0-py38he98fc37_0
-  pip                pkgs/main/linux-64::pip-20.3.3-py38h06a4308_0
-  prometheus_client  pkgs/main/noarch::prometheus_client-0.9.0-pyhd3eb1b0_0
-  prompt-toolkit     pkgs/main/noarch::prompt-toolkit-3.0.8-py_0
-  prompt_toolkit     pkgs/main/noarch::prompt_toolkit-3.0.8-0
-  psutil             pkgs/main/linux-64::psutil-5.7.2-py38h7b6447c_0
-  ptyprocess         pkgs/main/noarch::ptyprocess-0.7.0-pyhd3eb1b0_2
-  pycparser          pkgs/main/noarch::pycparser-2.20-py_2
-  pygments           pkgs/main/noarch::pygments-2.7.4-pyhd3eb1b0_0
-  pyparsing          pkgs/main/noarch::pyparsing-2.4.7-py_0
-  pyqt               pkgs/main/linux-64::pyqt-5.9.2-py38h05f1152_4
-  pyrsistent         pkgs/main/linux-64::pyrsistent-0.17.3-py38h7b6447c_0
-  python             pkgs/main/linux-64::python-3.8.5-h7579374_1
-  python-dateutil    pkgs/main/noarch::python-dateutil-2.8.1-py_0
-  pytz               pkgs/main/noarch::pytz-2020.5-pyhd3eb1b0_0
-  pyyaml             pkgs/main/linux-64::pyyaml-5.3.1-py38h7b6447c_1
-  pyzmq              pkgs/main/linux-64::pyzmq-20.0.0-py38h2531618_1
-  qt                 pkgs/main/linux-64::qt-5.9.7-h5867ecd_1
-  qtconsole          pkgs/main/noarch::qtconsole-4.7.7-py_0
-  qtpy               pkgs/main/noarch::qtpy-1.9.0-py_0
-  readline           pkgs/main/linux-64::readline-8.0-h7b6447c_0
-  scipy              pkgs/main/linux-64::scipy-1.5.2-py38h0b6359f_0
-  send2trash         pkgs/main/noarch::send2trash-1.5.0-pyhd3eb1b0_1
-  setuptools         pkgs/main/linux-64::setuptools-51.1.2-py38h06a4308_4
-  sip                pkgs/main/linux-64::sip-4.19.13-py38he6710b0_0
-  six                pkgs/main/linux-64::six-1.15.0-py38h06a4308_0
-  sortedcontainers   pkgs/main/noarch::sortedcontainers-2.3.0-pyhd3eb1b0_0
-  sqlite             pkgs/main/linux-64::sqlite-3.33.0-h62c20be_0
-  tblib              pkgs/main/noarch::tblib-1.7.0-py_0
-  terminado          pkgs/main/linux-64::terminado-0.9.2-py38h06a4308_0
-  testpath           pkgs/main/noarch::testpath-0.4.4-py_0
-  tk                 pkgs/main/linux-64::tk-8.6.10-hbc83047_0
-  toolz              pkgs/main/noarch::toolz-0.11.1-py_0
-  tornado            pkgs/main/linux-64::tornado-6.1-py38h27cfd23_0
-  traitlets          pkgs/main/noarch::traitlets-5.0.5-py_0
-  typing_extensions  pkgs/main/noarch::typing_extensions-3.7.4.3-py_0
-  wcwidth            pkgs/main/noarch::wcwidth-0.2.5-py_0
-  webencodings       pkgs/main/linux-64::webencodings-0.5.1-py38_1
-  wheel              pkgs/main/noarch::wheel-0.36.2-pyhd3eb1b0_0
-  widgetsnbextension pkgs/main/linux-64::widgetsnbextension-3.5.1-py38_0
-  xlwt               pkgs/main/linux-64::xlwt-1.3.0-py38_0
-  xz                 pkgs/main/linux-64::xz-5.2.5-h7b6447c_0
-  yaml               pkgs/main/linux-64::yaml-0.2.5-h7b6447c_0
-  zeromq             pkgs/main/linux-64::zeromq-4.3.3-he6710b0_3
-  zict               pkgs/main/noarch::zict-2.0.0-py_0
-  zipp               pkgs/main/noarch::zipp-3.4.0-pyhd3eb1b0_0
-  zlib               pkgs/main/linux-64::zlib-1.2.11-h7b6447c_3
-  zstd               pkgs/main/linux-64::zstd-1.4.5-h9ceee32_0
-
-
-Preparing transaction: ...working... done
-Verifying transaction: ...working... done
-Executing transaction: ...working... done
-#
-# To activate this environment, use
-#
-#     $ conda activate dompt
-#
-# To deactivate an active environment, use
-#
-#     $ conda deactivate
-
-/home/tkaiser2/.conda-envs/dompt/bin/pip
-/home/tkaiser2/.conda-envs/dompt/bin/python
-Collecting mpi4py
-  Downloading mpi4py-3.0.3.tar.gz (1.4 MB)
-Building wheels for collected packages: mpi4py
-  Building wheel for mpi4py (setup.py): started
-  Building wheel for mpi4py (setup.py): still running...
-  Building wheel for mpi4py (setup.py): still running...
-  Building wheel for mpi4py (setup.py): still running...
-  Building wheel for mpi4py (setup.py): still running...
-  Building wheel for mpi4py (setup.py): finished with status 'done'
-  Created wheel for mpi4py: filename=mpi4py-3.0.3-cp38-cp38-linux_x86_64.whl size=2820626 sha256=2a02ef606614536d0825826b1b5a60c871ce53811547198975d72a7cb49e774b
-  Stored in directory: /tmp/pip-ephem-wheel-cache-lb5bryjz/wheels/ff/61/0c/c516bd6b85f61f0acf333b0fbf5102fe39928a3563bf245a88
-Successfully built mpi4py
-Installing collected packages: mpi4py
-Successfully installed mpi4py-3.0.3
-Collecting git+git://github.com/NERSC/slurm-magic.git
-  Cloning git://github.com/NERSC/slurm-magic.git to /tmp/pip-req-build-vvk64dlf
-Building wheels for collected packages: slurm-magic
-  Building wheel for slurm-magic (setup.py): started
-  Building wheel for slurm-magic (setup.py): finished with status 'done'
-  Created wheel for slurm-magic: filename=slurm_magic-0.0.5-py3-none-any.whl size=5639 sha256=6b2741513c03d6c16c4f895b4729728527a6513e3be396c98ab23b73da363faa
-  Stored in directory: /tmp/pip-ephem-wheel-cache-3hfmwl_a/wheels/77/94/44/50220f73b43e67d8a935a76169f0a9fddebde84048e139bd82
-Successfully built slurm-magic
-Installing collected packages: slurm-magic
-Successfully installed slurm-magic-0.0.5
-In a jupyter activate slurm_magic with 
-%load_ext slurm_magic
-running install
-running build
-running build_ext
-building 'spam' extension
-creating build
-creating build/temp.linux-x86_64-3.8
-/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-4.8.5/gcc-8.4.0-xrmnckz436rnkcwooooi2r7n35pojkov/bin/gcc -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/home/tkaiser2/.conda-envs/dompt/include/python3.8 -c spam.c -o build/temp.linux-x86_64-3.8/spam.o
-creating build/lib.linux-x86_64-3.8
-gcc -pthread -shared -B /home/tkaiser2/.conda-envs/dompt/compiler_compat -L/home/tkaiser2/.conda-envs/dompt/lib -Wl,-rpath=/home/tkaiser2/.conda-envs/dompt/lib -Wl,--no-as-needed -Wl,--sysroot=/ build/temp.linux-x86_64-3.8/spam.o -o build/lib.linux-x86_64-3.8/spam.cpython-38-x86_64-linux-gnu.so
-running install_lib
-copying build/lib.linux-x86_64-3.8/spam.cpython-38-x86_64-linux-gnu.so -> /home/tkaiser2/.conda-envs/dompt/lib/python3.8/site-packages
-running install_egg_info
-Writing /home/tkaiser2/.conda-envs/dompt/lib/python3.8/site-packages/PackageName-1.0-py3.8.egg-info
-rm -rf afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build
-rm -rf  ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi
+1611074845.880089 Tue Jan 19 09:47:25 2021      0.000      0.000 starting
+rm -rf in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
+rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc
 source $MODULESHOME/init/bash ; ml mpt  mkl cuda gcc/8.4.0  ; make -f makefile programs
-make[1]: Entering directory '/lustre/eaglefs/scratch/tkaiser2/collect2/HPC/slurm/source'
+make[1]: Entering directory `/lustre/eaglefs/scratch/tkaiser2/collect2/HPC/slurm/source'
 mpicc -fopenmp phostone.c -o phostone
 mpif90  stf_01.f90 -o stf_01
 mpif90  f_ex02.f90 -o f_ex02
@@ -229,1092 +13,1272 @@ ifort  -mkl -O3 -fopenmp slowinvert.f90 -o slowinvert
 mpicc -DSTUBS phostone.c -o purempi
 echo line1 > afile
 echo line2 >> afile
-make[1]: Leaving directory '/lustre/eaglefs/scratch/tkaiser2/collect2/HPC/slurm/source'
-cp  afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi ..
-rm -rf afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build
-1610678509.766668 Thu Jan 14 19:41:49 2021    472.763    472.763 did install
+gcc -fopenmp invertc.c -o invertc
+./doarray.py
+created in_list
+
+Normal USAGE:
+./doarray.py account
+make[1]: Leaving directory `/lustre/eaglefs/scratch/tkaiser2/collect2/HPC/slurm/source'
+cp     in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
+rm -rf in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
+1611074851.569341 Tue Jan 19 09:47:31 2021      5.689      5.689 did install
 +++++++++++++
-1610678516.005398 Thu Jan 14 19:41:56 2021      6.239    479.002 finished NONE
-1610678516.109866 Thu Jan 14 19:41:56 2021      0.104    479.107 submitting hostname.sh
+1611074853.618656 Tue Jan 19 09:47:33 2021      2.049      7.739 finished NONE
+1611074853.647886 Tue Jan 19 09:47:33 2021      0.029      7.768 submitting hostname.sh
 +++++++++++++
-Submitted batch job 5693044
-           5693044     debug hostname tkaiser2  R       0:04      2 r102u[34-35] 
-job in queue
-+++++++++++++
-1610678534.288009 Thu Jan 14 19:42:14 2021     18.178    497.285 finished hostname.sh
-./source/logfile
-./slurm-5693044.out
-1610678534.392045 Thu Jan 14 19:42:14 2021      0.104    497.389 submitting multinode-task-per-core.sh
-+++++++++++++
-Submitted batch job 5693045
-           5693045     debug node_rol tkaiser2 PD       0:00      2 (None) 
+Submitted batch job 5709905
+           5709905     debug hostname tkaiser2 CG       0:04      2 r103u[21,23] 
 job in queue
 +++++++++++++
-1610678549.579304 Thu Jan 14 19:42:29 2021     15.187    512.576 finished multinode-task-per-core.sh
-./source/logfile
-./node_rollcall.5693045
-1610678549.684229 Thu Jan 14 19:42:29 2021      0.105    512.681 submitting openmp.sh
+1611074868.727621 Tue Jan 19 09:47:48 2021     15.080     22.848 finished hostname.sh
+./slurm-5709905.out
+1611074868.756096 Tue Jan 19 09:47:48 2021      0.028     22.876 submitting multinode-task-per-core.sh
 +++++++++++++
-Submitted batch job 5693046
-           5693046     debug   sample tkaiser2 PD       0:00      1 (None) 
+Submitted batch job 5709906
+           5709906     debug node_rol tkaiser2  R       0:05      2 r103u[21,23] 
 job in queue
-           5693046     debug   sample tkaiser2  R       0:06      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       0:17      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       0:27      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       0:37      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       0:47      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       0:57      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       1:07      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       1:17      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       1:27      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       1:37      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       1:47      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       1:57      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       2:07      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       2:17      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       2:30      1 r1i7n35 
-job in queue
-           5693046     debug   sample tkaiser2  R       2:40      1 r1i7n35 
+           5709906     debug node_rol tkaiser2 CG       0:12      2 r103u[21,23] 
 job in queue
 +++++++++++++
-1610678728.305107 Thu Jan 14 19:45:28 2021    178.621    691.302 finished openmp.sh
-./5693046.36.spread
-./5693046.18.scatter
-./5693046.out
-./source/logfile
-./5693046.err
-./5693046.36.scatter
-./5693046.18.spread
-1610678728.414411 Thu Jan 14 19:45:28 2021      0.109    691.411 submitting simple.sh
+1611074897.183949 Tue Jan 19 09:48:17 2021     28.428     51.304 finished multinode-task-per-core.sh
+./node_rollcall.5709906
+1611074897.213245 Tue Jan 19 09:48:17 2021      0.029     51.333 submitting openmp.sh
 +++++++++++++
-Submitted batch job 5693052
-           5693052     debug   sample tkaiser2  R       0:05      2 r102u[34-35] 
+Submitted batch job 5709907
+           5709907     debug   sample tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693052     debug   sample tkaiser2  R       0:15      2 r102u[34-35] 
+           5709907     debug   sample tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693052     debug   sample tkaiser2 CG       0:25      2 r102u[34-35] 
+           5709907     debug   sample tkaiser2  R       0:08      1 r1i7n35 
 job in queue
-+++++++++++++
-1610678763.658673 Thu Jan 14 19:46:03 2021     35.244    726.655 finished simple.sh
-./5693052.out
-./source/logfile
-./5693052.err
-./5693052.stdout
-1610678763.761898 Thu Jan 14 19:46:03 2021      0.103    726.759 submitting hybrid.sh
-+++++++++++++
-Submitted batch job 5693054
-           5693054     debug   sample tkaiser2 PD       0:00      2 (None) 
+           5709907     debug   sample tkaiser2  R       0:18      1 r1i7n35 
 job in queue
-           5693054     debug   sample tkaiser2  R       0:05      2 r102u[34-35] 
+           5709907     debug   sample tkaiser2  R       0:28      1 r1i7n35 
 job in queue
-           5693054     debug   sample tkaiser2  R       0:15      2 r102u[34-35] 
+           5709907     debug   sample tkaiser2  R       0:38      1 r1i7n35 
 job in queue
-           5693054     debug   sample tkaiser2  R       0:25      2 r102u[34-35] 
+           5709907     debug   sample tkaiser2  R       0:48      1 r1i7n35 
 job in queue
-           5693054     debug   sample tkaiser2 CG       0:39      2 r102u[34-35] 
+           5709907     debug   sample tkaiser2  R       0:58      1 r1i7n35 
 job in queue
-+++++++++++++
-1610678829.762436 Thu Jan 14 19:47:09 2021     66.001    792.759 finished hybrid.sh
-./source/logfile
-./5693054.err
-./5693054.1
-./5693054.9
-./5693054.out
-./5693054.4
-1610678829.867236 Thu Jan 14 19:47:09 2021      0.105    792.864 submitting affinity.sh
-+++++++++++++
-Submitted batch job 5693055
-           5693055     debug   sample tkaiser2 PD       0:00      1 (None) 
+           5709907     debug   sample tkaiser2  R       1:08      1 r1i7n35 
 job in queue
-           5693055     debug   sample tkaiser2  R       0:03      1 r1i7n35 
+           5709907     debug   sample tkaiser2  R       1:18      1 r1i7n35 
 job in queue
-           5693055     debug   sample tkaiser2  R       0:13      1 r1i7n35 
+           5709907     debug   sample tkaiser2  R       1:28      1 r1i7n35 
 job in queue
-           5693055     debug   sample tkaiser2  R       0:23      1 r1i7n35 
+           5709907     debug   sample tkaiser2  R       1:38      1 r1i7n35 
 job in queue
-           5693055     debug   sample tkaiser2  R       0:33      1 r1i7n35 
+           5709907     debug   sample tkaiser2  R       1:48      1 r1i7n35 
+job in queue
+           5709907     debug   sample tkaiser2  R       1:58      1 r1i7n35 
+job in queue
+           5709907     debug   sample tkaiser2  R       2:10      1 r1i7n35 
+job in queue
+           5709907     debug   sample tkaiser2  R       2:20      1 r1i7n35 
+job in queue
+           5709907     debug   sample tkaiser2  R       2:30      1 r1i7n35 
+job in queue
+           5709907     debug   sample tkaiser2  R       2:40      1 r1i7n35 
 job in queue
 +++++++++++++
-1610678885.127260 Thu Jan 14 19:48:05 2021     55.260    848.124 finished affinity.sh
-./source/logfile
-./5693055.scatter
-./5693055.err
-./5693055.compact
-./5693055.noaffinity
-./5693055.out
-1610678885.232771 Thu Jan 14 19:48:05 2021      0.106    848.230 submitting newdir.sh
+1611075084.367297 Tue Jan 19 09:51:24 2021    187.154    238.487 finished openmp.sh
+./5709907.36.scatter
+./5709907.out
+./5709907.18.scatter
+./5709907.18.spread
+./5709907.36.spread
+./5709907.err
+1611075084.398086 Tue Jan 19 09:51:24 2021      0.031    238.518 submitting simple.sh
 +++++++++++++
-Submitted batch job 5693056
-           5693056     debug   hybrid tkaiser2 PD       0:00      2 (None) 
+Submitted batch job 5709914
+           5709914     debug   sample tkaiser2 PD       0:00      2 (None) 
 job in queue
-           5693056     debug   hybrid tkaiser2  R       0:06      2 r102u[34-35] 
+           5709914     debug   sample tkaiser2  R       0:07      2 r102u[34-35] 
 job in queue
-+++++++++++++
-1610678915.403125 Thu Jan 14 19:48:35 2021     30.170    878.400 finished newdir.sh
-./source/logfile
-./5693056/nodes.5693056
-./5693056/env.5693056
-./5693056/script.5693056
-./5693056/slurm-5693056.out
-./5693056/stf_01
-./slurm-5693056.out
-1610678915.512851 Thu Jan 14 19:48:35 2021      0.110    878.510 submitting fromenv.sh
-+++++++++++++
-Submitted batch job 5693066
-           5693066     debug   sample tkaiser2  R       0:02      1 r1i7n35 
+           5709914     debug   sample tkaiser2  R       0:18      2 r102u[34-35] 
+job in queue
+           5709914     debug   sample tkaiser2 CG       0:25      2 r102u[34-35] 
 job in queue
 +++++++++++++
-1610678930.686695 Thu Jan 14 19:48:50 2021     15.174    893.683 finished fromenv.sh
-./source/logfile
-./5693066.out
-./5693066.err
-1610678930.794222 Thu Jan 14 19:48:50 2021      0.108    893.791 submitting mpmd.sh
+1611075131.058050 Tue Jan 19 09:52:11 2021     46.660    285.178 finished simple.sh
+./5709914.err
+./5709914.out
+./5709914.stdout
+1611075131.087025 Tue Jan 19 09:52:11 2021      0.029    285.207 submitting hybrid.sh
 +++++++++++++
-Submitted batch job 5693067
-           5693067     debug   sample tkaiser2  R       0:04      1 r1i7n35 
+Submitted batch job 5709915
+           5709915     debug   sample tkaiser2  R       0:04      2 r102u[34-35] 
 job in queue
-           5693067     debug   sample tkaiser2 CG       0:12      1 r1i7n35 
+           5709915     debug   sample tkaiser2  R       0:14      2 r102u[34-35] 
+job in queue
+           5709915     debug   sample tkaiser2  R       0:24      2 r102u[34-35] 
+job in queue
+           5709915     debug   sample tkaiser2 CG       0:35      2 r102u[34-35] 
 job in queue
 +++++++++++++
-1610678959.901960 Thu Jan 14 19:49:19 2021     29.108    922.899 finished mpmd.sh
-./source/logfile
+1611075177.586673 Tue Jan 19 09:52:57 2021     46.500    331.707 finished hybrid.sh
+./5709915.4
+./5709915.1
+./5709915.9
+./5709915.err
+./5709915.out
+1611075177.617959 Tue Jan 19 09:52:57 2021      0.031    331.738 submitting affinity.sh
++++++++++++++
+Submitted batch job 5709918
+           5709918     debug   sample tkaiser2  R       0:02      1 r1i7n35 
+job in queue
+           5709918     debug   sample tkaiser2  R       0:12      1 r1i7n35 
+job in queue
+           5709918     debug   sample tkaiser2  R       0:22      1 r1i7n35 
+job in queue
+           5709918     debug   sample tkaiser2  R       0:32      1 r1i7n35 
+job in queue
+           5709918     debug   sample tkaiser2 CG       0:40      1 r1i7n35 
+job in queue
++++++++++++++
+1611075232.779861 Tue Jan 19 09:53:52 2021     55.162    386.900 finished affinity.sh
+./5709918.compact
+./5709918.scatter
+./5709918.out
+./5709918.err
+./5709918.noaffinity
+1611075232.811977 Tue Jan 19 09:53:52 2021      0.032    386.932 submitting newdir.sh
++++++++++++++
+Submitted batch job 5709919
+           5709919     debug   hybrid tkaiser2  R       0:02      2 r102u[34-35] 
+job in queue
++++++++++++++
+1611075247.932922 Tue Jan 19 09:54:07 2021     15.121    402.053 finished newdir.sh
+./slurm-5709919.out
+./5709919/slurm-5709919.out
+./5709919/env.5709919
+./5709919/script.5709919
+./5709919/nodes.5709919
+./5709919/stf_01
+1611075247.964461 Tue Jan 19 09:54:07 2021      0.032    402.084 submitting fromenv.sh
++++++++++++++
+Submitted batch job 5709920
+           5709920     debug   sample tkaiser2 PD       0:00      1 (None) 
+job in queue
++++++++++++++
+1611075263.045890 Tue Jan 19 09:54:23 2021     15.081    417.166 finished fromenv.sh
+./5709920.out
+./5709920.err
+1611075263.082706 Tue Jan 19 09:54:23 2021      0.037    417.203 submitting mpmd.sh
++++++++++++++
+Submitted batch job 5709921
+           5709921     debug   sample tkaiser2 PD       0:00      1 (None) 
+job in queue
+           5709921     debug   sample tkaiser2 CG       0:04      1 r1i7n35 
+job in queue
++++++++++++++
+1611075289.484172 Tue Jan 19 09:54:49 2021     26.401    443.604 finished mpmd.sh
+./5709921.out
+./5709921.err
 ./used_mpiexec
 ./mapfile
-./5693067.err
-./5693067.out
 ./used_mapfile
-1610678960.009348 Thu Jan 14 19:49:20 2021      0.107    923.006 submitting mpmd2.sh
+1611075289.517075 Tue Jan 19 09:54:49 2021      0.033    443.637 submitting mpmd2.sh
 +++++++++++++
-Submitted batch job 5693068
-           5693068     debug   sample tkaiser2  R       0:03      2 r102u[34-35] 
+Submitted batch job 5709922
+           5709922     debug   sample tkaiser2  R       0:03      2 r102u[34-35] 
+job in queue
+           5709922     debug   sample tkaiser2 CG       0:08      1 r102u34 
 job in queue
 +++++++++++++
-1610678975.204309 Thu Jan 14 19:49:35 2021     15.195    938.201 finished mpmd2.sh
+1611075317.111701 Tue Jan 19 09:55:17 2021     27.595    471.232 finished mpmd2.sh
 ./hostlist
-./source/logfile
+./5709922.err
 ./config_file
-./5693068.out
-./5693068.err
-1610678975.307383 Thu Jan 14 19:49:35 2021      0.103    938.304 submitting multi.sh
+./.README.md.swp
+./5709922.out
+1611075317.143611 Tue Jan 19 09:55:17 2021      0.032    471.264 submitting multi.sh
 +++++++++++++
-Submitted batch job 5693070
-           5693070     debug      two tkaiser2  R       0:02      1 r1i7n35 
+Submitted batch job 5709923
+           5709923     debug      two tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693070     debug      two tkaiser2  R       0:12      1 r1i7n35 
+           5709923     debug      two tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693070     debug      two tkaiser2  R       0:24      1 r1i7n35 
+           5709923     debug      two tkaiser2  R       0:09      1 r1i7n35 
 job in queue
-           5693070     debug      two tkaiser2  R       0:34      1 r1i7n35 
+           5709923     debug      two tkaiser2  R       0:19      1 r1i7n35 
 job in queue
-           5693070     debug      two tkaiser2  R       0:44      1 r1i7n35 
+           5709923     debug      two tkaiser2  R       0:29      1 r1i7n35 
 job in queue
-           5693070     debug      two tkaiser2  R       0:54      1 r1i7n35 
+           5709923     debug      two tkaiser2  R       0:39      1 r1i7n35 
 job in queue
-           5693070     debug      two tkaiser2  R       1:04      1 r1i7n35 
+           5709923     debug      two tkaiser2  R       0:49      1 r1i7n35 
+job in queue
+           5709923     debug      two tkaiser2  R       0:59      1 r1i7n35 
+job in queue
+           5709923     debug      two tkaiser2 CG       1:07      1 r1i7n35 
 job in queue
 +++++++++++++
-1610679052.584452 Thu Jan 14 19:50:52 2021     77.277   1015.581 finished multi.sh
-./source/logfile
-./slurm-5693070.out
-./5693070.15
-./5693070.run1
-./5693070.run2
-./5693070.5
-./5693070.10
+1611075412.716225 Tue Jan 19 09:56:52 2021     95.573    566.836 finished multi.sh
+./5709923.run2
+./slurm-5709923.out
+./5709923.10
+./5709923.15
+./5709923.run1
+./.README.md.swp
+./5709923.5
 ./mytimes
-1610679052.697365 Thu Jan 14 19:50:52 2021      0.113   1015.694 submitting gpucpu.sh
+1611075412.748901 Tue Jan 19 09:56:52 2021      0.033    566.869 submitting gpucpu.sh
 +++++++++++++
-Submitted batch job 5693072
-           5693072     debug   sample tkaiser2  R       0:05      1 r103u21 
+Submitted batch job 5709925
+           5709925     debug   sample tkaiser2  R       0:02      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       0:17      1 r103u21 
+           5709925     debug   sample tkaiser2  R       0:12      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       0:27      1 r103u21 
+           5709925     debug   sample tkaiser2  R       0:22      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       0:37      1 r103u21 
+           5709925     debug   sample tkaiser2  R       0:32      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       0:47      1 r103u21 
+           5709925     debug   sample tkaiser2  R       0:42      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       0:57      1 r103u21 
+           5709925     debug   sample tkaiser2  R       0:53      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       1:09      1 r103u21 
+           5709925     debug   sample tkaiser2  R       1:03      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       1:19      1 r103u21 
+           5709925     debug   sample tkaiser2  R       1:13      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2  R       1:29      1 r103u21 
+           5709925     debug   sample tkaiser2  R       1:23      1 r103u21 
 job in queue
-           5693072     debug   sample tkaiser2 CG       1:39      1 r103u21 
+           5709925     debug   sample tkaiser2  R       1:33      1 r103u21 
 job in queue
 +++++++++++++
-1610679164.999413 Thu Jan 14 19:52:44 2021    112.302   1127.996 finished gpucpu.sh
-./5693072.out
-./5693072/six.out
-./5693072/mpigpu.out
-./5693072/script
-./source/logfile
-./5693072.err
-1610679165.106883 Thu Jan 14 19:52:45 2021      0.107   1128.104 submitting FAN.sh
+1611075519.931399 Tue Jan 19 09:58:39 2021    107.182    674.051 finished gpucpu.sh
+./5709925.err
+./README.md
+./5709925/six.out
+./5709925/mpigpu.out
+./5709925/script
+./5709925.out
+1611075519.979037 Tue Jan 19 09:58:39 2021      0.048    674.099 submitting CHAIN.sh
++++++++++++++
+5709928
+5709929
+5709930
+5709931
+5709932
+           5709928     short    atest tkaiser2 PD       0:00      1 (None) 
+           5709929     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709928     short    atest tkaiser2 PD       0:00      1 (None) 
+           5709929     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709929     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709928     short    atest tkaiser2  R       0:08      1 r104u21 
+job in queue
+           5709928     short    atest tkaiser2 CG       0:17      1 r104u21 
+           5709929     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709929     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709929     short    atest tkaiser2  R       0:05      1 r3i3n29 
+job in queue
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709929     short    atest tkaiser2  R       0:15      1 r3i3n29 
+job in queue
+           5709929     short    atest tkaiser2 CG       0:23      1 r3i3n29 
+           5709930     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709930     short    atest tkaiser2  R       0:07      1 r3i3n29 
+job in queue
+           5709930     short    atest tkaiser2 CG       0:15      1 r3i3n29 
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709931     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2  R       0:08      1 r5i7n33 
+job in queue
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709931     short    atest tkaiser2  R       0:18      1 r5i7n33 
+job in queue
+           5709931     short    atest tkaiser2 CG       0:26      1 r5i7n33 
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709932     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709932     short    atest tkaiser2  R       0:07      1 r4i3n19 
+job in queue
+           5709932     short    atest tkaiser2 CG       0:16      1 r4i3n19 
+job in queue
++++++++++++++
+1611075701.608329 Tue Jan 19 10:01:41 2021    181.629    855.728 finished CHAIN.sh
+./job3/5709928.out
+./job3/5709930.out
+./job3/5709929.out
+./stderr.5709932
+./job1/5709928.out
+./stdout.5709930
+./stdout.5709928
+./job4/5709931.out
+./job4/5709928.out
+./job4/5709930.out
+./job4/5709929.out
+./stderr.5709930
+./job5/5709931.out
+./job5/5709928.out
+./job5/5709930.out
+./job5/5709932.out
+./job5/5709929.out
+./stderr.5709928
+./job2/5709928.out
+./job2/5709929.out
+./stdout.5709929
+./stdout.5709932
+./stderr.5709929
+./stdout.5709931
+./stderr.5709931
+1611075701.649843 Tue Jan 19 10:01:41 2021      0.042    855.770 submitting FAN.sh
 +++++++++++++
 Starts with 5 jobs that need to run in sequence.
-5693079
---dependency=afterok:5693079
-5693080
---dependency=afterok:5693080
-5693081
---dependency=afterok:5693081
-5693082
---dependency=afterok:5693082
-5693083
-afterok:5693080,afterok:5693081,afterok:5693082,afterok:5693083
+5709935
+--dependency=afterok:5709935
+5709936
+--dependency=afterok:5709936
+5709937
+--dependency=afterok:5709937
+5709938
+--dependency=afterok:5709938
+5709939
+afterok:5709936,afterok:5709937,afterok:5709938,afterok:5709939
 Now 4 jobs that will wait for the previous 5,
 however, these are independent of each other.
---dependency=afterok:5693080,afterok:5693081,afterok:5693082,afterok:5693083
-5693084
---dependency=afterok:5693080,afterok:5693081,afterok:5693082,afterok:5693083
-5693085
---dependency=afterok:5693080,afterok:5693081,afterok:5693082,afterok:5693083
-5693086
---dependency=afterok:5693080,afterok:5693081,afterok:5693082,afterok:5693083
-5693087
-afterok:5693084,afterok:5693085,afterok:5693086,afterok:5693087
+--dependency=afterok:5709936,afterok:5709937,afterok:5709938,afterok:5709939
+5709940
+--dependency=afterok:5709936,afterok:5709937,afterok:5709938,afterok:5709939
+5709941
+--dependency=afterok:5709936,afterok:5709937,afterok:5709938,afterok:5709939
+5709942
+--dependency=afterok:5709936,afterok:5709937,afterok:5709938,afterok:5709939
+5709943
+afterok:5709940,afterok:5709941,afterok:5709942,afterok:5709943
 Finally a single job that waits for the previous 4
-5693084 5693085 5693086 5693087
-5693088
+5709940 5709941 5709942 5709943
+5709944
 +-+-+- REPORT OF PENDING JOB DEPENDECIES +-+-+-
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON) 
-           5693079     short    atest tkaiser2 PD       0:00      1 (None) 
-           5693080     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-job 5693079
+           5709935     short    atest tkaiser2 PD       0:00      1 (None) 
+           5709936     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job 5709935
    JobState=PENDING Reason=None Dependency=(null)
-job 5693080
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693079(unfulfilled)
-job 5693081
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693080(unfulfilled)
-job 5693082
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693081(unfulfilled)
-job 5693083
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693082(unfulfilled)
-job 5693084
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693080(unfulfilled),afterok:5693081(unfulfilled),afterok:5693082(unfulfilled),afterok:5693083(unfulfilled)
-job 5693085
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693080(unfulfilled),afterok:5693081(unfulfilled),afterok:5693082(unfulfilled),afterok:5693083(unfulfilled)
-job 5693086
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693080(unfulfilled),afterok:5693081(unfulfilled),afterok:5693082(unfulfilled),afterok:5693083(unfulfilled)
-job 5693087
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693080(unfulfilled),afterok:5693081(unfulfilled),afterok:5693082(unfulfilled),afterok:5693083(unfulfilled)
-job 5693088
-   JobState=PENDING Reason=Dependency Dependency=afterok:5693084(unfulfilled),afterok:5693085(unfulfilled),afterok:5693086(unfulfilled),afterok:5693087(unfulfilled)
-           5693079     short    atest tkaiser2 PD       0:00      1 (None) 
-           5693080     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job 5709936
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709935(unfulfilled)
+job 5709937
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709936(unfulfilled)
+job 5709938
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709937(unfulfilled)
+job 5709939
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709938(unfulfilled)
+job 5709940
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709936(unfulfilled),afterok:5709937(unfulfilled),afterok:5709938(unfulfilled),afterok:5709939(unfulfilled)
+job 5709941
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709936(unfulfilled),afterok:5709937(unfulfilled),afterok:5709938(unfulfilled),afterok:5709939(unfulfilled)
+job 5709942
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709936(unfulfilled),afterok:5709937(unfulfilled),afterok:5709938(unfulfilled),afterok:5709939(unfulfilled)
+job 5709943
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709936(unfulfilled),afterok:5709937(unfulfilled),afterok:5709938(unfulfilled),afterok:5709939(unfulfilled)
+job 5709944
+   JobState=PENDING Reason=Dependency Dependency=afterok:5709940(unfulfilled),afterok:5709941(unfulfilled),afterok:5709942(unfulfilled),afterok:5709943(unfulfilled)
+           5709935     short    atest tkaiser2 PD       0:00      1 (None) 
+           5709936     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693080     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693079     short    atest tkaiser2  R       0:07      1 r1i2n24 
+           5709936     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709935     short    atest tkaiser2  R       0:03      1 r4i3n19 
 job in queue
-           5693080     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693079     short    atest tkaiser2  R       0:17      1 r1i2n24 
+           5709936     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709935     short    atest tkaiser2  R       0:13      1 r4i3n19 
 job in queue
-           5693080     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709936     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693080     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709936     short    atest tkaiser2  R       0:05      1 r4i3n19 
 job in queue
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693080     short    atest tkaiser2  R       0:04      1 r4i2n2 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709936     short    atest tkaiser2  R       0:15      1 r4i3n19 
 job in queue
-           5693081     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693080     short    atest tkaiser2  R       0:14      1 r4i2n2 
+           5709936     short    atest tkaiser2 CG       0:22      1 r4i3n19 
+           5709937     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2  R       0:03      1 r4i2n2 
+           5709937     short    atest tkaiser2 CF       0:00      1 r4i3n19 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693081     short    atest tkaiser2  R       0:13      1 r4i2n2 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709937     short    atest tkaiser2  R       0:10      1 r4i3n19 
 job in queue
-           5693081     short    atest tkaiser2 CG       0:20      1 r4i2n2 
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693082     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2  R       0:07      1 r4i3n19 
 job in queue
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2  R       0:04      1 r4i2n2 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709938     short    atest tkaiser2  R       0:17      1 r4i3n19 
 job in queue
-           5693083     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693082     short    atest tkaiser2  R       0:14      1 r4i2n2 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2  R       0:03      1 r4i2n2 
+           5709939     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693083     short    atest tkaiser2  R       0:13      1 r4i2n2 
+           5709939     short    atest tkaiser2 CF       0:02      1 r4i3n19 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693083     short    atest tkaiser2 CG       0:20      1 r4i2n2 
-           5693084     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693085     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693086     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693087     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709939     short    atest tkaiser2  R       0:12      1 r4i3n19 
 job in queue
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2  R       0:05      1 r6i6n23 
-           5693085     short    atest tkaiser2  R       0:05      1 r1i2n24 
-           5693086     short    atest tkaiser2  R       0:05      1 r1i5n3 
-           5693087     short    atest tkaiser2  R       0:05      1 r4i2n2 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
-           5693084     short    atest tkaiser2  R       0:15      1 r6i6n23 
-           5693085     short    atest tkaiser2  R       0:15      1 r1i2n24 
-           5693086     short    atest tkaiser2  R       0:15      1 r1i5n3 
-           5693087     short    atest tkaiser2  R       0:15      1 r4i2n2 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693088     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693088     short    atest tkaiser2  R       0:07      1 r6i6n23 
+           5709940     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709942     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709943     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
 job in queue
-           5693088     short    atest tkaiser2  R       0:17      1 r6i6n23 
+           5709940     short    atest tkaiser2 CF       0:02      1 r3i4n22 
+           5709943     short    atest tkaiser2 CF       0:02      1 r104u25 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709941     short    atest tkaiser2  R       0:02      1 r4i3n19 
+           5709942     short    atest tkaiser2  R       0:02      1 r104u21 
 job in queue
-+++++++++++++
-1610679385.141287 Thu Jan 14 19:56:25 2021    220.034   1348.138 finished FAN.sh
-./source/logfile
-./ser4/5693082.out
-./ser4/5693080.out
-./ser4/5693081.out
-./ser4/5693079.out
-./stdout.5693081
-./stderr.5693079
-./final/5693087.out
-./final/5693086.out
-./final/5693085.out
-./final/5693084.out
-./final/5693088.out
-./stderr.5693086
-./stdout.5693079
-./stderr.5693080
-./par2/5693083.out
-./par2/5693082.out
-./par2/5693085.out
-./par2/5693080.out
-./par2/5693081.out
-./par2/5693079.out
-./stdout.5693085
-./stderr.5693082
-./stdout.5693080
-./par1/5693083.out
-./par1/5693082.out
-./par1/5693084.out
-./par1/5693080.out
-./par1/5693081.out
-./par1/5693079.out
-./ser1/5693079.out
-./stdout.5693082
-./stderr.5693085
-./ser3/5693080.out
-./ser3/5693081.out
-./ser3/5693079.out
-./stdout.5693088
-./stderr.5693084
-./par4/5693087.out
-./par4/5693083.out
-./par4/5693082.out
-./par4/5693080.out
-./par4/5693081.out
-./par4/5693079.out
-./stderr.5693083
-./stdout.5693084
-./stderr.5693088
-./stderr.5693081
-./ser2/5693080.out
-./ser2/5693079.out
-./stdout.5693087
-./stdout.5693086
-./par3/5693086.out
-./par3/5693083.out
-./par3/5693082.out
-./par3/5693080.out
-./par3/5693081.out
-./par3/5693079.out
-./stdout.5693083
-./stderr.5693087
-./ser5/5693083.out
-./ser5/5693082.out
-./ser5/5693080.out
-./ser5/5693081.out
-./ser5/5693079.out
-1610679385.267287 Thu Jan 14 19:56:25 2021      0.126   1348.264 submitting uselist.sh
-+++++++++++++
-Submitted batch job 5693090
-    5693090_[1-24]     short array_jo tkaiser2 PD       0:00      1 (None) 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+           5709940     short    atest tkaiser2  R       0:12      1 r3i4n22 
+           5709941     short    atest tkaiser2  R       0:12      1 r4i3n19 
+           5709942     short    atest tkaiser2  R       0:12      1 r104u21 
+           5709943     short    atest tkaiser2  R       0:12      1 r104u25 
 job in queue
-        5693090_24     short array_jo tkaiser2 CF       0:13      1 r2i7n6 
-         5693090_1     short array_jo tkaiser2  R       0:13      1 r6i6n23 
-         5693090_2     short array_jo tkaiser2  R       0:13      1 r4i2n2 
-         5693090_3     short array_jo tkaiser2  R       0:13      1 r4i7n14 
-         5693090_4     short array_jo tkaiser2  R       0:13      1 r1i2n24 
-         5693090_5     short array_jo tkaiser2  R       0:13      1 r1i5n3 
-         5693090_6     short array_jo tkaiser2  R       0:13      1 r1i7n4 
-         5693090_7     short array_jo tkaiser2  R       0:13      1 r5i1n21 
-         5693090_8     short array_jo tkaiser2  R       0:13      1 r5i2n21 
-         5693090_9     short array_jo tkaiser2  R       0:13      1 r5i7n33 
-        5693090_10     short array_jo tkaiser2  R       0:13      1 r2i2n15 
-        5693090_11     short array_jo tkaiser2  R       0:13      1 r2i3n35 
-        5693090_12     short array_jo tkaiser2  R       0:13      1 r2i4n8 
-        5693090_13     short array_jo tkaiser2  R       0:13      1 r2i4n14 
-        5693090_14     short array_jo tkaiser2  R       0:13      1 r2i4n20 
-        5693090_15     short array_jo tkaiser2  R       0:13      1 r2i4n35 
-        5693090_16     short array_jo tkaiser2  R       0:13      1 r2i5n3 
-        5693090_17     short array_jo tkaiser2  R       0:13      1 r2i5n15 
-        5693090_18     short array_jo tkaiser2  R       0:13      1 r2i5n19 
-        5693090_19     short array_jo tkaiser2  R       0:13      1 r2i5n22 
-        5693090_20     short array_jo tkaiser2  R       0:13      1 r2i6n21 
-        5693090_21     short array_jo tkaiser2  R       0:13      1 r2i6n25 
-        5693090_22     short array_jo tkaiser2  R       0:13      1 r2i6n26 
-        5693090_23     short array_jo tkaiser2  R       0:13      1 r2i6n29 
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709944     short    atest tkaiser2 PD       0:00      1 (Dependency) 
+job in queue
+           5709944     short    atest tkaiser2  R       0:04      1 r3i4n22 
+job in queue
+           5709944     short    atest tkaiser2  R       0:14      1 r3i4n22 
 job in queue
 +++++++++++++
-1610679422.063455 Thu Jan 14 19:57:02 2021     36.796   1385.060 finished uselist.sh
-./source/logfile
-./5693090/19/input
-./5693090/19/myscript
-./5693090/19/envs
-./5693090/19/timer
-./5693090/19/node
-./5693090/19/output
-./5693090/7/input
-./5693090/7/myscript
-./5693090/7/envs
-./5693090/7/timer
-./5693090/7/node
-./5693090/7/output
-./5693090/14/input
-./5693090/14/myscript
-./5693090/14/envs
-./5693090/14/timer
-./5693090/14/node
-./5693090/14/output
-./5693090/2/input
-./5693090/2/myscript
-./5693090/2/envs
-./5693090/2/timer
-./5693090/2/node
-./5693090/2/output
-./5693090/17/input
-./5693090/17/myscript
-./5693090/17/envs
-./5693090/17/timer
-./5693090/17/node
-./5693090/17/output
-./5693090/3/input
-./5693090/3/myscript
-./5693090/3/envs
-./5693090/3/timer
-./5693090/3/node
-./5693090/3/output
-./5693090/4/input
-./5693090/4/myscript
-./5693090/4/envs
-./5693090/4/timer
-./5693090/4/node
-./5693090/4/output
-./5693090/23/input
-./5693090/23/myscript
-./5693090/23/envs
-./5693090/23/timer
-./5693090/23/node
-./5693090/23/output
-./5693090/20/input
-./5693090/20/myscript
-./5693090/20/envs
-./5693090/20/timer
-./5693090/20/node
-./5693090/20/output
-./5693090/21/input
-./5693090/21/myscript
-./5693090/21/envs
-./5693090/21/timer
-./5693090/21/node
-./5693090/21/output
-./5693090/12/input
-./5693090/12/myscript
-./5693090/12/envs
-./5693090/12/timer
-./5693090/12/node
-./5693090/12/output
-./5693090/1/input
-./5693090/1/myscript
-./5693090/1/envs
-./5693090/1/timer
-./5693090/1/node
-./5693090/1/output
-./5693090/6/input
-./5693090/6/myscript
-./5693090/6/envs
-./5693090/6/timer
-./5693090/6/node
-./5693090/6/output
-./5693090/24/input
-./5693090/24/myscript
-./5693090/24/envs
-./5693090/24/timer
-./5693090/24/node
-./5693090/24/output
-./5693090/15/input
-./5693090/15/myscript
-./5693090/15/envs
-./5693090/15/timer
-./5693090/15/node
-./5693090/15/output
-./5693090/5/input
-./5693090/5/myscript
-./5693090/5/envs
-./5693090/5/timer
-./5693090/5/node
-./5693090/5/output
-./5693090/16/input
-./5693090/16/myscript
-./5693090/16/envs
-./5693090/16/timer
-./5693090/16/node
-./5693090/16/output
-./5693090/10/input
-./5693090/10/myscript
-./5693090/10/envs
-./5693090/10/timer
-./5693090/10/node
-./5693090/10/output
-./5693090/18/input
-./5693090/18/myscript
-./5693090/18/envs
-./5693090/18/timer
-./5693090/18/node
-./5693090/18/output
-./5693090/8/input
-./5693090/8/myscript
-./5693090/8/envs
-./5693090/8/timer
-./5693090/8/node
-./5693090/8/output
-./5693090/22/input
-./5693090/22/myscript
-./5693090/22/envs
-./5693090/22/timer
-./5693090/22/node
-./5693090/22/output
-./5693090/13/input
-./5693090/13/myscript
-./5693090/13/envs
-./5693090/13/timer
-./5693090/13/node
-./5693090/13/output
-./5693090/11/input
-./5693090/11/myscript
-./5693090/11/envs
-./5693090/11/timer
-./5693090/11/node
-./5693090/11/output
-./5693090/9/input
-./5693090/9/myscript
-./5693090/9/envs
-./5693090/9/timer
-./5693090/9/node
-./5693090/9/output
-1610679422.227982 Thu Jan 14 19:57:02 2021      0.165   1385.225 submitting redirect.sh
+1611075998.848123 Tue Jan 19 10:06:38 2021    297.198   1152.968 finished FAN.sh
+./stdout.5709937
+./ser4/5709936.out
+./ser4/5709935.out
+./ser4/5709938.out
+./ser4/5709937.out
+./stdout.5709944
+./stderr.5709943
+./stdout.5709942
+./stdout.5709936
+./final/5709940.out
+./final/5709942.out
+./final/5709941.out
+./final/5709943.out
+./final/5709944.out
+./stdout.5709941
+./stdout.5709938
+./par2/5709939.out
+./par2/5709936.out
+./par2/5709935.out
+./par2/5709938.out
+./par2/5709937.out
+./par2/5709941.out
+./stderr.5709944
+./stderr.5709940
+./stderr.5709938
+./par1/5709939.out
+./par1/5709940.out
+./par1/5709936.out
+./par1/5709935.out
+./par1/5709938.out
+./par1/5709937.out
+./ser1/5709935.out
+./stdout.5709939
+./ser3/5709936.out
+./ser3/5709935.out
+./ser3/5709937.out
+./stdout.5709940
+./stderr.5709942
+./par4/5709939.out
+./par4/5709936.out
+./par4/5709935.out
+./par4/5709938.out
+./par4/5709937.out
+./par4/5709943.out
+./stdout.5709943
+./stderr.5709936
+./ser2/5709936.out
+./ser2/5709935.out
+./par3/5709939.out
+./par3/5709936.out
+./par3/5709935.out
+./par3/5709938.out
+./par3/5709942.out
+./par3/5709937.out
+./stderr.5709941
+./stderr.5709935
+./stderr.5709937
+./stdout.5709935
+./stderr.5709939
+./ser5/5709939.out
+./ser5/5709936.out
+./ser5/5709935.out
+./ser5/5709938.out
+./ser5/5709937.out
+1611075998.902660 Tue Jan 19 10:06:38 2021      0.055   1153.023 submitting uselist.sh
 +++++++++++++
-Submitted batch job 5693116
-           5693116     debug    atest tkaiser2  R       0:03      1 r1i7n35 
+created in_list
+COMMAND:
+sbatch -A hpcapps --array=1-24 uselist.sh
+Submitted batch job 5709946
+
+    5709946_[1-24]     short array_jo tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693116     debug    atest tkaiser2  R       0:13      1 r1i7n35 
+    5709946_[1-24]     short array_jo tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693116     debug    atest tkaiser2  R       0:23      1 r1i7n35 
+    5709946_[8-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+         5709946_1     short array_jo tkaiser2  R       0:05      1 r3i4n22 
+         5709946_2     short array_jo tkaiser2  R       0:05      1 r4i3n19 
+         5709946_3     short array_jo tkaiser2  R       0:05      1 r104u21 
+         5709946_4     short array_jo tkaiser2  R       0:05      1 r104u25 
+         5709946_5     short array_jo tkaiser2  R       0:05      1 r104u27 
+         5709946_6     short array_jo tkaiser2  R       0:05      1 r104u29 
+         5709946_7     short array_jo tkaiser2  R       0:05      1 r104u31 
 job in queue
-           5693116     debug    atest tkaiser2 CG       0:31      1 r1i7n35 
+        5709946_11     short array_jo tkaiser2 CF       0:02      1 r104u29 
+        5709946_12     short array_jo tkaiser2 CF       0:02      1 r104u31 
+   5709946_[13-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+         5709946_9     short array_jo tkaiser2  R       0:02      1 r104u25 
+        5709946_10     short array_jo tkaiser2  R       0:02      1 r104u27 
+         5709946_8     short array_jo tkaiser2  R       0:03      1 r104u21 
+job in queue
+   5709946_[13-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+job in queue
+   5709946_[18-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+        5709946_13     short array_jo tkaiser2  R       0:09      1 r104u21 
+        5709946_14     short array_jo tkaiser2  R       0:09      1 r104u25 
+        5709946_15     short array_jo tkaiser2  R       0:09      1 r104u27 
+        5709946_16     short array_jo tkaiser2  R       0:09      1 r104u29 
+        5709946_17     short array_jo tkaiser2  R       0:09      1 r104u31 
+job in queue
+   5709946_[18-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+job in queue
+   5709946_[18-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+job in queue
+   5709946_[18-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+job in queue
+   5709946_[23-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+        5709946_18     short array_jo tkaiser2  R       0:05      1 r104u21 
+        5709946_19     short array_jo tkaiser2  R       0:05      1 r104u25 
+        5709946_20     short array_jo tkaiser2  R       0:05      1 r104u27 
+        5709946_21     short array_jo tkaiser2  R       0:05      1 r104u29 
+        5709946_22     short array_jo tkaiser2  R       0:05      1 r104u31 
+job in queue
+   5709946_[23-24]     short array_jo tkaiser2 PD       0:00      1 (Resources) 
+job in queue
+        5709946_23     short array_jo tkaiser2 CG       0:10      1 r104u21 
+        5709946_24     short array_jo tkaiser2 CG       0:10      1 r104u25 
 job in queue
 +++++++++++++
-1610679467.487069 Thu Jan 14 19:57:47 2021     45.259   1430.484 finished redirect.sh
-./stdout.5693116
-./source/logfile
-./myout.5693116
-./stderr.5693116
-1610679467.635477 Thu Jan 14 19:57:47 2021      0.148   1430.632 submitting multimax.sh
+1611076128.186164 Tue Jan 19 10:08:48 2021    129.284   1282.306 finished uselist.sh
+./5709946/19/input
+./5709946/19/myscript
+./5709946/19/envs
+./5709946/19/timer
+./5709946/19/node
+./5709946/19/output
+./5709946/7/input
+./5709946/7/myscript
+./5709946/7/envs
+./5709946/7/timer
+./5709946/7/node
+./5709946/7/output
+./5709946/14/input
+./5709946/14/myscript
+./5709946/14/envs
+./5709946/14/timer
+./5709946/14/node
+./5709946/14/output
+./5709946/2/input
+./5709946/2/myscript
+./5709946/2/envs
+./5709946/2/timer
+./5709946/2/node
+./5709946/2/output
+./5709946/17/input
+./5709946/17/myscript
+./5709946/17/envs
+./5709946/17/timer
+./5709946/17/node
+./5709946/17/output
+./5709946/3/input
+./5709946/3/myscript
+./5709946/3/envs
+./5709946/3/timer
+./5709946/3/node
+./5709946/3/output
+./5709946/4/input
+./5709946/4/myscript
+./5709946/4/envs
+./5709946/4/timer
+./5709946/4/node
+./5709946/4/output
+./5709946/23/input
+./5709946/23/myscript
+./5709946/23/envs
+./5709946/23/timer
+./5709946/23/node
+./5709946/23/output
+./5709946/20/input
+./5709946/20/myscript
+./5709946/20/envs
+./5709946/20/timer
+./5709946/20/node
+./5709946/20/output
+./5709946/21/input
+./5709946/21/myscript
+./5709946/21/envs
+./5709946/21/timer
+./5709946/21/node
+./5709946/21/output
+./5709946/12/input
+./5709946/12/myscript
+./5709946/12/envs
+./5709946/12/timer
+./5709946/12/node
+./5709946/12/output
+./5709946/1/input
+./5709946/1/myscript
+./5709946/1/envs
+./5709946/1/timer
+./5709946/1/node
+./5709946/1/output
+./5709946/6/input
+./5709946/6/myscript
+./5709946/6/envs
+./5709946/6/timer
+./5709946/6/node
+./5709946/6/output
+./5709946/24/input
+./5709946/24/myscript
+./5709946/24/envs
+./5709946/24/timer
+./5709946/24/node
+./5709946/24/output
+./5709946/15/input
+./5709946/15/myscript
+./5709946/15/envs
+./5709946/15/timer
+./5709946/15/node
+./5709946/15/output
+./5709946/5/input
+./5709946/5/myscript
+./5709946/5/envs
+./5709946/5/timer
+./5709946/5/node
+./5709946/5/output
+./5709946/16/input
+./5709946/16/myscript
+./5709946/16/envs
+./5709946/16/timer
+./5709946/16/node
+./5709946/16/output
+./5709946/10/input
+./5709946/10/myscript
+./5709946/10/envs
+./5709946/10/timer
+./5709946/10/node
+./5709946/10/output
+./5709946/18/input
+./5709946/18/myscript
+./5709946/18/envs
+./5709946/18/timer
+./5709946/18/node
+./5709946/18/output
+./5709946/8/input
+./5709946/8/myscript
+./5709946/8/envs
+./5709946/8/timer
+./5709946/8/node
+./5709946/8/output
+./5709946/22/input
+./5709946/22/myscript
+./5709946/22/envs
+./5709946/22/timer
+./5709946/22/node
+./5709946/22/output
+./5709946/13/input
+./5709946/13/myscript
+./5709946/13/envs
+./5709946/13/timer
+./5709946/13/node
+./5709946/13/output
+./5709946/11/input
+./5709946/11/myscript
+./5709946/11/envs
+./5709946/11/timer
+./5709946/11/node
+./5709946/11/output
+./5709946/9/input
+./5709946/9/myscript
+./5709946/9/envs
+./5709946/9/timer
+./5709946/9/node
+./5709946/9/output
+1611076128.271237 Tue Jan 19 10:08:48 2021      0.085   1282.391 submitting redirect.sh
 +++++++++++++
-Submitted batch job 5693117
-           5693117     debug   mpi4py tkaiser2 PD       0:00      2 (None) 
+Submitted batch job 5709970
+           5709970     debug    atest tkaiser2 PD       0:00      1 (None) 
 job in queue
-           5693117     debug   mpi4py tkaiser2  R       0:09      2 r102u[34-35] 
+           5709970     debug    atest tkaiser2  R       0:04      1 r1i7n35 
 job in queue
-           5693117     debug   mpi4py tkaiser2  R       0:19      2 r102u[34-35] 
+           5709970     debug    atest tkaiser2  R       0:14      1 r1i7n35 
 job in queue
-           5693117     debug   mpi4py tkaiser2  R       0:29      2 r102u[34-35] 
-job in queue
-           5693117     debug   mpi4py tkaiser2  R       0:39      2 r102u[34-35] 
+           5709970     debug    atest tkaiser2  R       0:24      1 r1i7n35 
 job in queue
 +++++++++++++
-1610679524.904326 Thu Jan 14 19:58:44 2021     57.269   1487.901 finished multimax.sh
+1611076175.065783 Tue Jan 19 10:09:35 2021     46.795   1329.186 finished redirect.sh
+./myout.5709970
+./stderr.5709970
+./stdout.5709970
+1611076175.125808 Tue Jan 19 10:09:35 2021      0.060   1329.246 submitting multimax.sh
++++++++++++++
+Submitted batch job 5709971
+           5709971     debug   mpi4py tkaiser2  R       0:03      2 r103u[21,23] 
+job in queue
+           5709971     debug   mpi4py tkaiser2  R       0:13      2 r103u[21,23] 
+job in queue
+           5709971     debug   mpi4py tkaiser2  R       0:23      2 r103u[21,23] 
+job in queue
+           5709971     debug   mpi4py tkaiser2  R       0:33      2 r103u[21,23] 
+job in queue
++++++++++++++
+1611076220.289303 Tue Jan 19 10:10:20 2021     45.163   1374.409 finished multimax.sh
 ./run2
-./source/logfile
-./10_r102u34
+./slurm-5709971.out
 ./run0
+./10_r103u21
 ./run1
-./11_r102u35
-./11_r102u34
-./slurm-5693117.out
+./11_r103u21
 ./run3
-./10_r102u35
-1610679525.032303 Thu Jan 14 19:58:45 2021      0.128   1488.029 submitting local.sh
+./11_r103u23
+./10_r103u23
+1611076220.347506 Tue Jan 19 10:10:20 2021      0.058   1374.467 submitting local.sh
 +++++++++++++
-Submitted batch job 5693118
-1610679530.182360 Thu Jan 14 19:58:50 2021      5.150   1493.179 done launching all jobs
-           5693118     debug    local tkaiser2 PD       0:00      2 (None) 
+Submitted batch job 5709973
+1611076225.411072 Tue Jan 19 10:10:25 2021      5.064   1379.531 done launching all jobs
+           5709973     debug    local tkaiser2  R       0:08      2 r103u[21,23] 
 job in queue
-           5693118     debug    local tkaiser2  R       0:05      2 r102u[34-35] 
+           5709973     debug    local tkaiser2  R       0:18      2 r103u[21,23] 
 job in queue
-           5693118     debug    local tkaiser2  R       0:15      2 r102u[34-35] 
+           5709973     debug    local tkaiser2 CG       0:27      2 r103u[21,23] 
 job in queue
-           5693118     debug    local tkaiser2 CG       0:25      2 r102u[34-35] 
-job in queue
-1610679570.547276 Thu Jan 14 19:59:30 2021     40.365   1533.544 all jobss finished
-./source/logfile
-./5693118/r102u34/afile
-./5693118/r102u34/script.5693118
-./5693118/script.5693118
-./5693118/slurm-5693118.out
-./5693118/r102u35/afile
-./5693118/r102u35/script.5693118
-./slurm-5693118.out
+1611076258.446627 Tue Jan 19 10:10:58 2021     33.036   1412.567 all jobss finished
+./5709973/r103u21/afile
+./5709973/r103u21/script.5709973
+./5709973/slurm-5709973.out
+./5709973/script.5709973
+./5709973/r103u23/afile
+./5709973/r103u23/script.5709973
+./slurm-5709973.out
 TIMINGS:
-1610678037.003211 Thu Jan 14 19:33:57 2021      0.000      0.000 starting
-1610678509.766668 Thu Jan 14 19:41:49 2021    472.763    472.763 did install
-1610678516.005398 Thu Jan 14 19:41:56 2021      6.239    479.002 finished NONE
-1610678516.109866 Thu Jan 14 19:41:56 2021      0.104    479.107 submitting hostname.sh
-1610678534.288009 Thu Jan 14 19:42:14 2021     18.178    497.285 finished hostname.sh
-1610678534.392045 Thu Jan 14 19:42:14 2021      0.104    497.389 submitting multinode-task-per-core.sh
-1610678549.579304 Thu Jan 14 19:42:29 2021     15.187    512.576 finished multinode-task-per-core.sh
-1610678549.684229 Thu Jan 14 19:42:29 2021      0.105    512.681 submitting openmp.sh
-1610678728.305107 Thu Jan 14 19:45:28 2021    178.621    691.302 finished openmp.sh
-1610678728.414411 Thu Jan 14 19:45:28 2021      0.109    691.411 submitting simple.sh
-1610678763.658673 Thu Jan 14 19:46:03 2021     35.244    726.655 finished simple.sh
-1610678763.761898 Thu Jan 14 19:46:03 2021      0.103    726.759 submitting hybrid.sh
-1610678829.762436 Thu Jan 14 19:47:09 2021     66.001    792.759 finished hybrid.sh
-1610678829.867236 Thu Jan 14 19:47:09 2021      0.105    792.864 submitting affinity.sh
-1610678885.127260 Thu Jan 14 19:48:05 2021     55.260    848.124 finished affinity.sh
-1610678885.232771 Thu Jan 14 19:48:05 2021      0.106    848.230 submitting newdir.sh
-1610678915.403125 Thu Jan 14 19:48:35 2021     30.170    878.400 finished newdir.sh
-1610678915.512851 Thu Jan 14 19:48:35 2021      0.110    878.510 submitting fromenv.sh
-1610678930.686695 Thu Jan 14 19:48:50 2021     15.174    893.683 finished fromenv.sh
-1610678930.794222 Thu Jan 14 19:48:50 2021      0.108    893.791 submitting mpmd.sh
-1610678959.901960 Thu Jan 14 19:49:19 2021     29.108    922.899 finished mpmd.sh
-1610678960.009348 Thu Jan 14 19:49:20 2021      0.107    923.006 submitting mpmd2.sh
-1610678975.204309 Thu Jan 14 19:49:35 2021     15.195    938.201 finished mpmd2.sh
-1610678975.307383 Thu Jan 14 19:49:35 2021      0.103    938.304 submitting multi.sh
-1610679052.584452 Thu Jan 14 19:50:52 2021     77.277   1015.581 finished multi.sh
-1610679052.697365 Thu Jan 14 19:50:52 2021      0.113   1015.694 submitting gpucpu.sh
-1610679164.999413 Thu Jan 14 19:52:44 2021    112.302   1127.996 finished gpucpu.sh
-1610679165.106883 Thu Jan 14 19:52:45 2021      0.107   1128.104 submitting FAN.sh
-1610679385.141287 Thu Jan 14 19:56:25 2021    220.034   1348.138 finished FAN.sh
-1610679385.267287 Thu Jan 14 19:56:25 2021      0.126   1348.264 submitting uselist.sh
-1610679422.063455 Thu Jan 14 19:57:02 2021     36.796   1385.060 finished uselist.sh
-1610679422.227982 Thu Jan 14 19:57:02 2021      0.165   1385.225 submitting redirect.sh
-1610679467.487069 Thu Jan 14 19:57:47 2021     45.259   1430.484 finished redirect.sh
-1610679467.635477 Thu Jan 14 19:57:47 2021      0.148   1430.632 submitting multimax.sh
-1610679524.904326 Thu Jan 14 19:58:44 2021     57.269   1487.901 finished multimax.sh
-1610679525.032303 Thu Jan 14 19:58:45 2021      0.128   1488.029 submitting local.sh
-1610679530.182360 Thu Jan 14 19:58:50 2021      5.150   1493.179 done launching all jobs
-1610679570.547276 Thu Jan 14 19:59:30 2021     40.365   1533.544 all jobss finished
+1611074845.880089 Tue Jan 19 09:47:25 2021      0.000      0.000 starting
+1611074851.569341 Tue Jan 19 09:47:31 2021      5.689      5.689 did install
+1611074853.618656 Tue Jan 19 09:47:33 2021      2.049      7.739 finished NONE
+1611074853.647886 Tue Jan 19 09:47:33 2021      0.029      7.768 submitting hostname.sh
+1611074868.727621 Tue Jan 19 09:47:48 2021     15.080     22.848 finished hostname.sh
+1611074868.756096 Tue Jan 19 09:47:48 2021      0.028     22.876 submitting multinode-task-per-core.sh
+1611074897.183949 Tue Jan 19 09:48:17 2021     28.428     51.304 finished multinode-task-per-core.sh
+1611074897.213245 Tue Jan 19 09:48:17 2021      0.029     51.333 submitting openmp.sh
+1611075084.367297 Tue Jan 19 09:51:24 2021    187.154    238.487 finished openmp.sh
+1611075084.398086 Tue Jan 19 09:51:24 2021      0.031    238.518 submitting simple.sh
+1611075131.058050 Tue Jan 19 09:52:11 2021     46.660    285.178 finished simple.sh
+1611075131.087025 Tue Jan 19 09:52:11 2021      0.029    285.207 submitting hybrid.sh
+1611075177.586673 Tue Jan 19 09:52:57 2021     46.500    331.707 finished hybrid.sh
+1611075177.617959 Tue Jan 19 09:52:57 2021      0.031    331.738 submitting affinity.sh
+1611075232.779861 Tue Jan 19 09:53:52 2021     55.162    386.900 finished affinity.sh
+1611075232.811977 Tue Jan 19 09:53:52 2021      0.032    386.932 submitting newdir.sh
+1611075247.932922 Tue Jan 19 09:54:07 2021     15.121    402.053 finished newdir.sh
+1611075247.964461 Tue Jan 19 09:54:07 2021      0.032    402.084 submitting fromenv.sh
+1611075263.045890 Tue Jan 19 09:54:23 2021     15.081    417.166 finished fromenv.sh
+1611075263.082706 Tue Jan 19 09:54:23 2021      0.037    417.203 submitting mpmd.sh
+1611075289.484172 Tue Jan 19 09:54:49 2021     26.401    443.604 finished mpmd.sh
+1611075289.517075 Tue Jan 19 09:54:49 2021      0.033    443.637 submitting mpmd2.sh
+1611075317.111701 Tue Jan 19 09:55:17 2021     27.595    471.232 finished mpmd2.sh
+1611075317.143611 Tue Jan 19 09:55:17 2021      0.032    471.264 submitting multi.sh
+1611075412.716225 Tue Jan 19 09:56:52 2021     95.573    566.836 finished multi.sh
+1611075412.748901 Tue Jan 19 09:56:52 2021      0.033    566.869 submitting gpucpu.sh
+1611075519.931399 Tue Jan 19 09:58:39 2021    107.182    674.051 finished gpucpu.sh
+1611075519.979037 Tue Jan 19 09:58:39 2021      0.048    674.099 submitting CHAIN.sh
+1611075701.608329 Tue Jan 19 10:01:41 2021    181.629    855.728 finished CHAIN.sh
+1611075701.649843 Tue Jan 19 10:01:41 2021      0.042    855.770 submitting FAN.sh
+1611075998.848123 Tue Jan 19 10:06:38 2021    297.198   1152.968 finished FAN.sh
+1611075998.902660 Tue Jan 19 10:06:38 2021      0.055   1153.023 submitting uselist.sh
+1611076128.186164 Tue Jan 19 10:08:48 2021    129.284   1282.306 finished uselist.sh
+1611076128.271237 Tue Jan 19 10:08:48 2021      0.085   1282.391 submitting redirect.sh
+1611076175.065783 Tue Jan 19 10:09:35 2021     46.795   1329.186 finished redirect.sh
+1611076175.125808 Tue Jan 19 10:09:35 2021      0.060   1329.246 submitting multimax.sh
+1611076220.289303 Tue Jan 19 10:10:20 2021     45.163   1374.409 finished multimax.sh
+1611076220.347506 Tue Jan 19 10:10:20 2021      0.058   1374.467 submitting local.sh
+1611076225.411072 Tue Jan 19 10:10:25 2021      5.064   1379.531 done launching all jobs
+1611076258.446627 Tue Jan 19 10:10:58 2021     33.036   1412.567 all jobss finished
 To clean up run this...
 cd source ; make dist-clean ; cd 
 Then remove the following files.
 There will be a list in "newfiles"
--rw-rw----. 1 tkaiser2 tkaiser2    3248 Jan 14 19:59 ./record
--rw-rw----. 1 tkaiser2 tkaiser2   49766 Jan 14 19:59 ./source/logfile
--rw-rw----. 1 tkaiser2 tkaiser2 1048576 Jan 14 19:59 ./5693118/r102u35/afile
--rw-rw----. 1 tkaiser2 tkaiser2    3802 Jan 14 19:59 ./5693118/r102u35/script.5693118
--rw-rw----. 1 tkaiser2 tkaiser2     839 Jan 14 19:59 ./5693118/slurm-5693118.out
--rw-rw----. 1 tkaiser2 tkaiser2     839 Jan 14 19:59 ./slurm-5693118.out
--rw-rw----. 1 tkaiser2 tkaiser2 1048576 Jan 14 19:59 ./5693118/r102u34/afile
--rw-rw----. 1 tkaiser2 tkaiser2    3802 Jan 14 19:59 ./5693118/r102u34/script.5693118
--rw-rw----. 1 tkaiser2 tkaiser2    3802 Jan 14 19:59 ./5693118/script.5693118
--rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 14 19:58 ./run0
--rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 14 19:58 ./run1
--rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 14 19:58 ./run2
--rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 14 19:58 ./run3
--rw-rw----. 1 tkaiser2 tkaiser2    3988 Jan 14 19:58 ./slurm-5693117.out
--rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 14 19:58 ./11_r102u34
--rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 14 19:58 ./11_r102u35
--rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 14 19:58 ./10_r102u34
--rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 14 19:58 ./10_r102u35
--rw-rw----. 1 tkaiser2 tkaiser2    1221 Jan 14 19:57 ./myout.5693116
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:57 ./stderr.5693116
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:57 ./stdout.5693116
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/10/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/10/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/10/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/10/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/10/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/10/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/11/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/11/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/11/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/11/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/11/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/11/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19394 Jan 14 19:56 ./5693090/12/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/12/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/12/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       7 Jan 14 19:56 ./5693090/12/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/12/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/12/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/13/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/13/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/13/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/13/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/13/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/13/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19400 Jan 14 19:56 ./5693090/14/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/14/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/14/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/14/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/14/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/14/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/15/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/15/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/15/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/15/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/15/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/15/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19395 Jan 14 19:56 ./5693090/16/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/16/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/16/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       7 Jan 14 19:56 ./5693090/16/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/16/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/16/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19400 Jan 14 19:56 ./5693090/17/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/17/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/17/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/17/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/17/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/17/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/18/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/18/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/18/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/18/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/18/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/18/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/19/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/19/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/19/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/19/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/19/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/19/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19397 Jan 14 19:56 ./5693090/1/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/1/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/1/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/1/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/1/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/1/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/20/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/20/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/20/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/20/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/20/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/20/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19400 Jan 14 19:56 ./5693090/21/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/21/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/21/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/21/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/21/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/21/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19399 Jan 14 19:56 ./5693090/22/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/22/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/22/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/22/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/22/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/22/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19400 Jan 14 19:56 ./5693090/23/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/23/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/23/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/23/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/23/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/23/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19394 Jan 14 19:56 ./5693090/24/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/24/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/24/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       7 Jan 14 19:56 ./5693090/24/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/24/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/24/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19391 Jan 14 19:56 ./5693090/2/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/2/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/2/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       7 Jan 14 19:56 ./5693090/2/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/2/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/2/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19397 Jan 14 19:56 ./5693090/3/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/3/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/3/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/3/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/3/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/3/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19396 Jan 14 19:56 ./5693090/4/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/4/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/4/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/4/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/4/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/4/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19392 Jan 14 19:56 ./5693090/5/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/5/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/5/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       7 Jan 14 19:56 ./5693090/5/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/5/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/5/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19392 Jan 14 19:56 ./5693090/6/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/6/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/6/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       7 Jan 14 19:56 ./5693090/6/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/6/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/6/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19397 Jan 14 19:56 ./5693090/7/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/7/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/7/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/7/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/7/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/7/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19397 Jan 14 19:56 ./5693090/8/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/8/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/8/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/8/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/8/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/8/timer
--rw-rw----. 1 tkaiser2 tkaiser2   19397 Jan 14 19:56 ./5693090/9/envs
--rw-rw----. 1 tkaiser2 tkaiser2       1 Jan 14 19:56 ./5693090/9/input
--rw-rw----. 1 tkaiser2 tkaiser2    4439 Jan 14 19:56 ./5693090/9/myscript
--rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 14 19:56 ./5693090/9/node
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./5693090/9/output
--rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 14 19:56 ./5693090/9/timer
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:56 ./final/5693088.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:56 ./final/5693084.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:56 ./final/5693085.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:56 ./final/5693086.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:56 ./final/5693087.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./stderr.5693088
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:56 ./stdout.5693088
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par4/5693087.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par1/5693084.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par2/5693085.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par3/5693086.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par4/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par4/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par4/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par4/5693082.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par4/5693083.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stderr.5693087
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stdout.5693087
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par1/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par1/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par1/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par1/5693082.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par1/5693083.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par2/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par2/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par2/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par2/5693082.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par2/5693083.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par3/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par3/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par3/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par3/5693082.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./par3/5693083.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stderr.5693084
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stderr.5693085
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stderr.5693086
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stdout.5693084
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stdout.5693085
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stdout.5693086
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./ser5/5693083.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./ser5/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./ser5/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./ser5/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:55 ./ser5/5693082.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stderr.5693083
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:55 ./stdout.5693083
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser4/5693082.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser4/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser4/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser4/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:54 ./stderr.5693082
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:54 ./stdout.5693082
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser3/5693081.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser3/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:54 ./ser3/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:54 ./stderr.5693081
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:54 ./stdout.5693081
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:53 ./ser2/5693080.out
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:53 ./ser2/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:53 ./stderr.5693080
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:53 ./stdout.5693080
--rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 14 19:53 ./ser1/5693079.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:53 ./stderr.5693079
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:53 ./stdout.5693079
--rw-r-----. 1 tkaiser2 tkaiser2  388914 Jan 14 19:52 ./5693072/mpigpu.out
--rw-r-----. 1 tkaiser2 tkaiser2     949 Jan 14 19:51 ./5693072/six.out
--rw-rw----. 1 tkaiser2 tkaiser2      29 Jan 14 19:51 ./5693072.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:51 ./5693072.err
--rw-rw----. 1 tkaiser2 tkaiser2    4553 Jan 14 19:51 ./5693072/script
--rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 14 19:50 ./5693070.15
--rw-rw----. 1 tkaiser2 tkaiser2     746 Jan 14 19:50 ./mytimes
--rw-rw----. 1 tkaiser2 tkaiser2     746 Jan 14 19:50 ./slurm-5693070.out
--rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 14 19:50 ./5693070.10
--rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 14 19:50 ./5693070.5
--rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 14 19:50 ./5693070.run1
--rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 14 19:49 ./5693070.run2
--rw-rw----. 1 tkaiser2 tkaiser2     709 Jan 14 19:49 ./5693068.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:49 ./5693068.err
--rw-rw----. 1 tkaiser2 tkaiser2     112 Jan 14 19:49 ./config_file
--rw-rw----. 1 tkaiser2 tkaiser2      64 Jan 14 19:49 ./hostlist
--rw-rw----. 1 tkaiser2 tkaiser2     608 Jan 14 19:49 ./5693067.out
--rw-rw----. 1 tkaiser2 tkaiser2     510 Jan 14 19:49 ./used_mapfile
--rw-rw----. 1 tkaiser2 tkaiser2     136 Jan 14 19:49 ./used_mpiexec
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:49 ./5693067.err
--rw-rw----. 1 tkaiser2 tkaiser2     108 Jan 14 19:49 ./mapfile
--rw-rw----. 1 tkaiser2 tkaiser2      51 Jan 14 19:48 ./5693066.out
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:48 ./5693066.err
--rw-rw----. 1 tkaiser2 tkaiser2   19138 Jan 14 19:48 ./5693056/env.5693056
--rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 14 19:48 ./5693056/nodes.5693056
--rw-rw----. 1 tkaiser2 tkaiser2    6134 Jan 14 19:48 ./5693056/script.5693056
--rw-rw----. 1 tkaiser2 tkaiser2     687 Jan 14 19:48 ./5693056/slurm-5693056.out
--rwxrwx---. 1 tkaiser2 tkaiser2 1023720 Jan 14 19:48 ./5693056/stf_01
--rw-rw----. 1 tkaiser2 tkaiser2     687 Jan 14 19:48 ./slurm-5693056.out
--rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 14 19:47 ./5693055.compact
--rw-rw----. 1 tkaiser2 tkaiser2     219 Jan 14 19:47 ./5693055.out
--rw-rw----. 1 tkaiser2 tkaiser2     100 Jan 14 19:47 ./5693055.err
--rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 14 19:47 ./5693055.scatter
--rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 14 19:47 ./5693055.noaffinity
--rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 14 19:46 ./5693054.9
--rw-rw----. 1 tkaiser2 tkaiser2    4126 Jan 14 19:46 ./5693054.out
--rw-rw----. 1 tkaiser2 tkaiser2    1221 Jan 14 19:46 ./5693054.4
--rw-rw----. 1 tkaiser2 tkaiser2     405 Jan 14 19:46 ./5693054.1
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:46 ./5693054.err
--rw-rw----. 1 tkaiser2 tkaiser2     587 Jan 14 19:45 ./5693052.out
--rw-rw----. 1 tkaiser2 tkaiser2     319 Jan 14 19:45 ./5693052.stdout
--rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 14 19:45 ./5693052.err
--rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 14 19:45 ./5693046.36.spread
--rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 14 19:44 ./5693046.18.spread
--rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 14 19:44 ./5693046.36.scatter
--rw-rw----. 1 tkaiser2 tkaiser2   10969 Jan 14 19:43 ./5693046.err
--rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 14 19:43 ./5693046.18.scatter
--rw-rw----. 1 tkaiser2 tkaiser2      65 Jan 14 19:42 ./5693046.out
--rw-rw----. 1 tkaiser2 tkaiser2     837 Jan 14 19:42 ./node_rollcall.5693045
--rw-rw----. 1 tkaiser2 tkaiser2      93 Jan 14 19:42 ./slurm-5693044.out
+-rw-rw----. 1 tkaiser2 tkaiser2    3416 Jan 19 10:10 ./record
+-rw-rw----. 1 tkaiser2 tkaiser2     835 Jan 19 10:10 ./5709973/slurm-5709973.out
+-rw-rw----. 1 tkaiser2 tkaiser2     835 Jan 19 10:10 ./slurm-5709973.out
+-rw-rw----. 1 tkaiser2 tkaiser2 1048576 Jan 19 10:10 ./5709973/r103u23/afile
+-rw-rw----. 1 tkaiser2 tkaiser2    3802 Jan 19 10:10 ./5709973/r103u23/script.5709973
+-rw-rw----. 1 tkaiser2 tkaiser2 1048576 Jan 19 10:10 ./5709973/r103u21/afile
+-rw-rw----. 1 tkaiser2 tkaiser2    3802 Jan 19 10:10 ./5709973/r103u21/script.5709973
+-rw-rw----. 1 tkaiser2 tkaiser2    3802 Jan 19 10:10 ./5709973/script.5709973
+-rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 19 10:10 ./run0
+-rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 19 10:10 ./run1
+-rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 19 10:10 ./run2
+-rw-rw----. 1 tkaiser2 tkaiser2     258 Jan 19 10:10 ./run3
+-rw-rw----. 1 tkaiser2 tkaiser2    3988 Jan 19 10:10 ./slurm-5709971.out
+-rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 19 10:10 ./11_r103u21
+-rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 19 10:10 ./11_r103u23
+-rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 19 10:10 ./10_r103u21
+-rw-rw----. 1 tkaiser2 tkaiser2     875 Jan 19 10:10 ./10_r103u23
+-rw-rw----. 1 tkaiser2 tkaiser2    1221 Jan 19 10:09 ./myout.5709970
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:09 ./stderr.5709970
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:09 ./stdout.5709970
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/23/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:08 ./5709946/23/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/23/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/24/node
+-rw-rw----. 1 tkaiser2 tkaiser2     319 Jan 19 10:08 ./5709946/24/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/24/timer
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:08 ./5709946/23/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:08 ./5709946/23/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/23/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8454 Jan 19 10:08 ./5709946/24/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      15 Jan 19 10:08 ./5709946/24/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/24/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/18/timer
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/19/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/21/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:08 ./5709946/21/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/21/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/22/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:08 ./5709946/22/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/22/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/18/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:08 ./5709946/18/output
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/19/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:08 ./5709946/19/output
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:08 ./5709946/20/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:08 ./5709946/20/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:08 ./5709946/20/timer
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:08 ./5709946/22/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:08 ./5709946/22/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/22/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:08 ./5709946/18/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:08 ./5709946/18/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/18/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:08 ./5709946/19/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:08 ./5709946/19/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/19/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:08 ./5709946/20/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:08 ./5709946/20/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/20/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:08 ./5709946/21/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:08 ./5709946/21/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:08 ./5709946/21/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/13/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:07 ./5709946/13/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/13/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/14/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:07 ./5709946/14/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/14/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/15/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/15/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/15/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/16/node
+-rw-rw----. 1 tkaiser2 tkaiser2     319 Jan 19 10:07 ./5709946/16/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/16/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/17/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/17/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/17/timer
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:07 ./5709946/13/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/13/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/13/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8454 Jan 19 10:07 ./5709946/14/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      15 Jan 19 10:07 ./5709946/14/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/14/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:07 ./5709946/15/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/15/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/15/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8454 Jan 19 10:07 ./5709946/16/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      15 Jan 19 10:07 ./5709946/16/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/16/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:07 ./5709946/17/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/17/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/17/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/12/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:07 ./5709946/12/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/12/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/10/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/10/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/10/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/11/node
+-rw-rw----. 1 tkaiser2 tkaiser2     319 Jan 19 10:07 ./5709946/11/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/11/timer
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:07 ./5709946/12/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/12/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/12/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/8/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/8/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/8/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/9/node
+-rw-rw----. 1 tkaiser2 tkaiser2     319 Jan 19 10:07 ./5709946/9/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/9/timer
+-rw-rw----. 1 tkaiser2 tkaiser2    8455 Jan 19 10:07 ./5709946/10/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/10/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/10/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8453 Jan 19 10:07 ./5709946/11/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      14 Jan 19 10:07 ./5709946/11/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/11/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8452 Jan 19 10:07 ./5709946/8/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/8/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/8/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8450 Jan 19 10:07 ./5709946/9/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      14 Jan 19 10:07 ./5709946/9/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/9/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/7/node
+-rw-rw----. 1 tkaiser2 tkaiser2     317 Jan 19 10:07 ./5709946/7/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/7/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/1/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/1/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/1/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/2/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:07 ./5709946/2/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/2/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/3/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:07 ./5709946/3/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/3/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/4/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/4/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/4/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/5/node
+-rw-rw----. 1 tkaiser2 tkaiser2     320 Jan 19 10:07 ./5709946/5/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/5/timer
+-rw-rw----. 1 tkaiser2 tkaiser2       8 Jan 19 10:07 ./5709946/6/node
+-rw-rw----. 1 tkaiser2 tkaiser2     321 Jan 19 10:07 ./5709946/6/output
+-rw-rw----. 1 tkaiser2 tkaiser2     150 Jan 19 10:07 ./5709946/6/timer
+-rw-rw----. 1 tkaiser2 tkaiser2    8452 Jan 19 10:07 ./5709946/7/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/7/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/7/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8358 Jan 19 10:07 ./5709946/1/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/1/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/1/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8359 Jan 19 10:07 ./5709946/2/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/2/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/2/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8452 Jan 19 10:07 ./5709946/3/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/3/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/3/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8452 Jan 19 10:07 ./5709946/4/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/4/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/4/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8451 Jan 19 10:07 ./5709946/5/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      15 Jan 19 10:07 ./5709946/5/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/5/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2    8452 Jan 19 10:07 ./5709946/6/envs
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 10:07 ./5709946/6/input
+-rw-rw----. 1 tkaiser2 tkaiser2    4514 Jan 19 10:07 ./5709946/6/myscript
+-rw-rw----. 1 tkaiser2 tkaiser2     376 Jan 19 10:06 ./in_list
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:06 ./final/5709944.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:06 ./final/5709940.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:06 ./final/5709941.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:06 ./final/5709942.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:06 ./final/5709943.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:06 ./stderr.5709944
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:06 ./stdout.5709944
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par1/5709940.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par2/5709941.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par3/5709942.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par4/5709943.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par1/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par1/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par1/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par1/5709938.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par1/5709939.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par2/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par2/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par2/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par2/5709938.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par2/5709939.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par3/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par3/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par3/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par3/5709938.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par3/5709939.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par4/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par4/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par4/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par4/5709938.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:05 ./par4/5709939.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stderr.5709940
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stderr.5709941
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stderr.5709942
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stderr.5709943
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stdout.5709940
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stdout.5709941
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stdout.5709942
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:05 ./stdout.5709943
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:04 ./ser5/5709939.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:04 ./ser5/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:04 ./ser5/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:04 ./ser5/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:04 ./ser5/5709938.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:04 ./stderr.5709939
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:04 ./stdout.5709939
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser4/5709938.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser4/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser4/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser4/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:03 ./stderr.5709938
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:03 ./stdout.5709938
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser3/5709937.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser3/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:03 ./ser3/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:03 ./stderr.5709937
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:03 ./stdout.5709937
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:02 ./ser2/5709936.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:02 ./ser2/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:02 ./stderr.5709936
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:02 ./stdout.5709936
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:02 ./ser1/5709935.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:02 ./stderr.5709935
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:02 ./stdout.5709935
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:01 ./job5/5709932.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:01 ./job5/5709928.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:01 ./job5/5709929.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:01 ./job5/5709930.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:01 ./job5/5709931.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:01 ./stderr.5709932
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:01 ./stdout.5709932
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job4/5709931.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job4/5709928.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job4/5709929.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job4/5709930.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:00 ./stderr.5709931
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:00 ./stdout.5709931
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job3/5709930.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job3/5709928.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 10:00 ./job3/5709929.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:00 ./stderr.5709930
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 10:00 ./stdout.5709930
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 09:59 ./job2/5709929.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 09:59 ./job2/5709928.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:59 ./stderr.5709929
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:59 ./stdout.5709929
+-rw-rw----. 1 tkaiser2 tkaiser2    1271 Jan 19 09:59 ./job1/5709928.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:59 ./stderr.5709928
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:59 ./stdout.5709928
+-rw-r-----. 1 tkaiser2 tkaiser2  388914 Jan 19 09:58 ./5709925/mpigpu.out
+-rw-r-----. 1 tkaiser2 tkaiser2     949 Jan 19 09:57 ./5709925/six.out
+-rw-rw----. 1 tkaiser2 tkaiser2    5312 Jan 19 09:57 ./README.md
+-rw-rw----. 1 tkaiser2 tkaiser2      29 Jan 19 09:57 ./5709925.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:57 ./5709925.err
+-rw-rw----. 1 tkaiser2 tkaiser2    4553 Jan 19 09:57 ./5709925/script
+-rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 19 09:56 ./5709923.15
+-rw-rw----. 1 tkaiser2 tkaiser2     746 Jan 19 09:56 ./mytimes
+-rw-rw----. 1 tkaiser2 tkaiser2     746 Jan 19 09:56 ./slurm-5709923.out
+-rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 19 09:56 ./5709923.10
+-rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 19 09:56 ./5709923.5
+-rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 19 09:56 ./5709923.run1
+-rw-rw----. 1 tkaiser2 tkaiser2     727 Jan 19 09:55 ./5709923.run2
+-rw-rw----. 1 tkaiser2 tkaiser2     709 Jan 19 09:55 ./5709922.out
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:55 ./5709922.err
+-rw-rw----. 1 tkaiser2 tkaiser2     112 Jan 19 09:55 ./config_file
+-rw-rw----. 1 tkaiser2 tkaiser2      64 Jan 19 09:55 ./hostlist
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:54 ./5709921.err
+-rw-rw----. 1 tkaiser2 tkaiser2     608 Jan 19 09:54 ./5709921.out
+-rw-rw----. 1 tkaiser2 tkaiser2     108 Jan 19 09:54 ./mapfile
+-rw-rw----. 1 tkaiser2 tkaiser2     510 Jan 19 09:54 ./used_mapfile
+-rw-rw----. 1 tkaiser2 tkaiser2     136 Jan 19 09:54 ./used_mpiexec
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:54 ./5709920.err
+-rw-rw----. 1 tkaiser2 tkaiser2      51 Jan 19 09:54 ./5709920.out
+-rw-rw----. 1 tkaiser2 tkaiser2    8566 Jan 19 09:54 ./5709919/env.5709919
+-rw-rw----. 1 tkaiser2 tkaiser2      16 Jan 19 09:54 ./5709919/nodes.5709919
+-rw-rw----. 1 tkaiser2 tkaiser2    6134 Jan 19 09:54 ./5709919/script.5709919
+-rw-rw----. 1 tkaiser2 tkaiser2     687 Jan 19 09:54 ./5709919/slurm-5709919.out
+-rwxrwx---. 1 tkaiser2 tkaiser2 1023632 Jan 19 09:54 ./5709919/stf_01
+-rw-rw----. 1 tkaiser2 tkaiser2     687 Jan 19 09:54 ./slurm-5709919.out
+-rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 19 09:53 ./5709918.compact
+-rw-rw----. 1 tkaiser2 tkaiser2     219 Jan 19 09:53 ./5709918.out
+-rw-rw----. 1 tkaiser2 tkaiser2     100 Jan 19 09:53 ./5709918.err
+-rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 19 09:53 ./5709918.scatter
+-rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 19 09:53 ./5709918.noaffinity
+-rw-rw----. 1 tkaiser2 tkaiser2    2581 Jan 19 09:52 ./5709915.9
+-rw-rw----. 1 tkaiser2 tkaiser2    4126 Jan 19 09:52 ./5709915.out
+-rw-rw----. 1 tkaiser2 tkaiser2    1221 Jan 19 09:52 ./5709915.4
+-rw-rw----. 1 tkaiser2 tkaiser2     405 Jan 19 09:52 ./5709915.1
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:52 ./5709915.err
+-rw-rw----. 1 tkaiser2 tkaiser2     587 Jan 19 09:51 ./5709914.out
+-rw-rw----. 1 tkaiser2 tkaiser2     319 Jan 19 09:51 ./5709914.stdout
+-rw-rw----. 1 tkaiser2 tkaiser2       0 Jan 19 09:51 ./5709914.err
+-rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 19 09:51 ./5709907.36.spread
+-rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 19 09:50 ./5709907.18.spread
+-rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 19 09:49 ./5709907.36.scatter
+-rw-rw----. 1 tkaiser2 tkaiser2   10861 Jan 19 09:49 ./5709907.err
+-rw-rw----. 1 tkaiser2 tkaiser2    7192 Jan 19 09:49 ./5709907.18.scatter
+-rw-rw----. 1 tkaiser2 tkaiser2      65 Jan 19 09:48 ./5709907.out
+-rw-rw----. 1 tkaiser2 tkaiser2     837 Jan 19 09:48 ./node_rollcall.5709906
+-rw-rw----. 1 tkaiser2 tkaiser2      93 Jan 19 09:47 ./slurm-5709905.out
