@@ -14,34 +14,33 @@
 
 3. Get yourself an interactive node
  ```
- qsub -I -A PLEXOSMODEL -l advres=workshop.57721,nodes=1,walltime=240:00 -q batch-h
- # qsub -I -A PLEXOSMODEL -l advres=workshop.57684 
- # without a reservation this looks like qsub -I -A PLEXOSMODEL -q debug
+ salloc -N 1 -t 60 -A hpcapps -p debug
  ```
- 
+
 4. Setup your environment
  ```
-source env-7.3.3.sh
-cat env-7.3.3.sh
-#module use /nopt/nrel/apps/modules/candidate/modulefiles
-#module purge
-#module load epel gcc mono/4.6.2.7 xpressmp/7.8.0 plexos/7.300.3
-#module load conda
-#module load coad
-#export PLEXOS_TEMP=/scratch/$USER/tmp/$PBS_JOBID
-#export TEMP=$PLEXOS_TEMP
-#mkdir -p $PLEXOS_TEMP
-module list
-#Currently Loaded Modulefiles:
-#  1) epel/6.6          3) mono/4.6.2.7      5) plexos/7.300.3    7) coad/2.0          9) pandoc/1.19.2.1
-#  2) gcc/6.2.0         4) xpressmp/7.8.0    6) conda/4.3.1       8) R/3.2.2
+$ source env-7.4.2.sh
+$ cat env-7.4.2.sh
+module purge
+module load centos mono/4.6.2.7 xpressmp/8.0.4 plexos/7.400.2 conda # coad
+export PLEXOS_TEMP=/scratch/$USER/tmp/$PBS_JOBID
+export TEMP=$PLEXOS_TEMP
+mkdir -p $PLEXOS_TEMP
+$ module list
+
+Currently Loaded Modules:
+  1) centos/7.7     3) xpressmp/8.0.4   5) conda/mini_py37_4.8.3
+  2) mono/4.6.2.7   4) plexos/7.400.2
+
+
+
  ```
 
 5. Cut out one week to run DAY_AHEAD model on
 
  ```bash
 python get_week.py
-cat get_week.py 
+cat get_week.py
 ##! /usr/bin/env python
 #import datetime
 #
@@ -50,7 +49,7 @@ cat get_week.py
 #
 #coad = COAD('RTS-GMLC.xml')
 #
-##7/14/2024 
+##7/14/2024
 #date_start = str(datetime_to_plex(datetime.datetime(2024, 7, 14, 0, 0)))
 #new_horizon = coad['Horizon']['Base'].copy("Interesting Week")
 #new_horizon["Step Count"] = "8"
