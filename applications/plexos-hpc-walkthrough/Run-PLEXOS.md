@@ -6,11 +6,11 @@
  ```
 
 2. Create a symbolic link to the timeseries datafiles, environment and python script
- ```
- ln -s ../../RTS-GMLC-Dataset/timeseries_data_files timeseries_data_files
- ln -s ../../plexos-hpc-walkthrough/env-7.3.3.sh .
- ln -s ../../plexos-hpc-walkthrough/get_week.py .
- ```
+    ```bash
+    ln -s ../../RTS-GMLC-Dataset/timeseries_data_files timeseries_data_files
+    ln -s ../../plexos-hpc-walkthrough/env-7.4.2.sh .
+    ln -s ../../plexos-hpc-walkthrough/get_week.py .
+    ```
 
 3. Get yourself an interactive node
  ```
@@ -22,7 +22,8 @@
 $ source env-7.4.2.sh
 $ cat env-7.4.2.sh
 module purge
-module load centos mono/4.6.2.7 xpressmp/8.0.4 plexos/7.400.2 conda # coad
+module load centos mono/4.6.2.7 xpressmp/8.0.4 plexos/7.400.2 conda
+export PYTHONPATH=/nopt/nrel/apps/plexos/plexos-coad
 export PLEXOS_TEMP=/scratch/$USER/tmp/$PBS_JOBID
 export TEMP=$PLEXOS_TEMP
 mkdir -p $PLEXOS_TEMP
