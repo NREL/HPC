@@ -13,6 +13,6 @@ Introduction for new users to run Plexos on the HPC
 
 6. [Run a week of the Base Case](Run-PLEXOS.md)
 
-7. [Run Magma on that week](Run-Magma.md)
+7. Will not work on eagle - use laptop. [Run Magma on that week](Run-Magma.md)
 
 8. [Example TDSVis of week](https://gridmod.github.io/MSPCM-Workshop/PLEXOS_TDSVIS-Workshop.html)
