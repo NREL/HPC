@@ -65,8 +65,6 @@ For Windows you will need to download WinSCP to transfer files to and from HPC s
 
 *Learn various techniques to combine and compress multiple files or directories into a single file to reduce storage footprint or simplify sharing.*
 
-## *This is a temporary file to provide verbosity, edit/remove it or its content as needed.*
-
 ## `tar`
 
 `tar`, along with [`zip`](#zip), is one of the basic commands to combine multiple individual files into a single file (called a "tarball"). `tar` requires at least one command line option. A typical usage would be:
