@@ -50,7 +50,7 @@ if len(sys.argv) < 2 :
 	print(sys.argv[0]+" account")
 	sys.exit()
 account=sys.argv[1]
-command="sbatch -A ACCOUNT --array=1-COUNT uselist.sh"
+command="sbatch -J slurm_test -A ACCOUNT --array=1-COUNT uselist.sh"
 command=command.replace("ACCOUNT",account)
 command=command.replace("COUNT",str(size))
 print("COMMAND:")

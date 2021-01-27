@@ -26,13 +26,13 @@ export ACC=$1
 
 unset OLD_DIR
 export NEW_DIR=job1
-jid=`sbatch -A $ACC $SCRIPT | awk '{print $NF }'`
+jid=`sbatch -J slurm_test -A $ACC $SCRIPT | awk '{print $NF }'`
 echo $jid
  
 for job in job2 job3 job4 job5 ; do
   export OLD_DIR=$NEW_DIR
   export NEW_DIR=$job
-  jid=`sbatch -A $ACC --dependency=afterok:$jid $SCRIPT | awk '{print $NF }'`
+  jid=`sbatch -J slurm_test -A $ACC --dependency=afterok:$jid $SCRIPT | awk '{print $NF }'`
   echo $jid
 done
 

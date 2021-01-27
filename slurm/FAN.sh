@@ -73,14 +73,14 @@ echo "Starts with 5 jobs that need to run in sequence."
 unset OLD_DIR
 unset OLD_FILES
 export NEW_DIR=ser1
-jid=`sbatch --partition=short -A $ACC $SCRIPT | awk '{print $NF }'`
+jid=`sbatch -J slurm_test --partition=short -A $ACC $SCRIPT | awk '{print $NF }'`
 echo $jid 
 myset1=""
 for job in ser2 ser3 ser4 ser5 ; do
   export OLD_DIR=$NEW_DIR
   export NEW_DIR=$job
   echo --dependency=afterok:$jid
-  jid=`sbatch --partition=short -A $ACC --dependency=afterok:$jid $SCRIPT | awk '{print $NF }'`
+  jid=`sbatch -J slurm_test --partition=short -A $ACC --dependency=afterok:$jid $SCRIPT | awk '{print $NF }'`
   echo $jid
   myset1=$myset1,afterok:$jid
 done
@@ -94,7 +94,7 @@ export OLD_DIR=$NEW_DIR
 for job in par1 par2 par3 par4 ; do
   export NEW_DIR=$job
   echo --dependency=$myset1
-  jid=`sbatch  --partition=short -A $ACC --dependency=$myset1 $SCRIPT | awk '{print $NF }'`
+  jid=`sbatch  -J slurm_test --partition=short -A $ACC --dependency=$myset1 $SCRIPT | awk '{print $NF }'`
   echo $jid
   myset2=$myset2,afterok:$jid
 done
@@ -109,7 +109,7 @@ echo $getfiles
 unset OLD_DIR
 export NEW_DIR=final
 export OLD_FILES=$getfiles
-jid=`sbatch  --partition=short -A $ACC --dependency=$myset2 $SCRIPT | awk '{print $NF }'`
+jid=`sbatch  -J slurm_test --partition=short -A $ACC --dependency=$myset2 $SCRIPT | awk '{print $NF }'`
 echo $jid
 
 echo +-+-+- REPORT OF PENDING JOB DEPENDECIES +-+-+-

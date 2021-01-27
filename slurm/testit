@@ -70,11 +70,11 @@ scripts="hostname.sh multinode-task-per-core.sh openmp.sh simple.sh hybrid.sh af
 
 for s in $scripts ; do
 #wait until the queue is clear of my jobs
-    squeue -u $USER | grep $USER
+    squeue -u $USER -n slurm_test | grep $USER
     while [ $? -eq 0 ] ; do
       sleep 10
       echo job in queue
-      squeue -u $USER | grep $USER
+      squeue -u $USER -n slurm_test | grep $USER
     done
     echo +++++++++++++
     source/tymer record "finished $last"
@@ -83,7 +83,7 @@ for s in $scripts ; do
     now=`date +"%Y-%m-%d %H:%M:%S"`
     last=$s
     echo +++++++++++++
-## FAN.sh and CHAIN.sh are not slrum scripts.  They are normal bash scripts
+## FAN.sh and CHAIN.sh are not slurm scripts.  They are normal bash scripts
 ## that launch slurm workflows.  They in turn launch old_new.sh several times
 ## with dependicies.
     if [ $s == "FAN.sh" ] || [ $s == "CHAIN.sh" ] ; then
@@ -102,7 +102,7 @@ for s in $scripts ; do
         sleep 5
         continue
     fi
-    sbatch -p debug -A $ACC $s
+    sbatch -p debug -J slurm_test -A $ACC $s
     sleep 5
 done
 
