@@ -1,0 +1,133 @@
+#!/usr/bin/bash
+#####  ./testit myaccount | tee ../logfile
+#run with your Eagle account on the command line.
+if [ "$#" -eq 1 ]; then
+  export ACC=$1
+else
+  echo USAGE:
+  echo $0 ACCOUNT
+  echo " "
+  echo OPTIONALLY:
+  echo "        export DOCONDA=1"
+  echo "before running to create a new conda"
+  echo "environment 'dompt' with jupyter, mpi4py"
+  echo "scipy, and several other useful modules."
+  exit
+fi
+
+# keep timings using "tymer" in file record
+rm -rf record
+source/tymer record "starting"
+
+# build stuff
+cd source
+
+if [ "$DOCONDA" == 1 ] ; then 
+# Only source jupyter.sh one time so we check if
+# the environment it creates exists.  Also we
+# check the variable DOCONDA is set to ensure
+# the user actually wants to do the build.
+    echo "Checking your conda environment"
+    module purge
+    ml conda
+    conda env list | grep dompt > /dev/null
+    if [ $? -eq 1 ] ; then
+        source jupyter.sh
+    else
+        conda env list | grep dompt
+    fi
+
+#
+# It creates a useful jupyter environment with mpi4py
+# and a number of other things including a module "spam"
+# that can be used to map tasks to cores.  
+# Here it is only  used for the example multimax.sh.  
+# multimax.sh will "run" without it but the results are 
+# not meaningfull.
+fi
+
+module purge
+make dist-clean
+make install
+make clean
+
+
+
+cd ..
+source/tymer record "did install"
+sleep 2
+
+#we'll use this to "find" all files created by all scripts
+stamp=`date +"%Y-%m-%d %H:%M:%S"`
+
+#we'll use this to "find" files created by a single script
+last="NONE"
+#date in the future
+now="2121-01-01"
+
+#scripts to run
+scripts="hostname.sh multinode-task-per-core.sh openmp.sh simple.sh hybrid.sh affinity.sh newdir.sh fromenv.sh mpmd.sh mpmd2.sh multi.sh gpucpu.sh CHAIN.sh FAN.sh uselist.sh redirect.sh multimax.sh local.sh"
+
+for s in $scripts ; do
+#wait until the queue is clear of my jobs
+    squeue -u $USER -n slurm_test | grep $USER
+    while [ $? -eq 0 ] ; do
+      sleep 10
+      echo job in queue
+      squeue -u $USER -n slurm_test | grep $USER
+    done
+    echo +++++++++++++
+    source/tymer record "finished $last"
+    find . -type f -newermt "$now" | grep -v record
+    source/tymer record "submitting $s"
+    now=`date +"%Y-%m-%d %H:%M:%S"`
+    last=$s
+    echo +++++++++++++
+## FAN.sh and CHAIN.sh are not slurm scripts.  They are normal bash scripts
+## that launch slurm workflows.  They in turn launch old_new.sh several times
+## with dependicies.
+    if [ $s == "FAN.sh" ] || [ $s == "CHAIN.sh" ] ; then
+        ./$s $ACC
+        sleep 5
+        continue
+    fi
+    if [ $s == "uselist.sh" ] ; then
+## ./doarray.py is a wrappper script creates the input "in_list"
+## for this job and then runs:
+##        sbatch -p short -A $ACC --array=1-24 uselist.sh
+## It can be launched directly since there is a file in_list in
+## the directory created when doing a make install.
+        ./doarray.py $ACC
+##        sbatch -p short -A $ACC --array=1-24 uselist.sh
+        sleep 5
+        continue
+    fi
+    sbatch -p debug -J slurm_test -A $ACC $s
+    sleep 5
+done
+
+source/tymer record "done launching all jobs"
+#wait until they finish
+squeue -u $USER | grep $USER
+while [ $? -eq 0 ] ; do
+  sleep 10
+  echo job in queue
+  squeue -u $USER | grep $USER
+done
+source/tymer record "all jobss finished"
+find . -type f -newermt "$now" | grep -v record
+
+echo TIMINGS:
+cat record
+
+cat << HERE
+To clean up run this...
+cd source ; make dist-clean ; cd 
+Then remove the following files.
+There will be a list in "newfiles"
+HERE
+ls -lt `find . -type f -newermt "$stamp"`
+echo -n files=\" > newfiles
+ls `find . -type f -newermt "$stamp"` >> newfiles
+echo \" >>newfiles
+
