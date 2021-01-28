@@ -58,7 +58,10 @@ install: recurse
 	cp     in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
 
 dist-clean: clean
-	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc
+	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc ../slrum.tgz
+
+backup: 
+	cd .. ; tar -czf slurm.tgz affinity.sh CHAIN.sh FAN.sh  fromenv.sh gpucpu.sh hostname.sh hybrid.sh local.sh mpmd2.sh mpmd.sh multimax.sh multinode-task-per-core.sh multi.sh newdir.sh old_new.sh openmp.sh README.md redirect.sh simple.sh source testit uselist.sh ; cd source
 
 #.PHONY: afile
 
