@@ -8,7 +8,7 @@ salloc --gres=gpu:2 -N 1 -A hpcapps -t 0:10:00 -p debug
 # Run singularity in srun environment
 module load singularity-container
 unset LD_PRELOAD
-srun --gpus=2 --pty singularity shell --nv /scratch/hsorense/tensorflow/tensorflow_gpu_extras_2.3.0.sif
+srun --gpus=2 --pty singularity shell --nv /nopt/nrel/apps/singularity/images/tensorflow_gpu_extras_2.3.0.sif
 ```
 
 ### Building a custom image based on tensorflow
