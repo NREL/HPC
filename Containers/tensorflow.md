@@ -1,5 +1,5 @@
 ## Tensorflow with GPU support singularity container
-This image contains Tensorflow 2.3.0 optimized for use with GPU nodes.  It also has opencv, numpy, pandas, seaborn, scikit-learn python libraries.
+This singularity container supplies Tensorflow 2.3.0 optimized for use with GPU nodes.  It also has opencv, numpy, pandas, seaborn, scikit-learn python libraries.
 
 ### Quickstart
 ```bash
