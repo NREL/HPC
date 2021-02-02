@@ -1,6 +1,6 @@
 ---
 title: December 2020 NREL HPC Monthly Update
-postdate: December 4, 2020
+date: 2020-12-04
 layout: default
 brief: FY20 Expired Projects' Data, Changes to MSS, ESIF-HPC-3 Project Update
 ---
