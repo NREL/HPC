@@ -1,6 +1,6 @@
 ---
 title: November 2020 NREL HPC Monthly Update
-postdate: November 3, 2020
+date: 2020-11-03
 layout: default
 brief: Lustre quotas, changes to MSS, and ESIF-HPC-3
 ---

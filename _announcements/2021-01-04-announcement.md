@@ -1,6 +1,6 @@
 ---
 title: January 2021 NREL HPC Monthly Update
-postdate: January 15, 2021
+data: 2021-01-04
 layout: default
 brief: Arbiter2, ESIF-HPC-3, and application updates
 ---

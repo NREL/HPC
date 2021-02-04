@@ -1,0 +1,7 @@
+{% assign sorted = site.announcements | reverse %}
+{% for announcement in sorted %}
+<div>
+    <a href='{{ announcement.url | prepend: site.baseurl}}'> {{ announcement.title }}</a>
+</div>    
+
+{% endfor %}
