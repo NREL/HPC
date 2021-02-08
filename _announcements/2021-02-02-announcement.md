@@ -13,7 +13,7 @@ reduce the amount of advertised memory and reduce the number of E-cells jobs run
 nodes and jobs more reliable and increase performance for larger jobs.
 
 
-#Jupyterhub Documentation
+# Jupyterhub Documentation
 We have written up a how-to guide for using the Europa Jupyterhub server, including setting up custom Python, 
 Julia, and R kernels and interacting with Eagle. See [https://www.nrel.gov/hpc/jupyterhub.html](https://www.nrel.gov/hpc/jupyterhub.html) for more.
 
