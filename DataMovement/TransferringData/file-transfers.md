@@ -1,8 +1,8 @@
 ---
 layout: default
 title: File Transfers
-grand_parent: General
-parent: Beginner
+grand_parent: Data Movement
+parent: Transferring Data
 ---
 
 # Transferring files
@@ -18,7 +18,7 @@ The below command is used to check your quota from an Eagle login node.  `hours_
 $ hours_report
 ```
 
-## Best Practices for Transfering Files
+## Best Practices for Transferring Files
 
 #### File Transfers Between Filesystems on the NREL network
 
@@ -65,7 +65,7 @@ For Windows you will need to download WinSCP to transfer files to and from HPC s
 
 *Learn various techniques to combine and compress multiple files or directories into a single file to reduce storage footprint or simplify sharing.*
 
-## `tar`
+## tar
 
 `tar`, along with [`zip`](#zip), is one of the basic commands to combine multiple individual files into a single file (called a "tarball"). `tar` requires at least one command line option. A typical usage would be:
 ```bash
