@@ -1,24 +1,24 @@
 ---
 layout: default
 title: File Transfers
-grand_parent: General
-parent: Beginner
+grand_parent: Data Movement
+parent: Transferring Data
 ---
 
-# how-to-transfer-files
+# Transferring files
 
 *Learn how to transfer data within, to and from NREL's high-performance computing (HPC) systems.*
 
 A supported set of instructions for data transfer using NREL HPC systems is provided on the [HPC NREL Website](https://www.nrel.gov/hpc/data-storage-transfer.html).
 
 ## Checking Usage and Quota
-The below command is used to check your quota from a Peregrine login node.  alloc_tracker will display your usage and quota for each filesystem.
+The below command is used to check your quota from an Eagle login node.  `hours_report` will display your usage and quota for each filesystem.
 
 ```bash
-$ alloc_tracker
+$ hours_report
 ```
 
-## Best Practices for Transfering Files
+## Best Practices for Transferring Files
 
 #### File Transfers Between Filesystems on the NREL network
 
@@ -28,7 +28,7 @@ rsync is the recommended tool for transferring data between NREL systems. It all
 $ rsync -aP --no-g /scratch/username/dataset1/ /mss/users/username/dataset1/
 ```
 
-*Mass Storage has quotas that limit the number of individual files you can store. If you are copying hundreds of thousands of files then it is best to archive these files prior to copying to Mass Storage. See the [guide on how to archive files](../intro-to-linux/archiving.md).*
+*Mass Storage has quotas that limit the number of individual files you can store. If you are copying hundreds of thousands of files then it is best to archive these files prior to copying to Mass Storage. See the [guide on how to archive files](#archiving-files-and-directories).*
 
 *Mass Storage quotas rely on the group of the file and not the directory path. It is best to use the `--no-g` option when rsyncing to MSS so you use the destination group rather than the group permissions of your source.  You can also `chgrp` your files to the appropriate group prior to rsyncing to MSS.*
 
@@ -58,4 +58,42 @@ $ wget https://URL
 Globus is optimized for file transfers between data centers and anything outside of the NREL network. It will be several times faster than any other tools you will have available. Documentation about requesting a HPC Globus account is available on the [Globus Services page on the HPC website](https://www.nrel.gov/hpc/globus-file-transfer.html).  See [Transfering files using Globus](globus.md) for instructions on transfering files with Globus.
 
 #### Transfering files using Windows
-For Windows you will need to download WinSCP to transfer files to and from HPC systems over SCP. See [Transfering using WinSCP](winscp.md).
+For Windows you will need to download WinSCP to transfer files to and from HPC systems over SCP. See [Transfering using WinSCP](https://www.nrel.gov/hpc/winscp-file-transfer.html).
+
+
+# Archiving files and directories
+
+*Learn various techniques to combine and compress multiple files or directories into a single file to reduce storage footprint or simplify sharing.*
+
+## tar
+
+`tar`, along with [`zip`](#zip), is one of the basic commands to combine multiple individual files into a single file (called a "tarball"). `tar` requires at least one command line option. A typical usage would be:
+```bash
+$ tar -cf newArchiveName.tar file1 file2 file3
+# or
+$ tar -cf newArchiveName.tar /path/to/folder/
+```
+
+The `-c` flag denotes **c**reating an archive, and `-f` denotes that the next argument given will be the archive name&mdash;in this case it means the name you would prefer for the resulting archive file. 
+
+To extract files from a tar, it's recommended to use:
+```bash
+$ tar -xvf existingArchiveName.tar
+```
+`-x` is for **ex**tracting, `-v` uses **v**erbose mode which will print the name of each file as it is extracted from the archive.
+
+### Compressing
+
+`tar` can also generate compressed tarballs which reduce the size of the resulting archive. This can be done with the `-z` flag (which just calls [`gzip`](#gzip) on the resulting archive automatically, resulting in a `.tar.gz` extension) or `-j` (which uses [`bzip2`](#bzip2), creating a `.tar.bz2`).
+
+For example:
+
+```bash
+# gzip
+$ tar -czvf newArchive.tar.gz file1 file2 file3
+$ tar -xvzf newArchive.tar.gz
+
+# bzip2
+$ tar -czjf newArchive.tar.bz2 file1 file2 file3
+$ tar -xvjf newArchive.tar.bz2
+```
