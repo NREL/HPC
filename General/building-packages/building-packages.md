@@ -1,19 +1,18 @@
 ---
 layout: default
 title: Building Packages
-parent: Intermediate
-grand_parent: General
+parent: General
 ---
 
 # Building packages on Eagle for individual or project use.
 This training module will walk through how to build a reasonably complex package, OpenMPI, and deploy
 it for use by yourself or members of a project.
 
-1. [Acquire the package and set up for build]({% link General/intermediate/building-packages/acquire.md %})
+1. [Acquire the package and set up for build]({% link General/building-packages/acquire.md %})
 
-2. [Configure, build, and install the package]({% link General/intermediate/building-packages/config_make_install.md %})
+2. [Configure, build, and install the package]({% link General/building-packages/config_make_install.md %})
 
-3. [Setting up your own environment module]({% link General/intermediate/building-packages/modules.md %})
+3. [Setting up your own environment module]({% link General/building-packages/modules.md %})
 
 ## Why build your own application?
 * Sometimes, the package version that you need, or the capabilities you want,
