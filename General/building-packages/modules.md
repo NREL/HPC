@@ -46,3 +46,4 @@ grand_parent: Intermediate
 	[cchang@el1 ~]$ module load openmpi/4.1.0/gcc-8.4.0
 	[cchang@el1 ~]$ which mpirun
 	/scratch/cchang/openmpi/4.1.0-gcc-8.4.0/bin/mpirun
+	```
