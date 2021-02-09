@@ -1,8 +1,7 @@
 ---
 layout: default
 title: JupyterHub
-grand_parent: General
-parent: Intermediate
+parent: Jupyter
 ---
 
 # JupyterHub
@@ -40,3 +39,7 @@ be able to access all Python modules therein.
 ## Using Jupyterhub from Eagle
 
 To use inside Eagle, the Jupyterhub server exists on the internal network @ https://europa-int/.
+
+## Customizing 
+
+JupyterHub provides the ability to use custom kernels including ones for other popular programming languages such as Julia and R. [NREL's custom kernels documentation](https://www.nrel.gov/hpc/jupyterhub.html) provides more information on how to setup JupyterHub with other languages. 
