@@ -1,25 +1,10 @@
 ---
 layout: default
-title: Filesystems
-grand_parent: General
-parent: Beginner
+title: Lustre Best Practices
+parent: Lustre
+grand_parent: Filesystems and I/O
 ---
-# File systems
-Eagle has three primary file systems available for compute nodes. Understanding the usage of these is important for achieving the best performance. 
 
-## NREL file systems
-* Home File System
-    * Quota of 50 GB
-    * Used to hold scripts, source code, executables
-* Lustre parallel file system: Accessiblle across all nodes. When using this file system please familiarize yourself with the [best practices section](#lustre-best-practices) 
-    * /scratch/username
-    * /projects
-    * /shared-projects
-    * /datasets
-* Node file system: The local drive on each node, these are accessible only on a given node. 
-    * /tmp/scratch
-
-For more information on the file systems available on Eagle please see: [Eagle System Configuration](https://www.nrel.gov/hpc/eagle-system-configuration.html)
 ## Lustre best practices
 In some cases special care must be taken while using Lustre so as not to affect the performance of the filesystem for yourself and other users. The below Do's and Don'ts are provided as guidance. 
 
@@ -48,6 +33,8 @@ In some cases special care must be taken while using Lustre so as not to affect 
     * Have many small files in a single directory
     * Run binary executables from the Lustre filesystem
         * e.g. don't keep libraries or programs in /scratch/username
+
+
 ## Useful Lustre commands
 
 * Check your storage usage:
@@ -60,7 +47,7 @@ In some cases special care must be taken while using Lustre so as not to affect 
 
 ## Striping
 
-Lustre provides a way to stripe files, this spreads them across multiple OSTs. Striping a large file being accessed by many processes can greatly improve the performace. See [Lustre file striping](http://wiki.lustre.org/Configuring_Lustre_File_Striping)for more details. 
+Lustre provides a way to stripe files, this spreads them across multiple OSTs. Striping a large file being accessed by many processes can greatly improve the performace. See [Lustre file striping](http://wiki.lustre.org/Configuring_Lustre_File_Striping) for more details. 
 
 ```
 lfs setstripe <file> -c <count> -s <size>
