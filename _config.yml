@@ -1,5 +1,5 @@
 remote_theme: pmarsceill/just-the-docs
-logo: /assets/nrel.png
+# logo: /assets/nrel.png
 color_scheme: nrel
 plugins:
     - jekyll-paginate
