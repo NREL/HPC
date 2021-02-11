@@ -1,4 +1,3 @@
-<p align="center"><img src="https://www.nrel.gov/_resources/images/nrel-logo.png"/></p>
 <p align="center">
 <img src="https://img.shields.io/github/repo-size/NREL/HPC.svg?label=size">
 <a href="https://github.com/NREL/HPC/issues/"><img src="https://img.shields.io/github/issues/NREL/HPC.svg"></a>
