@@ -9,8 +9,8 @@ permalink: /
 # NREL HPC resources
 
 ## Top Documentation 
-* [Filesystems](/General/beginner/filesystems.html)
-* [Python](/python/python.html)
+* [Filesystems](/HPC/General/beginner/filesystems.html)
+* [Python](/HPC/languages/python/python.html)
 
 ## Additional NREL resources
 * [User Basics](https://www.nrel.gov/hpc/eagle-user-basics.html)
