@@ -10,23 +10,22 @@ ssh <username>@hpcsh.nrel.gov
 ```
 Where <username> is is replaced by your HPC username.  Once you’ve connected to hpcsh.nrel.gov or if you are already on a network with direct access to peregrine, run the following command:
 ```
-ssh <username>@peregrine.hpc.nrel.gov 
+ssh <username>@eagle.hpc.nrel.gov
 ```
 When logging in for the first time you will need to verify the security authenticity and change your password on the HPC.
 
 Once you are on the system you will land in your home directory.
 
 ```bash
-ssh peregrine.hpc.nrel.gov
+ssh eagle.hpc.nrel.gov
 *****************************************************************************
 
-                         NOTICE TO USER
+                         NOTICE TO USERS
 ....
 *****************************************************************************
 
 Send email to hpc-help@nrel.gov for HPC support requests and trouble reports.
 
-[wjones@login4 ~]$ pwd
+[wjones@el3 ~]$ pwd
 /home/wjones
 ```
-

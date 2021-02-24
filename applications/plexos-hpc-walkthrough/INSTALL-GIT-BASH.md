@@ -19,13 +19,13 @@ Contents
     * Select `Use MinTTY (the default terminal of MSYS2)` (default)
     * Hit Next for remaining
 * OSX
-    * If you have `git` on your machine, you can skip this step. 
+    * If you have `git` on your machine, you can skip this step.
     * Download latest version of `git` (2.9.3) from <https://git-scm.com/downloads>
     * If using git for the first time from terminal, you may get a prompt to say GIT not installed do you want to download? Select yes (you don’t need the full Xcode)
 
 ## Open a bash terminal
 
-* Windows 
+* Windows
    * Open `Git Bash` from available windows applications and type the following to test.
 
 ```
@@ -35,6 +35,6 @@ pwd
 * Mac
    * Open `Terminal`, found in Applications->Utilities->Terminal and type the following to test
 ```
-pwd
-#/Users/wjones
+$ git --version
+git version 2.21.1 (Apple Git-122.3)
 ```
