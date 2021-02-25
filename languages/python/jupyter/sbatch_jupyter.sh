@@ -5,11 +5,11 @@
 #SBATCH --partition=short
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=36
-#SBATCH --account=mbap
+#SBATCH --account=<account-handle>
 
 module purge
 module load conda
-conda activate /home/$USER/.conda/envs/dask
+conda activate /home/$USER/.conda/envs/jupyterenv
 
 port=7878
 
