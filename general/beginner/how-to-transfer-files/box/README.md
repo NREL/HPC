@@ -28,8 +28,8 @@ pip install boxsdk
 Then, you can clone this repo and update the script to match your situation:
 
 ```
-git clone https://github.nrel.gov/MBAP/mbap-hpc.git
-vim mbap-hpc/python/box_upload.py
+git clone https://github.com/NREL/HPC.git
+vim HPC/general/beginner/how-to-transfer-files/box/box_upload.py
 ```
 
 The `FOLDER_ID` can be found by looking at the box url when you navigate to the folder you want to upload to:
