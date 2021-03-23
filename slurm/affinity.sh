@@ -22,6 +22,9 @@ Here we run with 2 tasks and 18 threads.  We "default" to 18
 threads because we have --cpus-per-task=18.  This can also be
 set with the environmental variable OMP_NUM_THREADS.
 
+If you set OMP_NUM_THREADS within a script you should add the
+--cpus-per-task=$OMP_NUM_THREADS to your srun command line.
+
 In this version we show the effects of setting the variable
 KMP_AFFINITY. KMP_AFFINITY is used to control mappings of 
 threads to cores when the Intel compilers are used.   

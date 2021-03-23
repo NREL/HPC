@@ -99,8 +99,8 @@ module face
     end interface
 end module
 module mympi
-    use mpi
-!   include "mpif.h"
+!   use mpi
+    include "mpif.h"
     integer numnodes,myid,mpi_err
     integer, parameter::mpi_master=0
     integer status(MPI_STATUS_SIZE)

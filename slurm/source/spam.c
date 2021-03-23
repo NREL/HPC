@@ -54,9 +54,14 @@ void FORCECORE (int *core) {
 	int bonk; 
 	cpu_set_t set; 
 	bonk=*core; 
+        bonk=abs(bonk) ;
 	CPU_ZERO(&set);        // clear cpu mask 
 	CPU_SET(bonk, &set);      // set cpu 0 
-	sched_setaffinity(getpid(), sizeof(cpu_set_t), &set);   
+        if (*core < 0 ){
+	 	sched_setaffinity(0, sizeof(cpu_set_t), &set);   
+        }else{
+	        sched_setaffinity(getpid(), sizeof(cpu_set_t), &set);   
+        }
 } 
 
 void FINDCORE (int *ic) 

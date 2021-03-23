@@ -1,7 +1,7 @@
 #Set MPI version and commands.  These can be overloaded by command line options
 #for mpt:    make MOD="mpt  mkl cuda gcc/8.4.0"       MPICC=mpicc  MPIFC=mpif90
 #for intel:  make MOD="intel-mpi/2020.1.217 mkl cuda" MPICC=mpiicc MPIFC=mpiifort
-MOD=mpt  mkl cuda gcc/8.4.0
+MOD=mpt mkl comp-intel cuda/10.2.89 gcc/8.4.0 
 MPICC=mpicc
 MPIFC=mpif90
 
@@ -14,7 +14,8 @@ FC=ifort
 
 #set the module and call make again
 recurse: 
-	source $$MODULESHOME/init/bash ; ml $(MOD)  ; $(MAKE) -f $(firstword $(MAKEFILE_LIST)) programs
+	#source $$MODULESHOME/init/bash ; ml $(MOD)  ; export MPIF90_F90=gfortran ; export MPICC_CC=gcc ; $(MAKE) -f $(firstword $(MAKEFILE_LIST)) programs
+	source  $$MODULESHOME/init/bash ; ml $(MOD)  ; export MPIF90_F90=ifort    ; export MPICC_CC=icc ; $(MAKE) -f $(firstword $(MAKEFILE_LIST)) programs
 
 #here we list the real targets
 programs: phostone stf_01 f_ex02 c_ex02 mpigpu slowinvert purempi afile invertc in_list
@@ -58,7 +59,7 @@ install: recurse
 	cp     in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
 
 dist-clean: clean
-	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc ../slrum.tgz
+	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc ../slurm.tgz
 
 backup: 
 	cd .. ; tar -czf slurm.tgz affinity.sh CHAIN.sh FAN.sh  fromenv.sh gpucpu.sh hostname.sh hybrid.sh local.sh mpmd2.sh mpmd.sh multimax.sh multinode-task-per-core.sh multi.sh newdir.sh old_new.sh openmp.sh README.md redirect.sh simple.sh source testit uselist.sh ; cd source
