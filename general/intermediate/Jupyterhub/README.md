@@ -16,7 +16,7 @@ Alternatively, you can start a Terminal, and use the usual conda commands from t
 
 ## Creating a custom environment to access from the notebook
 
-Start a Terminal session, and follow the instructions on the [HPC website](https://www.nrel.gov/hpc/software-python.html) 
+Start a Terminal session, and follow the instructions on the [HPC website](https://www.nrel.gov/hpc/eagle-software-python.html) 
 to create an environment. Now, to make this environment visible from your future notebooks, run the following command:
 
 ```
