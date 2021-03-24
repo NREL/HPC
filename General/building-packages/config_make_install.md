@@ -56,3 +56,5 @@ will be found).
 5. Try a `make check` and/or a `make test`. Not every package enables these tests, but if they do, it's a great idea to run these sanity checks to find if your build is perfect, maybe-good-enough, or totally wrong before building lots of other software on top of it.
 
 6. Assuming checks passed if present, it's now time for `make install`. Assuming that completes without errors, you can move onto creating an environment module to use your new MPI library.
+
+[Previous - Acquire the package and set up for build](/HPC/General/building-packages/acquire.html)  |  [Next - Setting up your own environment module](/HPC/General/building-packages/modules.html)
