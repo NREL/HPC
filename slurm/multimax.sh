@@ -39,7 +39,7 @@ relative
 We assume we are running on two or more nodes.
 
 The application we are running is a python mpi4py code, report.py.  
-We assume we are using Intel MPI for the backend.  The script jupyter.sh
+We assume we are using mpt MPI for the backend.  The script jupyter.sh
 can be used to create a conda environment with mpi4py with an
 Intel backend in the file .  
 

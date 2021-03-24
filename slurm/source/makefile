@@ -56,13 +56,13 @@ clean:
 	rm -rf in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu *mod slowinvert hysub.o purempi build invertc
 
 install: recurse
-	cp     in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc ..
+	cp     in_list afile phostone stf_01 f_ex02 c_ex02 mpigpu doarray.py report.py slowinvert tymer purempi invertc st.in ..
 
 dist-clean: clean
-	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc ../slurm.tgz
+	rm -rf  ../in_list ../afile ../phostone ../stf_01 ../f_ex02 ../c_ex02 ../mpigpu ../doarray.py ../report.py ../tymer ../slowinvert ../purempi ../invertc ../slurm.tgz ../st.in
 
 backup: 
-	cd .. ; tar -czf slurm.tgz affinity.sh CHAIN.sh FAN.sh  fromenv.sh gpucpu.sh hostname.sh hybrid.sh local.sh mpmd2.sh mpmd.sh multimax.sh multinode-task-per-core.sh multi.sh newdir.sh old_new.sh openmp.sh README.md redirect.sh simple.sh source testit uselist.sh ; cd source
+	cd .. ; tar -czf slurm.tgz affinity.sh CHAIN.sh FAN.sh  fromenv.sh gpucpu.sh hostname.sh hybrid.sh local.sh mpmd2.sh mpmd.sh multimax.sh multinode-task-per-core.sh multi.sh newdir.sh old_new.sh openmp.sh README.md redirect.sh simple.sh source testit uselist.sh st.in ; cd source
 
 #.PHONY: afile
 

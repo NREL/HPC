@@ -18,8 +18,9 @@ complex workflows.  See FAN for a complete description.
 
 cd $SLURM_SUBMIT_DIR
 module purge
+# needed for threaded apps built with Intel compilers
+module load comp-intel
 module load mpt
-
 
 # Make a directory for this run and go there.
 # If NEW_DIR is defined then we use that for

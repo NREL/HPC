@@ -83,6 +83,8 @@ USAGE:
 ++++
 
 
+# needed for threading if you use Intel compilers
+module load comp-intel
 # load our version of MPI
 module load mpt
 
