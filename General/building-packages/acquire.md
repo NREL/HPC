@@ -33,3 +33,4 @@ If you're curious to see what's in the file as it unpacks, add the `-v` option.
 
 You can now proceed to configuring, making, and installing.
 
+[Next - Configure, build, and install the package](/HPC/General/building-packages/config_make_install.html)

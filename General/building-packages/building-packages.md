@@ -35,3 +35,4 @@ library. The same holds for optimizing compilers.
 * Pride of building one's tools oneself.
 * For the sheer thrill of building packages.
 
+[Next - Acquire the package and set up for build](/HPC/General/building-packages/acquire.html) |

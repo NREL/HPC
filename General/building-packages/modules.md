@@ -47,3 +47,5 @@ grand_parent: Intermediate
 	[cchang@el1 ~]$ which mpirun
 	/scratch/cchang/openmpi/4.1.0-gcc-8.4.0/bin/mpirun
 	```
+
+[Previous - Configure, build, and install the package](/HPC/General/building-packages/config_make_install.html) |
