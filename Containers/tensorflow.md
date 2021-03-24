@@ -1,5 +1,10 @@
-## Tensorflow with GPU support singularity container
-This singularity container supplies Tensorflow 2.3.0 optimized for use with GPU nodes.  It also has opencv, numpy, pandas, seaborn, scikit-learn python libraries.
+---
+layout: default
+title: Containerized TensorFlow
+parent: Containers
+---
+## TensorFlow with GPU support singularity container
+This Singularity container supplies TensorFlow 2.3.0 optimized for use with GPU nodes.  It also has opencv, numpy, pandas, seaborn, scikit-learn python libraries.
 
 ### Quickstart
 ```bash
@@ -11,8 +16,8 @@ unset LD_PRELOAD
 srun --gpus=2 --pty singularity shell --nv /nopt/nrel/apps/singularity/images/tensorflow_gpu_extras_2.3.0.sif
 ```
 
-### Building a custom image based on tensorflow
-In order to build a custom singularity image based on this one, docker must be installed on your local computer.  [TBD] shows how to install docker.
+### Building a custom image based on TensorFlow
+In order to build a custom Singularity image based on this one, docker must be installed on your local computer.  [Docker documentation](https://docs.docker.com/engine/install/) shows how to install docker.
 
 1. Update Dockerfile shown below to represent the changes desired and save to working directory.  
 ```
@@ -35,7 +40,7 @@ git+https://github.com/tensorflow/docs
 ```bash
 docker build -t tensorflow-custom-tag-name .
 ```
-4. Create singularity image file.  Note the ./images directory must be created before running this command.
+4. Create Singularity image file.  Note the ./images directory must be created before running this command.
 ```bash
 docker run -v /var/run/docker.sock:/var/run/docker.sock \
 -v $(PWD)/images:/output \
@@ -43,7 +48,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
 quay.io/singularity/docker2singularity --name tensorflow_custom.sif \
 tensorflow-custom-tag-name
 ```
-5. Transfer image file to eagle.  For this example I created a directory named /scratch/$(USER)/tensorflow on eagle
+5. Transfer image file to Eagle.  For this example I created a directory named /scratch/$(USER)/tensorflow on eagle
 ```bash
 rsync -v images/tensorflow_custom.sif eagle.hpc.nrel.gov:/scratch/$(USER)/tensorflow/
 ```
