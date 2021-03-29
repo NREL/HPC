@@ -16,12 +16,12 @@ Update the `sbatch_jupyter.sh` script with your account information and desired 
 ```bash
 #!/bin/bash  --login
 
+#SBATCH --account=<project handle>
 #SBATCH --time=01:00:00
+
 #SBATCH --nodes=1
-#SBATCH --partition=short
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=36
-#SBATCH --account=<your-account-handle>
 ```
 
 Then, you can submit and monitor the job automatically with:
