@@ -1,4 +1,4 @@
-# NREL HPC Training Workshops Hosted by the Operations Team
+# NREL HPC Training Workshops 
 
 This section contains links to the finalized presentations and materials we used 
 during various user-training workshops. Descriptions of the workshops and any assets 
