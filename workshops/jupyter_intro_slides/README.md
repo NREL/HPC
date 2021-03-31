@@ -3,7 +3,9 @@
 This directory contains the introductory talk "Jupyter on NREL HPC Resources"
 first given on March 30th, 2021.
 
-If you have conda on your computer, you can run the notebook locally.
+The notebook can be rendered directly on Github by clicking the [.ipynb notebook file](Jupyter_Intro_Slides.ipynb).
+
+If you have conda on your computer, you can run the notebook locally to experiment.
 
 The conda environment used by the presenter with all of the packages necessary to run jupyter, create and display 
 slides, and make nice plots is defined in jupyter-slides.yml. 
