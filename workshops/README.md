@@ -5,11 +5,11 @@ during various user-training workshops. Descriptions of the workshops and any as
 related to them which have been polished and placed on our website will be provided for each workshop below.
 
 For a schedule and calendar invitations detailing upcoming workshops can be found 
-on [our HPC training page.](https://www.nrel.gov/hpc/training.html "NREL HPC training"). This page will 
+on [our HPC training page](https://www.nrel.gov/hpc/training.html "NREL HPC training"). This page will 
 also contain information on recurring/episodic and recently held workshops.
 
 
-## Current HPC Workshops
+## Current HPC Workshops (FY21)
 
 ### Introduction to Jupyter on NREL HPC Resources (March 30, 2021)
 
@@ -48,8 +48,8 @@ Details for this workshop will be announced shortly.
 <summary>More information</summary>
 <br>
 Beyond the basics. This advanced workshop will cover topics such as: slurm integrations, 
-multi-node parallel computations, JupyterLab Extensions, etc. Content for this workshop will 
-be announced soon based on feedback received. 
+multi-node parallel computations, JupyterLab Extensions, etc. Full content for this workshop will 
+be announced soon, based on feedback received. 
 </details>
 
 <br>
