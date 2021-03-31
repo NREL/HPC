@@ -8,10 +8,10 @@ For a schedule and calendar invitations detailing upcoming workshops can be foun
 on [our HPC training page.](https://www.nrel.gov/hpc/training.html "NREL HPC training"). This page will 
 also contain information on recurring/episodic and recently held workshops.
 
----
+
 ## Current HPC Workshops
 
-### Workshop - Introduction to Jupyter on NREL HPC Resources (March 30, 2021)
+### Introduction to Jupyter on NREL HPC Resources (March 30, 2021)
 
 <details open>
 <summary>More information</summary>
@@ -27,25 +27,31 @@ Content for this presentation can be found in the [jupyter_intro_slides] directo
 
 </details>
 
+<br>
+
 ## Upcoming HPC Workshops
 
-### Workshop - Using the Slurm Job Scheduler (April 8th, 2021)
+### Using the Slurm Job Scheduler (April 8th, 2021)
 
-<details open>
+<details>
 <summary>More information</summary>
 <br>
 Details for this workshop will be announced shortly.
 </details>
 
-### Workshop - Advanced Jupyter (May 13th, 2021)
+<br>
 
-<details open>
+### Advanced Jupyter (May 13th, 2021)
+
+<details>
 <summary>More information</summary>
 <br>
 Beyond the basics. This advanced workshop will cover topics such as: slurm integrations, 
 multi-node parallel computations, JupyterLab Extensions, etc. Content for this workshop will 
 be announced soon based on feedback received. 
 </details>
+
+<br>
 
 ---
 
@@ -109,6 +115,8 @@ The HPC Operations team held workshops for providing live assistance with acc
 * [Transitioning from Peregrine to Eagle - Presentation Slides](https://www.nrel.gov/hpc/assets/pdfs/peregrine-to-eagle-transition-presentation.pdf "Peregrine to Eagle Presentation Slides")
 * [Separate instructions for how to use Globus to migrate files quickly and reliably](https://www.nrel.gov/hpc/assets/pdfs/using-globus-to-move-data-from-peregrine-to-eagle.pdf)
 * [PBS to Slurm Analogous Command Cheat Sheet](https://www.nrel.gov/hpc/assets/pdfs/pbs-to-slurm-translation-sheet.pdf)
+
+</details>
 
 </details>
 
