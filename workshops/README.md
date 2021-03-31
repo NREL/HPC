@@ -23,7 +23,8 @@ NREL compute resources. This workshop includes a live demonstration with methods
 for using JupyterHub on Eagle (Europa), Jupyter notebooks on Eagle nodes, as well as 
 sample notebooks and cluster submission scripts.
 
-Content for this presentation can be found in the [jupyter_intro_slides] directory.
+Content for this presentation can be found in the [jupyter_intro_slides](jupyter_intro_slides) directory.
+
 
 </details>
 
