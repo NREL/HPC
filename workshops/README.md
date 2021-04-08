@@ -9,7 +9,30 @@ on [our HPC training page](https://www.nrel.gov/hpc/training.html "NREL HPC trai
 also contain information on recurring/episodic and recently held workshops.
 
 
-## Current HPC Workshops (FY21)
+## Recent HPC Workshops (FY21)
+
+### Using the Slurm Job Scheduler (April 8th, 2021)
+
+<details open>
+<summary>More information</summary>
+<br>
+Slurm is the batch queuing system for running jobs on Eagle and many other HPC systems. The heart of running under slurm is a slurm script. After a quick review of slurm basics we will dive into a number of slurm example scripts, highlighting methods of getting good utilization of HPC resources. Each example was originally written to address a particular question such as: “How do I do X in slurm?” Some of the topics to be covered include:
+
+- effectively mapping tasks and threads to cores
+- creating scripts to promote reproducible results
+- running with different MPI executables on various cores
+- getting inputs from your environment to enable submitting multiple jobs with different inputs without changing scripts
+- creating job dependencies and job arrays
+- running both a CPU and GPU job in a single script and forcing task affinity.  
+
+Content on this workshop can be found in the [slurm examples slides](slurm_examples_slides) directory of this repository.
+Additional content and examples can be found in [Tim Kaiser's Github repository](https://github.com/timkphd/examples/tree/master/tims_tools).
+
+</details>
+
+<br>
+
+
 
 ### Introduction to Jupyter on NREL HPC Resources (March 30, 2021)
 
@@ -32,22 +55,6 @@ Content for this presentation can be found in the [jupyter_intro_slides](jupyter
 
 ## Upcoming HPC Workshops
 
-### Using the Slurm Job Scheduler (April 8th, 2021)
-
-<details>
-<summary>More information</summary>
-<br>
-Slurm is the batch queuing system for running jobs on Eagle and many other HPC systems. The heart of running under slurm is a slurm script. After a quick review of slurm basics we will dive into a number of slurm example scripts, highlighting methods of getting good utilization of HPC resources. Each example was originally written to address a particular question such as: “How do I do X in slurm?” Some of the topics to be covered include:
-
-- effectively mapping tasks and threads to cores
-- creating scripts to promote reproducible results
-- running with different MPI executables on various cores
-- getting inputs from your environment to enable submitting multiple jobs with different inputs without changing scripts
-- creating job dependencies and job arrays
-- running both a CPU and GPU job in a single script and forcing task affinity.  
-</details>
-
-<br>
 
 ### Advanced Jupyter (May 13th, 2021)
 
