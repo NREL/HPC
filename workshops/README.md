@@ -32,6 +32,14 @@ Additional content and examples can be found in [Tim Kaiser's Github repository]
 
 <br>
 
+### TensorFlow on Eagle (April, 23 2021)
+<details open>
+<summary>More information</summary>
+<br>
+In this introduction to using TensorFlow on Eagle, we will discuss what TensorFlow is, why you may want to use TensorFlow, and how you may install and use pre-compiled versions of TensorFlow which are specifically optimized for Eagle’s CPU and GPU architecture. This workshop includes instructions for accessing and installing the optimized versions of TensorFlow for Eagle, as well as some basic steps for testing your TensorFlow installation and performing benchmarking tests.
+</details>
+
+<br>
 
 
 ### Introduction to Jupyter on NREL HPC Resources (March 30, 2021)
@@ -39,7 +47,6 @@ Additional content and examples can be found in [Tim Kaiser's Github repository]
 <details open>
 <summary>More information</summary>
 <br>
-
 In this introduction to Jupyter, we will discuss what Jupyter is, why you may 
 want to use Jupyter, and how you may utilize notebooks on the various available 
 NREL compute resources. This workshop includes a live demonstration with methods 
