@@ -19,7 +19,7 @@ USAGE:
 
 ++++
 
-### Build a new version of python with and Intel MPI version of mpi4py
+### Build a new version of python with and mpt MPI version of mpi4py
 CWD=`pwd`
 export MYVERSION=dompt
 cd ~
