@@ -32,5 +32,4 @@ for cloud resources are reviewed and approved by the IACAC.
 Watch for the Call for Requests notification, and attend the upcoming Cloud Allocation Request webinar in May to learn more!
 
 # Coming Soon: New Cloud User Website
-We are transitioning from the CSC Cloud Team Wiki to a website modeled after hpc.nrel.gov. The website will have a similar 
-structure and look and feel that the user community is accustomed to.
+We are transitioning from the CSC Cloud Team Wiki to a website modeled after [https://hpc.nrel.gov](https://hpc.nrel.gov). The website will have a similar structure and look and feel that the user community is accustomed to.
