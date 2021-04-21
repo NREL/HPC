@@ -1,0 +1,9 @@
+name: py37tf20
+dependencies:
+  - python=3.7
+  - anaconda::tensorflow=2.0.0
+  - pip
+  - pip:
+    - numpy==1.18.5
+    - scipy==1.4.1
+    - ai-benchmark
