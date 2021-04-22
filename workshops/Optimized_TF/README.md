@@ -10,7 +10,7 @@ cd /scratch/$USER/
 ```
 2. Clone the github repo into the directory you chose
 ```
-git clone https://github.nrel.gov/hpc-apps/Optimized_TF
+https://github.com/NREL/HPC.git
 ```
 3. Navigate to the repo
 ```
