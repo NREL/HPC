@@ -1,6 +1,6 @@
 # Install instructions for GPU use
 
-1. Navigate to your eagle home directory or scratch directory using
+1. Navigate to your Eagle home directory or scratch directory using
 ```
 cd ~/
 ```
@@ -10,7 +10,7 @@ cd /scratch/$USER/
 ```
 2. Clone the github repo into the directory you chose
 ```
-https://github.com/NREL/HPC.git
+git clone https://github.com/NREL/HPC
 ```
 3. Navigate to the repo
 ```
@@ -39,7 +39,7 @@ cd ./HPC/workshops/Optimized_TF/
       ```
       pip install --upgrade --no-deps --force-reinstall /nopt/nrel/apps/wheels/tensorflow-2.4.0-cp38-cp38-linux_x86_64.whl
       ```
-  * e) If you are an allocated or interactive node you can test the install by running
+  * e) If you are on an allocated or interactive node you can test the install by running
       ```
       python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
       ```
@@ -59,7 +59,7 @@ cd ./HPC/workshops/Optimized_TF/
       ```
       conda env create -f py38tf23.yml
       ```
-  * c) Active the conda environment
+  * c) Activate the conda environment
       ```
       source activate py38tf23
       ```
@@ -67,7 +67,7 @@ cd ./HPC/workshops/Optimized_TF/
       ```
       pip install --upgrade --no-deps --force-reinstall /nopt/nrel/apps/wheels/tensorflow-2.3.2-cp38-cp38-linux_x86_64.whl
       ```
-  * e) If you are an allocated or interactive node you can test the install by running
+  * e) If you are on an allocated or interactive node you can test the install by running
       ```
       python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
       ```
@@ -99,7 +99,7 @@ cd ./HPC/workshops/Optimized_TF/
       ```
       pip install --upgrade --no-deps --force-reinstall /nopt/nrel/apps/wheels/tensorflow-2.2.1-cp37-cp37m-linux_x86_64.whl
       ```
-  * e) If you are an allocated or interactive node you can test the install by running
+  * e) If you are on an allocated or interactive node you can test the install by running
       ```
       python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
       ```
@@ -128,7 +128,7 @@ cd ./HPC/workshops/Optimized_TF/
       pip install --upgrade --no-deps --force-reinstall /nopt/nrel/apps/wheels/tensorflow-2.0.0-cp37-cp37m-linux_x86_64.whl
       ```
 
-  * e) If you are an allocated or interactive node you can test the install by running
+  * e) If you are on an allocated or interactive node you can test the install by running
       ```
       python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
       ```
