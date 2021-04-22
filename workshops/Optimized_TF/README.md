@@ -14,7 +14,7 @@ https://github.com/NREL/HPC.git
 ```
 3. Navigate to the repo
 ```
-cd ./Optimized_TF/
+cd ./HPC/workshops/Optimized_TF/
 ```
 
 4. To install TensorFlow 2.4.0 with Python 3.8 for GPUS run the following
