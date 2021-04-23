@@ -10,13 +10,15 @@
 #SBATCH --gres=gpu:1
 
 
-cd /scratch/pdiaz/
-module use /nopt/nrel/apps/modules/centos74/modulefiles/
-module load gcc/7.4.0
-module load cuda/10.0.130
-module load cudnn/7.4.2/cuda-10.0
+cd /scratch/$USER/
+# the modules loaded below need to match the versions described in README.md for
+# the corresponding TensorFlow version
+module purge
+module use /nopt/nrel/apps/modules/test/modulefiles/
 module load conda
+module load gcc/7.4.0
+module load cudnn/8.0.5/cuda-10.2
 sleep 3
-source activate py38tf23
+source activate py38tf24
 sleep 5
 python3 TFbenchmark.py
