@@ -186,10 +186,18 @@ You may wonder why set up the number of CPUs to 35 when there are 36 cores on an
 
 Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
 
+<sup>**</sup> **Supplemental notes**
+As you noticed, when using RLlib for RL traning, there is no need to `import gym`, as we did in the non-training example, because RLlib recognizes automatically all benchmark OpenAI Gym environments. Even when you create your own custom-made Gym environments, RLlib provides proper functions with which you can register your environment before training.
+
 # Outputs
+
+When you run RLlib experiments
 
 RLlib produces outputs of the following form:
 ```
+== Status ==
+Memory usage on this node: 9.1/187.3 GiB
+Using FIFO scheduling algorithm.
 Resources requested: 1/36 CPUs, 0/0 GPUs, 0.0/119.73 GiB heap, 0.0/38.13 GiB objects
 Result logdir: /home/eskordil/ray_results/CartPole-v0
 Number of trials: 1 (1 RUNNING)
@@ -279,3 +287,76 @@ These lines inform us about the following:
 * reward: The reward returned after the end of this iteration. Succesfull agent training will be shown through increase of that value during the process.
 
 These are the most straightforward, but in the same time important, information you will get after every training iteration. The rest of this snippet contains more specialized information, but for most of it you will never have to be concerned about. 
+
+When you set `--num-cpus` equal to 35, then the aforementioned printout will be like this:
+```
+== Status ==
+Memory usage on this node: 10.6/92.8 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 36/36 CPUs, 0/0 GPUs, 0.0/54.25 GiB heap, 0.0/18.7 GiB objects
+Result logdir: /home/eskordil/ray_results/CartPole-v0
+Number of trials: 1 (1 RUNNING)
++-----------------------------+----------+-----------------+--------+------------------+------+----------+
+| Trial name                  | status   | loc             |   iter |   total time (s) |   ts |   reward |
+|-----------------------------+----------+-----------------+--------+------------------+------+----------|
+| DQN_CartPole-v0_b665a_00000 | RUNNING  | 127.0.0.1:92844 |      3 |          6.30516 | 3360 |    19.07 |
++-----------------------------+----------+-----------------+--------+------------------+------+----------+
+
+
+Result for DQN_CartPole-v0_b665a_00000:
+custom_metrics: {}
+date: 2021-04-29_09-16-00
+done: false
+episode_len_mean: 17.37
+episode_reward_max: 97.0
+episode_reward_mean: 17.37
+episode_reward_min: 8.0
+episodes_this_iter: 75
+episodes_total: 233
+experiment_id: 573f3799c81946439a598d6d633df7d4
+experiment_tag: '0'
+hostname: r4i7n35
+info:
+last_target_update_ts: 4480
+learner:
+  default_policy:
+    cur_lr: 0.0005000000237487257
+    max_q: 12.753413200378418
+    mean_q: 5.389695167541504
+    mean_td_error: -1.9424524307250977
+    min_q: 0.2038756161928177
+    model: {}
+num_steps_sampled: 4480
+num_steps_trained: 800
+num_target_updates: 7
+iterations_since_restore: 4
+node_ip: 127.0.0.1
+num_healthy_workers: 35
+off_policy_estimator: {}
+perf:
+cpu_util_percent: 7.4
+ram_util_percent: 11.4
+pid: 92844
+policy_reward_max: {}
+policy_reward_mean: {}
+policy_reward_min: {}
+sampler_perf:
+mean_env_wait_ms: 0.04555504737231483
+mean_inference_ms: 0.8442203457250892
+mean_processing_ms: 0.1175659340957767
+time_since_restore: 8.04318118095398
+time_this_iter_s: 1.7380259037017822
+time_total_s: 8.04318118095398
+timers:
+learn_throughput: 19616.739
+learn_time_ms: 1.631
+update_time_ms: 89.14
+timestamp: 1619709360
+timesteps_since_restore: 0
+timesteps_total: 4480
+training_iteration: 4
+trial_id: b665a_00000
+```
+Obviously, RLlib here utilized the cardinality of CPU cores on the node (36/36). 
+
+You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence:
