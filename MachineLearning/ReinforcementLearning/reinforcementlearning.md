@@ -191,21 +191,6 @@ As you noticed, when using RLlib for RL traning, there is no need to `import gym
 
 # Outputs
 
-When you run RLlib experiments, a directory named `ray_results` will automatically appear on your `home` directory. There you can find subdirectories for all your experiments that contain metadata distilled from all this information you see in the training printouts, and later use for evaluating the training process. 
-
-After your experiment with `CartPole-v0` is finished, go to your home directory:
-```
-cd ~/
-```
-where 
-Then, do `cd ray_results`. There, you will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Inside this directory, you will find subdirectories named using a combination of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. So, if for example you ran an experiment for CartPole, using Deep Q-Network (DQN), and the experiment started on April 29, 2021, at 9:14:57AM, the subdirectory containing the metadata will have a name like this:
-```
-DQN_CartPole-v0_0_2021-04-29_09-14-573vmq2rio
-```
-You `cd` in that directory, where you will find various text, JSON, and CSV files. One of them, named `progress.csv` contains a dataframe with columns such as `episode_reward_mean`, that help you evaluate the quality of the training process.
-
-## Printouts
-
 RLlib produces outputs of the following form:
 ```
 == Status ==
@@ -373,3 +358,22 @@ trial_id: b665a_00000
 Obviously, RLlib here utilized the cardinality of CPU cores on the node (36/36). 
 
 You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence.
+
+## Metadata
+
+When you run RLlib experiments, a directory named `ray_results` will automatically appear on your `home` directory. There you can find subdirectories for all your experiments that contain metadata distilled from all this information you see in the training printouts, and later use for evaluating the training process. 
+
+After your experiment with `CartPole-v0` is finished, go to your home directory:
+```
+cd ~/
+```
+where 
+Then, do `cd ray_results`. There, you will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Within this directory, you will find subdirectories with names being combinations of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. So, if for example you ran an experiment for CartPole, using Deep Q-Network (DQN), and the experiment started on April 29, 2021, at 9:14:57AM, the subdirectory containing the metadata will have a name like this:
+```
+DQN_CartPole-v0_0_2021-04-29_09-14-573vmq2rio
+```
+You `cd` in that directory, where you will find various text, JSON, and CSV files. One of them, named `progress.csv` contains a dataframe with columns such as `episode_reward_mean`, that help you evaluate the quality of the training process.
+
+## Comparisons
+
+Let us now compare the outcomes from when running experiments on a single core versus on all cores on an Eagle node. An easy way to verify that is by using `Tensorboard` (more information [here](https://www.tensorflow.org/tensorboard)).
