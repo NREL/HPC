@@ -185,3 +185,97 @@ python simple_trainer.py --num-cpus 35
 You may wonder why set up the number of CPUs to 35 when there are 36 cores on an Eagle node. That happens because RLlib always sets a minimum of one core in `num_workers` key of the `config` dictionary, even if you don't (remember the default `--num-cpus` flag value of zero). In the current setting of the aforementioned example (`--num-cpus`: 0), RLlib will actually utilize 1 core. So, by setting the `--num-cpus` hyperparameter to 35, RLlib will actually allocate 36 cores, which means 100% utilization of the Eagle node.
 
 Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
+
+# Outputs
+
+RLlib produces outputs of the following form:
+```
+Resources requested: 1/36 CPUs, 0/0 GPUs, 0.0/119.73 GiB heap, 0.0/38.13 GiB objects
+Result logdir: /home/eskordil/ray_results/CartPole-v0
+Number of trials: 1 (1 RUNNING)
++-----------------------------+----------+-------+
+| Trial name                  | status   | loc   |
+|-----------------------------+----------+-------|
+| DQN_CartPole-v0_380be_00000 | RUNNING  |       |
++-----------------------------+----------+-------+
+
+
+(pid=200639) 2021-04-29 10:44:55,555	INFO trainer.py:585 -- Tip: set framework=tfe or the --eager flag to enable TensorFlow eager execution
+(pid=200639) 2021-04-29 10:44:55,555	INFO trainer.py:612 -- Current log_level is WARN. For more information, set 'log_level': 'INFO' / 'DEBUG' or use the -v and -vv flags.
+(pid=200639) 2021-04-29 10:44:56,504	WARNING util.py:37 -- Install gputil for GPU system monitoring.
+Result for DQN_CartPole-v0_380be_00000:
+  custom_metrics: {}
+  date: 2021-04-29_10-44-57
+  done: false
+  episode_len_mean: 22.906976744186046
+  episode_reward_max: 86.0
+  episode_reward_mean: 22.906976744186046
+  episode_reward_min: 8.0
+  episodes_this_iter: 43
+  episodes_total: 43
+  experiment_id: 66ccec197de8447fb178c8abebd26107
+  experiment_tag: '0'
+  hostname: r7i7n35
+  info:
+    last_target_update_ts: 1000
+    learner:
+      default_policy:
+        cur_lr: 0.0005000000237487257
+        max_q: 0.3239544630050659
+        mean_q: -0.08293987810611725
+        mean_td_error: -1.207885503768921
+        min_q: -1.2971210479736328
+        model: {}
+    num_steps_sampled: 1000
+    num_steps_trained: 32
+    num_target_updates: 1
+  iterations_since_restore: 1
+  node_ip: 10.148.7.231
+  num_healthy_workers: 0
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 2.85
+    ram_util_percent: 5.0
+  pid: 200639
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_env_wait_ms: 0.042502815787727896
+    mean_inference_ms: 0.49455801804701643
+    mean_processing_ms: 0.1114586611965915
+  time_since_restore: 0.9389147758483887
+  time_this_iter_s: 0.9389147758483887
+  time_total_s: 0.9389147758483887
+  timers:
+    learn_throughput: 197.465
+    learn_time_ms: 162.054
+  timestamp: 1619714697
+  timesteps_since_restore: 0
+  timesteps_total: 1000
+  training_iteration: 1
+  trial_id: 380be_00000
+```
+Most probably you won't need much of this information, however there are some parts of it that can give you an idea of the quality of results that you get.
+
+One important piece of information is the utilization of resources achieved by RLlib during training, as well as the RL algorithm used for the experiment:
+```
+Resources requested: 1/36 CPUs, 0/0 GPUs, 0.0/119.73 GiB heap, 0.0/38.13 GiB objects
+Result logdir: /home/eskordil/ray_results/CartPole-v0
+Number of trials: 1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+------+----------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |   ts |   reward |
+|-----------------------------+----------+---------------------+--------+------------------+------+----------|
+| DQN_CartPole-v0_380be_00000 | RUNNING  | 10.148.7.231:200639 |      2 |          2.55838 | 2000 |    19.69 |
++-----------------------------+----------+---------------------+--------+------------------+------+----------+
+```
+These lines inform us about the following:
+* Number of CPUs utilized: Since `--num-cpus` was defined as equal to zero, then by default RLlib acquired a single CPU core to run the experiment.
+* No GPU resources were utilized: Expected since `--num-gpus` was set to zero.
+* Trial name: Generated automatically, it gives information regarding the specific RL algorithm used (here DQN).
+* status: either RUNNING or FAILED (in case there was an error during training).
+* iter: Here you see the number of training iterations (remember, we set the maximum value for it to 10,000)
+* total time (seconds): time spend for one iteration
+* reward: The reward returned after the end of this iteration. Succesfull agent training will be shown through increase of that value during the process.
+
+These are the most straightforward, but in the same time important, information you will get after every training iteration. The rest of this snippet contains more specialized information, but for most of it you will never have to be concerned about. 
