@@ -186,12 +186,25 @@ You may wonder why set up the number of CPUs to 35 when there are 36 cores on an
 
 Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
 
-<sup>**</sup> **Supplemental notes**
+<sup>**</sup> **Supplemental notes: **
 As you noticed, when using RLlib for RL traning, there is no need to `import gym`, as we did in the non-training example, because RLlib recognizes automatically all benchmark OpenAI Gym environments. Even when you create your own custom-made Gym environments, RLlib provides proper functions with which you can register your environment before training.
 
 # Outputs
 
-When you run RLlib experiments
+When you run RLlib experiments, a directory named `ray_results` will automatically appear on your `home` directory. There you can find subdirectories for all your experiments that contain metadata distilled from all this information you see in the training printouts, and later use for evaluating the training process. 
+
+After your experiment with `CartPole-v0` is finished, go to your home directory:
+```
+cd ~/
+```
+where 
+Then, do `cd ray_results`. There, you will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Inside this directory, you will find subdirectories named using a combination of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. So, if for example you ran an experiment for CartPole, using Deep Q-Network (DQN), and the experiment started on April 29, 2021, at 9:14:57AM, the subdirectory containing the metadata will have a name like this:
+```
+DQN_CartPole-v0_0_2021-04-29_09-14-573vmq2rio
+```
+You `cd` in that directory, where you will find various text, JSON, and CSV files. One of them, named `progress.csv` contains a dataframe with columns such as `episode_reward_mean`, that help you evaluate the quality of the training process.
+
+## Printouts
 
 RLlib produces outputs of the following form:
 ```
@@ -359,4 +372,4 @@ trial_id: b665a_00000
 ```
 Obviously, RLlib here utilized the cardinality of CPU cores on the node (36/36). 
 
-You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence:
+You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence.
