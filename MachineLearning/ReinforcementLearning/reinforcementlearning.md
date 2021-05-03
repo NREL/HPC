@@ -357,7 +357,7 @@ trial_id: b665a_00000
 ```
 Obviously, RLlib here utilized the cardinality of CPU cores on the node (36/36). 
 
-You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence.
+You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence. In any case, these times are not absolute, and may decrease during training, especially if the agent achieves reward convergence.
 
 ## Metadata
 
@@ -376,4 +376,4 @@ You `cd` in that directory, where you will find various text, JSON, and CSV file
 
 ## Comparisons
 
-Let us now compare the outcomes from when running experiments on a single core versus on all cores on an Eagle node. An easy way to verify that is by using `Tensorboard` (more information [here](https://www.tensorflow.org/tensorboard)).
+Let us now compare the outcomes from when running experiments on a single core versus on all cores on a single Eagle node. A first approach for that is the values column `episode_reward_mean` in file `progress.csv`, .
