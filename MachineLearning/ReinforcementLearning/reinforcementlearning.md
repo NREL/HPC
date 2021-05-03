@@ -376,4 +376,6 @@ You `cd` in that directory, where you will find various text, JSON, and CSV file
 
 ## Comparisons
 
-Let us now compare the outcomes from when running experiments on a single core versus on all cores on a single Eagle node. A first approach for that is the values column `episode_reward_mean` in file `progress.csv`, .
+Let us now compare the outcomes from when running experiments on a single core versus on all cores on a single Eagle node. A first approach to do that is the values column `episode_reward_mean` in file `progress.csv`. These values will show you how fast (or not) the reward converged to the optimal value during agent training. The faster the convergence, the better.
+
+The following image shows the agent training progress, in terms of reward convergence, for the `CartPole-v0` environment. The RL algorithm used was the Proximal Policy Optimization (for more information see [here](https://arxiv.org/pdf/1707.06347.pdf)), and training was conducted for 100 iterations.
