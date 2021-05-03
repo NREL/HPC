@@ -385,3 +385,27 @@ The following image shows the agent training progress, in terms of reward conver
 As you can see, training using the cardinality of CPU cores on a node led to faster convergence to the optimal value. 
 
 We need to say here that CartPole is a simple example where the optimal reward value (200) can be easily reched even when using a single CPU core on a local machine. The power of using multiple cores will become more apparent when training using more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the scalability benefits for many RL algorithms ([here](https://docs.ray.io/en/master/rllib-algorithms.html#ppo)).
+
+# Run experiments on multiple nodes
+
+(*this part is currently untested due to this week's Eagle extended outage*)
+
+There are some cases where the problem under consideration is highly complex and requires vast amounts of training data for the policy network to train in a reasonable amount of time. It could be then, that you will require more than one nodes to run your experiments. In this case, you need to write a bashscript file, where you will include all the necessary commands to train your agents on multiple CPUs and multiple nodes.
+
+## Example: CartPole-v0
+
+As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you the heads up regarding RL on Eagle.
+In this tutorial you will see the basic parts of the bashscript file you need to create in order to run your experiments. These parts do not represent the entire script, but you can find it [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
+
+```bash
+#!/bin/bash --login
+
+#SBATCH --job-name=cartpole-multiple-nodes
+#SBATCH --time=2:00:00
+#SBATCH --nodes=2
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=36
+#SBATCH --account=<your_account>
+#SBATCH --qos=high
+env
+```
