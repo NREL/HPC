@@ -148,6 +148,8 @@ tune.run(
 
 That's it! Your first RLlib trainer for running reinforcement learning experiments on Eagle is ready!
 
+Note here that, except default hyperparameters like those above, every RL algorithm provided by RLlib has its own hyperparameters and their default values that need to be tuned beforehand, if necessary. Please refere [here](https://docs.ray.io/en/master/rllib-algorithms.html#available-algorithms-overview) for more details.
+
 You can find the code of this example in the repo (`simple_trainer.py`), under the `simple-example` directory.
 
 
