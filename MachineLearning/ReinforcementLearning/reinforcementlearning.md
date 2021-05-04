@@ -396,7 +396,7 @@ There are some cases where the problem under consideration is highly complex and
 
 As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you the heads up regarding RL on Eagle.
 
-Running experiments on multiple nodes is more convenient using a batch script instead an interactive node which you will submit then as `sbatch <name_of_your_batch_script>`.
+Running experiments on multiple nodes is more convenient when using a batch script instead of an interactive node, which you will submit as `sbatch <name_of_your_batch_script>`. The results will be exported in an `*.out` file, you can access the file during training with the `tail -f` command. Otherwise, after training is over, you can open it using a standard text editor (e.g. `nano`).
 This tutorial will give you the basic parts of the batch script file. You can find the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
 
 You begin by defining some basic `SBATCH` options, including the desired training time, number of nodes, tasks per node, etc.
@@ -464,4 +464,7 @@ As expected, you first have to create a new environment, this time installing `T
 
 ## Allocate GPU node
 
-After the environment is successfuly created, you need to allocate a GPU node on Eagle. For this example, you will use an interactive node, which you can request as:
+After the environment is successfuly created, you need to allocate a GPU node on Eagle. For this example, you will use an interactive node:
+```
+srun -n1 -t20 --gres=gpu:2 -<account_name> --pty $SHELL
+```
