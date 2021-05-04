@@ -395,7 +395,11 @@ There are some cases where the problem under consideration is highly complex and
 ## Example: CartPole-v0
 
 As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you the heads up regarding RL on Eagle.
-In this tutorial you will see the basic parts of the bashscript file you need to create in order to run your experiments. These parts do not represent the entire script, but you can find it [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
+
+Running experiments on multiple nodes requires a batch script file which you will submit then to slurm using `sbatch`.
+This tutorial will give you the basic parts of the batch script file. You can find the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
+
+You begin by defining some basic `SBATCH` options, including the desired training time, number of nodes, tasks per node, etc.
 
 ```bash
 #!/bin/bash --login
@@ -408,4 +412,14 @@ In this tutorial you will see the basic parts of the bashscript file you need to
 #SBATCH --account=<your_account>
 #SBATCH --qos=high
 env
+```
+
+For this example, we chose to run agent training for 2 hours (`SBATCH --time=2:00:00`) on two Eagle CPU nodes (`SBATCH --nodes=2`). Every node will execute a single task (`SBATCH --tasks-per-node=1`), which will be executed on all 36 cores (`SBATCH --cpus-per-task=36`). That way, all your resources will be tasked with running instances of your OpenAI Gym environment. The final options you need to set is the project account and whether you want your experiment prioritized (`--qos=high`)
+
+Then, you need to activate your environment. Do not forget to `unset LD_PRELOAD`.
+```batch
+module purge
+module load conda
+conda activate /scratch/$USER/conda-envs/env_example
+unset LD_PRELOAD
 ```
