@@ -390,7 +390,7 @@ We need to say here that CartPole is a simple example where the optimal reward v
 
 (*this part is currently untested due to this week's Eagle extended outage*)
 
-There are some cases where the problem under consideration is highly complex and requires vast amounts of training data for the policy network to train in a reasonable amount of time. It could be then, that you will require more than one nodes to run your experiments. In this case, you need to write a bashscript file, where you will include all the necessary commands to train your agents on multiple CPUs and multiple nodes.
+There are some cases where the problem under consideration is highly complex and requires vast amounts of training data for the policy network to train in a reasonable amount of time. It could be then, that you will require more than one nodes to run your experiments. In this case, you need to write a batch script file, where you will include all the necessary commands to train your agents on multiple CPUs and multiple nodes.
 
 ## Example: CartPole-v0
 
@@ -422,4 +422,27 @@ module purge
 module load conda
 conda activate /scratch/$USER/conda-envs/env_example
 unset LD_PRELOAD
+```
+So far the process is the same as you did before running experiments on an interactive node using `srun`.
+
+You also have to set a Redis password, just keep the next part as it is:
+```batch
+ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address) # Making address
+suffix=':6379'
+ip_head=$ip_prefix$suffix
+redis_password=$(uuidgen)
+```
+Then, you submit your jobs one at a time at your workers.
+```batch
+srun --nodes=1 --ntasks=1 -w $node1 ray start --block --head --redis-port=6379 --redis-password=$redis_password & # Starting the head
+sleep 30
+
+echo "starting workers"
+for ((  i=1; i<=$worker_num; i++ ))
+do
+  node2=${nodes_array[$i]}
+  echo "i=${i}, node2=${node2}"
+  srun --nodes=1 --ntasks=1 -w $node2 ray start --block --address=$ip_head --redis-password=$redis_password & # Starting the workers
+  sleep 5
+done
 ```
