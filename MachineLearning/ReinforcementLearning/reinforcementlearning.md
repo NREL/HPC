@@ -446,3 +446,8 @@ do
   sleep 5
 done
 ```
+Finally, you set your Python script to run. Your experiment starts!
+```batch
+python3 -u simple_trainer.py $redis_password $total_cpus
+```
+Because of brevity, not all sections of the batch script file are presented here. You can access the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
