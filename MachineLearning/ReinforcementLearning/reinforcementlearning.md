@@ -384,7 +384,7 @@ The following image shows the agent training progress, in terms of reward conver
 ![](images/ppo_rew_comparison.png)
 As you can see, training using the cardinality of CPU cores on a node led to faster convergence to the optimal value. 
 
-We need to say here that CartPole is a simple example where the optimal reward value (200) can be easily reched even when using a single CPU core on a local machine. The power of using multiple cores will become more apparent when training using more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the scalability benefits for many RL algorithms ([here](https://docs.ray.io/en/master/rllib-algorithms.html#ppo)).
+It is necessary to say here that CartPole is a simple example where the optimal reward value (200) can be easily reached even when using a single CPU core on a local machine. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the scalability benefits for many RL algorithms ([here](https://docs.ray.io/en/master/rllib-algorithms.html#ppo)).
 
 # Run experiments on multiple nodes
 
