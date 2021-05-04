@@ -1,0 +1,17 @@
+name: env_example_gpu
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - jupyterlab
+  - pandas
+  - scikit-learn
+  - jupyter
+  - notebook
+  - cudnn=7.6
+  - pip
+  - pip:
+    - ray[rllib,tune,debug]
+    - tensorflow-gpu==2.3.0
+    - tensorflow-addons
