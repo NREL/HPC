@@ -4,6 +4,7 @@ channels:
   - defaults
 dependencies:
   - python=3.7
+  - gym
   - jupyterlab
   - pandas
   - scikit-learn
