@@ -396,7 +396,7 @@ There are some cases where the problem under consideration is highly complex and
 
 As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you the heads up regarding RL on Eagle.
 
-Running experiments on multiple nodes requires a batch script file which you will submit then to slurm using `sbatch`.
+Running experiments on multiple nodes is more convenient using a batch script instead an interactive node which you will submit then as `sbatch <name_of_your_batch_script>`.
 This tutorial will give you the basic parts of the batch script file. You can find the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
 
 You begin by defining some basic `SBATCH` options, including the desired training time, number of nodes, tasks per node, etc.
@@ -451,3 +451,17 @@ Finally, you set your Python script to run. Your experiment starts!
 python3 -u simple_trainer.py $redis_password $total_cpus
 ```
 Because of brevity, not all sections of the batch script file are presented here. You can access the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
+
+This script is a good first example which you can use as a template for your own projects.
+
+# How to utilize GPUs
+
+It is now time to learn running experiments utilizing also GPU nodes on Eagle. This can boost your training times considerably. GPU nodes however is better to be utilized only on cases of highly complex environments with very large observation and/or action spaces. In this tutorial we will continue with CartPole for establishing a template which you can later use for your own experiments.
+
+## Creating Anaconda Environment
+
+As expected, you first have to create a new environment, this time installing `Tensorflow-gpu`. This is the specialized Tensorflow distribution that is able to recognize and utilize GPU hardware in your system. For your convenience, we provide a sample [yaml file](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_gpu.yml) that is tuned to create an Anaconda environment on Eagle with Tensorflow-gpu in it. For installing the new environment, follow the same process as before.
+
+## Allocate GPU node
+
+After the environment is successfuly created, you need to allocate a GPU node on Eagle. For this example, you will use an interactive node, which you can request as:
