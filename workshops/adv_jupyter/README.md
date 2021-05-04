@@ -4,9 +4,9 @@ Survey format. 45 min slides & demos, 15 min discussion
 
 Topic/Notebook 1: Accessing Slurm and multi-node parallelism
 
-* demo magics (Kevin or Chris)
-	* line vs cell magics
-	* environment manipulation/reporting magics
+* demo magics (Chris)
+	* Line vs cell magics
+	* Environment query and manipulation, profiling, and language magics
 * Slurm commands (Tim)—srunning from a notebook, job status checks, running MPI-enabled routines. 
 	* Explain pip install slurm_magic from inside notebook
 	* See https://github.com/NREL/HPC/blob/master/languages/python/jupyter/dompi.ipynb
