@@ -31,7 +31,6 @@ Progress |===================================| 100.0%
 Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-world.simg
 ```
 4. Explore image details
-
 ```
 [$USER@r1i3n18 singularity-images]$ singularity inspect hello-world.simg # Shows labels
 {
@@ -51,7 +50,6 @@ Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-wo
 exec /bin/bash /rawr.sh
 ```
 5. Run image default script
-
 ```
 [$USER@r1i3n18 singularity-images]$ singularity run hello-world.simg
 RaawwWWWWWRRRR!! Avocado.
