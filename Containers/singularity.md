@@ -15,7 +15,6 @@ $ ssh eagle.hpc.nrel.gov
 [$USER@el1 ~]$ srun -A MYALLOCATION -t 60 -N 1 --pty $SHELL
 [$USER@r1i3n18 ~]$ cat /etc/redhat-release 
 CentOS Linux release 7.7.1908 (Core) 
-
 ```
 2. Load the singularity-container module
 ```
