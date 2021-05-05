@@ -6,7 +6,6 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=36
 #SBATCH --account=<your_account>
-#SBATCH --qos=high
 env
 
 ## Never forget to unset LD_PRELOAD before executing your code

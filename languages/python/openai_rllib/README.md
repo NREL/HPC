@@ -4,8 +4,7 @@ This repo is a tutorial for installing and using OpenAI Gym on Eagle, as well as
 
 Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always augment it by installing further packages (please see at the bottom of this README file). See below for further details.
 
-If you have any questions, you can email us in the following addresses:
-* Kevin Sayers: Kevin.Sayers@nrel.gov
+If you have any questions, you can email us in the following address:
 * Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
 
 ## 1<sup>st</sup> step: Logging in on Eagle
@@ -16,12 +15,12 @@ ssh eagle
 ```
 or
 ```
-ssh <username>@el1.hpc.nrel.gov
+ssh <username>@eagle.hpc.nrel.gov
 ```
 
 ## 2<sup>nd</sup> step: Set up Anaconda environment
 
-Use the `env_example.yml` file to create the new Anaconda environment. You can do it to a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. For more information regarding installing your new environment and the different Eagle directories, please see [here](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [here](https://nrel.github.io/HPC/languages/python/conda.html).
+Use the `env_example.yml` file to create the new Anaconda environment. You can install the environment to the directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. For more information regarding installing your new environment and the different Eagle directories, please see [here](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [here](https://nrel.github.io/HPC/languages/python/conda.html).
 
 For example: 
 

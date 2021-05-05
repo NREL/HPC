@@ -75,7 +75,7 @@ tune.run(
 
 Begin by logging in on Eagle:
 ```
-ssh <username>@el1.hpc.nrel.gov
+ssh <username>@eagle.hpc.nrel.gov
 ```
 
 ## Activate Conda environment
