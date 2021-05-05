@@ -9,19 +9,19 @@ Note: Input commands in the following examples are preceded by a `$`.
 
 ### Run hello-world ubuntu image
 
-1. Log into compute node, checking it is running CentOS 7 
+**Step 1**: Log into compute node, checking it is running CentOS 7 
 ```
 $ ssh eagle.hpc.nrel.gov
 [$USER@el1 ~]$ srun -A MYALLOCATION -t 60 -N 1 --pty $SHELL
 [$USER@r1i3n18 ~]$ cat /etc/redhat-release 
 CentOS Linux release 7.7.1908 (Core) 
 ```
-2. Load the singularity-container module
+**Step 2**: Load the singularity-container module
 ```
 [$USER@r1i3n18 ~]$ module purge
 [$USER@r1i3n18 ~]$ module load singularity-container
 ```
-3. Retrieve hello-world image.  Be sure to use /scratch as images are typically large
+**Step 3**: Retrieve hello-world image.  Be sure to use /scratch as images are typically large
 ```
 [$USER@r1i3n18 ~]$ cd /scratch/$USER
 [$USER@r1i3n18 $USER]$ mkdir -p singularity-images
@@ -30,7 +30,7 @@ CentOS Linux release 7.7.1908 (Core)
 Progress |===================================| 100.0% 
 Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-world.simg
 ```
-4. Explore image details
+**Step 4**: Explore image details
 ```
 [$USER@r1i3n18 singularity-images]$ singularity inspect hello-world.simg # Shows labels
 {
@@ -49,12 +49,12 @@ Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-wo
 
 exec /bin/bash /rawr.sh
 ```
-5. Run image default script
+**Step 5**: Run image default script
 ```
 [$USER@r1i3n18 singularity-images]$ singularity run hello-world.simg
 RaawwWWWWWRRRR!! Avocado.
 ```
-6. Run in singularity bash shell
+**Step 6**: Run in singularity bash shell
 ```
 [$USER@r1i3n18 singularity-images]$ cat /etc/redhat-release 
 CentOS Linux release 7.7.1908 (Core)
@@ -75,20 +75,20 @@ cat: /etc/redhat-release: No such file or directory
 
 This example shows how to create a CentOS 7 singularity image with openmpi installed.  It requires root/admin privileges to create the image so must be run on a user's computer with singularity installed.  After creation, the image can be copied to Eagle and run.
 
-1. Create a new recipe based on singularityhub/centos:latest
+**Step 1**: Create a new recipe based on singularityhub/centos:latest
 ```
 echo "Bootstrap: shub
 From: singularityhub/centos:latest
 " > centos-mpi.recipe
 ```
-2. Install development tools and enable epel repository after bootstrap is created
+**Step 2**: Install development tools and enable epel repository after bootstrap is created
 ```
 echo "%post
   yum -y groupinstall "Development Tools"
   yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 " >> centos-mpi.recipe
 ```
-3. Download, compile and install openmpi 2.1
+**Step 3**: Download, compile and install openmpi 2.1
 ```
 echo "
 curl -O https://download.open-mpi.org/release/open-mpi/v2.1/openmpi-2.1.2.tar.bz2
@@ -99,7 +99,7 @@ make
 make install
 " >> centos-mpi.recipe
 ```
-4. Compile and install example mpi application
+**Step 4**: Compile and install example mpi application
 ```
 echo "
 mpicc examples/ring_c.c -o ring
@@ -107,22 +107,22 @@ cp ring /usr/bin/
 " >> centos-mpi.recipe
 
 ```
-5. Install a package found in EPEL, in this example R
+**Step 5**: Install a package found in EPEL, in this example R
 ```
 echo "  yum -y install R
 " >> centos-mpi.recipe
 ```
-6. Set default script to run ring
+**Step 6**: Set default script to run ring
 ```
 echo "%runscript
   /usr/bin/ring
 " >> centos-mpi.recipe
 ```
-7. Build image
+**Step 7**: Build image
 ```
 sudo $(type -p singularity) build centos-mpi.simg centos-mpi.recipe
 ```
-8. Test image
+**Step 8**: Test image
 ```
 $ mpirun -np 20 singularity exec centos-mpi.simg /usr/bin/ring
 $ singularity run centos-epel-r.simg --version
