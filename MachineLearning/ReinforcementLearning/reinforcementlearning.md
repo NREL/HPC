@@ -20,7 +20,7 @@ ssh eagle
 ```
 or
 ```
-ssh <username>@el1.hpc.nrel.gov
+ssh <username>@eagle.hpc.nrel.gov
 ```
 
 ### 2<sup>nd</sup> step: Set up Anaconda environment
@@ -93,7 +93,7 @@ Begin by importing the most basic packages:
 import ray
 from ray import tune
 ```
-`Ray` consists an API readily available for building distributed applications, hence its importance for parallel RL training. On top of it, there are several problem-solving libraries, one of which is RLlib.
+`Ray` consists of an API readily available for building distributed applications, hence its importance for parallel RL training. On top of it, there are several problem-solving libraries, one of which is RLlib.
 
 `Tune` is another one of `Ray`'s libraries for scalable hyperparameter tuning. All RLlib trainers (scripts for RL agent training) are compatible with Tune API, making experimenting quite easy.
 
