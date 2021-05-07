@@ -2,7 +2,7 @@
 
 This repo is a tutorial for installing and using OpenAI Gym on Eagle, as well as running experiments on single/multiple cores and nodes.
 
-Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always augment it by installing further packages (please see at the bottom of this README file). See below for further details.
+Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always installmore packages depending on your needs (please see at the bottom of this README file).
 
 If you have any questions, you can email us in the following address:
 * Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
