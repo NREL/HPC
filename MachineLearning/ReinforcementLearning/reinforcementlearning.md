@@ -86,6 +86,8 @@ RLlib is an open-source library for reinforcement learning that offers both high
 
 To demonstrate RLlib's capabilities, this page describes a simple example of training an RL agent. As above, the `CartPole-v0` OpenAI Gym environment will be used.
 
+Ray version used here: *1.3*
+
 ## Import packages
 
 Begin by importing the most basic packages:
@@ -112,19 +114,38 @@ parser.add_argument("--num-cpus", type=int, default=0)
 parser.add_argument("--num-gpus", type=int, default=0)
 parser.add_argument("--name-env", type=str, default="CartPole-v0")
 parser.add_argument("--run", type=str, default="DQN")
+parser.add_argument("--local-mode", action="store_true")
 ```
 All of them are self-explanatory, however let's see each one separately.
 1. `--num-cpus`: Define how many CPU cores you want to utilize (Default value 0 means allocation of a single CPU core).
 2. `--num-gpus`: If you allocate a GPU node, then you can set this flag equal to 1. It also accepts partial values, in case you don't want 100% of the GPU utilized.
 3. `--name-env`: The name of the OpenAI Gym environment (later you will see how to register your own environment).
 4. `--run`: Specify the RL algorithm for agent training.
+5. `--local-mode`: This flag, set on True, is necessary to show that experiments run on a single core/single node.
+
+### Extra flags
+
+In the script you will also find a flag that is not necessary for now:
+```batch
+parser.add_argument("--redis-password", type=str, default=None)
+```
+This flag will become essential for when you need to deploy your experiments on multiple Eagle nodes, so let's skip it for now.
 
 ## Initialize Ray
 
-Initialize Ray using the following command:
+You can setup Ray to run either on a single node (local mode), or on a cluster. For convenience, we put an `if-else` statement on the `simple-trainer.py` script, which will automatically switch between modes, depending on your needs. Therefore, you won't have to have two separate scripts:
 ```python
-ray.init()
+if args.redis_password is None:
+    # Single node
+    ray.init(local_mode=args.local_mode)
+    num_cpus = args.num_cpus - 1
+else:
+    # On a cluster
+    ray.init(_redis_password=args.redis_password, address=os.environ["ip_head"])
+    num_cpus = args.num_cpus - 1
 ```
+
+Focus on the first statement. Since on local mode you don't need a server for communication between nodes, you only need to setup ray to run on a local mode: `ray.init(local_mode=args.local_mode)`. The next line denotes the number of CPU cores you want to use. Remember that RLlib always allocates one CPU core, even if you put `--num-cpus=0`, hence you subtract one from your total number of cores.
 
 ## Run experiments with Tune
 
@@ -161,7 +182,7 @@ Here we give the necessary steps to succesfully run the `simple_trainer.py` exam
 
 Firstly, allocate an interactive node. For this example, let's start by allocating a `debug` node. Debug nodes have a maximum allocation time of one hour (60 minutes):
 ```
-srun -n1 -t60 -<project_name> --partition debug --pty $SHELL
+srun -n1 -t10 -<project_name> --partition debug --pty $SHELL
 ```
 and activate the environment you created:
 ```
@@ -370,7 +391,9 @@ After your experiment with `CartPole-v0` is finished, go to your home directory:
 cd ~/
 ```
 where 
-Then, do `cd ray_results`. There, you will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Within this directory, you will find subdirectories with names being combinations of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. So, if for example you ran an experiment for CartPole, using Deep Q-Network (DQN), and the experiment started on April 29, 2021, at 9:14:57AM, the subdirectory containing the metadata will have a name like this:
+Then, do `cd ray_results`. There, you will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Within this directory, you will find subdirectories with names being combinations of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. 
+
+So, if for example you ran an experiment for CartPole, using Deep Q-Network (DQN), and the experiment started on April 29, 2021, at 9:14:57AM, the subdirectory containing the metadata will have a name like this:
 ```
 DQN_CartPole-v0_0_2021-04-29_09-14-573vmq2rio
 ```
@@ -388,15 +411,13 @@ It is necessary to say here that CartPole is a simple example where the optimal 
 
 # Run experiments on multiple nodes
 
-(*this part is currently untested due to this week's Eagle extended outage*)
-
 There are some cases where the problem under consideration is highly complex and requires vast amounts of training data for the policy network to train in a reasonable amount of time. It could be then, that you will require more than one nodes to run your experiments. In this case, you need to write a batch script file, where you will include all the necessary commands to train your agents on multiple CPUs and multiple nodes.
 
 ## Example: CartPole-v0
 
-As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you the heads up regarding RL on Eagle.
+As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you an experience on running RL experiments on Eagle.
 
-Running experiments on multiple nodes is more convenient when using a batch script instead of an interactive node, which you will submit as `sbatch <name_of_your_batch_script>`. The results will be exported in an `*.out` file, you can access the file during training with the `tail -f` command. Otherwise, after training is over, you can open it using a standard text editor (e.g. `nano`).
+For multiple nodes it is more convenient to use a batch script instead of an interactive node, which you will submit as `sbatch <name_of_your_batch_script>`. The results will be exported in an `slurm-<job_id>.out` file, which you can dynamically access during training using the `tail -f slurm-<job_id>.out` command. Otherwise, you can open it using a standard text editor (e.g. `nano`) after training is finished.
 This tutorial will give you the basic parts of the batch script file. You can find the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
 
 You begin by defining some basic `SBATCH` options, including the desired training time, number of nodes, tasks per node, etc.
@@ -405,56 +426,60 @@ You begin by defining some basic `SBATCH` options, including the desired trainin
 #!/bin/bash --login
 
 #SBATCH --job-name=cartpole-multiple-nodes
-#SBATCH --time=2:00:00
-#SBATCH --nodes=2
+#SBATCH --time=00:10:00
+#SBATCH --nodes=3
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=36
 #SBATCH --account=<your_account>
-#SBATCH --qos=high
 env
 ```
 
-For this example, we chose to run agent training for 2 hours (`SBATCH --time=2:00:00`) on two Eagle CPU nodes (`SBATCH --nodes=2`). Every node will execute a single task (`SBATCH --tasks-per-node=1`), which will be executed on all 36 cores (`SBATCH --cpus-per-task=36`). That way, all your resources will be tasked with running instances of your OpenAI Gym environment. The final options you need to set is the project account and whether you want your experiment prioritized (`--qos=high`)
+We want to run our agent training for 20 minutes (`SBATCH --time=00:20:00`), and on three Eagle CPU nodes (`SBATCH --nodes=3`). Every node will execute a single task (`SBATCH --tasks-per-node=1`), which will be executed on all 36 cores (`SBATCH --cpus-per-task=36`). Then, you need to set is the project account. You can always add more options, such as whether you want your experiment prioritized (`--qos=high`).
 
-Then, you need to activate your environment. Do not forget to `unset LD_PRELOAD`.
+Afterwards, activate your environment. Do not forget to `unset LD_PRELOAD`.
 ```batch
 module purge
-module load conda
 conda activate /scratch/$USER/conda-envs/env_example
 unset LD_PRELOAD
 ```
-So far the process is the same as you did before running experiments on an interactive node using `srun`.
 
-You also have to set a Redis password, just keep the next part as it is:
+Now comes the part where you have to set up the Redis server that will connect all the nodes you requested. For that, you have to set a Redis password:
 ```batch
-ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address) # Making address
-suffix=':6379'
-ip_head=$ip_prefix$suffix
+ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address)
+port=6379
+ip_head=$ip_prefix:$port
 redis_password=$(uuidgen)
 ```
-Then, you submit your jobs one at a time at your workers.
+Then, you submit your jobs one at a time at your workers, starting with the head node and moving on to the rest of them.
 ```batch
-srun --nodes=1 --ntasks=1 -w $node1 ray start --block --head --redis-port=6379 --redis-password=$redis_password & # Starting the head
-sleep 30
+srun --nodes=1 --ntasks=1 -w $node1 ray start --block --head \
+--node-ip-address="$ip_prefix" --port=$port --redis-password=$redis_password &
+sleep 10
 
 echo "starting workers"
 for ((  i=1; i<=$worker_num; i++ ))
 do
   node2=${nodes_array[$i]}
   echo "i=${i}, node2=${node2}"
-  srun --nodes=1 --ntasks=1 -w $node2 ray start --block --address=$ip_head --redis-password=$redis_password & # Starting the workers
+  srun --nodes=1 --ntasks=1 -w $node2 ray start --block --address "$ip_head" --redis-password=$redis_password &
   sleep 5
 done
 ```
-Finally, you set your Python script to run. Your experiment starts!
-```batch
-python3 -u simple_trainer.py $redis_password $total_cpus
+Finally, you set your Python script to run. Since this experiment will run on a cluster, Ray will be initialized as:
+```python
+ray.init(_redis_password=args.redis_password, address=os.environ["ip_head"])
+num_cpus = args.num_cpus - 1
 ```
-Because of brevity, not all sections of the batch script file are presented here. You can access the complete script [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
+Therefore, you need to activate the `--redis-password` option from your input arguments, along with the total number of CPUs. You do this as:
+```batch
+python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_cpus
+```
+You are ready to start your experiment! Just run:
+```
+sbatch <your_slurm_file>
+```
 
-This script is a good first example which you can use as a template for your own projects.
-
-# How to utilize GPUs
+# Experimenting using GPUs
 
 It is now time to learn running experiments utilizing also GPU nodes on Eagle. This can boost your training times considerably. GPU nodes however is better to be utilized only on cases of highly complex environments with very large observation and/or action spaces. In this tutorial we will continue with CartPole for establishing a template which you can later use for your own experiments.
 
