@@ -443,7 +443,7 @@ conda activate /scratch/$USER/conda-envs/env_example
 unset LD_PRELOAD
 ```
 
-Now comes the part where you have to set up the Redis server that will connect all the nodes you requested. For that, you have to set a Redis password:
+Now comes the part where you have to set up the Redis server that will allow all the nodes you requested to communicate with each other. For that, you have to set a Redis password:
 ```batch
 ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address)
 port=6379
