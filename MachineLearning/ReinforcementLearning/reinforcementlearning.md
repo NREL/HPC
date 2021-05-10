@@ -479,7 +479,7 @@ You are ready to start your experiment! Just run:
 sbatch <your_slurm_file>
 ```
 
-# Experimenting using GPUs
+# Experimenting using GPUs (under development)
 
 It is now time to learn running experiments utilizing also GPU nodes on Eagle. This can boost your training times considerably. GPU nodes however is better to be utilized only on cases of highly complex environments with very large observation and/or action spaces. In this tutorial we will continue with CartPole for establishing a template which you can later use for your own experiments.
 
