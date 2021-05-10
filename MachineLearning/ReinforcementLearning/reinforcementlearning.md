@@ -478,6 +478,12 @@ You are ready to start your experiment! Just run:
 ```
 sbatch <your_slurm_file>
 ```
+**Make sure the batch script file exists on the same directory as your trainer script, otherwise you need to include `cd` to the directory where it is:**
+```
+# Example where the trainer is on scratch:
+cd /scratch/$USER
+python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_cpus
+```
 
 # Experimenting using GPUs (under development)
 
