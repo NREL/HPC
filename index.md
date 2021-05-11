@@ -8,9 +8,15 @@ permalink: /
 
 # NREL HPC resources
 
-## Top Documentation 
-* [Filesystems](/HPC/General/beginner/filesystems.html)
-* [Python](/HPC/languages/python/python.html)
+## Intro
+These docs are driven by the NREL HPC community. They are currently under active development. If you would like to contribute or recommend a topic to be covered please open an issue or pull request in the repository. 
+
+[Docs repository](https://github.com/NREL/hpc){: .btn .btn-blue }
+
+## Workshops
+The HPC community also hosts workshops covering various topics. Check the training calendar below, or view material from recent workshops.
+
+[Recent workshops](https://github.com/NREL/HPC/tree/master/workshops){: .btn .btn-blue }
 
 ## Additional NREL resources
 * [User Basics](https://www.nrel.gov/hpc/eagle-user-basics.html)
@@ -19,11 +25,6 @@ permalink: /
 ## Monthly Announcements
 Monthly announcements on the state of the HPC and upcoming changes users should be aware of. 
 {% include announcement.html %}
-
-## Contributing 
-These docs are driven by the NREL HPC community. If you would like to contribute or recommend a topic to be covered please open an issue or pull request in the repository. 
-
-[Docs repository](https://github.com/NREL/hpc){: .btn .btn-blue }
 
 ## Calendar
 Calendar of training events and office hours for NREL's HPC. 
