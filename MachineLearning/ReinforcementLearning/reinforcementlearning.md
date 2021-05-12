@@ -516,7 +516,7 @@ In total, we distinguish the nodes in three categories:
  * A head node, and multiple rollout nodes (as before)
  * A policy training node (GPU)
 
-Since it will be a heterogenous job, you have to include the `hetjob` option for both the rollout nodes and the policy training node. For this experiment, we request three nodes, with all 36 cores of each to be used for environment rollouts. Then, we request a single GPU node, from which we will utilize a single GPU core.:
+Since it will be a heterogenous job, you have to include the `hetjob` option for both the rollout nodes and the policy training node. For this experiment, we request three nodes, with all 36 cores of each to be used for environment rollouts. Then, we request a single GPU node, from which we will utilize a single GPU core:
 ```batch
 # Ray head node
 #SBATCH --nodes=1
@@ -535,6 +535,8 @@ Since it will be a heterogenous job, you have to include the `hetjob` option for
 #SBATCH --partition=debug
 #SBATCH --gres=gpu:1
 ```
+Of course, you can request any number of CPU nodes, three here is totally arbitrary. For example, you can request a single node and perhaps just a single CPU core. However, requesting GPUs means that you want to run experiments for an OpenAI Gym environment that utilizes high-dimensional observation and/or action spaces, therefore multiple CPU nodes will be preferrable.
+
 All three types of nodes (head, rollouts, training) we need to define three separate groups:
 ```batch
 head_node=$(scontrol show hostnames $SLURM_JOB_NODELIST_HET_GROUP_0)
