@@ -2,6 +2,14 @@
 
 [Papermill](https://papermill.readthedocs.io/en/latest/) is a tool for running parameterized Jupyter notebooks. It can inject parameter values into a notebook, and create a new notebook with these values. This can be useful for generating notebooks for different conditions without having to modify, run, and save the notebooks manually. 
 
+## Files in this repository
+
+* `papermill_slides.ipynb`: Notebook slide presentation given in workshop which walks through parameterized TensorFlow digit prediction
+* `template_mnist.ipynb`: Template notebook used to generate other notebooks as part of the `papermill_slides.ipynb`
+* `papermill.ipynb`: Short demo notebook discussed below
+* `tfmodel`: Directory with saved TensorFlow model
+
+
 ## Installing
 Papermill can be installed using PIP
 
