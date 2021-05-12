@@ -3,23 +3,25 @@ Beyond the basics: this advanced Jupyter workshop will survey topics which enabl
 
 Survey format. 45 min slides & demos, 15 min discussion
 
-**Topic 1**: Accessing Slurm and multi-node parallelism
+**Topic 1**: Jupyter Magic commands
 
 * Magic commands
 	* Line vs cell magics
 	* Environment query and manipulation, profiling, and language magics
-* Slurm commands (Tim)—srunning from a notebook, job status checks, running MPI-enabled routines. 
-	* Explain pip install slurm_magic from inside notebook
+
+**Topic 2**: Accessing Slurm and multi-node parallelism
+
+* Slurm commands: `srun` from a notebook, job status checks, running MPI-enabled routines. 
+	* Explain `pip install slurm_magic` from inside notebook
 	* See https://github.com/NREL/HPC/blob/master/languages/python/jupyter/dompi.ipynb
-* multi-node parallelism—mpi4py, IPy parallel? (Chris or Tim?)
-	* maybe demo timing magics wrt parallel routines
+	* Demonstration of using slurm magics to run MNIST 
+* multi-node parallelism with mpi4py
 
-**Topic 2**: Multi-node GPU computing from notebooks
+**Topic 3**: Multi-GPU computing from notebooks
+* Accessing GPU compute
+	* MPI Tensorflow MNIST Python program which runs on multiple GPUs.
 
-* Accessing GPU compute (Chris)
-	* Tim has MPI Tensorflow MNIST Python program. Tim will send link.
-
-**Topic 3**: Papermill
+**Topic 4**: Papermill
 * Parameterized notebook execution
 * Overview of steps to run a notebook with Papermill
 * Example of predicting MNIST digits 
