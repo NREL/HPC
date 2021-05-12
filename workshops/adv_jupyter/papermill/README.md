@@ -11,10 +11,10 @@
 
 
 ## Installing
-Papermill can be installed using PIP
+Papermill can be installed using Anaconda
 
 ```
-pip install papermill
+conda install papermill
 ```
 
 ## Usage
