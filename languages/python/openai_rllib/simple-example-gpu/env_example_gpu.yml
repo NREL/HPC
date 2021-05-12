@@ -8,8 +8,10 @@ dependencies:
   - jupyterlab
   - pandas
   - scikit-learn
+  - numpy=1.19.5
   - jupyter
   - notebook
+  - cudatoolkit-dev
   - cudnn=7.6
   - pip
   - pip:
