@@ -433,6 +433,7 @@ You begin by defining some basic `SBATCH` options, including the desired trainin
 #SBATCH --account=A<account>
 env
 ```
+Allocating multiple nodes means that we will utilize a Ray cluster. A Ray cluster consists of a head node and a set of worker nodes. The head node needs to be started first, and the worker nodes are given the address of the head node to form the cluster. 
 
 We want to run our agent training for 20 minutes (`SBATCH --time=00:20:00`), and on three Eagle CPU nodes (`SBATCH --nodes=3`). Every node will execute a single task (`SBATCH --tasks-per-node=1`), which will be executed on all 36 cores (`SBATCH --cpus-per-task=36`). Then, you need to set is the project account. You can always add more options, such as whether you want your experiment prioritized (`--qos=high`).
 
@@ -498,8 +499,156 @@ conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_exa
 
 ## Allocate GPU node
 
-When you need to run RLlib experiments utilizing both CPU and GPU nodes, you can proceed in similar ways as before, only this time you need to include an allocation for a GPU node also. For example, let us say you want to allocate a CPU node (36 CPUs) along with a GPU node, interactively. You should then run the following:
+Running experiments with combined CPU and GPU nodes is not so straightforward as running them using only CPU nodes (either single or multiple nodes). In this case, you need to submit heterogenous jobs using Slurm. Here, we will see how to submit heterogenous jobs for RLlib experiments, by allocating both CPU/GPU resources.
+
+We begin at first by specifying some basic options, similar to above:
+```batch
+#!/bin/bash  --login
+#SBATCH --account=A<account>
+#SBATCH --job-name=cartpole-gpus
+#SBATCH --time=00:10:00
 ```
-srun -n1 -t20 --gres=gpu:1 -<account_name> --pty $SHELL # If you want a CPU debug node, add: --partition debug
+
+To do that, we will use again a batch script, in which you will define the various jobs. These jobs include the CPU nodes that will carry the environment rollouts (multiple iterative runs of the OpenAI Gym's `reset` and `step` functions), and the GPU node for policy training. Eagle has 44 GPU nodes, where each node has 2 GPUs. You can request either one GPU per node (`--gres=gpu:1`), or both of them (`--gres=gpu:2`). For the purposes of this tutorial, we will utilize only one GPU core on a single node.
+
+In total, we distinguish the nodes in three categories: 
+ * A head node, and multiple rollout nodes (as before)
+ * A policy training node (GPU)
+
+Since it will be a heterogenous job, you have to include the `hetjob` option for both the rollout nodes and the policy training node. For this experiment, we request three nodes, with all 36 cores of each to be used for environment rollouts. Then, we request a single GPU node, from which we will utilize a single GPU core.:
+```batch
+# Ray head node
+#SBATCH --nodes=1
+#SBATCH --tasks-per-node=1
+
+# Rollout nodes - Nodes with multiple runs of OpenAI Gym 
+#SBATCH hetjob
+#SBATCH --nodes=3
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=36
+
+# Policy training node - This is the GPU node
+#SBATCH hetjob
+#SBATCH --nodes=1
+#SBATCH --tasks-per-node=1
+#SBATCH --partition=debug
+#SBATCH --gres=gpu:1
 ```
-Eagle has 44 GPU nodes, where each node has 2 GPUs. You can request either one GPU per node (`--gres=gpu:1`), or both of them (`--gres=gpu:2`).
+All three types of nodes (head, rollouts, training) we need to define three separate groups:
+```batch
+head_node=$(scontrol show hostnames $SLURM_JOB_NODELIST_HET_GROUP_0)
+rollout_nodes=$(scontrol show hostnames $SLURM_JOB_NODELIST_HET_GROUP_1)
+rollout_nodes_array=( $rollout_nodes )
+learner_node=$(scontrol show hostnames $SLURM_JOB_NODELIST_HET_GROUP_2)
+echo "head node    : "$head_node
+echo "rollout nodes: "$rollout_nodes
+echo "learner node : "$learner_node
+```
+Each group of nodes requires its separate `srun` command so that they will run independently of each other.
+```batch
+echo "starting head node at $head_node"
+srun --pack-group=0 --nodes=1 --ntasks=1 -w $head_node ray start --block --head \
+--node-ip-address="$ip_prefix" --port=$port --redis-password=$redis_password & # Starting the head
+sleep 10
+
+echo "starting rollout workers"
+for ((  i=0; i<$rollout_node_num; i++ ))
+do
+  rollout_node=${rollout_nodes_array[$i]}
+  echo "i=${i}, rollout_node=${rollout_node}"
+  srun --pack-group=1 --nodes=1 --ntasks=1 -w $rollout_node \
+   ray start --block --address "$ip_head" --redis-password=$redis_password & # Starting the workers
+  sleep 5
+done
+
+echo "starting learning on GPU"
+srun --pack-group=2 --nodes=1 --gres=gpu:1 -w $learner_node ray start --block --address "$ip_head" --redis-password=$redis_password &
+```
+The first two parts are identical to those from the previous section. We also add one more for engaging the GPU node.
+
+Finally, we call
+```batch
+python -u simple_trainer.py --redis-password $redis_password --num-cpus $rollout_num_cpus --num-gpus 1
+```
+to begin training. Note that here we also add the `---num-gpus` argument to include the GPU node that RLlib will utilize for policy training. There is no need to manually declare the GPU for policy trainig in the `simple_trainer.py`, RLlib will automatically recognize the existence of GPU and use it accordingly.
+
+## Outcome
+
+The output will be of the same nature as before, the only difference is that you will be able to confirm that a single GPU is also utilized (`1.0/1 GPUs`):
+```
+== Status ==
+Memory usage on this node: 6.5/92.8 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 108.0/180 CPUs, 1.0/1 GPUs, 0.0/807.51 GiB heap, 0.0/294.94 GiB objects (0.0/1.0 accelerator_type:V100)
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc              |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_0339b_00000 | RUNNING  | 10.148.8.36:3651 |	   1 |          11.9292 | 21400 |  22.1782 |                   84 |                    8 |            22.1782 |
++-----------------------------+----------+------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_0339b_00000:
+  agent_timesteps_total: 42800
+  custom_metrics: {}
+  date: 2021-05-12_10-00-28
+  done: false
+  episode_len_mean: 47.06188118811881
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 47.06188118811881
+  episode_reward_min: 9.0
+  episodes_this_iter: 404
+  episodes_total: 1302
+  experiment_id: f5a33b1e020c4ef19dd38f1ab425b16d
+  hostname: r103u23
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.30000001192092896
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5984720587730408
+          entropy_coeff: 0.0
+          kl: 0.01920320838689804
+          model: {}
+          policy_loss: -0.030758701264858246
+          total_loss: 394.77838134765625
+          vf_explained_var: 0.14716656506061554
+          vf_loss: 394.8033447265625
+    num_agent_steps_sampled: 42800
+    num_steps_sampled: 42800
+    num_steps_trained: 42800
+  iterations_since_restore: 2
+  node_ip: 10.148.8.36
+  num_healthy_workers: 107
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 6.346666666666667
+    ram_util_percent: 3.200000000000001
+  pid: 3651
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04437368377214986
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.056431942853082055
+    mean_inference_ms: 0.7302830909252791
+    mean_raw_obs_processing_ms: 0.06735290716566901
+  time_since_restore: 22.6750385761261
+  time_this_iter_s: 10.745835304260254
+  time_total_s: 22.6750385761261
+  timers:
+    learn_throughput: 1949.331
+    learn_time_ms: 10978.124
+    sample_throughput: 92888.12
+    sample_time_ms: 230.385
+    update_time_ms: 9.555
+  timestamp: 1620835228
+  timesteps_since_restore: 0
+  timesteps_total: 42800
+  training_iteration: 2
+  trial_id: 0339b_00000
+```
