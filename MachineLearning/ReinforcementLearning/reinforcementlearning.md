@@ -496,6 +496,7 @@ As expected, you first have to create a new environment, this time installing `T
 ```
 conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_example_gpu.yml 
 ```
+** NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. The `env_example_gpu.yml` as it is now gives a combination that generally performs bug-free.**
 
 ## Allocate GPU node
 
@@ -571,6 +572,8 @@ Finally, we call
 python -u simple_trainer.py --redis-password $redis_password --num-cpus $rollout_num_cpus --num-gpus 1
 ```
 to begin training. Note that here we also add the `---num-gpus` argument to include the GPU node that RLlib will utilize for policy training. There is no need to manually declare the GPU for policy trainig in the `simple_trainer.py`, RLlib will automatically recognize the existence of GPU and use it accordingly.
+
+A complete version of the slurm script can be found [here](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/gpu_trainer.sh). It can be used as a direct template for your own experiments.
 
 ## Outcome
 
