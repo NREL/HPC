@@ -486,7 +486,7 @@ cd /scratch/$USER
 python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_cpus
 ```
 
-# Experimenting using GPUs (under development)
+# Experimenting using GPUs
 
 It is now time to learn running experiments utilizing also GPU nodes on Eagle. This can boost your training times considerably. GPU nodes however is better to be utilized only on cases of highly complex environments with very large observation and/or action spaces. We will continue with CartPole for establishing a template which you can later use for your own experiments.
 
@@ -496,7 +496,7 @@ As expected, you first have to create a new environment, this time installing `T
 ```
 conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_example_gpu.yml 
 ```
-** NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. The `env_example_gpu.yml` as it is now gives a combination that generally performs bug-free.**
+**NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. The `env_example_gpu.yml` as it is now gives a combination that generally performs bug-free.**
 
 ## Allocate GPU node
 
