@@ -11,6 +11,26 @@ also contain information on recurring/episodic and recently held workshops.
 
 ## Recent HPC Workshops (FY21)
 
+
+### Advanced Jupyter (May 13th, 2021)
+
+<details open>
+<summary>More information</summary>
+<br>
+Beyond the basics: this advanced Jupyter workshop will survey topics which enable you to get more out of your interactive notebooks. It will build on the recent Intro to Jupyter workshop and introduce additional Magic commands. Interacting with Slurm from a notebook will also be covered, and how this can be used to achieve multi-node parallelism. Additional topics include utilizing GPUs from a notebook, and parameterized notebook execution with Papermill.
+</details>
+
+<br>
+
+### TensorFlow on Eagle (April, 26 2021)
+<details open>
+<summary>More information</summary>
+<br>
+In this introduction to using TensorFlow on Eagle, we will discuss what TensorFlow is, why you may want to use TensorFlow, and how you may install and use pre-compiled versions of TensorFlow which are specifically optimized for Eagle’s CPU and GPU architecture. This workshop includes instructions for accessing and installing the optimized versions of TensorFlow for Eagle, as well as some basic steps for testing your TensorFlow installation and performing benchmarking tests.
+</details>
+
+<br>
+
 ### Using the Slurm Job Scheduler (April 8th, 2021)
 
 <details open>
@@ -53,26 +73,8 @@ Content for this presentation can be found in the [jupyter_intro_slides](jupyter
 
 ## Upcoming HPC Workshops
 
-<br>
 
-### TensorFlow on Eagle (April, 26 2021)
-<details closed>
-<summary>More information</summary>
-<br>
-In this introduction to using TensorFlow on Eagle, we will discuss what TensorFlow is, why you may want to use TensorFlow, and how you may install and use pre-compiled versions of TensorFlow which are specifically optimized for Eagle’s CPU and GPU architecture. This workshop includes instructions for accessing and installing the optimized versions of TensorFlow for Eagle, as well as some basic steps for testing your TensorFlow installation and performing benchmarking tests.
-</details>
 
-<br>
-
-### Advanced Jupyter (May 13th, 2021)
-
-<details>
-<summary>More information</summary>
-<br>
-Beyond the basics. This advanced workshop will cover topics such as: slurm integrations, 
-multi-node parallel computations, JupyterLab Extensions, etc. Full content for this workshop will 
-be announced soon, based on feedback received. 
-</details>
 
 <br>
 

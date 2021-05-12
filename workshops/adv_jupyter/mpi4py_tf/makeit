@@ -1,0 +1,66 @@
+#script for build conda environment with various packages including
+#jupyter matplotlib scipy pandas xlwt dask tensorflow horovod cupy
+#You'll need to change "BASEDIR" then
+#
+# source makeit
+#
+CWD=`pwd`
+export MYVERSION=may12
+#BASEDIR=/scratch/$USER
+BASEDIR=/projects/hpcapps/tkaiser
+#cd ~
+module load conda 2> /dev/null || echo "module load conda failed"
+#conda create -p $BASEDIR/exampleenv --name $MYVERSION python=3.8 jupyter matplotlib scipy pandas xlwt dask -y
+conda create -p $BASEDIR/$MYVERSION python=3.8 jupyter matplotlib scipy pandas xlwt dask -y
+
+### Don't do conda init
+### Just do source activate
+source activate 
+source activate $BASEDIR/$MYVERSION
+
+which pip
+which python
+
+### Install mpi4py
+#module load intel-mpi/2020.1.217  2> /dev/null || echo "module load mpi failed"
+module load mpt  2> /dev/null || echo "module load mpi failed"
+module load gcc/8.4.0  2> /dev/null || echo "module load gcc failed"
+pip --no-cache-dir install mpi4py
+
+
+### Install slurm magic commands 
+pip install git+git://github.com/NERSC/slurm-magic.git
+
+
+# The version of TF and/or cupy installed below
+# # expect libcusolver.so.10.  We actually link to
+# # version 11.x.x which works also
+#
+if [ ! -e libcusolver.so.10  ] ; then
+ ln -s /nopt/nrel/apps/cuda/11.2/targets/x86_64-linux/lib/libcusolver.so libcusolver.so.10
+fi
+
+ml cuda/11.2   cudnn/8.1.1/cuda-11.2   gcc/8.4.0
+
+pip --no-cache-dir install tensorflow==2.4.0
+pip --no-cache-dir install tensorflow-gpu==2.4.0
+pip --no-cache-dir install horovod[tensorflow]==0.21.3
+
+export CFLAGS=-L/nopt/nrel/apps/cuda/11.2/targets/x86_64-linux/lib
+
+export LDFLAGS="-L/nopt/nrel/apps/cuda/11.2/targets/x86_64-linux/lib -L/nopt/nrel/apps/cuda/11.2/compat"
+
+# These paths are most likely overkill but they work
+export LIBRARY_PATH=/nopt/nrel/apps/cuda/11.2/targets/x86_64-linux/lib:/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-4.8.5/gcc-6.5.0-aov4u2ocxtqf4bwif4hc7sga4cvccpxm/lib64:/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos
+
+export LD_LIBRARY_PATH=/nopt/nrel/apps/cuda/11.2/targets/x86_64-linux/lib:/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-4.8.5/gcc-6.5.0-aov4u2ocxtqf4bwif4hc7sga4cvccpxm/lib64:/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-4.8.5/gcc-6.5.0-aov4u2ocxtqf4bwif4hc7sga4cvccpxm/lib:/nopt/nrel/apps/cudnn/8.1.1-cuda-11.2/lib64:/nopt/nrel/apps/cuda/11.2/lib64:/nopt/mpi/mpt-2.23/lib:/nopt/slurm/current/lib::
+
+
+pip --no-cache-dir install cupy
+
+
+#add Tim's thread mapping module
+wget  https://raw.githubusercontent.com/NREL/HPC/master/slurm/source/setup.py
+wget  https://raw.githubusercontent.com/NREL/HPC/master/slurm/source/spam.c
+python3 setup.py install
+
