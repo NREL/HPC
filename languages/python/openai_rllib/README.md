@@ -20,7 +20,7 @@ ssh <username>@eagle.hpc.nrel.gov
 
 ## 2<sup>nd</sup> step: Set up Anaconda environment
 
-Use the `env_example.yml` file to create the new Anaconda environment. You can install the environment to the directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of those three. For more information regarding installing your new environment and the different Eagle directories, please see [here](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [here](https://nrel.github.io/HPC/languages/python/conda.html).
+Use the `env_example.yml` file to create the new Anaconda environment. You can install the environment to the directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of those three. Please go to [NREL HPC resources page](https://nrel.github.io/HPC/) to find more information about [the various Eagle directories](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [how to create new Anaconda environments](https://nrel.github.io/HPC/languages/python/conda.html).
 
 For example: 
 
