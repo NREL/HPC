@@ -17,31 +17,42 @@ First you'll need to set up a new box developer app and get an authentication to
     5. name the app (something like "api_access")
     6. you should get an access token that will be active for 60 minutes; if you need a new one you can go to "Configuration" -> "Generate Developer Token"
 
-Next you'll have to install the boxsdk package on the remote resource, something like:
 
-```
-conda create -n box python=3.8
-conda activate box
-pip install boxsdk
-```
-
-Then, you can clone this repo and update the script to match your situation:
+Then, you can clone this repo, create an environment and install the script:
 
 ```
 git clone https://github.com/NREL/HPC.git
-vim HPC/general/beginner/how-to-transfer-files/box/box_upload.py
+
+cd HPC/general/beginner/how-to-transfer-files/box
+
+conda create -n box python=3.8
+source activate box
+
+pip install -e . 
 ```
 
-The `FOLDER_ID` can be found by looking at the box url when you navigate to the folder you want to upload to:
+
+### running
+
+Running the script can be done by modifying the command below with your own parameters: 
+
+```
+box_upload my_file.file \
+--client_id ZvS6ZikzMPzJrKFriUETMeQpGMG5rZ \
+--client_secret S5BJTtv9Tnz95cZSvW7amaCNtUqVFP \
+--access_token tRF3JCS5SfT7xwZnHtfiY3pYM8pn48 \
+--folder_id 137327009947
+```
+
+The `--folder_id` can be found by looking at the box url when you navigate to the folder you want to upload to:
 
 ```
 https://nrel.app.box.com/folder/132339394972
 ```
 
-### running
+The `--client_id`, `--client_secret` and `--access_token` are all found in the developer app that you created under the "Configuration" section:
 
-Running the script is as simple as `python box_upload.py`
-
-The `CLIENT_ID`, `CLIENT_SECRET` and `ACCESS_TOKEN` are all found in the developer app that you created under the "Configuration" section:
+Note: you can omit the arguments `--client_secret` or `--access_token` and the script will prompt you for those
+without any clear text.
 
 ![Image of Box App](/assets/developer_box.png)
