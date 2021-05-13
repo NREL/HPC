@@ -25,18 +25,18 @@ ssh <username>@eagle.hpc.nrel.gov
 
 ### 2<sup>nd</sup> step: Set up Anaconda environment
 
-Use the `env_example.yml` file that can be found in the aforementioned repo to create the new Anaconda environment. You can do it to a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. Please go to [NREL HPC resources page](https://nrel.github.io/HPC/) to find more information about [the various Eagle directories](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [how to create new Anaconda environments](https://nrel.github.io/HPC/languages/python/conda.html).
+Use the `env_example.yml` file that can be found in the aforementioned repo to create the new Anaconda environment. You can do it to a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Please go to [NREL HPC resources page](https://nrel.github.io/HPC/) to find more information about [the various Eagle directories](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [how to create new Anaconda environments](https://nrel.github.io/HPC/languages/python/conda.html).
 
-For example: 
+*Example:* 
 
-Create a directory `/scratch/$USER/github-repos/` if you don't have one already. Clone the repo there, and `cd` to the repo directory. You can also create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
+Create a subdirectory `/scratch/$USER/github-repos/`. Then, `cd` there and clone the repo. Assuming you want to install your new environment in your `scratch` directory, you can also create a directory that will contain all your Anaconda environments, e.g. `/scratch/$USER/conda-envs/`:
 ```
 conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
 ```
 
 ### 3<sup>rd</sup> step: Run OpenAI Gym on a single node/single core
 
-After the environment is created, you need to make sure everything is working correctly. For OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
+Now we need to make sure everything is working correctly. For OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
 
 Begin by activating the enironment and start a Python session
 ```
@@ -76,7 +76,7 @@ If everything works correctly, you will see an output similar to:
 0 [-0.18972559 -0.81966549  0.1994578   1.38158021] 1.0 False
 0 [-0.2061189  -1.0166379   0.22708941  1.72943365] 1.0 True
 ```
-Note that the above process does not involve any training, it works only as a sanity check.
+Note that the above process does not involve any training.
 
 # Agent training with Ray/RLlib
 
@@ -88,7 +88,7 @@ To demonstrate RLlib's capabilities, this page describes a simple example of tra
 
 ## Import packages
 
-Begin by importing the most basic packages:
+The main package you need to import is `ray`:
 ```python
 import ray
 from ray import tune
@@ -123,7 +123,7 @@ All of them are self-explanatory, however let's see each one separately.
 
 ### Extra flags
 
-In the script you will also find a flag that is not necessary for now:
+In the script you will also find a flag that we will use later:
 ```batch
 parser.add_argument("--redis-password", type=str, default=None)
 ```
@@ -131,7 +131,7 @@ This flag will become essential for when you need to deploy your experiments on 
 
 ## Initialize Ray
 
-You can setup Ray to run either on a single node (local mode), or on a cluster. For convenience, we put an `if-else` statement on the `simple-trainer.py` script, which will automatically switch between modes, depending on your needs. Therefore, you won't have to have two separate scripts:
+You can setup Ray to run either on a local mode (e.g. your laptop), or on a cluster. For convenience, we put an `if-else` statement on the `simple-trainer.py` script, which will automatically switch between modes, depending on your needs:
 ```python
 if args.redis_password is None:
     # Single node
@@ -142,12 +142,11 @@ else:
     ray.init(_redis_password=args.redis_password, address=os.environ["ip_head"])
     num_cpus = args.num_cpus - 1
 ```
-
-Focus on the first statement. Since on local mode you don't need a server for communication between nodes, you only need to setup ray to run on a local mode: `ray.init(local_mode=args.local_mode)`. The next line denotes the number of CPU cores you want to use. Remember that RLlib always allocates one CPU core, even if you put `--num-cpus=0`, hence you subtract one from your total number of cores.
+Since on local mode you don't need a server for communication between nodes, you only need to setup ray to run on a local mode: `ray.init(local_mode=args.local_mode)`. The next line denotes the number of CPU cores you want to use. Remember that RLlib always allocates one CPU core, even if you put `--num-cpus=0`, hence you subtract one from your total number of cores.
 
 ## Run experiments with Tune
 
-This is the final step in this basic trainer. Using Tune's `tune.run` function, you will initiate the agent training. This function takes three basic arguments:
+This is the final step in this basic trainer. Using Tune's `tune.run` function, you will initiate the agent training process. This function takes three basic arguments:
 * RL algorithm (string): It is defined in the `--run` flag.
 * `stop` (dictionary): Provide a criterion to stop training (in this example is the number of training iterations, stop training when iterations reach 10,000).
 * `config` (dictionary): Basic information for training, contains the OpenAI Gym environment name, number of CPUs/GPUs, and possible others.
@@ -164,7 +163,6 @@ tune.run(
         }
     )
 ```
-
 That's it! Your first RLlib trainer for running reinforcement learning experiments on Eagle is ready!
 
 Note here that, except default hyperparameters like those above, [every RL algorithm](https://docs.ray.io/en/master/rllib-algorithms.html#available-algorithms-overview) provided by RLlib has its own hyperparameters and their default values that can be tuned in advance.
@@ -178,11 +176,11 @@ Here we give the necessary steps to succesfully run the `simple_trainer.py` exam
 
 ## Allocate an interactive Eagle node
 
-Firstly, allocate an interactive node. For this example, let's start by allocating a `debug` node. Debug nodes have a maximum allocation time of one hour (60 minutes):
+Firstly, allocate an interactive node. Let's start by allocating a `debug` node. Debug nodes have a maximum allocation time of one hour (60 minutes):
 ```
 srun -n1 -t10 -<project_name> --partition debug --pty $SHELL
 ```
-and activate the environment you created:
+Then, activate your environment:
 ```
 module purge
 conda activate env_example
@@ -192,21 +190,21 @@ Before running your experiment, run
 ```
 unset LD_PRELOAD
 ```
-For communication between cores in a node, RLlib uses a Redis server. However, there is some kind of process running on Eagle causing Redis server to malfunction. Therefore, make sure you unset variable `LD_PRELOAD`, which disables that process and lets your experiment to run smoothly.
+For communication between cores in a node (and between nodes in multi-node experiments), RLlib uses a Redis server. However, there is some kind of process running on Eagle causing Redis server to malfunction. Therefore, make sure you unset variable `LD_PRELOAD`, which disables that process and lets your experiment run smoothly.
 
 ## Run multi-core experiments
 
-The example in the previous section, using default flag values, is designed to run utilizing only a single CPU core. It can also run on Eagle, after allocating a single node and you decide to run the experiments on a single CPU of this node. However, as explained above, RL training is highly benefited by running multiple concurrent experiments, that is evaluations of OpenAI Gym environments. A single node on Eagle has 36 CPU cores, therefore it is prudent to utilize all of them for faster agent training. 
+The example in the previous section is designed to run only on a single CPU core in a local machine. But it can also run on Eagle, if you allocate a single node and you decide to run the experiments on a single CPU. However, as explained above, RL training is highly benefited by running multiple concurrent OpenAI Gym rollouts. A single node on Eagle has 36 CPU cores, therefore you can use any number of those in order to speed up your agent training. 
 
-In order to exploit the Eagle node 100%, you need to adjust the `--num-cpus` hyperparameter to reflect to all CPUs on the node. Therefore, you can run the following:
+If you want to use all 36 cores, you need to adjust the `--num-cpus` hyperparameter to reflect to all CPUs on the node. Therefore, you can run the following:
 ```
 python simple_trainer.py --num-cpus 35
 ```
-You may wonder why set up the number of CPUs to 35 when there are 36 cores on an Eagle node. That happens because RLlib always sets a minimum of one core in `num_workers` key of the `config` dictionary, even if you don't (remember the default `--num-cpus` flag value of zero). In the current setting of the aforementioned example (`--num-cpus`: 0), RLlib will actually utilize 1 core. So, by setting the `--num-cpus` hyperparameter to 35, RLlib will actually allocate 36 cores, which means 100% utilization of the Eagle node.
+Again, RLlib by default utilizes a single CPU core, therefore by putting `--num-cpus` equal to 35 means that all 36 cores are requested.
 
 Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
 
-# Outputs
+# Outputs (single-core/multiple-core)
 
 RLlib produces outputs of the following form:
 ```
@@ -293,7 +291,7 @@ Number of trials: 1 (1 RUNNING)
 +-----------------------------+----------+---------------------+--------+------------------+------+----------+
 ```
 These lines inform us about the following:
-* Number of CPUs utilized: Since `--num-cpus` was defined as equal to zero, then by default RLlib acquired a single CPU core to run the experiment.
+* Number of CPUs utilized: If `--num-cpus` was defined as equal to zero, then by default RLlib acquired a single CPU core to run the experiment.
 * No GPU resources were utilized: Expected since `--num-gpus` was set to zero.
 * Trial name: Generated automatically, it gives information regarding the specific RL algorithm used (here DQN).
 * status: either RUNNING or FAILED (in case there was an error during training).
@@ -374,18 +372,17 @@ trial_id: b665a_00000
 ```
 Obviously, RLlib here utilized the cardinality of CPU cores on the node (36/36). 
 
-You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence. In any case, these times are not absolute, and may decrease during training, especially if the agent achieves reward convergence.
+You may consider odd the fact that the `total time(s)` here is more than when using a single CPU core, but this happens because in the latter case the algorithm runs 36 instances of the OpenAI Gym environment concurrently, rather than a single instance. Therefore, more data is collected for policy training, which can lead to faster reward convergence. In any case, these times are not absolute, and will decrease during training, especially as the agent approaches the optimal reward value.
 
 ## Metadata
 
-When you run RLlib experiments, a directory named `ray_results` will automatically appear on your `home` directory. There you can find subdirectories for all your experiments that contain metadata distilled from all this information you see in the training printouts, and later use for evaluating the training process. 
+When you run RLlib experiments, a directory named `ray_results` will be automatically created on your `home` directory. Ray uses it to dump metadata for all your experiments that contain distilled from all this information you see in the training printouts. You can use these results later for evaluating the quality of the training process. 
 
 After your experiment with `CartPole-v0` is finished, go to your home directory:
 ```
 cd ~/
-```
-where 
-Then, do `cd ray_results`. There, you will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Within this directory, you will find subdirectories with names being combinations of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. 
+``` 
+Then, do `cd ray_results`. You will see directories named after the OpenAI Gym environment you used for running experiments. Hence, for CartPole you will see a directory named `CartPole-v0`. Within this directory, you will find subdirectories with names being combinations of the RL algorithm that you used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. 
 
 So, if for example you ran an experiment for CartPole, using Deep Q-Network (DQN), and the experiment started on April 29, 2021, at 9:14:57AM, the subdirectory containing the metadata will have a name like this:
 ```
@@ -401,7 +398,7 @@ The following image shows the agent training progress, in terms of reward conver
 ![](images/ppo_rew_comparison.png)
 As you can see, training using the cardinality of CPU cores on a node led to faster convergence to the optimal value. 
 
-It is necessary to say here that CartPole is a simple example where the optimal reward value (200) can be easily reached even when using a single CPU core on a local machine. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many state-of-the-art RL algorithms.
+It is necessary to say here that CartPole is a simple example where the optimal reward value (200) can be easily reached even when using a single CPU core on your laptop. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many state-of-the-art RL algorithms.
 
 # Run experiments on multiple nodes
 
@@ -409,7 +406,7 @@ There are some cases where the problem under consideration is highly complex and
 
 ## Example: CartPole-v0
 
-As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you an experience on running RL experiments on Eagle.
+As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you an experience on running RL experiments using RLlib.
 
 For multiple nodes it is more convenient to use a slurm script instead of an interactive node, which you will submit as `sbatch <name_of_your_batch_script>`. The results will be exported in an `slurm-<job_id>.out` file, which you can dynamically access during training using the `tail -f slurm-<job_id>.out` command. Otherwise, you can open it using a standard text editor (e.g. `nano`) after training is finished.
 Next, we describe the basic parts of the slurm script file, but we also provide [the complete script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/multi_node_trainer.sh).
@@ -501,13 +498,13 @@ We begin at first by specifying some basic options, similar to above:
 #SBATCH --job-name=cartpole-gpus
 #SBATCH --time=00:10:00
 ```
-The slurm script will clearly define the various jobs. These jobs include the CPU nodes that will carry the environment rollouts (multiple iterative runs of the OpenAI Gym's `reset` and `step` functions), and the GPU node for policy training. Eagle has 44 GPU nodes, where each node has 2 GPUs. You can request either one GPU per node (`--gres=gpu:1`), or both of them (`--gres=gpu:2`). For the purposes of this tutorial, we will utilize only one GPU core on a single node.
+The slurm script will clearly define the various jobs. These jobs include the CPU nodes that will carry the environment rollouts (multiple iterative runs of the OpenAI Gym's `reset` and `step` functions), and the GPU node for policy training. Eagle has 44 GPU nodes, where each node has 2 GPUs. You can request either one GPU per node (`--gres=gpu:1`), or both of them (`--gres=gpu:2`). For the purposes of this tutorial, we will utilize one GPU core on a single node.
 
 In total, we distinguish the nodes in the following categories: 
  * A head node, and multiple rollout nodes (as before)
  * A policy training node (GPU)
 
-You have to include the `hetjob` option for both the rollout nodes and the policy training node. For this experiment, we request three nodes, with all 36 cores of each to be used for environment rollouts. Then, we request a single GPU node, from which we will utilize a single GPU core:
+You have to include the `hetjob` option for both the rollout nodes and the policy training node. For this experiment, we request three nodes, with all 36 cores of each to be used for environment rollouts. Then, we request a single GPU node:
 ```batch
 # Ray head node
 #SBATCH --nodes=1
@@ -526,7 +523,7 @@ You have to include the `hetjob` option for both the rollout nodes and the polic
 #SBATCH --partition=debug
 #SBATCH --gres=gpu:1
 ```
-Of course, you can request any number of CPU nodes. For example, you can request a single node and perhaps just a single CPU core. However, requesting GPUs means that you want to run experiments for an OpenAI Gym environment that utilizes high-dimensional observation and/or action spaces, therefore multiple CPU nodes will be preferrable.
+Of course, you can request any number of CPU/GPU nodes. For example, you can request a single node and perhaps just a single CPU core. However, requesting GPUs means that you want to run experiments for an OpenAI Gym environment that utilizes high-dimensional observation and/or action spaces, therefore multiple CPU nodes will be preferrable.
 
 All three types of nodes (head, rollouts, training) we need to define three separate groups:
 ```batch
