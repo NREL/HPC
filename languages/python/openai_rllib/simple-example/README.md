@@ -2,9 +2,11 @@
 
 Reinforcement learning algorithms are notorious for the amount of data they need to collect in order to perform adequate agent training. The more data collected, the better the training will be. However, we also need to collect massive amounts of data in reasonable time. That is where RLlib can assist us. 
 
-RLlib is an open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications ([source](https://docs.ray.io/en/master/rllib.html)). It supports all known deep learning frameworks such as Tensorflow, Pytorch, although most parts are framework-agnostic and can be used by either one.
+[RLlib](https://docs.ray.io/en/master/rllib.html) is an open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications. It supports all known deep learning frameworks such as Tensorflow, Pytorch, although most parts are framework-agnostic and can be used by either one.
 
 To demonstrate RLlib's capabilities, we provide here a simple example of training an RL agent for one of the standard OpenAI Gym environments, the CartPole. The example, which can be found in the `simple_trainer.py` file, utilizes the power of RLlib in running multiple experiments in parallel by exploiting as many CPUs and/or GPUs are available on your machine. Below, you will find a detailed description of how this example works.
+
+Note here that the Ray version used is the latest at the time this tutorial is written (*version 1.3.0*)
 
 ## Import packages
 
@@ -89,14 +91,14 @@ cd /scratch/$USER/git-repos/openai_gym_tutorial/simple-example/
 
 Now you can allocate an interactive node. For this example, let's start by allocating a `debug` node since it is faster. Debug nodes have a maximum allocation time of one hour (60 minutes):
 ```
-srun -n1 -t60 -<project_name> --partition debug --pty $SHELL
+srun -n1 -t10 -<project_name> --partition debug --pty $SHELL
 ```
 and activate the environment you created:
 ```
 module purge
 conda activate env_example
 ```
-## Run multi-core experiments
+## Run single-node/multi-core experiments
 
 The example in the previous section, keeping the default values, is designed to run on a local machine with a single CPU nodes and no GPUs are utilized. It can also run on Eagle, after allocating a single node and you decide to run the experiments on a single CPU of this node. However, as explained above, RL training is highly benefited by running experiments, that is evaluations of OpenAI Gym environments. A single node on Eagle has 36 CPU cores, therefore it is prudent to utilize all of them for faster agent training. 
 
@@ -106,3 +108,13 @@ python simple_trainer.py --num-cpus 35
 ```
 
 You may wonder why set up the number of CPUs to 35 when there are 36 cores on an Eagle node. That happens because RLlib always sets a minimum of one core in `num_workers` key of the `config` dictionary, even if you don't. In the current setting of the aforementioned example (`--num-cpus`: 1), RLlib will actually utilize 2 cores. So, by setting the `--num-cpus` hyperparameter to 35, RLlib will actually allocate 36 cores, which means 100% utilization of the Eagle node. Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
+
+## Run multi-node/multi-core experiments
+
+Problems that involve highly complex environments with very large observation and/or action state spaces will probably require running experiments utilizing more than one Eagle nodes. In this case it is better to work with slurm scripts. You can submit such scripts as 
+```
+sbatch <name_of_your_batch_script>
+```
+The results are exported in an `slurm-<job_id>.out` file. This file can be accesssed:
+ * During training (`tail -f slurm-<job_id>.out`) 
+ * Open it using a standard text editor (e.g. `nano`) after training is finished.
