@@ -6,7 +6,7 @@ parent: Machine Learning
 
 # Reinforcement Learning on Eagle
 
-Here, we give directions for using Ray and OpenAI Gym environments to run experiments on Eagle. Please note that this tutorial is accompanied by a [dedicated GitHub repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
+Here, we give directions for using Ray and OpenAI Gym environments to run experiments on Eagle. The full material of this tutorial are in the [NREL/HPC GitHub repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
 
 ## Create Anaconda environment
 
