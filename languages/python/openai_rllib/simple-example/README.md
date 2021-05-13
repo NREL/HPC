@@ -118,3 +118,5 @@ sbatch <name_of_your_batch_script>
 The results are exported in an `slurm-<job_id>.out` file. This file can be accesssed:
  * During training (`tail -f slurm-<job_id>.out`) 
  * Open it using a standard text editor (e.g. `nano`) after training is finished.
+
+An example of a `slurm-<job_id>.out` file is also included in the repo for reference.
