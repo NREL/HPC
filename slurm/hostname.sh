@@ -15,8 +15,8 @@ specified number of nodes and with the specified number of
 instances.  The output will go into the slurm default output
 file slurm-xxxxxx.out where xxxxxx is the job id.
 
-Here we ask for 2 nodes and 4 tasks per node.  Specifing 
-ntasks=8 is redundent but if you specifiy all three parameters
+Here we ask for 2 nodes and 4 tasks per node.  Specifying 
+ntasks=8 is redundant but if you specify all three parameters
 they must be consistent.
 
 Usage:

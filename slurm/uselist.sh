@@ -62,7 +62,7 @@ Or, you can get a version of in_list from source/in_list and run directly.
 
 
 
-# conda is needed to get a recnt version of python
+# conda is needed to get a recent version of python
 module load conda
 
 #export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK

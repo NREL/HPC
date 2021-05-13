@@ -34,8 +34,10 @@ sbatch -p debug -A hpcapps gpucpu.sh
   
 # load our version of MPI
 module purge   
+# needed for threaded apps built with Intel compilers
+module load comp-intel
 module load mpt
-module load cuda
+module load cuda/10.2.89
    
 # Make a directory for our run and go there.
 mkdir $SLURM_JOB_ID   

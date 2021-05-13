@@ -56,7 +56,8 @@ echo running glorified hello world
 
 date +"starting %y-%m-%d %H:%M:%S"
 echo "first run"
-srun --ntasks=4 --cpus-per-task=2  ./purempi -t 10 -T -F
+#srun --ntasks=4 --cpus-per-task=2  ./purempi -t 10 -T -F
+srun --ntasks=4  ./purempi -t 10 -T -F
 
 date +"starting %y-%m-%d %H:%M:%S"
 echo "second run"

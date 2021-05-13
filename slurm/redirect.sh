@@ -42,6 +42,8 @@ individual execuatables.
 
 cd $SLURM_SUBMIT_DIR
 
+#needed for threaded programs compiled with Intel compilers
+module load comp-intel
 # Load our version of mpi
 module load mpt
 export OMP_NUM_THREADS=2

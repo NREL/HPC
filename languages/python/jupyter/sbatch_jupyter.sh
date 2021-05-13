@@ -1,11 +1,12 @@
 #!/bin/bash  --login
 
+## Modify walltime and account at minimum
 #SBATCH --time=01:00:00
+#SBATCH --account=<project handle>
+
 #SBATCH --nodes=1
-#SBATCH --partition=short
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=36
-#SBATCH --account=<account-handle>
 
 module purge
 module load conda

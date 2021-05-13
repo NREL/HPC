@@ -10,7 +10,7 @@
 Author: Tim Kaiser
 
 We want to launch multiple instance of a program.  First we
-launch two simultainious instances.  Then we launch three
+launch two simultaneous instances.  Then we launch three
 in sequence.
 
 If we run the program phostone with the -F option we will get a report of
@@ -45,6 +45,8 @@ inputs.
 # tymer nedas a recent version of python
 module load conda
 
+# needed for programs that use Intel threading
+module load comp-intel
 # load our version of MPI
 module load mpt
 

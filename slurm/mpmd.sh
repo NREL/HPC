@@ -72,7 +72,7 @@ srun -n8 --multi-prog mapfile > used_mapfile
 # The next line prevents warnings when using mpiexec with IntelMPI
 unset I_MPI_PMI_LIBRARY
 # THIS DOES NOT WORK WITH MPT SO WE DON'T RUN IT.
-# THE MAN PASE SAYS IT SHOULD. 	INSTEAD IT RUNS
+# THE MAN PAGE SAYS IT SHOULD. 	INSTEAD IT RUNS
 # 8 COPIES OF c_ex02.
 # WE SKIP IT BY CHECKING IF MODULE mpt IS LOADED.
 ml  2>&1 | grep mpt > /dev/null
