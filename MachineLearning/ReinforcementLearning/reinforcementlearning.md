@@ -86,8 +86,6 @@ Reinforcement learning algorithms are notorious for the amount of data they need
 
 To demonstrate RLlib's capabilities, this page describes a simple example of training an RL agent. As above, the `CartPole-v0` OpenAI Gym environment will be used.
 
-Ray version used here: *1.3*
-
 ## Import packages
 
 Begin by importing the most basic packages:
@@ -207,9 +205,6 @@ python simple_trainer.py --num-cpus 35
 You may wonder why set up the number of CPUs to 35 when there are 36 cores on an Eagle node. That happens because RLlib always sets a minimum of one core in `num_workers` key of the `config` dictionary, even if you don't (remember the default `--num-cpus` flag value of zero). In the current setting of the aforementioned example (`--num-cpus`: 0), RLlib will actually utilize 1 core. So, by setting the `--num-cpus` hyperparameter to 35, RLlib will actually allocate 36 cores, which means 100% utilization of the Eagle node.
 
 Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
-
-<sup>**</sup> **Supplemental notes: **
-As you noticed, when using RLlib for RL traning, there is no need to `import gym`, as we did in the non-training example, because RLlib recognizes automatically all benchmark OpenAI Gym environments. Even when you create your own custom-made Gym environments, RLlib provides proper functions with which you can register your environment before training.
 
 # Outputs
 
@@ -406,7 +401,7 @@ The following image shows the agent training progress, in terms of reward conver
 ![](images/ppo_rew_comparison.png)
 As you can see, training using the cardinality of CPU cores on a node led to faster convergence to the optimal value. 
 
-It is necessary to say here that CartPole is a simple example where the optimal reward value (200) can be easily reached even when using a single CPU core on a local machine. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many RL algorithms.
+It is necessary to say here that CartPole is a simple example where the optimal reward value (200) can be easily reached even when using a single CPU core on a local machine. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many state-of-the-art RL algorithms.
 
 # Run experiments on multiple nodes
 
@@ -442,7 +437,6 @@ module purge
 conda activate /scratch/$USER/conda-envs/env_example
 unset LD_PRELOAD
 ```
-
 Now comes the part where you have to set up the Redis server that will allow all the nodes you requested to communicate with each other. For that, you have to set a Redis password:
 ```batch
 ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address)
@@ -474,11 +468,11 @@ Therefore, you need to activate the `--redis-password` option from your input ar
 ```batch
 python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_cpus
 ```
-You are ready to start your experiment! Just run:
+You are ready to start your experiment, simply run:
 ```
 sbatch <your_slurm_file>
 ```
-**Make sure the slurm script file exists on the same directory as your trainer script, otherwise you need to include `cd` to the directory where it is:**
+If the trainer script is on a different directory, make sure you `cd` to this directory in your slurm script before executing it.
 ```
 # Example where the trainer is on scratch:
 cd /scratch/$USER/path_to_specific_directory
@@ -491,11 +485,10 @@ It is now time to learn running experiments utilizing also GPU nodes on Eagle. T
 
 ## Creating Anaconda Environment
 
-As expected, you first have to create a new environment, this time installing `Tensorflow-gpu`. This is the specialized Tensorflow distribution that is able to recognize and utilize GPU hardware in your system. For your convenience, we provide a sample [yaml file](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_gpu.yml) that is tuned to create an Anaconda environment on Eagle with Tensorflow-gpu in it. For installing the new environment, follow the same process as before at a directory of your choice:
+You need to create a new environment, this time installing `Tensorflow-GPU`. This is the specialized Tensorflow distribution that is able to recognize and utilize GPU hardware in your system. For your convenience, we provide a sample [yaml file](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_gpu.yml) that is tuned to create an Anaconda environment on Eagle with Tensorflow-gpu in it. For installing the new environment, follow the same process as before at a directory of your choice:
 ```
 conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_example_gpu.yml 
 ```
-**NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. The `env_example_gpu.yml` as it is now gives a combination that generally performs bug-free.**
 
 ## Allocate GPU node
 
