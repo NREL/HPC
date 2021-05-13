@@ -2,7 +2,7 @@
 
 This repo is a tutorial for installing and using OpenAI Gym on Eagle, as well as running experiments on single/multiple cores and nodes.
 
-Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always installmore packages depending on your needs (please see at the bottom of this README file).
+Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always install additional packages depending on your needs (please see at the bottom of this README file).
 
 If you have any questions, you can email us in the following address:
 * Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
@@ -20,11 +20,11 @@ ssh <username>@eagle.hpc.nrel.gov
 
 ## 2<sup>nd</sup> step: Set up Anaconda environment
 
-Use the `env_example.yml` file to create the new Anaconda environment. You can install the environment to the directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. For more information regarding installing your new environment and the different Eagle directories, please see [here](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [here](https://nrel.github.io/HPC/languages/python/conda.html).
+Use the `env_example.yml` file to create the new Anaconda environment. You can install the environment to the directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of those three. For more information regarding installing your new environment and the different Eagle directories, please see [here](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [here](https://nrel.github.io/HPC/languages/python/conda.html).
 
 For example: 
 
-Create a directory `/scratch/$USER/github-repos/` if you don't have one already, clone the repo there, and `cd` to the repo directory. Also, you can create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
+Create a directory `/scratch/$USER/github-repos/` if you don't have one already, clone the repo there, and `cd` to the repo directory. It is recommended that you create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
 ```
 conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
 ```
