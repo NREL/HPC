@@ -120,3 +120,6 @@ The results are exported in an `slurm-<job_id>.out` file. This file can be acces
  * Open it using a standard text editor (e.g. `nano`) after training is finished.
 
 An example of a `slurm-<job_id>.out` file is also included in the repo for reference.
+
+<sup>**</sup> **Supplemental notes: **
+As you noticed, when using RLlib for RL traning, there is no need to `import gym`, as we did in the non-training example, because RLlib recognizes automatically all benchmark OpenAI Gym environments. Even when you create your own custom-made Gym environments, RLlib provides proper functions with which you can register your environment before training.
