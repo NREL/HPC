@@ -4,7 +4,9 @@ Before proceeding, RLlib is not designed to use GPUs to run OpenAI Gym instances
 
 ## Create new Ananconda environment with Tensorflow-GPU
 
-You need to create a new environment, this time including the [Tensorflow-GPU](https://www.tensorflow.org/install/gpu) package. Please use the provided `yaml` file for installing a GPU-oriented Anaconda environment on Eagle and make sure you keep the package version combination as it is, since otherwise it is easy to come up with an environment with incosistencies that will not allow it to work properly.
+You need to create a new environment, this time including the [Tensorflow-GPU](https://www.tensorflow.org/install/gpu) package. Please use the provided `yaml` file for installing a GPU-oriented Anaconda environment on Eagle.
+
+**NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. The `env_example_gpu.yml` as it is now gives a combination that generally performs bug-free (unfortunately this can only be done through trial-and-error).**
 
 ## Experiments using GPU for policy training
 
