@@ -5,7 +5,7 @@ parent: Python
 grand_parent: Programming Languages
 ---
 
-![conda logo](/assets/conda_logo.png)
+![conda logo]({{site.baseurl}}/assets/conda_logo.png)
 
 ## Why Conda?
 
