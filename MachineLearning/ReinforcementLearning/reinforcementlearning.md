@@ -645,3 +645,85 @@ Result for PPO_CartPole-v0_0339b_00000:
   training_iteration: 2
   trial_id: 0339b_00000
 ```
+
+# Create custom Gym environments
+
+So far we used a benchmark Gym environment (`CartPole-v0`) for our experiments. However, the true value of OpenAI Gym is that you can create your own environments using the same structure as the benchmark ones. Custom-made environments can become extremely complex due to the mechanics involved and may require many subscripts that perform parts of the simulation. Nevertheless, the basis of all environments is a Python class that inherits the `gym.Env` class and defines the three main functions that all Gym environments require:
+ * `__init__`: This function initializes the environment and may contain initial values for variables and other information necessary for the environment to work. It also defines the dimensionality of the environment, that is the sizes of the observation and action spaces, which are given using the parameters `self.observation_space` and `self.action_space`, respectively. Depending on their nature, they can take discrete, continuous, or combinations of values. OpenAI provides [details and examples](https://gym.openai.com/docs/) of each one of these types of spaces.
+ * `reset`: This function, when called, returns the environment on a previous state. This state can either be a user-defined initial state or it may be a random initial position. The latter can be found on environments that describe locomotion like `CartPole`, where the initial state can be any possible position of the pole on the cart.
+ * `step`: This function is the heart of the environment class. It represents the inner mechanics of the environment, therefore it can be seen as some kind of simulator. It takes as input the sampled action, and traverses the environment into a new state and calculates the new reward. The new state and reward represent part of the function's output and they are the necessary data collected for policy training. Except those, this function also returns a boolean variable `done` that is True if the environment reached its final state (if it exists), and False otherwise. Make note that many environments do not consider a final state, since it might not make sense (e.g. a traffic simulator for fleets of autonomous ridesharing vehicles that reposition themselves based on a certain criterion. In this case the reward will get better every time, but there is no notion of a final vehicle position). Finally, this function returns a dictionary (`info`) that can be tuned by the developer to return further information from the inner workings of the environment that otherwise are not required for policy training.
+
+Here we give you the basic directions of how to write and register a custom-made OpenAI Gym environment. After that, you will be able to start creating your own environments.
+
+## Create an environment class
+
+As stated above, the basis of any Gym environment is a Python class that inherits the `gym.Env` class and contains the three aforementioned functions. So, after importing the gym package, you define your class:
+```python
+import gym
+
+class BasicEnv(gym.Env):(...)
+```
+The environment is represented by two possible states (0, 1) and 5 possible actions (0-4). You realize that this will be a very simple environment structure, but our point here is to understand the process of creating one. For the purposes of this tutorial, we consider state 0 to be the initial state, and state 1 the final state.
+
+Inside the `BasicEnv` class, we define the dimensions of observation and action spaces in the `__init__` function:
+```python
+def __init__(self):
+    self.action_space = gym.spaces.Discrete(5)
+    self.observation_space = gym.spaces.Discrete(2)
+```
+The keyword here is `Discrete`. It shows us that both the possible observations and the actions are represented as discrete values. Other keywords are `Box` for continuous single- or multi-dimensional observations and states, `MultiDiscrete` for vectors of discrete values, etc. OpenAi provides [detailed explanation](https://gym.openai.com/docs/) for all different observations and states forms.
+
+After `__init__`, we define the `reset` function. This function does not take any inputs:
+```python
+def reset(self):
+    state = 0
+    return state
+```
+In the case of our example, the reset function simply returns the environment to the initial state.
+
+Finally, we define the `step` function, which takes as input the sampled action. In our example, the step function traverses the environment unto state 1 and based on the action value, returns a reward value of 1 or -1:
+```python
+def step(self, action):
+    state = 1
+
+    if action == 2:
+        reward = 1
+    else:
+        reward = -1
+
+    done = True
+    info = {}
+
+    return state, reward, done, info
+```
+That's it! You have just created a new OpenAI Gym environment. Make note that there is one more function that is usually found on Gym environments, although it is not been used frequently. This is the `render` function, which can be called in random intervals throughout training and return a snapshot of the environment at that time. While this might be helpful for evaluating the agent training process, it is not necessary for the actual training. OpenAi documentation [provides](https://gym.openai.com/docs/#environments) details for every function.
+
+You can find the [full script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env.py) of this environment in the repo.
+
+## Run experiments on RLlib
+
+Now that our environment is ready, we proceed with agent training by utilizing RLlib. We provide in the repo the [full trainer script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env_trainer.py) as well.
+
+The trainer is almost identical to [the one we used before](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py), with few additions that are necessary to register the new environment.
+
+At first, except `ray` and `tune`, we also need to import:
+```python
+from ray.tune.registry import register_env
+from custom_env import BasicEnv
+```
+The `register_env` function, as the name suggests, will be used to register the new environment, which is imported from the `custom_env.py` script here.
+
+Function `register_env` takes two arguments:
+* Name of the environment, which is chosen by the developer
+* The actual name of the environment (`BasicEnv`) as a `lambda` function.
+```python
+env_name = "custom-env"
+register_env(env_name, lambda config: BasicEnv())
+```
+RLlib provides [detailed explanation](https://docs.ray.io/en/master/rllib-env.html) of how `register_env` works.
+
+Then, you define the `tune.run` function, but this time instead of `args.name_env`, we use the `env_name` that we defined above.
+
+That's it! You can now proceed with agent training using the same slurm scripts we described above.
+
+Creating your own OpenAI Gym environment is more like an art than science. The main issue is for you to really clarify what the environment represents and how it works, after that you only have to describe it using the Python functionality.
