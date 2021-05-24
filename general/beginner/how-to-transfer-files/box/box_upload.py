@@ -1,5 +1,4 @@
 import argparse
-import getpass
 import glob
 
 from boxsdk import Client, OAuth2
@@ -37,12 +36,12 @@ def run():
         client_id = args.client_id
 
     if not args.client_secret:
-        client_secret = getpass.getpass("Client Secret:")
+        client_secret = input("Client Secret:")
     else:
         client_secret = args.client_secret
 
     if not args.access_token:
-        access_token = getpass.getpass("Access Token:")
+        access_token = input("Access Token:")
     else:
         access_token = args.access_token
 

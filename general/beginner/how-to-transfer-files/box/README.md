@@ -52,7 +52,4 @@ https://nrel.app.box.com/folder/132339394972
 
 The `--client_id`, `--client_secret` and `--access_token` are all found in the developer app that you created under the "Configuration" section:
 
-Note: you can omit the arguments `--client_secret` or `--access_token` and the script will prompt you for those
-without any clear text.
-
 ![Image of Box App](/assets/developer_box.png)
