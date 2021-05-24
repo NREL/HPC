@@ -37,7 +37,7 @@ pip install -e .
 Running the script can be done by modifying the command below with your own parameters: 
 
 ```
-box_upload my_file.file \
+boxupload my_file.file \
 --client_id ZvS6ZikzMPzJrKFriUETMeQpGMG5rZ \
 --client_secret S5BJTtv9Tnz95cZSvW7amaCNtUqVFP \
 --access_token tRF3JCS5SfT7xwZnHtfiY3pYM8pn48 \
