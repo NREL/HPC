@@ -10,7 +10,7 @@ setup(
         "boxsdk",
     ],
     entry_points={
-        'console_scripts': ['box_upload=box_upload:run'],
+        'console_scripts': ['boxupload=box_upload:run'],
     },
     author="National Renewable Energy Laboratory",
     author_email="Reinicke, Nicholas <Nicholas.Reinicke@nrel.gov>",
