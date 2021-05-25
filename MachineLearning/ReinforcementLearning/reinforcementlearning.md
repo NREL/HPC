@@ -696,7 +696,7 @@ def step(self, action):
 
     return state, reward, done, info
 ```
-That's it! You have just created a new OpenAI Gym environment. Make note that there is one more function that is usually found on Gym environments, although it is not been used frequently. This is the `render` function, which can be called in random intervals throughout training and return a snapshot of the environment at that time. While this might be helpful for evaluating the agent training process, it is not necessary for the actual training. OpenAi documentation [provides](https://gym.openai.com/docs/#environments) details for every function.
+That's it! You have just created a new OpenAI Gym environment. Make note that there is one more function that is usually found on Gym environments, although it is not been used frequently. This is the `render` function, which can be called in random intervals throughout training and return a snapshot of the environment at that time. While this might be helpful for evaluating the agent training process, it is not necessary for the actual training. OpenAI documentation [provides](https://gym.openai.com/docs/#environments) details for every function.
 
 You can find the [full script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env.py) of this environment in the repo.
 
