@@ -480,14 +480,24 @@ python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_c
 
 It is now time to learn running experiments utilizing also GPU nodes on Eagle. This can boost your training times considerably. GPU nodes however is better to be utilized only on cases of highly complex environments with very large observation and/or action spaces. We will continue with CartPole for establishing a template which you can later use for your own experiments.
 
-## Creating Anaconda Environment
+## Creating Anaconda environment
 
 You need to create a new environment, this time installing `Tensorflow-GPU`. This is the specialized Tensorflow distribution that is able to recognize and utilize GPU hardware in your system. For your convenience, we provide a sample [yaml file](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_gpu.yml) that is tuned to create an Anaconda environment on Eagle with Tensorflow-gpu in it. For installing the new environment, follow the same process as before at a directory of your choice:
 ```
 conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_example_gpu.yml 
 ```
 
-## Allocate GPU node
+### **Only for Eagle users:** Creating Anaconda environment using Optimized Tensorflow
+
+NREL's HPC group has recently created [a set of optimized Tensorflow drivers](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) that maximize the efficiency of utilizing Eagle's Tesla V100 GPU units. The drivers are created for various Python 3 and Tensorflow 2.x.x versions. 
+
+Here, we also provide a version of the tutorial for GPU experimentation using an [extended environment version](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml) of a [similar environment](https://github.com/NREL/HPC/blob/master/workshops/Optimized_TF/py37tf22.yml) in the Optimized TF repo.
+
+**This environment currently works for Python 3.7, Tensorflow 2.2, and the latest Ray version**
+
+## Allocate GPU node 
+
+*The following instructions are the same for both the aforementioned GPU environments*
 
 Running experiments with combined CPU and GPU nodes is not so straightforward as running them using only CPU nodes (either single or multiple nodes). In this case, you need to submit heterogenous jobs using slurm. Here, we will see how to submit heterogenous jobs for RLlib experiments, by allocating both CPU/GPU resources.
 
@@ -563,7 +573,7 @@ python -u simple_trainer.py --redis-password $redis_password --num-cpus $rollout
 ```
 to begin training. Note that here we also add the `---num-gpus` argument to include the GPU node that RLlib will utilize for policy training. There is no need to manually declare the GPU for policy trainig in the `simple_trainer.py`, RLlib will automatically recognize the existence of GPU and use it accordingly.
 
-The repo contains a [complete version of the slurm file](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/gpu_trainer.sh). It can be used as a direct template for your own experiments.
+The repo contains complete slurm file versions for both [`env_example_gpu`](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/gpu_trainer.sh) and [`env_gpu_optimized_tf`](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml). They can be used as direct templates for your own experiments.
 
 ## Outcome
 
