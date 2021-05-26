@@ -495,6 +495,8 @@ Here, we also provide a version of the tutorial for GPU experimentation using an
 
 **This environment currently works for Python 3.7, Tensorflow 2.2, and the latest Ray version**
 
+*Make sure you follow the [instructions for installing the optimized TF environment](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) explicitly!*
+
 ## Allocate GPU node 
 
 *The following instructions are the same for both the aforementioned GPU environments*
