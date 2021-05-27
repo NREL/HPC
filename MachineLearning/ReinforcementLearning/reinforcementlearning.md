@@ -491,17 +491,17 @@ conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_exa
 
 NREL's HPC group has recently created [a set of optimized Tensorflow drivers](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) that maximize the efficiency of utilizing Eagle's Tesla V100 GPU units. The drivers are created for various Python 3 and Tensorflow 2.x.x versions. 
 
-Here, we also provide a version of the tutorial for GPU experimentation using an [extended environment version](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml) of a [similar environment](https://github.com/NREL/HPC/blob/master/workshops/Optimized_TF/py37tf22.yml) in the Optimized TF repo.
+Here, we also provide an [extended environment version](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml) for using GPUs. This environment is based on one of the [example environments](https://github.com/NREL/HPC/blob/master/workshops/Optimized_TF/py37tf22.yml) provided in the [Optimized TF repo](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF).
 
-**This environment currently works for Python 3.7, Tensorflow 2.2, and the latest Ray version**
+**The provided environment currently works for Python 3.7, Tensorflow 2.2, and the latest Ray version**
 
 *Make sure you follow the [instructions for installing the optimized TF environment](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) explicitly!*
 
 ## Allocate GPU node 
 
-*The following instructions are the same for both the aforementioned GPU environments*
+*The following instructions are the same for both regular and Optimized TF versions of the Anaconda environments*
 
-Running experiments with combined CPU and GPU nodes is not so straightforward as running them using only CPU nodes (either single or multiple nodes). In this case, you need to submit heterogenous jobs using slurm. Here, we will see how to submit heterogenous jobs for RLlib experiments, by allocating both CPU/GPU resources.
+Running experiments with combined CPU and GPU nodes is not so straightforward as running them using only CPU nodes (either single or multiple nodes). You will need to submit heterogenous jobs using slurm. Here, we will see how to submit heterogenous jobs for RLlib experiments, by allocating both CPU/GPU resources.
 
 We begin at first by specifying some basic options, similar to above:
 ```batch
