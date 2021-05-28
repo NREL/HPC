@@ -1,6 +1,6 @@
 # Running experiments on GPU
 
-**Before proceeding:** Generally, RLlib is designed to use CPUs for running OpenAI Gym instances in order to collect experience, and GPUs for policy learning using the collected experience.
+**Before proceeding:** RLlib is designed to use CPUs for running OpenAI Gym instances in order to collect experience, and GPUs for policy learning using the collected experience.
 
 ## Create new Ananconda environment with Tensorflow-GPU
 
