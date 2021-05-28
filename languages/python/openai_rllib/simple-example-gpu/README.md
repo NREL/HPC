@@ -8,6 +8,8 @@ You need to create a new environment, but this time you will use [Tensorflow-GPU
  * `env_example_gpu.yml`: Simple GPU-based environment.
  * `env_example_optimized_tf.yml`: Similar environment, this time using [Optimized TF drivers](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF).
 
+*The `env_example_optimized_tf.yml` works currently for Python 3.7, Tensorflow 2.2 and Ray 1.3*
+
 **NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. Both aforementioned environments generally perform bug-free.**
 
 ## Experiments using GPU for policy training
