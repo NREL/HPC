@@ -1,16 +1,18 @@
 # Running experiments on GPU
 
-Before proceeding, RLlib is not designed to use GPUs to run OpenAI Gym instances, but rather use it for policy network training, while at the same time allocating CPU cores (single-node/single-core, single-node/multi-core, multi-node/multi-core) for collecting training data through multiple iterations of the `reset`-`step` Gym functions.
+**Before proceeding:** Generally, RLlib is designed to use CPUs for running OpenAI Gym instances in order to collect experience, and GPUs for policy learning using the collected experience.
 
 ## Create new Ananconda environment with Tensorflow-GPU
 
-You need to create a new environment, this time including the [Tensorflow-GPU](https://www.tensorflow.org/install/gpu) package. Please use the provided `yaml` file for installing a GPU-oriented Anaconda environment on Eagle.
+You need to create a new environment, but this time you will use [Tensorflow-GPU](https://www.tensorflow.org/install/gpu), along with the proper CUDA and CUDNN drivers. This repo provides two `yaml` files for installing a GPU-oriented Anaconda environment on Eagle:
+ * `env_example_gpu.yml`: Simple GPU-based environment.
+ * `env_example_optimized_tf.yml`: Similar environment, this time using [Optimized TF drivers](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF).
 
-**NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. The `env_example_gpu.yml` as it is now gives a combination that generally performs bug-free (unfortunately this can only be done through trial-and-error).**
+**NOTE: Due to possible incosistencies between package versions, make sure that when you use updated versions of Tensorflow-GPU, Numpy, Pandas, etc. that their versions work well together. Both aforementioned environments generally perform bug-free.**
 
 ## Experiments using GPU for policy training
 
-The process is similar to the one without using GPUs, you can use a slurm script with heterogenous jobs to distinguish between rollouts (Gym iterations - CPUs) and policy training (GPUs), see the following example:
+The process is similar to the one without using GPUs, you can use a slurm script with heterogenous jobs to distinguish between rollouts/experience collection (Gym iterations - CPUs) and policy learning (GPUs), see the following example:
 
 ```batch
 # Ray head node
@@ -30,4 +32,4 @@ The process is similar to the one without using GPUs, you can use a slurm script
 #SBATCH --partition=debug
 #SBATCH --gres=gpu:1
 ```
-You can find a complete slurm file to use as template in this subdirectory.
+You can find complete slurm file examples to use as template in this subdirectory.
