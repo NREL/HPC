@@ -42,7 +42,7 @@ register_env(env_name, lambda config: BasicEnv())
 tune.run(
     args.run,
     name=env_name,
-    local_dir="/scratch/eskordil/ray_results",
+    local_dir="/scratch/$USER/ray_results",
     stop={"training_iteration": 100},
     config={
         "env": env_name,
