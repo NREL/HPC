@@ -35,7 +35,7 @@ else:
 tune.run(
     args.run,
     name=args.name_env,
-    local_dir="/scratch/eskordil/ray_results",
+    local_dir="/scratch/$USER/ray_results",
     stop={"training_iteration": 100},
     config={
         "env": args.name_env,
