@@ -760,3 +760,39 @@ The `tune.run` function, instead of `args.name_env`, it uses the `env_name` defi
 That's all! Proceed with agent training using any of the slurm scripts provided by the repo.
 
 As a final note, creating custom-made OpenAI Gym environment is more like an art than science. The main issue is to really clarify what the environment represents and how it works, and then define this functionality in Python.
+
+# Results using Tensorboard
+
+Another way of visualizing the performance of agent training is with [**Tensorboard**](https://www.tensorflow.org/tensorboard). TensorBoard provides visualization and tooling needed for machine learning, deep learning, and reinforcement learning experimentation, for tracking and visualizing metrics such as loss and accuracy. Specifically for RL it is useful to visualize metrics such as:
+ * Mean, min, and max reward values.
+ * Episodes/iteration.
+ * Algorithm-specific metrics (e.g. entropy for PPO).
+ 
+To visualize results from Tensorboard, first go to the `home` directory:
+```
+cd ~/
+```
+Activate one of the environments:
+```
+module purge
+conda activate <your_environment>
+```
+Then, initialize Tensorboard as:
+```
+tensorboard --logdir=. --port 6006
+```
+For a specific training instance, e.g. the `DQN_CartPole-v0_0_2021-04-29_13-49-56gv0j3u93`, do instead:
+```
+tensorboard --logdir=DQN_CartPole-v0_0_2021-04-29_13-49-56gv0j3u93 --port 6006
+```
+If everything works properly, the output will be:
+```
+Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
+TensorBoard 2.5.0 at http://localhost:6006/ (Press CTRL+C to quit)
+```
+Then, go to local machine and create a tunnel:
+```
+ssh -NfL 6006:localhost:6006 $USER@el1.hpc.nrel.gov
+```
+Finally, open the above localhost url (`http://localhost:6006/`) in a browser, and the results will be shown like the next image:
+![](images/tensorboard-initpage.png)
