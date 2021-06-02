@@ -770,7 +770,7 @@ Another way of visualizing the performance of agent training is with [**Tensorbo
 Specifically for RL it is useful to visualize metrics such as:
  * Mean, min, and max reward values.
  * Episodes/iteration.
- * Estimated Q-values
+ * Estimated Q-values.
  * Algorithm-specific metrics (e.g. entropy for PPO).
  
 To visualize results from Tensorboard, first go to the `home` directory:
