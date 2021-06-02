@@ -803,4 +803,4 @@ Finally, open the above localhost url (`http://localhost:6006/`) in a browser, w
   <img src="images/tensorboard-initpage.png" width="400" /> 
 </p>
 
-The `tune/episode_reward_mean` plot is essentialy the same as the figure plotted from data in the `progress.csv` file. The difference in the x-axis scale has a simple explanation. The `progress.csv` figure shows the reward progress on every training iteration, while Tensorboard shows the same progress on every training episode (a single RLlib training iteration usually consists of thousands of episodes).
+The `tune/episode_reward_mean` plot is essentialy the same as the figure plotted from data in the `progress.csv` file. The difference in the x-axis scale has a simple explanation. The `episode_reward_mean` column on the `progress.csv` file shows the reward progress on every training iteration, while the `tune/episode_reward_mean` plot on Tensorboard shows reward progress on every training episode (a single RLlib training iteration usually consists of thousands of episodes).
