@@ -127,10 +127,14 @@ mkdir -p $PLEXOS_TEMP
 
 ## Select our version...
 
-export PLEXOS_VERSION="8.0"
+## Select our version...
+
+export PLEXOS_VERSION="8.200R01"
 export XPRESSMP_VERSION="8.5.6"
+export MONO_VERSION="6.8.0.105"
+
 module purge
-module load centos mono/4.6.2.7 xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
+module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
 
 # Get our data
 wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
@@ -186,10 +190,14 @@ mkdir -p $PLEXOS_TEMP
 
 ## Select our version...
 
-export PLEXOS_VERSION="8.0"
+## Select our version...
+
+export PLEXOS_VERSION="8.200R01"
 export XPRESSMP_VERSION="8.5.6"
+export MONO_VERSION="6.8.0.105"
+
 module purge
-module load centos mono/4.6.2.7 xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
+module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
 
 # Get our data
 wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
