@@ -765,9 +765,12 @@ As a final note, creating custom-made OpenAI Gym environment is more like an art
 
 # Results using Tensorboard
 
-Another way of visualizing the performance of agent training is with [**Tensorboard**](https://www.tensorflow.org/tensorboard). TensorBoard provides visualization and tooling needed for machine learning, deep learning, and reinforcement learning experimentation, for tracking and visualizing metrics such as loss and accuracy. Specifically for RL it is useful to visualize metrics such as:
+Another way of visualizing the performance of agent training is with [**Tensorboard**](https://www.tensorflow.org/tensorboard). TensorBoard provides visualization and tooling needed for machine learning, deep learning, and reinforcement learning experimentation, for tracking and visualizing metrics such as loss and accuracy. 
+
+Specifically for RL it is useful to visualize metrics such as:
  * Mean, min, and max reward values.
  * Episodes/iteration.
+ * Estimated Q-values
  * Algorithm-specific metrics (e.g. entropy for PPO).
  
 To visualize results from Tensorboard, first go to the `home` directory:
