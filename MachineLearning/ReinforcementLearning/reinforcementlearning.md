@@ -409,7 +409,7 @@ While not a mandatory part of the tutorial, it is interesting to compare the out
 
 The following image shows the agent training progress, in terms of reward convergence, for the `CartPole-v0` environment. The RL algorithm used was the [Proximal Policy Optimization](https://arxiv.org/pdf/1707.06347.pdf), and training was conducted for 100 iterations.
 <p float="left">
-  <img src="images/ppo_rew_comparison.png" width="400" />
+  <img src="images/ppo_rew_comparison.png" width="700" />
 </p>
 Obviously, training using all CPU cores on a node led to faster convergence to the optimal value. 
 
@@ -803,4 +803,4 @@ Finally, open the above localhost url (`http://localhost:6006/`) in a browser, w
   <img src="images/tensorboard-initpage.png" width="400" /> 
 </p>
 
-The `tune/episode_reward_mean` plot is essentialy the same as the figure above. The difference in the x-axis scale has a simple explanation. The first figure shows the reward progress on every training iteration, while Tensorboard shows the same progress on every training episode (a single RLlib training iteration usually consists of thousands of episodes).
+The `tune/episode_reward_mean` plot is essentialy the same as the figure plotted from data in the `progress.csv` file. The difference in the x-axis scale has a simple explanation. The `progress.csv` figure shows the reward progress on every training iteration, while Tensorboard shows the same progress on every training episode (a single RLlib training iteration usually consists of thousands of episodes).
