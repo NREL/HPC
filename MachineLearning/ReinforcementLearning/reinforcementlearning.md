@@ -408,7 +408,9 @@ In that directory, there will be various text, JSON, and CSV files. One of them,
 While not a mandatory part of the tutorial, it is interesting to compare the outcomes from running experiments on a single core versus on all cores on a single Eagle node. One approach is comparing the values from column `episode_reward_mean` in files `progress.csv`. These values show how fast (or not) the reward converged to the optimal value during agent training. The faster the convergence, the better.
 
 The following image shows the agent training progress, in terms of reward convergence, for the `CartPole-v0` environment. The RL algorithm used was the [Proximal Policy Optimization](https://arxiv.org/pdf/1707.06347.pdf), and training was conducted for 100 iterations.
-![](images/ppo_rew_comparison.png)
+<p float="left">
+  <img src="images/ppo_rew_comparison.png" width="400" />
+</p>
 Obviously, training using all CPU cores on a node led to faster convergence to the optimal value. 
 
 It is necessary to say here that CartPole is a simple environment where the optimal reward value (200) can be easily reached even when using a single CPU core on a personal computer. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many state-of-the-art RL algorithms.
@@ -797,6 +799,6 @@ ssh -NfL 6006:localhost:6006 $USER@el1.hpc.nrel.gov
 Finally, open the above localhost url (`http://localhost:6006/`) in a browser, where the various plots for rewards, iterations and other metrics will be:
 
 <p float="left">
-  <img src="images/tensorboard-initpag-2.png" scale=.4 />
-  <img src="images/tensorboard-initpage.png" scale=.4 /> 
+  <img src="images/tensorboard-initpag-2.png" width="400" />
+  <img src="images/tensorboard-initpage.png" width="400" /> 
 </p>
