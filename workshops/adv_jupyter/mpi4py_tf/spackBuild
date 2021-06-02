@@ -61,7 +61,15 @@ if [ $DOR -eq 0 ] ; then   echo Will install R ;fi
 # conda is needed for git, it also has cmake
 ml conda
 
-#ml gcc/10.1.0 cuda/11.2 cudnn/8.1.1/cuda-11.2  comp-intel/2019.0.1 cmake
+# If we use Intel MPI load it here but we want
+# to unload Intel compilers
+#ml intel-mpi/2020.1.217
+#module unload comp-intel/2020.1.217
+
+#load mpt version of MPI if not using IntelMPI (loaded above)
+ml mpt/2.23
+
+#Our base compilers
 ml gcc/10.1.0 cuda/11.2 cudnn/8.1.1/cuda-11.2 
 
 # Our install directory is a date/time stamp
@@ -113,7 +121,7 @@ spack install python@3.9.5
 tymer ~/sbuild done python
 
 if [ $DOR -eq 0 ] ; then
-  spack install r
+  spack install r@4.1.0
   tymer ~/sbuild done r
 fi
 
@@ -125,7 +133,8 @@ fi
 # conda is needed for git but now we have our own
 #module unload conda
 
-cd spack/share/spack/modules/linux-centos7*
+#cd spack/share/spack/modules/linux-centos7*
+cd spack/share/spack/lmod/linux-centos7*
 export NEWMOD=`pwd`
 module use $NEWMOD
 pwd
@@ -152,7 +161,6 @@ pip install jupyterlab
 
 tymer ~/sbuild done jupyter
 
-ml mpt/2.23
 
 # slurm magic commands
 pip install git+https://github.com/NERSC/slurm-magic.git
@@ -172,8 +180,10 @@ echo MY_MPI_PATH= $MY_MPI_PATH
 
 #Yes, this is the correct type; that is not MPICH2.
 export TYPE=OPENMPI
-
-R CMD INSTALL --configure-args="\
+#Note the library we need for IntelMPI is in ..../release
+ml
+#Not sure why srun is needed here but for IntelMPI it crashes without it.
+srun -n 1 R CMD INSTALL --configure-args="\
 --with-Rmpi-include='$MY_MPI_PATH/include' \
 --with-Rmpi-libpath='$MY_MPI_PATH/lib' \
 --with-mpi='$MY_MPI_PATH/bin/mpicc' \
@@ -218,16 +228,22 @@ tymer ~/sbuild done spam
 
 echo "TO USE:"
 echo "export LD_LIBRARY_PATH="$LD_LIBRARY_PATH
+echo ""
 echo "source $IDIR/$MYBASE/spack/share/spack/setup-env.sh"
+echo ""
+echo "module use " $NEWMOD
 echo ml `ml 2>&1 | grep 1 | sed "s/.)//g"`
 echo
 echo "YOU SHOULD BE ABLE TO SHORTEN LD_LIBRARY_PATH"
 echo
 echo "Suggestion, Try this:"
-echo "  Run the \"source line\""
+#echo "  Run the \"source line\""
+echo "module use " $NEWMOD
 echo "  Run the \"ml line\""
 echo " Then:"
 echo export LD_LIBRARY_PATH=$HOME/lib:\$LD_LIBRARY_PATH
 
 # Copy our output to our build directory
 cp $SLURM_SUBMIT_DIR/slurm-$SLURM_JOBID.out $BLDIR
+
+

@@ -68,6 +68,8 @@ cat mapfile
 #Run with it
 srun -n8 --multi-prog mapfile > used_mapfile
 
+# The following method of launching MPMD jobs is depracated
+# and should not be used on Eagle.  
 # Run using mpiexec 4 copies of each app
 # The next line prevents warnings when using mpiexec with IntelMPI
 unset I_MPI_PMI_LIBRARY

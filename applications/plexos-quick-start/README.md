@@ -14,7 +14,7 @@ https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
 
 This page gives additional instructions for setting up more
 complete environment for running Plexos, but is overkill for our
-purposed here.  
+purpose here.  
 
 Both scripts will need at lease minor modifications to run for
 an arbitrary user.  The line
@@ -62,6 +62,8 @@ can also be notified of failures by uncommenting the
 You can download these scripts from the page:
 
 https://github.nrel.gov/tkaiser2/plexos
+
+or just copy them from this page 
 
 or 
 
@@ -230,4 +232,16 @@ tar -tzf week.tgz | grep -v tymer |sed "s,/.*,," | sort -u  | while IFS= read -r
 cp /scratch/USER/slurmout/std*.$SLURM_JOB_ID . || echo "No std*.$SLURM_JOB_ID"
 
 ```
+
+# More examples:
+
+There are additional examples at:
+
+
+https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
+
+This page has examples that build on those show here.  There is a shell script
+that can be used to launch multiple Eagle jobs and a similar example that runs
+the same jobs via slurm arrays.
+
 
