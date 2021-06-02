@@ -794,5 +794,6 @@ Then, go to local machine and create a tunnel:
 ```
 ssh -NfL 6006:localhost:6006 $USER@el1.hpc.nrel.gov
 ```
-Finally, open the above localhost url (`http://localhost:6006/`) in a browser, and the results will be shown like the next image:
+Finally, open the above localhost url (`http://localhost:6006/`) in a browser, where the various plots for rewards, iterations and other metrics will be:
+![](images/tensorboard-initpage-2.png)
 ![](images/tensorboard-initpage.png)
