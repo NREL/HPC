@@ -802,3 +802,5 @@ Finally, open the above localhost url (`http://localhost:6006/`) in a browser, w
   <img src="images/tensorboard-initpag-2.png" width="400" />
   <img src="images/tensorboard-initpage.png" width="400" /> 
 </p>
+
+The `tune/episode_reward_mean` plot is essentialy the same as the figure above. The difference in the x-axis scale has a simple explanation. The first figure shows the reward progress on every training iteration, while Tensorboard shows the same progress on every training episode (a single RLlib training iteration usually consists of thousands of episodes).
