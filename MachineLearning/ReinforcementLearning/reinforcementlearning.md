@@ -763,7 +763,7 @@ That's all! Proceed with agent training using any of the slurm scripts provided 
 
 As a final note, creating custom-made OpenAI Gym environment is more like an art than science. The main issue is to really clarify what the environment represents and how it works, and then define this functionality in Python.
 
-# Results using Tensorboard
+# Validating results using Tensorboard
 
 Another way of visualizing the performance of agent training is with [**Tensorboard**](https://www.tensorflow.org/tensorboard). TensorBoard provides visualization and tooling needed for machine learning, deep learning, and reinforcement learning experimentation, for tracking and visualizing metrics such as loss and accuracy. 
 
