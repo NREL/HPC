@@ -1,0 +1,22 @@
+all: fhostone phostone fomp comp
+
+fhostone: fhostone.f90
+	mpif90 -fopenmp -fallow-argument-mismatch -w -lm fhostone.f90 -o fhostone
+	rm -rf mympi.mod numz.mod getit.mod
+
+phostone: phostone.c
+	mpicc -fopenmp phostone.c -o phostone
+
+fomp: fhostone.f90 mympi.f90
+	ln -s mympi.f90 mpif.h
+	gfortran -fopenmp -fallow-argument-mismatch -w -lm fhostone.f90 -o fomp
+	unlink mpif.h
+	rm -rf mympi.mod numz.mod getit.mod
+
+comp: phostone.c
+	gcc -DNOMPI -fopenmp phostone.c -o comp
+
+clean:
+	unlink mpif.h  2> /dev/null || :
+	rm -rf mympi.mod numz.mod getit.mod
+	rm -rf fhostone phostone fomp comp
