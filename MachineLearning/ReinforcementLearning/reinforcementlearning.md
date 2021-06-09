@@ -8,7 +8,7 @@ parent: Machine Learning
 
 Welcome to the first NREL HPC tutorial for Reinforcement Learning (RL)! 
 
-The tutorial covers an extended, albeit simplified, introduction of OpenAI Gym and Ray/RLlib which you can use to effortlessly design, create, and run your own RL experiments on Eagle. All code examples and yaml files in this tutorial are in a [repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib) that you can access anytime.
+This tutorial covers an extended, albeit simplified, introduction of OpenAI Gym and Ray/RLlib which you can use to effortlessly design, create, and run your own RL experiments on Eagle. All code examples and yaml files in this tutorial are in a [repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib) that you can access anytime.
 
 You can find the full material of this tutorial in the [NREL/HPC GitHub repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
 
