@@ -381,5 +381,33 @@ Obviously, RLlib here utilized all CPU cores on the node (36/36).
 
 It might seem odd that the `total time(s)` here is slightly more than when using a single CPU core, but this happens because when the algorithm runs 36 instances of the OpenAI Gym environment concurrently, more data are collected for policy training leading to faster reward convergence. In any case, these times are not absolute, and will decrease during training, especially as the agent approaches the optimal reward value.
 
+## Metadata
+
+RLlib creates a directory named `ray_results` at `home` directory that Ray uses to dump metadata for all experiments and contains distilled information from all training processes. These results can be used later for evaluating the quality of training. 
+
+After training is finished, go to home directory:
+```
+cd ~/
+``` 
+Then, type `cd ray_results`. There will be directories named after every OpenAI Gym environment used for experimenting. Hence, for CartPole there will be a directory named `CartPole-v0`. Within this directory, there will be subdirectories with names being combinations of the RL algorithm used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. 
+
+So, an experiment for CartPole, using Deep Q-Network (DQN), and started on April 29, 2021, at 9:14:57AM, will have a subdirectory containing the metadata like this:
+```
+DQN_CartPole-v0_0_2021-04-29_09-14-573vmq2rio
+```
+In that directory, there will be various text, JSON, and CSV files. One of them, named `progress.csv` contains a dataframe with columns such as `episode_reward_mean`, that helps to evaluate the quality of the training process.
+
+## Comparisons
+
+While not a mandatory part of the tutorial, it is interesting to compare the outcomes from running experiments on a single core versus on all cores on a single Eagle node. One approach is comparing the values from column `episode_reward_mean` in files `progress.csv`. These values show how fast (or not) the reward converged to the optimal value during agent training. The faster the convergence, the better.
+
+The following image shows the agent training progress, in terms of reward convergence, for the `CartPole-v0` environment. The RL algorithm used was the [Proximal Policy Optimization](https://arxiv.org/pdf/1707.06347.pdf), and training was conducted for 100 iterations.
+<p float="left">
+  <img src="images/ppo_rew_comparison.png" width="700" />
+</p>
+Obviously, training using all CPU cores on a node led to faster convergence to the optimal value. 
+
+It is necessary to say here that CartPole is a simple environment where the optimal reward value (200) can be easily reached even when using a single CPU core on a personal computer. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many state-of-the-art RL algorithms.
+
 **Supplemental notes:**
 As you noticed, when using RLlib for RL traning, there is no need to `import gym`, as we did in the non-training example, because RLlib recognizes automatically all benchmark OpenAI Gym environments. Even when you create your own custom-made Gym environments, RLlib provides proper functions with which you can register your environment before training.
