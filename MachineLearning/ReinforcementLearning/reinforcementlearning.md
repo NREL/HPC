@@ -15,7 +15,7 @@ You can find the full material of this tutorial in the [NREL/HPC GitHub repo](ht
 The tutorial covers the following:
  * Brief introduction to RL and Ray
  * Agent training with Ray/RLlib:
-    - Tune runs
+    - Experimenting with Ray Tune
     - Single node/Single core.
     - Single node/Multiple cores. 
     - Multiple nodes.
