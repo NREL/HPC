@@ -8,7 +8,7 @@ parent: Machine Learning
 
 Welcome to the first NREL HPC tutorial for Reinforcement Learning (RL)! 
 
-This tutorial covers an extended, albeit simplified, introduction of OpenAI Gym and Ray/RLlib which you can use to effortlessly design, create, and run your own RL experiments on Eagle. All code examples and yaml files in this tutorial are in a [repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib) that you can access anytime.
+This tutorial covers an extended, albeit simplified, introduction of OpenAI Gym and Ray/RLlib which you can use to effortlessly design, create, and run your own RL experiments on Eagle. All code examples and yaml files in this tutorial are collected in a [tutorial repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
 
 You can find the full material of this tutorial in the [NREL/HPC GitHub repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
 
@@ -23,9 +23,9 @@ The tutorial covers the following:
 
 ## Run OpenAI Gym on a single node/single core
 
-Test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
+Login on your Eagle account, create a new Anaconda environment as described in the [tutorial repo](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/README.md), and test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
 
-Activate Anaconda enironment and start a Python session
+Activate the Anaconda enironment and start a Python session
 ```
 module purge
 conda activate /scratch/$USER/conda-envs/myenv
@@ -67,7 +67,7 @@ If everything works correctly, you will see an output similar to:
 
 # Agent training with Ray/RLlib
 
-RL algorithms are notorious for the amount of data they need to collect in order to learn policies. The more data collected, the better the training will be. The best way to do it is to run many Gym instances in parallel and collecting experience, and this is where RLlib assists.
+RL algorithms are notorious for the amount of data they need to collect in order to learn policies. The more data collected, the better the training will (usually) be. The best way to do it is to run many Gym instances in parallel and collecting experience, and this is where RLlib assists.
 
 [RLlib](https://docs.ray.io/en/master/rllib.html) is an open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications. It supports all known deep learning frameworks such as Tensorflow, Pytorch, although most parts are framework-agnostic and can be used by either one.
 
@@ -84,7 +84,7 @@ from ray import tune
 ```
 `Ray` consists of an API readily available for building [distributed applications](https://docs.ray.io/en/master/index.html). On top of it, there are several problem-solving libraries, one of which is RLlib.
 
-`Tune` is another one of `Ray`'s libraries for scalable hyperparameter tuning. All RLlib trainers (scripts for RL agent training) are compatible with Tune API, making experimenting easy and streamlined.
+`Tune` is also one of `Ray`'s libraries for scalable hyperparameter tuning. All RLlib trainers (scripts for RL agent training) are compatible with Tune API, making experimenting easy and streamlined.
 
 Import also the `argparse` package and setup some flags. Although that step is not mandatory, these flags will allow controlling of certain hyperparameters, such as:
 * RL algorithm utilized (e.g. PPO, DQN)
@@ -146,11 +146,11 @@ tune.run(
         }
     )
 ```
-That's it! The RLlib trainer is ready!
+The RLlib trainer is ready!
 
-Note here that, except default hyperparameters like those above, [every RL algorithm](https://docs.ray.io/en/master/rllib-algorithms.html#available-algorithms-overview) provided by RLlib has its own hyperparameters and their default values that can be tuned in advance.
+Except the aforementioned default hyperparameters, [every RL algorithm](https://docs.ray.io/en/master/rllib-algorithms.html#available-algorithms-overview) provided by RLlib has its own hyperparameters and their default values that can be tuned in advance.
 
-The code of the trainer in this example can be found [in the repo](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py).
+The code of the trainer in this example can be found [in the tutorial repo](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py).
 
 
 # Run experiments on Eagle
@@ -192,33 +192,6 @@ Again, RLlib by default utilizes a single CPU core, therefore by putting `--num-
 
 Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for policy training and not running the OpenAI Gym environment instances, thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
 
-## Metadata
-
-RLlib creates a directory named `ray_results` at `home` directory that Ray uses to dump metadata for all experiments and contains distilled information from all training processes. These results can be used later for evaluating the quality of training. 
-
-After training is finished, go to home directory:
-```
-cd ~/
-``` 
-Then, type `cd ray_results`. There will be directories named after every OpenAI Gym environment used for experimenting. Hence, for CartPole there will be a directory named `CartPole-v0`. Within this directory, there will be subdirectories with names being combinations of the RL algorithm used for training, the OpenAI Gym environment's name, the datetime when the experiment took place, and a unique string. 
-
-So, an experiment for CartPole, using Deep Q-Network (DQN), and started on April 29, 2021, at 9:14:57AM, will have a subdirectory containing the metadata like this:
-```
-DQN_CartPole-v0_0_2021-04-29_09-14-573vmq2rio
-```
-In that directory, there will be various text, JSON, and CSV files. One of them, named `progress.csv` contains a dataframe with columns such as `episode_reward_mean`, that helps to evaluate the quality of the training process.
-
-## Comparisons
-
-While not a mandatory part of the tutorial, it is interesting to compare the outcomes from running experiments on a single core versus on all cores on a single Eagle node. One approach is comparing the values from column `episode_reward_mean` in files `progress.csv`. These values show how fast (or not) the reward converged to the optimal value during agent training. The faster the convergence, the better.
-
-The following image shows the agent training progress, in terms of reward convergence, for the `CartPole-v0` environment. The RL algorithm used was the [Proximal Policy Optimization](https://arxiv.org/pdf/1707.06347.pdf), and training was conducted for 100 iterations.
-<p float="left">
-  <img src="images/ppo_rew_comparison.png" width="700" />
-</p>
-Obviously, training using all CPU cores on a node led to faster convergence to the optimal value. 
-
-It is necessary to say here that CartPole is a simple environment where the optimal reward value (200) can be easily reached even when using a single CPU core on a personal computer. The power of using multiple cores becomes more apparent in cases of more complex environments (such as the [Atari environments](https://gym.openai.com/envs/#atari)). RLlib website also gives examples of the [scalability benefits](https://docs.ray.io/en/master/rllib-algorithms.html#ppo) for many state-of-the-art RL algorithms.
 
 # Run experiments on multiple nodes
 
