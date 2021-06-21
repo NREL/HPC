@@ -1,13 +1,8 @@
-# Create Anaconda environment
+## Create Anaconda environment
 
-This repo is a tutorial for installing and using OpenAI Gym on Eagle, as well as running experiments on single/multiple cores and nodes.
+At first, create an Anaconda environment that you will use for all your experiments. For your convenience, simply follow the next steps:
 
-Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always install additional packages depending on your needs (please see at the bottom of this README file).
-
-If you have any questions, you can email us in the following address:
-* Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
-
-## 1<sup>st</sup> step: Logging in on Eagle
+### 1<sup>st</sup> step: Log in on Eagle
 
 Login on Eagle with:
 ```
@@ -18,23 +13,22 @@ or
 ssh <username>@eagle.hpc.nrel.gov
 ```
 
-## 2<sup>nd</sup> step: Set up Anaconda environment
+### 2<sup>nd</sup> step: Set up Anaconda environment
 
-Use the `env_example.yml` file to create the new Anaconda environment. You can install the environment to the directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of those three. Please go to [NREL HPC resources page](https://nrel.github.io/HPC/) to find more information about [the various Eagle directories](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [how to create new Anaconda environments](https://nrel.github.io/HPC/languages/python/conda.html).
+The repo [provides](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/env_example.yml) the `env_example.yml` file. Use it to create a new Anaconda environment at a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Please go to [NREL HPC resources page](https://nrel.github.io/HPC/) to find more information about [the various Eagle directories](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [how to create new Anaconda environments](https://nrel.github.io/HPC/languages/python/conda.html).
 
-For example: 
+***Example:***
 
-Create a directory `/scratch/$USER/github-repos/` if you don't have one already, clone the repo there, and `cd` to the repo directory. It is recommended that you create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
+Begin by createing a subdirectory `/scratch/$USER/github-repos/`, `cd` there and clone the repo. Assuming you want to install your new environment in your `scratch` directory, you may want to create a directory that will contain all your Anaconda environments, e.g. `/scratch/$USER/conda-envs/`:
 ```
 conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
 ```
-After the successful creation of your environment, you will be ready to use it for your experiments.
 
-## 3<sup>rd</sup> step: Run OpenAI Gym on a single node/single core
+### 3<sup>rd</sup> step: Run OpenAI Gym on a single node/single core
 
-Now that the environment is created, you have to make sure everything is working correctly. In the case of OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments like `CartPole-v0`.
+After installation is complete, make sure everything is working correctly. You can test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
 
-You begin by activating the enironment and start a Python session:
+Activate the enironment and start a Python session
 ```
 module purge
 conda activate /scratch/$USER/conda-envs/myenv
@@ -54,7 +48,7 @@ while not done:
     obs, rew, done, _ = env.step(action)
     print(action, obs, rew, done)
 ```
-If everything works correctly, you will see an output like this:
+If everything works correctly, you will see an output similar to:
 ```
 0 [-0.04506794 -0.22440939 -0.00831435  0.26149667] 1.0 False
 1 [-0.04955613 -0.02916975 -0.00308441 -0.03379707] 1.0 False
@@ -72,8 +66,7 @@ If everything works correctly, you will see an output like this:
 0 [-0.18972559 -0.81966549  0.1994578   1.38158021] 1.0 False
 0 [-0.2061189  -1.0166379   0.22708941  1.72943365] 1.0 True
 ```
-
-Note that the above process does not involve any training, but it works only as a sanity check. For actual reinforcement learning training, you have to follow the steps on the `simple-example` directory.
+*Note that the above process does not involve any training.*
 
 ### Install more packages
 
