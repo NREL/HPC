@@ -112,20 +112,9 @@ All of them are self-explanatory, however let's see each one separately.
 
 ## Initialize Ray
 
-Ray is able to run either on a local mode (e.g. laptop, personal computer), or on a cluster. Depending on the nature of the experiment, distinguish between the two modes using an `if-else` statement:
-```python
-if args.redis_password is None:
-    # Single node
-    ray.init(local_mode=args.local_mode)
-    num_cpus = args.num_cpus - 1
-else:
-    # On a cluster
-    ray.init(_redis_password=args.redis_password, address=os.environ["ip_head"])
-    num_cpus = args.num_cpus - 1
-```
-*Do not worry about the `redis_password` for now, it will be explained later in the tutorial*
+Ray is able to run either on a local mode (e.g. laptop, personal computer), or on a cluster.
 
-For the first experiment, only a single core is needed. Therefore, setup ray to run on a local mode: `ray.init(local_mode=args.local_mode)`. The next line shows the number of CPU cores to be used. Remember that RLlib always allocates one CPU core, even when `--num-cpus=0`. Hence, always subtract one from the total number of cores.
+For the first experiment, only a single core is needed, therefore, setup ray to run on a local mode. Then, set the number of CPU cores to be used.
 
 ## Run experiments with Tune
 
@@ -155,30 +144,7 @@ The code of the trainer in this example can be found [in the tutorial repo](http
 
 # Run experiments on Eagle
 
-The next step calls for running the trainer script on Eagle.
-
-## Allocate an interactive Eagle node
-
-First, allocate an interactive node. Let's start by allocating a `debug` node. Debug nodes have a maximum allocation time of one hour (60 minutes), but they are easier to allocate than regular nodes:
-```
-srun -n1 -t10 -<project_name> --partition debug --pty $SHELL
-```
-Successful node allocation is shown as:
-```
-srun: job 6896853 queued and waiting for resources
-srun: job 6896853 has been allocated resources
-```
-Activate the Anaconda environment:
-```
-module purge
-conda activate env_example
-```
-**VERY IMPORTANT!!** 
-Before the experiment, run
-```
-unset LD_PRELOAD
-```
-For communication between cores in a node (and between nodes in multi-node experiments), RLlib uses a Redis server. However, there is some kind of process running on Eagle causing Redis server to malfunction. Therefore, make sure you unset variable `LD_PRELOAD`, which disables that process and lets your experiment run smoothly.
+Follow the steps in the [tutorial repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib/simple-example) carefully.
 
 ## Run multi-core experiments
 
@@ -221,20 +187,20 @@ Allocating multiple nodes means creating a Ray cluster. A Ray cluster consists o
 
 The agent training will run for 20 minutes (`SBATCH --time=00:20:00`), and on three Eagle CPU nodes (`SBATCH --nodes=3`). Every node will execute a single task (`SBATCH --tasks-per-node=1`), which will be executed on all 36 cores (`SBATCH --cpus-per-task=36`). Then, define the project account. Other options are also available, such as whether to prioritize the experiment (`--qos=high`).
 
-Afterwards, use the commands to activate the Anaconda environment. Do not forget to `unset LD_PRELOAD`.
+Use the commands to activate the Anaconda environment. Do not forget to `unset LD_PRELOAD`.
 ```batch
 module purge
 conda activate /scratch/$USER/conda-envs/env_example
 unset LD_PRELOAD
 ```
-Next, set up the Redis server that will allow all the nodes you requested to communicate with each other. For that, set a Redis password:
+Set up the Redis server that will allow all the nodes you requested to communicate with each other. For that, set a Redis password:
 ```batch
 ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address)
 port=6379
 ip_head=$ip_prefix:$port
 redis_password=$(uuidgen)
 ```
-Then, submit the jobs one at a time at the workers, starting with the head node and moving on to the rest of them.
+Submit the jobs one at a time at the workers, starting with the head node and moving on to the rest of them.
 ```batch
 srun --nodes=1 --ntasks=1 -w $node1 ray start --block --head \
 --node-ip-address="$ip_prefix" --port=$port --redis-password=$redis_password &
@@ -249,12 +215,12 @@ do
   sleep 5
 done
 ```
-Finally, set the Python script to run. Since this experiment will run on a cluster, Ray will be initialized as:
+Set the Python script to run. Since this experiment will run on a cluster, Ray will be initialized as:
 ```python
 ray.init(_redis_password=args.redis_password, address=os.environ["ip_head"])
 num_cpus = args.num_cpus - 1
 ```
-Therefore, `--redis-password` option must be active, along with the total number of CPUs:
+The `--redis-password` option must be active, along with the total number of CPUs:
 ```batch
 python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_cpus
 ```
@@ -272,23 +238,6 @@ python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_c
 # Experimenting using GPUs
 
 It is now time to learn running experiments using GPU nodes on Eagle that can boost training times considerably. GPU nodes however is better to be utilized only in cases of environments with very large observation and/or action spaces. CartPole will be used again for establishing a template.
-
-## Creating Anaconda environment
-
-First thing to do is to create a new environment, this time installing `Tensorflow-GPU`. This is the specialized Tensorflow distribution that is able to recognize and utilize GPU hardware in a computer system. For convenience, the repo provides a validated sample [yaml file](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_gpu.yml) that is tuned to create an Anaconda environment on Eagle with Tensorflow-GPU in it. For installing the new environment, follow the same process as before:
-```
-conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_example_gpu.yml 
-```
-
-### **Only for Eagle users:** Creating Anaconda environment using Optimized Tensorflow
-
-NREL's HPC group has recently created [a set of optimized Tensorflow drivers](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) that maximize the efficiency of utilizing Eagle's Tesla V100 GPU units. The drivers are created for various Python 3 and Tensorflow 2.x.x versions. 
-
-The repo provides an [Anaconda environment version](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml) for using these drivers. This environment is based on one of the [example environments](https://github.com/NREL/HPC/blob/master/workshops/Optimized_TF/py37tf22.yml) provided in the [Optimized TF repo](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF).
-
-**The provided Anaconda environment currently works for Python 3.7, Tensorflow 2.2, and the latest Ray version**
-
-*Make sure to follow the [instructions for installing this particular environment](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) explicitly!*
 
 ## Allocate GPU node 
 
@@ -461,15 +410,9 @@ As a final note, creating custom-made OpenAI Gym environment is more like an art
 
 # Validating results using Tensorboard
 
-Another way of visualizing the performance of agent training is with [**Tensorboard**](https://www.tensorflow.org/tensorboard). TensorBoard provides visualization and tooling needed for machine learning, deep learning, and reinforcement learning experimentation, for tracking and visualizing metrics such as loss and accuracy. 
-
-Specifically for RL it is useful to visualize metrics such as:
- * Mean, min, and max reward values.
- * Episodes/iteration.
- * Estimated Q-values.
- * Algorithm-specific metrics (e.g. entropy for PPO).
+Another way of visualizing the performance of agent training is with [**Tensorboard**](https://www.tensorflow.org/tensorboard). 
  
-To visualize results from Tensorboard, first `cd` to the `ray_results` directory:
+Navigate to the `ray_results` directory:
 ```
 cd ~/ray_results/
 ```
@@ -482,24 +425,7 @@ For the purpose of this tutorial, `cd` to the `CartPole-v0` subdirectory and act
 module purge
 conda activate <your_environment>
 ```
-Then, initialize Tensorboard as:
-```
-tensorboard --logdir=. --port 6006
-```
-For a specific training instance, e.g. the `DQN_CartPole-v0_0_2021-04-29_13-49-56gv0j3u93`, do instead:
-```
-tensorboard --logdir=DQN_CartPole-v0_0_2021-04-29_13-49-56gv0j3u93 --port 6006
-```
-If everything works properly, terminal will show:
-```
-Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all
-TensorBoard 2.5.0 at http://localhost:6006/ (Press CTRL+C to quit)
-```
-Open a new Terminal tab and create a tunnel:
-```
-ssh -NfL 6006:localhost:6006 $USER@el1.hpc.nrel.gov
-```
-Finally, open the above localhost url (`http://localhost:6006/`) in a browser, and all plots for rewards, iterations and other metrics will be demonstrated as:
+Initialize Tensorboard following the [steps in this tutorial](https://github.com/erskordi/HPC/blob/ml-rl/MachineLearning/tensorboard.md). Open the localhost url in a browser, and all plots for rewards, iterations and other metrics will be demonstrated as:
 
 <p float="left">
   <img src="images/tensorboard-initpag-2.png" width="400" />
