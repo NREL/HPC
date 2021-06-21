@@ -13,8 +13,9 @@ This tutorial covers an extended, albeit simplified, introduction of OpenAI Gym 
 You can find the full material of this tutorial in the [NREL/HPC GitHub repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
 
 The tutorial covers the following:
- * Creating Anaconda environments
- * Run experiments on various combinations of Eagle CPU nodes:
+ * Brief introduction to RL and Ray
+ * Agent training with Ray/RLlib:
+    - Tune runs
     - Single node/Single core.
     - Single node/Multiple cores. 
     - Multiple nodes.
