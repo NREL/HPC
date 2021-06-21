@@ -210,5 +210,176 @@ cd /scratch/$USER/path_to_specific_directory
 python -u simple_trainer.py --redis-password $redis_password --num-cpus $total_cpus
 ```
 
+# Outputs (single-core/multiple-core)
+
+RLlib produces outputs of the following form:
+```
+== Status ==
+Memory usage on this node: 9.1/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 1/36 CPUs, 0/0 GPUs, 0.0/119.73 GiB heap, 0.0/38.13 GiB objects
+Result logdir: /home/eskordil/ray_results/CartPole-v0
+Number of trials: 1 (1 RUNNING)
++-----------------------------+----------+-------+
+| Trial name                  | status   | loc   |
+|-----------------------------+----------+-------|
+| DQN_CartPole-v0_380be_00000 | RUNNING  |       |
++-----------------------------+----------+-------+
+
+
+(pid=200639) 2021-04-29 10:44:55,555	INFO trainer.py:585 -- Tip: set framework=tfe or the --eager flag to enable TensorFlow eager execution
+(pid=200639) 2021-04-29 10:44:55,555	INFO trainer.py:612 -- Current log_level is WARN. For more information, set 'log_level': 'INFO' / 'DEBUG' or use the -v and -vv flags.
+(pid=200639) 2021-04-29 10:44:56,504	WARNING util.py:37 -- Install gputil for GPU system monitoring.
+Result for DQN_CartPole-v0_380be_00000:
+  custom_metrics: {}
+  date: 2021-04-29_10-44-57
+  done: false
+  episode_len_mean: 22.906976744186046
+  episode_reward_max: 86.0
+  episode_reward_mean: 22.906976744186046
+  episode_reward_min: 8.0
+  episodes_this_iter: 43
+  episodes_total: 43
+  experiment_id: 66ccec197de8447fb178c8abebd26107
+  experiment_tag: '0'
+  hostname: r7i7n35
+  info:
+    last_target_update_ts: 1000
+    learner:
+      default_policy:
+        cur_lr: 0.0005000000237487257
+        max_q: 0.3239544630050659
+        mean_q: -0.08293987810611725
+        mean_td_error: -1.207885503768921
+        min_q: -1.2971210479736328
+        model: {}
+    num_steps_sampled: 1000
+    num_steps_trained: 32
+    num_target_updates: 1
+  iterations_since_restore: 1
+  node_ip: 10.148.7.231
+  num_healthy_workers: 0
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 2.85
+    ram_util_percent: 5.0
+  pid: 200639
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_env_wait_ms: 0.042502815787727896
+    mean_inference_ms: 0.49455801804701643
+    mean_processing_ms: 0.1114586611965915
+  time_since_restore: 0.9389147758483887
+  time_this_iter_s: 0.9389147758483887
+  time_total_s: 0.9389147758483887
+  timers:
+    learn_throughput: 197.465
+    learn_time_ms: 162.054
+  timestamp: 1619714697
+  timesteps_since_restore: 0
+  timesteps_total: 1000
+  training_iteration: 1
+  trial_id: 380be_00000
+```
+Most of this information will not be necessary, however there are some parts that give an idea of the results quality.
+
+One important piece of information is the utilization of resources achieved by RLlib during training, as well as the RL algorithm used for the experiment:
+```
+Resources requested: 1/36 CPUs, 0/0 GPUs, 0.0/119.73 GiB heap, 0.0/38.13 GiB objects
+Result logdir: /home/eskordil/ray_results/CartPole-v0
+Number of trials: 1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+------+----------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |   ts |   reward |
+|-----------------------------+----------+---------------------+--------+------------------+------+----------|
+| DQN_CartPole-v0_380be_00000 | RUNNING  | 10.148.7.231:200639 |      2 |          2.55838 | 2000 |    19.69 |
++-----------------------------+----------+---------------------+--------+------------------+------+----------+
+```
+These lines show the following:
+* Number of CPUs utilized: If `--num-cpus` was defined as equal to zero, then by default RLlib acquired a single CPU core to run the experiment.
+* No GPU resources were utilized: Expected since `--num-gpus` was set to zero.
+* Trial name: Generated automatically, it gives information regarding the RL algorithm used (here DQN) and the OpenAI Gym environment.
+* status: either RUNNING or FAILED.
+* iter: Current training iteration.
+* total time (seconds): time spend per iteration.
+* reward: The reward returned after the end of this iteration. Succesfull agent training will be shown through increase of that value during training.
+
+
+This is the most basic, but in the same time important, information after every training iteration. The rest of this snippet contains more specialized information, but most of it will not be relevant in subsequent analysis. 
+
+When `--num-cpus` equals 35, then the aforementioned printout will be:
+```
+== Status ==
+Memory usage on this node: 10.6/92.8 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 36/36 CPUs, 0/0 GPUs, 0.0/54.25 GiB heap, 0.0/18.7 GiB objects
+Result logdir: /home/eskordil/ray_results/CartPole-v0
+Number of trials: 1 (1 RUNNING)
++-----------------------------+----------+-----------------+--------+------------------+------+----------+
+| Trial name                  | status   | loc             |   iter |   total time (s) |   ts |   reward |
+|-----------------------------+----------+-----------------+--------+------------------+------+----------|
+| DQN_CartPole-v0_b665a_00000 | RUNNING  | 127.0.0.1:92844 |      3 |          6.30516 | 3360 |    19.07 |
++-----------------------------+----------+-----------------+--------+------------------+------+----------+
+
+
+Result for DQN_CartPole-v0_b665a_00000:
+custom_metrics: {}
+date: 2021-04-29_09-16-00
+done: false
+episode_len_mean: 17.37
+episode_reward_max: 97.0
+episode_reward_mean: 17.37
+episode_reward_min: 8.0
+episodes_this_iter: 75
+episodes_total: 233
+experiment_id: 573f3799c81946439a598d6d633df7d4
+experiment_tag: '0'
+hostname: r4i7n35
+info:
+last_target_update_ts: 4480
+learner:
+  default_policy:
+    cur_lr: 0.0005000000237487257
+    max_q: 12.753413200378418
+    mean_q: 5.389695167541504
+    mean_td_error: -1.9424524307250977
+    min_q: 0.2038756161928177
+    model: {}
+num_steps_sampled: 4480
+num_steps_trained: 800
+num_target_updates: 7
+iterations_since_restore: 4
+node_ip: 127.0.0.1
+num_healthy_workers: 35
+off_policy_estimator: {}
+perf:
+cpu_util_percent: 7.4
+ram_util_percent: 11.4
+pid: 92844
+policy_reward_max: {}
+policy_reward_mean: {}
+policy_reward_min: {}
+sampler_perf:
+mean_env_wait_ms: 0.04555504737231483
+mean_inference_ms: 0.8442203457250892
+mean_processing_ms: 0.1175659340957767
+time_since_restore: 8.04318118095398
+time_this_iter_s: 1.7380259037017822
+time_total_s: 8.04318118095398
+timers:
+learn_throughput: 19616.739
+learn_time_ms: 1.631
+update_time_ms: 89.14
+timestamp: 1619709360
+timesteps_since_restore: 0
+timesteps_total: 4480
+training_iteration: 4
+trial_id: b665a_00000
+```
+Obviously, RLlib here utilized all CPU cores on the node (36/36). 
+
+It might seem odd that the `total time(s)` here is slightly more than when using a single CPU core, but this happens because when the algorithm runs 36 instances of the OpenAI Gym environment concurrently, more data are collected for policy training leading to faster reward convergence. In any case, these times are not absolute, and will decrease during training, especially as the agent approaches the optimal reward value.
+
 **Supplemental notes:**
 As you noticed, when using RLlib for RL traning, there is no need to `import gym`, as we did in the non-training example, because RLlib recognizes automatically all benchmark OpenAI Gym environments. Even when you create your own custom-made Gym environments, RLlib provides proper functions with which you can register your environment before training.
