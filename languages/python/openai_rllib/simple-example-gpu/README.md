@@ -101,3 +101,86 @@ python -u simple_trainer.py --redis-password $redis_password --num-cpus $rollout
 to begin training. Add the `---num-gpus` argument to include the requested GPU node (or nodes in case of `--gres=gpu:2`) for policy training. There is no need to manually declare the GPU for policy training in the `simple_trainer.py`, RLlib will automatically recognize the available GPU and use it accordingly.
 
 The repo contains the complete slurm file versions for both [`env_example_gpu`](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/gpu_trainer.sh) and [`env_gpu_optimized_tf`](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml), and they can be used as templates for future projects.
+
+## Outputs
+
+The output presents the same data as when running CPU-only experiments.
+
+The difference is that now a GPU is also utilized (`1.0/1 GPUs`). This is the easiest way to make sure that a GPU was indeed allocated:
+```
+== Status ==
+Memory usage on this node: 6.5/92.8 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 108.0/180 CPUs, 1.0/1 GPUs, 0.0/807.51 GiB heap, 0.0/294.94 GiB objects (0.0/1.0 accelerator_type:V100)
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc              |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_0339b_00000 | RUNNING  | 10.148.8.36:3651 |	   1 |          11.9292 | 21400 |  22.1782 |                   84 |                    8 |            22.1782 |
++-----------------------------+----------+------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_0339b_00000:
+  agent_timesteps_total: 42800
+  custom_metrics: {}
+  date: 2021-05-12_10-00-28
+  done: false
+  episode_len_mean: 47.06188118811881
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 47.06188118811881
+  episode_reward_min: 9.0
+  episodes_this_iter: 404
+  episodes_total: 1302
+  experiment_id: f5a33b1e020c4ef19dd38f1ab425b16d
+  hostname: r103u23
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.30000001192092896
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5984720587730408
+          entropy_coeff: 0.0
+          kl: 0.01920320838689804
+          model: {}
+          policy_loss: -0.030758701264858246
+          total_loss: 394.77838134765625
+          vf_explained_var: 0.14716656506061554
+          vf_loss: 394.8033447265625
+    num_agent_steps_sampled: 42800
+    num_steps_sampled: 42800
+    num_steps_trained: 42800
+  iterations_since_restore: 2
+  node_ip: 10.148.8.36
+  num_healthy_workers: 107
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 6.346666666666667
+    ram_util_percent: 3.200000000000001
+  pid: 3651
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04437368377214986
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.056431942853082055
+    mean_inference_ms: 0.7302830909252791
+    mean_raw_obs_processing_ms: 0.06735290716566901
+  time_since_restore: 22.6750385761261
+  time_this_iter_s: 10.745835304260254
+  time_total_s: 22.6750385761261
+  timers:
+    learn_throughput: 1949.331
+    learn_time_ms: 10978.124
+    sample_throughput: 92888.12
+    sample_time_ms: 230.385
+    update_time_ms: 9.555
+  timestamp: 1620835228
+  timesteps_since_restore: 0
+  timesteps_total: 42800
+  training_iteration: 2
+  trial_id: 0339b_00000
+```
