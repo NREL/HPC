@@ -14,3 +14,5 @@ title: NREL HPC github.io
 collections:
     announcements:
         output: true
+# Google Analytics
+google_analytics: UA-189117140-2
