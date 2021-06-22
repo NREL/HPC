@@ -149,6 +149,12 @@ To create a new environment with the recipe specified in the .yaml file:
 
 If a name or prefix isn't specified, the environment will be given the same name as the original environment the recipe was exported from (which may be desirable if you're moving to a different computer).
 
+## Cloning a Conda environment
+
+Another way to create a Conda environment is to clone from an existing environment. This can be useful if you have a base environment you want to build on. One such use would be to have an environment configured for GPUs, and then clone this environment to add additional machine learning packages needed for different projects. 
+
+`conda create --clone <env_name> --name <env_name_copy>`
+
 ## Eagle Considerations
 
 Interacting with your Conda environments on Eagle should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
