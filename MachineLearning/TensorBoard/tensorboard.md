@@ -21,11 +21,10 @@ For RL it is useful to visualize metrics such as:
  * Estimated Q-values.
  * Algorithm-specific metrics (e.g. entropy for PPO).
  
-To visualize results from Tensorboard, first `cd` to the `ray_results` directory:
+To visualize results from Tensorboard, first `cd` to the directory where your results reside. E.g., if you ran experiments using `ray`, then do the following:
 ```
 cd ~/ray_results/
 ```
-Every ML/RL experiment generates a subdirectory.
 
 Begin by activating an Anaconda environment:
 ```
