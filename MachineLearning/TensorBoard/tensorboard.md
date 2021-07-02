@@ -26,14 +26,23 @@ To visualize results from Tensorboard, first `cd` to the directory where your re
 cd ~/ray_results/
 ```
 
-Begin by activating an Anaconda environment:
+There are three main methods for activating Tensorboard:
+* If you included Tensorboard installation in an Anaconda environment, activate it:
+ - ```module purge
+   conda activate <your_environment>
+   ```
+* You can also install Tensorboard in userspace using `pip install`:
+ - ```pip install tensorboard --user
+   ```
+* Install it using container images:
+ - ```ml singularity-container
+   singularity pull docker://tensorflow/tensorflow
+   singularity run tensorflow_latest.sif
+   ```
+
+Then, initialize Tensorboard using a pre-specified port number of your choosing (e.g. 6006, 8008):
 ```
-module purge
-conda activate <your_environment>
-```
-Initialize Tensorboard using a pre-specified port number (e.g. 6006, 8008):
-```
-tensorboard --logdir=. --port 6006
+tensorboard --logdir=. --port 6006 --bind_all
 ```
 If everything works properly, terminal will show:
 ```
