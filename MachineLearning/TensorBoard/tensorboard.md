@@ -27,7 +27,7 @@ cd ~/ray_results/
 ```
 
 There are three main methods for activating Tensorboard:
-* If you included Tensorboard installation in an Anaconda environment, activate it:
+* If you included Tensorboard installation in an Anaconda environment, simply activate it:
    ```
    module purge
    conda activate <your_environment>
@@ -36,7 +36,7 @@ There are three main methods for activating Tensorboard:
    ```
    pip install tensorboard --user
    ```
-* Install it using container images:
+* Or, install using container images:
    ```
    ml singularity-container
    singularity pull docker://tensorflow/tensorflow
