@@ -1,0 +1,1326 @@
+AS=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-as
+SLURM_NODELIST=r9i1n[11-12,32]
+LDFLAGS=-Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags
+AR=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-ar
+SLURM_JOB_NAME=cartpole-multiple-nodes
+MANPATH=/nopt/slurm/current/share:/nopt/nrel/apps/anaconda/mini_py37_4.8.3/share/man:/nopt/nrel/utils/lmod/lmod/share/man:/nopt/slurm/current/share::/opt/c3/man:/opt/clmgr/man:/opt/sgi/share/man:/opt/clmgr/share/man:/opt/clmgr/lib/cm-cli/man:/opt/clmgr/man:/opt/sgi/share/man:/opt/clmgr/share/man:/opt/clmgr/lib/cm-cli/man
+RSTUDIO_WHICH_R=/nopt/nrel/apps/anaconda/5.3/bin/R
+XDG_SESSION_ID=9550
+GCC_NM=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gcc-nm
+SLURMD_NODENAME=r9i1n11
+SLURM_TOPOLOGY_ADDR=root.r9.r9i1n11
+SLURM_NTASKS_PER_NODE=1
+HOSTNAME=r9i1n11
+SLURM_PRIO_PROCESS=0
+SELINUX_ROLE_REQUESTED=
+SLURM_NODE_ALIASES=(null)
+SHELL=/bin/bash
+TERM=xterm-256color
+HOST=x86_64-conda_cos6-linux-gnu
+__LMOD_REF_COUNT_MODULEPATH=/nopt/nrel/utils/modulefiles/Linux:1;/nopt/nrel/utils/modulefiles/Core:1;/nopt/nrel/apps/modules/default/modulefiles:1
+NM=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-nm
+SLURM_JOB_QOS=normal
+HISTSIZE=1000
+CPPFLAGS=-DNDEBUG -D_FORTIFY_SOURCE=2 -O2
+TMPDIR=/tmp
+SLURM_TOPOLOGY_ADDR_PATTERN=switch.switch.node
+SSH_CLIENT=10.10.141.83 49482 22
+MODULEPATH_ROOT=/nopt/nrel/utils/modulefiles
+XALT_EXECUTABLE_TRACKING=yes
+CONDA_SHLVL=1
+SELINUX_USE_CURRENT_RANGE=
+LD_PRELOAD=/nopt/xalt/xalt/lib64/libxalt_init.so
+CONDA_PROMPT_MODIFIER=(base) 
+SIZE=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-size
+LMOD_PKG=/nopt/nrel/utils/lmod/lmod
+RSTUDIO_WHICH_R_PREV=/nopt/nrel/apps/anaconda/5.3/bin/R
+QTDIR=/usr/lib64/qt-3.3
+LMOD_VERSION=7.8.8
+QTINC=/usr/lib64/qt-3.3/include
+SSH_TTY=/dev/pts/20
+GFORTRAN=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gfortran
+LC_ALL=en_US.UTF-8
+__LMOD_REF_COUNT_LOADEDMODULES=conda/mini_py37_4.8.3:1
+QT_GRAPHICSSYSTEM_CHECKED=1
+SLURM_NNODES=3
+USER=eskordil
+LS_COLORS=rs=0:di=38;5;27:ln=38;5;51:mh=44;38;5;15:pi=40;38;5;11:so=38;5;13:do=38;5;5:bd=48;5;232;38;5;11:cd=48;5;232;38;5;3:or=48;5;232;38;5;9:mi=05;48;5;232;38;5;15:su=48;5;196;38;5;15:sg=48;5;11;38;5;16:ca=48;5;196;38;5;226:tw=48;5;10;38;5;16:ow=48;5;10;38;5;21:st=48;5;21;38;5;15:ex=38;5;34:*.tar=38;5;9:*.tgz=38;5;9:*.arc=38;5;9:*.arj=38;5;9:*.taz=38;5;9:*.lha=38;5;9:*.lz4=38;5;9:*.lzh=38;5;9:*.lzma=38;5;9:*.tlz=38;5;9:*.txz=38;5;9:*.tzo=38;5;9:*.t7z=38;5;9:*.zip=38;5;9:*.z=38;5;9:*.Z=38;5;9:*.dz=38;5;9:*.gz=38;5;9:*.lrz=38;5;9:*.lz=38;5;9:*.lzo=38;5;9:*.xz=38;5;9:*.bz2=38;5;9:*.bz=38;5;9:*.tbz=38;5;9:*.tbz2=38;5;9:*.tz=38;5;9:*.deb=38;5;9:*.rpm=38;5;9:*.jar=38;5;9:*.war=38;5;9:*.ear=38;5;9:*.sar=38;5;9:*.rar=38;5;9:*.alz=38;5;9:*.ace=38;5;9:*.zoo=38;5;9:*.cpio=38;5;9:*.7z=38;5;9:*.rz=38;5;9:*.cab=38;5;9:*.jpg=38;5;13:*.jpeg=38;5;13:*.gif=38;5;13:*.bmp=38;5;13:*.pbm=38;5;13:*.pgm=38;5;13:*.ppm=38;5;13:*.tga=38;5;13:*.xbm=38;5;13:*.xpm=38;5;13:*.tif=38;5;13:*.tiff=38;5;13:*.png=38;5;13:*.svg=38;5;13:*.svgz=38;5;13:*.mng=38;5;13:*.pcx=38;5;13:*.mov=38;5;13:*.mpg=38;5;13:*.mpeg=38;5;13:*.m2v=38;5;13:*.mkv=38;5;13:*.webm=38;5;13:*.ogm=38;5;13:*.mp4=38;5;13:*.m4v=38;5;13:*.mp4v=38;5;13:*.vob=38;5;13:*.qt=38;5;13:*.nuv=38;5;13:*.wmv=38;5;13:*.asf=38;5;13:*.rm=38;5;13:*.rmvb=38;5;13:*.flc=38;5;13:*.avi=38;5;13:*.fli=38;5;13:*.flv=38;5;13:*.gl=38;5;13:*.dl=38;5;13:*.xcf=38;5;13:*.xwd=38;5;13:*.yuv=38;5;13:*.cgm=38;5;13:*.emf=38;5;13:*.axv=38;5;13:*.anx=38;5;13:*.ogv=38;5;13:*.ogx=38;5;13:*.aac=38;5;45:*.au=38;5;45:*.flac=38;5;45:*.mid=38;5;45:*.midi=38;5;45:*.mka=38;5;45:*.mp3=38;5;45:*.mpc=38;5;45:*.ogg=38;5;45:*.ra=38;5;45:*.wav=38;5;45:*.axa=38;5;45:*.oga=38;5;45:*.spx=38;5;45:*.xspf=38;5;45:
+LD_LIBRARY_PATH=/nopt/slurm/current/lib:/nopt/slurm/current/lib:
+LMOD_sys=Linux
+CONDA_BACKUP_HOST=x86_64-conda_cos6-linux-gnu
+CONDA_BACKUP_F95=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-f95
+NREL_CLUSTER=eagle
+CONDA_EXE=/nopt/nrel/apps/anaconda/5.3/bin/conda
+REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt
+SLURM_JOBID=6800229
+OSCAR_HOME=/opt/oscar
+CONDA_BACKUP_F90=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gfortran
+DEBUG_FORTRANFLAGS=-fopenmp -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe -fopenmp -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fcheck=all -fbacktrace -fimplicit-none -fvar-tracking-assignments -pipe
+__LMOD_REF_COUNT__LMFILES_=/nopt/nrel/apps/modules/default/modulefiles/conda/mini_py37_4.8.3:1
+CXXFLAGS=-fvisibility-inlines-hidden -std=c++17 -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
+SLURM_NTASKS=3
+LD_GOLD=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-ld.gold
+STRINGS=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-strings
+CPP=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-cpp
+_CE_CONDA=
+CXXFILT=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-c++filt
+SLURM_TASKS_PER_NODE=1(x3)
+PATH=/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sbin:/opt/sgi/bin:/nopt/nrel/utils/bin:/nopt/slurm/current/bin:/nopt/nrel/apps/anaconda/5.3/bin:/nopt/nrel/apps/anaconda/mini_py37_4.8.3/bin:/nopt/nrel/apps/anaconda/5.3/bin:/nopt/nrel/apps/anaconda/5.3/condabin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sbin:/opt/sgi/bin:/usr/lib64/qt-3.3/bin:/nopt/xalt/xalt/bin:/nopt/nrel/utils/bin:/nopt/slurm/current/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/c3/bin:/opt/ibutils/bin:/sbin:/bin:/home/eskordil/.local/bin:/home/eskordil/bin:/sbin:/bin:/home/eskordil/.local/bin:/home/eskordil/bin
+MAIL=/var/spool/mail/eskordil
+_ModuleTable001_=X01vZHVsZVRhYmxlXz17WyJNVHZlcnNpb24iXT0zLFsiY19yZWJ1aWxkVGltZSJdPWZhbHNlLFsiY19zaG9ydFRpbWUiXT1mYWxzZSxkZXB0aFQ9e30sZmFtaWx5PXt9LG1UPXtjb25kYT17WyJmbiJdPSIvbm9wdC9ucmVsL2FwcHMvbW9kdWxlcy9kZWZhdWx0L21vZHVsZWZpbGVzL2NvbmRhL21pbmlfcHkzN180LjguMyIsWyJmdWxsTmFtZSJdPSJjb25kYS9taW5pX3B5MzdfNC44LjMiLFsibG9hZE9yZGVyIl09MSxwcm9wVD17fSxbInN0YWNrRGVwdGgiXT0wLFsic3RhdHVzIl09ImFjdGl2ZSIsWyJ1c2VyTmFtZSJdPSJjb25kYSIsfSx9LG1wYXRoQT17Ii9ub3B0L25yZWwvdXRpbHMvbW9kdWxlZmlsZXMvTGludXgiLCIvbm9wdC9ucmVsL3V0aWxzL21vZHVsZWZpbGVzL0Nv
+SLURM_WORKING_CLUSTER=eagle:10.148.7.234:6817:8960:101
+SLURM_CONF=/nopt/slurm/etc/slurm.conf
+SLURM_JOB_ID=6800229
+SLURM_CPUS_PER_TASK=36
+DEBUG_CXXFLAGS=-fvisibility-inlines-hidden -std=c++17 -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fvar-tracking-assignments -pipe
+LD=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-ld
+CONDA_PREFIX=/nopt/nrel/apps/anaconda/5.3
+SLURM_JOB_USER=eskordil
+PWD=/scratch/eskordil/git-repos/HPC/languages/python/openai_rllib/simple-example
+F90=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gfortran
+STRIP=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-strip
+LOCAL_SCRATCH=/tmp/scratch
+XALT_TRANSMISSION_STYLE=syslog
+_LMFILES_=/nopt/nrel/apps/modules/default/modulefiles/conda/mini_py37_4.8.3
+ELFEDIT=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-elfedit
+GCC_RANLIB=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gcc-ranlib
+LANG=en_US.UTF-8
+F95=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-f95
+CONDA_PKGS_DIRS=~/.conda-pkgs
+MODULEPATH=/nopt/nrel/utils/modulefiles/Linux:/nopt/nrel/utils/modulefiles/Core:/nopt/nrel/apps/modules/default/modulefiles
+SLURM_JOB_UID=131442
+_ModuleTable_Sz_=2
+LOADEDMODULES=conda/mini_py37_4.8.3
+DEBUG_FFLAGS=-fopenmp -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe -fopenmp -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fcheck=all -fbacktrace -fimplicit-none -fvar-tracking-assignments -pipe
+SLURM_NODEID=0
+F77=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gfortran
+SLURM_SUBMIT_DIR=/lustre/eaglefs/scratch/eskordil/git-repos/HPC/languages/python/openai_rllib/simple-example
+SELINUX_LEVEL_REQUESTED=
+C3_RSH=ssh -oConnectTimeout=10 -oForwardX11=no
+SLURM_TASK_PID=215355
+SLURM_NPROCS=3
+LMOD_CMD=/nopt/nrel/utils/lmod/lmod/libexec/lmod
+SLURM_CPUS_ON_NODE=36
+CONDA_ENVS_PATH=~/.conda-envs
+CXX=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-c++
+SLURM_PROCID=0
+ENVIRONMENT=BATCH
+HISTCONTROL=ignoredups
+_CE_M=
+OBJCOPY=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-objcopy
+SLURM_JOB_NODELIST=r9i1n[11-12,32]
+HOME=/home/eskordil
+SHLVL=2
+SLURM_LOCALID=0
+LANGUAGE=en_US.UTF-8
+__LMOD_REF_COUNT_PATH=/nopt/nrel/apps/anaconda/mini_py37_4.8.3/bin:1;/nopt/nrel/apps/anaconda/5.3/bin:1;/nopt/nrel/apps/anaconda/5.3/condabin:1;/opt/clmgr/sbin:1;/opt/clmgr/bin:1;/opt/sgi/sbin:1;/opt/sgi/bin:1;/usr/lib64/qt-3.3/bin:1;/nopt/xalt/xalt/bin:1;/nopt/nrel/utils/bin:1;/nopt/slurm/current/bin:1;/usr/local/bin:1;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:1;/opt/c3/bin:1;/opt/ibutils/bin:1;/sbin:1;/bin:1;/home/eskordil/.local/bin:1;/home/eskordil/bin:1
+FORTRANFLAGS=-fopenmp -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
+DEBUG_CPPFLAGS=-D_DEBUG -D_FORTIFY_SOURCE=2 -Og
+CFLAGS=-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
+SLURM_JOB_GID=131442
+SLURM_JOB_CPUS_PER_NODE=36(x3)
+SLURM_CLUSTER_NAME=eagle
+XALT_SCALAR_SAMPLING=no
+_ModuleTable002_=cmUiLCIvbm9wdC9ucmVsL2FwcHMvbW9kdWxlcy9kZWZhdWx0L21vZHVsZWZpbGVzIix9LFsic3lzdGVtQmFzZU1QQVRIIl09Ii9ub3B0L25yZWwvdXRpbHMvbW9kdWxlZmlsZXMvTGludXg6L25vcHQvbnJlbC91dGlscy9tb2R1bGVmaWxlcy9Db3JlOi9ub3B0L25yZWwvYXBwcy9tb2R1bGVzL2RlZmF1bHQvbW9kdWxlZmlsZXMiLH0=
+FC=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gfortran
+_CONDA_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_x86_64_conda_cos6_linux_gnu
+GCC=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gcc
+SLURM_GTIDS=0
+SLURM_SUBMIT_HOST=el1
+SLURM_JOB_PARTITION=short
+BASH_ENV=/nopt/nrel/utils/lmod/lmod/init/bash
+ADDR2LINE=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-addr2line
+LOGNAME=eskordil
+CONDA_PYTHON_EXE=/nopt/nrel/apps/anaconda/5.3/bin/python
+QTLIB=/usr/lib64/qt-3.3/lib
+SLURM_JOB_ACCOUNT=rlldrd
+SSH_CONNECTION=10.10.141.83 49482 10.60.1.110 22
+XDG_DATA_DIRS=/home/eskordil/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+SLURM_JOB_NUM_NODES=3
+MODULESHOME=/nopt/nrel/utils/lmod/lmod
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LMOD_SETTARG_FULL_SUPPORT=no
+CONDA_DEFAULT_ENV=base
+DEBUG_CFLAGS=-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fvar-tracking-assignments -pipe
+RANLIB=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-ranlib
+USE_PCM_DB=2
+CC=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-cc
+XDG_RUNTIME_DIR=/run/user/131442
+READELF=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-readelf
+LMOD_DIR=/nopt/nrel/utils/lmod/lmod/libexec
+__LMOD_REF_COUNT_MANPATH=/nopt/nrel/apps/anaconda/mini_py37_4.8.3/share/man:1;/nopt/nrel/utils/lmod/lmod/share/man:1;/nopt/slurm/current/share:1;/opt/c3/man:1;/opt/clmgr/man:1;/opt/sgi/share/man:1;/opt/clmgr/share/man:1;/opt/clmgr/lib/cm-cli/man:1
+GCC_AR=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gcc-ar
+OBJDUMP=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-objdump
+GPROF=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-gprof
+GXX=/nopt/nrel/apps/anaconda/5.3/bin/x86_64-conda_cos6-linux-gnu-g++
+FFLAGS=-fopenmp -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
+BASH_FUNC_module()=() {  eval $($LMOD_CMD bash "$@") && eval $(${LMOD_SETTARG_CMD:-:} -s sh)
+}
+BASH_FUNC_ml()=() {  eval $($LMOD_DIR/ml_cmd "$@")
+}
+_=/usr/bin/env
+worker_num=2
+total_cpus=72
+nodes: r9i1n11 r9i1n12 r9i1n32
+nodes_array: r9i1n11
+node1: r9i1n11
+ip_prefix: 10.148.8.236
+suffix: 6379
+ip_head: 10.148.8.236:6379
+redis_password: 395b6ccb-512c-4d3a-83a0-c6c930521556
+starting head at r9i1n11
+2021-05-07 15:55:08,334	INFO services.py:1269 -- View the Ray dashboard at [1m[32mhttp://127.0.0.1:8265[39m[22m
+starting workers
+i=1, node2=r9i1n12
+i=2, node2=r9i1n32
+calling simple_trainer.py
+Namespace(local_mode=False, name_env='CartPole-v0', num_cpus=72, num_gpus=0, redis_password='395b6ccb-512c-4d3a-83a0-c6c930521556', run='PPO')
+2021-05-07 15:55:34,084	INFO worker.py:641 -- Connecting to existing Ray cluster at address: 10.148.8.236:6379
+WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+== Status ==
+Memory usage on this node: 7.3/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 PENDING)
++-----------------------------+----------+-------+
+| Trial name                  | status   | loc   |
+|-----------------------------+----------+-------|
+| PPO_CartPole-v0_21a72_00000 | PENDING  |       |
++-----------------------------+----------+-------+
+
+
+[2m[36m(pid=218685)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218685)[0m Instructions for updating:
+[2m[36m(pid=218685)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218685)[0m 2021-05-07 15:56:56,737	INFO trainer.py:669 -- Tip: set framework=tfe or the --eager flag to enable TensorFlow eager execution
+[2m[36m(pid=218685)[0m 2021-05-07 15:56:56,737	INFO trainer.py:696 -- Current log_level is WARN. For more information, set 'log_level': 'INFO' / 'DEBUG' or use the -v and -vv flags.
+[2m[36m(pid=218706)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218706)[0m Instructions for updating:
+[2m[36m(pid=218706)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218707)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218707)[0m Instructions for updating:
+[2m[36m(pid=218707)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218713)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218713)[0m Instructions for updating:
+[2m[36m(pid=218713)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218701)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218701)[0m Instructions for updating:
+[2m[36m(pid=218701)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218700)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218700)[0m Instructions for updating:
+[2m[36m(pid=218700)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218712)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218712)[0m Instructions for updating:
+[2m[36m(pid=218712)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218687)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218687)[0m Instructions for updating:
+[2m[36m(pid=218687)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218688)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218688)[0m Instructions for updating:
+[2m[36m(pid=218688)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218689)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218689)[0m Instructions for updating:
+[2m[36m(pid=218689)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218686)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218686)[0m Instructions for updating:
+[2m[36m(pid=218686)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218934)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218934)[0m Instructions for updating:
+[2m[36m(pid=218934)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218936)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218936)[0m Instructions for updating:
+[2m[36m(pid=218936)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218940)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218940)[0m Instructions for updating:
+[2m[36m(pid=218940)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218938)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218938)[0m Instructions for updating:
+[2m[36m(pid=218938)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218937)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218937)[0m Instructions for updating:
+[2m[36m(pid=218937)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218939)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218939)[0m Instructions for updating:
+[2m[36m(pid=218939)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218946)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218946)[0m Instructions for updating:
+[2m[36m(pid=218946)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218952)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218952)[0m Instructions for updating:
+[2m[36m(pid=218952)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218965)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218965)[0m Instructions for updating:
+[2m[36m(pid=218965)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218943)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218943)[0m Instructions for updating:
+[2m[36m(pid=218943)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218935)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218935)[0m Instructions for updating:
+[2m[36m(pid=218935)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218941)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218941)[0m Instructions for updating:
+[2m[36m(pid=218941)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218959)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218959)[0m Instructions for updating:
+[2m[36m(pid=218959)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218962)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218962)[0m Instructions for updating:
+[2m[36m(pid=218962)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218949)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218949)[0m Instructions for updating:
+[2m[36m(pid=218949)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218966)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218966)[0m Instructions for updating:
+[2m[36m(pid=218966)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218985)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218985)[0m Instructions for updating:
+[2m[36m(pid=218985)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218973)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218973)[0m Instructions for updating:
+[2m[36m(pid=218973)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218967)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218967)[0m Instructions for updating:
+[2m[36m(pid=218967)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218956)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218956)[0m Instructions for updating:
+[2m[36m(pid=218956)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218982)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218982)[0m Instructions for updating:
+[2m[36m(pid=218982)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218976)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218976)[0m Instructions for updating:
+[2m[36m(pid=218976)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218970)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218970)[0m Instructions for updating:
+[2m[36m(pid=218970)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218979)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218979)[0m Instructions for updating:
+[2m[36m(pid=218979)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218997)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=218997)[0m Instructions for updating:
+[2m[36m(pid=218997)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218685)[0m 2021-05-07 15:57:03,810	WARNING util.py:53 -- Install gputil for GPU system monitoring.
+[2m[36m(pid=214287, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214287, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214287, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214286, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214286, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214286, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214285, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214285, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214285, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214284, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214284, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214284, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214279, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214279, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214279, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214291, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214291, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214291, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214282, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214282, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214282, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214280, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214280, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214280, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214275, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214275, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214275, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214278, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214278, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214278, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214277, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214277, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214277, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214272, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214272, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214272, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214281, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214281, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214281, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214273, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214273, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214273, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214274, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214274, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214274, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214276, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214276, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214276, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214283, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214283, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214283, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214323, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214323, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214323, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214318, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214318, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214318, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214288, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214288, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214288, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214327, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214327, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214327, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214290, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214290, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214290, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214297, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214297, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214297, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214328, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214328, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214328, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214298, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214298, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214298, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214314, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214314, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214314, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214319, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214319, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214319, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214292, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214292, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214292, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214310, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214310, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214310, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214302, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214302, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214302, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214295, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214295, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214295, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214300, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214300, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214300, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214304, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214304, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214304, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214315, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214315, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214315, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214303, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214303, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214303, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=214289, ip=10.148.8.241)[0m WARNING:tensorflow:From /projects/rlldrd/eskordil/envs/env_example/lib/python3.7/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+[2m[36m(pid=214289, ip=10.148.8.241)[0m Instructions for updating:
+[2m[36m(pid=214289, ip=10.148.8.241)[0m non-resource variables are not supported in the long term
+[2m[36m(pid=218685)[0m 2021-05-07 15:57:09,982	WARNING deprecation.py:34 -- DeprecationWarning: `SampleBatch.data[..]` has been deprecated. Use `SampleBatch[..]` instead. This will raise an error in the future!
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 14200
+  custom_metrics: {}
+  date: 2021-05-07_15-57-15
+  done: false
+  episode_len_mean: 21.424437299035368
+  episode_media: {}
+  episode_reward_max: 81.0
+  episode_reward_mean: 21.424437299035368
+  episode_reward_min: 8.0
+  episodes_this_iter: 622
+  episodes_total: 622
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.20000000298023224
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.6593455672264099
+          entropy_coeff: 0.0
+          kl: 0.03552492707967758
+          model: {}
+          policy_loss: -0.048600681126117706
+          total_loss: 81.5534439086914
+          vf_explained_var: 0.27602478861808777
+          vf_loss: 81.59493255615234
+    num_agent_steps_sampled: 14200
+    num_steps_sampled: 14200
+    num_steps_trained: 14200
+  iterations_since_restore: 1
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 9.783333333333335
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.044887798294863376
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05714855505926562
+    mean_inference_ms: 0.7704948727150243
+    mean_raw_obs_processing_ms: 0.0727470746734268
+  time_since_restore: 12.102100849151611
+  time_this_iter_s: 12.102100849151611
+  time_total_s: 12.102100849151611
+  timers:
+    learn_throughput: 2412.026
+    learn_time_ms: 5887.167
+    sample_throughput: 2308.055
+    sample_time_ms: 6152.366
+    update_time_ms: 6.489
+  timestamp: 1620424635
+  timesteps_since_restore: 0
+  timesteps_total: 14200
+  training_iteration: 1
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.8/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      1 |          12.1021 | 14200 |  21.4244 |                   81 |                    8 |            21.4244 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 28400
+  custom_metrics: {}
+  date: 2021-05-07_15-57-21
+  done: false
+  episode_len_mean: 43.28125
+  episode_media: {}
+  episode_reward_max: 137.0
+  episode_reward_mean: 43.28125
+  episode_reward_min: 8.0
+  episodes_this_iter: 288
+  episodes_total: 910
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.30000001192092896
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5989530682563782
+          entropy_coeff: 0.0
+          kl: 0.019896699115633965
+          model: {}
+          policy_loss: -0.0315469391644001
+          total_loss: 278.09149169921875
+          vf_explained_var: 0.18729764223098755
+          vf_loss: 278.1170959472656
+    num_agent_steps_sampled: 28400
+    num_steps_sampled: 28400
+    num_steps_trained: 28400
+  iterations_since_restore: 2
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.9375
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.044350019697668684
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.057039467060985456
+    mean_inference_ms: 0.7036283950820198
+    mean_raw_obs_processing_ms: 0.06796542454968202
+  time_since_restore: 17.810351371765137
+  time_this_iter_s: 5.708250522613525
+  time_total_s: 17.810351371765137
+  timers:
+    learn_throughput: 2503.637
+    learn_time_ms: 5671.749
+    sample_throughput: 4483.587
+    sample_time_ms: 3167.107
+    update_time_ms: 6.341
+  timestamp: 1620424641
+  timesteps_since_restore: 0
+  timesteps_total: 28400
+  training_iteration: 2
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      2 |          17.8104 | 28400 |  43.2812 |                  137 |                    8 |            43.2812 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 42600
+  custom_metrics: {}
+  date: 2021-05-07_15-57-27
+  done: false
+  episode_len_mean: 93.73643410852713
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 93.73643410852713
+  episode_reward_min: 14.0
+  episodes_this_iter: 129
+  episodes_total: 1039
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.30000001192092896
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5623010993003845
+          entropy_coeff: 0.0
+          kl: 0.010707436129450798
+          model: {}
+          policy_loss: -0.014771048910915852
+          total_loss: 508.09857177734375
+          vf_explained_var: 0.2104642689228058
+          vf_loss: 508.1101989746094
+    num_agent_steps_sampled: 42600
+    num_steps_sampled: 42600
+    num_steps_trained: 42600
+  iterations_since_restore: 3
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.549999999999999
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04410248295753331
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05670065180455692
+    mean_inference_ms: 0.6789937564461294
+    mean_raw_obs_processing_ms: 0.06467116797165183
+  time_since_restore: 23.54135799407959
+  time_this_iter_s: 5.731006622314453
+  time_total_s: 23.54135799407959
+  timers:
+    learn_throughput: 2531.248
+    learn_time_ms: 5609.88
+    sample_throughput: 6541.274
+    sample_time_ms: 2170.831
+    update_time_ms: 6.265
+  timestamp: 1620424647
+  timesteps_since_restore: 0
+  timesteps_total: 42600
+  training_iteration: 3
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      3 |          23.5414 | 42600 |  93.7364 |                  200 |                   14 |            93.7364 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 56800
+  custom_metrics: {}
+  date: 2021-05-07_15-57-33
+  done: false
+  episode_len_mean: 143.28
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 143.28
+  episode_reward_min: 12.0
+  episodes_this_iter: 85
+  episodes_total: 1124
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.30000001192092896
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5589228272438049
+          entropy_coeff: 0.0
+          kl: 0.002630604198202491
+          model: {}
+          policy_loss: -0.003993053454905748
+          total_loss: 421.9928894042969
+          vf_explained_var: 0.3999801576137543
+          vf_loss: 421.9961853027344
+    num_agent_steps_sampled: 56800
+    num_steps_sampled: 56800
+    num_steps_trained: 56800
+  iterations_since_restore: 4
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.625
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04416523166330421
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.056963442878503086
+    mean_inference_ms: 0.6734566083567803
+    mean_raw_obs_processing_ms: 0.06334069564616224
+  time_since_restore: 29.208738803863525
+  time_this_iter_s: 5.6673808097839355
+  time_total_s: 29.208738803863525
+  timers:
+    learn_throughput: 2553.095
+    learn_time_ms: 5561.876
+    sample_throughput: 8489.864
+    sample_time_ms: 1672.583
+    update_time_ms: 6.265
+  timestamp: 1620424653
+  timesteps_since_restore: 0
+  timesteps_total: 56800
+  training_iteration: 4
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      4 |          29.2087 | 56800 |   143.28 |                  200 |                   12 |             143.28 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 71000
+  custom_metrics: {}
+  date: 2021-05-07_15-57-38
+  done: false
+  episode_len_mean: 169.84
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 169.84
+  episode_reward_min: 12.0
+  episodes_this_iter: 74
+  episodes_total: 1198
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.15000000596046448
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.52360999584198
+          entropy_coeff: 0.0
+          kl: 0.008638556115329266
+          model: {}
+          policy_loss: -0.00537338200956583
+          total_loss: 331.78875732421875
+          vf_explained_var: 0.4499698281288147
+          vf_loss: 331.79278564453125
+    num_agent_steps_sampled: 71000
+    num_steps_sampled: 71000
+    num_steps_trained: 71000
+  iterations_since_restore: 5
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.988888888888889
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04398922254029637
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05685412335334053
+    mean_inference_ms: 0.6662084127517345
+    mean_raw_obs_processing_ms: 0.062235036020993624
+  time_since_restore: 34.978689432144165
+  time_this_iter_s: 5.76995062828064
+  time_total_s: 34.978689432144165
+  timers:
+    learn_throughput: 2557.542
+    learn_time_ms: 5552.206
+    sample_throughput: 10325.151
+    sample_time_ms: 1375.283
+    update_time_ms: 6.47
+  timestamp: 1620424658
+  timesteps_since_restore: 0
+  timesteps_total: 71000
+  training_iteration: 5
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      5 |          34.9787 | 71000 |   169.84 |                  200 |                   12 |             169.84 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 85200
+  custom_metrics: {}
+  date: 2021-05-07_15-57-44
+  done: false
+  episode_len_mean: 191.85
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 191.85
+  episode_reward_min: 84.0
+  episodes_this_iter: 72
+  episodes_total: 1270
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.15000000596046448
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5126173496246338
+          entropy_coeff: 0.0
+          kl: 0.004817360080778599
+          model: {}
+          policy_loss: -0.0022779516875743866
+          total_loss: 278.4949951171875
+          vf_explained_var: 0.5082927942276001
+          vf_loss: 278.49652099609375
+    num_agent_steps_sampled: 85200
+    num_steps_sampled: 85200
+    num_steps_trained: 85200
+  iterations_since_restore: 6
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.225
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.0439867391790659
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.0568818033406756
+    mean_inference_ms: 0.6619861009709648
+    mean_raw_obs_processing_ms: 0.06138879261379005
+  time_since_restore: 40.72318434715271
+  time_this_iter_s: 5.744494915008545
+  time_total_s: 40.72318434715271
+  timers:
+    learn_throughput: 2561.424
+    learn_time_ms: 5543.791
+    sample_throughput: 12075.39
+    sample_time_ms: 1175.945
+    update_time_ms: 6.472
+  timestamp: 1620424664
+  timesteps_since_restore: 0
+  timesteps_total: 85200
+  training_iteration: 6
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      6 |          40.7232 | 85200 |   191.85 |                  200 |                   84 |             191.85 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 99400
+  custom_metrics: {}
+  date: 2021-05-07_15-57-50
+  done: false
+  episode_len_mean: 199.0
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 199.0
+  episode_reward_min: 157.0
+  episodes_this_iter: 71
+  episodes_total: 1341
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.07500000298023224
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5216121077537537
+          entropy_coeff: 0.0
+          kl: 0.006858043372631073
+          model: {}
+          policy_loss: -0.00366325955837965
+          total_loss: 304.49566650390625
+          vf_explained_var: 0.47628024220466614
+          vf_loss: 304.4988098144531
+    num_agent_steps_sampled: 99400
+    num_steps_sampled: 99400
+    num_steps_trained: 99400
+  iterations_since_restore: 7
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.925
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04397799687634829
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05686447762557306
+    mean_inference_ms: 0.6585671898683328
+    mean_raw_obs_processing_ms: 0.06080410167053978
+  time_since_restore: 46.46852254867554
+  time_this_iter_s: 5.745338201522827
+  time_total_s: 46.46852254867554
+  timers:
+    learn_throughput: 2564.24
+    learn_time_ms: 5537.702
+    sample_throughput: 13744.375
+    sample_time_ms: 1033.15
+    update_time_ms: 6.539
+  timestamp: 1620424670
+  timesteps_since_restore: 0
+  timesteps_total: 99400
+  training_iteration: 7
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |    ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      7 |          46.4685 | 99400 |      199 |                  200 |                  157 |                199 |
++-----------------------------+----------+---------------------+--------+------------------+-------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 113600
+  custom_metrics: {}
+  date: 2021-05-07_15-57-56
+  done: false
+  episode_len_mean: 200.0
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 200.0
+  episode_reward_min: 200.0
+  episodes_this_iter: 71
+  episodes_total: 1412
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.07500000298023224
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.4980354309082031
+          entropy_coeff: 0.0
+          kl: 0.0029554071370512247
+          model: {}
+          policy_loss: -0.001304695033468306
+          total_loss: 359.4576721191406
+          vf_explained_var: 0.4212561845779419
+          vf_loss: 359.45880126953125
+    num_agent_steps_sampled: 113600
+    num_steps_sampled: 113600
+    num_steps_trained: 113600
+  iterations_since_restore: 8
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.9
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.043968966772636744
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05687874818913689
+    mean_inference_ms: 0.6562300588519817
+    mean_raw_obs_processing_ms: 0.06036881110893038
+  time_since_restore: 52.21696376800537
+  time_this_iter_s: 5.748441219329834
+  time_total_s: 52.21696376800537
+  timers:
+    learn_throughput: 2566.552
+    learn_time_ms: 5532.715
+    sample_throughput: 15327.851
+    sample_time_ms: 926.418
+    update_time_ms: 6.53
+  timestamp: 1620424676
+  timesteps_since_restore: 0
+  timesteps_total: 113600
+  training_iteration: 8
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |     ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      8 |           52.217 | 113600 |      200 |                  200 |                  200 |                200 |
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 127800
+  custom_metrics: {}
+  date: 2021-05-07_15-58-01
+  done: false
+  episode_len_mean: 200.0
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 200.0
+  episode_reward_min: 200.0
+  episodes_this_iter: 71
+  episodes_total: 1483
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.03750000149011612
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.4811287522315979
+          entropy_coeff: 0.0
+          kl: 0.004738766234368086
+          model: {}
+          policy_loss: -0.0010756243718788028
+          total_loss: 307.0951232910156
+          vf_explained_var: 0.48555827140808105
+          vf_loss: 307.0959777832031
+    num_agent_steps_sampled: 127800
+    num_steps_sampled: 127800
+    num_steps_trained: 127800
+  iterations_since_restore: 9
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.875
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04394254691407144
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.056880782745206915
+    mean_inference_ms: 0.6541343121951186
+    mean_raw_obs_processing_ms: 0.060043924322795074
+  time_since_restore: 57.968069076538086
+  time_this_iter_s: 5.751105308532715
+  time_total_s: 57.968069076538086
+  timers:
+    learn_throughput: 2569.023
+    learn_time_ms: 5527.392
+    sample_throughput: 16840.396
+    sample_time_ms: 843.211
+    update_time_ms: 6.492
+  timestamp: 1620424681
+  timesteps_since_restore: 0
+  timesteps_total: 127800
+  training_iteration: 9
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |     ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |      9 |          57.9681 | 127800 |      200 |                  200 |                  200 |                200 |
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 142000
+  custom_metrics: {}
+  date: 2021-05-07_15-58-07
+  done: false
+  episode_len_mean: 200.0
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 200.0
+  episode_reward_min: 200.0
+  episodes_this_iter: 71
+  episodes_total: 1554
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.01875000074505806
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.49024271965026855
+          entropy_coeff: 0.0
+          kl: 0.003890060121193528
+          model: {}
+          policy_loss: -0.0013827681541442871
+          total_loss: 332.21807861328125
+          vf_explained_var: 0.4809533953666687
+          vf_loss: 332.21942138671875
+    num_agent_steps_sampled: 142000
+    num_steps_sampled: 142000
+    num_steps_trained: 142000
+  iterations_since_restore: 10
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 15.075
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04392463467235637
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.0568821864132888
+    mean_inference_ms: 0.6523705763050123
+    mean_raw_obs_processing_ms: 0.05978463113893993
+  time_since_restore: 63.5853476524353
+  time_this_iter_s: 5.617278575897217
+  time_total_s: 63.5853476524353
+  timers:
+    learn_throughput: 2576.2
+    learn_time_ms: 5511.995
+    sample_throughput: 18273.508
+    sample_time_ms: 777.081
+    update_time_ms: 6.758
+  timestamp: 1620424687
+  timesteps_since_restore: 0
+  timesteps_total: 142000
+  training_iteration: 10
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |     ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |     10 |          63.5853 | 142000 |      200 |                  200 |                  200 |                200 |
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 156200
+  custom_metrics: {}
+  date: 2021-05-07_15-58-13
+  done: false
+  episode_len_mean: 200.0
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 200.0
+  episode_reward_min: 200.0
+  episodes_this_iter: 71
+  episodes_total: 1625
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.00937500037252903
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.5027791857719421
+          entropy_coeff: 0.0
+          kl: 0.0024740530643612146
+          model: {}
+          policy_loss: -0.0011052662739530206
+          total_loss: 389.9997253417969
+          vf_explained_var: 0.3971409797668457
+          vf_loss: 390.00091552734375
+    num_agent_steps_sampled: 156200
+    num_steps_sampled: 156200
+    num_steps_trained: 156200
+  iterations_since_restore: 11
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.400000000000002
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04395001201863764
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05689468077693932
+    mean_inference_ms: 0.6509330989461597
+    mean_raw_obs_processing_ms: 0.05956283527205119
+  time_since_restore: 69.32215785980225
+  time_this_iter_s: 5.736810207366943
+  time_total_s: 69.32215785980225
+  timers:
+    learn_throughput: 2595.025
+    learn_time_ms: 5472.01
+    sample_throughput: 78934.079
+    sample_time_ms: 179.897
+    update_time_ms: 6.795
+  timestamp: 1620424693
+  timesteps_since_restore: 0
+  timesteps_total: 156200
+  training_iteration: 11
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |     ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |     11 |          69.3222 | 156200 |      200 |                  200 |                  200 |                200 |
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+
+
+Result for PPO_CartPole-v0_21a72_00000:
+  agent_timesteps_total: 170400
+  custom_metrics: {}
+  date: 2021-05-07_15-58-19
+  done: false
+  episode_len_mean: 200.0
+  episode_media: {}
+  episode_reward_max: 200.0
+  episode_reward_mean: 200.0
+  episode_reward_min: 200.0
+  episodes_this_iter: 71
+  episodes_total: 1696
+  experiment_id: 11a144229f2c421fbea9e1bcd7956598
+  hostname: r9i1n11
+  info:
+    learner:
+      default_policy:
+        learner_stats:
+          cur_kl_coeff: 0.004687500186264515
+          cur_lr: 4.999999873689376e-05
+          entropy: 0.4912486672401428
+          entropy_coeff: 0.0
+          kl: 0.002670838963240385
+          model: {}
+          policy_loss: -0.0010692896321415901
+          total_loss: 388.764892578125
+          vf_explained_var: 0.36530521512031555
+          vf_loss: 388.7658386230469
+    num_agent_steps_sampled: 170400
+    num_steps_sampled: 170400
+    num_steps_trained: 170400
+  iterations_since_restore: 12
+  node_ip: 10.148.8.236
+  num_healthy_workers: 71
+  off_policy_estimator: {}
+  perf:
+    cpu_util_percent: 14.662499999999998
+    ram_util_percent: 9.0
+  pid: 218685
+  policy_reward_max: {}
+  policy_reward_mean: {}
+  policy_reward_min: {}
+  sampler_perf:
+    mean_action_processing_ms: 0.04395983159364339
+    mean_env_render_ms: 0.0
+    mean_env_wait_ms: 0.05692901775875984
+    mean_inference_ms: 0.6502541526021983
+    mean_raw_obs_processing_ms: 0.059432863135267286
+  time_since_restore: 75.09779334068298
+  time_this_iter_s: 5.775635480880737
+  time_total_s: 75.09779334068298
+  timers:
+    learn_throughput: 2591.391
+    learn_time_ms: 5479.682
+    sample_throughput: 79030.998
+    sample_time_ms: 179.676
+    update_time_ms: 6.942
+  timestamp: 1620424699
+  timesteps_since_restore: 0
+  timesteps_total: 170400
+  training_iteration: 12
+  trial_id: 21a72_00000
+  
+== Status ==
+Memory usage on this node: 16.9/187.3 GiB
+Using FIFO scheduling algorithm.
+Resources requested: 72.0/108 CPUs, 0/0 GPUs, 0.0/378.15 GiB heap, 0.0/166.06 GiB objects
+Result logdir: /scratch/eskordil/ray_results/CartPole-v0
+Number of trials: 1/1 (1 RUNNING)
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+| Trial name                  | status   | loc                 |   iter |   total time (s) |     ts |   reward |   episode_reward_max |   episode_reward_min |   episode_len_mean |
+|-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------|
+| PPO_CartPole-v0_21a72_00000 | RUNNING  | 10.148.8.236:218685 |     12 |          75.0978 | 170400 |      200 |                  200 |                  200 |                200 |
++-----------------------------+----------+---------------------+--------+------------------+--------+----------+----------------------+----------------------+--------------------+
+
+
