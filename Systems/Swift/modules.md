@@ -27,6 +27,8 @@ ml avail
 1. While you can compile with IntelMPI programs do not launch correctly.
 2. OpenMPI appears to be working properly but parallel jobs must be launched with mpirun instead of srun
 3. Don't load the slurm module.  The version of slurm it points to has not been configured.
-4. There are some example slrum scripts in the example directory.  Again, don't use IntelMPI on Swift.
+4. To use the configured version of slurm *export PATH=/nopt/nrel/slurm/bin:$PATH*
+5. There are some example slrum scripts in the example directory.  Again, don't use IntelMPI on Swift.
+6. There is a very basic version of conda in the "anaconda" directory.  However, there is a more complete environment pointed to by the module under /nopt/nrel/apps/modules. This is set up like Eagle.  See: https://www.nrel.gov/hpc/eagle-software-python.html
 
 
