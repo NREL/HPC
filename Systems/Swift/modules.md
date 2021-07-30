@@ -38,6 +38,7 @@ all users.  It is also possible to do a spack install creating a new level of th
 
 ## Know issues and solutions
 1. While you can compile with IntelMPI programs do not launch correctly.
+1. srun and salloc can not be used to get an interactive session.
 1. OpenMPI appears to be working properly for a single node but parallel jobs must be launched with mpirun instead of srun
 1. Multinode MPI is not working at this point.
 1. Don't load the slurm module.  The version of slurm it points to has not been configured.
