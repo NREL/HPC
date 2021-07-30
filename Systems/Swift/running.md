@@ -165,6 +165,54 @@ task    thread             node name  first task    # on node  core
 
 ```
 
+## Building with Intel Fortran or Intel C and OpenMPI
+
+You can build parallel programs using OpenMPI and the Intel Fortran *ifort* and Intel C *icc* compilers.
+
+We have the example programs build with gnu compilers and OpenMP using  the lines:
+
+```
+[tkaiser2@eaglet example]$ mpif90 -fopenmp fhostone.f90 -o fhostone
+[tkaiser2@eaglet example]$ mpicc -fopenmp phostone.c -o phostone
+```
+
+This gives us:
+
+```
+[tkaiser2@eaglet example]$ ls -l fhostone
+-rwxrwxr-x. 1 tkaiser2 tkaiser2 36880 Jul 30 13:36 fhostone
+[tkaiser2@eaglet example]$ ls -l phostone
+-rwxrwxr-x. 1 tkaiser2 tkaiser2 27536 Jul 30 13:36 phostone
+
+```
+Note the size of the executable files.  
+
+Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*.  Then recompile.
+
+```
+[tkaiser2@eaglet example]$ export OMPI_FC=ifort
+[tkaiser2@eaglet example]$ export OMPI_CC=icc
+[tkaiser2@eaglet example]$ mpif90 -fopenmp fhostone.f90 -o fhostone
+[tkaiser2@eaglet example]$ mpicc -fopenmp phostone.c -o phostone
+
+
+[tkaiser2@eaglet example]$ ls -lt fhostone
+-rwxrwxr-x. 1 tkaiser2 tkaiser2 951448 Jul 30 13:37 fhostone
+[tkaiser2@eaglet example]$ ls -lt phostone
+-rwxrwxr-x. 1 tkaiser2 tkaiser2 155856 Jul 30 13:37 phostone
+[tkaiser2@eaglet example]$ 
+```
+
+Note the size of the executable files have changed.  You can also see the difference by running the commands
+
+```
+nm fhostone | grep intel | wc
+nm phostone | grep intel | wc
+```
+
+on the two versions of the program.  It will show how many calls to Intel routines are in each, 51 and 36 compared to 0.
+
+
 
 ## Running VASP
 
@@ -189,35 +237,64 @@ This will give you:
 
 Note the directory might be different.
 
-Then you need to add calls in your script to set up / point do your data files.  So your final script will look something like:
+Then you need to add calls in your script to set up / point do your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
 
 
 
 ```
 #!/bin/bash
-#SBATCH --job-name="install"
+#SBATCH --job-name=b2.4
 #SBATCH --nodes=1
+#SBATCH --time=8:00:00
+##SBATCH --error=std.err
+##SBATCH --output=std.out
+#SBATCH --partition=test
 #SBATCH --exclusive
-#SBATCH --partition=debug
-#SBATCH --time=00:01:00
-
 
 cat $0
 
+hostname
+
 PATH=/nopt/nrel/slurm/bin:$PATH
 
-source /nopt/nrel/apps/210729a/myenv*
-ml gcc   openmpi
-
-### load vasp module
+module purge
+source /nopt/nrel/apps/210728a/myenv*
+ml openmpi gcc
 ml vasp
 
-####
-# Set up your input files here
-####
+#### wget is needed to download data
+ml wget
 
-export OMP_NUM_THREADS=1
-mpirun -n 8 vasp_std
+#### get input and set it up
+#### No warranty about the data or setup
+#### This is from an old benchmark test
+
+input_path=input
+rm -rf $input_path
+mkdir $input_path
+
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O input/INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O input/POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O input/POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O input/KPOINTS
+
+for dir in 00 01 02 03 ; do
+  rm -rf $dir
+  mkdir $dir
+#  cp $input_path/* $dir
+done
+cp $input_path/KPOINTS  .
+cp $input_path/INCAR  .
+cp $input_path/POTCAR  .
+
+cp  $input_path/POSCAR 00
+cp  $input_path/POSCAR 01
+cp  $input_path/POSCAR 02
+cp  $input_path/POSCAR 03
+
+export OMP_NUM_THREADS=4
+
+mpirun  -n 16 vasp_std 
 
 ```
 
