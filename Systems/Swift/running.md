@@ -281,16 +281,12 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINT
 for dir in 00 01 02 03 ; do
   rm -rf $dir
   mkdir $dir
-#  cp $input_path/* $dir
+  cp  $input_path/POSCAR $dir
 done
+
 cp $input_path/KPOINTS  .
 cp $input_path/INCAR  .
 cp $input_path/POTCAR  .
-
-cp  $input_path/POSCAR 00
-cp  $input_path/POSCAR 01
-cp  $input_path/POSCAR 02
-cp  $input_path/POSCAR 03
 
 export OMP_NUM_THREADS=4
 
