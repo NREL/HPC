@@ -8,6 +8,16 @@ grand_parent: Systems
 # Running on Swift
 Please see the section "Modules" for information about setting up your environment, loading modules, and current know limitations.  
 
+## Slurm and Partitions
+
+As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the *sinfo* command.  If the command sinfo is not found then first ensure that slurm is in your path by running:
+
+```
+PATH=/nopt/nrel/slurm/bin:$PATH
+```
+
+
+
 ## Example 
 Environments are provided with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectory under in the directory /nopt/nrel/apps.  Each environemnt directory has a file myenv.\*.   Sourcing that file will enable the environment.
 
