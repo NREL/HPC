@@ -216,7 +216,7 @@ nm fhostone | grep intel | wc
 nm phostone | grep intel | wc
 ```
 
-on the two versions of the program.  It will show how many calls to Intel routines are in each, 51 and 36 compared to 0.
+on the two versions of the program.  It will show how many calls to Intel routines are in each, 51 and 36 compared to 0 for the gnu versions.
 
 
 
