@@ -187,6 +187,12 @@ This gives us:
 ```
 Note the size of the executable files.  
 
+If you want to use the Intel compilers you first do a module load.
+
+```
+ml intel-oneapi-compilers
+```
+
 Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*.  Then recompile.
 
 ```
