@@ -6,11 +6,13 @@ grand_parent: Systems
 ---
 
 # Running on Swift
-Please see the section "Modules" for information about setting up your environment, loading modules, and current know limitations.  
+Please see the [Modules](./modules) page for information about setting up your environment and loading modules. 
+
+**There are currently a number of known issues on Swift please check [Known issues](./swift) for a complete list**
 
 ## Slurm and Partitions
 
-As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the *sinfo* command.  If the command sinfo is not found then first ensure that slurm is in your path by running:
+As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the `sinfo` command.  If the command `sinfo` is not found then first ensure that slurm is in your path by running:
 
 ```
 PATH=/nopt/nrel/slurm/bin:$PATH
@@ -19,7 +21,7 @@ PATH=/nopt/nrel/slurm/bin:$PATH
 
 
 ## Example 
-Environments are provided with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectory under in the directory /nopt/nrel/apps.  Each environemnt directory has a file myenv.\*.   Sourcing that file will enable the environment.
+Environments are provided with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectory under in the directory /nopt/nrel/apps.  Each environment directory has a file myenv.\*.   Sourcing that file will enable the environment.
 
 In the directory for an environment you will see a subdirectory **example**.  This contains a makefile for a simple hello world program written in both Fortran and C.  The README.md file contains additional information, most of which is replicated here.  It is suggested you
 
@@ -75,7 +77,7 @@ Obviously for the script given above to work you must first build the applicatio
 3. make
 
 #### Loading the environment
-Loading the environemnt is just a matter of sourcing the file 
+Loading the environment is just a matter of sourcing the file 
 
 ```
 source /nopt/nrel/apps/210729a/myenv*
@@ -232,7 +234,7 @@ on the two versions of the program.  It will show how many calls to Intel routin
 
 ## Running VASP
 
-The batch script given above can be modifed to run VASP.  You need to add
+The batch script given above can be modified to run VASP.  You need to add
 
 ```
 ml vasp
