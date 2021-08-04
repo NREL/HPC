@@ -261,7 +261,7 @@ Then you need to add calls in your script to set up / point do your data files. 
 
 ```
 #!/bin/bash
-#SBATCH --job-name=b2.4
+#SBATCH --job-name=b2_4
 #SBATCH --nodes=1
 #SBATCH --time=8:00:00
 ##SBATCH --error=std.err
@@ -275,40 +275,33 @@ hostname
 
 PATH=/nopt/nrel/slurm/bin:$PATH
 
+source /nopt/nrel/apps/210729a/myenv.2107292307
 module purge
-source /nopt/nrel/apps/210728a/myenv*
 ml openmpi gcc
-ml vasp
+export PATH=/nopt/nrel/apps/210729a/level02/gcc-9.4.0/vasp-6.1.1/bin:$PATH
 
 #### wget is needed to download data
 ml wget
 
 #### get input and set it up
-#### No warranty about the data or setup
 #### This is from an old benchmark test
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
 
-input_path=input
-rm -rf $input_path
-mkdir $input_path
 
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O input/INCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O input/POTCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O input/POSCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O input/KPOINTS
+mkdir input
 
-for dir in 00 01 02 03 ; do
-  rm -rf $dir
-  mkdir $dir
-  cp  $input_path/POSCAR $dir
-done
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
-cp $input_path/KPOINTS  .
-cp $input_path/INCAR  .
-cp $input_path/POTCAR  .
+
+
 
 export OMP_NUM_THREADS=4
 
 mpirun  -n 16 vasp_std 
+
 
 ```
 
