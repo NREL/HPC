@@ -233,7 +233,7 @@ on the two versions of the program.  It will show how many calls to Intel routin
 
 ## Building and Running with Intel MPI
 
-We can build with the Intel versions of MPI.  We assume we will want to build with icc and ifort as the backend compilers.  
+We can build with the Intel versions of MPI.  We assume we will want to build with icc and ifort as the backend compilers.  We load the modules:
 
 ```
 ml gcc
@@ -241,7 +241,7 @@ ml intel-oneapi-compilers
 ml intel-oneapi-mpi
 ```
 
-The building and running the same example as above:
+Then, building and running the same example as above:
 
 ```
 make clean
