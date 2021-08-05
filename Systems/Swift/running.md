@@ -231,6 +231,90 @@ nm phostone | grep intel | wc
 on the two versions of the program.  It will show how many calls to Intel routines are in each, 51 and 36 compared to 0 for the gnu versions.
 
 
+## Building and Running with Intel MPI
+
+We can build with the Intel versions of MPI.  We assume we will want to build with icc and ifort as the backend compilers.  
+
+```
+ml gcc
+ml intel-oneapi-compilers
+ml intel-oneapi-mpi
+```
+
+The building and running the same example as above:
+
+```
+make clean
+make PFC=mpiifort PCC=mpiicc 
+```
+
+Giving us:
+
+```
+[tkaiser2@swift-login-1 example]$ ls -lt fhostone phostone
+-rwxrwxr-x. 1 tkaiser2 hpcapps 155696 Aug  5 16:14 phostone
+-rwxrwxr-x. 1 tkaiser2 hpcapps 947112 Aug  5 16:14 fhostone
+[tkaiser2@swift-login-1 example]$ 
+```
+
+We need to make some changes to our batch script.  Add the lines:
+
+```
+ml intel-oneapi-compilers
+ml intel-oneapi-mpi
+export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/210728a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
+```
+
+Launch with the srun command:
+
+```
+srun --mpi=pmi2  ./a.out -F
+```
+
+Our IntelMPI batch script is:
+
+
+```
+#!/bin/bash
+#SBATCH --job-name="install"
+#SBATCH --nodes=1
+#SBATCH --exclusive
+#SBATCH --partition=test
+#SBATCH --time=00:01:00
+
+
+cat $0
+
+PATH=/nopt/nrel/slurm/bin:$PATH
+source /nopt/nrel/apps/210728a/myenv*
+ml intel-oneapi-mpi intel-oneapi-compilers gcc
+export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/210728a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
+
+export OMP_NUM_THREADS=2
+srun --mpi=pmi2 -n 2 ./fhostone -F
+srun --mpi=pmi2 -n 2 ./phostone -F
+
+```
+
+With output
+```
+MPI Version:Intel(R) MPI Library 2021.3 for Linux* OS
+
+task    thread             node name  first task    # on node  core
+0000      0000                 c1-32        0000         0000   127
+0000      0001                 c1-32        0000         0000   097
+0001      0000                 c1-32        0000         0001   062
+0001      0001                 c1-32        0000         0001   099
+
+MPI VERSION Intel(R) MPI Library 2021.3 for Linux* OS
+
+task    thread             node name  first task    # on node  core
+0000      0000                 c1-32        0000         0000  0127
+0000      0001                 c1-32        0000         0000  0097
+0001      0000                 c1-32        0000         0001  0127
+0001      0001                 c1-32        0000         0001  0099
+```
+
 
 ## Running VASP
 

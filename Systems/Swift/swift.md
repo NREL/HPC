@@ -10,7 +10,7 @@ has_children: true
 Swift is an AMD based cluster. 
 
 ## Known issues and solutions
-1. While you can compile with IntelMPI programs do not launch correctly.
+1. To run IntelMPI programs must set I\_MPI\_PMI\_LIBRARY=/nopt/nrel/apps/210728a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so and use the  --mpi=pmi2 with srun
 1. Stack size and max locked memory are very small, ulimit -s 8192 ulimit -l 64. This will break VASP
 1. srun and salloc can not be used to get an interactive session.
 1. OpenMPI appears to be working properly for a single node but parallel jobs must be launched with mpirun instead of srun
