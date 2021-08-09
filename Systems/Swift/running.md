@@ -360,10 +360,10 @@ cat $0
 
 hostname
 
-source /nopt/nrel/apps/210728a/myenv.2107290127
+source /nopt/nrel/apps/210728a/myenv.*
 module purge
 ml openmpi gcc
-export PATH=/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin:$PATH
+ml vasp
 
 #### wget is needed to download data
 ml wget
@@ -371,7 +371,6 @@ ml wget
 #### get input and set it up
 #### This is from an old benchmark test
 #### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
-
 
 mkdir input
 
@@ -382,11 +381,9 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINT
 
 
 
-
 export OMP_NUM_THREADS=4
 
-mpirun  -n 16 vasp_std 
-
+srun --mpi=pmi2   -n 16 vasp_std 
 
 ```
 
