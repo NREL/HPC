@@ -33,7 +33,7 @@ conda activate /scratch/$USER/conda-envs/gams_python
 
 ```
 module purge
-module load gams/31.1.0
+module load gams/34.3.0
 ```
 
 ## 4. Set up Environment Parameter
@@ -57,3 +57,5 @@ The repo contains the transport and indus89 GAMS optimization problems (examples
 ```
 python transport.py
 ```
+
+After the completion of the solver run, you can find the problem status flags and solution in the log file saved in the same directory (.demos).

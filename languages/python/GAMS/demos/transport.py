@@ -15,5 +15,5 @@ if __name__ == "__main__":
     opt = ws.add_options()
     opt.all_model_types = "gurobi"
        
-    with open("transport1.log", "w") as log:
+    with open("transport.log", "w") as log:
         t1.run(opt, output=log)

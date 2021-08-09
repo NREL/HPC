@@ -41,7 +41,7 @@ conda activate /scratch/$USER/conda-envs/gams_python
 
 ```
 module purge
-module load gams/31.1.0
+module load gams/34.3.0
 ```
 
 ### 3. Set up environment paramater
