@@ -40,26 +40,27 @@ Here is a sample batch script for running the hello world examples *runopenmpi*.
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=debug
+#SBATCH --partition=test
 #SBATCH --time=00:01:00
 
 
 cat $0
 
-PATH=/nopt/nrel/slurm/bin:$PATH
+source /nopt/nrel/apps/210728a/myenv.2107290127
+module load slurm
 
-source /nopt/nrel/apps/210729a/myenv*
 ml gcc   openmpi
 
 export OMP_NUM_THREADS=2
-mpirun -n 2 ./fhostone -F
-mpirun -n 2 ./phostone -F
+srun    --mpi=pmi2 -n 2 ./fhostone.I -F
+srun    --mpi=pmi2 -n 2 ./phostone.I -F
 ```
 
 To run this you must first ensure that slurm is in your path by running:
 
 ```
-PATH=/nopt/nrel/slurm/bin:$PATH
+source /nopt/nrel/apps/210728a/myenv.2107290127
+module load slurm
 ```
 
 Then 
@@ -80,10 +81,9 @@ Obviously for the script given above to work you must first build the applicatio
 Loading the environment is just a matter of sourcing the file 
 
 ```
-source /nopt/nrel/apps/210729a/myenv*
-```
+source /nopt/nrel/apps/210728a/myenv.2107290127```
 
-Note that **210729** is a date stamp showing when the environment was built.  You may have a different value as environments evolve.
+Note that **210728** is a date stamp showing when the environment was built.  You may have a different value as environments evolve.
 
 
 #### Loading the modules.
@@ -117,9 +117,9 @@ make
 
 cat $0
 
-PATH=/nopt/nrel/slurm/bin:$PATH
+source /nopt/nrel/apps/210728a/myenv.2107290127
+module load slurm
 
-source /nopt/nrel/apps/210729a/myenv*
 ml gcc   openmpi
 
 export OMP_NUM_THREADS=2
@@ -127,7 +127,7 @@ mpirun -n 2 ./fhostone -F
 mpirun -n 2 ./phostone -F
 
 [tkaiser2@eaglet example]$ PATH=/nopt/nrel/slurm/bin:$PATH
-[tkaiser2@eaglet example]$ source /nopt/nrel/apps/210729a/myenv*
+[tkaiser2@eaglet example]$ source /nopt/nrel/apps/210728a/myenv*
 [tkaiser2@eaglet example]$ ml gcc   openmpi
 [tkaiser2@eaglet example]$ make
 mpif90 -fopenmp fhostone.f90 -o fhostone
@@ -154,7 +154,7 @@ cat $0
 
 PATH=/nopt/nrel/slurm/bin:$PATH
 
-source /nopt/nrel/apps/210729a/myenv*
+source /nopt/nrel/apps/210728a/myenv*
 ml gcc   openmpi
 
 export OMP_NUM_THREADS=2
@@ -356,8 +356,6 @@ Then you need to add calls in your script to set up / point do your data files. 
 cat $0
 
 hostname
-
-PATH=/nopt/nrel/slurm/bin:$PATH
 
 source /nopt/nrel/apps/210729a/myenv.2107292307
 module purge
