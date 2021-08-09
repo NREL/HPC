@@ -15,7 +15,8 @@ Please see the [Modules](./modules) page for information about setting up your e
 As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the `sinfo` command.  If the command `sinfo` is not found then first ensure that slurm is in your path by running:
 
 ```
-PATH=/nopt/nrel/slurm/bin:$PATH
+source /nopt/nrel/apps/210728a/myenv.2107290127
+module load slurm
 ```
 
 
@@ -81,7 +82,9 @@ Obviously for the script given above to work you must first build the applicatio
 Loading the environment is just a matter of sourcing the file 
 
 ```
-source /nopt/nrel/apps/210728a/myenv.2107290127```
+source /nopt/nrel/apps/210728a/myenv.2107290127
+
+```
 
 Note that **210728** is a date stamp showing when the environment was built.  You may have a different value as environments evolve.
 
@@ -103,9 +106,9 @@ make
 ## Full procedure
 
 ```
-[tkaiser2@eaglet 210729a]$ cd /nopt/nrel/apps/210729a
-[tkaiser2@eaglet 210729a]$ cp -r example ~/example
-[tkaiser2@eaglet 210729a]$ cd ~/example
+[tkaiser2@eaglet 210728a]$ cd /nopt/nrel/apps/210728a
+[tkaiser2@eaglet 210728a]$ cp -r example ~/example
+[tkaiser2@eaglet 210728a]$ cd ~/example
 [tkaiser2@eaglet example]$ cat runopenmpi 
 #!/bin/bash
 #SBATCH --job-name="install"
@@ -329,11 +332,11 @@ This will give you:
 ```
 
 [tkaiser2@eaglet example]$ which vasp_gam
-/nopt/nrel/apps/210729a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
+/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
 [tkaiser2@eaglet example]$ which vasp_ncl
-/nopt/nrel/apps/210729a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
+/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
 [tkaiser2@eaglet example]$ which vasp_std
-/nopt/nrel/apps/210729a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
+/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
 [tkaiser2@eaglet example]$ 
 ```
 
@@ -357,10 +360,10 @@ cat $0
 
 hostname
 
-source /nopt/nrel/apps/210729a/myenv.2107292307
+source /nopt/nrel/apps/210728a/myenv.2107290127
 module purge
 ml openmpi gcc
-export PATH=/nopt/nrel/apps/210729a/level02/gcc-9.4.0/vasp-6.1.1/bin:$PATH
+export PATH=/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin:$PATH
 
 #### wget is needed to download data
 ml wget
