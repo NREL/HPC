@@ -119,8 +119,12 @@ which python
 **Additional Resources**
 * [Conda Cheat Sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)
 * [Conda docs](https://conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+
+
 ## Containers
 First we will start in Docker on a local device. 
+
+We will compare what OS we see and then run a container and check again. 
 
 ```
 echo $OSTYPE
@@ -139,6 +143,8 @@ Now we will use the Singularity module to explore containers on Eagle.
 ml singularity-container
 ```
 We will pull a TensorFlow container with GPU support as our demo. Singularity is able to pull either Singularity or Docker images from repositories. We will pull the TensorFlow container from Dockerhub.
+
+First we will search [Dockerhub](https://hub.docker.com/) for an appropriate container. 
 
 **Note: this will pull a large file**
 
