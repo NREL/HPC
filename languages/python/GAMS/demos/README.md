@@ -1,6 +1,6 @@
 # Demo - Run GAMS Optimization Problems From Python Using GAMS Python API on Eagle
 
-This repo contains python script examples with GAMS optimization problems.
+This repo contains GAMS source code and python script examples to demonstrate the use of the GAMS Python API on Eagle.
 
 # Configuration
 
@@ -42,20 +42,26 @@ module load gams/34.3.0
 export PYTHONPATH=$GAMS_PYTHON_API_FILES/api_37:$GAMS_PYTHON_API_FILES/gams
 ```
 
-## 5. Load Solver
-
-Load the optimization solver you would like to use.
-
-```
-module load gurobi/9.0.2
-```
-
 # Run Experiments (Solve GAMS Optimization Problems)
 
-The repo contains the transport and indus89 GAMS optimization problems (examples provided by GAMS). Use the following command to solve the trnsport.gms problem (transport.py) using the Gurobi solver via the GAMS Python API.
+This repo contains the following two examples.
+- A Transportation Problem 
+  - It finds a least cost shipping schedule that meets requirements at markets and supplies at factories.
+  - The GAMS source code (optimization problem code) for this problem is available at .gams_files/transport.gms, relative to the current directory.
+  - The python script for running this GAMS problem is /transport.py in the current directory. The GAMS solver is set to be "xpress" for this example.
+  - Use the following command, in the current directory, to solve the transport.gms problem using the Xpress solver via the GAMS Python API.
+  ```
+  python transport.py
+  ```
+  - After the completion of the solver run, you can find the problem status flags such as objective function value,solve status (solved or not), solver used, etc. in the log file saved with same file name in the same directory  (.demos/transport.log).
+  - You can also find more details about the problem and solution found in .lst file that will be automatically created after the solve is completed. .lst file is saved in the GAMS source code directory (.gams_files/_gams_py_gjo0.lst).
 
-```
-python transport.py
-```
-
-After the completion of the solver run, you can find the problem status flags and solution in the log file saved in the same directory (.demos).
+- An Optimal Power Flow (OPF) Problem 
+  - Multi-period DC-OPF for IEEE 24-bus rts network considering wind and load shedding.
+  - The GAMS source code for this problem is available at .gams_files/multi_period_dc_opf.gms.
+  - The python script for running this GAMS problem is /multi_period_dc_opf.py in the current directory. The GAMS solver is set to be "gurobi" for this example.
+  - Use the following command to solve the multi_period_dc_opf.gms problem using the Gurobi solver via the GAMS Python API.
+  ```
+  python multi_period_dc_opf.py
+  ```
+  - You can find the .log and .lst files with the same way as the first example.
