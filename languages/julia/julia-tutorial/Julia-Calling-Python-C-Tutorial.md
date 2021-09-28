@@ -1,7 +1,7 @@
 ﻿# Calling Python and C from Julia
 
-1. [Python](Calling-Python) -- the PyCall package
-2. [C (and Fortran) Libraries](Calling C/Fortran Library) -- the native Julia functions
+1. [Python](#calling-python) -- the PyCall package
+2. [C (and Fortran) Libraries](#calling-cfortran-library) -- the native Julia functions
 
 ## Calling Python
 
@@ -44,8 +44,6 @@ p = py"Point(1.0, 2.0)"
 
 
 
-## Calling Python
-
 We can even use Julia's string interpolation to give values to the Python code:
 
 
@@ -73,8 +71,6 @@ Attributes are directly accessible through the standard dot syntax:
     p.distance(q) = 1.7581695820873517
 
 
-## Calling Python
-
 But say we have a module in Python that we want to call from Julia.  We can do that too (otherwise this wouldn't be much use would it?). The `pyimport` function returns an object that gives us access to that modules functions:
 
 
@@ -89,7 +85,6 @@ x = np.linalg.solve(A, b)
     maximum(abs.(A * x - b)) = 1.1102230246251565e-16
 
 
-## Calling Python
 
 In the previous slide `A` and `b` are created by Julia while `x` is created by Python but we are using them interchangeably. We can do this because PyCall handles most type conversions automatically.
 
@@ -115,7 +110,6 @@ end
 
 Note that the matrix is converted to a numpy array if numpy is installed.
 
-## Calling Python
 
 The same is true going from Python to Julia.
 
@@ -137,7 +131,6 @@ for k in range(len(objs)):
     <class 'complex'>
 
 
-## Calling Python
 
 We do need to be a little careful with some of Julia's less common types especially if we give it to python and bring it back:
 
@@ -166,7 +159,6 @@ In these cases, we may want to handle the conversion ourselves. One option is ge
     typeof(convert(Int32, py"$a"o)) = Int32
 
 
-## Calling Python
 
 Another way of handling (or preventing) type conversions is to use the `pycall` function. 
 
@@ -203,7 +195,6 @@ pycall(np.random.normal, Vector{ComplexF32}, size=3)
 
 Here we forced the type conversion to complex numbers with 32-bit precision for the real and imaginary parts.
 
-## Calling Python
 
 But what if we need to call a Python function that requires a callback? Not a problem. PyCall will automatically convert Julia functions to Python callable objects!
 
@@ -249,8 +240,6 @@ plot(soln["y"][1,:], soln["y"][2,:])
 
 
 
-## Calling Python
-
 For more details, see the [PyCall github repo](https://github.com/JuliaPy/PyCall.jl.git).
 
 ## Calling C/Fortran Library
@@ -261,7 +250,6 @@ Calling a Fortran library function is the same except that Fortran compilers "ma
 
 Note that the library we are calling must be compiled as a shared library.
 
-## Calling C Library
 
 As an example we will use the "silly" library that was written just for this.
 
@@ -272,7 +260,6 @@ void fill_value(double *to_fill, int size, double value);
 void fill_cb(double *to_fill, int size, double (*func)(int));
 ```
 
-## Calling C Library
 
 To call one of these functions, we will use the builtin Julia function `ccall`:
 
@@ -300,7 +287,6 @@ ccall((:fill_value,"fake-lib/libsilly"),
     my_vector = [3.141592653589793, 3.141592653589793, 3.141592653589793, 3.141592653589793]
 
 
-## Calling C Library
 
 What if we want to use a function that requires a callback (so one of its arguments is a function pointer)? We can create a pointer to a Julia function with the `@cfunction` macro.
 
@@ -332,8 +318,6 @@ ccall((:fill_cb, "fake-lib/libsilly"),
 
     my_vector = [0.0, 0.1, 0.2, 0.3]
 
-
-## Calling C Library
 
 For more details, see the [Calling C and Fortran Code](https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/) section of the Julia documentation. (If the link does not work, just google "julia call c library".)
 
