@@ -1,7 +1,7 @@
-# Calling Python and C from Julia
+﻿# Calling Python and C from Julia
 
-1. Python -- the PyCall package
-2. C (and Fortran) Libraries -- the native Julia functions
+1. [Python](Calling-Python) -- the PyCall package
+2. [C (and Fortran) Libraries](Calling C/Fortran Library) -- the native Julia functions
 
 ## Calling Python
 

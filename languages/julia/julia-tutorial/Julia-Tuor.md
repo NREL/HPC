@@ -1,4 +1,4 @@
-# A Julia Tour
+﻿# A Julia Tour
 
 -------
 
@@ -6,13 +6,13 @@ by Jonathan Maack
 
 # Outline
 
-1. Why Julia?
-1. Basics
-1. Package Manager
-1. Types
-1. Structs
-1. Metaprogramming
-1. Other Resources
+1. [Why Julia?](Why-Julia?)
+1. [Basics](Basics)
+1. [Package Manager](Package-Manager)
+1. [Types](Types)
+1. [Structs](Structus)
+1. [Metaprogramming](Metaprogramming)
+1. [Other Resources](Other-Resources)
 
 ## Why Julia?
 
@@ -25,12 +25,12 @@ Feature Highlights:
 * Call C/Fortran functions directly
 * Metaprogramming
 
-# Basics: Outline
+# Basics
 
-* REPL (Read-Evaluate-Print-Loop)
-* Definining Functions
-* Using Installed Packages
-* Vectorizing
+* [REPL (Read-Evaluate-Print-Loop)](REPL-(Read-Evaluate-Print-Loop))
+* [Definining Functions](Definining-Functions)
+* [Using Installed Packages](Using-Installed-Packages)
+* [Vectorizing](Vectorizing)
 
 ## REPL (Read-Evaluate-Print-Loop)
 
@@ -143,7 +143,6 @@ mean(x)
 
 
 
-## Using Installed Packages
 
 Any attribute that is not exported by the module can still be accessed by prefixing the module name followed by a dot.
 
@@ -165,8 +164,6 @@ Statistics._conj(x)
 
 
 **NOTE:** Like in python, there are no private attributes. Users may access anything created by a module. Package authors can suggest attributes that users should not use by not exporting them or with naming conventions (e.g. prefixing `_` to any name that is internal only).
-
-## Using Installed Packages
 
 Julia 1.6 introduced the "pythonic" import syntax
 
@@ -240,7 +237,6 @@ number_op.(x)
 
 
 
-## Vectorizing
 
 In Julia, vectorizing is done for convenience rather than performance:
 
@@ -285,14 +281,14 @@ y = rand(10000)
       0.000032 seconds (2 allocations: 78.203 KiB)
 
 
-# Package Manager: Outline
+# Package Manager
 
-* Managing Packages (REPL)
-* Managing Packages (Scripts)
-* Environments
-* Activating Environments
-* Copying Environments
-* Environment Layering
+* [Managing Packages (REPL)](Managing-Packages-(REPL))
+* [Managing Packages (Scripts)](Managing-Packages-(Scripts))
+* [Environments](Environments)
+* [Activating Environments](Activating-Environments)
+* [Copying Environments](Copying-Environments)
+* [Environment Layering](Environment-Layering)
 
 ## Managing Packages (REPL)
 
@@ -322,7 +318,6 @@ Open the REPL and hit the `[` key to enter package management mode. From here we
   [10745b16] - Statistics
 ```
 
-## Managing Packages (REPL)
 
 We can also print out what packages are available
 ```julia
@@ -370,8 +365,6 @@ import Pkg; Pkg.add("Compat"); Pkg.rm("Compat")
   [2f01184e] - SparseArrays
   [10745b16] - Statistics
 ```
-
-## Managing Packages (Scripts)
 
 ```julia
 Pkg.status(); Pkg.update()
@@ -467,10 +460,10 @@ When loading a package, Julia has a hierarchy of environments that it checks for
 
 These environment stacks are discussed more in the [Environments](https://docs.julialang.org/en/v1/manual/code-loading/#Environments) subsection of the Code Loading part of the Julia Manual.
 
-# Types: Outline
+# Types
 
-* Type Hierarchy
-* Multiple Dispatch
+* [Type Hierarchy](Type-Hierarchy)
+* [Multiple Dispatch](Multiple-Dispatch)
 
 ## Type Hierarchy
 
@@ -502,7 +495,6 @@ typeof(Float64)
 
 
 
-## Type Hierarchy
 
 Julia also has a type hierarchy. There are subtypes and supertypes. We can access explore these with the functions `subtypes` and `supertype`:
 
@@ -532,7 +524,6 @@ supertype(Float64)
 
 `Float64` has no subtypes because it is a **Concrete Type**. All the supertypes are an **Abstract Type**.  Only Concrete Types can actually exist.
 
-## Type Hierarchy
 
 Every type has **only one** immediate supertype. However, each supertype has a supertype. We can get the whole chain with the `supertypes` (plural) function:
 
@@ -565,8 +556,6 @@ subtypes(AbstractFloat)
      Float64
 
 
-
-## Type Hierarchy
 
 We can test whether or not a type is a subtype of something with the `<:` operator:
 
@@ -606,8 +595,6 @@ Int <: AbstractFloat
 
 
 
-## Type Hierarchy
-
 **WARNING:** Subtypes and supertypes get complicated when dealing with containers:
 
 
@@ -646,7 +633,6 @@ Vector{Float64} <: Vector
 
 
 
-## Type Hierarchy
 
 We can use this to write functions:
 
@@ -706,11 +692,11 @@ Notice that the functions have the same name but the correct one is executed bas
 1. Type information is used by the Julia compiler to make code more efficient
 2. Type information is a fast and easy way to document your code and catch bugs.
 
-# Structs: Outline
+# Structs
 
-* Defining Structs
-* Mutable Structs
-* Parametric Types
+* [Defining Structs](Defining-Structs)
+* [Mutable Structs](Mutable-Structs)
+* [Parametric Types](Parametric-Types)
 
 ## Defining Structs
 
@@ -750,7 +736,6 @@ distance(p0, p1)
 
 
 
-## Defining Structs
 
 We can build structs with other structs as components:
 
@@ -819,7 +804,6 @@ my_circle.radius = 10.0 # Causes an error!!
 
 Structs are immutable (cannot be changed) by default in Julia. This allows for some optimizations behind the scenes and most of the time we do not need to change the values in a Struct.
 
-## Mutable Structs
 
 If we need to change fields in a struct, we add the `mutable` keyword:
 
@@ -852,7 +836,6 @@ end
 
 We locked in the types in the fields of this struct. What if we want to a `Point` struct with a different type? Such as an `Int`. We use a **Parametric Type**.
 
-## Parametric Types
 
 We define a Parametric Type in the following way:
 
@@ -883,11 +866,11 @@ p1 = ParametricPoint(2.0, 0.0)
     distance(p0, p1) = 1.4142135623730951
 
 
-# Metaprogramming: Outline
+# Metaprogramming
 
-* How Julia Code is Executed
-* Expressions
-* Macros
+* [How Julia Code is Executed](How-Julia-Code-is-Executed)
+* [Expressions](Expressions)
+* [Macros](Macros)
 
 ## How Julia Code is Executed
 
@@ -932,7 +915,6 @@ dump(expr)
         3: Int64 1
 
 
-## Expressions
 
 Since this is a data structure, we can change the expression
 
@@ -1000,7 +982,6 @@ x = 5; y = 4;
 
 The error contains the expression that caused the error! This is not possible to do with a function because that expression is not available at runtime.
 
-## Macros
 
 How do we write macros? More or less like we write functions but using the `macro` keyword instead of the `function` keyword:
 
@@ -1036,8 +1017,6 @@ q(x) = (2x + 5) / x^2
     h(pi) = 11.012830091668627
 
 
-## Macros
-
 We can look at the expression that the macro generates with the macro `@macroexpand`:
 
 
@@ -1060,7 +1039,6 @@ We can look at the expression that the macro generates with the macro `@macroexp
 
 Ignoring all the stuff with `#` symbols we can see that the expression returned by the macro looks more or less like a function definition.
 
-## Macros
 
 Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:
 
@@ -1075,7 +1053,6 @@ end
 
 We'll unpack it one line at a time.
 
-## Macros
 
 Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:
 
@@ -1098,18 +1075,6 @@ end
 
 The macro definition looks a lot like a function definition but with `macro` instead of `function`.
 
-## Macros
-
-Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:
-
-```julia
-macro fadd(name::Symbol, f::Symbol, g::Symbol, nargs::Int)
-    x = [gensym() for _ in 1:nargs]
-    quote
-        $(esc(name))($(x...)) = $(esc(f))($(x...)) + $(esc(g))($(x...))
-    end
-end
-```
 
 Second Line:
 
@@ -1118,19 +1083,6 @@ Second Line:
 ```
 
 Here we create a vector of symbols of size `nargs`. The `gensym` function generates a symbol for a variable that is guaranteed not to clash with existing variables.  These symbols will be the arguments of our new function.
-
-## Macros
-
-Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:
-
-```julia
-macro fadd(name::Symbol, f::Symbol, g::Symbol, nargs::Int)
-    x = [gensym() for _ in 1:nargs]
-    quote
-        $(esc(name))($(x...)) = $(esc(f))($(x...)) + $(esc(g))($(x...))
-    end
-end
-```
 
 Third Line:
 
@@ -1142,19 +1094,6 @@ Third Line:
 
 This is an easy way to generate an expression. The contents of this block is the expression returned by the macro.
 
-## Macros
-
-Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:
-
-```julia
-macro fadd(name::Symbol, f::Symbol, g::Symbol, nargs::Int)
-    x = [gensym() for _ in 1:nargs]
-    quote
-        $(esc(name))($(x...)) = $(esc(f))($(x...)) + $(esc(g))($(x...))
-    end
-end
-```
-
 Fourth Line:
 
 ```julia
@@ -1162,8 +1101,6 @@ Fourth Line:
 ```
 
 This is the meat of the macro and it may seem a bit much at first.  However, each term is essentially the same. So let's just focus on the left hand side of the equality.
-
-## Macros
 
 ```julia
         $(esc(name))($(x...))
@@ -1173,8 +1110,6 @@ This is the meat of the macro and it may seem a bit much at first.  However, eac
 * However, we want that symbol to be evaluated in the context in which the macro was called. So we tell Julia to leave the value as is with the `esc` function.
 * Without the call to `esc`, Julia will assume that the variable is local and needs to be renamed with `gensym` transformed so that it will not clash with other variables.
 * Finally, we want to interpolate the contents of the vector `x` into the expression. This is done with the **splat operator** `...` in conjunction with `$`.
-
-## Macros
 
 Why can't we just write a function to do this? Let's try:
 
@@ -1188,8 +1123,6 @@ end
 There are a couple problems here:
 1. What do we put for the function name? We want the **value** of the argument name. If we just put `name` we would end up with a function called name.
 1. What do we return? Even if we knew what to name the function, that name is only bound to the function **in our current scope**--the function `fadd`. Once we return from `fadd`, the name is no longer bound to this function.
-
-## Macros
 
 If we do not care about creating function names, we could construct and return an anonymous function:
 
@@ -1212,8 +1145,6 @@ h1(pi)
 
 This gets us pretty close to the same functionality since we could assign the function pointer to any valid variable name.
 
-## Macros
-
 However, we did not maximize the value of the macro. We can actually generate documentation for our function as well:
 
 
@@ -1234,27 +1165,20 @@ end
 ?h
 ```
 
-    search: [0m[1mh[22m [0m[1mh[22m1 [0m[1mh[22melp [0m[1mh[22mton [0m[1mh[22mtol [0m[1mh[22mcat [0m[1mh[22mash [0m[1mh[22mypot [0m[1mh[22mvcat [0m[1mH[22mTML [0m[1mh[22maskey [0m[1mh[22momedir [0m[1mh[22masfield [0m[1mh[22mex2bytes [0m[1mh[22masmethod
-    
 
 
 
 
-
+```julia
 Functions p and q added together. Created with the `@fadd` macro!
+```
 
 
 
 
-## Other Resources
+# Other Resources
 
 The [Julia Documentation](https://docs.julialang.org/en/v1/) is a great place to read about Julia features. Numerous examples are normally given along with detailed explanation.
 
 The [official Julia website](https://julialang.org/) is a great place to find [Julia tutorials](https://julialang.org/learning/), learn about the [Julia community](https://julialang.org/community/) or discover [research](https://julialang.org/research/) using Julia.
 
-## Questions?
-
-
-```julia
-
-```

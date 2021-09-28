@@ -1,10 +1,10 @@
-# Julia Parallel Computing
+﻿# Julia Parallel Computing
 
-1. Asynchronous Tasks
-2. Multi-Threading
-3. Distributed Computing with Distributed.jl
-4. Distributed Computing with MPI.jl
-4. GPU Computing (available packages)
+1. [Asynchronous Tasks](Tasks)
+2. [Multi-Threading](Multi-Threading)
+3. [Distributed Computing with Distributed.jl](Distributed-Computing-with-Distributed.jl)
+4. [Distributed Computing with MPI.jl](Distributed-Computing-with-MPI.jl)
+4. [GPU Computing](GPU-Computing) (available packages)
 
 We will make use of the following basic Monte Carlo integration function through out this presentation
 
@@ -30,9 +30,9 @@ end;
 
 # Tasks
 
-1. What are Tasks?
-2. Creating and Running Tasks
-3. Communication Between Tasks
+1. [What are Tasks?](What-are-Tasks?)
+2. [Creating and Running Tasks](Creating-and-Running-Tasks)
+3. [Communication Between Tasks](Communication-Between-Tasks)
 
 ## What are Tasks?
 
@@ -47,7 +47,6 @@ Running a task is done in 3 steps:
 2. Scheduling
 3. Collect Results
 
-## Creating and Running Tasks
 
 Creating a task can be done directly with the `Task` object:
 
@@ -79,7 +78,6 @@ my_task = @task mc_integrate(sin, -pi, pi)
 
 
 
-## Creating and Running Tasks
 
 Next we schedule the task to run using the `schedule` function
 
@@ -109,7 +107,6 @@ my_task = @async mc_integrate(sin, -pi, pi)
 
 
 
-## Creating and Running Tasks
 
 We can collect the results of the task once it has completed with the `fetch` function
 
@@ -129,7 +126,6 @@ There are a few helpful details to know about `fetch`:
 1. If the task has not finished when `fetch` is called, the call to `fetch` will block until the task has completed.
 2. If the task raises an exception, `fetch` will raise a `TaskFailedException` which wraps the original exception.
 
-## Creating and Running Tasks
 
 Remember that tasks are not inherently parallel, just asynchronous execution streams. 
 
@@ -172,7 +168,6 @@ Sometimes we need to communicate between tasks. An easy way to accomplish this i
 
 Let's rewrite `run_mci_task` to use channels by dividing the `run_mci` workflow into two functions.
 
-## Communicating Between Tasks
 
 The first function will perform small Monte-Carlo integrations and put the results on a channel with the `put!` function. When it has finished the requested number of computations it will close the channel with `close` and return.
 
@@ -190,7 +185,6 @@ end;
 
 **NOTE:** If the channel is full, `put!` will block until space opens up.
 
-## Communicating Between Tasks
 
 The second function will take the results off the channel using the `take!` function and accumulate them into an average. We keep pulling results from the channel as long as there is a result or the channel is open. We can check the former with `isready` and the latter with `isopen`.
 
@@ -210,7 +204,6 @@ end;
 
 **NOTE:** If the channel is empty, the `take!` function will block until there is an item available.
 
-## Communicating Between Tasks
 
 Now we create channel which can hold 10 results, create and schedule both tasks and finally fetch the result.
 
@@ -241,10 +234,10 @@ Remeber that tasks are discrete computation units. They naturally define boundar
 
 # Multi-Threading
 
-1. Starting Julia with Multiple Threads
-1. `@threads` Macro
-1. `@spawn` Macro
-1. Using Channels
+1. [Starting Julia with Multiple Threads](Starting-Julia-with-Multiple-Threads)
+1. [`@threads` Macro](`@threads`-Macro)
+1. [`@spawn` Macro](`@spawn`-Macro)
+1. [Using Channels](Using-Channels)
 
 ## Starting Julia with Multiple Threads
 
@@ -349,12 +342,12 @@ end;
 
 # Distributed Computing with Distributed.jl
 
-1. Architecture
-1. Setting Up
-1. `@distributed` Macro
-1. `@spawnat` Macro
-1. Remote Channels
-1. Shutting Down
+1. [Architecture](Architecture)
+1. [Setting Up](Setting-Up)
+1. [`@distributed` Macro](`@distributed`-Macro)
+1. [`@spawnat` Macro](`@spawnat`-Macro)
+1. [Remote Channels](Remote-Channels)
+1. [Shutting Down](Shutting-Down)
 
 ## Architecture
 
@@ -396,13 +389,9 @@ There is a distinction between the original Julia process and those we launched.
 
 By default, distributed processing operations use the workers only.
 
-## Setting Up
-
 We can also start up worker processes from the command lines using the `-p` or `--procs` option.
 
 In order to launch Julia processes on other machines, we give `addprocs` a vector of tuples where each tuple is the hostname as a string paired with the number of processes to start on that host.
-
-## Setting Up
 
 The Julia global state is not copied in the new processes. We need to manually load any modules and define any functions we need. This is done with the `Distributed.@everywhere` macro:
 
@@ -474,7 +463,6 @@ The first argument to `@spawnat` is the worker to run the computation on. Here w
       13.020 ms (1119 allocations: 44.34 KiB)
 
 
-## `@spawnat` Macro
 
 **WARNING:** The entire expression is sent to the worker process before anything in the expression is executed. This can cause performance issues if we need a small part of a big object or array.
 
@@ -498,8 +486,6 @@ large_data = MyData(rand(1000000), 5)
       1.731 ms (108 allocations: 4.08 KiB)
 
 
-## `@spawnat` Macro
-
 **WARNING:** The entire expression is sent to the worker process before anything in the expression is executed. This can cause performance issues if we need a small part of a big object or array.
 
 This is easily fixed using a local variable:
@@ -518,68 +504,6 @@ end;
 ```
 
       192.843 μs (100 allocations: 3.80 KiB)
-
-
-
-```julia
-large_data = nothing
-```
-
-**TODO:** Do I want to do this bit?
-
-
-```julia
-function run_mci_dist3()
-    N = 10
-    vals = Vector{Float64}(undef, N)
-    @sync for k in 1:N
-        @async(vals[k] = @fetch(mc_integrate(sin, -pi, pi)))
-    end
-    return mean(vals)
-end
-```
-
-
-
-
-    run_mci_dist3 (generic function with 1 method)
-
-
-
-
-```julia
-@btime run_mci_dist3();
-```
-
-      11.719 ms (659 allocations: 30.53 KiB)
-
-
-
-```julia
-using SharedArrays
-function run_mci_dist4()
-    N = 10
-    vals = SharedArray{Float64}(N)
-    @sync @distributed for k in 1:N
-        vals[k] = mc_integrate(sin, -pi, pi)
-    end
-    return mean(vals)
-end
-```
-
-
-
-
-    run_mci_dist4 (generic function with 1 method)
-
-
-
-
-```julia
-@btime run_mci_dist4();
-```
-
-      12.004 ms (492 allocations: 22.11 KiB)
 
 
 ## Remote Channels
@@ -656,8 +580,8 @@ Alternatively, we can also just exit Julia and the workers will be shutdown as p
 
 # Distributed Computing with MPI.jl
 
-1. Overview of MPI.jl
-1. Example
+1. [Overview of MPI.jl](Overview-of-MPI.jl)
+1. [Example](Example)
 
 <!-- **TODO:** Stuff:
 1. Outline
@@ -682,7 +606,6 @@ MPI.Init()
 
 `MPI.Init` loads the MPI library and calls `MPI_Init` as well as sets up types for that specific MPI library.
 
-## Example
 
 Now we can implement our Monte-Carlo integration workflow using MPI
 
@@ -717,7 +640,6 @@ function run_mci_mpi()
 end
 ```
 
-## Example
 
 To benchmark this we time it many (10000) times and track the minimal value (this is similar to what the `@btime` macro does).
 
@@ -748,9 +670,8 @@ end
 run_loop(10000)
 ```
 
-## Example
 
-Results
+Here are the results:
 
 ```shell
 mpirun -n 2 julia mpi_mci.jl
