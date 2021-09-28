@@ -1,9 +1,9 @@
 ﻿# Julia Parallel Computing
 
-1. [Asynchronous Tasks](Tasks)
-2. [Multi-Threading](Multi-Threading)
-3. [Distributed Computing with Distributed.jl](Distributed-Computing-with-Distributed.jl)
-4. [Distributed Computing with MPI.jl](Distributed-Computing-with-MPI.jl)
+1. [Asynchronous Tasks](#tasks)
+2. [Multi-Threading](#multi-threading)
+3. [Distributed Computing with Distributed.jl](#distributed-computing-with-distributedjl)
+4. [Distributed Computing with MPI.jl](#distributed-computing-with-mpijl)
 4. [GPU Computing](GPU-Computing) (available packages)
 
 We will make use of the following basic Monte Carlo integration function through out this presentation
@@ -30,9 +30,9 @@ end;
 
 # Tasks
 
-1. [What are Tasks?](What-are-Tasks?)
-2. [Creating and Running Tasks](Creating-and-Running-Tasks)
-3. [Communication Between Tasks](Communication-Between-Tasks)
+1. [What are Tasks?](#what-are-tasks)
+2. [Creating and Running Tasks](#creating-and-running-tasks)
+3. [Communication Between Tasks](#communication-between-tasks)
 
 ## What are Tasks?
 
@@ -234,10 +234,10 @@ Remeber that tasks are discrete computation units. They naturally define boundar
 
 # Multi-Threading
 
-1. [Starting Julia with Multiple Threads](Starting-Julia-with-Multiple-Threads)
-1. [`@threads` Macro](`@threads`-Macro)
-1. [`@spawn` Macro](`@spawn`-Macro)
-1. [Using Channels](Using-Channels)
+1. [Starting Julia with Multiple Threads](#starting-julia-with-multiple-threads)
+1. [`@threads` Macro](#threads-macro)
+1. [`@spawn` Macro](#spawn-macro)
+1. [Using Channels](#using-channels)
 
 ## Starting Julia with Multiple Threads
 
@@ -342,12 +342,12 @@ end;
 
 # Distributed Computing with Distributed.jl
 
-1. [Architecture](Architecture)
-1. [Setting Up](Setting-Up)
-1. [`@distributed` Macro](`@distributed`-Macro)
-1. [`@spawnat` Macro](`@spawnat`-Macro)
-1. [Remote Channels](Remote-Channels)
-1. [Shutting Down](Shutting-Down)
+1. [Architecture](#architecture)
+1. [Setting Up](#setting-up)
+1. [`@distributed` Macro](#distributed-macro)
+1. [`@spawnat` Macro](#spawnat-macro)
+1. [Remote Channels](#remote-channels)
+1. [Shutting Down](shutting-down)
 
 ## Architecture
 
@@ -580,8 +580,8 @@ Alternatively, we can also just exit Julia and the workers will be shutdown as p
 
 # Distributed Computing with MPI.jl
 
-1. [Overview of MPI.jl](Overview-of-MPI.jl)
-1. [Example](Example)
+1. [Overview of MPI.jl](#overview-of-mpijl)
+1. [Example](#example)
 
 <!-- **TODO:** Stuff:
 1. Outline
