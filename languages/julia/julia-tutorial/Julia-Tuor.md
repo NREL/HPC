@@ -6,13 +6,13 @@ by Jonathan Maack
 
 # Outline
 
-1. [Why Julia?](Why-Julia?)
-1. [Basics](Basics)
-1. [Package Manager](Package-Manager)
-1. [Types](Types)
-1. [Structs](Structus)
-1. [Metaprogramming](Metaprogramming)
-1. [Other Resources](Other-Resources)
+1. [Why Julia?](#why-julia)
+1. [Basics](#basics)
+1. [Package Manager](#package-manager)
+1. [Types](#types)
+1. [Structs](#structs)
+1. [Metaprogramming](#metaprogramming)
+1. [Other Resources](#other-resources)
 
 ## Why Julia?
 
@@ -27,10 +27,10 @@ Feature Highlights:
 
 # Basics
 
-* [REPL (Read-Evaluate-Print-Loop)](REPL-(Read-Evaluate-Print-Loop))
-* [Definining Functions](Definining-Functions)
-* [Using Installed Packages](Using-Installed-Packages)
-* [Vectorizing](Vectorizing)
+* [REPL (Read-Evaluate-Print-Loop)](#repl-read-evaluate-print-loop)
+* [Definining Functions](#definining-functions)
+* [Using Installed Packages](#using-installed-packages)
+* [Vectorizing](#vectorizing)
 
 ## REPL (Read-Evaluate-Print-Loop)
 
@@ -462,8 +462,8 @@ These environment stacks are discussed more in the [Environments](https://docs.j
 
 # Types
 
-* [Type Hierarchy](Type-Hierarchy)
-* [Multiple Dispatch](Multiple-Dispatch)
+* [Type Hierarchy](#type-hierarchy)
+* [Multiple Dispatch](#multiple-dispatch)
 
 ## Type Hierarchy
 
@@ -694,9 +694,9 @@ Notice that the functions have the same name but the correct one is executed bas
 
 # Structs
 
-* [Defining Structs](Defining-Structs)
-* [Mutable Structs](Mutable-Structs)
-* [Parametric Types](Parametric-Types)
+* [Defining Structs](#defining-structs)
+* [Mutable Structs](#mutable-structs)
+* [Parametric Types](#parametric-types)
 
 ## Defining Structs
 
@@ -868,9 +868,9 @@ p1 = ParametricPoint(2.0, 0.0)
 
 # Metaprogramming
 
-* [How Julia Code is Executed](How-Julia-Code-is-Executed)
-* [Expressions](Expressions)
-* [Macros](Macros)
+* [How Julia Code is Executed](#how-julia-code-is-executed)
+* [Expressions](#expressions)
+* [Macros](#macros)
 
 ## How Julia Code is Executed
 
