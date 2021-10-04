@@ -12,8 +12,38 @@ also contain information on recurring/episodic and recently held workshops.
 ## Recent HPC Workshops (FY21)
 
 
-### Advanced Jupyter (May 13th, 2021)
+### Software Environments on Eagle (August 31, 2021)
+<details open>
+<summary>More information</summary>
+<br>
+Getting the software or analysis tools you need for your work can be a challenge. This workshop will discuss and demonstrate three common ways of getting your software environment set up on Eagle. Environment modules, Conda, and containers all have associated pros and cons which will be overviewed.
 
+We will provide a background of how each technology works and common challenges. Effectively managing the software you use can greatly reduce the barriers to running your analysis, promote the portability of your work, and in some cases, speed it up!
+
+[Workshop Material](./software_envs)
+
+### Reinforcement Learning techniques on Eagle (July 22 & 29, 2021)
+
+<details open>
+<summary>More information</summary>
+<br>
+
+Reinforcement Learning (RL) is a family of key techniques for controlling autonomous systems and other dynamic, stochastic control processes. This 2-part workshop will demonstrate the basics of running RL experiments on Eagle, using OpenAI Gym and RLlib.
+ 
+OpenAI Gym: toolkit that provides a wide variety of simulated environments (Atari games, board games, 2D and 3D physical simulations, and so on), so one can train agents, compare them, or develop new Reinforcement Learning algorithms.
+RLlib: open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications. RLlib natively supports TensorFlow, TensorFlow Eager, and PyTorch.
+ 
+The workshop aims to demonstrate installing Anaconda environments with all necessary packages, allocate Eagle computing resources (CPUs and/or GPUs) for efficiently agent training, and evaluate the results. Time permitting, we will also see how one can write their custom-made Gym environments.
+
+### Introduction to NREL HPC Workflows (July 13th, 2021)
+<details open>
+<summary>More information</summary>
+<br>
+What is a workflow? Why should I use a workflow management system? This presentation will provide a high-level overview of workflow management systems (WMS), and the benefits they can provide to researchers. Features such as automatic parallelization of tasks, portability between computational resources, and increased reproducibility of analysis are just some of the many reasons to use a WMS. Picking a WMS to use can be a daunting task as there are many options to choose from. Several popular WMS will be surveyed and methods for assessing systems that may be a good fit for your work will be discussed. Come and learn how workflows can benefit your research!
+
+[Workshop Material](./intro_to_workflows)
+
+### Advanced Jupyter (May 13th, 2021)
 <details open>
 <summary>More information</summary>
 <br>
