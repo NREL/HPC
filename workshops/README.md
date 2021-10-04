@@ -21,6 +21,7 @@ Getting the software or analysis tools you need for your work can be a challenge
 We will provide a background of how each technology works and common challenges. Effectively managing the software you use can greatly reduce the barriers to running your analysis, promote the portability of your work, and in some cases, speed it up!
 
 [Workshop Material](./software_envs)
+</details>
 
 ### Reinforcement Learning techniques on Eagle (July 22 & 29, 2021)
 
@@ -34,6 +35,7 @@ OpenAI Gym: toolkit that provides a wide variety of simulated environments (Atar
 RLlib: open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications. RLlib natively supports TensorFlow, TensorFlow Eager, and PyTorch.
  
 The workshop aims to demonstrate installing Anaconda environments with all necessary packages, allocate Eagle computing resources (CPUs and/or GPUs) for efficiently agent training, and evaluate the results. Time permitting, we will also see how one can write their custom-made Gym environments.
+</details>
 
 ### Introduction to NREL HPC Workflows (July 13th, 2021)
 <details open>
@@ -42,6 +44,37 @@ The workshop aims to demonstrate installing Anaconda environments with all neces
 What is a workflow? Why should I use a workflow management system? This presentation will provide a high-level overview of workflow management systems (WMS), and the benefits they can provide to researchers. Features such as automatic parallelization of tasks, portability between computational resources, and increased reproducibility of analysis are just some of the many reasons to use a WMS. Picking a WMS to use can be a daunting task as there are many options to choose from. Several popular WMS will be surveyed and methods for assessing systems that may be a good fit for your work will be discussed. Come and learn how workflows can benefit your research!
 
 [Workshop Material](./intro_to_workflows)
+</details>
+
+### Introduction to HPC Concepts (June 30th, 2021)
+<details open>
+<summary>More information</summary>
+<br>
+In this session, we will discuss the importance of parallel and high-performance computing. We will, by example, show the basic concepts of parallel computing as well as the advantages and disadvantages of parallel computing. We will present an overview of current and future trends in HPC hardware. We will also provide a very brief overview of some of the paradigms of HPC, including OpenMP, Message Passing Interface (MPI), and GPU programming.
+</details>
+
+### Introduction to NREL HPC Systems (June 24th, 2021)
+<details open>
+<summary>More information</summary>
+<br>
+Dive in to NREL's prominent HPC system, Eagle. Learn about system configuration, storage systems, submitting workloads, and helpful hints and tips!
+
+Explore NREL HPC File Systems
+Software environments and modules
+Introduction to Slurm
+Becoming productive with Eagle
+</details>
+
+### Linux Fundamentals: Utilizing the Command Line Interface (June 16th, 2021)
+<details open>
+<summary>More information</summary>
+<br>
+In this introduction to linux, we will demonstrate the fundamental commands and concepts required to make use of NREL HPC linux systems (or any *nix operating system.) We will cover:
+Setting up your computer to utilize HPC linux systems
+Using the Linux command line
+Remote system access (SSH)
+Linux file permissions basics
+</details>
 
 ### Advanced Jupyter (May 13th, 2021)
 <details open>
