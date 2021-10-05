@@ -10,14 +10,19 @@ Please see the [Modules](./modules) page for information about setting up your e
 
 **There are currently a number of known issues on Swift please check [Known issues](./swift) for a complete list**
 
+## Login nodes
+
+```
+swift.hpc.nrel.gov
+swift-login-1.hpc.nrel.gov
+swift-login-2.hpc.nrel.gov
+```
+
+
 ## Slurm and Partitions
 
-As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the `sinfo` command.  If the command `sinfo` is not found then first ensure that slurm is in your path by running:
+As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the `sinfo` command.  
 
-```
-source /nopt/nrel/apps/210728a/myenv.2107290127
-module load slurm
-```
 
 
 
