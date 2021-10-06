@@ -10,7 +10,7 @@ NREL operates three on-premises systems for computational work.
 
 ## System configurations
 
-| Name        | Eagle     | Swift        | Vermillion     |
+| Name        | Eagle     | Swift        | Vermilion     |
 | :---------- | :-------- | :----------- | :------------- |
 | OS          | CentOS    | Rocky Linux    | RedHat       |
 | Login       | eagle.hpc.nrel.gov | swift.hpc.nrel.gov | vs.hpc.nrel.gov |
