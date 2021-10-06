@@ -13,6 +13,7 @@ NREL operates three on-premises systems for computational work.
 | Name        | Eagle     | Swift        | Vermillion     |
 | :---------- | :-------- | :----------- | :------------- |
 | OS          | CentOS    | Rocky Linux    | RedHat       |
+| Login       | eagle.hpc.nrel.gov | swift.hpc.nrel.gov | vs.hpc.nrel.gov |
 | CPU         | Dual Intel Xeon Gold Skylake 6154 | Dual AMD EPYC 7532 Rome CPU | Dual AMD EPYC 7532 Rome CPU |
 | Interconnect | InfiniBand EDR | InfiniBand HDR| 25GbE |
 | HPC scheduler | Slurm | Slurm | Slurm |
