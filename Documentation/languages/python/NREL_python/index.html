@@ -1,0 +1,1690 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+    
+    
+      
+        <title>NREL HPC Python - NREL HPC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.24c991ad.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-189117140-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-on-nrel-hpc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="NREL HPC" class="md-header__button md-logo" aria-label="NREL HPC" data-md-component="logo">
+      
+  <img src="../../../../assets/images/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NREL HPC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NREL HPC Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/NREL/HPC/tree/gh-pages/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NREL/HPC
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../Announcements/2020-11-03-announcement/" class="md-tabs__link">
+        Announcements
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Data-and-File-Systems/File-Systems/filesystemsio/" class="md-tabs__link md-tabs__link--active">
+        Documentation
+      </a>
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../blog/2020-12-01-numba/" class="md-tabs__link">
+        Blog
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="NREL HPC" class="md-nav__button md-logo" aria-label="NREL HPC" data-md-component="logo">
+      
+  <img src="../../../../assets/images/favicon.png" alt="logo">
+
+    </a>
+    NREL HPC
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/NREL/HPC/tree/gh-pages/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NREL/HPC
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Announcements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Announcements" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Announcements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2020-11-03-announcement/" class="md-nav__link">
+        November 2020 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2020-12-03-announcement/" class="md-nav__link">
+        December 2020 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2021-01-04-announcement/" class="md-nav__link">
+        January 2021 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2021-02-02-announcement/" class="md-nav__link">
+        February 2021 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2021-03-03-announcement/" class="md-nav__link">
+        March 2021 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2021-04-06-announcement/" class="md-nav__link">
+        April 2021 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Announcements/2021-05-05-announcement/" class="md-nav__link">
+        May 2021 Monthly Update
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Data and File Systems
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data and File Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Data and File Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_1" type="checkbox" id="__nav_3_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1_1">
+          File Systems
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="File Systems" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          File Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data-and-File-Systems/File-Systems/filesystemsio/" class="md-nav__link">
+        File Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_1_2" type="checkbox" id="__nav_3_1_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1_1_2">
+          Lustre
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lustre" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_1_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Lustre
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices/" class="md-nav__link">
+        Lustre Best Practices
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_2" type="checkbox" id="__nav_3_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1_2">
+          Transferring Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Transferring Data" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Transferring Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data-and-File-Systems/Transferring-Data/FileZilla/" class="md-nav__link">
+        FileZilla
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data-and-File-Systems/Transferring-Data/file-transfers/" class="md-nav__link">
+        File Transfers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data-and-File-Systems/Transferring-Data/globus/" class="md-nav__link">
+        Globus
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Environments
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Environments" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Environments
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/conda/" class="md-nav__link">
+        Conda
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" type="checkbox" id="__nav_3_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_2">
+          Containers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Containers" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Containers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/Containers/intro/" class="md-nav__link">
+        Containers Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/Containers/singularity/" class="md-nav__link">
+        Singularity on Eagle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/Containers/tensorflow/" class="md-nav__link">
+        Containerized TensorFlow
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" type="checkbox" id="__nav_3_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_3">
+          Building packages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Building packages" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Building packages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/building-packages/a-building-packages/" class="md-nav__link">
+        Building Packages
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/building-packages/b-acquire/" class="md-nav__link">
+        Acquire
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/building-packages/c-config_make_install/" class="md-nav__link">
+        Config Make Install
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environments/building-packages/d-modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Jupyter
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jupyter" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Jupyter
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Jupyter/jupyterhub/" class="md-nav__link">
+        JupyterHub
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Systems
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Systems" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Systems
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/systems/" class="md-nav__link">
+        Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4_2" type="checkbox" id="__nav_3_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4_2">
+          Swift
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Swift" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Swift
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/running/" class="md-nav__link">
+        Running on Swift
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/swift/" class="md-nav__link">
+        Swift
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Languages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Languages" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Languages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_1" type="checkbox" id="__nav_3_5_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_1">
+          Fortran
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fortran" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          Fortran
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fortran/f90/" class="md-nav__link">
+        Fortran 90 for Fortran 77 programmers
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_2" type="checkbox" id="__nav_3_5_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_2">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          NREL HPC Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        NREL HPC Python
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-conda-environments-in-different-directories" class="md-nav__link">
+    Installing Conda Environments in Different Directories
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_2_3" type="checkbox" id="__nav_3_5_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_2_3">
+          Dask
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Dask" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_5_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Dask
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dask/dask/" class="md-nav__link">
+        Dask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Blog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2020-12-01-numba/" class="md-nav__link">
+        Speeding up Python Code with Numba
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2021-05-06-tf/" class="md-nav__link">
+        Faster Machine Learning with Custom Built TensorFlow on Eagle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2021-06-18-srun/" class="md-nav__link">
+        Using srun to launch applications under slurm
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-conda-environments-in-different-directories" class="md-nav__link">
+    Installing Conda Environments in Different Directories
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/NREL/HPC/tree/gh-pages/edit/master/docs/Documentation/languages/python/NREL_python.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="python-on-nrel-hpc">Python on NREL HPC</h1>
+<p>By design, the HPC is a time-shared multi-machine system which necessarily warrants some nuanced consideration for how environments are managed relative to a single machine with a single user. Sometimes, the default workflow for environment creation and usage is not the most optimal for some use-cases.</p>
+<p>Below is a list of common pitfalls that users have encountered historically while using Python and Anaconda on NREL HPC. </p>
+<ul>
+<li>Running a SLURM job that uses a <code>conda</code> environment which is stored in <code>$HOME</code>.</li>
+<li>Exhausting the <code>$HOME</code> storage quota (50GB on the current HPC system) usually because of conda's package cache combined with their user environments.</li>
+<li>Trying to share a <code>conda</code> environment from another user's <code>/home</code> directory.</li>
+<li>Forgetting to install <code>jupyter</code> in a new conda environment, resulting in using the <code>base</code> installation's version which doesn't have your dependencies installed.</li>
+</ul>
+<p>Let's discuss strategies to mitigate or avoid these kinds of problems</p>
+<h2 id="installing-conda-environments-in-different-directories">Installing Conda Environments in Different Directories</h2>
+<p>By default, <code>conda</code> will install new environments in <code>$HOME/.conda</code>. Generally speaking, this a sensible default&mdash;it just happens to be the starting point to frequent issues that users have experienced historically. Something to consider is that <code>conda</code> has a <code>--prefix</code> flag which allows one to arbitrate where a conda environment gets installed to, notably allowing you to place environments on other file-systems and block devices besides the <code>/home</code> network-storage that is mounted on NREL HPC systems.</p>
+<p>For example, here is how one might create a project in their <code>/scratch</code> directory:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ENV_PREFIX</span><span class="o">=</span><span class="s2">&quot;/scratch/$USER/demo_scratch_env&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span> <span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ENV_PREFIX&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">ENV_PREFIX</span>  <span class="c1"># Export this variable for cells below </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">quiet</span> <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">local</span> <span class="o">--</span><span class="n">yes</span> \
+    <span class="o">--</span><span class="n">prefix</span> <span class="err">$</span><span class="n">ENV_PREFIX</span>   <span class="c1"># `--prefix` in action \</span>
+    <span class="n">python</span><span class="o">=</span><span class="mf">3.7</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Collecting package metadata: ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /scratch/mbartlet/demo_scratch_env
+
+
+
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">-</span><span class="n">ld</span> <span class="err">$</span><span class="n">ENV_PREFIX</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>drwxr-xr-x. 3 mbartlet mbartlet 4096 Dec  3 11:10 /scratch/mbartlet/demo_scratch_env
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete the demo environment for cleanliness</span>
+<span class="err">!</span><span class="n">conda</span><span class="o">-</span><span class="n">env</span> <span class="n">remove</span> <span class="o">--</span><span class="n">yes</span> <span class="o">--</span><span class="n">quiet</span> <span class="o">--</span><span class="n">prefix</span> <span class="err">$</span><span class="n">ENV_PREFIX</span> <span class="o">&amp;&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+</code></pre></div>
+<p>Below is a table which discusses the pros and cons of each block-device mount on NREL HPC as a location for storing your software environments.</p>
+<table>
+<thead>
+<tr>
+<th>Block-device mounts</th>
+<th>Situations where you would want to use this block device for your conda environments</th>
+<th>Caveats to consider when using this mount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/home</td>
+<td><code>$HOME/.conda</code> is the default location for environments. For one-off environments,  or if you don't create environments often, this is a reasonable location for your environments and doesn't require any extra flags or parameters.</td>
+<td>Files in <span>\$</span>HOME will not be purged so long as you have an active NREL HPC account. However, <span>\$</span>HOME is limited to a 50GB storage quota so you may have to take care to monitor your storage footprint.</td>
+</tr>
+<tr>
+<td>/scratch</td>
+<td><code>/scratch</code> or <code>/projects</code> is ultimately where you want your environment to end up if your jobs have more than 1 node&mdash;if your environment is in <code>/home</code> then every node in your job will be competing for read-access over a non-parallel network fabric to the source files of your environment. <code>/scratch</code> provides simultaneous access to all the nodes. A sensible approach is copying your environments from <code>/home</code> to <code>/scratch</code> as part of your job's initialization.</td>
+<td><code>/scratch</code> storage is unlimited. <code>/scratch</code> is a parallel filesystem, meaning simultaneous filesystem operations by several nodes is possible and performant. However, the contents of <code>/scratch</code> are subject to purge after 28 days of inactivity.</td>
+</tr>
+<tr>
+<td>/projects</td>
+<td>This is a great place to put a conda environment that you anticipate sharing with your colleagues who are also working on the project. You can structure the permissions such that others in the project have read-only, write-only, or no access (we also encourage restoring these permissions at a later date so others on the project can manage your files without a hassle).</td>
+<td><code>/projects</code> is also a parallel filesystem which reaps the same benefits as mentioned above. However, access to projects is contingent on having access to an HPC project allocation. Moreover, the storage quota allotted to each project is relative to the reasonableness of its requested needs, although a conda environment is very unlikely to have a significant storage footprint.</td>
+</tr>
+</tbody>
+</table>
+<p>As mentioned above, let's demonstrate one might go about copying an environment from <code>/home</code> to <code>/scratch</code> in a SLURM job. The below cell will generate a nice code block based on variables used earlier in this notebook, as well as environment variables within your user account:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Acquire a default project handle to procedurally generate a SLURM job</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;/nopt/nrel/utils/bin/hours_report | tail -1 | awk &#39;{print $1}&#39;&quot;</span> <span class="c1"># Grab a valid project handle</span>
+
+<span class="n">command_array</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;/bin/bash&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;-c&#39;</span><span class="p">,</span>
+    <span class="n">command</span>
+<span class="p">]</span>
+
+<span class="n">project_handle</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command_array</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">os</span> <span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;DEFAULT_HANDLE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_handle</span>  <span class="c1"># Export handle for cells below</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">echo</span> <span class="err">$</span><span class="n">DEFAULT_HANDLE</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>wks
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">conda_home_env</span><span class="o">=</span><span class="s2">&quot;py3&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Acquire info about the default conda environment</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="n">command</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;module load conda &amp;&amp; . activate </span><span class="si">{</span><span class="n">conda_home_env</span><span class="si">}</span><span class="s2"> &amp;&amp; echo $CONDA_PREFIX&quot;</span>
+
+<span class="n">command_array</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;/bin/bash&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;-lc&#39;</span><span class="p">,</span>         <span class="c1"># Have to run this from a login-shell</span>
+    <span class="n">command</span>
+<span class="p">]</span>
+
+<span class="n">conda_home_env_prefix</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command_array</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">os</span> <span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CONDA_HOME_ENV_PREFIX&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conda_home_env_prefix</span>  <span class="c1"># Export handle for cells below</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">echo</span> <span class="err">$</span><span class="n">CONDA_HOME_ENV_PREFIX</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/home/mbartlet/.conda/envs/py3
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Markdown</span> <span class="k">as</span> <span class="n">md</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">environ</span> <span class="k">as</span> <span class="n">env</span>
+
+<span class="n">SCRATCH_ENV</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;/scratch/</span><span class="si">{</span><span class="n">env</span><span class="p">[</span><span class="s1">&#39;USER&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/home_conda_clone&quot;</span>
+
+<span class="n">body</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">```bash</span>
+<span class="s2">#!/usr/bin/env bash</span>
+<span class="s2">#SBATCH --account </span><span class="si">{</span><span class="n">env</span><span class="p">[</span><span class="s1">&#39;DEFAULT_HANDLE&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">#SBATCH --time 5</span>
+<span class="s2">#SBATCH --partition debug</span>
+<span class="s2">#SBATCH --nodes 2</span>
+
+<span class="s2">export SCRATCH_ENV=&quot;</span><span class="si">{</span><span class="n">SCRATCH_ENV</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="s2">rsync -avz --ignore-existing &quot;</span><span class="si">{</span><span class="n">env</span><span class="p">[</span><span class="s1">&#39;CONDA_HOME_ENV_PREFIX&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot; &quot;$SCRATCH_ENV&quot; &amp;&gt;/dev/null</span>
+
+<span class="s2">srun bash -l &lt;&lt;EOF</span>
+<span class="s2">module purge</span>
+<span class="s2">module load conda</span>
+<span class="s2">. activate &quot;$SCRATCH_ENV&quot;</span>
+<span class="s2">which python</span>
+<span class="s2">EOF</span>
+
+<span class="s2">rm -rf &quot;$SCRATCH_ENV&quot;  # Optional clean-up</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env bash</span>
+<span class="c1">#SBATCH --account wks</span>
+<span class="c1">#SBATCH --time 5</span>
+<span class="c1">#SBATCH --partition debug</span>
+<span class="c1">#SBATCH --nodes 2</span>
+
+<span class="nb">export</span> <span class="nv">SCRATCH_ENV</span><span class="o">=</span><span class="s2">&quot;/scratch/mbartlet/home_conda_clone&quot;</span>
+rsync -avz --ignore-existing <span class="s2">&quot;/home/mbartlet/.conda/envs/py3&quot;</span> <span class="s2">&quot;</span><span class="nv">$SCRATCH_ENV</span><span class="s2">&quot;</span> <span class="p">&amp;</span>&gt;/dev/null
+
+srun bash -l <span class="s">&lt;&lt;EOF</span>
+<span class="s">module purge</span>
+<span class="s">module load conda</span>
+<span class="s">. activate &quot;$SCRATCH_ENV&quot;</span>
+<span class="s">which python</span>
+<span class="s">EOF</span>
+
+rm -rf <span class="s2">&quot;</span><span class="nv">$SCRATCH_ENV</span><span class="s2">&quot;</span>  <span class="c1"># Optional clean-up</span>
+</code></pre></div>
+<p>And after running what was generated above:
+<div class="highlight"><pre><span></span><code><span class="o">[</span>mbartlet@el1 ~<span class="o">]</span> $ cat slurm-1845968.out
+/scratch/mbartlet/home_conda_clone/bin/python
+/scratch/mbartlet/home_conda_clone/bin/python
+</code></pre></div>
+Which shows both nodes sourced the environment from <code>/scratch</code></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="Footer"
+    >
+
+      <!-- Link to previous page -->
+      
+        
+        <a
+          href="../../fortran/f90/"
+          class="md-footer__link md-footer__link--prev"
+          aria-label="Previous: Fortran 90 for Fortran 77 programmers"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Fortran 90 for Fortran 77 programmers
+            </div>
+          </div>
+        </a>
+      
+
+      <!-- Link to next page -->
+      
+        
+        <a
+          href="../python/"
+          class="md-footer__link md-footer__link--next"
+          aria-label="Next: Python"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Python
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+	<a href="https://www.nrel.gov/computational-science/"
+	   title="Computational Science at NREL">Computational Science at NREL</a><br>
+	<a href="https://www.nrel.gov/hpc/about-hpc.html" target="_blank"
+	   title="About NREL High-Performance Computing">About NREL High-Performance Computing</a><br>
+	<a href="https://www.nrel.gov/hpc/contact-us.html" target="_blank"
+	   title="Contact Us">Contact Us</a><br>
+      </div>
+    </div>
+  </div>
+<footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      
+    
+  </body>
+</html>
