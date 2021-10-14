@@ -1,0 +1,21 @@
+theme:
+  name: material
+  custom_dir: overrides
+  logo: assets/images/favicon.png
+  favicon: assets/images/favicon.png
+  features:
+    - navigation.tabs
+markdown_extensions:
+  - attr_list
+  - meta
+  - pymdownx.highlight
+  - pymdownx.superfences
+extra:
+  analytics:
+    provider: google
+    property: UA-189117140-2
+extra_css:
+  - stylesheets/extra.css
+site_name: NREL HPC 
+repo_url: https://github.com/NREL/HPC/tree/gh-pages
+repo_name: NREL/HPC
