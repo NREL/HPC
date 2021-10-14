@@ -5,7 +5,7 @@ parent: Python
 grand_parent: Programming Languages
 ---
 
-![conda logo](../../overrides/assets/images/conda_logo.png)
+![conda logo](../../../../overrides/assets/images/conda_logo.png)
 
 ## Why Conda?
 
