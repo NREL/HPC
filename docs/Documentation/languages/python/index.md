@@ -8,9 +8,9 @@ parent: Programming Languages
 # Python
 
 ## Eagle tutorials
-* [Python environments](conda/) : Utilize a specific version of Python on Eagle and install packages
-* [Dask](dask/dask.html) : Parallelize your Python code 
-* [Jupyter notebooks](../../Jupyter/jupyter.html) : Run interactive notebooks on Eagle
+* [Python environments](../../Environments/conda.md) : Utilize a specific version of Python on Eagle and install packages
+* [Dask](dask/dask.md) : Parallelize your Python code 
+* [Jupyter notebooks](../../Jupyter/jupyterhub.md) : Run interactive notebooks on Eagle
 
 ## HPC Python
 Links to External resources

@@ -1,4 +1,4 @@
----
+-
 layout: default
 title: Running on Swift
 parent: Swift
@@ -6,9 +6,9 @@ grand_parent: Systems
 ---
 
 # Running on Swift
-Please see the [Modules](./modules) page for information about setting up your environment and loading modules. 
+Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. 
 
-**There are currently a number of known issues on Swift please check [Known issues](./swift) for a complete list**
+**There are currently a number of known issues on Swift please check [Known issues](./index.md) for a complete list**
 
 ## Slurm and Partitions
 

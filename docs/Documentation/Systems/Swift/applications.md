@@ -9,7 +9,7 @@ grand_parent: Systems
 Some optimized versions of common applications are provided for the Swift cluster. Below is a list of how to utilize these applications and the optimizations for Swift. 
 
 ## Modules
-Many are available as part of the [Modules](./modules) setup.
+Many are available as part of the [Modules](./modules.md) setup.
 
 ## TensorFlow
 
