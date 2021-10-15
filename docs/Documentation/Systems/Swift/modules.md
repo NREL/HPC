@@ -8,7 +8,7 @@ grand_parent: Systems
 # Swift modules
 This describes how to activate and use the modules available on Swift. 
 
-**There are currently a number of known issues on Swift pleace check [Known issues](./swift) for a complete list**
+**There are currently a number of known issues on Swift pleace check [Known issues](./index.md) for a complete list**
 
 ## Source 
 Environments are provided with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectory under in the directory /nopt/nrel/apps.  Each environemnt directory has a file myenv.\*.   Sourcing that file will enable the environment.
