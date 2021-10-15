@@ -1,3 +1,55 @@
+
+nav:
+  - Home: index.md
+  - Announcements:
+      - Announcements/2021-05-05-announcement.md
+      - Announcements/2021-04-06-announcement.md
+      - Announcements/2021-03-03-announcement.md
+      - Announcements/2021-02-02-announcement.md
+      - Announcements/2021-01-04-announcement.md
+      - Announcements/2020-12-03-announcement.md
+      - Announcements/2020-11-03-announcement.md
+  - Blog: 
+      - blog/2020-12-01-numba.md
+      - blog/2021-05-06-tf.md
+      - blog/2021-06-18-srun.md
+  - Documentation:
+      - Data and File Systems:
+        - File Systems:
+          - Documentation/Data-and-File-Systems/File-Systems/index.md 
+          - Lustre: 
+            - Documentation/Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices.md
+        - Transferring Data:
+          - Documentation/Data-and-File-Systems/Transferring-Data/FileZilla.md     
+          - Documentation/Data-and-File-Systems/Transferring-Data/file-transfers.md     
+          - Documentation/Data-and-File-Systems/Transferring-Data/globus.md
+      - Environments:
+        - Documentation/Environments/conda.md
+        - Containers: 
+          - Documentation/Environments/Containers/index.md
+          - Documentation/Environments/Containers/singularity.md
+          - Documentation/Environments/Containers/tensorflow.md
+        - Building Packages:
+          - Documentation/Environments/building-packages/index.md
+          - Documentation/Environments/building-packages/acquire.md
+          - Documentation/Environments/building-packages/config_make_install.md
+          - Documentation/Environments/building-packages/modules.md
+      - Jupyter:
+        - Documentation/Jupyter/jupyterhub.md
+      - Systems: 
+        - Systems: Documentation/Systems/index.md
+        - Swift:
+          - Documentation/Systems/Swift/index.md
+          - Documentation/Systems/Swift/modules.md
+          - Documentation/Systems/Swift/running.md
+          - Documentation/Systems/Swift/applications.md
+      - Languages:
+        - Fortran: Documentation/languages/fortran/f90.md
+        - Python: 
+          - Documentation/languages/python/NREL_python.md
+          - Documentation/languages/python/index.md
+          - Documentation/languages/python/dask/dask.md
+           
 theme:
   name: material
   custom_dir: overrides
@@ -5,6 +57,7 @@ theme:
   favicon: assets/images/favicon.png
   features:
     - navigation.tabs
+    - navigation.indexes
 markdown_extensions:
   - attr_list
   - meta
