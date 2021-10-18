@@ -10,9 +10,13 @@ hide:
 
 # NREL HPC Resources
 
-
 ## Intro
-These docs are driven by the NREL HPC community. They are currently under active development. If you would like to contribute or recommend a topic to be covered please open an issue or pull request in the repository. 
+A collection of various resources, examples, and executables for the general NREL HPC user community's benefit.
+
+[Documentation](Documentation/Data-and-File-Systems/File-Systems/index.md){ .md-button }
+
+## Contributing 
+These docs are driven by the NREL HPC community. They are currently under active development. If you would like to [contribute](https://github.com/NREL/HPC/blob/dev/CONTRIBUTING.md) or recommend a topic to be covered please open an issue or pull request in the repository. 
 
 [Docs repository](https://github.com/NREL/hpc){ .md-button } 
 
