@@ -6,7 +6,7 @@ order: 4
 ---
 
 # NREL Systems
-NREL operates two on-premises systems for computational work. 
+NREL operates three on-premises systems for computational work. 
 
 ## System configurations
 
@@ -14,9 +14,9 @@ NREL operates two on-premises systems for computational work.
 | :---------- | :-------- | :----------- | 
 | OS          | CentOS    | Rocky Linux    | 
 | CPU         | Dual Intel Xeon Gold Skylake 6154 | Dual AMD EPYC 7532 Rome CPU |
-| Interconnect | InfiniBand | InfiniBand | 
+| Interconnect | InfiniBand EDR | InfiniBand HDR| 
 | HPC scheduler | Slurm | Slurm | 
-| Network Storage | 17PB Lustre FS | 480TB |
-| GPU | Dual NVIDIA Tesla V100 | Single NVIDIA V100 | 
+| Network Storage | 17PB Lustre FS | 3PB NFS |
+| GPU | Dual NVIDIA Tesla V100 | None | 
 | Memory | 96GB, 192GB, 768GB | 256GB |
-| Number of Nodes | 2618 | 40 | 
+| Number of Nodes | 2618 | 484 | 
