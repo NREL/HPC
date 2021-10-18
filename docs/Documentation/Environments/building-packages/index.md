@@ -8,11 +8,11 @@ parent: General
 This training module will walk through how to build a reasonably complex package, OpenMPI, and deploy
 it for use by yourself or members of a project.
 
-1. [Acquire the package and set up for build](/HPC/General/building-packages/acquire.html)
+1. [Acquire the package and set up for build](acquire.md)
 
-2. [Configure, build, and install the package](/HPC/General/building-packages/config_make_install.html)
+2. [Configure, build, and install the package](config_make_install.md)
 
-3. [Setting up your own environment module](/HPC/General/building-packages/modules.html)
+3. [Setting up your own environment module](modules.md)
 
 ## Why build your own application?
 * Sometimes, the package version that you need, or the capabilities you want,
