@@ -1,4 +1,4 @@
--
+---
 layout: default
 title: Running on Swift
 parent: Swift
@@ -10,15 +10,17 @@ Please see the [Modules](./modules.md) page for information about setting up you
 
 **There are currently a number of known issues on Swift please check [Known issues](./index.md) for a complete list**
 
+## Login nodes
+
+```
+swift.hpc.nrel.gov
+swift-login-1.hpc.nrel.gov
+swift-login-2.hpc.nrel.gov
+```
+
 ## Slurm and Partitions
 
-As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the `sinfo` command.  If the command `sinfo` is not found then first ensure that slurm is in your path by running:
-
-```
-source /nopt/nrel/apps/210728a/myenv.2107290127
-module load slurm
-```
-
+ As more of Swift is brought on line different partitions will be created.  Initially the only partition avalible (08/01/21) is *test*.  This is what is used to run the examples shown below.  A list of partitions can be returned by sunning the `sinfo` command. 
 
 
 ## Example 

@@ -47,6 +47,11 @@ nav:
           - Documentation/Systems/Swift/modules.md
           - Documentation/Systems/Swift/running.md
           - Documentation/Systems/Swift/applications.md
+        - Vermillion:
+          - Documentation/Systems/Vermillion/index.md
+          - Documentation/Systems/Vermillion/modules.md
+          - Documentation/Systems/Vermillion/running.md
+          - Documentation/Systems/Vermillion/applications.md
       - Languages:
         - Fortran: Documentation/languages/fortran/f90.md
         - Python: 
