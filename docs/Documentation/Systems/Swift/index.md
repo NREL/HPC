@@ -12,7 +12,7 @@ Swift is an AMD based cluster.
 ## Known issues and solutions
 1. IntelMPI appears to be working properly
 1. OpenMPI appears to be working properly 
-1. There are some example slrum scripts in the example directory. 
+1. There are some example slurm scripts in the example directory. 
 1. There is a very basic version of conda in the "anaconda" directory in each  /nopt/nrel/apps/YYMMDDa directory. However, there is a more complete environment pointed to by the module under /nopt/nrel/apps/modules. This is set up like Eagle.  See: https://www.nrel.gov/hpc/eagle-software-python.html
 1. There are no GPU nodes currently available on Swift.
 1. Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core. This behavior differs from Eagle.
