@@ -6,7 +6,7 @@ grand_parent: Systems
 ---
 
 # Vermilion Modules
-This describes how to activate and use the modules available on Swift. 
+This describes how to activate and use the modules available on Vermilion. 
 
 ## Source 
 Environments are provided with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. 
