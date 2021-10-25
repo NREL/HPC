@@ -7,9 +7,8 @@
 
 # Running on Vermillion
 
-Please see the [Modules](./modules) page for information about setting up your environment and loading modules. 
+Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. 
 
-**There are currently a number of known issues on Swift please check [Known issues](./swift) for a complete list**
 
 ## Login nodes
 
