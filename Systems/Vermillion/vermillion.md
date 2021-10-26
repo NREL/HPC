@@ -6,13 +6,12 @@ has_children: true
 ---
 # Vermilion
 
-Vermilion is an OpenHPC based cluster running on Dual AMD EPYC 7532 Rome CPUs. The
-nodes run as virtual machines in a local virtual private cloud. Mellanox drivers and OFED are installed on all node.
+Vermilion is an OpenHPC-based cluster running on Dual AMD EPYC 7532 Rome CPUs. The nodes run as virtual machines in a local virtual private cloud (OpenStack). Mellanox drivers and OFED are installed on all nodes.
 
 ---
 <br>
 ## Collaboration / Help
-You can get help with Vermilion via email at HPC-Help or live chat.
+You can get help with Vermilion via email at HPC-Help or [live chat](https://teams.microsoft.com/l/channel/19%3a857251ab7f524eb79aa4c44b4579b118%40thread.tacv2/General?groupId=d1c43e0f-8c0f-4de2-80b9-2f57b2ae4203&tenantId=a0f29d7e-28cd-4f54-8442-7885aee7c080).
 
 **Live chat:** <br>
 - Users with access to NREL's Teams chat can collaborate via the [Vermilion Users Teams](https://teams.microsoft.com/l/channel/19%3a857251ab7f524eb79aa4c44b4579b118%40thread.tacv2/General?groupId=d1c43e0f-8c0f-4de2-80b9-2f57b2ae4203&tenantId=a0f29d7e-28cd-4f54-8442-7885aee7c080) room.

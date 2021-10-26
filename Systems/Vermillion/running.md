@@ -122,15 +122,16 @@ make
 
 ```
 [myuser@~]$ cd /nopt/nrel/apps/123456a
-[myuser@123456a]$ cp -r example ~/example
-[myuser@123456a]$ cd ~/example
-[myuser@123456a/example]$ cat runopenmpi
-#!/usr/bin/env bash
-#SBATCH --job-name="install"
-#SBATCH --nodes=1
-#SBATCH --exclusive
-#SBATCH --partition=debug
-#SBATCH --time=00:01:00
+[myuser@vs:/nopt/nrel/apps/123456a]$ cp -r example ~/example
+[myuser@vs:]$ cd ~/example
+
+[myuser@vs:~/example]$ cat runopenmpi
+    #!/usr/bin/env bash
+    #SBATCH --job-name="install"
+    #SBATCH --nodes=1
+    #SBATCH --exclusive
+    #SBATCH --partition=debug
+    #SBATCH --time=00:01:00
 
 
 cat $0
@@ -148,6 +149,7 @@ mpirun -n 2 ./phostone -F
 [myuser@vs example]$ source /nopt/nrel/apps/123456a/myenv*
 [myuser@vs example]$ ml gcc   openmpi
 [myuser@vs example]$ make
+
 mpif90 -fopenmp fhostone.f90 -o fhostone
 rm getit.mod  mympi.mod  numz.mod
 mpicc -fopenmp phostone.c -o phostone
