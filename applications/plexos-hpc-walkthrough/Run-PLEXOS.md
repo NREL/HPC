@@ -174,68 +174,32 @@ If you look at [`submitPLEXOS.sh`](RunFiles/submitPLEXOS.sh), you find that
 ## Example 6: Running Plexos using SLURM array jobs
 
 We will use [`array.sh`](RunFiles/array.sh) as a template for submitting array
-jobs on Eagle.
+jobs on Eagle. This example will use some of run files we used in Example 5
+above.
 
-
-# Old instructions for one week that are available on the main fork already
-
-2. Create a symbolic link to the timeseries datafiles, environment and python script
-    ```bash
-    ln -s ../../RTS-GMLC-Dataset/timeseries_data_files timeseries_data_files
-    ln -s ../../plexos-hpc-walkthrough/env-7.4.2.sh .
-    ln -s ../../plexos-hpc-walkthrough/get_week.py .
-    ```
-
-3. Get yourself an interactive node
- ```bash
- salloc -N 1 -t 60 -A hpcapps -p debug
- ```
-
-4. Setup your environment
+1. Create a new working directory `plexos_array` and copy [`array.sh`](RunFiles/array.sh),
+`r3_CO2_150n35_NoCCS2035_HPC.xml`, and `models.txt`
   ```bash
-  $ source env-7.4.2.sh
-  $ cat env-7.4.2.sh
-  module purge
-  module load centos mono/4.6.2.7 xpressmp/8.0.4 plexos/7.400.2 conda
-  export PYTHONPATH=/nopt/nrel/apps/plexos/plexos-coad
-  export PLEXOS_TEMP=/scratch/$USER/tmp/$PBS_JOBID
-  export TEMP=$PLEXOS_TEMP
-  mkdir -p $PLEXOS_TEMP
-  $ module list
-
-  Currently Loaded Modules:
-    1) centos/7.7     3) xpressmp/8.0.4   5) conda/mini_py37_4.8.3
-    2) mono/4.6.2.7   4) plexos/7.400.2
-
+  $ mkdir /scratch/$USER/plexos_array && cd /scratch/$USER/plexos_array
+  # Copy necessary files
+  $ ls
+  array.sh  data  models.txt  r3_CO2_150n35_NoCCS2035_HPC.xml
   ```
 
-5. Cut out one week to run DAY_AHEAD model on
+  **`data`** above is a directory that contains ReEDS_Data. Please reach out to
+  [Dr. Timothy Kaiser](mailto:Timothy.Kaiser@nrel.gov)
+  or [Dr. Kinshuk Panda](mailto:Kinshuk.Panda@nrel.gov) to get a copy of this
+  directory.
 
+2. We need to set a couple of environment variables
   ```bash
-  python get_week.py
-  cat get_week.py
-  ##! /usr/bin/env python
-  #import datetime
-  #
-  #from coad.COAD import COAD
-  #from coad.ModelUtil import datetime_to_plex
-  #
-  #coad = COAD('RTS-GMLC.xml')
-  #
-  ##7/14/2024
-  #date_start = str(datetime_to_plex(datetime.datetime(2024, 7, 14, 0, 0)))
-  #new_horizon = coad['Horizon']['Base'].copy("Interesting Week")
-  #new_horizon["Step Count"] = "8"
-  #new_horizon["Date From"] = date_start
-  #new_horizon["Chrono Date From"] = date_start
-  #new_horizon["Chrono Step Count"] = "8"
-  #coad['Model']['DAY_AHEAD'].set_children(new_horizon)
-  #
-  #coad.save("one_week_model.xml")
+  export filename=r3_CO2_150n35_NoCCS2035_HPC
+  export LIST=models.txt
   ```
 
-6. Run PLEXOS
+3. We can now run the example as
 
   ```bash
-  mono $PLEXOS/PLEXOS64.exe -n "one_week_model.xml" -m DAY_AHEAD
+  cd /scratch/$USER/plexos_array
+  sbatch -A account_name -p short -t 4:00:00 --array=1-3 ./array.sh
   ```
