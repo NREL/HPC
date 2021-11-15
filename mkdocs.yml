@@ -56,7 +56,12 @@ nav:
           - Documentation/languages/python/NREL_python.md
           - Documentation/languages/python/index.md
           - Documentation/languages/python/dask/dask.md
-           
+      - Machine Learning:
+        - Machine Learning: Documentation/MachineLearning/index.md
+        - Reinforcement Learning: 
+          - Documentation/MachineLearning/ReinforcementLearning/index.md 
+        - Tensor Board:
+          - Documentation/MachineLearning/TensorBoard/index.md
 theme:
   name: material
   custom_dir: overrides
@@ -78,4 +83,3 @@ extra_css:
   - stylesheets/extra.css
 site_name: NREL HPC 
 repo_url: https://github.com/NREL/HPC/tree/gh-pages
-repo_name: NREL/HPC
