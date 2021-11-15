@@ -83,3 +83,4 @@ extra_css:
   - stylesheets/extra.css
 site_name: NREL HPC 
 repo_url: https://github.com/NREL/HPC/tree/gh-pages
+repo_name: NREL/HPC
