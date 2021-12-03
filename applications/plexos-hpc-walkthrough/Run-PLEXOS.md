@@ -94,17 +94,15 @@ data for the simulation
 
 Up till now we have been running PLEXOS examples in an interactive settings. Now
 we will try to submit a batch job into the Eagle queue. This job uses the same
-`one_week_model.xml` file from Example 2, but for the sake of completness, we
+`one_week_model.xml` file from Example 2, but for the sake of completeness, we
 will download a tarball of the same from a different repo in our batch script.
 
-1. Get batch script by running the command
+1. Copy the batch script [`simple`](RunFiles/simple) into your current working directory on Eagle.
+The path to [`simple`](RunFiles/simple) within this repository is
 
   ```bash
-  wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/simple
+  HPC/applications/plexos-hpc-walkthrough/RunFiles/simple
   ```
-
-  The batch file will look something like the one [here](RunFiles/simple)
-
 
 2. Change the account name on line 8 of `simple` to be your HPC account name
 
@@ -125,13 +123,12 @@ enhanced script also hedges against failed runs due to licensing issues by
 attempting to run multiple times if there is a license failure. In order to run
 this script:
 
-1. Get the batch script using
+1. Copy the batch script [`enhanced`](RunFiles/enhanced) into your current working directory on Eagle.
+The path to [`enhanced`](RunFiles/enhanced) within this repository is
 
   ```bash
-  wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/enhanced
+  HPC/applications/plexos-hpc-walkthrough/RunFiles/enhanced
   ```
-
-  The batch file will look something like the one [here](RunFiles/enhanced)
 
 2. Make sure that you specify custom paths on lines 10 & 11 which write the
 standard output and standard error to file. Change the account name on line 8.
