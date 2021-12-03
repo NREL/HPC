@@ -60,7 +60,7 @@ the following commands
   CXX=`which icpc` R CMD INSTALL .
   ```
 
-  *Note*: `rplexos` needs to beuilt using an intel compiler and R always wishes to
+  *Note*: `rplexos` needs to be built using an Intel compiler and R always wishes to
   build libraries using the same compilers that was used in its creation. If
   setting `CXX=which icpc` shown above does not work, we need to fool R by renaming
   the intel C++ compiler using a sym-link. *This is a hack* and should only be used
