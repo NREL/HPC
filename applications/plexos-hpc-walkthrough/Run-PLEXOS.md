@@ -133,7 +133,7 @@ this script:
 
   The batch file will look something like the one [here](RunFiles/enhanced)
 
-2. Make sure that you specify custom paths for on lines 10 & 11 which write the
+2. Make sure that you specify custom paths on lines 10 & 11 which write the
 standard output and standard error to file. Change the account name on line 8.
 
 3. Create the following directory
