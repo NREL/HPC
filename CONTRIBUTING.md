@@ -17,12 +17,18 @@ Can you read this? Then you! Simply consult the short [style guidelines](#style-
 
 If the below instructions are foreign to you, consider giving a reading to the [`git` module](/git/README.md) to "*git*" familiar with git! The git workflow has some colorful jargon but none of the concepts should be new to you if you have used a computer before. If you *haven't* used a computer before, then it might be best to [start somewhere more basic](https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html).
 
+#### Where to contribute? 
+* There are two primary locations for contributions, this repository, or the gh-pages branch, which renders files on our Github Pages website (make link). The gh-pages branch should be for contributions that require more explanations/are highly verbose whereas this repo shoud be predominantly composed of scripts/source code/executables that _do_ something on the HPC systems. 
+
+clone the repo 
+
+checkout gh-pages branch
+
 1. <a href="https://github.com/NREL/HPC/fork">Fork this repo <img src="https://img.shields.io/github/forks/NREL/HPC.svg?style=social"></a> 
 2. _(optional)_ To edit locally on your machine, do either of:
    * `git clone https://github.com/`\<your GitHub username\>`/HPC` for only the base repo.
    * `git clone https://github.com/`\<your GitHub username\>`/HPC.wiki` to clone and edit the [Wiki](https://github.com/NREL/HPC/wiki) if you intend to have highly verbose documetation.
      
-     ***Note that there does not have to be an entry for your content in both repos.** If you only want to construct explanitory documents, they do not need a directory in the base repo. Similarly, example or utility scripts that don't need a lot of explanation don't need an entry in the [Wiki](https://github.com/NREL/HPC/wiki). For more info on the intended purpose of each repo, see the [style guidelines](#style-guidelines) below.*
 3. Change something (_after_ consulting the [style guidelines](#style-guidelines))
 4. `git add` the change(s)
 5. `git commit` with a useful commit message!
@@ -32,21 +38,15 @@ If the below instructions are foreign to you, consider giving a reading to the [
 Alternatively, you may send your contributions via e-mail attachment to HPC-Help@nrel.gov with subject of "NREL HPC GitHub Contribution" and the body detailing what changes you made (the more specific the better).
 
 ### Why should I contribute?
-Something something good Samaritan, benefit the community, searchable knowledge-base, etc. 
+Benefit the community, searchable knowledge-base, etc. 
 
 ---
 
 ## Style Guidelines
 
->### **TL;DR&mdash;this repository should be predominantly composed of scripts/source code/executables or other things that _do_ something on the HPC systems, and the Wiki should predominantly be for explanations about what/how/why.**
->### That said, still getting familiar with the details below will improve the chance your contributions are submitted in a a readily-acceptable format.
-
 ### ***New to Markdown?***
-Appropriately enough, we have a documentation for that! Simply start with the [README in the Markdown module](/markdown/README.md). Not to mention, the raw-contents of any `.md` file can be used as a reference for how to style content a certain way.
+Appropriately enough, we have a documentation for that! Simply start with the [README in the Markdown module](/general/beginner/markdown/README.md). Not to mention, the raw-contents of any `.md` file can be used as a reference for how to style content a certain way.
 
-Note that git (the version control protocol) is not equivalent to GitHub (the git repository hosting web service, which implements the git protocol). This is an important distinction to be sure of before proceeding. There are other git-hosting services such as GitLab which function similarly to GitHub, but both use the git protocol. These hosting-services provide different decorative features to make the repositories more visually pleasing/intuitive to interact with.
-
-One such feature of GitHub's frontend is the "[Wiki](https://github.com/NREL/HPC/wiki)" (found in the tab at the top of the repository webpage). This is essentially its own child git repository that is intended to only hold template documents (like markdown files) and be more sensible to navigate as a web interface than a git repo. To edit the material in the Wiki of this repository, you will need to clone it separately (it's the same URI to clone this repository just with `.wiki` at the end.)
 
 ## Files and directories
 
@@ -123,3 +123,31 @@ Example of a module directory:
 * As the content generation process evolves, some contributions will undoubtedly stand out as exemplary. Don't be shy about copying those in style, syntax, etc.
 
 * Always preview the rendered output. GitHub's specific rendering has unique features and inconsistencies with other platforms.
+
+### Github Pages
+
+### Directory structure
+
+Here is a brief overview of how files and directories should be organized within this repository. Explicitly named files or directories should remain fixed in location and name, and assumed to exist as such by other files:
+
+```bash 
+HPC  # i.e. the root of this repo
+├── docs
+    ...
+    └── Documentation      # This directory should contain any documentation files. 
+        ...
+        └── <...>      # Modules that exist or will exist
+            ...
+            ├─ index.md  #.
+            ...
+            └ ... ─ <...>  # Sub-modules that exist or will existfiles.
+├── overrides  # This directory should contain images.
+├── mkdocs.yml # This file contains configuration settings for the site.
+├── README.md  # The homepage of the repository.
+```
+* If your documentation fits into of the categories currently in the pages, you may place them in the coresponding directory, or make a new directory in /Documentation. 
+* **Files must be added in the mkdocs.yml nav section in order to be rendered.** The nav section dictates the navigation bar structure on the site, sections must be indicated followed by an indented list of the paths to the files it contains. 
+* If you would like the section in the navigation bar to be directly linked to documentation (e.g. an overview page), place this content in an index.md file in the respective folder, and add it to the beginning of its nav section. 
+* Images should be places in the overrides directory and linked to with the relative path without the overrides directory included
+*  Example: ../../../assets/images/conda_logo.png **not** ../../../overrides/assets/images/conda_logo.png
+*  Any links to internal files must be the relative path to it from the referencing files, not absolute. 
