@@ -118,12 +118,12 @@ HPC  # i.e. the root of this repo
 ├── mkdocs.yml # This file contains configuration settings for the site.
 ├── README.md  # The homepage of the repository.
 ```
-* If your documentation fits into of the categories currently in the pages, you may place it in the coresponding directory. Otherwise, make a new directory in /Documentation. 
+* If your documentation fits into of the categories currently in the pages, you may place it in the coresponding directory. Otherwise, make a new directory in Documentation. 
 * **Files must be listed in the mkdocs.yml nav section in order to be rendered.** The nav section dictates the navigation bar structure on the site. Section headers must be included followed by an indented list of the paths to the files it contains. 
 * If you would like the section in the navigation bar to be directly linked to documentation (e.g. an overview page), place this content in an index.md file in the respective folder, and add it to the beginning of its nav section. 
-* Images should be placed in the overrides directory and linked to with the relative path without the overrides directory included
+*  If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.Images should be placed in the overrides directory and linked to with the relative path without the overrides directory included
 *  Example: ../../../assets/images/conda_logo.png **not** ../../../overrides/assets/images/conda_logo.png
-*  Any links to internal files must be the relative path to it from the referencing files, not absolute. 
+*  Any links to internal files must be the relative path to it from the referencing files, not absolute. put example here
 
 ### Markdown content and structure
 * The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
