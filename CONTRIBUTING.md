@@ -18,7 +18,7 @@ Can you read this? Then you! Simply consult the short [style guidelines](#style-
 If the below instructions are foreign to you, consider giving a reading to the [`git` module](/general/beginner/git/README.md) to "*git*" familiar with git! The git workflow has some colorful jargon but none of the concepts should be new to you if you have used a computer before. If you *haven't* used a computer before, then it might be best to [start somewhere more basic](https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html).
 
 #### Where do I put my content? 
-* There are two primary locations for contributions, this base repository or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch should be for contributions that require more explanations/are highly verbose whereas this repo should be predominantly composed of scripts/source code/executables that _do_ something on the HPC systems. 
+* There are two primary locations for contributions, this base repository or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch is for contributions that require more explanations/are highly verbose, whereas this repo should be predominantly composed of scripts/source code/executables that _do_ something on the HPC systems. 
 
 1. <a href="https://github.com/NREL/HPC/fork">Fork this repo <img src="https://img.shields.io/github/forks/NREL/HPC.svg?style=social"></a> 
 2. _(optional)_ To edit locally on your machine, do either of:
@@ -107,21 +107,21 @@ Here is a brief overview of how files and directories should be organized. Expli
 HPC  # i.e. the root of this repo
 ├── docs
     ...
-    └── Documentation      # This directory should be where your content goes. 
+    └── Documentation      # This directory is where documentation contributions should go. 
         ...
         └── <...>      # Modules that exist or will exist
             ...
             ├─ index.md  # Optional overview page for the content section.
             ...
-            └ ... ─ <...>  # Sub-modules that exist or will existfiles.
+            └ ... ─ <...>  # Sub-modules that exist or will exist.
 ├── overrides  # This directory should contain images.
 ├── mkdocs.yml # This file contains configuration settings for the site.
 ├── README.md  # The homepage of the repository.
 ```
-* If your documentation fits into of the categories currently in the pages, you may place it in the coresponding directory. Otherwise, make a new directory in Documentation. 
-* **Files must be listed in the mkdocs.yml nav section in order to be rendered.** The nav section dictates the navigation bar structure on the site. Section headers must be included followed by an indented list of the paths to the files it contains. 
-* If you would like the section in the navigation bar to be directly linked to documentation (e.g. an overview page), place this content in an index.md file in the respective folder, and add it to the beginning of its nav section. 
-*  If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.Images should be placed in the overrides directory and linked to with the relative path without the overrides directory included
+* If your documentation fits into one of the categories currently in the pages, you may place it in the coresponding directory. Otherwise, make a new directory in Documentation. 
+* **Files must be listed in the mkdocs.yml nav section in order to be rendered.** The nav section dictates the navigation bar structure on the site. Section headers must be included followed by an indented list of the paths to the files the section should contain. 
+* If you would like the section header in the navigation bar to be directly linked to documentation (e.g. an overview page), place this content in an index.md file in the respective folder, and add it to the beginning of its nav section in the mkdocs.yml file. 
+*  If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice. Images should be placed in the overrides directory and linked to with the relative path without the overrides directory included
 *  Example: ../../../assets/images/conda_logo.png **not** ../../../overrides/assets/images/conda_logo.png
 *  Any links to internal files must be the relative path to it from the referencing files, not absolute. put example here
 
