@@ -131,7 +131,8 @@ HPC  # i.e. the root of this repo
 * If you would like the section header in the navigation bar to be directly linked to documentation (e.g. an overview page), place this content in an index.md file in the respective folder, and add it to the beginning of its nav section in the mkdocs.yml file. 
 * Images should be placed in the overrides directory and linked to with the relative path without the overrides directory included like ```../../../assets/images/conda_logo.png``` **not** ```../../../overrides/assets/images/conda_logo.png```.
 
-*  Any links to internal files must be the relative path to it from the referencing file, not absolute. 
+*  Any links to internal files must be the relative path to it from the referencing file, not the absolute path. 
+*  Code blocks will be automatically highlighted when rendered on the website, so include them or `inline code` wherever appropriate instead of terminal screenshots.
 
 ### Markdown content and structure
 * The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
