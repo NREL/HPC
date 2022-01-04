@@ -94,7 +94,7 @@ The next step calls for running the trainer script on Eagle.
 
 First, allocate an interactive node. Let's start by allocating a `debug` node. Debug nodes have a maximum allocation time of one hour (60 minutes), but they are easier to allocate than regular nodes:
 ```
-srun -n1 -t10 -<project_name> --partition debug --pty $SHELL
+srun -N 1 -t 1:00:00 -A <project_name> --partition debug --pty $SHELL
 ```
 Successful node allocation is shown as:
 ```

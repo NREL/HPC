@@ -22,11 +22,11 @@ Emphases _can be **combined**_.
 - (As you can see, the characters you use as bullets are irrelevant to the renderer on Github.)
 
 1. Ordered
-2. lists  
+1. lists  
    a. number  
    b. themselves (sometimes you'll need to add extra spaces after list items, otherwise
    c. separate items may render as concatenated).
-3. when rendered, independent of what you type in raw text.
+1. when rendered, independent of what you type in raw text.
 
 If you've got a lot of natural language to quote,
 > sometimes a block quote
