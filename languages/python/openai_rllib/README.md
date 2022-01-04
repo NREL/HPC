@@ -38,7 +38,7 @@ Then, run the following:
 ```python
 import gym
 
-env = gym.ens.make("CartPole-v0")
+env = gym.make("CartPole-v0")
 env.reset()
 
 done = False
