@@ -22,7 +22,7 @@ vs-login-2.hpc.nrel.gov
 
 ## Slurm and Partitions
 
-A list of partitions can be returned by sunning the `sinfo` command. Partitions are distinguished by the number of virtual cores per node.
+A list of partitions can be returned by running the `sinfo` command. Partitions are distinguished by the number of virtual cores per node.
 
 | Partition Name | Cores per node |
 |----------------|----------------|
