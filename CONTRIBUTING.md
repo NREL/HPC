@@ -18,18 +18,18 @@ Can you read this? Then you! Simply consult the short [style guidelines](#style-
 If the below instructions are foreign to you, consider giving a reading to the [`git` module](/general/beginner/git/README.md) to "*git*" familiar with git! The git workflow has some colorful jargon but none of the concepts should be new to you if you have used a computer before. If you *haven't* used a computer before, then it might be best to [start somewhere more basic](https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html).
 
 #### Where do I put my content? 
-* There are two primary locations for contributions, this base repository or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch is for contributions that require more explanations/are highly verbose, whereas this repo should be predominantly composed of scripts/source code/executables that _do_ something on the HPC systems. 
+There are two primary locations for contributions, this base repository or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch is for contributions that require more explanations/are highly verbose, whereas this repo should be predominantly composed of scripts/source code/executables that _do_ something on the HPC systems. 
 
 1. <a href="https://github.com/NREL/HPC/fork">Fork this repo <img src="https://img.shields.io/github/forks/NREL/HPC.svg?style=social"></a> 
-2. _(optional)_ To edit locally on your machine, do either of:
+1. _(optional)_ To edit locally on your machine, do either of:
    * `git clone https://github.com/`\<your GitHub username\>`/HPC` for only the base repo.
-3. If contributing to gh-pages:
+1. If contributing to gh-pages:
    * `git checkout gh-pages`
-5. Change something (_after_ consulting the [style guidelines](#style-guidelines))
-6. `git add` the change(s)
-7. `git commit` with a useful commit message!
-8. `git push`
-9. Make a pull-request (shiny green button on your fork of the repo's GitHub webpage.)
+1. Change something (_after_ consulting the [style guidelines](#style-guidelines))
+1. `git add` the change(s)
+1. `git commit` with a useful commit message!
+1. `git push`
+1. Make a pull-request (shiny green button on your fork of the repo's GitHub webpage.)
 
 Alternatively, you may send your contributions via e-mail attachment to HPC-Help@nrel.gov with subject of "NREL HPC GitHub Contribution" and the body detailing what changes you made (the more specific the better).
 
