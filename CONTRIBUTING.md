@@ -43,7 +43,16 @@ Benefit the community, searchable knowledge-base, etc.
 ### ***New to Markdown?***
 Appropriately enough, we have a documentation for that! Simply start with the [README in the Markdown module](/general/beginner/markdown/README.md). Not to mention, the raw-contents of any `.md` file can be used as a reference for how to style content a certain way.
 
+### Markdown content and structure
+* The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
 
+* Where you can assume that a user should have worked through training materials conceptually prior to the current ones, cross-reference them (mention and hyperlink). This also applies to information on the HPC website. In general, where you can refer someone to well crafted information online that's more extensive or well constructed than you have time or space to write, do so through a hyperlink.
+
+### General Advice
+
+* As the content generation process evolves, some contributions will undoubtedly stand out as exemplary. Don't be shy about copying those in style, syntax, etc.
+
+* Always preview the rendered output. GitHub's specific rendering has unique features and inconsistencies with other platforms.
 
 ## Files and directories
 
@@ -134,13 +143,3 @@ HPC  # i.e. the root of this repo
 *  Any links to internal files must be the relative path to it from the referencing file, not the absolute path. 
 *  Code blocks will be automatically highlighted when rendered on the website, so include them or `inline code` wherever appropriate instead of terminal screenshots.
 
-### Markdown content and structure
-* The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
-
-* Where you can assume that a user should have worked through training materials conceptually prior to the current ones, cross-reference them (mention and hyperlink). This also applies to information on the HPC website. In general, where you can refer someone to well crafted information online that's more extensive or well constructed than you have time or space to write, do so through a hyperlink.
-
-### General Advice
-
-* As the content generation process evolves, some contributions will undoubtedly stand out as exemplary. Don't be shy about copying those in style, syntax, etc.
-
-* Always preview the rendered output. GitHub's specific rendering has unique features and inconsistencies with other platforms.
