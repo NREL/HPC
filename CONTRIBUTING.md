@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for taking an interest in contributing to our repository! Please consult the information below (we tried to keep it brief and reasonable) prior to making a pull request. These guidelines help avoid hassle between us (the maintainers) and you (the contributors) that give us a common target to shoot for, and makes what our standards are transparent and obvious.
+Thank you for taking an interest in contributing to our repository! Please consult the information below (we tried to keep it brief and reasonable) prior to making a pull request. These guidelines are designed to help avoid hassle between the repository maintainers and contributors by making the standards as obvious and transparent as possible.
 
 If you desire, you may credit yourself as author within any content you contribute.
 
