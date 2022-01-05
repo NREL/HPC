@@ -18,7 +18,7 @@ Can you read this? Then you! Simply consult the short [style guidelines](#style-
 If the below instructions are foreign to you, consider giving a reading to the [`git` module](/general/beginner/git/README.md) to "*git*" familiar with git! The git workflow has some colorful jargon but none of the concepts should be new to you if you have used a computer before. If you *haven't* used a computer before, then it might be best to [start somewhere more basic](https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html).
 
 #### Where do I put my content? 
-There are two primary locations for contributions, this base repository or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch is for contributions that require more explanations/are highly verbose, whereas this repo should be predominantly composed of scripts/source code/executables that _do_ something on the HPC systems. 
+There are two primary locations for contributions: etiher this base repository, or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch is for contributions that require more explanations and/or are highly verbose, whereas this repo should be predominantly composed of scripts/source code/executables that do something on the HPC systems.
 
 1. <a href="https://github.com/NREL/HPC/fork">Fork this repo <img src="https://img.shields.io/github/forks/NREL/HPC.svg?style=social"></a> 
 1. _(optional)_ To edit locally on your machine, do either of:
@@ -34,19 +34,19 @@ There are two primary locations for contributions, this base repository or the g
 Alternatively, you may send your contributions via e-mail attachment to HPC-Help@nrel.gov with subject of "NREL HPC GitHub Contribution" and the body detailing what changes you made (the more specific the better).
 
 ### Why should I contribute?
-Benefit the community, searchable knowledge-base, etc. 
+We love collaboration, and your contributions add value to an open, searchable HPC knowledge-base that is usable not only by the NREL HPC community, but also by the HPC community at large. Thank you for your efforts in sharing knowledge with the world!
 
 ---
 
 ## Style Guidelines
 
 ### ***New to Markdown?***
-Appropriately enough, we have a documentation for that! Simply start with the [README in the Markdown module](/general/beginner/markdown/README.md). Not to mention, the raw-contents of any `.md` file can be used as a reference for how to style content a certain way.
+Appropriately enough, we have documentation for that! Simply start with the [README in the Markdown module](/general/beginner/markdown/README.md). Not to mention, the raw-contents of any `.md` file can be used as a reference for how to style content a certain way.
 
 ### Markdown content and structure
 * The intent of training or tutorial materials is to show someone who does not know how to do what you do how to do it. Err on the side of verbosity.
 
-* Where you can assume that a user should have worked through training materials conceptually prior to the current ones, cross-reference them (mention and hyperlink). This also applies to information on the HPC website. In general, where you can refer someone to well crafted information online that's more extensive or well constructed than you have time or space to write, do so through a hyperlink.
+* Where you can assume that a user should have worked through other training materials or concepts prior to your contribution, please cross-reference the other material (with a mention and a hyperlink). This also applies to information on our HPC website. In general, where you can refer someone to well-crafted information online that's more extensive or well-constructed than you have time or space to write, do so through a hyperlink.
 
 ### General Advice
 
@@ -104,7 +104,7 @@ Example of a module directory:
     └── util
         └── get_week.py
     ```
-* **Images and other reusable non-textual files go in `assets/`** in the root of the repository, so as to be easily and mutually referred to throughout various pages. The image can then be linked to anywhere with markdown like `![alt text](/assets/name_of_image.png)`, If an image can replace lots of text, by all means include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.
+* **Images and other reusable non-textual files go in `assets/`** in the root of the repository to be easily and mutually referred to throughout various pages. The image can then be linked to anywhere with markdown as `![alt text](/assets/name_of_image.png)`. If an image can replace lots of text, by all means, please include it. However, don't take terminal screenshots when `inline code` or a codeblock will suffice.
   
 *  GitHub doesn't support embedded videos, so if you need that please just insert it as a regular hyperlink (or hyperlinked thumbnail image of the video). 
 
@@ -141,5 +141,5 @@ HPC  # i.e. the root of this repo
 * Images should be placed in the overrides directory and linked to with the relative path without the overrides directory included like ```../../../assets/images/conda_logo.png``` **not** ```../../../overrides/assets/images/conda_logo.png```.
 
 *  Any links to internal files must be the relative path to it from the referencing file, not the absolute path. 
-*  Code blocks will be automatically highlighted when rendered on the website, so include them or `inline code` wherever appropriate instead of terminal screenshots.
+*  Code blocks will be automatically highlighted when rendered on the website, so please either use a code block or `inline` code whenever practical instead of a screenshot of a terminal.
 
