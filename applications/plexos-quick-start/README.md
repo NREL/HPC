@@ -5,9 +5,9 @@ run a Plexos example.  These work on Eagle as of 07/24/2020.
 They will create a new directory for each run.  
 
 The scripts will pull a copy of the data set from this repository,
-the week.tgz file. Unpack it and then run using the files.  
+the `week.tgz` file. Unpack it and then run using the files.  
 
-The data in week.tgz is generated following the instructions
+The data in `week.tgz` is generated following the instructions
 for the second example on the page:
 
 https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
@@ -16,43 +16,49 @@ This page gives additional instructions for setting up more
 complete environment for running Plexos, but is overkill for our
 purpose here.  
 
-Both scripts will need at lease minor modifications to run for
+Both scripts will need, at least, minor modifications to run for
 an arbitrary user.  The line
 
+```bash
 #SBATCH --account=hpcapps
+```
 
 will need to be changed to point to your account on Eagle.
 
 The "enhanced" script has many bells and whistles.  First
 it puts all normal slurm output in a particular directory.
 
+```bash
 #SBATCH -o /scratch/USER/slurmout
+```
 
 This is done so that all stdout and stderr from all runs
 will end up in the same place.  However, you will need to
-change the path to a directory you own.  The same path 
+change the path to a directory you own.  The same path
 needs to be set on the last line of the file.
 
 Here is an easy way to create a new directory and modify
 the script
 
+```bash
 mkdir -p /scratch/$USER/slurmout
-
 sed -i.org s/USER/$USER/ enhanced
+```
 
-Optionally, you can have output go to a file logfile.xxxxx
-where xxxxx is a date time stamp.  This can be enabled
+Optionally, you can have output go to a file `logfile.xxxxx`
+where `xxxxx` is a date time stamp.  This can be enabled
 by changing false to true on the indicated line.
 
 We keep a record of the environment using the lines
 
+```bash
 printenv > env
+ls -lt
+```
 
-ls -lt 
-
-There have been instances of runs failing because of 
+There have been instances of runs failing because of
 license issues.  This "enhanced" script will try multiple times
-to run if there is a license failure.  It will also 
+to run if there is a license failure.  It will also
 report the ability to see various machines using the
 ping command.  This will only occur on failure.  You
 can also be notified of failures by uncommenting the
@@ -63,22 +69,25 @@ You can download these scripts from the page:
 
 https://github.nrel.gov/tkaiser2/plexos
 
-or just copy them from this page 
+or just copy them from this page
 
-or 
+or
 
+```bash
 wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/enhanced
+```
 
-and 
-
+and
+```bash
 wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/simple
+```
 
 ## To run:
 
 If you have never run Plexos on Eagle you will need to set up the license.
 There is a script to do that.  Download it and run it.
 
-```
+```bash
 wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/makelicense
 chmod 700 makelicense
 ./makelicense
@@ -86,13 +95,13 @@ chmod 700 makelicense
 
 Edit the files simple and enhanced as shown above.  Then:
 
-```
+```bash
 sbatch simple
 ```
 
 or
 
-```
+```bash
 sbatch enhanced
 ```
 
@@ -104,7 +113,7 @@ sbatch enhanced
 
 # simple
 ```
-#!/bin/bash 
+#!/bin/bash
 #SBATCH --job-name="4plexos"
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
@@ -139,7 +148,7 @@ module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_
 # Get our data
 wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
 tar -xzf week.tgz
-ls -lt 
+ls -lt
 
 mono $PLEXOS/PLEXOS64.exe -n "one_week_model.xml" -m DAY_AHEAD &> mono_log.$SLURM_JOB_ID || echo "mono fail"
 
@@ -154,7 +163,7 @@ cp ../std*.$SLURM_JOB_ID . || echo "No std*.$SLURM_JOB_ID"
 # enhanced
 
 ```
-#!/bin/bash 
+#!/bin/bash
 #SBATCH --job-name="4plexos"
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=16
@@ -174,8 +183,8 @@ cd $SLURM_JOB_ID
 # Next  lines are not required but will force all output to logfile.* including
 # slurm stdout and stderr.  To activate/deactivate set to true/false.
 if false ; then
-exec 3>>logfile.`date +"%y%m%d%H%M%S"` 
-exec 4>&3 
+exec 3>>logfile.`date +"%y%m%d%H%M%S"`
+exec 4>&3
 exec 5>&1 6>&2              # save "pointers" to stdin and stdout
 exec 1>&3 2>&4              # redirect stdin and stdout to file
 fi
@@ -205,7 +214,7 @@ tar -xzf week.tgz
 
 # What we have
 printenv > env
-ls -lt 
+ls -lt
 # Make multiple attempts in case we can't get a license
 # To simplfy you can take out everything except the "mono"
 # line in the for / done block
@@ -222,8 +231,8 @@ for attempt in a b c d e ; do
                 ping -c 3 eagle-dav.hpc.nrel.gov  >> ping.out
                 ping -c 3 google.com              >> ping.out
                 ping -c 3 10.60.3.188             >> ping.out
-		cp mono_log.$SLURM_JOB_ID mono_log.$SLURM_JOB_ID.$attempt	
-		#mail <  mono_log.$SLURM_JOB_ID -s $SLURM_JOB_ID  USER@nrel.gov	
+		cp mono_log.$SLURM_JOB_ID mono_log.$SLURM_JOB_ID.$attempt
+		#mail <  mono_log.$SLURM_JOB_ID -s $SLURM_JOB_ID  USER@nrel.gov
 		echo will try again in $WAIT seconds
 		sleep $WAIT
 	else
@@ -251,5 +260,3 @@ https://tickets.hpc.nrel.gov/collab/display/CSCT/Eagle+Plexos+Examples
 This page has examples that build on those show here.  There is a shell script
 that can be used to launch multiple Eagle jobs and a similar example that runs
 the same jobs via slurm arrays.
-
-

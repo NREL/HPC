@@ -34,7 +34,7 @@ module purge
 conda activate /scratch/$USER/conda-envs/myenv
 python
 ```
-Then, run the following:
+Request an interactive session on Eagle, and then, run the following:
 ```python
 import gym
 
