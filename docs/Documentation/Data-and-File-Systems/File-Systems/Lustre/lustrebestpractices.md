@@ -19,8 +19,10 @@ In some cases special care must be taken while using Lustre so as not to affect 
     * Limit the number of processes accessing a file. It may be better to read in a file once and then broadcast necessary information to other processes
     * Change your stripecount based on the filesize
     * Write many files to the node filesystem `/tmp/scratch/`: this is local storage on each node, and is not a part of the Lustre filesystem. Once your work is complete, the files can then be added to a tar archive and transferred to the `/project/project_name` for later use, or deleted from /tmp/scratch if no longer needed
+    * Store data and run executables from `/projects`
+        * Storing your conda environments in `/projects` can ensure that your data and executables are on the same filesystem, improving performance
 
-* **Don't**
+* **Do Not**
     * Use `ls -l`
     * Have a file accessed by multiple processes
     * In Python, avoid using `os.walk` or `os.scandir`
@@ -31,8 +33,8 @@ In some cases special care must be taken while using Lustre so as not to affect 
         lfs find /scratch/username/old_data/ -t f -print0 | xargs -0 rm
         ```
     * Have many small files in a single directory
-    * Run binary executables from the Lustre filesystem
-        * e.g. don't keep libraries or programs in /scratch/username
+    * Store important files in `/scratch`
+        * e.g. don't keep data, libraries or programs in `/scratch/username`, as `/scratch` directories are subject to automated purging based on the [Data Retention Policy](https://www.nrel.gov/hpc/data-retention-policy.html)
 
 
 ## Useful Lustre commands
