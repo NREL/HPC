@@ -15,18 +15,18 @@ In some cases special care must be taken while using Lustre so as not to affect 
         lfs find /scratch/username -type f -name "*.py"
         ```
     * Break up directories with many files into more directories if possible
-    * Store small files and directories of small files on a single OST. 
-    * Limit the number of processes accessing a file. It may be better to read in a file once and broadcast necessary information to other processes. 
+    * Store small files and directories of small files on a single OST (Object Storage Target) 
+    * Limit the number of processes accessing a file. It may be better to read in a file once and then broadcast necessary information to other processes
     * Change your stripecount based on the filesize
-    * Write many files to the node filesystem `/tmp/scratch/` this is not a Lustre filesystem. The files can then be added to a tar archive and transferred to the `/project/project_name`
+    * Write many files to the node filesystem `/tmp/scratch/`: this is local storage on each node, and is not a part of the Lustre filesystem. Once your work is complete, the files can then be added to a tar archive and transferred to the `/project/project_name` for later use, or deleted from /tmp/scratch if no longer needed
 
 * **Don't**
-    * Use `ls -l` 
+    * Use `ls -l`
     * Have a file accessed by multiple processes
-    * In Python avoid using `os.walk` or `os.scandir`
+    * In Python, avoid using `os.walk` or `os.scandir`
     * List files instead of using wildcards
         * e.g. don't use `cp * dir/`
-        * If you need to tar/rm/cp a large number of files use xargs or similar.
+        * If you need to tar/rm/cp a large number of files use xargs or similar:
         ```shell
         lfs find /scratch/username/old_data/ -t f -print0 | xargs -0 rm
         ```

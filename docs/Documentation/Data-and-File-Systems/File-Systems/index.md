@@ -20,5 +20,8 @@ Eagle has three primary file systems available for compute nodes. Understanding 
     * /datasets
 * **Node file system**: The local drive on each node, these are accessible only on a given node. 
     * /tmp/scratch
-
+        * 1 TB HDD (spinning disk, average performance) on compute nodes with 196GB or less RAM
+        * 1.6 TB SSD (higher performance) on 78 bigmem/GPU nodes
+        * 25.6 TB SSD (higher performance, maximum local storage) on 20 bigmem/GPU "bigscratch" nodes
+    
 For more information on the file systems available on Eagle please see: [Eagle System Configuration](https://www.nrel.gov/hpc/eagle-system-configuration.html)
