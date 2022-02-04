@@ -40,11 +40,11 @@ You can transfer files with Globus through the [Globus Online](https://www.globu
 
 #### Globus Online
 
-Globus Online is a hosted service that allows you to use a browser to transfer files between trusted sites called "endpoints".  To use it, the Globus software must be installed on the systems at both ends of the data transfer. The NREL endpoint is nrel#globus.
+Globus Online is a hosted service that allows you to use a browser to transfer files between trusted sites called "endpoints".  To use it, the Globus software must be installed on the systems at both ends of the data transfer. The NREL endpoint is nrel#eglobus.
 
 - Click Login on the [Globus web site](https://www.globus.org/). On the login page select "Globus ID" as the login method and click continue.  Use the Globus credentials you used to register your Globus.org account.
 - Go to the Transfer Files page, the link is located under the Manage Data tab at the top of the page.
-- Select **nrel#globus** as the endpoint on one right side. In the box asking for authentication, **enter your Eagle (NREL HPC) username and password**. Do not use your globus.org username and password when authenticating with the nrel#globus endpoint.
+- Select **nrel#eglobus** as the endpoint on one right side. In the box asking for authentication, **enter your Eagle (NREL HPC) username and password**. Do not use your globus.org username and password when authenticating with the nrel#globus endpoint.
 - Select another Globus endpoint, such as a personal endpoint or an endpoint at another institution that you have access to. To use your personal endpoint, first start the Globus Connect Personal application. Then enter "USERNAME#ENDPOINT" on the left side or use the drop down menu to find it. Click "go".
 - To transfer files
   - Select the files you want to transfer someplace else from the system from the dialog box on the left.
@@ -69,7 +69,7 @@ $ ssh <globus username>@cli.globusonline.org help
 A one-liner can be used to integrate globus.org CLI commands into shell scripts
 
 ```shell
-$ ssh <globus username>@cli.globusonline.org scp nrel#globus:/globusro/file1.txt myuser#laptop:/tmp/myfile.txt
+$ ssh <globus username>@cli.globusonline.org scp nrel#eglobus:/globusro/file1.txt myuser#laptop:/tmp/myfile.txt
 ```
 
 The globus.org CLI can be used interactively
