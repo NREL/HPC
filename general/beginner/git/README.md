@@ -11,4 +11,5 @@ synchronized, common access point. GitHub also has social aspects, like tracking
 other git hosting services like [GitLab](https://gitlab.com) which are similar to GitHub but offer slightly different 
 features.
 
-
+- Information about [git](/general/beginner/git/git.md)
+- Instructions for making a Pull Request on [GitHub](/general/beginner/git/github.md)
