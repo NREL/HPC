@@ -15,7 +15,7 @@ Can you read this? Then you! Simply consult the short [style guidelines](#style-
 
 ### How do I contribute?
 
-If the below instructions are foreign to you, consider giving a reading to the [`git` module](/general/beginner/git/README.md) to "*git*" familiar with git! The git workflow has some colorful jargon but none of the concepts should be new to you if you have used a computer before. If you *haven't* used a computer before, then it might be best to [start somewhere more basic](https://www.pcworld.com/article/2918397/how-to-get-started-with-linux-a-beginners-guide.html).
+If the below instructions are foreign to you, consider reviewing the [`git` module](/general/beginner/git/README.md) to "*git*" familiar with git! The git workflow has some colorful jargon but none of the concepts should be new to you. For the absolute beginner (unfamiliar with Linux or the command line interface), then it might be best to [start somewhere more basic](/general/beginner/intro-to-linux/).
 
 #### Where do I put my content? 
 There are two primary locations for contributions: etiher this base repository, or the gh-pages branch, which renders files on our [Github Pages website](https://nrel.github.io/HPC/). The gh-pages branch is for contributions that require more explanations and/or are highly verbose, whereas this repo should be predominantly composed of scripts/source code/executables that do something on the HPC systems.
