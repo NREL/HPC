@@ -67,3 +67,7 @@ Currently Loaded Modules:
 
 
 ```
+
+Please note that, depending on when you are using this resource, the version numbers
+of the software might be different. Detailed instructions for the latest available
+versions should be available at `HPC/applications/plexos-quick-start/`
