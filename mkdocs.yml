@@ -20,7 +20,8 @@ nav:
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
       - blog/2021-06-18-srun.md
-  - Documentation:
+  - Documentation Home:
+      - Documentation Home: Documentation/index.md
       - Data and File Systems:
         - File Systems:
           - Documentation/Data-and-File-Systems/File-Systems/index.md 
