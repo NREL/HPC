@@ -1,9 +1,12 @@
 # intro-to-linux
 
-If you haven’t used a Linux system, here are some good online tutorials:
+For those who are new to Linux systems, NREL HPC Operations offers an occasional workshop on Linux Basics:
 
-[HPC University - Introduction to Linux](http://hpcuniversity.org/trainingMaterials/31)
+- [NREL HPC Introduction: Linux Basics (pdf)](/general/beginner/intro-to-linux/HPC_Linux_Basics.pdf)
 
-[Linux Command - Learning the Shell](http://linuxcommand.org/lc3_learning_the_shell.php)
+Links to other external (non-NREL) Linux resources/tutorials:
 
-Every year at the annual Supercomputing Conference, a group meets to discuss Best Practices in HPC Training.  This group developed a list of resources for training in HPC.  Please refer to their [Best Practices in HPC Training website](https://sites.google.com/a/lbl.gov/hpc-training-best-practices/training-resources).  
+- [Linux Command - Learning the Shell](http://linuxcommand.org/lc3_learning_the_shell.php)
+- [Linux Commands for Beginners (video series)](https://www.youtube.com/playlist?list=PLT98CRl2KxKHaKA9-4_I38sLzK134p4GJ)
+
+Note: external links are provided as examples only. HPC Operations does not endorse any particular site.
