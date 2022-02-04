@@ -59,7 +59,12 @@ nav:
           - Documentation/languages/python/NREL_python.md
           - Documentation/languages/python/index.md
           - Documentation/languages/python/dask/dask.md
-           
+      - Machine Learning:
+        - Machine Learning: Documentation/MachineLearning/index.md
+        - Reinforcement Learning: 
+          - Documentation/MachineLearning/ReinforcementLearning/index.md 
+        - Tensor Board:
+          - Documentation/MachineLearning/TensorBoard/index.md
 theme:
   name: material
   custom_dir: overrides
