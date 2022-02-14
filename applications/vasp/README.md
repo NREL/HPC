@@ -1,6 +1,6 @@
 # How to Run VASP Jobs Efficiently
 
-The sample input and data files are in directory "input". This benchmark contains 384 atom Si and we will only run molecular dynamics for only 10 steps. The following modules are used:
+The sample input and data files are in directory "input". This benchmark contains  384 atom Si and we will only run molecular dynamics for only 10 steps. The following modules are used:
 ```
 module load vasp/6.1.1 intel-mpi/2020.1.217 mkl/2020.1.217 
 ```
