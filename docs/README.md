@@ -1,8 +1,8 @@
-# Dev
 
-## Running locally
-The easiest way to run this GH Pages locally is using Docker. The following command will install the necessary Ruby Gems and build the site. The site will be available at `localhost:4000/HPC/`
+# Development
+
+The following Docker command can be run to build a local version of the docs for development. The site will be available at localhost:8000 in your browser.
 
 ```
-docker run -it -p 4000:4000 -v "$PWD:/srv/jekyll" jekyll/builder ./build_and_serve.sh 
+docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material
 ```
