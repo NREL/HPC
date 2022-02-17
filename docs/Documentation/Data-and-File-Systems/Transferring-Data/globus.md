@@ -14,6 +14,7 @@ A supported set of instructions for requesting a HPC Globus account and data tra
 
 Globus provides services for research data management, including file transfer. It enables you to **quickly, securely and reliably move your data to and from locations you have access to**.
 
+
 Globus transfers files using **GridFTP**. GridFTP is a high-performance data transfer protocol which is optimized for high-bandwidth wide-area networks.  It provides more reliable high performance file transfer and synchronization than scp or rsync. It automatically tunes parameters to maximize bandwidth while providing automatic fault recovery and notification of completion or problems.
 
 ### Globus Personal endpoints
@@ -44,7 +45,7 @@ Globus Online is a hosted service that allows you to use a browser to transfer f
 
 - Click Login on the [Globus web site](https://www.globus.org/). On the login page select "Globus ID" as the login method and click continue.  Use the Globus credentials you used to register your Globus.org account.
 - Go to the Transfer Files page, the link is located under the Manage Data tab at the top of the page.
-- Select **nrel#eglobus** as the endpoint on one right side. In the box asking for authentication, **enter your Eagle (NREL HPC) username and password**. Do not use your globus.org username and password when authenticating with the nrel#globus endpoint.
+- Select **nrel#eglobus** as the endpoint on one right side. In the box asking for authentication, **enter your Eagle (NREL HPC) username and password**. Do not use your globus.org username and password when authenticating with the nrel#eglobus endpoint.
 - Select another Globus endpoint, such as a personal endpoint or an endpoint at another institution that you have access to. To use your personal endpoint, first start the Globus Connect Personal application. Then enter "USERNAME#ENDPOINT" on the left side or use the drop down menu to find it. Click "go".
 - To transfer files
   - Select the files you want to transfer someplace else from the system from the dialog box on the left.
