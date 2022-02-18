@@ -15,6 +15,8 @@ Note that this is one of the few times where `salloc` is used instead of srun to
 
 (Otherwise, for interactive jobs that just require one process on one node, the "salloc-then-srun" construct isn't necessary at all; for that type of job you may just use srun -A <account> -t <time> --pty $SHELL to land on a compute node and run your software as per normal, without needing an srun in front.)
 
+To reserve the computational resources on Eagle:
+
 ```bash
 salloc -A <alloc_name> -t <time_limit> 
 ```
