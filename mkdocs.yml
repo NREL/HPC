@@ -36,8 +36,8 @@ nav:
       - Data and File Systems:
         - File Systems:
           - Documentation/Data-and-File-Systems/File-Systems/index.md 
-        - Lustre: 
-          - Documentation/Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices.md
+          - Lustre: 
+            - Documentation/Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices.md
         - Transferring Data:
           - Documentation/Data-and-File-Systems/Transferring-Data/FileZilla.md     
           - Documentation/Data-and-File-Systems/Transferring-Data/file-transfers.md     
