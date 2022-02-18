@@ -17,7 +17,7 @@ salloc -A <alloc_name> -t <time_limit>
 
 where `<alloc_name>` will be replaced with the allocation name you wish to charge your time to and `<time_limit>` is the amount of time you're reserving the nodes for.  At this point, you may want to copy the name of the node that the Slurm scheduler assigns you (it will look something like r1i0n10, r4i3n3, etc., and follow immediately after the "@" symbol at the command prompt ) as we'll need it in Step 3.
 
-In the example above, we default to requesting only a single node which limits the maximum number of ParaView server processes we can launch to the maximum number of cores on a single Eagle node (on Eagle, this is 36).  If you intend to launch more ParaView server processes than this, you'll need to request multiple nodes with your `srun` command.
+In the example above, we default to requesting only a single node which limits the maximum number of ParaView server processes we can launch to the maximum number of cores on a single Eagle node (on Eagle, this is 36).  If you intend to launch more ParaView server processes than this, you'll need to request multiple nodes with your `salloc` command.
 
 ```bash
 salloc -A <alloc_name> -t <time_limit> -N 2
