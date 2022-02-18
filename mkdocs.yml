@@ -23,6 +23,16 @@ nav:
       - blog/2021-06-18-srun.md
   - Documentation:
       - Documentation Home: Documentation/index.md
+      - Systems: 
+        - Systems: Documentation/Systems/index.md
+        - Swift:
+          - Documentation/Systems/Swift/index.md
+          - Documentation/Systems/Swift/modules.md
+          - Documentation/Systems/Swift/running.md
+          - Documentation/Systems/Swift/applications.md
+        - Vermillion:
+          - Documentation/Systems/Vermillion/modules.md
+          - Documentation/Systems/Vermillion/running.md
       - Data and File Systems:
         - File Systems:
           - Documentation/Data-and-File-Systems/File-Systems/index.md 
@@ -45,16 +55,6 @@ nav:
           - Documentation/Environments/building-packages/modules.md
       - Jupyter:
         - Documentation/Jupyter/jupyterhub.md
-      - Systems: 
-        - Systems: Documentation/Systems/index.md
-        - Swift:
-          - Documentation/Systems/Swift/index.md
-          - Documentation/Systems/Swift/modules.md
-          - Documentation/Systems/Swift/running.md
-          - Documentation/Systems/Swift/applications.md
-        - Vermillion:
-          - Documentation/Systems/Vermillion/modules.md
-          - Documentation/Systems/Vermillion/running.md
       - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
@@ -64,7 +64,6 @@ nav:
           - Documentation/languages/python/index.md
           - Documentation/languages/python/dask/dask.md
       - Machine Learning:
-        - Machine Learning: Documentation/MachineLearning/index.md
         - Reinforcement Learning: 
           - Documentation/MachineLearning/ReinforcementLearning/index.md 
         - Tensor Board:
