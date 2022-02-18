@@ -9,7 +9,11 @@ For Windows users, it is additionally necessary to install the PuTTY software to
 ### 1. Reserve Compute Nodes
 The first step is to reserve the computational resources on Eagle that will be running the ParaView server. 
 
-This requires using the Slurm `salloc` directive and specifying an allocation name and time limit for the reservation. (This is one of the rare times where `salloc` is used instead of srun.)
+This requires using the Slurm `salloc` directive and specifying an allocation name and time limit for the reservation. 
+
+Note that this is one of the few times where `salloc` is used instead of srun to launch the job, since we'll be launching multiple instances of pvserver using srun inside the job allocation in a later step. In previous versions of Slurm (prior to 20.11) you would use srun instead of salloc, but that behavior has been deprecated due to changes in the way Slurm handles job steps inside an allocation. The old "srun-then-srun" behavior may be replicated using the `srun --overlap` flag (see `man srun` and Slurm documentation for details), but the 'salloc-then-srun' construct works quite well and is what we'd recommend in this case for ease of use.
+
+(Otherwise, for interactive jobs that just require one process on one node, the "salloc-then-srun" construct isn't necessary at all; for that type of job you may just use srun -A <account> -t <time> --pty $SHELL to land on a compute node and run your software as per normal, without needing an srun in front.)
 
 ```bash
 salloc -A <alloc_name> -t <time_limit> 
