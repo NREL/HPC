@@ -8,6 +8,15 @@ For a schedule and calendar invitations detailing upcoming workshops can be foun
 on [our HPC training page](https://www.nrel.gov/hpc/training.html "NREL HPC training"). This page will 
 also contain information on recurring/episodic and recently held workshops.
 
+## Recent HPC Workshops (FY22)
+
+### Message Passing Interface Library (MPI): 4 Part Series
+<details open>
+<summary>More information</summary>
+<br>
+ 
+The Message Passing Interface Library (MPI) is used extensively to create parallel applications for high-performance computing systems such as Eagle. It can also be used on small clusters and even on desktop machines. MPI primarily addresses the message-passing parallel programming model, in which data is moved from one process to another process by passing messages.
+</details>
 
 ## Recent HPC Workshops (FY21)
 
