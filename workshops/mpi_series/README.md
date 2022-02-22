@@ -15,3 +15,7 @@ In the third MPI session, we will look at additional collective operations inclu
 ## Session 4: Finite Difference Model
 
 In the fourth session, we will introduce a finite difference model that will demonstrate what a computational scientist needs to do to take advantage of computers using MPI. The model we are using is a two-dimensional finite-difference code. After discussing the serial code, we will show the modifications necessary to turn it into a parallel program using MPI. We will look at domain decomposition, initialization, data distribution, message passing, reduction operations, and multiple methods for data output. We will also look at the performance of the application on various numbers of processors to illustrate Amdahl's parallel program scaling law.
+
+---
+
+**[Code Examples](https://github.com/timkphd/examples/tree/master/mpi)**
