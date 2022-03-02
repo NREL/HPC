@@ -71,8 +71,6 @@ nav:
 theme:
   name: material
   custom_dir: overrides
-  logo: assets/images/favicon.png
-  favicon: assets/images/favicon.png
   features:
     - navigation.tabs
     - navigation.indexes
