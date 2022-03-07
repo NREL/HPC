@@ -41,7 +41,7 @@ we need to create a conda environment for PLEXOS.
   conda create -n plex1 r-essentials
   ```
 
-2. Log out and log back in. Load the following modules and activate the conda Environment
+2. Log out and log back in. Load the following modules and activate the conda environment
 
   ```bash
   module purge
@@ -49,7 +49,26 @@ we need to create a conda environment for PLEXOS.
   conda activate plex1
   ```
 
-3. We need to install one, `rplexos` library from source. To do this, execute
+3. Install additional R libraries using conda
+
+  ```
+  conda install r-doParallel
+  conda install r-RSQLite
+  conda install r-testthat
+  conda install r-covr
+  ```
+
+  *Note* Most of the R libraries should be added as part of the initial install, but
+  keep an eye out for the following packages
+
+  ```
+  conda install r-data.table r-DBI r-dbplyr r-dplyr r-foreach r-lubridate r-magrittr       
+  conda install r-parallel r-Rcpp r-stringi r-tidyr r-knitr r-ggplot2 r-tidyverse       
+  ```
+
+  *Note* See [below](Setup-PLEXOS.md#using-your-own-version-of-r-and-python) if you wish to use your own version of R and Python for PLEXOS
+
+4. We need to install one, `rplexos` library from source. To do this, execute
 the following commands
 
   ```bash
@@ -74,7 +93,7 @@ the following commands
   rm x86_64-conda_cos6-linux-gnu-c++
   ```
 
-4. For some of the examples in [`Run-PLEXOS.md`](Run-PLEXOS.md), we need install
+5. For some of the examples in [`Run-PLEXOS.md`](Run-PLEXOS.md), we need install
 an additional package called `plexos-coad`. For this run the following
 
   ```bash
@@ -89,7 +108,7 @@ an additional package called `plexos-coad`. For this run the following
   python setup.py install
   ```
 
-5. Finally make sure we have numpy and pandas in the `plex1` conda environment.
+6. Finally make sure we have numpy and pandas in the `plex1` conda environment.
 
   ```bash
   pip install numpy pandas
@@ -107,6 +126,34 @@ module load comp-intel intel-mpi mkl conda
 conda activate plex1
 ```
 
+### Using your own version of R and Python
+
+This section is in regards to Point 3 in [setting up the PLEXOS environment](Setup-PLEXOS.md#setting-up-for-the-first-time).
+The following R libraries will need to be installed manually in this case.
+
+```
+install.packages("data.table")
+install.packages("DBI")
+install.packages("dbplyr")
+install.packages("doParallel")
+install.packages("dplyr")
+install.packages("foreach")
+install.packages("lubridate")
+install.packages("magrittr")
+install.packages("parallel")
+install.packages("Rcpp")
+install.packages("RSQLite")
+install.packages("stringi")
+install.packages("tidyr")
+install.packages("knitr")
+install.packages("testthat")
+install.packages("ggplot2")
+install.packages("covr")
+install.packages("tidyverse")
+```
+
+After installing the above, follow the remainder of the installation starting with
+point 4.
 
 # Previous Documentation Version
 
