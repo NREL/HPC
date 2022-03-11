@@ -153,7 +153,6 @@ func () { echo hi; }  # OK
 | `test_var=(ls -1)` | Create a bash array with the elements `ls` and `-1`, meaning `${test_var[1]}` will evaluate to `-1`. 	|
 | `test_var=$(ls -1)` | Evaluate `ls -1` and capture the output as a string. |
 | ``test_var=(`ls -1`)`` or `test_var=($(ls -1))` 	| Evaluate `ls -1` and capture the output as an array. |
-| | |
 
 
 ### Bracket Usage:
