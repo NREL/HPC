@@ -57,4 +57,3 @@ will be found).
 
 6. Assuming checks passed if present, it's now time for `make install`. Assuming that completes without errors, you can move onto creating an environment module to use your new MPI library.
 
-[Previous - Acquire the package and set up for build](/Documentation/Environments/building-packages/b-acquire/)  |  [Next - Setting up your own environment module](/Documentation/Environments/building-packages/d-modules/)

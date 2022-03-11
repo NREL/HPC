@@ -33,4 +33,3 @@ If you're curious to see what's in the file as it unpacks, add the `-v` option.
 
 You can now proceed to configuring, making, and installing.
 
-[Previous - Building Packages on Eagle](/Documentation/Environments/building-packages/a-building-packages/) | [Next - Configure, build, and install the package](/Documentation/Environments/building-packages/c-config_make_install/)
