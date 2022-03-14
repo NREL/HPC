@@ -117,7 +117,6 @@ There are 3 features in Bash which are denoted by a pair of parentheses, which a
 | Command/line begins with `(` | Run the contained expression(s) in a subshell. This will pass everything until a closing `)` to a child-fork of Bash that inherits the environment from the invoking Bash instance, and exits with the exit code of the last command the subshell exitted with. See the section on [subshells](#subshells) for more info. |
 | A valid Bash identifier is set equal to a parnethetically enclosed list of items<br>(.e.g. `arr=("a" "b" "c")` )                             	| Creates a Bash array with elements enclosed by the parentheses. The default indexing of the elements is numerically incremental from 0 in the given order, but this order can be overridden or string-based keys can be used. See the section on [arrays](#arrays) for more info. |
 | A valid Bash identifier is followed by `()` and contains some function(s) enclosed by `{ }`<br>(i.e. `func() { echo "test"; } ` ) | Declare a function which can be re/used throughout a Bash script. See the either of ["`{ }`"](#--single-braces) or [functions](#functions) for more info. | 
-| | |
 
 
 ## Examples of Enclosure Usage
