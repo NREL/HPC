@@ -56,6 +56,8 @@ nav:
       - Jupyter:
         - Documentation/Jupyter/jupyterhub.md
       - Languages:
+        - Bash:
+          - Documentation/languages/bash/bash-starter.md
         - Fortran: Documentation/languages/fortran/f90.md
         - Python: 
           - Documentation/languages/python/NREL_python.md
