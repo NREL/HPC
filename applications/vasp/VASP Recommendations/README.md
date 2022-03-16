@@ -5,9 +5,7 @@ In this study, the ESIF VASP Benchmarks 1 and 2 were used. Benchmark 1 is a syst
 Average scaling rates between two parameter settings were calculated by first calculating the average runtime at every core count for each setting, calculating the percent difference between the two settings at each core count, and then averaging the set of percentages across all core counts. Since differences in runtime tend to be larger at higher core counts, this was done to give each core count equal weight in the overall average.
 
 * [Recommendations for Running VASP on Eagle](#Recommendations-for-Running-VASP-on-Eagle)
-
-1. [Recommendations for Running VASP on Eagle](#Recommendations-for-Running-VASP-on-Eagle)
-2. [Recommendations for Running VASP on Swift](#Recommendations-for-Running-VASP-on-Swift)
+* [Recommendations for Running VASP on Swift](#Recommendations-for-Running-VASP-on-Swift)
 
 ## Recommendations for Running VASP on Eagle
 
