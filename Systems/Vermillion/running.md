@@ -18,11 +18,11 @@ Currently, all systems are connected via bonded 25GbE (50Gb combined) with OFED/
 
 | Part Name | Qty | RAM    | /opt/scratch | Description     |
 | :--:      | --: | --:    | --:   | :--                    |
-| GPU       |  8  | 120 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
-| lg        | 18  | 229 GB |       |      |
-| std       | 62  | 120 GB |       |      |
-| sm        | 31  |  61 GB |       |      |
-| t         | 15  |  15 GB |       |      |
+| GPU       |  8  | 254 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
+| lg        | 18  | 218 GB |       |      |
+| std       | 62  | 118 GB |       |      |
+| sm        | 31  |  60 GB |       |      |
+| t         | 15  |  14 GB |       |      |
 
 ## Operating Software
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
@@ -283,20 +283,15 @@ We need to make some changes to our batch script.  Add the lines:
 ml intel-oneapi-compilers
 ml intel-oneapi-mpi
 export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/123456a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
-<<<<<<< HEAD
-=======
-export UCX_TLS=all
->>>>>>> auxsys
+
 ```
 
 Launch with the srun command:
 
 ```
-<<<<<<< HEAD
+
 srun --mpi=pmi2  ./a.out -F
-=======
-srun   ./a.out -F
->>>>>>> auxsys
+
 ```
 
 Our IntelMPI batch script is:
@@ -317,18 +312,12 @@ PATH=/nopt/nrel/slurm/bin:$PATH
 source /nopt/nrel/apps/123456a/myenv*
 ml intel-oneapi-mpi intel-oneapi-compilers gcc
 export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/123456a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
-<<<<<<< HEAD
+
 
 export OMP_NUM_THREADS=2
 srun --mpi=pmi2 -n 2 ./fhostone -F
 srun --mpi=pmi2 -n 2 ./phostone -F
-=======
-export UCX_TLS=all
 
-export OMP_NUM_THREADS=2
-srun  -n 2 ./fhostone -F
-srun  -n 2 ./phostone -F
->>>>>>> auxsys
 
 ```
 
@@ -405,7 +394,7 @@ ml wget
 #### This is from an old benchmark test
 #### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
 
-<<<<<<< HEAD
+
 mkdir input
 
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
@@ -413,20 +402,10 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
-=======
-mkdir $SLURM_JOB_ID
-cp input/* $SLURM_JOB_ID
-cd $SLURM_JOB_ID
->>>>>>> auxsys
-
 
 export OMP_NUM_THREADS=4
 
-<<<<<<< HEAD
 srun --mpi=pmi2   -n 16 vasp_std
-=======
-srun    -n 16 vasp_std
->>>>>>> auxsys
 
 ```
 

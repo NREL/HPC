@@ -28,18 +28,20 @@ There are currently two login nodes. They share the same home directory so work 
 
     vs-login-1
     vs-login-2
+
+You may connect directly to a login node, but they may be cycled in and out of the pool. If a node is unavailable, try connecting to another login node or the `vs.hpc.nrel.gov` round-robin option.
+
 ---
 ## Building code
 
-Note that the login nodes are core and memory constrained and your `/home/$USER` directory is **limited to 5GB**.
+Don't build or run code on a login node. Login nodes have limited CPU and memory available. Use a compute or GPU node instead. Simply start an interactive job on an appropriately provisioned node and partition for your work and do your builds there. Similarly, build your projects under `/projects/your_project_name/` as home directories are **limited to 5GB** per user.
 
-To build your projects, start an interactive job on an appropriately sized node/partition.
 
 ---
 
 <!---
 //
 NOTE:
-There are actually 8 GPU nodes. Two are currently unavailable.
+There are actually 31 GPU nodes. Three are currently out of service and the other 21 are being provisioned.
 //
 ---!>
