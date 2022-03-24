@@ -17,7 +17,8 @@ NREL operates three on-premises systems for computational work.
 | Interconnect | InfiniBand EDR | InfiniBand HDR| 2x25GbE RDMA |
 | HPC scheduler | Slurm | Slurm | Slurm |
 | Network Storage | 17PB Lustre FS | 3PB NFS | 440 TB |
-| GPU | Dual NVIDIA Tesla V100 | None | 8 nodes Single A100 |
-| Memory | 96GB, 192GB, 768GB | 256GB | <pre>Part  Mem<br> gpu  114 GB <br>  lg  229 GB <br> std  114 GB <br>  sm   61 GB <br>   t   15 GB
+| GPU | Dual NVIDIA Tesla V100 | None | 6 nodes Single A100 |
+| Memory | 96GB, 192GB, 768GB | 256GB | 256BG (base)
 | Number of Nodes | 2618 | 484 | 133 |
+
 
