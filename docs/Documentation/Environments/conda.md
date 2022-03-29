@@ -149,6 +149,21 @@ To create a new environment with the recipe specified in the .yaml file:
 
 If a name or prefix isn't specified, the environment will be given the same name as the original environment the recipe was exported from (which may be desirable if you're moving to a different computer).
 
+
+## Slow dependency solving
+
+To speed up dependency solving, substitue the mamba command for conda.  Mamba is a dependency solver written in C++ designed to speed up the conda environment solve.
+
+`mamba create --prefix /path/to/mypy python=3.7 numpy`
+
+## Excessive home directory usage
+
+By default, the conda module uses the home directory for package caches and named environments.  This results in a lot of the home directory quota used. Some ways to reduce home directory usage include:
+
+* Use the -p PATH_NAME switch when creating or updating your environment.  Make sure PATH_NAME isn't in the home directory.  Keep in mind files in /scratch are deleted after about a month of inactivity.
+
+* Change the directory used for caching.  This location is set by the module file to ~/.conda-pkgs.  Calling export CONDA_PKGS_DIRS=PATH_NAME to somewhere to store downloads and cached files such as /scratch/$USER/.conda-pkgs will reduce home directory usage.  
+
 ## Eagle Considerations
 
 Interacting with your Conda environments on Eagle should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
