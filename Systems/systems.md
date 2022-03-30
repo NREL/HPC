@@ -10,7 +10,7 @@ NREL operates three on-premises systems for computational work.
 
 ## System configurations
 
-| Name        | Eagle     | Swift          | Vermillion     |
+| Name        | Eagle     | Swift          | Vermilion     |
 | :---------- | :-------- | :-----------   | :------------- |
 | OS          | CentOS    | Rocky Linux    | CentOS 8     |
 | CPU         | Dual Intel Xeon Gold Skylake 6154 | Dual AMD EPYC 7532 Rome CPU | Dual AMD EPYC 7532 Rome CPU |
