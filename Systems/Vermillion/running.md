@@ -18,7 +18,7 @@ Currently, all systems are connected via bonded 25GbE (50Gb combined) with OFED/
 
 | Part Name | Qty | RAM    | /opt/scratch | Description     |
 | :--:      | --: | --:    | --:   | :--                    |
-| GPU       |  8  | 254 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
+| GPU       |  5  | 254 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
 | lg        | 18  | 218 GB |       |      |
 | std       | 62  | 118 GB |       |      |
 | sm        | 31  |  60 GB |       |      |
@@ -33,7 +33,7 @@ The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on t
 Each host runs Dual AMD EPYC 7532 Rome CPUs, 64 cores per host. Large nodes use all the CPUs except those held back for systems operations.
 
 ### GPU nodes
-8 nodes Single A100
+5 nodes Single A100
 
 
 ## Example
