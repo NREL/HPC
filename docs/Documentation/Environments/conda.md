@@ -150,13 +150,13 @@ To create a new environment with the recipe specified in the .yaml file:
 If a name or prefix isn't specified, the environment will be given the same name as the original environment the recipe was exported from (which may be desirable if you're moving to a different computer).
 
 
-## Slow dependency solving
+## Speed up dependency solving
 
-To speed up dependency solving, substitue the mamba command for conda.  Mamba is a dependency solver written in C++ designed to speed up the conda environment solve.
+To speed up dependency solving, substitute the mamba command for conda.  Mamba is a dependency solver written in C++ designed to speed up the conda environment solve.
 
 `mamba create --prefix /path/to/mypy python=3.7 numpy`
 
-## Excessive home directory usage
+## Reduce home directory usage
 
 By default, the conda module uses the home directory for package caches and named environments.  This results in a lot of the home directory quota used. Some ways to reduce home directory usage include:
 
