@@ -49,7 +49,7 @@ Vermilion currently includes a subset of these packages in the base deployment. 
 - ucx-ohpc
 
 ## Requesting additional packages for Vermilion
-We may be able to make other packages available in the baseline build. Send an email to hpc-help to open a request and do out best to work it into the baseline build.
+We may be able to make other packages available in the baseline build. Send an email to hpc-help to open a request and we will do our best to work it into the baseline build.
 
 ## Additional utilities
 These utils and libs are also installed:
