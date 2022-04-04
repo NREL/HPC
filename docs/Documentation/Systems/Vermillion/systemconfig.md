@@ -10,11 +10,11 @@ grand_parent: Systems
 
 ---
 ### Vermilion Partitions
-<pre>
-Part Mem/GB  CPU  Qty
- gpu    114   32    5
-  lg    229   60   18
- std    114   30   62
-  sm     61    4   32
-   t     16    2   15</pre>
+| Part Name | Qty | RAM    | /opt/scratch | Description     |
+| :--:      | --: | --:    | --:   | :--                    |
+| GPU       |  5  | 254 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
+| lg        | 18  | 218 GB |       |      |
+| std       | 62  | 118 GB |       |      |
+| sm        | 31  |  60 GB |       |      |
+| t         | 15  |  14 GB |       |      |
 ---

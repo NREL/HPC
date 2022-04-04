@@ -26,6 +26,6 @@ There are currently no external-facing login nodes for Swift. There are two opti
 ## Get Help With Swift
 The [Known Issues and Answers](https://nrel.github.io/HPC/Documentation/Systems/Swift/known.md) page has answers to common Swift questions. 
 
-Please see the [Help and Support Page](https://nrel.github.io/HPC/Documentation/Systems/Swift/help.md) for further information on how to seek assistance with Swift or your NREL HPC account. 
+Please see the [Help and Support Page](./help.md) for further information on how to seek assistance with Swift or your NREL HPC account. 
 
 
