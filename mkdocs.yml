@@ -31,6 +31,8 @@ nav:
           - Documentation/Systems/Swift/modules.md
           - Documentation/Systems/Swift/running.md
           - Documentation/Systems/Swift/applications.md
+          - Documentation/Systems/Swift/known.md
+          - Documentation/Systems/Swift/help.md
         - Vermillion:
           - Documentation/Systems/Vermillion/modules.md
           - Documentation/Systems/Vermillion/running.md
