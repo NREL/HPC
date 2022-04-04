@@ -8,7 +8,6 @@ grand_parent: Systems
 # System Configuration
 ##
 
----
 ### Vermilion Partitions
 | Part Name | Mem/GB | CPU | Qty |
 | :--:      | --:    | --: | --: |
@@ -17,4 +16,3 @@ grand_parent: Systems
 | std       | 114    | 30  | 62  |
 | sm        | 61     | 4   | 32  |
 | t         | 16     | 2   | 15  |
----
