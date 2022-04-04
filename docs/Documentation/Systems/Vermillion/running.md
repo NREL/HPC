@@ -17,11 +17,11 @@ Currently, all systems are connected via bonded 25GbE (50Gb combined) with OFED/
 
 | Part Name | Qty | RAM    | /opt/scratch | Description     |
 | :--:      | --: | --:    | --:   | :--                    |
-| GPU       |  5  | 254 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
-| lg        | 18  | 218 GB |       |      |
-| std       | 62  | 118 GB |       |      |
-| sm        | 31  |  60 GB |       |      |
-| t         | 15  |  14 GB |       |      |
+| GPU       |  5  | 114 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
+| lg        | 18  | 229 GB |       |      |
+| std       | 62  | 114 GB |       |      |
+| sm        | 31  |  61 GB |       |      |
+| t         | 15  |  16 GB |       |      |
 
 ## Operating Software
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
