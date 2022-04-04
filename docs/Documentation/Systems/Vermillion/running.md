@@ -7,7 +7,7 @@
 
 # Running on Vermilion
 
-Please see the [Modules](./modules) page for information about setting up your environment and loading modules.
+Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules.
 
 **There are currently a number of known issues Vermilion. Please check the [Known issues section](vermillion.md) for a complete list**
 
