@@ -5,17 +5,27 @@ parent: Systems
 has_children: true
 ---
 
-# Swift
+# About the Swift Cluster
 
-Swift is an AMD based cluster. 
+Swift is an NREL supercomputing cluster housed in the ESIF data center for LDRD projects, as an alternative to the NREL flagship cluster Eagle.  Swift is an AMD-based cluster, featuring 484 nodes with two EPYC 7532 (32 core/64 thread) CPUs and 256GB RAM each.
 
-## Known issues and solutions
-1. IntelMPI appears to be working properly
-1. OpenMPI appears to be working properly 
-1. There are some example slurm scripts in the example directory. 
-1. There is a very basic version of conda in the "anaconda" directory in each  /nopt/nrel/apps/YYMMDDa directory. However, there is a more complete environment pointed to by the module under /nopt/nrel/apps/modules. This is set up like Eagle.  See: https://www.nrel.gov/hpc/eagle-software-python.html
-1. There are no GPU nodes currently available on Swift.
-1. Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core. This behavior differs from Eagle.
- 1. By default, nodes can be shared between users.  To get exclusive access to a node use the `--exclusive` flag in your sbatch script or on the sbatch command line.
- 1. User accounts have a default set of keys `cluster` and `cluster.pub`. The `config` file will use these even if you generate a new keypair using `ssh-keygen`. If you are adding your keys to Github or elsewhere you should either use `cluster.pub` or will have to modify the `config` file. 
+Please see the [System Configurations](https://nrel.github.io/HPC/Documentation/Systems/) page for more information about hardware, storage, and networking.
+
+## Accessing Swift
+Access to Swift requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
+
+#### For NREL Employees:
+Swift can be reached from the NREL VPN via ssh to swift.hpc.nrel.gov, swift-login-1.hpc.nrel.gov, or swift-login-2.hpc.nrel.gov.
+
+#### For External Collaborators:
+There are currently no external-facing login nodes for Swift. There are two options to connect:
+
+1. ssh hpcsh.nrel.gov and log in with your username, password, and OTP code. Once connected, ssh to the login nodes as above.
+1. Connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) and ssh to the login nodes as above.
+
+## Get Help With Swift
+The [Known Issues and Answers](https://nrel.github.io/HPC/Documentation/Systems/Swift/known.md) page has answers to common Swift questions. 
+
+Please see the [Help and Support Page](https://nrel.github.io/HPC/Documentation/Systems/Swift/help.md) for further information on how to seek assistance with Swift or your NREL HPC account. 
+
 
