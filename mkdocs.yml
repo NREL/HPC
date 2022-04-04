@@ -34,8 +34,11 @@ nav:
           - Documentation/Systems/Swift/known.md
           - Documentation/Systems/Swift/help.md
         - Vermillion:
+          - Documentation/Systems/Vermillion/index.md
           - Documentation/Systems/Vermillion/modules.md
           - Documentation/Systems/Vermillion/running.md
+          - Documentation/Systems/Vermillion/applications.md
+          - Documentation/Systems/Vermillion/systemconfig.md
       - Data and File Systems:
         - File Systems:
           - Documentation/Data-and-File-Systems/File-Systems/index.md 
