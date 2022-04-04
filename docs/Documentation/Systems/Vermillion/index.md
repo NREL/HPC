@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Vermillion
+title: Vermilion
 parent: Systems
 has_children: true
 ---
@@ -11,7 +11,7 @@ Vermilion is an OpenHPC-based cluster running on Dual AMD EPYC 7532 Rome CPUs. T
 
 ---
 ## Collaboration / Help
-You can get help with Vermilion via email at HPC-Help or [live chat](https://teams.microsoft.com/l/channel/19%3a857251ab7f524eb79aa4c44b4579b118%40thread.tacv2/General?groupId=d1c43e0f-8c0f-4de2-80b9-2f57b2ae4203&tenantId=a0f29d7e-28cd-4f54-8442-7885aee7c080).
+You can get help with Vermilion via email at [HPC-Help@nrel.gov](mailto://hpc-help@nrel.gov) or [live chat](https://teams.microsoft.com/l/channel/19%3a857251ab7f524eb79aa4c44b4579b118%40thread.tacv2/General?groupId=d1c43e0f-8c0f-4de2-80b9-2f57b2ae4203&tenantId=a0f29d7e-28cd-4f54-8442-7885aee7c080).
 
 **Live chat:** <br>
 - Users with access to NREL's Teams chat can collaborate via the [Vermilion Users Teams](https://teams.microsoft.com/l/channel/19%3a857251ab7f524eb79aa4c44b4579b118%40thread.tacv2/General?groupId=d1c43e0f-8c0f-4de2-80b9-2f57b2ae4203&tenantId=a0f29d7e-28cd-4f54-8442-7885aee7c080) room.
@@ -41,8 +41,6 @@ Don't build or run code on a login node. Login nodes have limited CPU and memory
 ---
 
 <!---
-//
 NOTE:
 There are actually 31 GPU nodes. Three are currently out of service and the other 21 are being provisioned.
-//
 ---!>

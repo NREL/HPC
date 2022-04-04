@@ -5,8 +5,10 @@ parent: Vermillion
 grand_parent: Systems
 ---
 
-The Vermilion HPC cluster marries traditional HPC deployments and modern cloud architectures.
 # Applications
+
+The Vermilion HPC cluster marries traditional HPC deployments and modern cloud architectures.
+
 A list of packages available from the OpenHPC Community repo can be found at:
 
     http://repos.openhpc.community/OpenHPC/2/EL_8/aarch64/
@@ -52,7 +54,9 @@ Vermilion currently includes a subset of these packages in the base deployment. 
 We may be able to make other packages available in the baseline build. Send an email to hpc-help to open a request and we will do our best to work it into the baseline build.
 
 ## Additional utilities
+
 These utils and libs are also installed:
+
 - bzip2
 - curl
 - fio
