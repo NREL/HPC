@@ -7,6 +7,7 @@ grand_parent: Programming Languages
 
 ![conda logo](../../../assets/images/conda_logo.png)
 
+
 ## Why Conda?
 
 Conda is a **package manager** which allows you to easily create and switch betwen different software environments in different languages for different purposes.  With Conda, it's easy to:
