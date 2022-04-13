@@ -1,4 +1,4 @@
----
+--
 layout: default
 title: Running on Swift
 parent: Swift
@@ -137,7 +137,7 @@ Submitted batch job 187
 
 ### Results
 
-```
+```bash
 [nrmc2l@swift-login-1 example]$ cat *312985*
 #!/bin/bash
 #SBATCH --job-name="install"
@@ -210,7 +210,7 @@ module load intel-oneapi-mpi intel-oneapi-compilers gcc
 
 Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*.  Then recompile.
 
-```
+```bash
 [nrmc2l@swift-login-1 ~ example]$ export OMPI_FC=ifort
 [nrmc2l@swift-login-1 ~ example]$ export OMPI_CC=icc
 [nrmc2l@swift-login-1 ~ example]$ mpif90 -fopenmp fhostone.f90 -o fhostone
@@ -260,7 +260,7 @@ Giving us:
 [nrmc2l@swift-login-1 example]$ 
 ```
 
-We need to make some changes to our batch script.  Repalce the module load line with :
+We need to make some changes to our batch script.  Replace the module load line with :
 
 ```
 module load intel-oneapi-mpi intel-oneapi-compilers gcc
