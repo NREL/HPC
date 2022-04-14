@@ -1,4 +1,4 @@
---
+---
 layout: default
 title: Running on Swift
 parent: Swift
@@ -186,14 +186,14 @@ You can build parallel programs using OpenMPI and the Intel Fortran *ifort* and 
 
 We have the example programs build with gnu compilers and OpenMP using  the lines:
 
-```
+```bash
 [nrmc2l@swift-login-1 ~ example]$ mpif90 -fopenmp fhostone.f90 -o fhostone
 [nrmc2l@swift-login-1 ~ example]$ mpicc -fopenmp phostone.c -o phostone
 ```
 
 This gives us:
 
-```
+```bash
 [nrmc2l@swift-login-1 ~ example]$ ls -l fhostone
 -rwxrwxr-x. 1 nrmc2l nrmc2l 36880 Jul 30 13:36 fhostone
 [nrmc2l@swift-login-1 ~ example]$ ls -l phostone
@@ -204,7 +204,7 @@ Note the size of the executable files.
 
 If you want to use the Intel compilers you first do a module load.
 
-```
+```bash
 module load intel-oneapi-mpi intel-oneapi-compilers gcc
 ```
 
@@ -226,7 +226,7 @@ Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*.  Then recompile
 
 Note the size of the executable files have changed.  You can also see the difference by running the commands
 
-```
+```bash
 nm fhostone | grep intel | wc
 nm phostone | grep intel | wc
 ```
@@ -238,7 +238,7 @@ on the two versions of the program.  It will show how many calls to Intel routin
 
 We can build with the Intel versions of MPI.  We assume we will want to build with icc and ifort as the backend compilers.  We load the modules:
 
-```
+```bash
 ml gcc
 ml intel-oneapi-compilers
 ml intel-oneapi-mpi
@@ -246,14 +246,14 @@ ml intel-oneapi-mpi
 
 Then, building and running the same example as above:
 
-```
+```bash
 make clean
 make PFC=mpiifort PCC=mpiicc 
 ```
 
 Giving us:
 
-```
+```bash
 [nrmc2l@swift-login-1 example]$ ls -lt fhostone phostone
 -rwxrwxr-x. 1 nrmc2l hpcapps 155696 Aug  5 16:14 phostone
 -rwxrwxr-x. 1 nrmc2l hpcapps 947112 Aug  5 16:14 fhostone
@@ -262,14 +262,14 @@ Giving us:
 
 We need to make some changes to our batch script.  Replace the module load line with :
 
-```
+```bash
 module load intel-oneapi-mpi intel-oneapi-compilers gcc
 
 ```
 
 Launch with the srun command:
 
-```
+```bash
 srun   ./a.out -F
 ```
 
@@ -300,7 +300,7 @@ srun  -n 4 ./phostone -F
 
 With output
 
-```
+```bash
 MPI Version:Intel(R) MPI Library 2021.3 for Linux* OS
 
 task    thread             node name  first task    # on node  core
@@ -323,7 +323,7 @@ task    thread             node name  first task    # on node  core
 
 The batch script given above can be modified to run VASP.  You need to add
 
-```
+```bash
 ml vasp
 ```
 
@@ -385,7 +385,7 @@ This will run a version of Vasp built with openmpi and gfortran/gcc.  You can ru
 
 Jupyter and Jupyter-lab are available by loading the module "python"
 
-```
+```bash
 
 [nrmc2l@swift-login-1 ~]$ ml python
 [nrmc2l@swift-login-1 ~]$ which python
@@ -401,7 +401,7 @@ It is recomended that you use the --no-browser option and connect to your notebo
 
 On Swift enter the command and note the URLs.  
 
-```
+```bash
 [nrmc2l@swift-login-1 ~]$ jupyter-lab --no-browser
 [I 2022-03-30 07:54:25.937 ServerApp] jupyterlab | extension was successfully linked.
 [I 2022-03-30 07:54:26.224 ServerApp] nbclassic | extension was successfully linked.
@@ -424,7 +424,7 @@ On Swift enter the command and note the URLs.
 ```
 Note the *8888* in the URL it might be different.  On your desktop in a new terminal window enter the command:
 
-```
+```bash
 ssh -t -L 8888:localhost:8888 swift-login-1.hpc.nrel.gov
 ```
 
@@ -436,13 +436,13 @@ Then in a web browser window past the URL.  This should bring up a new notebook.
 
 You can get an interactive session on a compute node by running the command
 
-```
+```bash
 [nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
 ```
 
 but replacing *hpcapps* with your account.  After you get an session module load python and run as shown above.
 
-```
+```bash
 [nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
 salloc: Pending job allocation 313001
 salloc: job 313001 queued and waiting for resources
@@ -476,7 +476,7 @@ salloc: Granted job allocation 313001
 
 On your desktop run the command:
 
-```
+```bash
 ssh -t -L 8888:localhost:8475 swift-login-1 ssh -L 8475:localhost:8888 c1-28
 ```
 
@@ -487,7 +487,7 @@ replacing *8888* with the value in the URL if needed and c1-28 with the name of 
 
 Julia is also available via a module.  
 
-```
+```bash
 [nrmc2l@swift-login-1:~ ] $ module spider julia
 ...
      Versions:
@@ -504,7 +504,7 @@ Julia is also available via a module.
 ```
 Julia can be run in a Jupyter notebook as discussed above.  However, before doing so you will need to run the following commands in each Julia version you are using.  
 
-```
+```bash
 julia> using Pkg
 julia> Pkg.add("IJulia")
 
@@ -513,5 +513,5 @@ julia> Pkg.add("IJulia")
 
 See [https://datatofish.com/add-julia-to-jupyter/](https://datatofish.com/add-julia-to-jupyter/) more more information.
 
-If you would like to install your own copy of Juila complete with Jupyter-lab contact Tim Kaiser **tkaiser2@nrel.gov** for a script to do so.
+If you would like to install your own copy of Julia complete with Jupyter-lab contact Tim Kaiser **tkaiser2@nrel.gov** for a script to do so.
 
