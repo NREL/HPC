@@ -2,6 +2,7 @@
 nav:
   - Home: index.md
   - Announcements:
+      - Announcements/2022-04-06-announcement.md
       - Announcements/2022-03-02-announcement.md
       - Announcements/2022-02-02-announcement.md
       - Announcements/2022-01-05-announcement.md
