@@ -60,6 +60,8 @@ nav:
           - Documentation/Environments/building-packages/acquire.md
           - Documentation/Environments/building-packages/config_make_install.md
           - Documentation/Environments/building-packages/modules.md
+      - Git:
+          - Documentation/Git/Git.md
       - Jupyter:
         - Documentation/Jupyter/jupyterhub.md
       - Languages:
