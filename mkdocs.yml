@@ -49,19 +49,17 @@ nav:
           - Documentation/Data-and-File-Systems/Transferring-Data/FileZilla.md     
           - Documentation/Data-and-File-Systems/Transferring-Data/file-transfers.md     
           - Documentation/Data-and-File-Systems/Transferring-Data/globus.md
-      - Environments:
-        - Documentation/Environments/conda.md
-        - Containers: 
-          - Documentation/Environments/Containers/index.md
-          - Documentation/Environments/Containers/singularity.md
-          - Documentation/Environments/Containers/tensorflow.md
+      - Software and Tools:
+        - Containers:
+          - Documentation/Software_Tools/Containers/index.md
+          - Documentation/Software_Tools/Containers/singularity.md
         - Building Packages:
-          - Documentation/Environments/building-packages/index.md
-          - Documentation/Environments/building-packages/acquire.md
-          - Documentation/Environments/building-packages/config_make_install.md
-          - Documentation/Environments/building-packages/modules.md
-      - Jupyter:
-        - Documentation/Jupyter/jupyterhub.md
+          - Documentation/Software_Tools/building-packages/index.md
+          - Documentation/Software_Tools/building-packages/acquire.md
+          - Documentation/Software_Tools/building-packages/config_make_install.md
+          - Documentation/Software_Tools/building-packages/modules.md
+        - Documentation/Software_Tools/conda.md
+        - Documentation/Software_Tools/Jupyter/jupyterhub.md
       - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
@@ -75,6 +73,7 @@ nav:
           - Documentation/MachineLearning/ReinforcementLearning/index.md 
         - Tensor Board:
           - Documentation/MachineLearning/TensorBoard/index.md
+        - Documentation/MachineLearning/tensorflow.md
 theme:
   name: material
   custom_dir: overrides
