@@ -7,12 +7,10 @@
 
 1. Obtain an account on NREL HPC
 2. Install X and Y locally.
-3. Prepare the Z environment on Peregrine
-   a. Login to Peregrine  
+3. Prepare the Z environment on Eagle
+   a. Login to Eagle  
    b. View software and get access to a compute node  
-   c. First-time setup for Z on Peregrine  
+   c. First-time setup for Z on Eagle  
 4. Run example 1.
 5. Run example 2.
 6. Visualize examples 1 and 2.
-
-
