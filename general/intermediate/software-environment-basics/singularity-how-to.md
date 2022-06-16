@@ -3,13 +3,13 @@ Singularity is installed on CentOS 7 compute nodes as a module named singularity
 
 ### Run hello-world ubuntu image
 
-1. Log into compute node, checking it is running CentOS 7 
+1. Log into compute node, checking it is running CentOS 7
 
 ```
 $ ssh el1.hpc.nrel.gov
 [$USER@el1 ~]$ salloc -A MYALLOCATION -t 60 -N 1
-[$USER@r1i3n18 ~]$ cat /etc/redhat-release 
-CentOS Linux release 7.4.1708 (Core) 
+[$USER@r1i3n18 ~]$ cat /etc/redhat-release
+CentOS Linux release 7.4.1708 (Core)
 
 ```
 
@@ -27,7 +27,7 @@ CentOS Linux release 7.4.1708 (Core)
 [$USER@r1i3n18 $USER]$ mkdir -p singularity-images
 [$USER@r1i3n18 $USER]$ cd singularity-images
 [$USER@r1i3n18 singularity-images]$ singularity pull --name hello-world.simg shub://vsoch/hello-world
-Progress |===================================| 100.0% 
+Progress |===================================| 100.0%
 Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-world.simg
 ```
 
@@ -47,7 +47,7 @@ Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-wo
     "org.label-schema.build-size": "333MB"
 }
 [$USER@r1i3n18 singularity-images]$ singularity inspect -r hello-world.simg # Shows the script run
-#!/bin/sh 
+#!/bin/sh
 
 exec /bin/bash /rawr.sh
 ```
@@ -62,33 +62,33 @@ RaawwWWWWWRRRR!!
 6. Run in singularity bash shell
 
 ```
-[$USER@r1i3n18 singularity-images]$ cat /etc/redhat-release 
-CentOS Linux release 7.4.1708 (Core) 
-[$USER@r1i3n18 singularity-images]$ cat /etc/lsb-release 
+[$USER@r1i3n18 singularity-images]$ cat /etc/redhat-release
+CentOS Linux release 7.4.1708 (Core)
+[$USER@r1i3n18 singularity-images]$ cat /etc/lsb-release
 cat: /etc/lsb-release: No such file or directory
 [$USER@r1i3n18 singularity-images]$ singularity shell hello-world.simg
 Singularity: Invoking an interactive shell within container...
 
-Singularity hello-world.simg:~> cat /etc/lsb-release 
+Singularity hello-world.simg:~> cat /etc/lsb-release
 DISTRIB_ID=Ubuntu
 DISTRIB_RELEASE=14.04
 DISTRIB_CODENAME=trusty
 DISTRIB_DESCRIPTION="Ubuntu 14.04.5 LTS"
-Singularity hello-world.simg:~> cat /etc/redhat-release 
+Singularity hello-world.simg:~> cat /etc/redhat-release
 cat: /etc/redhat-release: No such file or directory
 ```
 
-## How to use singularity on peregrine
-Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to peregrine to run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes).  In the examples below, output is only shown for test and run blocks.  Input commands are preceded by a `$`
+## How to use singularity on Eagle
+Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to Eagle to run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes).  In the examples below, output is only shown for test and run blocks.  Input commands are preceded by a `$`
 
 ### Run hello-world ubuntu image
 
-1. Log into compute node, checking it is running CentOS 7 
+1. Log into compute node, checking it is running CentOS 7
 
 ```
 ssh peregrine-login4.hpc.nrel.gov
 qsub -I -A MYALLOCATION -q debug -l nodes=1,walltime=01:00:00
-cat /etc/redhat-release 
+cat /etc/redhat-release
 ```
 
 2. Load the singularity-container module
@@ -125,7 +125,7 @@ $ singularity inspect hello-world.simg
 }
 # Shows the script run
 $ singularity inspect -r hello-world.simg
-#!/bin/sh 
+#!/bin/sh
 
 exec /bin/bash /rawr.sh
 ```
@@ -141,27 +141,27 @@ RaawwWWWWWRRRR!!
 
 ```
 # On compute node
-$ cat /etc/redhat-release 
-CentOS Linux release 7.3.1611 (Core) 
-$ cat /etc/lsb-release 
+$ cat /etc/redhat-release
+CentOS Linux release 7.3.1611 (Core)
+$ cat /etc/lsb-release
 cat: /etc/lsb-release: No such file or directory
 # In singularity shell
 $ singularity shell hello-world.simg
 Singularity: Invoking an interactive shell within container...
 
-Singularity hello-world.simg:~> cat /etc/lsb-release 
+Singularity hello-world.simg:~> cat /etc/lsb-release
 DISTRIB_ID=Ubuntu
 DISTRIB_RELEASE=14.04
 DISTRIB_CODENAME=trusty
 DISTRIB_DESCRIPTION="Ubuntu 14.04.5 LTS"
-Singularity hello-world.simg:~> cat /etc/redhat-release 
+Singularity hello-world.simg:~> cat /etc/redhat-release
 cat: /etc/redhat-release: No such file or directory
 ```
 
 
 ### Create a CentOS 7 EPEL image with MPI support
 
-This example shows how to create a CentOS 7 singularity image with openmpi installed.  It requires root/admin privileges to create the image so must be run on a user's computer with singularity installed.  After creation, the image can be copied to peregrine and run.
+This example shows how to create a CentOS 7 singularity image with openmpi installed.  It requires root/admin privileges to create the image so must be run on a user's computer with singularity installed.  After creation, the image can be copied to Eagle and run.
 
 1. Create a new recipe based on singularityhub/centos:latest
 

@@ -10,7 +10,7 @@
 
 ### Connecting to a Host
 
-- Set up a host (if needed) by selecting "New Site" and providing a host name (e.g. peregrine.nrel.gov) and your user name.  In most cases, use the SFTP protocol.
+- Set up a host (if needed) by selecting "New Site" and providing a host name (e.g. eagle.hpc.nrel.gov) and your user name.  In most cases, use the SFTP protocol.
 - Connect to the server by selecting a site and clicking [Login].
 - Enter your password or Password+OTP Token when prompted.
 
