@@ -23,6 +23,7 @@ Conda is a **package manager** which allows you to easily create and switch betw
 
 
 In order to use spack, we can clone the spack repositery using 
+
 'git clone -c feature.manyFiles=true https://github.com/spack/spack.git'
 
 It should be noted that the Spack folder needs to be cloned to a folder that does not get purged/cleaned, e.g. /scratch or /home.
@@ -50,9 +51,11 @@ The pre-requisits for Spack are listed in the table below and should load to the
 |Python header files  |Bootstrapping from sources                       |
 
 In order to use spack we need to create a **<version>.lua** file under which will point to the spack installation folder and will load the spack environnement.
+
 'vim ${path_of_choice}/modules/default/modulefiles/spack/<version>.lua'
 
 An example of the **<version.lua>** file is shown below 
+
 '''help([[
 Spack installation for personal HPC User & Applications Support use.
 ]])
@@ -66,19 +69,25 @@ source ${path_to_spack}/share/spack/setup-env.sh
 
 set_shell_function("spack_activate", activate)
 '''
+
 We can now use the following commands to load Spack to our environment 
+
 'module use ${path_of_choice}/modules/default/modulefiles 
 spack_activate '
 
 Spack requires a compiler in order to install a package. We can load a compiler of choice using the command **module load <compiler>** and add it to spack using 
-'spack comiler find'
+
+'spack compiler find'
 
 Spack searches for available compilers and create a **compiler.yaml** which will be used when installing a package.
 Note: you can load multiple compiler and run **spack compiler find**. This will allow the user to choose a specific compiler for his application. We will discuss this later.
 
 We can take advantage of the packages already provided by using the command 
+
 'spack external find'
+
 or if we are searching for a specific package  
+
 'spack external find <package>'
 
 The previous command will create and populate a file **packages.yaml** which will contain the necessary information about the found packages.
