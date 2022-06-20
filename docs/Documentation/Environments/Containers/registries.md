@@ -21,6 +21,8 @@ AWS ECR can be utilized by projects with a cloud allocation to host containers. 
 ## Harbor
 [NREL's Harbor](https://harbor.nrel.gov) is a registry hosted by ITS that supports both Docker and Singularity containers. 
 
+****NREL ITS is currently evaluating a replacement to internally hosted Harbor (likely moving to Enterprise [DockerHub](#dockerhub))**
+
 ### Docker
 #### Login
 On your local machine to push a container to the registry. 
