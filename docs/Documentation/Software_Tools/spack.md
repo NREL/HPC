@@ -19,6 +19,12 @@ Conda is a **package manager** which allows you to easily create and switch betw
 * Share your specific programming environment with others for reproducible results 
 
 
+## Introduction
+
+Spack is an HPC-centric package manager for acquiring, building, and managing HPC applications as well as all their dependencies, down to the compilers themselves. Like frameworks such as Anaconda, it is associated with a repository of both source-code and binary packages. Builds are fully configurable through a DSL at the command line as well as in YAML files. Maintaining many build-time permutations of packages is simple through an automatic and user-transparent hashing mechanism. The Spack system also automatically creates (customizable) environment modulefiles for each built package.
+
+
+
 ## First things first
 
 
@@ -69,7 +75,6 @@ source ${path_to_spack}/share/spack/setup-env.sh
 
 set_shell_function("spack_activate", activate)
 ```
-
 We can now use the following commands to load Spack to our environment 
 
 `module use ${path_of_choice}/modules/default/modulefiles`
@@ -81,7 +86,47 @@ Spack requires a compiler in order to install a package. We can load a compiler 
 
 Spack searches for available compilers and create a **compiler.yaml** which will be used when installing a package.
 Note: you can load multiple compiler and run **spack compiler find**. This will allow the user to choose a specific compiler for his application. We will discuss this later.
+To see which compilers your Spack collections know about, type
 
+`spack compilers`
+
+To add an existing compiler installation to your collection, point Spack to its location through
+
+`spack add compiler <path to Spack-installed compiler directory with hash in name>`
+
+Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang) that this should be all that’s required to use the added compiler successfully.
+
+
+##Available Packages in Repo
+
+|-------------------------|-------------------------------------------------|
+|spack list	              | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. |
+|-------------------------|-------------------------------------------------|
+|spack list <pattern>      |	all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
+|-------------------------|-------------------------------------------------|
+|spack info <package_name> |	available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support. |
+|-------------------------|-------------------------------------------------|
+|spack versions <package_name>|	see which versions are available|
+
+
+## Installed packages
+
+|----------------------------|-------------------------------------------------|
+|spack find	                 | list all locally installed packages |
+|----------------------------|-------------------------------------------------|
+|spack find --deps <package> | list dependencies of <package> |
+|----------------------------|-------------------------------------------------|
+|spack find --explicit	     | list packages that were explicitly requested via spack install |
+|----------------------------|-------------------------------------------------|
+|spack find --implicit	     | list packages that were installed as a dependency to an explicitly installed package |
+|----------------------------|-------------------------------------------------|
+|spack find --long	         | include partial hash in package listing. Useful to see distinct builds |
+|----------------------------|-------------------------------------------------|
+|spack find --paths	         | show installation paths                         |
+
+Finding how an installed package was built does not seem as straightforward as it should be. Probably the best way is to examine <install_path>/.spack/build.env, where <install_path> is the Spack-created directory with the hash for the package being queried. The environment variable SPACK_SHORT_SPEC in build.env contains the Spack command that can be used to recreate the package (including any implicitly defined variables, e.g., arch). The 7-character short hash is also included, and should be excluded from any spack install command.
+
+## External packages
 We can take advantage of the packages already provided by using the command 
 
 `spack external find`
@@ -94,6 +139,24 @@ The previous command will create and populate a file **packages.yaml** which wil
 The user can also manually write **packages.yaml** and add other package by pointing to their location.
 
 
+## Spack Specs and DSL
+
+|----------------------------|-------------------------------------------------|
+|@	        | package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher. |
+|----------------------------|-------------------------------------------------|
+|%	        | compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
+|----------------------------|-------------------------------------------------|
+|+,-,~      | build options. +opt, -opt, “~” is equivalent to “-“ |
+|----------------------------|-------------------------------------------------|
+|name=value	| build options for non-Boolean flags. Special names are cflags, cxxflags, fflags, cppflags, ldflags, and ldlibs |
+|----------------------------|-------------------------------------------------|
+|target=value	| for defined CPU architectures, e.g., target=haswell          |
+|----------------------------|-------------------------------------------------|
+|os=value	| for defined operating systems                                    |
+|----------------------------|-------------------------------------------------|
+|^	        | dependency specification, using above specs as appropriate       |
+|----------------------------|-------------------------------------------------|
+|^/<hash>	| specify dependency where <hash> is of sufficient length to resolve uniquely |
 
 
 ## Creating Environments by Name
