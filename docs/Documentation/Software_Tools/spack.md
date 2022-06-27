@@ -41,6 +41,13 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Available Packages in Repo
 
+
+
+| spack list | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. | 
+| spack list <pattern> | all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
+| spack info <package_name> | available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support. |
+| spack versions <package_name> | see which versions are available |
+
 |--------------------------------------------------------------------|---------------------------------------|
 |spack list	                  | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. |
 |spack list <pattern>         |	all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
