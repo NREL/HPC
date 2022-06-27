@@ -41,6 +41,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Available Packages in Repo
 
+|--------------------------------------------------------------------|---------------------------------------|
 |spack list	                  | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. |
 |spack list <pattern>         |	all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
 |spack info <package_name>    |	available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support. |
@@ -49,6 +50,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Installed packages
 
+|--------------------------------------------------------------------|---------------------------------------|
 |spack find	                 | list all locally installed packages |
 |spack find --deps <package> | list dependencies of <package> |
 |spack find --explicit	     | list packages that were explicitly requested via spack install |
@@ -57,9 +59,13 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 |spack find --paths	         | show installation paths                         |
 
 
-Finding how an installed package was built does not seem as straightforward as it should be. Probably the best way is to examine <install_path>/.spack/build.env, where <install_path> is the Spack-created directory with the hash for the package being queried. The environment variable SPACK_SHORT_SPEC in build.env contains the Spack command that can be used to recreate the package (including any implicitly defined variables, e.g., arch). The 7-character short hash is also included, and should be excluded from any spack install command.
+Finding how an installed package was built does not seem as straightforward as it should be. 
+Probably the best way is to examine `<install_path>/.spack/build.env`, where `<install_path>` is the Spack-created directory with the hash for the package being queried. 
+The environment variable `SPACK_SHORT_SPEC` in `build.env` contains the Spack command that can be used to recreate the package (including any implicitly defined variables, e.g., arch). 
+The 7-character short hash is also included, and should be excluded from any spack install command.
 
 
+|--------------------------------------------------------------------|---------------------------------------|
 |@	        | package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher. |
 |%	        | compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
 |+,-,~      | build options. +opt, -opt, “~” is equivalent to “-“ |
