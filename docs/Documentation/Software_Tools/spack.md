@@ -43,23 +43,18 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 
 
-|<span style="font-weight:normal">heading</span> spack list | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. | 
+|spack list | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. | 
 |---|---|
 | spack list <pattern> | all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
 | spack info <package_name> | available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support. |
 | spack versions <package_name> | see which versions are available |
 
-|--------------------------------------------------------------------|---------------------------------------|
-|spack list	                  | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. |
-|spack list <pattern>         |	all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
-|spack info <package_name>    |	available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support. |
-|spack versions <package_name>|	see which versions are available|
 
 
 ## Installed packages
 
-|--------------------------------------------------------------------|---------------------------------------|
 |spack find	                 | list all locally installed packages |
+|---|---|
 |spack find --deps <package> | list dependencies of <package> |
 |spack find --explicit	     | list packages that were explicitly requested via spack install |
 |spack find --implicit	     | list packages that were installed as a dependency to an explicitly installed package |
@@ -73,8 +68,8 @@ The environment variable `SPACK_SHORT_SPEC` in `build.env` contains the Spack co
 The 7-character short hash is also included, and should be excluded from any spack install command.
 
 
-|--------------------------------------------------------------------|---------------------------------------|
 |@	        | package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher. |
+|---|---|
 |%	        | compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
 |+,-,~      | build options. +opt, -opt, “~” is equivalent to “-“ |
 |name=value	| build options for non-Boolean flags. Special names are cflags, cxxflags, fflags, cppflags, ldflags, and ldlibs |
