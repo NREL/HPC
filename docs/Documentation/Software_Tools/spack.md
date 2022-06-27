@@ -1,103 +1,30 @@
----
-layout: default
-title: Spack 
-parent: Python
-grand_parent: Programming Languages
----
-
-![conda logo](images/conda_logo.png)
-
-
-## Why Conda?
-
-Conda is a **package manager** which allows you to easily create and switch betwen different software environments in different languages for different purposes.  With Conda, it's easy to:
-
-* Manage different (potentially conflicting) versions of the same software without complication
-
-* Quickly stand up even complicated dependencies for stacks of software
-
-* Share your specific programming environment with others for reproducible results 
-
-
-## Introduction
+##Introduction
 
 Spack is an HPC-centric package manager for acquiring, building, and managing HPC applications as well as all their dependencies, down to the compilers themselves. Like frameworks such as Anaconda, it is associated with a repository of both source-code and binary packages. Builds are fully configurable through a DSL at the command line as well as in YAML files. Maintaining many build-time permutations of packages is simple through an automatic and user-transparent hashing mechanism. The Spack system also automatically creates (customizable) environment modulefiles for each built package.
 
+## Installation
 
+Multiple installations of Spack can easily be kept, and each is separate from the others by virtue of the environment variable SPACK_ROOT. All package, build, and modulefile content is kept inside the SPACK_ROOT path, so working with different package collections is as simple as setting SPACK_ROOT to the appropriate location. The only exception to this orthogonality are YAML files in $HOME/.spack/<platform>
+Installing a Spack instance is as easy as
+`git clone https://github.com/spack/spack.git`
+Once the initial Spack instance is set up, it is easy to create new ones from it through
+`spack clone <new_path>`
+SPACK_ROOT will obviously need to point to <new_path> in order to be consistent.
 
-## First things first
+Spack environment setup can be done by sourcing $SPACK_ROOT/share/spack/setup-env.sh, or by simply adding $SPACK_ROOT/bin to your PATH. We have also created a Lua module to execute the setup-env.sh logic, so it is simple to activate one Spack environment or another through different modules. The template modulefiles are available on request. Two things to keep in mind are
+1.	Bash syntax has some incompatibilities with Lua string definitions, and so it is critical to escape certain patterns.
+2.	As Spack versions progress, the setup-env.sh script is subject to change, so it may be necessary to create a new Spack module from the newer setup-env.sh logic, using the escaping patterns in the existing template modulefiles as a guide.
 
+## Setting Up Compilers
 
-In order to use spack, we can clone the spack repositery using 
-
-`git clone -c feature.manyFiles=true https://github.com/spack/spack.git`
-
-It should be noted that the Spack folder needs to be cloned to a folder that does not get purged/cleaned, e.g. /scratch or /home.
-
-The pre-requisits for Spack are listed in the table below and should load to the path using **module load** before using spack.
-
-| Name                | requirement reason                              |
-|---------------------|-------------------------------------------------|
-|Python               |Interpreter for Spack                            |            
-|C/C++ Compilers      |Building software                                | 
-|make                 |Build software                                   | 
-|patch                |Build software                                   | 
-|bash                 |Compiler wrappers                                | 
-|tar                  |Extract/create archives                          | 
-|gzip                 |Compress/Decompress archives                     |     
-|unzip                |Compress/Decompress archives                     |
-|bzip2                |Compress/Decompress archives                     |
-|xz                   |Compress/Decompress archives                     | 
-|zstd                 |Compress/Decompress archives                     |
-|file                 |Create/Use Buildcaches                           | 
-|gnupg2               |Sign/Verify Buildcaches                          |
-|git                  |Manage Software Repositories                     |
-|svn                  |Manage Software Repositories                     |
-|hg                   |Manage Software Repositories                     |
-|Python header files  |Bootstrapping from sources                       |
-
-In order to use spack we need to create a **<version>.lua** file under which will point to the spack installation folder and will load the spack environnement.
-
-`vim ${path_of_choice}/modules/default/modulefiles/spack/<version>.lua`
-
-An example of the **<version.lua>** file is shown below 
-
-```help([[
-Spack installation for personal HPC User & Applications Support use.
-]])
-
-whatis("Name: Spack")
-whatis("Version: <version>")
-
-local activate = [==[
-source ${path_to_spack}/share/spack/setup-env.sh
-]==]
-
-set_shell_function("spack_activate", activate)
-```
-We can now use the following commands to load Spack to our environment 
-
-`module use ${path_of_choice}/modules/default/modulefiles`
-`spack_activate`
-
-Spack requires a compiler in order to install a package. We can load a compiler of choice using the command **module load <compiler>** and add it to spack using 
-
-`spack compiler find`
-
-Spack searches for available compilers and create a **compiler.yaml** which will be used when installing a package.
-Note: you can load multiple compiler and run **spack compiler find**. This will allow the user to choose a specific compiler for his application. We will discuss this later.
-To see which compilers your Spack collections know about, type
-
+Spack is able to find certain compilers on its own, and will add them to your environment as it does. To see which compilers your Spack collections know about, type
 `spack compilers`
-
 To add an existing compiler installation to your collection, point Spack to its location through
-
 `spack add compiler <path to Spack-installed compiler directory with hash in name>`
-
+The command will add to $HOME/.spack/linux/compilers.yaml. To configure more generally, move changes to one of the lower-precedence compilers.yaml files (paths described below in Configuration section).
 Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang) that this should be all that’s required to use the added compiler successfully.
 
-
-##Available Packages in Repo
+## Available Packages in Repo
 
 |-------------------------|-------------------------------------------------|
 |spack list	              | all available packages by name. Dumps repo content, so if use local repo, this should dump local package load. |
@@ -124,22 +51,9 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 |----------------------------|-------------------------------------------------|
 |spack find --paths	         | show installation paths                         |
 
+
 Finding how an installed package was built does not seem as straightforward as it should be. Probably the best way is to examine <install_path>/.spack/build.env, where <install_path> is the Spack-created directory with the hash for the package being queried. The environment variable SPACK_SHORT_SPEC in build.env contains the Spack command that can be used to recreate the package (including any implicitly defined variables, e.g., arch). The 7-character short hash is also included, and should be excluded from any spack install command.
 
-## External packages
-We can take advantage of the packages already provided by using the command 
-
-`spack external find`
-
-or if we are searching for a specific package  
-
-`spack external find <package>`
-
-The previous command will create and populate a file **packages.yaml** which will contain the necessary information about the found packages.
-The user can also manually write **packages.yaml** and add other package by pointing to their location.
-
-
-## Spack Specs and DSL
 
 |----------------------------|-------------------------------------------------|
 |@	        | package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher. |
@@ -158,190 +72,181 @@ The user can also manually write **packages.yaml** and add other package by poin
 |----------------------------|-------------------------------------------------|
 |^/<hash>	| specify dependency where <hash> is of sufficient length to resolve uniquely |
 
-
-## Creating Environments by Name
-
-To create a basic Conda environment, we'll start by running
-
-`conda create --name mypy python`
-
-where the `--name` option (or the shortened `-n`) means the environment will be specified by **name** and `myenv` will be the name of the created environment.  Any arguments following the environment name are the packages to be installed.
-
-To specify a specific version of a package, simply add the version number after the "=" sign
-
-`conda create --name mypy37 python=3.7`
-
-You can specify multiple packages for installation during environment creation
-
-`conda create --name mynumpy python=3.7 numpy`
-
-Conda ensures dependencies are satisfied when installing packages, so the version of the numpy package installed will be consistent with Python 3.7 (and any other packages specified).
-
-<div class="alert alert-block alert-info">
-<br><b>Tip:</b> It’s recommended to install all the packages you want to include in an environment at the same time to help avoid dependency conflicts.
-<br><br>
-</div>
-
-## Environment Navigation
-
-To see a list of all existing environments (useful to confirm the successful creation of a new environment):
-
-`conda env list`
-
-To activate your new environment:
-
-`conda activate mypy`
-
-Your usual command prompt should now be prefixed with `(mypy)`, which helps keep track of which environment is currently activated.
-
-To see which packages are installed from *within a currently active environment*:
-
-`conda list`
-
-When finished with this programming session, deactivate your environment with:
-
-`conda deactivate`
-
-## Creating Environments by Location
-
-Creating environments by location is especially helpful when working on the Eagle HPC, as the default location is your `/home/<username>/` directory, which is limited to 50 GB.  To create a Conda environment somewhere besides the default location, use the `--prefix` flag (or the shortened `-p`) instead of `--name` when creating.
-
-`conda create --prefix /path/to/mypy python=3.7 numpy`
-
-This re-creates the python+numpy environment from earlier, but with all downloaded packages stored in the specified location.
-
-<div class="alert alert-block alert-danger">
-<br>
-<b>Warning:</b>  Keep in mind that scratch on Eagle is <b>temporary</b> in that files are purged after 28 days of inactivity.
-<br><br>
-</div>
-
-Unfortunately, placing environments outside of the default /env folder means that it needs to be activated with the full path (`conda activate /path/to/mypy`) and will show the full path rather than the environment name at the command prompt. 
-
-To fix the cumbersome command prompt, simply modify the `env_prompt` setting in your `.condarc` file:
-
-`conda config --set env_prompt '({name}) '`
-
-Note that `'({name})'` is not a placeholder for your desired environment name but text to be copied literally.  This will edit your `.condarc` file if you already have one or create a `.condarc` file if you do not. For more on modifying your `.condarc` file, check out the [User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html).  Once you've completed this step, the command prompt will show the shortened name (mypy, in the previous example).
-
-## Managing Conda Environments
-
-Over time, it may become necessary to add additional packages to your environments.  New packages can be installed in the currently active environment with:
-
-`conda install pandas`
-
-Conda will ensure that all dependencies are satisfied which may include upgrades to existing packages in this repository.  To install packages from other sources, specify the `channel` option:
-
-`conda install --channel conda-forge fenics`
-
-To add a pip-installable package to your environment:
-
-`
-conda install pip
-pip <pip_subcommand>
-`
-
-<div class="alert alert-block alert-danger">
-<br>
-<b>A note on mixing Conda and Pip:</b>  Issues may arise when using pip and conda together. When combining conda and pip, it is best to use an isolated conda environment. <b>Only after conda has been used to install as many packages as possible should pip be used to install any remaining software</b>. If modifications are needed to the environment, it is best to create a new environment rather than running conda after pip. When appropriate, conda and pip requirements should be stored in text files.
-<br><br>
-</div>
-
-For more information on this point, check out the [User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment)
-
-We can use `conda list` to see which packages are currently installed, but for a more version-control-flavored approach:
-
-`conda list --revisions`
-
-which shows changes to the environment over time.  To revert back to a previous environemnt
-
-`conda install --revision 1`
-
-
-To remove packages from the currently activated environment:
-
-`conda remove pkg1`
-
-To completely remove an environment and all installed packages:
-
-`conda remove --name mypy --all`
-
-Conda environments can become large quickly due to the liberal creation of cached files.  To remove these files and free up space you can use
-
-`conda clean --all`
-
-or to simply preview the potential changes before doing any actual deletion
-
-`conda clean --all --dry-run`
-
-## Sharing Conda Environments
-
-To create a file with the the *exact* "recipe" used to create the current environment:
-
-`conda env export > environment.yaml`
-
-In practice, this recipe may be overly-specific to the point of creating problems on different hardware.  To save an abbreviated version of the recipe with only the packages you *explicitly requested*: 
-
-`conda env export --from-history > environment.yaml`
-
-To create a new environment with the recipe specified in the .yaml file:
-
-`conda env create --name mypyeagle --file environment.yaml`
-
-If a name or prefix isn't specified, the environment will be given the same name as the original environment the recipe was exported from (which may be desirable if you're moving to a different computer).
-
-
-## Speed up dependency solving
-
-To speed up dependency solving, substitute the mamba command for conda.  Mamba is a dependency solver written in C++ designed to speed up the conda environment solve.
-
-`mamba create --prefix /path/to/mypy python=3.7 numpy`
-
-## Reduce home directory usage
-
-By default, the conda module uses the home directory for package caches and named environments.  This results in a lot of the home directory quota used. Some ways to reduce home directory usage include:
-
-* Use the -p PATH_NAME switch when creating or updating your environment.  Make sure PATH_NAME isn't in the home directory.  Keep in mind files in /scratch are deleted after about a month of inactivity.
-
-* Change the directory used for caching.  This location is set by the module file to ~/.conda-pkgs.  Calling export CONDA_PKGS_DIRS=PATH_NAME to somewhere to store downloads and cached files such as /scratch/$USER/.conda-pkgs will reduce home directory usage.  
-
-## Eagle Considerations
-
-Interacting with your Conda environments on Eagle should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
-
-1. Create the environment locally
-2. Verify that environment works on a minimal working example
-3. Export local environment file and copy to Eagle
-4. Duplicate local environment on Eagle
-5. Execute production-level runs on Eagle
-
-```bash
-#!/bin/bash 
-#SBATCH --ntasks=4
-#SBATCH --nodes=1
-#SBATCH --time=5
-#SBATCH --account=<project_handle>
-
-module purge
-module load conda
-conda activate mypy
-
-srun -n 8 python my_main.py
+## External Packages
+
+Sometimes dependencies are expected to be resolved through a package that is installed as part of the host system, or otherwise outside of the Spack database. One example is Slurm integration into MPI builds. If you were to try to add a dependency on one of the listed Slurms in the Spack database, you might see, e.g.,
+
+```
+[cchang@el2 ~]$ spack spec openmpi@3.1.3%gcc@7.3.0 ^slurm@19-05-3-2
+Input spec
+--------------------------------
+openmpi@3.1.3%gcc@7.3.0
+    ^slurm@19-05-3-2
+
+Concretized
+--------------------------------
+==> Error: The spec 'slurm' is configured as not buildable, and no matching external installs were found
 ```
 
-## Cheat Sheet of Common Commands
+Given that something like Slurm is integrated deeply into the runtime infrastructure of our local environment, we really want to point to the local installation. The way to do that is with a packages.yaml file, which can reside in the standard Spack locations (see Configuration below). See the Spack docs on external packages for more detail. In the above example at time of writing, we would like to build OpenMPI against our installed Slurm 19.05.2. So, you can create file ~/.spack/linux/packages.yaml with the contents
 
-| Task                | ... outside environment                       | ... inside environment                |
-|---------------------|-----------------------------------------------|---------------------------------------|
-| Create by name      | `conda create -n mypy pkg1 pkg2`              | N/A                                   |
-| Create by path      | `conda create -p path/to/mypy pkg1 pkg2`      | N/A                                   |
-| Create by file      | `conda env create -f environment.yml`         | N/A                                   |
-| Show environments   | `conda env list`                              | N/A                                   |
-| Activate            | `conda activate mypy`                         | N/A                                   |
-| Deactivate          | N/A                                           | `conda deactivate`                    |
-| Install New Package | `conda install -n mypy pkg1 pkg2`             | `conda install pkg1 pkg2`             |
-| List All Packages   | `conda list -n mypy`                          | `conda list`                          |
-| Revision Listing    | `conda list --revisions -n mypy`              | `conda list --revisions`              |
-| Export Environment  | `conda env export -n mypy > environment.yaml` | `conda env export > environment.yaml` |
-| Remove Package      | `conda remove -n mypy pkg1 pkg2`              | `conda remove pkg1 pkg2`              |
+```
+packages:
+  slurm:
+    paths:
+      slurm@18-08-0-3: /nopt/slurm/18.08.3
+      slurm@19-05-0-2: /nopt/slurm/19.05.2
+```
+that will enable builds against both installed Slurm versions. Then you should see
+```
+[cchang@el2 ~]$ spack spec openmpi@3.1.3%gcc@7.3.0 ^slurm@19-05-0-2
+Input spec
+--------------------------------
+openmpi@3.1.3%gcc@7.3.0
+    ^slurm@19-05-0-2
+
+Concretized
+--------------------------------
+openmpi@3.1.3%gcc@7.3.0 cflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" cxxflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" fflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" +cuda+cxx_exceptions fabrics=verbs ~java~legacylaunchers~memchecker+pmi schedulers=slurm ~sqlite3~thread_multiple+vt arch=linux-centos7-x86_64
+…
+    ^slurm@19-05-0-2%gcc@7.3.0 cflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" cxxflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" fflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" ~gtk~hdf5~hwloc~mariadb+readline arch=linux-centos7-x86_64
+```
+where the Slurm dependency will be satisfied with the installed Slurm (cflags, cxxflags, and arch are coming from site-wide configuration in /nopt/nrel/apps/base/2018-12-02/spack/etc/spack/compilers.yaml; the variants string is likely coming from the configuration in the Spack database, and should be ignored).
+
+##Virtual Packages
+
+It is possible to specify some packages for which multiple options are available at a higher level. For example, “mpi” is a virtual package specifier that can resolve to mpich, openmpi, Intel MPI, etc. If a package’s dependencies are spec’d in terms of a virtual package, Spack will choose a specific package at build time according to site preferences.
+Choices can be constrained by spec, e.g.,
+`spack install X ^mpich@3`
+would satisfy package X’s mpi dependency with some version 3 of MPICH.
+You can see available providers of a virtual package with
+`spack providers <vpackage>`
+
+##Extensions
+
+In many cases, frameworks have sub-package installations in standard locations within their own installations. A familiar example of this is Python and its usual module location in lib(64)/python<version>/site-packages, and pointed to via the environment variable PYTHONPATH.
+
+To find available extensions
+`spack extensions <package>`
+Extensions are just packages, but they are not enabled for use out of the box. To do so (e.g., so that you could load the Python module after installing), you can either load the extension package’s environment module, or
+`spack use <extension package>`
+This only lasts for the current session, and is not of general interest. A more persistent option is to activate the extension:
+`spack activate <extension package>`
+This takes care of dependencies as well. The inverse operation is deactivation.
+
+|spack deactivate <extension package>	        |extension alone. Will not deactivate if dependents exist|
+|----------------------------|-------------------------------------------------|
+|spack deactivate --force <extension package>	|deactivates regardless of dependents | 
+|----------------------------|-------------------------------------------------|
+|spack deactivate --all <extension package>	    |deactivates extension and all dependencies |
+|----------------------------|-------------------------------------------------|
+|spack deactivate --all <parent>	            |deactivates all extensions of parent (e.g., <python>) |
+
+
+##Modules
+Spack can auto-create environment modulefiles for the packages that it builds, both in Tcl for “environment modules” per se, and in Lua for Lmod. Auto-creation includes each dependency and option permutation, which can lead to excessive quantities of modulefiles. Spack also uses the package hash as part of the modulefile name, which can be somewhat disconcerting to users. These default behaviors can be treated in the active modules.yaml file, as well as practices used for support.
+Tcl modulefiles are created in $SPACK_ROOT/share/spack/modules by default, and the equivalent Lmod location is $SPACK_ROOT/share/spack/lmod. Only Tcl modules are created by default. You can modify the active modules.yaml file in the following ways to affect some example behaviors:
+
+#To turn Lmod module creation on,
+
+```
+modules:
+    enable:
+        - tcl
+        - lmod 
+        ```
+#To change the modulefile naming pattern,
+
+```
+modules:
+    tcl:
+        naming_scheme: ‘{name}/{version}/{compiler.name}-{compiler.version}
+        ```
+would achieve the Eagle naming scheme. 
+#To remove default variable settings in the modulefile, e.g., CPATH,
+```
+modules:
+    tcl:
+        all:
+            filter:
+                environment_blacklist: [‘CPATH’]
+```
+Note that this would affect Tcl modulefiles only; if Spack also creates Lmod files, those would still contain default CPATH modification behavior.
+#To prevent certain modulefiles from being built, you can whitelist and blacklist.
+```
+modules:
+    tcl:
+        whitelist: [‘gcc’]
+        blacklist: [‘%gcc@4.8.5’]
+```
+This would create modules for all versions of GCC built using the system compiler, but not for the system compiler itself.
+There are a great many further behaviors that can be changed, see https://spack.readthedocs.io/en/latest/module_file_support.html#modules for more.
+
+For general user support, it is not a bad idea to keep the modules that are publicly visible separate from the collection that Spack auto-generates. This involves some manual copying, but is generally not onerous as all rpaths are included in Spack-built binaries (i.e., you don’t have to worry about satisfying library dependencies for Spack applications with an auto-built module, since library paths are hard-coded into the application binaries). This separation also frees one from accepting Spack’s verbose coding formats within modulefiles, should you decide to maintain certain modulefiles another way.
+
+##Configuration
+Spack uses hierarchical customization files. Every package is a Python class, and inherits from the top-level class Package. Depending on the degree of site customization, you may want to fork the Spack repo to create your own customized Spack package.
+There are 4 levels of configuration. In order of increasing precedence,
+1.	Default: $SPACK_ROOT/etc/spack/default
+2.	System-wide: /etc/spack
+3.	Site-wide: $SPACK_ROOT/etc/spack
+4.	User-specific: $HOME/.spack
+Spack configuration uses YAML files, a subset of JSON native to Python.
+There are 5 main configuration files.
+1.	compilers.yaml. Customizations to the Spack-known compilers for all builds
+a.	Use full path to compilers
+b.	Additional rpaths beyond the Spack repo
+c.	Additional modules necessary when invoking compilers
+d.	Mixing toolchains
+e.	Optimization flags
+f.	Environment modifications
+2.	config.yaml. Base functionality of Spack itself
+a.	install_tree: where to install packages
+b.	build_stage: where to do compiles. For performance, can specify a local SSD or a RAMFS.
+c.	modules_roots: where to install modulefiles
+3.	modules.yaml. How to create modulefiles
+a.	whitelist/blacklist packages from having their own modulefiles created
+b.	adjust hierarchies
+4.	packages.yaml. Specific optimizations, such as multiple hardware targets.
+a.	dependencies, e.g., don’t build OpenSSL (usually want sysadmins to handle updates, etc.)
+b.	mark specific packages as non-buildable, e.g., vendor MPIs
+c.	preferences, e.g., BLAS -> MKL, LAPACK -> MKL
+5.	repos.yaml
+a.	Directory-housed, not remote
+b.	Specify other package locations
+c.	Can then spec build in other configs (e.g., binary, don’t build)
+d.	Precedence in YAML file order, but follows Spack precedence order (user > site > system > default)
+
+Variants: standard adjustments to package build
+`spack edit …  `-- opens Python file for package, can easily write new variants
+
+Providers
+`spack providers` -- virtual packages, e.g., blas, mpi, etc. Standards, not implementations. Abstraction of an implementation (blas/mkl, mpi/mpich, etc.)
+
+Mirrors
+•	mirrors.yaml: where packages are kept
+•	A repo is where build information is kept; a mirror is where code lives
+```
+MirrorTopLevel
+	package_a
+		package_a-version1.tar.gz
+		package_a-version2.tar.gz
+	package_b
+		⋮
+```
+`spack mirror` to manage mirrors
+
+Repos
+•	Can take precedence from, e.g., a site repo
+•	Can namespace
+```
+packages
+	repo.yaml
+	alpha
+		hotfix-patch-ABC.patch
+		package.py
+		package.pyc
+	beta
+	theta
+```
 
