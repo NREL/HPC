@@ -17,6 +17,8 @@ Eagle vs. Swift full nodes plot
 
 ### Summary of Eagle Data Analysis
 
+Cores scaling within a node
+
 Provide stats for:
 - Full nodes (1,2)
 - Half-filled nodes (2)
