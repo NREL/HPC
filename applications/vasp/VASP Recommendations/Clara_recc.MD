@@ -69,6 +69,8 @@ Plots to include:
 
 ### Summary of Swift Data Analysis
 
+Cores scaling within a node
+
 Provide stats for:
 - Full nodes (1,2)
 - half-filled nodes (2)
