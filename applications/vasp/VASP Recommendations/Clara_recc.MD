@@ -59,6 +59,10 @@ Plots to include:
 
 On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime. Unlike on Eagle, Swift charges for only the portion of the node requested by a job. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. 
 
+![Swift Intel MPI](https://github.com/claralarson/HPC/blob/6124bb4700a6dd5fb347f669ca75c1c2a6caaa50/applications/vasp/VASP%20Recommendations/Images/Swift_IntelMPI.png)
+
+![Swift Open MPI](https://github.com/claralarson/HPC/blob/6124bb4700a6dd5fb347f669ca75c1c2a6caaa50/applications/vasp/VASP%20Recommendations/Images/Swift_OpenMPI.png)
+
 ### MPI
 
 Intel MPI is recommended over Open MPI for all VASP calculations on Swift. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 76%, 72% and 46% of the time as the same calculations using an Open MPI build of VASP over Open MPI on 32, 64 and 128 CPUs/node, respectively. For Benchmark 1, Intel MPI calculations ran in an average of CHECK BACK of the time as Open MPI calculcations. 
