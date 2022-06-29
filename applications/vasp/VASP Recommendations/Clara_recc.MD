@@ -1,12 +1,3 @@
-# Table of Contents
-1. [VASP Performance on Eagle vs Swift](#VASP-Performance-on-Eagle-vs-Swift)
-2. [Eagle](#Eagle)
-    * [Recommendations for Running VASP on Eagle](#Recommendations-for-running-VASP-on-Eagle)
-    * [Scripts for VASP on Eagle](#Scripts-for-VASP-on-Eagle)
-3. [Swift](#Swift)
-    * [Recommendations for Running VASP on Swift](#Recommendations-for-running-VASP-on-Swift)
-    * [Scripts for VASP on Swift](#Scripts-for-VASP-on-Swift)
-
 ## VASP Performance on Eagle vs Swift
 
 Eagle vs. Swift full nodes plot
@@ -25,7 +16,9 @@ Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performan
 
    * Memory limitation: GPU nodes on Eagle cannot provide as much memory as CPU nodes for VASP jobs, and large VASP jobs may require more GPU nodes to provide enough memory for the calculation. For Benchmark 2, at least 2 full nodes were needed to provide enough memory to complete a calculation. Using more complicated parallelization schemes, the number of nodes necessary to provide enough memory scaled with the increase in number of problems handled simultaneousely. 
 
-![Eagle GPU](https://github.com/claralarson/HPC/blob/7d53d6540dc81313e322316061cc194fcec219e9/applications/vasp/VASP%20Recommendations/Images/Ealge_GPUs.png)
+![Eagle GPU 4x4x2](https://github.com/claralarson/HPC/blob/e3805352957cd97dcaaa45a4485748667446dcbf/applications/vasp/VASP%20Recommendations/Images/Eagle_4x4x2_GPU.png)
+
+![Eagle GPU 10x10x5](https://github.com/claralarson/HPC/blob/e3805352957cd97dcaaa45a4485748667446dcbf/applications/vasp/VASP%20Recommendations/Images/Eagle_10x10x5_GPU.png)
 
 ### MPI
 
