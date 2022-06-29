@@ -19,12 +19,17 @@ Run VASP on full nodes (36 CPUs/node). While using fewer cores per node yields a
 
 ### VASP on GPU Nodes
 
-Running the GPU build of VASP (vasp_gpu) on GPU nodes improves performance for larger VASP calculations, but may increase the runtime for smaller calculations. Benchmark 2 calculations on GPU nodes ran in an average of 27.5% of the time as CPU calculations on the same number of nodes, but Benchmark 1 calculationson GPU nodes ran in an average of 150% of the time as CPU calculations on the same number of nodes.
+Two versions of the vasp_gpu executable are available on Eagle. [GET INFO FROM TIM ABOUT THE DIFFERENCE BETWEEN THE TWO] . The OpenACC GPU build was found to run in an average of 32% of the time as the old GPU build using Benchmark 2. 
+
+Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performance for larger VASP calculations, but may increase the runtime for smaller calculations. Benchmark 2 calculations on using the OpenACC build on GPU nodes ran in an average of 27.7% of the time as CPU calculations on the same number of nodes, but Benchmark 1 calculationson using the OpenACC build on GPU nodes ran in an average of 150% of the time as CPU calculations on the same number of nodes.
+
    * Memory limitation: GPU nodes on Eagle cannot provide as much memory as CPU nodes for VASP jobs, and large VASP jobs may require more GPU nodes to provide enough memory for the calculation. For Benchmark 2, at least 2 full nodes were needed to provide enough memory to complete a calculation. Using more complicated parallelization schemes, the number of nodes necessary to provide enough memory scaled with the increase in number of problems handled simultaneousely. 
+
+![Eagle GPU](https://github.com/claralarson/HPC/blob/7d53d6540dc81313e322316061cc194fcec219e9/applications/vasp/VASP%20Recommendations/Images/Ealge_GPUs.png)
 
 ### MPI
 
-Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 50% of the time as the same calculations using an Open MPI build of VASP over Open MPI. For Benchmark 1, Intel MPI calculations ran in an average of 60% of the time as Open MPI calculcations. 
+Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 50% of the time as the same calculations using an Open MPI build of VASP over Open MPI. For Benchmark 1, Intel MPI calculations ran in an average of 63.5% of the time as Open MPI calculcations. 
 
 ### --cpu-bind Flag
 Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement (~5% CHECK WITH OPENMPI RESULTS TOO) in runtime. (See [LINK TO CPU-BIND DOC] for info on the effect of cpu-bind)
