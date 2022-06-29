@@ -169,17 +169,26 @@ This only lasts for the current session, and is not of general interest. A more 
 
 This takes care of dependencies as well. The inverse operation is deactivation.
 
-|spack deactivate <extension package>	        |extension alone. Will not deactivate if dependents exist|
-|spack deactivate --force <extension package>	|deactivates regardless of dependents | 
-|spack deactivate --all <extension package>	    |deactivates extension and all dependencies |
-|spack deactivate --all <parent>	            |deactivates all extensions of parent (e.g., <python>) |
+`spack deactivate <extension package>`	        extension alone. Will not deactivate if dependents exist
+
+`spack deactivate --force <extension package>`	deactivates regardless of dependents  
+
+`spack deactivate --all <extension package>`	    deactivates extension and all dependencies 
+
+`spack deactivate --all <parent>`	            deactivates all extensions of parent (e.g., <python>) 
 
 
 ## Modules
-Spack can auto-create environment modulefiles for the packages that it builds, both in Tcl for “environment modules” per se, and in Lua for Lmod. Auto-creation includes each dependency and option permutation, which can lead to excessive quantities of modulefiles. Spack also uses the package hash as part of the modulefile name, which can be somewhat disconcerting to users. These default behaviors can be treated in the active modules.yaml file, as well as practices used for support.
-Tcl modulefiles are created in $SPACK_ROOT/share/spack/modules by default, and the equivalent Lmod location is $SPACK_ROOT/share/spack/lmod. Only Tcl modules are created by default. You can modify the active modules.yaml file in the following ways to affect some example behaviors:
 
-# To turn Lmod module creation on,
+Spack can auto-create environment modulefiles for the packages that it builds, both in Tcl for “environment modules” per se, and in Lua for Lmod. 
+Auto-creation includes each dependency and option permutation, which can lead to excessive quantities of modulefiles. 
+Spack also uses the package hash as part of the modulefile name, which can be somewhat disconcerting to users. 
+These default behaviors can be treated in the active modules.yaml file, as well as practices used for support.
+Tcl modulefiles are created in `$SPACK_ROOT/share/spack/modules` by default, and the equivalent Lmod location is `$SPACK_ROOT/share/spack/lmod`. 
+Only Tcl modules are created by default. 
+You can modify the active modules.yaml file in the following ways to affect some example behaviors:
+
+### To turn Lmod module creation on,
 
 ```
 modules:
@@ -187,7 +196,7 @@ modules:
         - tcl
         - lmod 
         ```
-# To change the modulefile naming pattern,
+### To change the modulefile naming pattern,
 
 ```
 modules:
@@ -196,7 +205,7 @@ modules:
         ```
 
 would achieve the Eagle naming scheme. 
-# To remove default variable settings in the modulefile, e.g., CPATH,
+### To remove default variable settings in the modulefile, e.g., CPATH,
 
 ```
 modules:
@@ -208,7 +217,7 @@ modules:
 
 Note that this would affect Tcl modulefiles only; if Spack also creates Lmod files, those would still contain default CPATH modification behavior.
 
-# To prevent certain modulefiles from being built, you can whitelist and blacklist.
+### To prevent certain modulefiles from being built, you can whitelist and blacklist.
 
 ```
 modules:
@@ -236,36 +245,36 @@ There are 4 levels of configuration. In order of increasing precedence,
 Spack configuration uses YAML files, a subset of JSON native to Python.
 There are 5 main configuration files.
 1.	compilers.yaml. Customizations to the Spack-known compilers for all builds
-    a.	Use full path to compilers
-    b.	Additional rpaths beyond the Spack repo
-    c.	Additional modules necessary when invoking compilers
-    d.	Mixing toolchains
-    e.	Optimization flags
-    f.	Environment modifications
+    i.	Use full path to compilers
+    ii.	Additional rpaths beyond the Spack repo
+    iii.	Additional modules necessary when invoking compilers
+    iv.	Mixing toolchains
+    v.	Optimization flags
+    vi.	Environment modifications
 2.	config.yaml. Base functionality of Spack itself
-    a.	install_tree: where to install packages
-    b.	build_stage: where to do compiles. For performance, can specify a local SSD or a RAMFS.
-    c.	modules_roots: where to install modulefiles
+    i.	install_tree: where to install packages
+    ii.	build_stage: where to do compiles. For performance, can specify a local SSD or a RAMFS.
+    iii.	modules_roots: where to install modulefiles
 3.	modules.yaml. How to create modulefiles
-    a.	whitelist/blacklist packages from having their own modulefiles created
-    b.	adjust hierarchies
+    i.	whitelist/blacklist packages from having their own modulefiles created
+    ii.	adjust hierarchies
 4.	packages.yaml. Specific optimizations, such as multiple hardware targets.
-    a.	dependencies, e.g., don’t build OpenSSL (usually want sysadmins to handle updates, etc.)
-    b.	mark specific packages as non-buildable, e.g., vendor MPIs
-    c.	preferences, e.g., BLAS -> MKL, LAPACK -> MKL
+    i.	dependencies, e.g., don’t build OpenSSL (usually want sysadmins to handle updates, etc.)
+    ii.	mark specific packages as non-buildable, e.g., vendor MPIs
+    iii.	preferences, e.g., BLAS -> MKL, LAPACK -> MKL
 5.	repos.yaml
-    a.	Directory-housed, not remote
-    b.	Specify other package locations
-    c.	Can then spec build in other configs (e.g., binary, don’t build)
-    d.	Precedence in YAML file order, but follows Spack precedence order (user > site > system > default)
+    i.	Directory-housed, not remote
+    ii.	Specify other package locations
+    iii.	Can then spec build in other configs (e.g., binary, don’t build)
+    iv.	Precedence in YAML file order, but follows Spack precedence order (user > site > system > default)
 
-# Variants: standard adjustments to package build
+### Variants: standard adjustments to package build
 `spack edit …  `-- opens Python file for package, can easily write new variants
 
-# Providers
+### Providers
 `spack providers` -- virtual packages, e.g., blas, mpi, etc. Standards, not implementations. Abstraction of an implementation (blas/mkl, mpi/mpich, etc.)
 
-# Mirrors
+### Mirrors
 - mirrors.yaml: where packages are kept
 - A repo is where build information is kept; a mirror is where code lives
 
@@ -280,7 +289,7 @@ MirrorTopLevel
 
 `spack mirror` to manage mirrors
 
-# Repos
+### Repos
 - Can take precedence from, e.g., a site repo
 - Can namespace
 
