@@ -1,7 +1,3 @@
-## VASP Performance on Eagle vs Swift
-
-Eagle vs. Swift full nodes plot
-
 ## Eagle
 
 ### Recommendations for Running VASP on Eagle
