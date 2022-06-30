@@ -34,10 +34,10 @@ srun --cpu-bind=cores vasp_std
 ### KPAR
 
 KPAR determines the number of groups across which to divide calculations at each kpoint, and one calculation from each group is performed at a time. The value of KPAR can be defined in the INCAR file. 
-      - Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
-      - We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
-      - Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
-      - The [GPU VASP documentation](https://www.vasp.at/wiki/index.php/OpenACC_GPU_port_of_VASP) recommends setting KPAR equal to the total number of GPUs used. Our results are relatively consistent with this recommendation. 
+  * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
+  * We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
+  * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
+  * The [GPU VASP documentation](https://www.vasp.at/wiki/index.php/OpenACC_GPU_port_of_VASP) recommends setting KPAR equal to the total number of GPUs used. Our results are relatively consistent with this recommendation. 
 
 ### K-Points Scaling
 
@@ -55,7 +55,9 @@ Plots to include:
 
 ### Recommendations for Running VASP on Swift
 
-On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime. Unlike on Eagle, Swift charges for only the portion of the node requested by a job. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. 
+On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime. Unlike on Eagle, Swift charges for only the portion of the node requested by a job. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. However, if only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which might deteriorate the performance as "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exculsive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
+
+The graphs below are meant to help users identify the number of CPUs/node will be most efficient in running their jobs. The graphs that show "performance/core" match jobs that use the same number of cores (but different number of nodes depending on CPUs/node), and they show the efficiency per core. These graphs are most useful if you will be charged by CPU (i.e. --exclusive tag is not set). The graphs that show "performance/node" match jobs that use the same number of nodes (but different number of cores depending on CPUs/node), and they show efficiency per node. These graphs are most useful if you will be charged by node (i.e. --exclusive tag is set). 
 
 Intel MPI, performance/core  |  Intel MPI, performance/node
 :-------------------------:|:-------------------------:
@@ -80,9 +82,9 @@ srun --cpu-bind=cores vasp_std
 ### KPAR
 
 KPAR determines the number of groups across which to divide calculations at each kpoint, and one calculation from each group is performed at a time. The value of KPAR can be defined in the INCAR file. 
-      - Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
-      - We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
-      - Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
+  * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
+  * We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
+  * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
       
 ### K-Points Scaling 
 
