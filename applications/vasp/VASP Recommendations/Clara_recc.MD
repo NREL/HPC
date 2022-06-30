@@ -16,9 +16,9 @@ Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performan
 
    * Memory limitation: GPU nodes on Eagle cannot provide as much memory as CPU nodes for VASP jobs, and large VASP jobs may require more GPU nodes to provide enough memory for the calculation. For Benchmark 2, at least 2 full nodes were needed to provide enough memory to complete a calculation. Using more complicated parallelization schemes, the number of nodes necessary to provide enough memory scaled with the increase in number of problems handled simultaneousely. 
 
-![Eagle GPU 4x4x2](https://github.com/claralarson/HPC/blob/e3805352957cd97dcaaa45a4485748667446dcbf/applications/vasp/VASP%20Recommendations/Images/Eagle_4x4x2_GPU.png)
+![Eagle GPU Bench 2](https://github.com/claralarson/HPC/blob/4837ef43a7d03b1b34a1e5ceda8dcbc64ca5b128/applications/vasp/VASP%20Recommendations/Images/Eagle_GPU_2.png)
 
-![Eagle GPU 10x10x5](https://github.com/claralarson/HPC/blob/e3805352957cd97dcaaa45a4485748667446dcbf/applications/vasp/VASP%20Recommendations/Images/Eagle_10x10x5_GPU.png)
+![Eagle GPU Bench 1 4x4x2](https://github.com/claralarson/HPC/blob/4837ef43a7d03b1b34a1e5ceda8dcbc64ca5b128/applications/vasp/VASP%20Recommendations/Images/Eagle_GPU_1_4x4x2.png)
 
 ### MPI
 
