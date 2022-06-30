@@ -1,6 +1,6 @@
 ## Eagle
 
-### Recommendations for Running VASP on Eagle
+### Recommended CPUs/Node
 
 Run VASP on full nodes (36 CPUs/node). While using fewer cores per node yields an improvement in runtime/core, it will results in a larger allocation charge, as Eagle charges per node used, regardless of how much of the node is used. Eagle charges 3AUs/node-hour. 
 
@@ -49,7 +49,7 @@ Plots to include:
 
 ## Swift
 
-### Recommendations for Running VASP on Swift
+### Recommended CPUs/Node
 
 On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime. Unlike on Eagle, Swift charges for only the portion of the node requested by a job. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. However, if only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which might deteriorate the performance as "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exculsive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
 
