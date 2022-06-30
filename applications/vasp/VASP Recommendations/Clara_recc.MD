@@ -10,7 +10,7 @@ Run VASP on full nodes (36 CPUs/node). While using fewer cores per node yields a
 
 ### VASP on GPU Nodes
 
-Two versions of the vasp_gpu executable are available on Eagle. [GET INFO FROM TIM ABOUT THE DIFFERENCE BETWEEN THE TWO] . The OpenACC GPU build was found to run in an average of 32% of the time as the old GPU build using Benchmark 2. 
+Two versions of the vasp_gpu executable are available on Eagle. The older vasp_gpu build on Eagle is built using CUDA, and the newer version is built using OpenACC. The OpenACC GPU build was found to run in an average of 27.7% of the time as the old GPU build using Benchmark 2. Little runtime improvement (compared to running on CPUs) was seen using the older, CUDA GPU build. For information on accessing the OpenACC build of vasp_std, see [SCRIPT].
 
 Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performance for larger VASP calculations, but may increase the runtime for smaller calculations. Benchmark 2 calculations on using the OpenACC build on GPU nodes ran in an average of 27.7% of the time as CPU calculations on the same number of nodes, but Benchmark 1 calculationson using the OpenACC build on GPU nodes ran in an average of 150% of the time as CPU calculations on the same number of nodes.
 
@@ -25,7 +25,7 @@ Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performan
 Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 50% of the time as the same calculations using an Open MPI build of VASP over Open MPI. For Benchmark 1, Intel MPI calculations ran in an average of 63.5% of the time as Open MPI calculcations. 
 
 ### --cpu-bind Flag
-Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement (~5% CHECK WITH OPENMPI RESULTS TOO) in runtime. (See [LINK TO CPU-BIND DOC] for info on the effect of cpu-bind)
+Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [LINK TO CPU-BIND DOC] for info on the effect of cpu-bind)
 
 cpu-bind can be set as a flag in an srun command, such as 
 ```
@@ -41,7 +41,7 @@ KPAR determines the number of groups across which to divide calculations at each
 
 ### K-Points Scaling
 
-Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 26%. 
+Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~20%-57%). 
 
 Scripts to add:
 - IntelMPI VASP on Eagle script
@@ -57,9 +57,13 @@ Plots to include:
 
 On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime. Unlike on Eagle, Swift charges for only the portion of the node requested by a job. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. 
 
-![Swift Intel MPI](https://github.com/claralarson/HPC/blob/aeb88fb048e4e05f32ecb018d06985bbbee6c77c/applications/vasp/VASP%20Recommendations/Images/Swift_IntelMPI.png)
+Intel MPI, performance/core  |  Intel MPI, performance/node
+:-------------------------:|:-------------------------:
+![](https://github.com/claralarson/HPC/blob/b667dfce623fedc54f1d9da5ea28cd59cc346beb/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/claralarson/HPC/blob/b667dfce623fedc54f1d9da5ea28cd59cc346beb/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Nodes.png)
 
-![Swift Open MPI](https://github.com/claralarson/HPC/blob/6124bb4700a6dd5fb347f669ca75c1c2a6caaa50/applications/vasp/VASP%20Recommendations/Images/Swift_OpenMPI.png)
+Open MPI, performance/core  |  Open MPI, performance/node 
+:-------------------------:|:-------------------------:
+![](https://github.com/claralarson/HPC/blob/ffaa2609e6c5d9b055aae03ba0abcc5c9bc1f7a2/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/claralarson/HPC/blob/b667dfce623fedc54f1d9da5ea28cd59cc346beb/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Nodes.png)
 
 ### MPI
 
@@ -82,7 +86,7 @@ KPAR determines the number of groups across which to divide calculations at each
       
 ### K-Points Scaling 
 
-Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 23%. 
+Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%). 
 
 Scripts to add:
 - IntelMPI VASP on Swift script
