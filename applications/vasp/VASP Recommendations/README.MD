@@ -49,6 +49,11 @@ KPAR determines the number of groups across which to divide calculations at each
 
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~20%-57%). 
 
+### Scripts for Running VASP on Eagle:
+[VASP on Eagle with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_IntelMPI.slurm)
+[VASP on Eagle with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenMPI.slurm)
+[VASP on Eagle on GPUs with OpenACC GPU build using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenACC_GPU.slurm)
+
 ## Swift
 
 ### Recommended CPUs/Node
@@ -90,4 +95,10 @@ KPAR determines the number of groups across which to divide calculations at each
       
 ### K-Points Scaling 
 
-Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%). 
+Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%).
+
+### Scripts for Running VASP on Swift:
+[VASP on Swift with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI.slurm)
+[VASP on Swift with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI.slurm)
+[VASP on Swift with Shared Nodes using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI_shared_nodes.slurm)
+[VASP on Swift with Shared Nodes using Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI_shared_nodes.slurm)
