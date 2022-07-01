@@ -10,9 +10,13 @@ How to use ParaView in batch mode to generate single frames and animations on Ea
 
         ssh {username}@eagle.hpc.nrel.gov
 
-2.  Request an interactive compute session:
+2.  Request an interactive compute session for 60 minutes):
 
-        srun -A {allocation} -t 60 --pty $SHELL
+        salloc -A {allocation} -t 60 
+
+    Note: Slurm changes in January 2022 resulted in the need to use salloc to start your interactive session, since we'll be 
+    running pvbatch on the compute node using srun in a later step. This "srun-inside-an-salloc" supercedes 
+    the previous Slurm behavior of "srun-inside-an-srun", which will no longer work.
 
 3.  Once the session starts, load the appropriate modules:  
 

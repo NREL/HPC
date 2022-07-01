@@ -12,7 +12,7 @@ Globus transfers files using **GridFTP**. GridFTP is a high-performance data tra
 
 ### Globus Personal endpoints
 
-You can set up a "Globus Connect Personal EndPoint", which turns your personal computer into an endpoint, by downloading and installing the Globus Connect Personal application on your system. We use a personal endpoint to demonstrate how to transfer files to and from Peregrine.
+You can set up a "Globus Connect Personal EndPoint", which turns your personal computer into an endpoint, by downloading and installing the Globus Connect Personal application on your system. We use a personal endpoint to demonstrate how to transfer files to and from Eagle.
 
 ###### Set Up a Personal EndPoint
 
@@ -38,7 +38,7 @@ Globus Online is a hosted service that allows you to use a browser to transfer f
 
 - Click Login on the [Globus web site](https://www.globus.org/). On the login page select "Globus ID" as the login method and click continue.  Use the Globus credentials you used to register your Globus.org account.
 - Go to the Transfer Files page, the link is located under the Manage Data tab at the top of the page.
-- Select **nrel#globus** as the endpoint on one right side. In the box asking for authentication, **enter your Peregrine (NREL HPC) username and password**. Do not use your globus.org username and password when authenticating with the nrel#globus endpoint.
+- Select **nrel#globus** as the endpoint on one right side. In the box asking for authentication, **enter your Eagle (NREL HPC) username and password**. Do not use your globus.org username and password when authenticating with the nrel#globus endpoint.
 - Select another Globus endpoint, such as a personal endpoint or an endpoint at another institution that you have access to. To use your personal endpoint, first start the Globus Connect Personal application. Then enter "USERNAME#ENDPOINT" on the left side or use the drop down menu to find it. Click "go".
 - To transfer files
   - Select the files you want to transfer someplace else from the system from the dialog box on the left.

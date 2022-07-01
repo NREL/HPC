@@ -1,8 +1,44 @@
-# Running RTS-GMLC Example Workflow
+Please follow the instructions in [`Setup-PLEXOS.md`](Setup-PLEXOS.md) before
+running the example in this directory. Example scripts for new users are available
+in Section 2.
+
+# PLEXOS Versions > 8.3 and Higher
+
+Currently, the latest available PLEXOS version on Eagle is 8.3R09. Models using
+this version of PLEXOS can work with both XpressMP and Gurobi solvers. However,
+moving forward, PLEXOS support for XpressMP will be dropped in the coming months.
+
+In order to use PLEXOS 8.3 on Eagle, we first need to load the following modules
+
+```bash
+module load centos mono/6.8.0.105 plexos/8.300R09
+```
+
+Eagle has the same versions of XpressMP and Gurobi as the NREL PLEXOS Servers.
+Therefore the user simply needs to load the corresponding module on Eagle before
+running their models. For example, if the user setup the model to use Xpress 8.11,
+load the module for the same by calling the command
+
+```bash
+module load xpressmp/8.11.0
+```
+
+Similarly, the model was set up to use Gurobi 9.1.2, load its module by running
+the command
+
+```bash
+module load gurobi/9.1.2
+```
 
 **NOTE:**
-Please follow the instructions in [`Setup-PLEXOS.md`](Setup-PLEXOS.md) before
-running the example in this directory.
+Sometimes newer modules may be availabe in a `test` directory which is accessible only to
+a limited number of users. This limited release is done to iron out any bugs that
+may arise during the installation and use of the module and avoid breaking
+users existing jobs. We encourage you to reach out to us at HPC-Help@nrel.gov for access
+if you know/suspect that is the case.
+
+
+# PLEXOS Versions 8.2 and Lower
 
 We will be mostly working out of our `scratch/$USER` directory on Eagle.
 

@@ -5,7 +5,7 @@
 A supported set of instructions for data transfer using NREL HPC systems is provided on the [HPC NREL Website](https://www.nrel.gov/hpc/data-storage-transfer.html).
 
 ## Checking Usage and Quota
-The below command is used to check your quota from a Peregrine login node.  alloc_tracker will display your usage and quota for each filesystem.
+The below command is used to check your quota from a Eagle login node.  alloc_tracker will display your usage and quota for each filesystem.
 
 ```bash
 $ alloc_tracker

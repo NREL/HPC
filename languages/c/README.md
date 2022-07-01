@@ -3,18 +3,18 @@
     Wiki](NREL-HPC-User-Community-Wiki_15171667.html)
 3.  [Tips and Tricks](Tips-and-Tricks_18593769.html)
 
- HPC User Wiki : C Programs 
+ HPC User Wiki : C Programs
 ===========================
 
 Created by Southerland, Jennifer on 2018-01-23
 
-Compiling and Running C Programs on the Peregrine System
+Compiling and Running C Programs on the Eagle System
 ========================================================
 
 ### Simple "Hello, world" Program
 
 Follow these instructions to compile and run your first programs written
-in C on Peregrine.
+in C on Eagle.
 
 Copy this text to a file named hello\_world.c with your favorite text
 editor (nano, vi, emacs, etc.).
@@ -89,9 +89,9 @@ editor (vi, emacs, etc.)  If you are not familiar with text editors, try
        MPI_Init (&argc, &argv); /* starts MPI */
        MPI_Comm_rank (MPI_COMM_WORLD, &rank);     /* get current process id */
        MPI_Comm_size (MPI_COMM_WORLD, &size);     /* get number of processes */
-     
+
         printf( "Hello, world from process %d of %d\n", rank, size );
-     
+
         MPI_Finalize();
        return 0;
     }
@@ -105,7 +105,7 @@ The compiler will create a linux executable file called hello\_world.
 
 ### Running your Parallel “Hello, world” program
 
-Peregrine is a cluster: a collection of computers connected together
+Eagle is a cluster: a collection of computers connected together
 with a special network (InfiniBand in this case) and software (Torque)
 that allows a single program to run across multiple physical computers.
 Create a submit script which contains options for torque, including the
