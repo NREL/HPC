@@ -49,11 +49,6 @@ KPAR determines the number of groups across which to divide calculations at each
 
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~20%-57%). 
 
-Scripts to add:
-- IntelMPI VASP on Eagle script
-- OpenMPI VASP on Eagle script
-- VASP on Eagle GPU nodes script (Intel)
-
 ## Swift
 
 ### Recommended CPUs/Node
@@ -94,11 +89,3 @@ KPAR determines the number of groups across which to divide calculations at each
 ### K-Points Scaling 
 
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%). 
-
-Scripts to add:
-- IntelMPI VASP on Swift script
-- OpenMPI VASP on Swift script
-- Running on split nodes as an array job
-
-Plots to include:
-- some KPAR/NPAR plots that show performance drops off after node count meets KPAR
