@@ -54,9 +54,6 @@ Scripts to add:
 - OpenMPI VASP on Eagle script
 - VASP on Eagle GPU nodes script (Intel)
 
-Plots to include:
-- GPUs plot?
-
 ## Swift
 
 ### Recommended CPUs/Node
@@ -104,5 +101,4 @@ Scripts to add:
 - Running on split nodes as an array job
 
 Plots to include:
-- nodefill plot
 - some KPAR/NPAR plots that show performance drops off after node count meets KPAR
