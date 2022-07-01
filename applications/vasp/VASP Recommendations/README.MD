@@ -16,7 +16,7 @@ Run VASP on full nodes (36 CPUs/node). While using fewer cores per node yields a
 
 ### VASP on GPU Nodes
 
-Two versions of the vasp_gpu executable are available on Eagle. The older vasp_gpu build on Eagle is built using CUDA, and the newer version is built using OpenACC. The OpenACC GPU build was found to run in an average of 27.7% of the time as the old GPU build using Benchmark 2. Little runtime improvement (compared to running on CPUs) was seen using the older, CUDA GPU build. For information on accessing the OpenACC build of vasp_std, see [SCRIPT].
+Two versions of the vasp_gpu executable are available on Eagle. The older vasp_gpu build on Eagle is built using CUDA, and the newer version is built using OpenACC. The OpenACC GPU build was found to run in an average of 27.7% of the time as the old GPU build using Benchmark 2. Little runtime improvement (compared to running on CPUs) was seen using the older, CUDA GPU build. Find a script for running the OpenACC GPU build in [this section](#Scripts-for-Running-VASP-on-Eagle).
 
 Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performance for larger VASP calculations, but may increase the runtime for smaller calculations. Benchmark 2 calculations on using the OpenACC build on GPU nodes ran in an average of 27.7% of the time as CPU calculations on the same number of nodes, but Benchmark 1 calculationson using the OpenACC build on GPU nodes ran in an average of 150% of the time as CPU calculations on the same number of nodes.
 
@@ -29,6 +29,8 @@ Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performan
 ### MPI
 
 Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 50% of the time as the same calculations using an Open MPI build of VASP over Open MPI. For Benchmark 1, Intel MPI calculations ran in an average of 63.5% of the time as Open MPI calculcations. 
+
+Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Eagle).
 
 ### --cpu-bind Flag
 The --cpu-bind flag changes how tasks are assigned to cores throughout the node. Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [LINK TO CPU-BIND DOC] for info on the effect of cpu-bind)
@@ -49,7 +51,7 @@ KPAR determines the number of groups across which to divide calculations at each
 
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~20%-57%). 
 
-### Scripts for Running VASP on Eagle:
+### Scripts for Running VASP on Eagle
   * [VASP on Eagle with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_IntelMPI.slurm)
   * [VASP on Eagle with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenMPI.slurm)
   * [VASP on Eagle on GPUs with OpenACC GPU build using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenACC_GPU.slurm)
@@ -62,7 +64,7 @@ On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was
 
 Unlike on Eagle, Swift charges for only the portion of the node requested by a job, as long as the memory requested for the job is no more than 2GB/CPU. If the entire 256GB of memory is requested per node, but only half of the CPUs per node are requested, you will be charged for the full node. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. 
 
-Unlike on Eagle, multiple jobs can run on the same nodes on Swift. This runtime performance was simualted by the "shared" nodes in the graphs. So if you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which we suspect might deteriorate the performance since "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exculsive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
+Unlike on Eagle, multiple jobs can run on the same nodes on Swift. This runtime performance was simualted by the "shared" nodes in the graphs. (Find scripts for running multiple VASP jobs on the same nodes in [this section](#Scripts-for-Running-VASP-on-Swift)). So if you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which we suspect might deteriorate the performance since "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exculsive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
 
 The graphs below are meant to help users identify the number of CPUs/node will be most efficient in running their jobs. The graphs that show "performance/core" match jobs that use the same number of cores (but different number of nodes depending on CPUs/node), and they show the efficiency per core. These graphs are most useful if you will be charged by CPU (i.e. --exclusive tag is not set). The graphs that show "performance/node" match jobs that use the same number of nodes (but different number of cores depending on CPUs/node), and they show efficiency per node. These graphs are most useful if you will be charged by node (i.e. --exclusive tag is set). 
 
@@ -77,6 +79,8 @@ Open MPI, performance/core  |  Open MPI, performance/node
 ### MPI
 
 Intel MPI is recommended over Open MPI for all VASP calculations on Swift. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 76%, 72% and 46% of the time as the same calculations using an Open MPI build of VASP over Open MPI on 32, 64 and 128 CPUs/node, respectively. For Benchmark 1, Intel MPI calculations ran in an average of CHECK BACK of the time as Open MPI calculcations. 
+
+Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Swift).
 
 ### --cpu-bind Flag
 
@@ -97,7 +101,7 @@ KPAR determines the number of groups across which to divide calculations at each
 
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%).
 
-### Scripts for Running VASP on Swift:
+### Scripts for Running VASP on Swift
   * [VASP on Swift with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI.slurm)
   * [VASP on Swift with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI.slurm)
   * [VASP on Swift with Shared Nodes using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI_shared_nodes.slurm)
