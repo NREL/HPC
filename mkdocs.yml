@@ -61,6 +61,8 @@ nav:
           - Documentation/Software_Tools/building-packages/modules.md
         - Documentation/Software_Tools/conda.md
         - Documentation/Software_Tools/Jupyter/jupyterhub.md
+        - Data and Visualization:
+          - Documentation/Software_Tools/FastX/fastx.md
       - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
