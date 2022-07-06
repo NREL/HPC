@@ -38,7 +38,7 @@ or through your web browser at `https://ed#.hpc.nrel.gov`.
 
 #### Could not connect to session bus: Failed to connect to socket /tmp/dbus-XXX: Connection refused
 This error is usually the result of a change to the default login environment, often by an alteration to `~/.bashrc` by 
-altering your $PATH, or by configuring [conda](Documentation/Environments/conda/) to launch into a (base) or other environment
+altering your $PATH, or by configuring [Conda](https://nrel.github.io/HPC/Documentation/Software_Tools/conda/) to launch into a (base) or other environment
 immediately upon login. 
 
 For changes to your `$PATH`, be sure to prepend any changes with `$PATH` so that the default system paths are included before 
