@@ -59,11 +59,11 @@ nav:
           - Documentation/Software_Tools/building-packages/acquire.md
           - Documentation/Software_Tools/building-packages/config_make_install.md
           - Documentation/Software_Tools/building-packages/modules.md
-        - Documentation/Software_Tools/conda.md
-        - Documentation/Software_Tools/Jupyter/jupyterhub.md
         - Data and Visualization:
           - Documentation/Software_Tools/FastX/fastx.md
-      - Languages:
+        - Documentation/Software_Tools/conda.md
+        - Documentation/Software_Tools/Jupyter/jupyterhub.md
+            - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
         - Fortran: Documentation/languages/fortran/f90.md
