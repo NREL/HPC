@@ -63,7 +63,7 @@ nav:
           - Documentation/Software_Tools/FastX/fastx.md
         - Documentation/Software_Tools/conda.md
         - Documentation/Software_Tools/Jupyter/jupyterhub.md
-            - Languages:
+      - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
         - Fortran: Documentation/languages/fortran/f90.md
