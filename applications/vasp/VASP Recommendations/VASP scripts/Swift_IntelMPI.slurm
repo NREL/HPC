@@ -5,7 +5,6 @@
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=64
 #SBATCH --nodes=1
-#SBATCH --mem=1000
 
 #Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
 #You will be charged for the full node regardless of the fraction of CPUs/node used
