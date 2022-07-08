@@ -100,7 +100,7 @@ KPAR determines the number of groups across which to divide calculations at each
 Intel MPI, performance/core  |  Intel MPI, performance/node
 :-------------------------:|:-------------------------:
 ![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K1_N4.png) |  ![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K4_N4.png)
-![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
+![](https://github.com/claralarson/HPC/blob/660d2289ce78c95ade4d5a9787440d93f99c1b9f/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
   
   
       
