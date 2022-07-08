@@ -97,7 +97,10 @@ KPAR determines the number of groups across which to divide calculations at each
   * We found significant difference in runtime for Benchmark 1 between using a value of KPAR that does not evenly divide the number of kpoints and using a value of KPAR that does evenly divide the number of kpoints. In the KPAR=8 and KPAR=9 graphs below, notice that the 4x4x2 kpoints grid (16 total kpoints) runs much faster at all core counts using KPAR=8 than using KPAR=9. For the 10x10x5 kpoints grid (500 kpoints), 500 is not divisible by either 8 or 9, and we notice that the performance is approximately the same for KPAR=8 and KPAR=9. 
   * We found that runtime scales poorly if you increase the number of nodes past the value of KPAR , so it is recommended to set KPAR no lower than the number of nodes used.
   * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=8.
-  
+
+#### KPAR Performance using 64 cores/node
+
+|
 :-------------------------:|:-------------------------:
 ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K1_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K4_N4.png)
 ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
