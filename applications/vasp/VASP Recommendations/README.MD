@@ -93,9 +93,10 @@ srun --cpu-bind=cores vasp_std
 ### KPAR
 
 KPAR determines the number of groups across which to divide calculations at each kpoint, and one calculation from each group is performed at a time. The value of KPAR can be defined in the INCAR file. 
-  * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
+  * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used as well as the total number of KPOINTS. VASP will not run if KPAR does not evenly divide the total number of cores, and so core counts were slightly altered for the jobs represented in the KPAR=9 graph in order to get VASP to run on Swift with KPAR=9. 
+  * We found significant difference in runtime for Benchmark 1 between using a value of KPAR that does not evenly divide the number of kpoints and using a value of KPAR that does evenly divide the number of kpoints. In the KPAR=8 and KPAR=9 graphs below, notice that the 4x4x2 kpoints grid (16 total kpoints) runs much faster at all core counts using KPAR=8 than using KPAR=9. For the 10x10x5 kpoints grid (500 kpoints), 500 is not divisible by either 8 or 9, and we notice that the performance is approximately the same for KPAR=8 and KPAR=9. 
   * We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
-  * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
+  * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=8.
   
 Intel MPI, performance/core  |  Intel MPI, performance/node
 :-------------------------:|:-------------------------:
