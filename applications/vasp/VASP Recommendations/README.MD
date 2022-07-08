@@ -98,7 +98,6 @@ KPAR determines the number of groups across which to divide calculations at each
   * We found that runtime scales poorly if you increase the number of nodes past the value of KPAR , so it is recommended to set KPAR no lower than the number of nodes used.
   * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=8.
   
-Comparing KPAR performance (using 64 cores/node)  |
 :-------------------------:|:-------------------------:
 ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K1_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K4_N4.png)
 ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
