@@ -21,7 +21,7 @@ These docs are driven by the NREL HPC community. They are currently under active
 [Docs repository](https://github.com/NREL/hpc){ .md-button } 
 
 ## Workshops
-The HPC community also hosts workshops covering various topics. Check the training calendar below, or view material from recent workshops.
+The HPC community also hosts workshops covering various topics. Check the training calendar below as well as the CSC tutorials channel to view all tutorials and workshops put on by the Computational Science Center,Join the team to receive notifications, seek out new or upcoming tutorials, see past slide desks, recordings. For more information on joining this channel as an external user, see our announcement.  or view material from recent workshops.
 
 [Recent workshops](https://github.com/NREL/HPC/tree/master/workshops){ .md-button } 
 

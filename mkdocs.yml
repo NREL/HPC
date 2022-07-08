@@ -60,8 +60,10 @@ nav:
           - Documentation/Software_Tools/building-packages/modules.md
         - Data and Visualization:
           - Documentation/Software_Tools/FastX/fastx.md
+        - Jupyter:
+          - Documentation/Software_Tools/Jupyter/Jupyter_Intro_Slides.md
+          - Documentation/Software_Tools/Jupyter/jupyterhub.md
         - Documentation/Software_Tools/conda.md
-        - Documentation/Software_Tools/Jupyter/jupyterhub.md
         - Documentation/Software_Tools/Git/Git.md
       - Languages:
         - Bash:
