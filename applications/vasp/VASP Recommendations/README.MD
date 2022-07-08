@@ -96,6 +96,13 @@ KPAR determines the number of groups across which to divide calculations at each
   * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
   * We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
   * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
+  
+Intel MPI, performance/core  |  Intel MPI, performance/node
+:-------------------------:|:-------------------------:
+![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K1_N4.png) |  ![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K4_N4.png)
+![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/17b0b345e2cb30d2548f963d76d8ae5c8b3d91f4/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
+  
+  
       
 ### K-Points Scaling 
 
