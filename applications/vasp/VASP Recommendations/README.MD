@@ -1,4 +1,4 @@
-A study was performed to evaluate the performance on VASP on Swift and Eagle using [ESIF VASP Benchmarks](https://github.com/NREL/ESIFHPC3/tree/master/VASP) 1 and 2. Benchmark 1 is a system of 16 atoms (Cu4In4Se8), and Benchmark 2 is a system of 519 atoms (Ag504C4H10S1).
+A study was performed to evaluate the performance on VASP on Swift and Eagle using [ESIF VASP Benchmarks](https://github.com/NREL/ESIFHPC3/tree/master/VASP) 1 and 2. Benchmark 1 is a system of 16 atoms (Cu<sub>4</sub>In<sub>4</sub>Se<sub>8</sub>), and Benchmark 2 is a system of 519 atoms (Ag<sub>504</sub>C<sub>4</sub>H<sub>10</sub>S<sub>1</sub>). 
 
 On Swift, the default builds of VASP installed on the system as modules were used. The Intel MPI build was built with Intel compilers and the mkl math library, and it was accessed via the "vaspintel" module. The OpenMPI build was compiled with gnu using gcc and fortran compilers and used OpenMPI's math libraries, and was accessed via the "vasp" module. Both builds run VASP 6.1.1.
 
