@@ -106,7 +106,6 @@ KPAR = 1  |  KPAR = 4
 KPAR = 8   |  KPAR = 9
 ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
   
-  
       
 ### K-Points Scaling 
 
