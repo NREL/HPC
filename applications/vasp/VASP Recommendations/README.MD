@@ -70,11 +70,11 @@ The graphs below are meant to help users identify the number of CPUs/node will b
 
 Intel MPI, performance/core  |  Intel MPI, performance/node
 :-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/b667dfce623fedc54f1d9da5ea28cd59cc346beb/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/claralarson/HPC/blob/b667dfce623fedc54f1d9da5ea28cd59cc346beb/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Nodes.png)
+![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Nodes.png)
 
 Open MPI, performance/core  |  Open MPI, performance/node 
 :-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/ffaa2609e6c5d9b055aae03ba0abcc5c9bc1f7a2/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/claralarson/HPC/blob/b667dfce623fedc54f1d9da5ea28cd59cc346beb/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Nodes.png)
+![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Nodes.png)
 
 ### MPI
 
