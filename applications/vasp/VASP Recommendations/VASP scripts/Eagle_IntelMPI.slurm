@@ -8,7 +8,7 @@
 module purge
 
 #Load Intel MPI VASP build
-ml vasp openmpi/4.0.4/gcc-8.4.0
+ml vasp
 
 #set cpu-bind in srun line
 srun -n 36 vasp_std &> out
