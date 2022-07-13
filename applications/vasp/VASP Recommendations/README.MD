@@ -33,7 +33,7 @@ Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and run
 Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Eagle).
 
 ### --cpu-bind Flag
-The --cpu-bind flag changes how tasks are assigned to cores throughout the node. Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb)] for info on the effect of cpu-bind)
+The --cpu-bind flag changes how tasks are assigned to cores throughout the node. Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
 
 cpu-bind can be set as a flag in an srun command, such as 
 ```
@@ -84,7 +84,7 @@ Find scripts for running the Intel MPI and Open MPI builds of VASP in [this sect
 
 ### --cpu-bind Flag
 
-The --cpu-bind flag changes how tasks are assigned to cores throughout the node. On Swift, it is recommended not to use cpu-bind. Running VASP on 64 CPUs/node and 128 CPUs/node, setting --cpu-bind=cores or rank showed no improvement in runtime. Running VASP on 32 CPUs/node, setting --cpu-bind=cores or rank increased runtime by up to 40%. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb)] for info on the effect of cpu-bind)
+The --cpu-bind flag changes how tasks are assigned to cores throughout the node. On Swift, it is recommended not to use cpu-bind. Running VASP on 64 CPUs/node and 128 CPUs/node, setting --cpu-bind=cores or rank showed no improvement in runtime. Running VASP on 32 CPUs/node, setting --cpu-bind=cores or rank increased runtime by up to 40%. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
 
 ```
 srun --cpu-bind=cores vasp_std
