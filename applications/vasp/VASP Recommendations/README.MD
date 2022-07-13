@@ -78,7 +78,7 @@ Open MPI, performance/core  |  Open MPI, performance/node
 
 ### MPI
 
-Intel MPI is recommended over Open MPI for all VASP calculations on Swift. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 76%, 72% and 46% of the time as the same calculations using an Open MPI build of VASP over Open MPI on 32, 64 and 128 CPUs/node, respectively. For Benchmark 1, Intel MPI calculations ran in an average of CHECK BACK of the time as Open MPI calculcations. 
+Intel MPI is recommended over Open MPI for all VASP calculations on Swift. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 76%, 72% and 46% of the time as the same calculations using an Open MPI build of VASP over Open MPI on 32, 64 and 128 CPUs/node, respectively. For Benchmark 1, Intel MPI calculations ran in an average of 76.89% of the time as Open MPI calculcations. 
 
 Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Swift).
 
