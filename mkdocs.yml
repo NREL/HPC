@@ -52,7 +52,7 @@ nav:
       - Software and Tools:
         - Containers:
           - Documentation/Software_Tools/Containers/index.md
-          - Documentation/Software_Tools/Containers/registries.md
+          - Documentation/Software_Tools/Containers/registres.md
           - Documentation/Software_Tools/Containers/singularity.md
         - Building Packages:
           - Documentation/Software_Tools/building-packages/index.md
