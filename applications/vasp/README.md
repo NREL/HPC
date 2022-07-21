@@ -2,7 +2,7 @@
 
 ## VASP Documentation
 
-This repo contains the results of two seperate VASP performance studies using the VASP benchmarks in the [benchmarks directory](/HPC/applications/vasp/benchmarks). Each study evaluates performance differentl, as described below, and provides recommendations for running VASP most efficiently in the README files.
+This repo contains the results of two seperate VASP performance studies on Eagle and Swift using the VASP benchmarks in the [benchmarks directory](/HPC/applications/vasp/benchmarks). Each study evaluates performance differentl, as described below, and provides recommendations for running VASP most efficiently in the README files. The READMEs in each directory contain the following information.
 
 Performance Study 1:
 - Recommendations for setting LREAL
