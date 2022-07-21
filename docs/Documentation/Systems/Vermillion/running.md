@@ -7,7 +7,7 @@
 
 # Running on Vermilion
 
-Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules.
+Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. This page uses the environment at /nopt/nrel/apps/210929a/myenv.2110041605 as a placeholder as this environment is guaranteed to work, but if a newer environment and set of modules exists, it will be documented in the [Modules](./modules.md) page.
 
 
 ## Partitions
@@ -15,13 +15,13 @@ Please see the [Modules](./modules.md) page for information about setting up you
 Partitions are flexible and fluid on Vermilion.  A list of partitions can be returned by running the `sinfo` command.
 Currently, all systems are connected via bonded 25GbE (50Gb combined) with OFED/RDMA installed.
 
-| Part Name | Qty | RAM    | /opt/scratch | Description     |
-| :--:      | --: | --:    | --:   | :--                    |
-| GPU       |  5  | 114 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
-| lg        | 18  | 229 GB |       |      |
-| std       | 62  | 114 GB |       |      |
-| sm        | 31  |  61 GB |       |      |
-| t         | 15  |  16 GB |       |      |
+| Part Name | Qty | RAM    | processors/node | /opt/scratch | Description     |
+| :--:      | --: | --:    | --:   | --:   | :--                    |
+| GPU       |  5  | 114 GB |   1   |       | Dual NVIDIA Tesla V100s @ 40 GBs |
+| lg        | 18  | 229 GB |   60  |       |      |
+| std       | 62  | 114 GB |   30  |       |      |
+| sm        | 31  |  61 GB |   16  |       |      |
+| t         | 15  |  16 GB |   4   |       |      |
 
 ## Operating Software
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
@@ -55,13 +55,13 @@ Here is a sample batch script for running the hello world examples *runopenmpi*.
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=test
+#SBATCH --partition=t
 #SBATCH --time=00:01:00
 
 
 cat $0
 
-source /nopt/nrel/apps/123456a/myenv.123456789
+source /nopt/nrel/apps/210929a/myenv.2110041605
 module load slurm
 
 ml gcc   openmpi
@@ -74,7 +74,7 @@ srun     -n 2 ./phostone.I -F
 To run this you must first ensure that slurm is in your path by running:
 
 ```
-source /nopt/nrel/apps/123456a/myenv.123456789
+source /nopt/nrel/apps/210929a/myenv.2110041605
 module load slurm
 ```
 
@@ -96,12 +96,9 @@ Obviously for the script given above to work you must first build the applicatio
 Loading the environment is just a matter of sourcing the file
 
 ```
-source /nopt/nrel/apps/123456a/myenv.123456789
+source /nopt/nrel/apps/210929a/myenv.2110041605
 
 ```
-
-Note that **123456a** is a date stamp showing when the environment was built.  You may have a different value as environments evolve.
-
 
 #### Loading the modules.
 
@@ -120,8 +117,8 @@ make
 ## Full procedure
 
 ```
-[myuser@~]$ cd /nopt/nrel/apps/123456a
-[myuser@vs:/nopt/nrel/apps/123456a]$ cp -r example ~/example
+[myuser@~]$ cd /nopt/nrel/apps/210929a
+[myuser@vs:/nopt/nrel/apps/210929a]$ cp -r example ~/example
 [myuser@vs:]$ cd ~/example
 
 [myuser@vs:~/example]$ cat runopenmpi
@@ -129,13 +126,13 @@ make
     #SBATCH --job-name="install"
     #SBATCH --nodes=1
     #SBATCH --exclusive
-    #SBATCH --partition=debug
+    #SBATCH --partition=t
     #SBATCH --time=00:01:00
 
 
 cat $0
 
-source /nopt/nrel/apps/123456a/myenv.2107290127
+source /nopt/nrel/apps/210929a/myenv.2110041605
 module load slurm
 
 ml gcc   openmpi
@@ -145,14 +142,14 @@ mpirun -n 2 ./fhostone -F
 mpirun -n 2 ./phostone -F
 
 [myuser@vs example]$ PATH=/nopt/nrel/slurm/bin:$PATH
-[myuser@vs example]$ source /nopt/nrel/apps/123456a/myenv*
+[myuser@vs example]$ source /nopt/nrel/apps/210929a/myenv*
 [myuser@vs example]$ ml gcc   openmpi
 [myuser@vs example]$ make
 
 mpif90 -fopenmp fhostone.f90 -o fhostone
 rm getit.mod  mympi.mod  numz.mod
 mpicc -fopenmp phostone.c -o phostone
-[myuser@vs example]$ sbatch --partition=test runopenmpi
+[myuser@vs example]$ sbatch --partition=t runopenmpi
 Submitted batch job 187
 [myuser@vs example]$
 ```
@@ -165,7 +162,7 @@ Submitted batch job 187
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=debug
+#SBATCH --partition=t
 #SBATCH --time=00:01:00
 
 
@@ -173,7 +170,7 @@ cat $0
 
 PATH=/nopt/nrel/slurm/bin:$PATH
 
-source /nopt/nrel/apps/123456a/myenv*
+source /nopt/nrel/apps/210929a/myenv*
 ml gcc   openmpi
 
 export OMP_NUM_THREADS=2
@@ -281,8 +278,7 @@ We need to make some changes to our batch script.  Add the lines:
 ```
 ml intel-oneapi-compilers
 ml intel-oneapi-mpi
-export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/123456a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
-
+export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/210929a/level01/gcc-9.4.0/slurm-21-08-1-1/lib/libpmi2.so
 ```
 
 Launch with the srun command:
@@ -301,16 +297,16 @@ Our IntelMPI batch script is:
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=test
+#SBATCH --partition=t
 #SBATCH --time=00:01:00
 
 
 cat $0
 
 PATH=/nopt/nrel/slurm/bin:$PATH
-source /nopt/nrel/apps/123456a/myenv*
+source /nopt/nrel/apps/210929a/myenv*
 ml intel-oneapi-mpi intel-oneapi-compilers gcc
-export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/123456a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
+export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/210929a/level01/gcc-9.4.0/slurm-21-08-1-1/lib/libpmi2.so
 
 
 export OMP_NUM_THREADS=2
@@ -342,7 +338,9 @@ task    thread             node name  first task    # on node  core
 
 ## Running VASP
 
-The batch script given above can be modified to run VASP.  You need to add
+The batch script given above can be modified to run VASP. VASP with Open MPI is recommended.
+
+To load a build of VASP that is compatible with Open MPI:
 
 ```
 ml vasp
@@ -363,6 +361,14 @@ This will give you:
 
 Note the directory might be different.
 
+Issues have been reported running VASP on multiple nodes. The most reliable solution is to use a different build of the openmpi module and set the following variable. This configuration has shown good results up to 4 nodes, but is not guaranteed to make VASP run successfully on 8 nodes. 
+
+```
+module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
+module load openmpi
+OMPI_MCA_param="btl_tcp_if_include ens7"
+```
+
 Then you need to add calls in your script to set up / point do your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
 
 
@@ -374,17 +380,22 @@ Then you need to add calls in your script to set up / point do your data files. 
 #SBATCH --time=8:00:00
 ##SBATCH --error=std.err
 ##SBATCH --output=std.out
-#SBATCH --partition=test
+#SBATCH --partition=small
 #SBATCH --exclusive
 
 cat $0
 
 hostname
 
-source /nopt/nrel/apps/123456a/myenv.*
+source /nopt/nrel/apps/210929a/myenv.2110041605
+
 module purge
-ml openmpi gcc
+ml gcc
 ml vasp
+
+module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
+module load openmpi
+OMPI_MCA_param="btl_tcp_if_include ens7"
 
 #### wget is needed to download data
 ml wget
@@ -404,7 +415,7 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINT
 
 export OMP_NUM_THREADS=4
 
-srun --mpi=pmi2   -n 16 vasp_std
+srun --mpi=pmi2 -n 16 vasp_std
 
 ```
 
