@@ -1,118 +1,88 @@
-A study was performed to evaluate the performance on VASP on Swift and Eagle using [ESIF VASP Benchmarks](https://github.com/NREL/ESIFHPC3/tree/master/VASP) 1 and 2. Benchmark 1 is a system of 16 atoms (Cu<sub>4</sub>In<sub>4</sub>Se<sub>8</sub>), and Benchmark 2 is a system of 519 atoms (Ag<sub>504</sub>C<sub>4</sub>H<sub>10</sub>S<sub>1</sub>). 
+# How to Run VASP Jobs Efficiently
 
-On Swift, the default builds of VASP installed on the system as modules were used. The Intel MPI build was built with Intel compilers and the mkl math library, and it was accessed via the "vaspintel" module. The OpenMPI build was compiled with gnu using gcc and fortran compilers and used OpenMPI's math libraries, and was accessed via the "vasp" module. Both builds run VASP 6.1.1.
-
-On Eagle, the default build of VASP installed on the system is an Intel MPI version of VASP. The Intel MPI build was built with Intel compilers and the mkl math library, and it was accessed via the "vasp" module. It runs VASP 6.1.2. No Open MPI VASP build is accessible through the default modules on Eagle, but an Open MPI build can be accessed in an environment via "source /nopt/nrel/apps/210830a/myenv.2108301742, ml vasp/6.1.1-l2mkbb2". The OpenMPI build was compiled with gnu using gcc and fortran compilers and used OpenMPI's math libraries. It runs VASP 6.1.1.
-
-The [VASP repo](https://github.com/claralarson/HPC/tree/master/applications/vasp/VASP%20Recommendations) contains scripts that can be used to run the Intel MPI and Open MPI builds used in the study to perform calculations on Swift and Eagle. Additionally, the repo contains the VASP peroformance data collected, a notebook that analysis the performance data, data on CPU usage over time with different values of cpu-bind, and a notebook that analyses and visualizes the cpu-bind data. 
-
-This document synthesises the performance data analysis in order to provide information about how to most efficiently run VASP for users running VASP on Swift and Eagle. 
-
-## Eagle
-
-### Recommended CPUs/Node
-
-Run VASP on full nodes (36 CPUs/node). While using fewer cores per node yields an improvement in runtime/core, it will results in a larger allocation charge, as Eagle charges per node used, regardless of how much of the node is used. Eagle charges 3AUs/node-hour. 
-
-### VASP on GPU Nodes
-
-Two versions of the vasp_gpu executable are available on Eagle. The older vasp_gpu build on Eagle is built using CUDA, and the newer version is built using OpenACC. The OpenACC GPU build was found to run in an average of 27.7% of the time as the old GPU build using Benchmark 2. Little runtime improvement (compared to running on CPUs) was seen using the older, CUDA GPU build. Find a script for running the OpenACC GPU build in [this section](#Scripts-for-Running-VASP-on-Eagle).
-
-Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performance for larger VASP calculations, but may increase the runtime for smaller calculations. Benchmark 2 calculations on using the OpenACC build on GPU nodes ran in an average of 27.7% of the time as CPU calculations on the same number of nodes, but Benchmark 1 calculationson using the OpenACC build on GPU nodes ran in an average of 150% of the time as CPU calculations on the same number of nodes.
-
-   * Memory limitation: GPU nodes on Eagle cannot provide as much memory as CPU nodes for VASP jobs, and large VASP jobs may require more GPU nodes to provide enough memory for the calculation. For Benchmark 2, at least 2 full nodes were needed to provide enough memory to complete a calculation. Using more complicated parallelization schemes, the number of nodes necessary to provide enough memory scaled with the increase in number of problems handled simultaneousely. 
-
-![Eagle GPU Bench 2](https://github.com/claralarson/HPC/blob/4837ef43a7d03b1b34a1e5ceda8dcbc64ca5b128/applications/vasp/VASP%20Recommendations/Images/Eagle_GPU_2.png)
-
-![Eagle GPU Bench 1 4x4x2](https://github.com/claralarson/HPC/blob/4837ef43a7d03b1b34a1e5ceda8dcbc64ca5b128/applications/vasp/VASP%20Recommendations/Images/Eagle_GPU_1_4x4x2.png)
-
-### MPI
-
-Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 50% of the time as the same calculations using an Open MPI build of VASP over Open MPI. For Benchmark 1, Intel MPI calculations ran in an average of 63.5% of the time as Open MPI calculcations. 
-
-Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Eagle).
-
-### --cpu-bind Flag
-The --cpu-bind flag changes how tasks are assigned to cores throughout the node. Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. Using 18 CPUs/node setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
-
-cpu-bind can be set as a flag in an srun command, such as 
+The sample input and data files are in directory "input". This benchmark contains  384 atom Si and we will only run molecular dynamics for only 10 steps. The following modules are used:
 ```
-srun --cpu-bind=cores vasp_std
-```
-### KPAR
-
-KPAR determines the number of groups across which to divide calculations at each kpoint, and one calculation from each group is performed at a time. The value of KPAR can be defined in the INCAR file. 
-  * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used. 
-  * We found that runtime starts to increase (in other words, runtime scales positively with the number of nodes, rather than negatively) if you increase the number of nodes past the value of KPAR, so it is recommended to set KPAR no lower than the number of nodes used. 
-  * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=9.
-  * The [GPU VASP documentation](https://www.vasp.at/wiki/index.php/OpenACC_GPU_port_of_VASP) recommends setting KPAR equal to the total number of GPUs used. Our results are relatively consistent with this recommendation. 
-
-### K-Points Scaling
-
-Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~20%-57%). 
-
-### Scripts for Running VASP on Eagle
-  * [VASP on Eagle with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_IntelMPI.slurm)
-  * [VASP on Eagle with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenMPI.slurm)
-  * [VASP on Eagle on GPUs with OpenACC GPU build using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenACC_GPU.slurm)
-
-## Swift
-
-### Recommended CPUs/Node
-
-On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime. On Swift, each node has 64 physical cores, and each core is subdivided into two virtual cores in a processes that is identical to hyperthreading. Because of this, up 128 cores can be requested from a single Swift node, but each core will only represent half of a physical core. 
-
-Unlike on Eagle, Swift charges for only the portion of the node requested by a job, as long as the memory requested for the job is no more than 2GB/CPU. If the entire 256GB of memory is requested per node, but only half of the CPUs per node are requested, you will be charged for the full node. Swift charges 5 AU/hour when running on 128 nodes (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. 
-
-Unlike on Eagle, multiple jobs can run on the same nodes on Swift. This runtime performance was simualted by the "shared" nodes in the graphs. (Find scripts for running multiple VASP jobs on the same nodes in [this section](#Scripts-for-Running-VASP-on-Swift)). So if you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which we suspect might deteriorate the performance since "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exculsive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
-
-The graphs below are meant to help users identify the number of CPUs/node will be most efficient in running their jobs. The graphs that show "performance/core" match jobs that use the same number of cores (but different number of nodes depending on CPUs/node), and they show the efficiency per core. These graphs are most useful if you will be charged by CPU (i.e. --exclusive tag is not set). The graphs that show "performance/node" match jobs that use the same number of nodes (but different number of cores depending on CPUs/node), and they show efficiency per node. These graphs are most useful if you will be charged by node (i.e. --exclusive tag is set). 
-
-Intel MPI, performance/core  |  Intel MPI, performance/node
-:-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Nodes.png)
-
-Open MPI, performance/core  |  Open MPI, performance/node 
-:-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Nodes.png)
-
-### MPI
-
-Intel MPI is recommended over Open MPI for all VASP calculations on Swift. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 76%, 72% and 46% of the time as the same calculations using an Open MPI build of VASP over Open MPI on 32, 64 and 128 CPUs/node, respectively. For Benchmark 1, Intel MPI calculations ran in an average of 76.89% of the time as Open MPI calculcations. 
-
-Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Swift).
-
-### --cpu-bind Flag
-
-The --cpu-bind flag changes how tasks are assigned to cores throughout the node. On Swift, it is recommended not to use cpu-bind. Running VASP on 64 CPUs/node and 128 CPUs/node, setting --cpu-bind=cores or rank showed no improvement in runtime. Running VASP on 32 CPUs/node, setting --cpu-bind=cores or rank increased runtime by up to 40%. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
-
-```
-srun --cpu-bind=cores vasp_std
+module load vasp/6.1.1 intel-mpi/2020.1.217 mkl/2020.1.217 
 ```
 
-### KPAR
+## 1.LREAL!!!
 
-KPAR determines the number of groups across which to divide calculations at each kpoint, and one calculation from each group is performed at a time. The value of KPAR can be defined in the INCAR file. 
-  * Per [VASP documentation](https://www.vasp.at/wiki/index.php/KPAR), the KPAR tag file should always be set to a value that evenly divides the total number of cores used as well as the total number of KPOINTS. VASP will not run if KPAR does not evenly divide the total number of cores, and so core counts were slightly altered for the jobs represented in the KPAR=9 graph in order to get VASP to run on Swift with KPAR=9. 
-  * We found significant difference in runtime for Benchmark 1 between using a value of KPAR that does not evenly divide the number of kpoints and using a value of KPAR that does evenly divide the number of kpoints. In the KPAR=8 and KPAR=9 graphs below, notice that the 4x4x2 kpoints grid (16 total kpoints) runs much faster at all core counts using KPAR=8 than using KPAR=9. For the 10x10x5 kpoints grid (500 kpoints), 500 is not divisible by either 8 or 9, and we notice that the performance is approximately the same for KPAR=8 and KPAR=9. 
-  * We found that runtime scales poorly if you increase the number of nodes past the value of KPAR , so it is recommended to set KPAR no lower than the number of nodes used.
-  * Lower values of KPAR might be better for lower node counts. For example, Benchmark 1 calculations on 1-4 nodes were fastest using KPAR=4, but Benchmark 1 calculations on more than 4 nodes were fastest using KPAR=8.
+**The first thing you want to check is the LREAL parameter. Setting it to FALSE will make your calculation dramatically slow!** For this benchmark, setting LREAL=.FALSE. will take 3663.2 seconds for the job to complete on one Eagle node and LREAL=Auto only take 392.6 seconds, or 9X faster! More importantly, the default value for LREAL is FALSE, which means **if you don't set it explicitly in the INCAR file, it will be automatically set to FALSE!** Therefore, if you don't have any special reasons (for example, very high precision calculations need LREAL to be FALSE), please remember to set it to "On" or "Auto". 
 
-#### KPAR Performance using 64 cores/node
+## 2.CPU pinning
 
-KPAR = 1  |  KPAR = 4
-:-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K1_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K4_N4.png)
-KPAR = 8   |  KPAR = 9
-![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
-  
-      
-### K-Points Scaling 
+Second, cpu pinning may be able to make jobs running slightly faster. By changing this line in the md.slurm:
+```
+srun -n 36 vasp_std 
+```
+into:
+```
+srun -n 36 --cpu_bind=cores --distribution=block:block vasp_std
+```
+it will take 387.2 seconds to complete, a 1% improvement. If we run this benchmark on two eagle nodes, the wall time used without and with cpu pinning are 232.3 seconds and 224.0 seconds, a 4% improvement. 
 
-Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%).
+## 3. Two important knobs: NPAR and NSIM
+(In this section, we will always use cpu pinning.)
 
-### Scripts for Running VASP on Swift
-  * [VASP on Swift with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI.slurm)
-  * [VASP on Swift with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI.slurm)
-  * [VASP on Swift with Shared Nodes using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI_shared_nodes.slurm)
-  * [VASP on Swift with Shared Nodes using Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI_shared_nodes.slurm)
+NPAR (or NCORE = (# of cpu cores)/NPAR) is another important parameter having big impact on the calculation speed. Unfortunately, the optimal value for NPAR depends on the job as well as # of nodes, and users need to explore it by themselves. If the user doesn't explcitily specify the NPAR value (as the smaple INCAR in the "input" directory), **the default value for NPAR** = # of total cpu cores will be used and it **usually is not a good choice.**
+
+To run the benchmark job on one Eagle node, we have tried the NPAR=1,2,3,4,6,9,12,18,36 (# of cores = 36 must be divided exactly by NPAR), and we found the optimal value is NPAR=2, and the job takes 299.2 seconds, 29% faster than the default value (NPAR=36).
+
+If we run the benchmark job on two Eagle nodes, the optimal value for NPAR becomes NPAR=12 and the job takes 179.2s, 25% faster than the default NPAR=72. Here, we also observe that optimal NPAR changes when using different # of nodes.
+
+Another important parameter is NSIM, and the default value is 4. For the one node job, the optimal values that we have found are NPAR=2 and NSIM=8, and the job takes 287.0 seconds. For the two-node job, the optimal values are NPAR=12 and NSIM=32, and the job takes 162.6 seconds. 
+
+We summarize the obtained results in the Table 1:
+
+<p align="center"> 
+Table 1. Job performance under different conditions.   
+<br><br>
+    <img src="Table1.png" alt="Performance image">
+</p>   
+
+This table shows that setting NPAR and NSIM to the optimal value can result in ~40% improvement of efficiency, and NPAR is more important than NSIM. Therefore, we encourage VASP users at least perform one study to identify the optimal NPAR value.
+
+## 4. OpenMP
+
+VASP version 6.1.1 on Eagle has OpenMP support. It can be run using the following command:
+```
+setenv OMP_NUM_THREADS 2
+srun -n 18 -c 2 vasp_std
+```
+This will run on one Eagle 36-core node with with 18 MPI ranks and each rank with 2 OpenMP threads. However, We didn't observe any improvement for this benchmark. In addition, we didn't observe any improvement with CPU pinning. Users may explore if OpenMP and cpu pinning could bring benefit for their own jobs.
+
+## 5. How to run multiple VASP jobs on one node
+
+Some users with high-throughput jobs may want to run multiple VASP jobs simultaneously on the same node in order to improve calculation efficiency. In the directory "multi", we run two identical jobs on one Eagle node. The optimal values NPAR=2 and NSIM=16 are used for those runs. In the "nopin" subdirectory, we use the following commands to run two jobs simultaneously, which takes 632.6 seconds:
+```
+cd run1
+srun -n 18 vasp_std &
+cd ../run2
+srun -n 18 vasp_std &
+wait
+```
+In the "pin" subdirectory, we pin the first job to processor cores 0-17 and the second to cores 18-35 using the following commands: 
+
+```
+cd run1
+srun -n 18 --cpu_bind=map_cpu:0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 vasp_std &
+cd ../run2
+srun -n 18 --cpu_bind=map_cpu:18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35 vasp_std &
+wait
+```
+This run uses 519.0 seconds. Since we run two jobs simultaneously, the average speed per job is 519/2=259.5 seconds. The best performer for running one job per node is 287.0 seconds, which is ~10% slower than running two jobs per node.
+
+## 6. Use VASP 5.4.4
+
+VASP 5.4.4 is ~30% faster than VASP 6.1.1, but it doesn't support OpenMP. We run this benchmark using the same conditions as in Table 1 but using the following modules and report the results in Table 2.
+```
+module load vasp/5.4.4 intel-mpi/2020.1.217 mkl/2020.1.217
+```
+
+<p align="center"> 
+Table 2. Job performance for VASP 5.4.4.
+<br><br>
+    <img src="Table2.png" alt="Performance image">
+</p>   
+
+In general, VASP 5.4.4 is ~30% faster than VASP 6.1.1. It's interesting to see that optimizing NPAR/NSIM results in larger improvement in VASP 5.4.4 than 6.1.1 (40% vs 50%), and there is no need to optimize NSIM for this benchmark using VASP 5.4.4 as the default value of NSIM=4 is already the optimal value for NSIM.
