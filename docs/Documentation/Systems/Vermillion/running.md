@@ -7,7 +7,7 @@
 
 # Running on Vermilion
 
-Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. This page uses the environment at /nopt/nrel/apps/210929a/myenv.2110041605 as a placeholder as this environment is guaranteed to work, but if a newer environment and set of modules exists, it will be documented in the [Modules](./modules.md) page.
+Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. This page uses the environment at /nopt/nrel/apps/210929a/myenv.2110041605 as a placeholder since this environment is guaranteed to work, but if a newer environment and set of modules exists, it will be documented in the [Modules](./modules.md) page.
 
 
 ## Partitions
