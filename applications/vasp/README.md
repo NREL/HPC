@@ -10,7 +10,7 @@ Performance Study 1:
 - Recommendations for setting NPAR
 - Recommendations for setting NSIM
 - Instructions for using the OpenMP version of VASP
-- Instructions for running multiple VASP jobs on the same node (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%201/multi))
+- Instructions for running multiple VASP jobs on the same nodes (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%201/multi))
 
 Performance Study 2:
 - Information on how runtime scales with nodecount
@@ -20,6 +20,6 @@ Performance Study 2:
 - Recommendations for setting KPAR
 - Recommendations for setting cpu pinning
 - Information on k-points scaling
-- Instructions for running multiple VASP jobs on the same node on Swift (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
+- Instructions for running multiple VASP jobs on the same nodes on Swift (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
 
 For information on running VASP on Vermilion, see the VASP section of [this documentation](https://nrel.github.io/HPC/Documentation/Systems/Vermillion/running/).
