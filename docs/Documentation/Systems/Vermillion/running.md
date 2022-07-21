@@ -380,7 +380,7 @@ Then you need to add calls in your script to set up / point do your data files. 
 #SBATCH --time=8:00:00
 ##SBATCH --error=std.err
 ##SBATCH --output=std.out
-#SBATCH --partition=small
+#SBATCH --partition=sm
 #SBATCH --exclusive
 
 cat $0
