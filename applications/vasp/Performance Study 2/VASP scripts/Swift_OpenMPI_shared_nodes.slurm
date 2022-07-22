@@ -3,7 +3,7 @@
 #SBATCH --account=hpcapps
 #SBATCH --partition=parallel
 #SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=64
+#SBATCH --ntasks-per-node=32
 #SBATCH --nodes=1
 
 #Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
