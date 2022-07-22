@@ -3,7 +3,7 @@
 #SBATCH --account=hpcapps
 #SBATCH --partition=parallel
 #SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=32
+#SBATCH --ntasks-per-node=64
 #SBATCH --nodes=1
 
 #Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
@@ -42,7 +42,7 @@ ml intel-oneapi-mpi/2021.3.0-hcp2lkf
 ml intel-oneapi-mkl/2021.3.0-giz47h4
 
 #set cpu-bind in srun line
-srun -n 64 vasp_std &> out
+srun -n 32 vasp_std &> out
 #srun --cpu-bind=cores -n 64 vasp_std &> out
 #srun --cpu-bind=rank -n 64 vasp_std &> out
 
