@@ -9,6 +9,8 @@
   ADDGRID = .TRUE.
   PREC = accurate
   LSCALAPACK = .FALSE.
+  KPAR = 4
+  NPAR = 9
 
 # electron:
   NELM    = 80       # number of electronic SC steps
