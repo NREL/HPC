@@ -3,7 +3,7 @@
 #SBATCH --account=hpcapps
 #SBATCH --partition=parallel
 #SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=32
+#SBATCH --ntasks-per-node=64
 #SBATCH --nodes=1
 
 #Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
@@ -39,7 +39,7 @@ ml slurm/21-08-1-1-o2xw5ti
 ml openmpi/4.1.1-6vr2flz
 
 #set cpu-bind in srun line
-srun -n 64 vasp_std &> out
+srun -n 32 vasp_std &> out
 #srun --cpu-bind=cores -n 64 vasp_std &> out
 #srun --cpu-bind=rank -n 64 vasp_std &> out
 
