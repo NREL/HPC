@@ -17,22 +17,18 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 # Table of Contents
 
 ## 🎓 General tutorials
-### Beginner
-* [Markdown](/general/beginner/markdown/README.md)
-* [Bash](/general/beginner/bash/README.md)
-* [Git](/general/beginner/git/README.md)
-* [Transferring files](/general/beginner/how-to-transfer-files/)
-* [File Systems](/general/beginner/filesystems)
-
-### Intermediate
-* [JupyterHub](/general/intermediate/Jupyterhub)
-* [GPU](/general/intermediate/gpu/README.md)
-* [Software environments](/general/intermediate/software-environment-basics)
-* [Building MPI applications](/general/intermediate/building-mpi-applications)
-* [Building packages](/general/intermediate/building-packages)
-
-### Advanced
-* [HPC Benchmarking: STREAM](/general/advanced/stream_benchmark/StreamTutorial.ipynb)
+* [Markdown](/general/markdown/README.md)
+* [Bash](/general/bash/README.md)
+* [Git](/general/git/README.md)
+* [Transferring Files](/general/how-to-transfer-files/)
+* [File Systems](/general/filesystems)
+* [JupyterHub](/general/Jupyterhub)
+* [GPU](/general/gpu/README.md)
+* [Software Environments](/general/software-environment-basics)
+* [Building MPI Applications](/general/building-mpi-applications)
+* [Building Packages](/general/building-packages)
+* [Optimized Tensorflow](/general/Optmized_TF)
+* [HPC Benchmarking: STREAM](/general/stream_benchmark/StreamTutorial.ipynb)
 
 ## 📈 Applications
 * [Gaussian](/applications/gaussian)
