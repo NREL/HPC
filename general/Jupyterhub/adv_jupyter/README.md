@@ -11,7 +11,7 @@ Beyond the basics: this advanced Jupyter directory builds upon our Intro to Jupy
 
 * Slurm commands: `srun` from a notebook, job status checks, running MPI-enabled routines. 
 	* Explain `pip install slurm_magic` from inside notebook
-	* See https://github.com/NREL/HPC/blob/master/languages/python/jupyter/dompi.ipynb
+	* See https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/dompi.ipynb
 	* Demonstration of using slurm magics to run MNIST 
 * multi-node parallelism with mpi4py
 
