@@ -27,6 +27,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 * [Software environments](/general/software-environment-basics)
 * [Building MPI applications](/general/building-mpi-applications)
 * [Building packages](/general/building-packages)
+* [Optimized Tensorflow](/general/Optmized_TF)
 * [HPC Benchmarking: STREAM](/general/stream_benchmark/StreamTutorial.ipynb)
 
 ## 📈 Applications
