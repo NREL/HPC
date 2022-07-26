@@ -1,3 +1,6 @@
+1. [Running VASP](#Running-VASP)
+2. [VASP Documentation](#VASP-Documentation)
+
 ## Running VASP
 
 VASP6 is available on Eagle and Swift. The code below demonstrates how to load different versions of VASP on each system and which accompanying modules to load. 
