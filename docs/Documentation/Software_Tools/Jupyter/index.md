@@ -43,7 +43,7 @@ axes[3].set_title("fill_between");
 ```
 
 
-![png](output_4_0.png)
+![png](../../../../assets/images/output_4_0.png)
 
 
 ## Terminology - a Confusion of Words
