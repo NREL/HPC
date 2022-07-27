@@ -111,8 +111,10 @@ packages:
       slurm@18-08-0-3: /nopt/slurm/18.08.3
       slurm@19-05-0-2: /nopt/slurm/19.05.2
 ```
+
 that will enable builds against both installed Slurm versions. 
 Then you should see
+
 ```bash
 [$user@el2 ~]$ spack spec openmpi@3.1.3%gcc@7.3.0 ^slurm@19-05-0-2
 Input spec
@@ -126,6 +128,7 @@ openmpi@3.1.3%gcc@7.3.0 cflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512"
 -
     ^slurm@19-05-0-2%gcc@7.3.0 cflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" cxxflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" fflags="-O2 -march=skylake-avx512 -mtune=skylake-avx512" ~gtk~hdf5~hwloc~mariadb+readline arch=linux-centos7-x86_64
 ```
+
 where the Slurm dependency will be satisfied with the installed Slurm (cflags, cxxflags, and arch are coming from site-wide configuration in `/nopt/nrel/apps/base/2018-12-02/spack/etc/spack/compilers.yaml`; the variants string is likely coming from the configuration in the Spack database, and should be ignored).
 
 ## Virtual Packages 
@@ -188,6 +191,7 @@ modules:
         - tcl
         - lmod 
         ```
+
 ### To change the modulefile naming pattern,
 
 ```
@@ -229,32 +233,32 @@ Spack uses hierarchical customization files.
 Every package is a Python class, and inherits from the top-level class Package. 
 Depending on the degree of site customization, you may want to fork the Spack repo to create your own customized Spack package.
 There are 4 levels of configuration. In order of increasing precedence,
-1.	Default: $SPACK_ROOT/etc/spack/default
-2.	System-wide: /etc/spack
-3.	Site-wide: $SPACK_ROOT/etc/spack
-4.	User-specific: $HOME/.spack
+1.	Default: `$SPACK_ROOT/etc/spack/default`
+2.	System-wide: `/etc/spack`
+3.	Site-wide: `$SPACK_ROOT/etc/spack`
+4.	User-specific: `$HOME/.spack`
 
 Spack configuration uses YAML files, a subset of JSON native to Python.
 There are 5 main configuration files.
-1.	compilers.yaml. Customizations to the Spack-known compilers for all builds
+1.	`compilers.yaml`. Customizations to the Spack-known compilers for all builds
     i.	Use full path to compilers
     ii.	Additional rpaths beyond the Spack repo
     iii.	Additional modules necessary when invoking compilers
     iv.	Mixing toolchains
     v.	Optimization flags
     vi.	Environment modifications
-2.	config.yaml. Base functionality of Spack itself
+2.	`config.yaml`. Base functionality of Spack itself
     i.	install_tree: where to install packages
     ii.	build_stage: where to do compiles. For performance, can specify a local SSD or a RAMFS.
     iii.	modules_roots: where to install modulefiles
-3.	modules.yaml. How to create modulefiles
+3.	`modules.yaml`. How to create modulefiles
     i.	whitelist/blacklist packages from having their own modulefiles created
     ii.	adjust hierarchies
-4.	packages.yaml. Specific optimizations, such as multiple hardware targets.
+4.	`packages.yaml`. Specific optimizations, such as multiple hardware targets.
     i.	dependencies, e.g., don’t build OpenSSL (usually want sysadmins to handle updates, etc.)
     ii.	mark specific packages as non-buildable, e.g., vendor MPIs
     iii.	preferences, e.g., BLAS -> MKL, LAPACK -> MKL
-5.	repos.yaml
+5.	`repos.yaml`
     i.	Directory-housed, not remote
     ii.	Specify other package locations
     iii.	Can then spec build in other configs (e.g., binary, don’t build)
