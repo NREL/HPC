@@ -198,7 +198,7 @@ modules:
 modules:
     tcl:
         naming_scheme: ‘{name}/{version}/{compiler.name}-{compiler.version}
-        ```
+```
 
 would achieve the Eagle naming scheme. 
 ### To remove default variable settings in the modulefile, e.g., CPATH,
