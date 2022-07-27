@@ -190,7 +190,7 @@ modules:
     enable:
         - tcl
         - lmod 
-        ```
+```
 
 ### To change the modulefile naming pattern,
 
