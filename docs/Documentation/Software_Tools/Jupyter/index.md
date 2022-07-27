@@ -267,9 +267,9 @@ You can also run shell commands inside a cell. For example:
 
     /home/tthatche/jup
     auto_launch_jupyter.sh	  Jupyter Presentation.ipynb  slurm-6445885.out
-    geojsondemo.ipynb	  old			      sshot1.png
-    Interesting Graphs.ipynb  sbatch_jupyter.sh	      sshot2.png
-    jup-logo.png		  slurm
+    geojsondemo.ipynb	      old			              sshot1.png
+    Interesting Graphs.ipynb  sbatch_jupyter.sh	          sshot2.png
+    jup-logo.png		      slurm
 
 
 ## Interesting/Useful Notebooks
