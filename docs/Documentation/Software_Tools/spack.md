@@ -86,7 +86,7 @@ Sometimes dependencies are expected to be resolved through a package that is ins
 One example is Slurm integration into MPI builds. 
 If you were to try to add a dependency on one of the listed Slurms in the Spack database, you might see, e.g.,
 
-```
+```bash
 [$user@el2 ~]$ spack spec openmpi@3.1.3%gcc@7.3.0 ^slurm@19-05-3-2
 Input spec
 --------------------------------
@@ -100,11 +100,11 @@ Concretized
 
 Given that something like Slurm is integrated deeply into the runtime infrastructure of our local environment, we really want to point to the local installation. 
 The way to do that is with a `packages.yaml` file, which can reside in the standard Spack locations (see Configuration below). 
-See the Spack docs on external packages for more detail. 
+See the Spack [docs](https://spack.readthedocs.io/en/latest/) on external packages for more detail. 
 In the above example at time of writing, we would like to build OpenMPI against our installed `Slurm 19.05.2`. 
 So, you can create file `~/.spack/linux/packages.yaml` with the contents
 
-```
+```yaml
 packages:
   slurm:
     paths:
@@ -113,7 +113,7 @@ packages:
 ```
 that will enable builds against both installed Slurm versions. 
 Then you should see
-```
+```bash
 [$user@el2 ~]$ spack spec openmpi@3.1.3%gcc@7.3.0 ^slurm@19-05-0-2
 Input spec
 --------------------------------
@@ -161,13 +161,13 @@ This only lasts for the current session, and is not of general interest. A more 
 
 This takes care of dependencies as well. The inverse operation is deactivation.
 
-`spack deactivate <extension package>`	        extension alone. Will not deactivate if dependents exist
 
-`spack deactivate --force <extension package>`	deactivates regardless of dependents  
-
-`spack deactivate --all <extension package>`	    deactivates extension and all dependencies 
-
-`spack deactivate --all <parent>`	            deactivates all extensions of parent (e.g., <python>) 
+|command | description |
+|-|-|
+|`spack deactivate <extension package>`	        |extension alone. Will not deactivate if dependents exist |
+|`spack deactivate --force <extension package>`	|deactivates regardless of dependents  |
+|`spack deactivate --all <extension package>`	|    deactivates extension and all dependencies | 
+|`spack deactivate --all <parent>`	            |deactivates all extensions of parent (e.g., <python>) | 
 
 
 ## Modules
