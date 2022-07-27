@@ -15,14 +15,15 @@ Once the initial Spack instance is set up, it is easy to create new ones from it
 
 `spack clone <new_path>`
 
-`SPACK_ROOT` will obviously need to point to `<new_path>` in order to be consistent.
+`SPACK_ROOT` will need to point to `<new_path>` in order to be consistent.
 
 Spack environment setup can be done by sourcing `$SPACK_ROOT/share/spack/setup-env.sh`, or by simply adding `$SPACK_ROOT/bin` to your PATH. 
-We have also created a Lua module to execute the setup-env.sh logic, so it is simple to activate one Spack environment or another through different modules. 
-The template modulefiles are available on request. 
-Two things to keep in mind are
-1.	Bash syntax has some incompatibilities with Lua string definitions, and so it is critical to escape certain patterns.
-2.	As Spack versions progress, the `setup-env.sh` script is subject to change, so it may be necessary to create a new Spack module from the newer `setup-env.sh` logic, using the escaping patterns in the existing template modulefiles as a guide.
+
+`source $SPACK_ROOT/share/spack/setup-env.sh`
+or 
+`export PATH=$SPACK_ROOT/bin:$PATH`
+
+
 
 ## Setting Up Compilers
 
@@ -41,13 +42,12 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Available Packages in Repo
 
-`spack list`  all available packages by name. Dumps repo content, so if use local repo, this should dump local package load.  
-
-`spack list <pattern>`  all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. 
-
-`spack info <package_name>`  available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support. 
-
-`spack versions <package_name>`  see which versions are available 
+|command |description|
+|----|-----|
+|`spack list`  |all available packages by name. Dumps repo content, so if use local repo, this should dump local package load.  |
+|`spack list <pattern>`  |all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
+|`spack info <package_name>` | available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support.| 
+|`spack versions <package_name>` | see which versions are available | 
 
 
 
