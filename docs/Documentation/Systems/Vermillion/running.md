@@ -86,7 +86,7 @@ sbatch --partition=sm runopenmpi
 
 ## Building hello world first
 
-Obviously for the script given above to work you must first build the application.  You need to:
+For the script given above to work you must first build the application.  You need to:
 
 1. Load the environment
 2. Load the modules
@@ -336,32 +336,31 @@ task    thread             node name  first task    # on node  core
 ```
 
 
-## Running VASP
+## Running VASP on CPUs
 
 The batch script given above can be modified to run VASP. VASP with Open MPI is recommended.
 
 To load a build of VASP that is compatible with Open MPI:
 
 ```
+source /nopt/nrel/apps/210929a/myenv.2110041605
 ml vasp
 ```
 
 This will give you:
 
 ```
-
 [myuser@vs example]$ which vasp_gam
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
 [myuser@vs example]$ which vasp_ncl
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
 [myuser@vs example]$ which vasp_std
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
-[myuser@vs example]$
 ```
 
 Note the directory might be different.
 
-Issues have been reported running VASP on multiple nodes. The most reliable solution is to use a different build of the openmpi module and set the following variable. This configuration has shown good results up to 4 nodes, but is not guaranteed to make VASP run successfully on 8 nodes. 
+Issues have been reported running VASP on multiple nodes. The most reliable solution is to use a different build of the openmpi module and set the OMPI_MCA_param variable, as shown below. This configuration has shown good results up to 4 nodes, but is not guaranteed to make VASP run successfully on 8 nodes. 
 
 ```
 module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
@@ -371,11 +370,9 @@ OMPI_MCA_param="btl_tcp_if_include ens7"
 
 Then you need to add calls in your script to set up / point do your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
 
-
-
 ```
 #!/bin/bash
-#SBATCH --job-name=b2_4
+#SBATCH --job-name=vasp
 #SBATCH --nodes=1
 #SBATCH --time=8:00:00
 ##SBATCH --error=std.err
@@ -419,3 +416,85 @@ srun --mpi=pmi2 -n 16 vasp_std
 
 ```
 
+## Running VASP on GPUs
+
+VASP can also be run on Vermilion's GPUs. To do this we need to add a few #SBATCH lines at the top of the script to assign the job to run in the gpu partition and to set the gpu binding. The --gpu-bind flag requires 1 set of "0,1" for each node used. 
+
+```
+#SBATCH --nodes=2
+#SBATCH --partition=gpu
+#SBATCH --gpu-bind=map_gpu:0,1,0,1
+```
+
+A gpu build of VASP can be accessed by adding the following path to your PATH variable.
+
+```
+export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+```
+
+This will give you:
+
+```
+[myuser@vs example]$ which vasp_gam
+/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_gam
+[myuser@vs example]$ which vasp_ncl
+/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_ncl
+[myuser@vs example]$ which vasp_std
+/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_std
+```
+
+Instead of srun, use mpirun to run VASP on GPUs. Since Vermilion only has 1 GPU per node, it's important to make sure you are only requesting 1 task per node y setting -npernode 1. 
+
+```
+mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
+```
+
+There's a few mode modules needed to run VASP on GPUs, and two library variables need to be se. We can modify the VASP CPU script to include lines to load the modules, set library variables and make the changes outlined above. The final script will look something like this.
+
+```
+#!/bin/bash
+#SBATCH --job-name=vasp
+#SBATCH --nodes=2
+#SBATCH --time=1:00:00
+##SBATCH --error=std.err
+##SBATCH --output=std.out
+#SBATCH --partition=gpu
+#SBATCH --gpu-bind=map_gpu:0,1,0,1
+#SBATCH --exclusive
+
+cat $0
+
+hostname
+
+#load necessary modules and set library paths
+module use  /nopt/nrel/apps/220421a/modules/lmod/linux-rocky8-x86_64/gcc/11.3.0/
+ml nvhpc
+ml gcc
+ml fftw
+export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/nvhpc-22.2-ruzrtpyewnnrif6s7w7rehvpk7jimdrd/Linux_x86_64/22.2/compilers/extras/qd/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/gcc-11.3.0-c3u46uvtuljfuqimb4bgywoz6oynridg/lib64:$LD_LIBRARY_PATH
+
+#add a path to the gpu build of VASP to your script
+export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+
+#### wget is needed to download data
+ml wget
+
+#### get input and set it up
+#### This is from an old benchmark test
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+
+
+mkdir input
+
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+
+
+export OMP_NUM_THREADS=4
+
+mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
+
+```
