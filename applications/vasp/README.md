@@ -47,7 +47,7 @@ For information about accessing and running VASP on Vermilion, see the VASP sect
 
 ## VASP Documentation
 
-This repo contains the results of two seperate VASP performance studies. The first, Performance Study 1, studies VASP performance on Eagle using the input files provided in the directory. The second, Performance Study 2, studies VASP performance on Eagle and Swift using benchmarks from the ESIF benchmarking suite, which can be found [here](https://github.com/NREL/ESIFHPC3/tree/master/VASP) or in the benchmarks folder in the Performance Harness 2 directory. Each study evaluates performance differently, as described below, and provides recommendations for running VASP most efficiently in the README files. The READMEs in each directory contain the following information.
+This repo contains the results of two separate VASP performance studies. The first, Performance Study 1, studies VASP performance on Eagle using the input files provided in the directory. The second, Performance Study 2, studies VASP performance on Eagle and Swift using benchmarks from the ESIF benchmarking suite, which can be found [here](https://github.com/NREL/ESIFHPC3/tree/master/VASP) or in the benchmarks folder in the Performance Harness 2 directory. Each study evaluates performance differently, as described below, and provides recommendations for running VASP most efficiently in the README files. The READMEs in each directory contain the following information.
 
 Performance Study 1 (VASP6 on Eagle):
 - Recommendations for setting LREAL
