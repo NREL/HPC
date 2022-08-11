@@ -7,7 +7,7 @@
 
 # Running on Vermilion
 
-Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules.
+Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. This page uses the environment at /nopt/nrel/apps/210929a/myenv.2110041605 as a placeholder since this environment is guaranteed to work, but if a newer environment and set of modules exists, it will be documented in the [Modules](./modules.md) page.
 
 
 ## Partitions
@@ -15,13 +15,13 @@ Please see the [Modules](./modules.md) page for information about setting up you
 Partitions are flexible and fluid on Vermilion.  A list of partitions can be returned by running the `sinfo` command.
 Currently, all systems are connected via bonded 25GbE (50Gb combined) with OFED/RDMA installed.
 
-| Part Name | Qty | RAM    | /opt/scratch | Description     |
-| :--:      | --: | --:    | --:   | :--                    |
-| GPU       |  5  | 114 GB |       | Dual NVIDIA Tesla V100s @ 40 GBs |
-| lg        | 18  | 229 GB |       |      |
-| std       | 62  | 114 GB |       |      |
-| sm        | 31  |  61 GB |       |      |
-| t         | 15  |  16 GB |       |      |
+| Part Name | Qty | RAM    | processors/node | /opt/scratch | Description     |
+| :--:      | --: | --:    | --:   | --:   | :--                    |
+| GPU       |  5  | 114 GB |   1   |       | Dual NVIDIA Tesla V100s @ 40 GBs |
+| lg        | 18  | 229 GB |   60  |       |      |
+| std       | 62  | 114 GB |   30  |       |      |
+| sm        | 31  |  61 GB |   16  |       |      |
+| t         | 15  |  16 GB |   4   |       |      |
 
 ## Operating Software
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
@@ -55,13 +55,13 @@ Here is a sample batch script for running the hello world examples *runopenmpi*.
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=test
+#SBATCH --partition=t
 #SBATCH --time=00:01:00
 
 
 cat $0
 
-source /nopt/nrel/apps/123456a/myenv.123456789
+source /nopt/nrel/apps/210929a/myenv.2110041605
 module load slurm
 
 ml gcc   openmpi
@@ -74,7 +74,7 @@ srun     -n 2 ./phostone.I -F
 To run this you must first ensure that slurm is in your path by running:
 
 ```
-source /nopt/nrel/apps/123456a/myenv.123456789
+source /nopt/nrel/apps/210929a/myenv.2110041605
 module load slurm
 ```
 
@@ -86,7 +86,7 @@ sbatch --partition=sm runopenmpi
 
 ## Building hello world first
 
-Obviously for the script given above to work you must first build the application.  You need to:
+For the script given above to work you must first build the application.  You need to:
 
 1. Load the environment
 2. Load the modules
@@ -96,12 +96,9 @@ Obviously for the script given above to work you must first build the applicatio
 Loading the environment is just a matter of sourcing the file
 
 ```
-source /nopt/nrel/apps/123456a/myenv.123456789
+source /nopt/nrel/apps/210929a/myenv.2110041605
 
 ```
-
-Note that **123456a** is a date stamp showing when the environment was built.  You may have a different value as environments evolve.
-
 
 #### Loading the modules.
 
@@ -120,8 +117,8 @@ make
 ## Full procedure
 
 ```
-[myuser@~]$ cd /nopt/nrel/apps/123456a
-[myuser@vs:/nopt/nrel/apps/123456a]$ cp -r example ~/example
+[myuser@~]$ cd /nopt/nrel/apps/210929a
+[myuser@vs:/nopt/nrel/apps/210929a]$ cp -r example ~/example
 [myuser@vs:]$ cd ~/example
 
 [myuser@vs:~/example]$ cat runopenmpi
@@ -129,13 +126,13 @@ make
     #SBATCH --job-name="install"
     #SBATCH --nodes=1
     #SBATCH --exclusive
-    #SBATCH --partition=debug
+    #SBATCH --partition=t
     #SBATCH --time=00:01:00
 
 
 cat $0
 
-source /nopt/nrel/apps/123456a/myenv.2107290127
+source /nopt/nrel/apps/210929a/myenv.2110041605
 module load slurm
 
 ml gcc   openmpi
@@ -145,14 +142,14 @@ mpirun -n 2 ./fhostone -F
 mpirun -n 2 ./phostone -F
 
 [myuser@vs example]$ PATH=/nopt/nrel/slurm/bin:$PATH
-[myuser@vs example]$ source /nopt/nrel/apps/123456a/myenv*
+[myuser@vs example]$ source /nopt/nrel/apps/210929a/myenv*
 [myuser@vs example]$ ml gcc   openmpi
 [myuser@vs example]$ make
 
 mpif90 -fopenmp fhostone.f90 -o fhostone
 rm getit.mod  mympi.mod  numz.mod
 mpicc -fopenmp phostone.c -o phostone
-[myuser@vs example]$ sbatch --partition=test runopenmpi
+[myuser@vs example]$ sbatch --partition=t runopenmpi
 Submitted batch job 187
 [myuser@vs example]$
 ```
@@ -165,7 +162,7 @@ Submitted batch job 187
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=debug
+#SBATCH --partition=t
 #SBATCH --time=00:01:00
 
 
@@ -173,7 +170,7 @@ cat $0
 
 PATH=/nopt/nrel/slurm/bin:$PATH
 
-source /nopt/nrel/apps/123456a/myenv*
+source /nopt/nrel/apps/210929a/myenv*
 ml gcc   openmpi
 
 export OMP_NUM_THREADS=2
@@ -281,8 +278,7 @@ We need to make some changes to our batch script.  Add the lines:
 ```
 ml intel-oneapi-compilers
 ml intel-oneapi-mpi
-export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/123456a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
-
+export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/210929a/level01/gcc-9.4.0/slurm-21-08-1-1/lib/libpmi2.so
 ```
 
 Launch with the srun command:
@@ -301,16 +297,16 @@ Our IntelMPI batch script is:
 #SBATCH --job-name="install"
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --partition=test
+#SBATCH --partition=t
 #SBATCH --time=00:01:00
 
 
 cat $0
 
 PATH=/nopt/nrel/slurm/bin:$PATH
-source /nopt/nrel/apps/123456a/myenv*
+source /nopt/nrel/apps/210929a/myenv*
 ml intel-oneapi-mpi intel-oneapi-compilers gcc
-export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/123456a/level01/gcc-9.4.0/slurm-20-11-5-1/lib/libpmi2.so
+export I_MPI_PMI_LIBRARY=/nopt/nrel/apps/210929a/level01/gcc-9.4.0/slurm-21-08-1-1/lib/libpmi2.so
 
 
 export OMP_NUM_THREADS=2
@@ -340,51 +336,63 @@ task    thread             node name  first task    # on node  core
 ```
 
 
-## Running VASP
+## Running VASP on CPUs
 
-The batch script given above can be modified to run VASP.  You need to add
+The batch script given above can be modified to run VASP. VASP with Open MPI is recommended.
+
+To load a build of VASP that is compatible with Open MPI:
 
 ```
+source /nopt/nrel/apps/210929a/myenv.2110041605
 ml vasp
 ```
 
 This will give you:
 
 ```
-
 [myuser@vs example]$ which vasp_gam
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
 [myuser@vs example]$ which vasp_ncl
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
 [myuser@vs example]$ which vasp_std
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
-[myuser@vs example]$
 ```
 
 Note the directory might be different.
 
-Then you need to add calls in your script to set up / point do your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
+Issues have been reported running VASP on multiple nodes. The most reliable solution is to use a different build of the openmpi module and set the OMPI_MCA_param variable, as shown below. This configuration has shown good results up to 4 nodes, but is not guaranteed to make VASP run successfully on 8 nodes. 
 
+```
+module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
+module load openmpi
+OMPI_MCA_param="btl_tcp_if_include ens7"
+```
 
+Then you need to add calls in your script to set up and point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
 
 ```
 #!/bin/bash
-#SBATCH --job-name=b2_4
+#SBATCH --job-name=vasp
 #SBATCH --nodes=1
 #SBATCH --time=8:00:00
 ##SBATCH --error=std.err
 ##SBATCH --output=std.out
-#SBATCH --partition=test
+#SBATCH --partition=sm
 #SBATCH --exclusive
 
 cat $0
 
 hostname
 
-source /nopt/nrel/apps/123456a/myenv.*
+source /nopt/nrel/apps/210929a/myenv.2110041605
+
 module purge
-ml openmpi gcc
+ml gcc
 ml vasp
+
+module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
+module load openmpi
+OMPI_MCA_param="btl_tcp_if_include ens7"
 
 #### wget is needed to download data
 ml wget
@@ -401,10 +409,86 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
-
-export OMP_NUM_THREADS=4
-
-srun --mpi=pmi2   -n 16 vasp_std
+srun --mpi=pmi2 -n 16 vasp_std
 
 ```
 
+## Running VASP on GPUs
+
+VASP can also be run on Vermilion's GPUs. To do this we need to add a few #SBATCH lines at the top of the script to assign the job to run in the gpu partition and to set the gpu binding. The --gpu-bind flag requires 1 set of "0,1" for each node used. 
+
+```
+#SBATCH --nodes=2
+#SBATCH --partition=gpu
+#SBATCH --gpu-bind=map_gpu:0,1,0,1
+```
+
+A gpu build of VASP can be accessed by adding the following path to your PATH variable.
+
+```
+export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+```
+
+This will give you:
+
+```
+[myuser@vs example]$ which vasp_gam
+/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_gam
+[myuser@vs example]$ which vasp_ncl
+/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_ncl
+[myuser@vs example]$ which vasp_std
+/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_std
+```
+
+Instead of srun, use mpirun to run VASP on GPUs. Since Vermilion only has 1 GPU per node, it's important to make sure you are only requesting 1 task per node by setting -npernode 1. 
+
+```
+mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
+```
+
+There's a few more modules needed to run VASP on GPUs, and two library variables need to be set. We can modify the VASP CPU script to include lines to load the modules, set library variables and make the changes outlined above. The final script will look something like this.
+
+```
+#!/bin/bash
+#SBATCH --job-name=vasp
+#SBATCH --nodes=2
+#SBATCH --time=1:00:00
+##SBATCH --error=std.err
+##SBATCH --output=std.out
+#SBATCH --partition=gpu
+#SBATCH --gpu-bind=map_gpu:0,1,0,1
+#SBATCH --exclusive
+
+cat $0
+
+hostname
+
+#load necessary modules and set library paths
+module use  /nopt/nrel/apps/220421a/modules/lmod/linux-rocky8-x86_64/gcc/11.3.0/
+ml nvhpc
+ml gcc
+ml fftw
+export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/nvhpc-22.2-ruzrtpyewnnrif6s7w7rehvpk7jimdrd/Linux_x86_64/22.2/compilers/extras/qd/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/gcc-11.3.0-c3u46uvtuljfuqimb4bgywoz6oynridg/lib64:$LD_LIBRARY_PATH
+
+#add a path to the gpu build of VASP to your script
+export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+
+#### wget is needed to download data
+ml wget
+
+#### get input and set it up
+#### This is from an old benchmark test
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+
+
+mkdir input
+
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+
+mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
+
+```
