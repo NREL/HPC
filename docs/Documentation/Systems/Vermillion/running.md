@@ -368,7 +368,7 @@ module load openmpi
 OMPI_MCA_param="btl_tcp_if_include ens7"
 ```
 
-Then you need to add calls in your script to set up / point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
+Then you need to add calls in your script to set up and point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
 
 ```
 #!/bin/bash
