@@ -446,7 +446,7 @@ Instead of srun, use mpirun to run VASP on GPUs. Since Vermilion only has 1 GPU 
 mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
 ```
 
-There's a few mode modules needed to run VASP on GPUs, and two library variables need to be se. We can modify the VASP CPU script to include lines to load the modules, set library variables and make the changes outlined above. The final script will look something like this.
+There's a few more modules needed to run VASP on GPUs, and two library variables need to be set. We can modify the VASP CPU script to include lines to load the modules, set library variables and make the changes outlined above. The final script will look something like this.
 
 ```
 #!/bin/bash
