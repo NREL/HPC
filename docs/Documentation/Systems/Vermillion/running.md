@@ -440,7 +440,7 @@ This will give you:
 /projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_std
 ```
 
-Instead of srun, use mpirun to run VASP on GPUs. Since Vermilion only has 1 GPU per node, it's important to make sure you are only requesting 1 task per node y setting -npernode 1. 
+Instead of srun, use mpirun to run VASP on GPUs. Since Vermilion only has 1 GPU per node, it's important to make sure you are only requesting 1 task per node by setting -npernode 1. 
 
 ```
 mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
