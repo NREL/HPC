@@ -1,0 +1,145 @@
+
+
+# To build Tensorflow from source do the following
+
+# Identify the appropriate version of bazel for the version of tensor flow you want to build here: https://www.tensorflow.org/install/source
+
+# Download the appropriate version of bazel from: https://github.com/bazelbuild/bazel/releases
+
+# create a /bin directory in your Eagle home directory this can be found at /home/user/
+mkdir ~/bin
+
+# install the appropriate version of bazel
+
+chmod +x bazel-<VERSION_NUMBER>-installer-linux-x86_64.sh
+./bazel-<VERSION_NUMBER>-installer-linux-x86_64.sh --user
+
+# add Bazel to your Path
+
+export PATH="$PATH:$HOME/bin"
+
+# Check Bazel version
+bazel --version
+
+
+# run this command to sync the Bazel workspace (annoying but necessary)
+touch WORKSPACE
+
+# the following can be used to uninstall bazel (ugly but necessary if you need to uninstall and reinstall a different version)
+rm -fr ~/.bazel/ ~/.bazelrc ~/.cache/bazel/
+
+# Now move to your scratch directory, bazel often fails to build TF if this is done in the home directory
+
+cd /scratch/$USER/
+git clone https://github.com/tensorflow/tensorflow.git
+cd tensorflow/
+git checkout r2.3
+
+
+module purge
+module use /nopt/nrel/apps/modules/centos74/modulefiles/
+module load conda
+module load gcc/7.4.0
+module load cuda/10.0.130
+module load cudnn/7.4.2/cuda-10.0
+
+
+## Create an appropriate conda environment
+conda create --name py38tf23 python=3.8
+source activate py38tf23
+conda install -c anaconda keras-gpu
+pip install 'numpy<1.19.0'
+pip install scipy==1.4.1
+
+
+export TMP=/scratch/$USER/bazel_build
+export TEST_TMPDIR=/scratch/$USER/bazel_build
+export TMPDIR=/scratch/$USER/bazel_build
+unset LD_PRELOAD
+
+cd tensorflow
+./configure
+
+
+/nopt/nrel/apps/cuda/10.0.130,/nopt/nrel/apps/cudnn/7.4.2-cuda-10.0/lib64,/nopt/nrel/apps/cuda/10.0.130/lib64,/nopt/nrel/apps/cuda/10.0.130/include,/nopt/nrel/apps/cudnn/7.4.2-cuda-10.0/include,/nopt/nrel/apps/cuda/10.0.130/bin
+
+Below is how you configure the optimization flags for the following prompt following the ./configure
+
+Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native -Wno-sign-compare]: -march=skylake-avx512 -mtune=skylake-avx512 -Wno-sign-compare -Wno-unused -O3
+
+
+bazel --output_base=/scratch/$USER/bazel_build build -c opt --copt=-O3 --copt=-march=skylake-avx512 --copt=-mtune=skylake-avx512 --copt=-Wno-sign-compare --copt=-Wno-unused --verbose_failures -k  //tensorflow/tools/pip_package:build_pip_package
+
+
+# Command to run build script on eagle:
+sbatch --account=<update_this_field> ./bazelbuild230.sh
+
+
+
+######### BELOW ARE THE STEPS FOR INSTALLING FROM THE /nopt/ WHEELS ###########
+
+module use /nopt/nrel/apps/modules/centos74/modulefiles/
+module load gcc/7.4.0
+module load cuda/10.0.130
+module load cudnn/7.4.2/cuda-10.0
+module load conda
+
+conda create --name py38tf23 python=3.8
+source activate py38tf23
+conda install -c anaconda keras-gpu
+pip install 'numpy<1.19.0'
+pip install scipy==1.4.1
+cat /proc/cpuinfo
+
+pip install --upgrade --no-deps --force-reinstall /nopt/nrel/apps/wheels/tensorflow-2.3.2-cp38-cp38-linux_x86_64.whl
+
+# Below is a test commando to check and see if TF is operating normally. Be sure you are running this command on an allocated node (I did it on a DAV node)
+python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+
+# The output should be similar to the following
+2020-12-30 12:33:51.502926: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-12-30 12:33:51.515932: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1561] Found device 0 with properties:
+pciBusID: 0000:37:00.0 name: Quadro GV100 computeCapability: 7.0
+coreClock: 1.627GHz coreCount: 80 deviceMemorySize: 31.75GiB deviceMemoryBandwidth: 810.62GiB/s
+2020-12-30 12:33:51.520902: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2020-12-30 12:33:51.526026: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2020-12-30 12:33:51.532663: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2020-12-30 12:33:51.536702: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2020-12-30 12:33:51.543527: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2020-12-30 12:33:51.550340: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2020-12-30 12:33:51.560101: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-12-30 12:33:51.562088: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1703] Adding visible gpu devices: 0
+2020-12-30 12:33:51.571553: I tensorflow/core/platform/profile_utils/cpu_utils.cc:102] CPU Frequency: 2700000000 Hz
+2020-12-30 12:33:51.573440: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5593b4ce8c70 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-12-30 12:33:51.573478: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-12-30 12:33:51.678131: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5593b4d56ab0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-12-30 12:33:51.678176: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Quadro GV100, Compute Capability 7.0
+2020-12-30 12:33:51.679300: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1561] Found device 0 with properties:
+pciBusID: 0000:37:00.0 name: Quadro GV100 computeCapability: 7.0
+coreClock: 1.627GHz coreCount: 80 deviceMemorySize: 31.75GiB deviceMemoryBandwidth: 810.62GiB/s
+2020-12-30 12:33:51.679353: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2020-12-30 12:33:51.679371: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2020-12-30 12:33:51.679386: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2020-12-30 12:33:51.679403: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2020-12-30 12:33:51.679420: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2020-12-30 12:33:51.679441: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2020-12-30 12:33:51.679457: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-12-30 12:33:51.681270: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1703] Adding visible gpu devices: 0
+2020-12-30 12:33:51.681315: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2020-12-30 12:33:51.682714: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-12-30 12:33:51.682737: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1108]      0
+2020-12-30 12:33:51.682755: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1121] 0:   N
+2020-12-30 12:33:51.684689: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1247] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 29018 MB memory) -> physical GPU (device: 0, name: Quadro GV100, pci bus id: 0000:37:00.0, compute capability: 7.0)
+tf.Tensor(-1016.49384, shape=(), dtype=float32)
+
+
+# md5sum is a program is a computer program that calculates and verifies 128-bit MD5 hashes, as described in RFC 1321.
+# It is very unlikely that any two non-identical files will have the same MD5 hash, unless they have been specifically created to have the same hash.
+# The md5sum for this TF installation is d6ee34e96d2ea857b416b13286062ff8, I (pdiaz) located the checksum of TF by running the following command.
+md5sum /home/$USER/.conda-envs/py38tf23/lib/python3.7/site-packages/tensorflow/libtensorflow_framework.so.2
+
+
+
+
+
+

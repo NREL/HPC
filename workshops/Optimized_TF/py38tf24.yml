@@ -1,9 +1,0 @@
-name: py38tf24
-dependencies:
-  - python=3.8
-  - anaconda::keras-gpu
-  - pip
-  - pip:
-    - numpy==1.18.5
-    - scipy==1.4.1
-    - ai-benchmark
