@@ -2,13 +2,61 @@ Please follow the instructions in [`Setup-PLEXOS.md`](Setup-PLEXOS.md) before
 running the example in this directory. Example scripts for new users are available
 in Section 2.
 
-# PLEXOS Versions > 8.3 and Higher
+**NOTE:**
+Sometimes newer modules may be availabe in a `test` directory which is accessible only to
+a limited number of users. This limited release is done to iron out any bugs that
+may arise during the installation and use of the module and avoid breaking
+users existing jobs. You can check if those test modules are available to you by running
 
-Currently, the latest available PLEXOS version on Eagle is 8.3R09. Models using
-this version of PLEXOS can work with both XpressMP and Gurobi solvers. However,
-moving forward, PLEXOS support for XpressMP will be dropped in the coming months.
+```bash
+module use /nopt/nrel/apps/modules/test/modulefiles
+module avail
+```
 
-In order to use PLEXOS 8.3 on Eagle, we first need to load the following modules
+This should display all of the test modules available in addition to the defaults. We encourage
+you to reach out to us at HPC-Help@nrel.gov for access if you would like access to these
+modules.
+
+# PLEXOS Versions 9.0RX
+
+Currently there are two versions PLEXOS 9.0R07 and 9.0R09 available on Eagle. PLEXOS 9.0RX
+comes bundled with its own `mono` software so we no longer need to load and call it for 
+running PLEXOS. We load the following modules
+
+```bash
+module load centos gurobi/9.5.1
+module load plexos/9.000R09
+```
+
+Now that we have the modules loaded, PLEXOS can be called as follows
+
+```bash
+$PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi
+```
+
+The command above assumes that we are running the model `2024_yr_15percPV_MT_Gurobi` from file
+`5_bus_system_v2.xml`. PLEXOS 9.0RX requires validating user-credentials for a local 
+PLEXOS account for each run. Therefore, if we ran the above command in an interactive session. 
+We would need to enter the following username and password
+
+```txt
+username : nrelplexos
+password : Nr3lplex0s
+```
+
+Fortunately, we can bypass the prompt for a local PLEXOS account username and password (useful for slurm
+batch jobs) by passing them as command line arguments as follows.
+
+```bash
+$PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelplexos -cp Nr3lplex0s
+```
+
+**Not providing the username and password in batch jobs WILL cause your jobs to fail.**
+
+# PLEXOS Versions 8.3RX
+
+Models using PLEXOS 8.3 only work with Gurobi. In order to use PLEXOS 8.3 on Eagle, 
+we first need to load the following modules
 
 ```bash
 module load centos mono/6.8.0.105 plexos/8.300R09
@@ -30,12 +78,7 @@ the command
 module load gurobi/9.1.2
 ```
 
-**NOTE:**
-Sometimes newer modules may be availabe in a `test` directory which is accessible only to
-a limited number of users. This limited release is done to iron out any bugs that
-may arise during the installation and use of the module and avoid breaking
-users existing jobs. We encourage you to reach out to us at HPC-Help@nrel.gov for access
-if you know/suspect that is the case.
+
 
 
 # PLEXOS Versions 8.2 and Lower
