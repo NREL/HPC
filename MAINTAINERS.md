@@ -13,11 +13,9 @@ speak up!
 
 It is every maintainer's responsibility to:
 
-* Expose a clear roadmap for improving the repository.
 * Deliver prompt feedback and decisions on pull requests.
 * Be available to anyone with questions, bug reports, criticism etc. on the repository.
   This includes GitHub issues and pull requests.
-* Make sure the repository respects the philosophy, design and roadmap of the project.
 
 ## How are decisions made?
 
@@ -77,3 +75,21 @@ The final vote to add a new maintainer should be approved by the [governance pro
 
 When a maintainer is unable to perform the [required duties](#what-are-a-maintainers-responsibilities) they can be removed by the [governance procedure](GOVERNANCE.md).
 Issues related to a maintainer's performance should be discussed with them among the other maintainers so that they are not surprised by a pull request removing them.
+
+### Handling PR's
+Any new issue or Pull request should receive a response within 2 weeks. 
+PRs should be merged once they have the review comments addressed and get approved by at least 1 maintainer. 
+If the only issues holding up a merge are trivial fixes (typos, syntax, etc.) and the author doesn't respond within 2 weeks, the maintainers can make the necessary changes themselves and proceed with the merge process. 
+If a PR doesn't receive feedback from the submitter within 1 month, a maintainer can choose to take over the PR and make necessary changes or can be closed.
+If a PR is related to an issue, check whether the issue is fixed and can be closed. Pull requests can be merged once they have been reviewed. If they fix an issue, the issue should be closed/or modified. 
+Discuss in GH-pages meeting if PR should be closed/not merged in. If the content is not relevant/useful, we don't want to put out.  
+
+Maintainer review:
+ask for changes in the PR (this blocks merging until the comments are resolved)
+approve the PR
+
+Acceptance criteria:
+Documentation or examples are clear
+Targets the right branch
+PR complies with the contribution guidelines
+The content is relevant and useful to HPC users  
