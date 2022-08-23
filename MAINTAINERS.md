@@ -19,15 +19,6 @@ It is every maintainer's responsibility to:
 
 ## How are decisions made?
 
-This project is an open-source project with an open design philosophy. This
-means that the repository is the source of truth for EVERY aspect of the
-project, including its philosophy, design, and roadmap. *If it's
-part of the project, it's in the repo. It's in the repo, it's part of
-the project.*
-
-As a result, all decisions can be expressed as changes to the
-repository. 
-
 All decisions affecting this project, big and small, follow the same procedure:
 
 1. Open a pull request.
@@ -36,7 +27,6 @@ All decisions affecting this project, big and small, follow the same procedure:
    Anyone can do this.
 3. Review the pull request.
    The relevant maintainers do this (see below [Who decides what?](#who-decides-what)).
-   Changes that affect project management (changing policy, cutting releases, etc.) are [proposed and voted on](GOVERNANCE.md).
 4. Merge or close the pull request.
    The relevant maintainers do this.
 
@@ -55,41 +45,26 @@ two Reviews. In addition, if a maintainer has created a pull request, they canno
 count toward the two Review rule (to ensure equal amounts of review for every pull
 request, no matter who wrote it).
 
-Overall the maintainer system works because of mutual respect.
-The maintainers trust one another to act in the best interests of the project.
-Sometimes maintainers can disagree and this is part of a healthy project to represent the points of view of various people.
-In the case where maintainers cannot find agreement on a specific change, maintainers should use the [governance procedure](GOVERNANCE.md) to attempt to reach a consensus.
 
-### How are maintainers added?
+### Reviewing and approving Pull Requests
+Acceptance Criteria:
+PR complies with contribution guidelines
+Targets the right branch
+Content is clear/free of typos
+Content is relevant to NREL HPC users
 
-The best maintainers have a vested interest in the project.  Maintainers
-are first and foremost contributors that have shown they are committed to
-the long term success of the project.  Contributors wanting to become
-maintainers are expected to be deeply involved in contributing code,
-pull request review, and triage of issues in the project for more than two months.
-
-Just contributing does not make you a maintainer, it is about building trust with the current maintainers of the project and being a person that they can depend on to act in the best interest of the project.
-The final vote to add a new maintainer should be approved by the [governance procedure](GOVERNANCE.md).
-
-### How are maintainers removed?
-
-When a maintainer is unable to perform the [required duties](#what-are-a-maintainers-responsibilities) they can be removed by the [governance procedure](GOVERNANCE.md).
-Issues related to a maintainer's performance should be discussed with them among the other maintainers so that they are not surprised by a pull request removing them.
-
-### Handling PR's
-Any new issue or Pull request should receive a response within 2 weeks. 
+Process:
+Any new Pull request should receive a response within 2 weeks. 
 PRs should be merged once they have the review comments addressed and get approved by at least 1 maintainer. 
 If the only issues holding up a merge are trivial fixes (typos, syntax, etc.) and the author doesn't respond within 2 weeks, the maintainers can make the necessary changes themselves and proceed with the merge process. 
 If a PR doesn't receive feedback from the submitter within 1 month, a maintainer can choose to take over the PR and make necessary changes or can be closed.
-If a PR is related to an issue, check whether the issue is fixed and can be closed. Pull requests can be merged once they have been reviewed. If they fix an issue, the issue should be closed/or modified. 
-Discuss in GH-pages meeting if PR should be closed/not merged in. If the content is not relevant/useful, we don't want to put out.  
+If a PR is related to an issue. Check whether the issue is fixed 
+If a PR doesn't receive feedback from the submitter within 1 month, a maintainer can choose to take over the PR and make necessary changes or can be closed.
+If a PR is related to an issue, check whether the issue is fixed and can be closed. If they fix an issue, the issue should be closed/or modified. 
+Discuss in GH-pages meeting if PR should be closed/not merged in. If the content is not relevant/usefu  
 
-Maintainer review:
+Maintainer review responses:
 ask for changes in the PR (this blocks merging until the comments are resolved)
 approve the PR
+bring up to maintainer's to close PR. 
 
-Acceptance criteria:
-Documentation or examples are clear
-Targets the right branch
-PR complies with the contribution guidelines
-The content is relevant and useful to HPC users  
