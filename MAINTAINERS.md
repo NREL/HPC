@@ -46,9 +46,9 @@ request, no matter who wrote it).
 ## Handling Pull Requests
 
 ### Acceptance Criteria:
-* The PR complies with contribution guidelines
-* The PR Targets the right branch (see branch descriptions)
-* The content written is clear, free of typos, and relevant to NREL HPC users
+* The PR complies with the [contribution guidelines](CONTRIBUTING.md)
+* The PR targets the appropriate branch 
+* The content is clear, free of typos, and relevant to NREL HPC users
 
 ### Process for Pull Requests: 
 * PRs can be merged once they have been approved by at least 1 maintainer. 
