@@ -30,41 +30,42 @@ All decisions affecting this project, big and small, follow the same procedure:
 4. Merge or close the pull request.
    The relevant maintainers do this.
 
-### I'm a maintainer, should I make pull requests too?
+#### I'm a maintainer, should I make pull requests too?
 
-Yes. Nobody should ever push to master directly. All changes should be
+Yes. Nobody should ever push to the repository directly. All changes should be
 made through a pull request.
 
-## Who decides what?
+### Who decides what?
 
-All decisions are pull requests, and the relevant maintainers make
-decisions by accepting or refusing the pull request. Review and acceptance
-by anyone is denoted by adding a comment in the pull request.
-However, only currently listed `MAINTAINERS` are counted towards the required
-two Reviews. In addition, if a maintainer has created a pull request, they cannot
-count toward the two Review rule (to ensure equal amounts of review for every pull
+Only maintainers are counted towards the required
+review. In addition, if a maintainer has created a pull request, they cannot
+review it themselves (to ensure equal amounts of review for every pull
 request, no matter who wrote it).
 
 
-### Reviewing and approving Pull Requests
-Acceptance Criteria:
-PR complies with contribution guidelines
-Targets the right branch
-Content is clear/free of typos
-Content is relevant to NREL HPC users
+## Handling Pull Requests
 
-Process:
-Any new Pull request should receive a response within 2 weeks. 
-PRs should be merged once they have the review comments addressed and get approved by at least 1 maintainer. 
-If the only issues holding up a merge are trivial fixes (typos, syntax, etc.) and the author doesn't respond within 2 weeks, the maintainers can make the necessary changes themselves and proceed with the merge process. 
-If a PR doesn't receive feedback from the submitter within 1 month, a maintainer can choose to take over the PR and make necessary changes or can be closed.
-If a PR is related to an issue. Check whether the issue is fixed 
-If a PR doesn't receive feedback from the submitter within 1 month, a maintainer can choose to take over the PR and make necessary changes or can be closed.
-If a PR is related to an issue, check whether the issue is fixed and can be closed. If they fix an issue, the issue should be closed/or modified. 
-Discuss in GH-pages meeting if PR should be closed/not merged in. If the content is not relevant/usefu  
+### Acceptance Criteria:
+* The PR complies with contribution guidelines
+* The PR Targets the right branch (see branch descriptions)
+* The content written is clear, free of typos, and relevant to NREL HPC users
 
-Maintainer review responses:
-ask for changes in the PR (this blocks merging until the comments are resolved)
-approve the PR
-bring up to maintainer's to close PR. 
+### Process for Pull Requests: 
+* PRs can be merged once they have been approved by at least 1 maintainer. 
+* Any new PR should be assigned a reviewer within 2 weeks. The reviewer should give a response within one week of assignment. 
+* As a result of their review, a maintainer can:
+    1. Request changes in the Pull Request (which blocks merging until the changes are resolved)
+    3. Approve the Pull Request
+    4. Propose closing the Pull Request 
+* Maintainers need to submit the review in Github so that it is clear when the review is complete.  
+* If the only issues holding up a merge are trivial fixes (typos, syntax, etc.) and the author doesn't respond within 2 weeks to the requested changes or comments, the maintainers can make the necessary changes themselves and proceed with the merge process. 
+* If the requested changes to a PR don't receive a response from the submitter within 1 month, a maintainer can choose to take over the PR and make necessary changes or it can be closed.
+* If a PR is related to an issue, check whether the issue is completely resolved and can be closed. Comment with the PR number when closing the issue. Modify or comment on the issue if it is not entirely resolved.
+* A PR can be closed if it does not meet the acceptance criteria or does not receive a response to requested changes within 1 month. To close a PR, bring up a discussion at a Maintainer's meeting to get consensus. 
+* If closing a PR, leave a comment about why it was closed. 
+
+
+
+
+
 
