@@ -53,14 +53,14 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Installed packages
 
-|command |description|
-|----|-----|
-|`spack find	                 ` |list all locally installed packages | 
-|`spack find --deps <package> `    |list dependencies of `<package>`  |
-|`spack find --explicit	     `     |list packages that were explicitly requested via spack install | 
+|command                           |description                                                                          |
+|----------------------------------|-------------------------------------------------------------------------------------|
+|`spack find	                 ` |list all locally installed packages                                                  | 
+|`spack find --deps <package> `    |list dependencies of `<package>`                                                     |
+|`spack find --explicit	     `     |list packages that were explicitly requested via spack install                       | 
 |`spack find --implicit	     `     |list packages that were installed as a dependency to an explicitly installed package |
-|`spack find --long	         `     |include partial hash in package listing. Useful to see distinct builds  |
-|`spack find --paths	         ` |show installation paths                         |
+|`spack find --long	         `     |include partial hash in package listing. Useful to see distinct builds               | 
+|`spack find --paths	         ` |show installation paths                                                              |
 
 
 Finding how an installed package was built does not seem as straightforward as it should be. 
