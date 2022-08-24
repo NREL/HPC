@@ -4,7 +4,7 @@ On Swift, the default builds of VASP installed on the system as modules were use
 
 On Eagle, the default build of VASP installed on the system is an Intel MPI version of VASP. The Intel MPI build was built with Intel compilers and the mkl math library, and it was accessed via the "vasp" module. It runs VASP 6.1.2. No Open MPI VASP build is accessible through the default modules on Eagle, but an Open MPI build can be accessed in an environment via "source /nopt/nrel/apps/210830a/myenv.2108301742, ml vasp/6.1.1-l2mkbb2". The OpenMPI build was compiled with gnu using gcc and fortran compilers and used OpenMPI's math libraries. It runs VASP 6.1.1.
 
-The repo contains scripts that can be used to run the Intel MPI and Open MPI builds used in the study to perform calculations on Swift and Eagle. Additionally, the repo contains the VASP performance data collected, a notebook that analyzes the performance data, data on CPU usage over time with different values of cpu-bind, and a notebook that analyzes and visualizes the cpu-bind data. 
+This repo contains scripts that can be used to run the Intel MPI and Open MPI builds used in the study to perform calculations on Swift and Eagle. Additionally, the repo contains the VASP performance data collected, a notebook that analyzes the performance data, data on CPU usage over time with different values of cpu-bind, and a notebook that analyzes and visualizes the cpu-bind data. 
 
 This document synthesises the performance data analysis in order to provide information about how to most efficiently run VASP on Swift and Eagle. 
 
