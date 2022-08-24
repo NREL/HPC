@@ -69,7 +69,7 @@ The environment variable `SPACK_SHORT_SPEC` in `build.env` contains the Spack co
 The 7-character short hash is also included, and should be excluded from any spack install command.
 
 
-|symbols | description <img width=500/>|
+|symbols | description <img width=1000/>|
 |----|-----|
 |`@	         ` |package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher.| 
 |`%	         ` |compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
