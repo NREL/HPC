@@ -56,7 +56,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 |command |description|
 |----|-----|
 |`spack find	                 ` |list all locally installed packages | 
-|`spack find --deps <package> `    |list dependencies of <package>  |
+|`spack find --deps <package> `    |list dependencies of '<package>'  |
 |`spack find --explicit	     `     |list packages that were explicitly requested via spack install | 
 |`spack find --implicit	     `     |list packages that were installed as a dependency to an explicitly installed package |
 |`spack find --long	         `     |include partial hash in package listing. Useful to see distinct builds  |
@@ -75,7 +75,7 @@ The 7-character short hash is also included, and should be excluded from any spa
 |`%	         ` |compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
 |`+,-,~       `| build options. +opt, -opt, “~” is equivalent to “-“ |
 |`name=value	 ` |build options for non-Boolean flags. Special names are cflags, cxxflags, fflags, cppflags, ldflags, and ldlibs |
-|`target=valu `|for defined CPU architectures, e.g., target=haswell    |      
+|`target=value `|for defined CPU architectures, e.g., target=haswell    |      
 |`os=value	 ` |for defined operating systems                           |         
 |`^	         ` |dependency specification, using above specs as appropriate|       
 |`^/<hash>	 ` |specify dependency where <hash> is of sufficient length to resolve uniquely |
@@ -167,7 +167,7 @@ This takes care of dependencies as well. The inverse operation is deactivation.
 
 |command | description |
 |-|-|
-|`spack deactivate <extension package>`	        |extension alone. Will not deactivate if dependents exist |
+|`spack deactivate <extension package>`	        |deactivates extension alone. Will not deactivate if dependents exist |
 |`spack deactivate --force <extension package>`	|deactivates regardless of dependents  |
 |`spack deactivate --all <extension package>`	|    deactivates extension and all dependencies | 
 |`spack deactivate --all <parent>`	            |deactivates all extensions of parent (e.g., <python>) | 
@@ -183,7 +183,7 @@ Tcl modulefiles are created in `$SPACK_ROOT/share/spack/modules` by default, and
 Only Tcl modules are created by default. 
 You can modify the active modules.yaml file in the following ways to affect some example behaviors:
 
-### To turn Lmod module creation on,
+#### To turn Lmod module creation on:
 
 ```
 modules:
@@ -233,6 +233,7 @@ Spack uses hierarchical customization files.
 Every package is a Python class, and inherits from the top-level class Package. 
 Depending on the degree of site customization, you may want to fork the Spack repo to create your own customized Spack package.
 There are 4 levels of configuration. In order of increasing precedence,
+
 1.	Default: `$SPACK_ROOT/etc/spack/default`
 2.	System-wide: `/etc/spack`
 3.	Site-wide: `$SPACK_ROOT/etc/spack`
@@ -240,6 +241,7 @@ There are 4 levels of configuration. In order of increasing precedence,
 
 Spack configuration uses YAML files, a subset of JSON native to Python.
 There are 5 main configuration files.
+
 1.	`compilers.yaml`. Customizations to the Spack-known compilers for all builds
     i.	Use full path to compilers
     ii.	Additional rpaths beyond the Spack repo
