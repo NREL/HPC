@@ -45,7 +45,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 |command |description|
 |----|-----|
 |`spack list`  |all available packages by name. Dumps repo content, so if use local repo, this should dump local package load.  |
-|`spack list <pattern>`  |all available packages that have <pattern> somewhere in their name. <pattern> is simple, not regex. |
+|`spack list <pattern>`  |all available packages that have `<pattern>` somewhere in their name. `<pattern>` is simple, not regex. |
 |`spack info <package_name>` | available versions classified as safe, preferred, or variants, as well as dependencies. Variants are important for selecting certain build features, e.g., with/without Infiniband support.| 
 |`spack versions <package_name>` | see which versions are available | 
 
@@ -78,7 +78,7 @@ The 7-character short hash is also included, and should be excluded from any spa
 |`target=value`|for defined CPU architectures, e.g., target=haswell    |      
 |`os=value	 ` |for defined operating systems                           |         
 |`^	         ` |dependency specification, using above specs as appropriate|       
-|`^/<hash>	 ` |specify dependency where <hash> is of sufficient length to resolve uniquely |
+|`^/<hash>	 ` |specify dependency where `<hash>` is of sufficient length to resolve uniquely |
 
 ## External Packages
 
@@ -170,7 +170,7 @@ This takes care of dependencies as well. The inverse operation is deactivation.
 |`spack deactivate <extension package>`	        |deactivates extension alone. Will not deactivate if dependents exist |
 |`spack deactivate --force <extension package>`	|deactivates regardless of dependents  |
 |`spack deactivate --all <extension package>`	|    deactivates extension and all dependencies | 
-|`spack deactivate --all <parent>`	            |deactivates all extensions of parent (e.g., <python>) | 
+|`spack deactivate --all <parent>`	            |deactivates all extensions of parent (e.g., `<python>`) | 
 
 
 ## Modules
