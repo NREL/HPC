@@ -47,21 +47,21 @@ ml openmpi/4.1.1-6vr2flz
 
 This repo contains the results of two separate VASP performance studies. The first, Performance Study 1, studies VASP performance on Eagle using the input files provided in the directory. The second, Performance Study 2, studies VASP performance on Eagle and Swift using benchmarks from the ESIF benchmarking suite, which can be found [here](https://github.com/NREL/ESIFHPC3/tree/master/VASP) or in the benchmarks folder in the Performance Harness 2 directory. Each study evaluates performance differently, as described below, and provides recommendations for running VASP most efficiently in the README files. The READMEs in each directory contain the following information.
 
-Performance Study 1 (VASP6 on Eagle):
+[Performance Study 1](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%201) (VASP6 on Eagle):
 - Recommendations for setting LREAL
 - Recommendations for setting cpu pinning
 - Recommendations for setting NPAR
 - Recommendations for setting NSIM
 - Instructions for using the OpenMP version of VASP
-- Instructions for running multiple VASP jobs on the same nodes (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%201/multi))
+- Instructions for running multiple VASP jobs on the same nodes (and [scripts to do so](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%201/multi))
 - Runtime comparison using VASP5
 
-Performance Study 2 (VASP6 on Eagle and Swift):
+[Performance Study 2](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202#https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202) (VASP6 on Eagle and Swift):
 - Information on how runtime scales with nodecount
 - Recommendations for chosing the most efficient value of cpus/node
-- Recommendations for running VASP on Eagle's GPU nodes (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
-- Recommendations for chosing Intel MPI or Open MPI (and [scripts for running with both MPIs](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
+- Recommendations for running VASP on Eagle's GPU nodes (and [scripts to do so](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
+- Recommendations for chosing Intel MPI or Open MPI (and [scripts for running with both MPIs](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
 - Recommendations for setting KPAR
 - Recommendations for setting cpu pinning
 - Information on k-points scaling
-- Instructions for running multiple VASP jobs on the same nodes on Swift (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
+- Instructions for running multiple VASP jobs on the same nodes on Swift (and [scripts to do so](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
