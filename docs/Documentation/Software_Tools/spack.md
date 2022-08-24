@@ -53,7 +53,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Installed packages
 
-|command    nbsp; &nbsp; &nbsp;                        |description                                                                          |
+|command   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;                        |description                                                                          |
 |----------------------------------|-------------------------------------------------------------------------------------|
 |`spack find	                 ` |list all locally installed packages                                                  | 
 |`spack find --deps <package> `    |list dependencies of `<package>`                                                     |
