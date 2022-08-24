@@ -22,9 +22,9 @@ Running the OpenACC GPU build of VASP (vasp_gpu) on GPU nodes improves performan
 
    * Memory limitation: GPU nodes on Eagle cannot provide as much memory as CPU nodes for VASP jobs, and large VASP jobs may require more GPU nodes to provide enough memory for the calculation. For Benchmark 2, at least 2 full nodes were needed to provide enough memory to complete a calculation. Using more complicated parallelization schemes, the number of nodes necessary to provide enough memory scaled with the increase in number of problems handled simultaneousely. 
 
-![Eagle GPU Bench 2](https://github.com/claralarson/HPC/blob/4837ef43a7d03b1b34a1e5ceda8dcbc64ca5b128/applications/vasp/VASP%20Recommendations/Images/Eagle_GPU_2.png)
+![Eagle GPU Bench 2](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Eagle_GPU_2.png)
 
-![Eagle GPU Bench 1 4x4x2](https://github.com/claralarson/HPC/blob/4837ef43a7d03b1b34a1e5ceda8dcbc64ca5b128/applications/vasp/VASP%20Recommendations/Images/Eagle_GPU_1_4x4x2.png)
+![Eagle GPU Bench 1 4x4x2](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Eagle_GPU_1_4x4x2.png)
 
 ### MPI
 
@@ -33,7 +33,7 @@ Intel MPI is recommended over Open MPI. Using an Intel MPI build of VASP and run
 Find scripts for running the Intel MPI and Open MPI builds of VASP in [this section](#Scripts-for-Running-VASP-on-Eagle).
 
 ### --cpu-bind Flag
-The --cpu-bind flag changes how tasks are assigned to cores throughout the node. Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. When running on 18 CPUs/node, setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
+The --cpu-bind flag changes how tasks are assigned to cores throughout the node. Setting --cpu-bind=cores or rank showed no improvement in the performance of VASP on 36 CPUs/node. When running on 18 CPUs/node, setting --cpu-bind=cores shows a small improvement in runtime (~5% decrease) using both Intel MPI and Open MPI. (See [cpu-bind analysis](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
 
 cpu-bind can be set as a flag in an srun command, such as 
 ```
@@ -52,9 +52,9 @@ KPAR determines the number of groups across which to divide calculations at each
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Eagle with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~20%-57%). 
 
 ### Scripts for Running VASP on Eagle
-  * [VASP on Eagle with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_IntelMPI.slurm)
-  * [VASP on Eagle with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenMPI.slurm)
-  * [VASP on Eagle on GPUs with OpenACC GPU build using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Eagle_OpenACC_GPU.slurm)
+  * [VASP on Eagle with Intel MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Eagle_IntelMPI.slurm)
+  * [VASP on Eagle with Open MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Eagle_OpenMPI.slurm)
+  * [VASP on Eagle on GPUs with OpenACC GPU build using Intel MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Eagle_OpenACC_GPU.slurm)
 
 ## Swift
 
@@ -70,11 +70,11 @@ The graphs below are meant to help users identify the number of CPUs/node that w
 
 Intel MPI, performance/core  |  Intel MPI, performance/node
 :-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Intel_Nodes.png)
+![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Intel_Nodes.png)
 
 Open MPI, performance/core  |  Open MPI, performance/node 
 :-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/claralarson/HPC/blob/b04f979801a600f6a4aa34f16fd5aea564db1262/applications/vasp/VASP%20Recommendations/Images/Swift_2_Open_Nodes.png)
+![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Open_Nodes.png)
 
 ### MPI
 
@@ -84,7 +84,7 @@ Find scripts for running the Intel MPI and Open MPI builds of VASP in [this sect
 
 ### --cpu-bind Flag
 
-The --cpu-bind flag changes how tasks are assigned to cores throughout the node. On Swift, it is recommended not to use cpu-bind. Running VASP on 64 CPUs/node and 128 CPUs/node, setting --cpu-bind=cores or rank showed no improvement in runtime. Running VASP on 32 CPUs/node, setting --cpu-bind=cores or rank increased runtime by up to 40%. (See [cpu-bind analysis](https://github.com/claralarson/HPC/blob/a2a0b9eba1bf568b00e52cb06eac36253f8363c3/applications/vasp/VASP%20Recommendations/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
+The --cpu-bind flag changes how tasks are assigned to cores throughout the node. On Swift, it is recommended not to use cpu-bind. Running VASP on 64 CPUs/node and 128 CPUs/node, setting --cpu-bind=cores or rank showed no improvement in runtime. Running VASP on 32 CPUs/node, setting --cpu-bind=cores or rank increased runtime by up to 40%. (See [cpu-bind analysis](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/cpu-bind%20data/cpu-bind_VASP.ipynb) for info on the effect of cpu-bind)
 
 ```
 srun --cpu-bind=cores vasp_std
@@ -102,9 +102,9 @@ KPAR determines the number of groups across which to divide calculations at each
 
 KPAR = 1  |  KPAR = 4
 :-------------------------:|:-------------------------:
-![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K1_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K4_N4.png)
+![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_1_K1_N4.png) |  ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_1_K4_N4.png)
 KPAR = 8   |  KPAR = 9
-![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K8_N4.png) |  ![](https://github.com/claralarson/HPC/blob/45fcff2eb3c13ee8ba318eb7bf7e936229f42db3/applications/vasp/VASP%20Recommendations/Images/Swift_1_K9_N4.png)
+![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_1_K8_N4.png) |  ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_1_K9_N4.png)
   
       
 ### K-Points Scaling 
@@ -112,7 +112,7 @@ KPAR = 8   |  KPAR = 9
 Runtime does not scale well with the number of kpoints. Benchmark 1 uses a 10x10x5 kpoints grid (500 kpoints). When run with a 4x4x2 kpoints grid (16 kpoints), we should expect the runtime to scale by 16/500 (3.2%) since calculations are being performed at 16 points rather than 500. However, the average scaling factor between Benchmark 1 jobs on Swift with 10x10x5 grids and 4x4x2 grids is 28% (ranging from ~19%-39%).
 
 ### Scripts for Running VASP on Swift
-  * [VASP on Swift with Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI.slurm)
-  * [VASP on Swift with Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI.slurm)
-  * [VASP on Swift with Shared Nodes using Intel MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_IntelMPI_shared_nodes.slurm)
-  * [VASP on Swift with Shared Nodes using Open MPI](https://github.com/claralarson/HPC/blob/7e2759711664ecdbf78377e07671ed1708791c5e/applications/vasp/VASP%20Recommendations/VASP%20scripts/Swift_OpenMPI_shared_nodes.slurm)
+  * [VASP on Swift with Intel MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Swift_IntelMPI.slurm)
+  * [VASP on Swift with Open MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Swift_OpenMPI.slurm)
+  * [VASP on Swift with Shared Nodes using Intel MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Swift_IntelMPI_shared_nodes.slurm)
+  * [VASP on Swift with Shared Nodes using Open MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Swift_OpenMPI_shared_nodes.slurm)
