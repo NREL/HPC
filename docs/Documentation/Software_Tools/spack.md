@@ -69,9 +69,9 @@ The environment variable `SPACK_SHORT_SPEC` in `build.env` contains the Spack co
 The 7-character short hash is also included, and should be excluded from any spack install command.
 
 
-|symbols | description <img width=1000/>|
+|symbols | description |
 |----|-----|
-|`@	         ` |package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher.| 
+|`@	         ` |package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher.!| 
 |`%	         ` |compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
 |`+,-,~       `| build options. +opt, -opt, “~” is equivalent to “-“ |
 |`name=value	 ` |build options for non-Boolean flags. Special names are cflags, cxxflags, fflags, cppflags, ldflags, and ldlibs |
