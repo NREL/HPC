@@ -41,8 +41,15 @@ To configure more generally, move changes to one of the lower-precedence `compil
 Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang) that this should be all that’s required to use the added compiler successfully.
 
 ## Available Packages in Repo
-
-|command    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;                     |description                                                                                                     |
+<style>
+table th:first-of-type {
+    width: 10%;
+}
+table th:nth-of-type(2) {
+    width: 80%;
+}
+</style>
+|command                         |description                                                                                                     |
 |--------------------------------|----------------------------------------------------------------------------------------------------------------|
 |`spack list                   ` |all available packages by name. Dumps repo content, so if use local repo, this should dump local package load.  |
 |`spack list <pattern>         ` |all available packages that have `<pattern>` somewhere in their name. `<pattern>` is simple, not regex.         |
