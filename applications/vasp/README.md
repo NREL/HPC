@@ -3,7 +3,9 @@
 
 ## Running VASP
 
-VASP6 is available on Eagle and Swift. The code below demonstrates how to load different versions of VASP on each system and which accompanying modules to load. 
+VASP6 is available on Eagle, Swift and Vermilion. The code below demonstrates how to load different versions of VASP on Swift and Eagle and provides information on accompanying modules to load. 
+
+For information about accessing and running VASP on Vermilion, see the VASP section at the bottom of [this documentation](https://nrel.github.io/HPC/Documentation/Systems/Vermillion/running/). 
 
 ### On Eagle
 Load VASP with Intel MPI:
@@ -41,10 +43,6 @@ ml slurm/21-08-1-1-o2xw5ti
 ml openmpi/4.1.1-6vr2flz
 ```
 
-### On Vermilion
-
-For information about accessing and running VASP on Vermilion, see the VASP section at the bottom of [this documentation](https://nrel.github.io/HPC/Documentation/Systems/Vermillion/running/). 
-
 ## VASP Documentation
 
 This repo contains the results of two separate VASP performance studies. The first, Performance Study 1, studies VASP performance on Eagle using the input files provided in the directory. The second, Performance Study 2, studies VASP performance on Eagle and Swift using benchmarks from the ESIF benchmarking suite, which can be found [here](https://github.com/NREL/ESIFHPC3/tree/master/VASP) or in the benchmarks folder in the Performance Harness 2 directory. Each study evaluates performance differently, as described below, and provides recommendations for running VASP most efficiently in the README files. The READMEs in each directory contain the following information.
@@ -67,5 +65,3 @@ Performance Study 2 (VASP6 on Eagle and Swift):
 - Recommendations for setting cpu pinning
 - Information on k-points scaling
 - Instructions for running multiple VASP jobs on the same nodes on Swift (and [scripts to do so](https://github.com/claralarson/HPC/tree/master/applications/vasp/Performance%20Study%202/VASP%20scripts))
-
-For information on running VASP on Vermilion, see the VASP section of [this documentation](https://nrel.github.io/HPC/Documentation/Systems/Vermillion/running/).
