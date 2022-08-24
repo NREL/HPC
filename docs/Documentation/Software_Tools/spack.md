@@ -56,7 +56,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 |command |description|
 |----|-----|
 |`spack find	                 ` |list all locally installed packages | 
-|`spack find --deps <package> `    |list dependencies of '<package>'  |
+|`spack find --deps <package> `    |list dependencies of `<package>`  |
 |`spack find --explicit	     `     |list packages that were explicitly requested via spack install | 
 |`spack find --implicit	     `     |list packages that were installed as a dependency to an explicitly installed package |
 |`spack find --long	         `     |include partial hash in package listing. Useful to see distinct builds  |
@@ -69,7 +69,7 @@ The environment variable `SPACK_SHORT_SPEC` in `build.env` contains the Spack co
 The 7-character short hash is also included, and should be excluded from any spack install command.
 
 
-|symbols |description|
+|symbols |description <div style="width:290px">property</div>|
 |----|-----|
 |`@	         ` |package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher.| 
 |`%	         ` |compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
