@@ -192,7 +192,7 @@ modules:
         - lmod 
 ```
 
-### To change the modulefile naming pattern,
+#### To change the modulefile naming pattern:
 
 ```
 modules:
@@ -201,7 +201,7 @@ modules:
 ```
 
 would achieve the Eagle naming scheme. 
-### To remove default variable settings in the modulefile, e.g., CPATH,
+#### To remove default variable settings in the modulefile, e.g., CPATH:
 
 ```
 modules:
@@ -213,7 +213,7 @@ modules:
 
 Note that this would affect Tcl modulefiles only; if Spack also creates Lmod files, those would still contain default CPATH modification behavior.
 
-### To prevent certain modulefiles from being built, you can whitelist and blacklist.
+#### To prevent certain modulefiles from being built, you can whitelist and blacklist:
 
 ```
 modules:
