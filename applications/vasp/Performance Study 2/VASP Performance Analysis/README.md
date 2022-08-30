@@ -5,5 +5,6 @@ To run the notebook, use the VASP_performance.yml file to create a conda environ
 ```
 conda env create -f VASP_performance.yml
 conda activate VASP_performance
+
 Jupyter Notebook
 ```
