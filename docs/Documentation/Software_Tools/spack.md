@@ -28,6 +28,7 @@ or
 ## Setting Up Compilers
 
 Spack is able to find certain compilers on its own, and will add them to your environment as it does. 
+In order to obtain the list of available compilers on Eagle the user can run `module avail`, the user can then load the compiler of interest using `module use <compiler>`.
 To see which compilers your Spack collections know about, type
 
 `spack compilers`
