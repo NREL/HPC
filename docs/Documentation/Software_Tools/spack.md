@@ -43,7 +43,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Available Packages in Repo
 
-|command                         |description                                                                                                     |
+|<div style="width:98px">Command</div>                         |Description                                                                                                     |
 |-------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 |`spack list                   ` |all available packages by name. Dumps repo content, so if use local repo, this should dump local package load.  |
 |`spack list <pattern>         ` |all available packages that have `<pattern>` somewhere in their name. `<pattern>` is simple, not regex.         |
@@ -54,7 +54,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Installed packages
 
-|command   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;                        |description                                                                          |
+|<div style="width:98px">Command</div>                        |Description                                                                          |
 |----------------------------------|-------------------------------------------------------------------------------------|
 |`spack find	                 ` |list all locally installed packages                                                  | 
 |`spack find --deps <package> `    |list dependencies of `<package>`                                                     |
@@ -70,7 +70,7 @@ The environment variable `SPACK_SHORT_SPEC` in `build.env` contains the Spack co
 The 7-character short hash is also included, and should be excluded from any spack install command.
 
 
-|symbols       | description |
+|<div style="width:98px">Symbols</div>       | Description |
 |--------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`@	         ` |package versions. Can use range operator “:”, e.g., X@1.2:1.4 . Range is inclusive and open-ended, e.g., “X@1.4:” matches any version of package X 1.4 or higher.| 
 |`%	         ` |compiler spec. Can include versioning, e.g., X%gcc@4.8.5 |
@@ -166,7 +166,7 @@ This only lasts for the current session, and is not of general interest. A more 
 This takes care of dependencies as well. The inverse operation is deactivation.
 
 
-|command | description |
+|<div style="width:98px">Command</div>| Description |
 |-|-|
 |`spack deactivate <extension package>`	        |deactivates extension alone. Will not deactivate if dependents exist |
 |`spack deactivate --force <extension package>`	|deactivates regardless of dependents  |
