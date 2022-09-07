@@ -245,11 +245,17 @@ There are 5 main configuration files.
 
 1.	`compilers.yaml`. Customizations to the Spack-known compilers for all builds
     i.	Use full path to compilers
+    
     ii.	Additional rpaths beyond the Spack repo
+    
     iii.	Additional modules necessary when invoking compilers
+    
     iv.	Mixing toolchains
+    
     v.	Optimization flags
+    
     vi.	Environment modifications
+
 2.	`config.yaml`. Base functionality of Spack itself
     i.	install_tree: where to install packages
     ii.	build_stage: where to do compiles. For performance, can specify a local SSD or a RAMFS.
