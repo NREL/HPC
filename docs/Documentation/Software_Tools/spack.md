@@ -244,6 +244,7 @@ Spack configuration uses YAML files, a subset of JSON native to Python.
 There are 5 main configuration files.
 
 1.	`compilers.yaml`. Customizations to the Spack-known compilers for all builds
+    
     i.	Use full path to compilers
     
     ii.	Additional rpaths beyond the Spack repo
@@ -257,20 +258,35 @@ There are 5 main configuration files.
     vi.	Environment modifications
 
 2.	`config.yaml`. Base functionality of Spack itself
+    
     i.	install_tree: where to install packages
+    
     ii.	build_stage: where to do compiles. For performance, can specify a local SSD or a RAMFS.
+    
     iii.	modules_roots: where to install modulefiles
+
 3.	`modules.yaml`. How to create modulefiles
+
     i.	whitelist/blacklist packages from having their own modulefiles created
+    
     ii.	adjust hierarchies
+
 4.	`packages.yaml`. Specific optimizations, such as multiple hardware targets.
+
     i.	dependencies, e.g., don’t build OpenSSL (usually want sysadmins to handle updates, etc.)
+
     ii.	mark specific packages as non-buildable, e.g., vendor MPIs
+    
     iii.	preferences, e.g., BLAS -> MKL, LAPACK -> MKL
+
 5.	`repos.yaml`
+    
     i.	Directory-housed, not remote
+    
     ii.	Specify other package locations
+    
     iii.	Can then spec build in other configs (e.g., binary, don’t build)
+    
     iv.	Precedence in YAML file order, but follows Spack precedence order (user > site > system > default)
 
 ### Variants: standard adjustments to package build
