@@ -43,7 +43,7 @@ Spack has enough facility with standard compilers (e.g., GCC, Intel, PGI, Clang)
 
 ## Available Packages in Repo
 
-|<div style="width:98px">Command</div>                         |Description                                                                                                     |
+|<div style="width:198px">Command</div>                         |Description                                                                                                     |
 |-------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 |`spack list                   ` |all available packages by name. Dumps repo content, so if use local repo, this should dump local package load.  |
 |`spack list <pattern>         ` |all available packages that have `<pattern>` somewhere in their name. `<pattern>` is simple, not regex.         |
