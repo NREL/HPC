@@ -426,18 +426,18 @@ VASP can also be run on Vermilion's GPUs. To do this we need to add a few #SBATC
 A gpu build of VASP can be accessed by adding the following path to your PATH variable.
 
 ```
-export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+export PATH=/nopt/nrel/apps/220525b/level03/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp/nvhpc_acc/6.3.1:$PATH
 ```
 
 This will give you:
 
 ```
 [myuser@vs example]$ which vasp_gam
-/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_gam
+/nopt/nrel/apps/220525b/level03/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp/nvhpc_acc/6.3.1/vasp_gam
 [myuser@vs example]$ which vasp_ncl
-/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_ncl
+/nopt/nrel/apps/220525b/level03/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp/nvhpc_acc/6.3.1/vasp_ncl
 [myuser@vs example]$ which vasp_std
-/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc/vasp_std
+/nopt/nrel/apps/220525b/level03/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp/nvhpc_acc/6.3.1/vasp_std
 ```
 
 Instead of srun, use mpirun to run VASP on GPUs. Since Vermilion only has 1 GPU per node, it's important to make sure you are only requesting 1 task per node by setting -npernode 1. 
@@ -472,7 +472,7 @@ export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-z
 export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/gcc-11.3.0-c3u46uvtuljfuqimb4bgywoz6oynridg/lib64:$LD_LIBRARY_PATH
 
 #add a path to the gpu build of VASP to your script
-export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+export PATH=/nopt/nrel/apps/220525b/level03/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp/nvhpc_acc/6.3.1:$PATH
 
 #### wget is needed to download data
 ml wget
