@@ -8,17 +8,20 @@ VASP6 is available on Eagle, Swift and Vermilion. The code below demonstrates ho
 For information about accessing and running VASP on Vermilion, see the VASP section at the bottom of [this documentation](https://nrel.github.io/HPC/Documentation/Systems/Vermillion/running/). 
 
 ### On Eagle
+
 Load VASP with Intel MPI:
 ```
 ml vasp
 ```
 [script to run VASP on Eagle with Intel MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Eagle_IntelMPI.slurm)
+
 Load VASP with Open MPI:
 ```
 source /nopt/nrel/apps/210830a/myenv.2108301742
 ml vasp/6.1.1-l2mkbb2
 ```
 [script to run VASP on Eagle with Open MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Eagle_OpenMPI.slurm)
+
 Load the GPU build of VASP:
 ```
 module use /nopt/nrel/apps/220511a/modules/lmod/linux-centos7-x86_64/gcc/12.1.0
@@ -40,6 +43,7 @@ ml intel-oneapi-mpi/2021.3.0-hcp2lkf
 ml intel-oneapi-mkl/2021.3.0-giz47h4
 ```
 [script to run VASP on Swift with Intel MPI](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/VASP%20scripts/Swift_IntelMPI.slurm)
+
 Load VASP with Open MPI:
 ```
 ml vasp 
