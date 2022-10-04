@@ -1,12 +1,54 @@
-# Setting up PLEXOS for Eagle
+# Setting up PLEXOS on Eagle
 
-The following file describes the initial setup needed to run PLEXOS on NREL's
-HPC Eagle.
+The following file contains information about setting up PLEXOS for the first time on your account.
 
-## Create a new PLEXOS License
+## Setting up the license file
 
-Before we can run PLEXOS, we need to create a license file in eagle. For this,
-run the following commands with some minor modifications
+Before we can run PLEXOS, we need to create a license file in Eagle. 
+For this, run the following commands with some minor modifications
+
+### License file for Versions 9.0+
+
+```bash
+mkdir -p ~/.config/PLEXOS
+echo '<?xml version="1.0"?>
+<XmlRegistryRoot>
+  <comms>
+    <licServer_IP val="10.60.3.188" />
+    <licServer_CommsPort val="399" />
+    <licServer_IP_Secondary />
+    <connect>
+      <PrimaryServer_Port />
+      <SecondaryServer_Port />
+    </connect>
+    <licServer_CommsPort_Secondary />
+    <LastLicTypeUsed val="server" />
+  </comms>
+  <server>
+    <licServer_LogFolder val="/tmp/" />
+    <licServer_LogEvents val="true" />
+  </server>
+  <proxy_cred>
+    <proxy_ip val="" />
+    <proxy_port val="" />
+    <proxy_uname val="" />
+    <proxy_pass val="" />
+  </proxy_cred>
+  <BannedList>
+    <BanListedMachines val="true" />
+  </BannedList>
+  <ProductUpdates>
+    <LastUpdateDate val="10/10/2021 13:11:10" />
+  </ProductUpdates>
+  <UserName />
+  <Company />
+  <UserEmail />
+  <CompanyCode />
+  <LicenseServerRequestCount />
+</XmlRegistryRoot>'   > ~/.config/PLEXOS/EE_reg.xml
+```
+
+### License file for Versions < 9.0
 
 ```bash
 mkdir -p ~/.config/PLEXOS
@@ -20,7 +62,7 @@ echo '<?xml version="1.0"?>
   </comms>       
         <UserName val="${USER}" />       
   <Company val="National Renewable Energy Lab" />       
-        <UserEmail val="$EMAIL" />       
+        <UserEmail val="${EMAIL}" />       
   <CompanyCode val="6E-86-2D-7E-E2-FF-E9-1C-21-55-40-A0-45-40-A6-F0" />       
 </XmlRegistryRoot>'   > ~/.config/PLEXOS/EE_reg.xml
 ```
@@ -28,7 +70,7 @@ echo '<?xml version="1.0"?>
 Please note that you will need to modify the environment variable `EMAIL` to be
 your own work email.
 
-## Setup the PLEXOS Environment
+## Setup the PLEXOS Conda Environment
 
 ### Setting up for the first time
 
