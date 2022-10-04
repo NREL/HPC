@@ -36,8 +36,8 @@ $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi
 
 The command above assumes that we are running the model `2024_yr_15percPV_MT_Gurobi` from file
 `5_bus_system_v2.xml`. PLEXOS 9.0RX requires validating user-credentials for a local 
-PLEXOS account for each run. Therefore, if we ran the above command in an interactive session. 
-We would need to enter the following username and password
+PLEXOS account for each run. Therefore, if we ran the above command in an interactive session, 
+we would need to enter the following username and password
 
 ```txt
 username : nrelplexos

@@ -1,11 +1,11 @@
 # Setting up PLEXOS on Eagle
 
-THe following file contains information about setting up PLEXOS for the first time on your account.
+The following file contains information about setting up PLEXOS for the first time on your account.
 
 ## Setting up the license file
 
-Before we can run PLEXOS, we need to create a license file in eagle. For this,
-run the following commands with some minor modifications
+Before we can run PLEXOS, we need to create a license file in Eagle. 
+For this, run the following commands with some minor modifications
 
 ### License file for Versions 9.0+
 
