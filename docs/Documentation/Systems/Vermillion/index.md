@@ -40,7 +40,3 @@ Don't build or run code on a login node. Login nodes have limited CPU and memory
 
 ---
 
-<!---
-NOTE:
-There are actually 31 GPU nodes. Three are currently out of service and the other 21 are being provisioned.
----!>
