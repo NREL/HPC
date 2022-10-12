@@ -160,17 +160,17 @@ Automation makes life better!
 
 ###  Auto-launching with an sbatch script
 
-Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/languages/python/jupyter).
+Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
 
-Download [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/languages/python/jupyter/sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/languages/python/jupyter/auto_launch_jupyter.sh)
+Download [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh)
 
-Edit [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/languages/python/jupyter/sbatch_jupyter.sh) to change:
+Edit [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/sbatch_jupyter.sh) to change:
 
 `--account=*yourallocation*`
 
 `--time=*timelimit*`
 
-Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/languages/python/jupyter/auto_launch_jupyter.sh) and follow directions
+Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow directions
 
 That's it!
 
