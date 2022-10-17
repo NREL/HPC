@@ -39,7 +39,7 @@ The scratch directory on each Swift compute node is a 1.8TB spinning disk, and i
 
 ## Temporary space: $TMPDIR 
 
-When a job starts, the environment variable `$TMPDIR` is set to `/scratch/<username>/<jobid>` for the duration of the job. This is temporary space only, and should be purged when your job is complete. 
+When a job starts, the environment variable `$TMPDIR` is set to `/scratch/<username>/<jobid>` for the duration of the job. This is temporary space only, and should be purged when your job is complete. Please be sure to use this path instead of /tmp for your tempfiles.
 
 There is no expectation of data longevity in scratch space, and it is subject to purging once the node is idle. If desired data is stored here during the job, please be sure to copy it to a /projects directory as part of the job script before the job finishes.
 
