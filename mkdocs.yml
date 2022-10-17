@@ -24,6 +24,7 @@ nav:
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
       - blog/2021-06-18-srun.md
+      - blog/2022-10-04-python2to3.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Systems: 
