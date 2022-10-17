@@ -34,7 +34,7 @@ Project directories are automatically mounted or unmounted via NFS on an "as-nee
 
 For users who also have Eagle allocations, please be aware that scratch space on Swift behaves differently, so adjustments to job scripts may be necessary. 
 
-The scratch directory on each Swift compute node is a 1.8TB spinning disk, and is accessible only on that node. The default writable path for scratch use is `/scratch/<username>`. There is no global, network-accessible `/scratch` space. `/projects` and `/home` are 
+The scratch directory on each Swift compute node is a 1.8TB spinning disk, and is accessible only on that node. The default writable path for scratch use is `/scratch/<username>`. There is no global, network-accessible `/scratch` space. `/projects` and `/home` are both network-accessible, and may be used as /scratch-style working space instead.
 
 
 ## Temporary space: $TMPDIR 
