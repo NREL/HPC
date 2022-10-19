@@ -31,6 +31,7 @@ nav:
         - Systems: Documentation/Systems/index.md
         - Swift:
           - Documentation/Systems/Swift/index.md
+          - Documentation/Systems/Swift/filesystems.md
           - Documentation/Systems/Swift/modules.md
           - Documentation/Systems/Swift/running.md
           - Documentation/Systems/Swift/applications.md
