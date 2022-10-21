@@ -374,10 +374,16 @@ This will give you:
 
 Note the directory might be different. 
 
-In order to specify the network interconnect, we need to use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
+In order to run on more than one node, we need to specify the network interconnect. To do so, use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
 
 ```
-I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -n 16 vasp_std
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+```
+
+For VASP calculations on a single node, srun is sufficient. However, srun and mpirun produce similar run times. To run with srun for single node calculations, use the following line.
+
+```
+srun -n 16 vasp_std
 ```
 
 Then you need to add calls in your script to set up and point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
@@ -425,7 +431,11 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
+# mpirun is recommended (necessary for multi-node calculations)
 I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+
+# srun can be used instead of mpirun for sinlge node calculations
+# srun -n 16 vasp_std
 
 ```
 
@@ -454,10 +464,16 @@ This will give you:
 
 Note the directory might be different. 
 
-In order to specify the network interconnect, we need to use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
+In order to run on more than one node, we need to specify the network interconnect. To do so, use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
 
 ```
-I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -n 16 vasp_std
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+```
+
+For VASP calculations on a single node, srun is sufficient. However, srun and mpirun produce similar run times. To run with srun for single node calculations, use the following line.
+
+```
+srun -n 16 vasp_std
 ```
 
 Then you need to add calls in your script to set up and point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
@@ -505,7 +521,11 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
+# mpirun is recommended (necessary for multi-node calculations)
 I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+
+# srun can be used instead of mpirun for sinlge node calculations
+# srun -n 16 vasp_std
 
 ```
 
