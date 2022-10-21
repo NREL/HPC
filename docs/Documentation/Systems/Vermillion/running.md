@@ -341,7 +341,7 @@ A few different versions of VASP are available on Vermilion:
 - [VASP 5 (Intel MPI)](#Running-VASP-5-(IntelMPI)-on-CPUs)
 - [VASP 6 (Intel MPI)](#Running-VASP-6-(IntelMPI)-on-CPUs)
 - [VASP 6 (Open MPI)](#Running-VASP-6-(OpenMPI)-on-CPUs)
-- [VASP 6 on GPUs](#Running-VASP-6-GPUs)
+- [VASP 6 on GPUs](#Running-VASP-6-on-GPUs)
 
 Running VASP with Open MPI shows a small improvement compared to running with Intel MPI, and running VASP on GPUs shows an even larger improvement.
 
