@@ -335,12 +335,183 @@ task    thread             node name  first task    # on node  core
 0001      0001                 c1-32        0000         0001  0099
 ```
 
+# Running VASP on Vermilion
 
-## Running VASP on CPUs
+A few different versions of VASP are available on Vermilion:
+- [VASP 5 (Intel MPI)](Running-VASP-5-(IntelMPI)-on-CPUs)
+- [VASP 6 (Intel MPI)](Running-VASP-6-(IntelMPI)-on-CPUs)
+- [VASP 6 (Open MPI)](Running-VASP-6-(OpenMPI)-on-CPUs)
+- [VASP 6 on GPUs](Running-VASP-6-GPUs)
 
-The batch script given above can be modified to run VASP. VASP with Open MPI is recommended.
+Running VASP with Open MPI shows a small improvement compared to running with Intel MPI, and running VASP on GPUs shows an even larger improvement.
 
-To load a build of VASP that is compatible with Open MPI:
+VASP runs faster on 1 node than on 2 nodes. In some cases, VASP run times on 2 nodes have been observed to be double (or more) the run times on a single node. Many issues have been reported for running VASP on multiple nodes. In order for MPI to work successfully on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in each of the scripts below. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce succesful multi-node runs on 4 nodes. 
+
+If many cores are needed for your VASP calcualtion, it is recommended to run VASP on a singe node in the lg partition (60 cores/node), which provides the largest numbers of cores per node. 
+
+## Running VASP 5 (IntelMPI) on CPUs
+
+To load a build of VASP 5 that is compatible with Intel MPI (and other necessary modules):
+
+```
+module use  /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0/
+ml vasp/5.5.4
+ml intel-oneapi-mkl
+ml intel-oneapi-compilers
+ml intel-oneapi-mpi
+```
+
+This will give you:
+
+```
+[myuser@vs example]$ which vasp_gam
+/nopt/nrel/apps/220525b/level01/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp544/bin/vasp_gam
+[myuser@vs example]$ which vasp_ncl
+/nopt/nrel/apps/220525b/level01/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp544/bin/vasp_ncl
+[myuser@vs example]$ which vasp_std
+/nopt/nrel/apps/220525b/level01/install/opt/spack/linux-rocky8-zen2/gcc-12.1.0/vasp544/bin/vasp_std
+```
+
+Note the directory might be different. 
+
+In order to specify the network interconnect, we need to use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
+
+```
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -n 16 vasp_std
+```
+
+Then you need to add calls in your script to set up and point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
+
+```
+#!/bin/bash
+#SBATCH --job-name=vasp
+#SBATCH --nodes=1
+#SBATCH --time=8:00:00
+##SBATCH --error=std.err
+##SBATCH --output=std.out
+#SBATCH --partition=sm
+#SBATCH --exclusive
+
+cat $0
+
+hostname
+
+source /nopt/nrel/apps/210929a/myenv.2110041605
+
+module purge
+module use  /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0/
+ml vasp/5.5.4
+ml intel-oneapi-mkl
+ml intel-oneapi-compilers
+ml intel-oneapi-mpi
+
+# some extra lines that have been shown to improve VASP reliability on Vermilion
+ulimit -s unlimited
+export UCX_TLS=tcp,self
+export OMP_NUM_THREADS=1
+
+#### wget is needed to download data
+ml wget
+
+#### get input and set it up
+#### This is from an old benchmark test
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+
+
+mkdir input
+
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+
+```
+
+## Running VASP 6 (IntelMPI) on CPUs
+
+To load a build of VASP 6 that is compatible with Intel MPI (and other necessary modules):
+
+```
+source /nopt/nrel/apps/210929a/myenv.2110041605 
+ml vaspintel
+ml intel-oneapi-mkl
+ml intel-oneapi-compilers
+ml intel-oneapi-mpi
+```
+
+This will give you:
+
+```
+[myuser@vs example]$ which vasp_gam
+/nopt/nrel/apps/210929a/level01/linux-centos8-zen2/gcc-9.4.0/vaspintel-1.0-dwljo4wr6xcrgxqaq7pz35yqfxdxxsq4/bin/vasp_gam
+[myuser@vs example]$ which vasp_ncl
+/nopt/nrel/apps/210929a/level01/linux-centos8-zen2/gcc-9.4.0/vaspintel-1.0-dwljo4wr6xcrgxqaq7pz35yqfxdxxsq4/bin/vasp_ncl
+[myuser@vs example]$ which vasp_std
+/nopt/nrel/apps/210929a/level01/linux-centos8-zen2/gcc-9.4.0/vaspintel-1.0-dwljo4wr6xcrgxqaq7pz35yqfxdxxsq4/bin/vasp_std
+```
+
+Note the directory might be different. 
+
+In order to specify the network interconnect, we need to use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
+
+```
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -n 16 vasp_std
+```
+
+Then you need to add calls in your script to set up and point to your data files.  So your final script will look something like the following. Here we download data from NREL's benchmark repository.
+
+```
+#!/bin/bash
+#SBATCH --job-name=vasp
+#SBATCH --nodes=1
+#SBATCH --time=8:00:00
+##SBATCH --error=std.err
+##SBATCH --output=std.out
+#SBATCH --partition=sm
+#SBATCH --exclusive
+
+cat $0
+
+hostname
+
+source /nopt/nrel/apps/210929a/myenv.2110041605
+
+module purge
+source /nopt/nrel/apps/210929a/myenv.2110041605 
+ml intel-oneapi-mkl
+ml intel-oneapi-compilers
+ml intel-oneapi-mpi
+ml vaspintel
+
+# some extra lines that have been shown to improve VASP reliability on Vermilion
+ulimit -s unlimited
+export UCX_TLS=tcp,self
+export OMP_NUM_THREADS=1
+
+#### wget is needed to download data
+ml wget
+
+#### get input and set it up
+#### This is from an old benchmark test
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+
+
+mkdir input
+
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+
+```
+
+## Running VASP 6 (OpenMPI) on CPUs
+
+To load a build of VASP 6 that is compatible with Open MPI:
 
 ```
 source /nopt/nrel/apps/210929a/myenv.2110041605
@@ -358,9 +529,9 @@ This will give you:
 /nopt/nrel/apps/123456a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
 ```
 
-Note the directory might be different.
+Note the directory might be different. 
 
-Issues have been reported running VASP on multiple nodes. The most reliable solution is to use a different build of the openmpi module and set the OMPI_MCA_param variable, as shown below. This configuration has shown good results up to 4 nodes, but is not guaranteed to make VASP run successfully on 8 nodes. 
+In order to specify the network interconnect, we need to set the OMPI_MCA_param variable. We want to use "en7" as the interconnect.
 
 ```
 module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
@@ -390,6 +561,12 @@ module purge
 ml gcc
 ml vasp
 
+# some extra lines that have been shown to improve VASP reliability on Vermilion
+ulimit -s unlimited
+export UCX_TLS=tcp,self
+export OMP_NUM_THREADS=1
+
+# lines to set "ens7" as the interconnect network
 module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
 module load openmpi
 OMPI_MCA_param="btl_tcp_if_include ens7"
@@ -413,7 +590,7 @@ srun --mpi=pmi2 -n 16 vasp_std
 
 ```
 
-## Running VASP on GPUs
+## Running VASP 6 on GPUs
 
 VASP can also be run on Vermilion's GPUs. To do this we need to add a few #SBATCH lines at the top of the script to assign the job to run in the gpu partition and to set the gpu binding. The --gpu-bind flag requires 1 set of "0,1" for each node used. 
 
