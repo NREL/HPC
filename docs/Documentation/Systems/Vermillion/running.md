@@ -551,7 +551,7 @@ This will give you:
 
 Note the directory might be different. 
 
-In order to specify the network interconnect, we need to set the OMPI_MCA_param variable. We want to use "en7" as the interconnect.
+In order to specify the network interconnect, we need to set the OMPI_MCA_param variable. We want to use "ens7" as the interconnect.
 
 ```
 module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
