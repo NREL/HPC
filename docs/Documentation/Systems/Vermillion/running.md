@@ -374,7 +374,7 @@ This will give you:
 
 Note the directory might be different. 
 
-In order to run on more than one node, we need to specify the network interconnect. To do so, use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
+In order to run on more than one node, we need to specify the network interconnect. To do so, use mpirun instead of srun. We want to use "ens7" as the interconnect. The mpirun command looks like this. 
 
 ```
 I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
@@ -464,7 +464,7 @@ This will give you:
 
 Note the directory might be different. 
 
-In order to run on more than one node, we need to specify the network interconnect. To do so, use mpirun instead of srun. We want to use "en7" as the interconnect. The mpirun command looks like this. 
+In order to run on more than one node, we need to specify the network interconnect. To do so, use mpirun instead of srun. We want to use "ens7" as the interconnect. The mpirun command looks like this. 
 
 ```
 I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
