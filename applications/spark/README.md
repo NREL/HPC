@@ -3,9 +3,10 @@
 The scripts in this directory create ephemeral Apache Spark clusters on HPC compute nodes.
 
 ## Prerequisites
-The scripts require the Spark software to be installed in a Singularity container. The `docker`
-directory includes a `Dockerfile` that builds an image derived from the base Apache image. The
-file has instructions on how to convert the Docker image to Singularity.
+The scripts require the Spark software to be installed in a Singularity container. The
+`docker/python` directory includes a `Dockerfile` that builds an image derived from the base Apache
+Spark Python image. (Apache has other images for Scala and R.) The file has instructions on how to
+convert the Docker image to Singularity.
 
 A Singularity image with Spark 3.3 and Python 3.9 is stored on Eagle at
 `/scratch/dthom/containers/spark.sif`. This image includes `jupyter` to empower workflows in
