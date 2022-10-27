@@ -67,6 +67,12 @@ nav:
           - Documentation/Software_Tools/FastX/fastx.md
         - Documentation/Software_Tools/conda.md
         - Documentation/Software_Tools/Git/Git.md
+      - Running Jobs:
+        - Running Jobs: Documentation/Running_Jobs/index.md
+        - Documentation/Running_Jobs/batch_jobs.md
+        - Documentation/Running_Jobs/interactive_jobs.md
+        - Documentation/Running_Jobs/multiple_sub_jobs.md
+        - Documentation/Running_Jobs/sample_sbatch.md
       - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
