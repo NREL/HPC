@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while [ $(pgrep -f "jade stats collect") ];
+while [ $(pgrep -f "collect_stats") ];
 do
     sleep 1
 done
