@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function setup
+function setup()
 {
     if ! [ -d dropbear ]; then
         singularity exec ${CONTAINER} ${SCRIPT_DIR}/make_dropbear.sh
@@ -11,7 +11,7 @@ function setup
     mkdir -p ${CONFIG_DIR}/conf
 }
 
-function write_worker_nodes
+function write_worker_nodes()
 {
     workers_file="${CONFIG_DIR}/conf/workers"
     rm -f ${workers_file}

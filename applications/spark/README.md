@@ -126,7 +126,7 @@ $ singularity run \
 	instance://spark \
 	spark-submit --master spark://`hostname`:7077 <your-script>
 ```
-Note: if you script is Python, the filename must end in .py.
+Note: if your script is Python, the filename must end in .py.
 
 
 ### Batched execution
@@ -167,8 +167,8 @@ Run it like this:
 ```
 $ ./ssh-multi node1 node2 nodeN
 ```
-It will start `tmux` with one pane for each node synchonize mode enabled. Typing in one pane types
-everywhere.
+It will start `tmux` with one pane for each node and synchonize mode enabled. Typing in one pane
+types everywhere.
 ```
 $ htop
 ```

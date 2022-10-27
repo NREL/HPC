@@ -16,4 +16,3 @@ for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
 done
 
 echo "Stopped all Spark processes and containers on all nodes."
-
