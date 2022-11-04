@@ -1,0 +1,4 @@
+container = /scratch/dthom/containers/spark.sif
+container_instance_name = spark
+master_node_memory_overhead_gb = 10
+worker_node_memory_overhead_gb = 5
