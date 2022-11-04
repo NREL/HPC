@@ -51,7 +51,7 @@ function exec_spark_process()
         ${cmd}
     ret=$?
     if [[ $ret -ne 0 ]]; then
-        error "Failed to exec Spark command=[${cmd}]: ${ret}"
+        echo "Failed to exec Spark command=[${cmd}]: ${ret}"
         exit $ret
     fi
 }
