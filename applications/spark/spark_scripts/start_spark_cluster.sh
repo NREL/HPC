@@ -3,7 +3,7 @@
 function setup()
 {
     if ! [ -d dropbear ]; then
-        singularity exec ${CONTAINER} ${SCRIPT_DIR}/make_dropbear.sh
+        singularity exec ${LUSTRE_BIND_MOUNTS} ${CONTAINER} ${SCRIPT_DIR}/make_dropbear.sh
     fi
     rm -rf ${CONFIG_DIR}/events && mkdir ${CONFIG_DIR}/events
     rm -rf ${CONFIG_DIR}/logs && mkdir ${CONFIG_DIR}/logs
