@@ -67,6 +67,15 @@ The start script takes one or more SLURM job IDs as inputs. The script will dete
 start the container on each.
 
 ### Manual mode
+
+**Note**: The best way to test this functionality is with an interactive session on bigmem nodes
+in the debug partition.
+
+Example command:
+```
+$ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
+```
+
 1. Allocate nodes however you'd like (`salloc`, `sbatch`, `srun`).
 2. Login to the first node if not already there.
 3. Start the Spark cluster
