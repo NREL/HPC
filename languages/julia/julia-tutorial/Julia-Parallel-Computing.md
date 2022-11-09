@@ -486,8 +486,6 @@ large_data = MyData(rand(1000000), 5)
       1.731 ms (108 allocations: 4.08 KiB)
 
 
-**WARNING:** The entire expression is sent to the worker process before anything in the expression is executed. This can cause performance issues if we need a small part of a big object or array.
-
 This is easily fixed using a local variable:
 
 
