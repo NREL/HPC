@@ -1,4 +1,17 @@
-﻿# Installing Julia on Eagle
+# Installing Julia on Eagle
+
+Julia modules exist on Eagle and provide an easy way to use Julia on the HPC system. Access simply with
+```shell
+module load julia
+```
+To see all available Julia modules, use the command
+```shell
+module spider julia
+```
+If you need a version of Julia for which a module does not exist or want your own personal Julia build, there are several options described in the rest of this document.  Below is a general guide for what approach to use:
+* fast and easy - Anaconda
+* perfomance and ease - Spack
+* performance or need to customize Julia build - do it yourself (i.e. build from source)
 
 ## Anaconda
 Older versions of Julia are available from conda-forge channel:
