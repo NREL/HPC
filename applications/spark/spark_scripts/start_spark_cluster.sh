@@ -43,7 +43,7 @@ function start_spark_processes()
     exec_spark_process start-history-server.sh
     ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${master_overhead_memory_kb} ${spark_cluster}
     ret=$?
-    if [[ $ret != 0 ]]; then
+    if [[ $ret -ne 0 ]]; then
         echo "Error: Failed to start Spark worker on the master node: ${ret}"
         exit $ret
     fi
@@ -56,7 +56,7 @@ function start_spark_processes()
             ssh ${USER}@${node_name} ${SCRIPT_DIR}/start_spark_worker.sh \
                 ${CONFIG_DIR} ${worker_overhead_memory_kb} ${spark_cluster}
             ret=$?
-            if [[ $ret != 0 ]]; then
+            if [[ $ret -ne 0 ]]; then
                 echo "Error: Failed to start the container on the worker node ${node_name}: ${ret}"
                 exit $ret
             fi
