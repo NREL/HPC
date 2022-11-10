@@ -13,16 +13,28 @@ A Singularity image with Spark 3.3 and Python 3.9 is stored on Eagle at
 notebooks.
 
 ## Setup
-1. Copy the `config` file, `scripts` directory, and the `conf` directory to a location on the
-   HPC.
-2. Edit the `config` file as necessary. You may only need to modify the path to the Spark
-   container.
-3. Consider what type of compute nodes to acquire. If you will be performing shuffle operations
+1. Clone the repository:
+```
+$ git clone https://github.com/NREL/HPC.git
+```
+2. Change to a directory in `/scratch/$USER`.
+3. Add the `spark_scripts` directory to your path.
+```
+$ export PATH=$PATH:<your-repo-path>/HPC/applications/spark/spark_scripts
+```
+3. Copy the `config` file and `conf` directory with this command:
+```
+$ create_config.sh -c <path-to-spark-container>
+```
+   Specify an alternate destination directory with `-d <directory>`.
+
+4. Edit the `config` file if necessary.
+5. Consider what type of compute nodes to acquire. If you will be performing large shuffles
    then you must get nodes with fast local storage. `bigmem` and `gpu` nodes have local SSDs that
    can read/write at 2 GB/s. The standard nodes have spinning disks that can only read/write at
    ~130 MB/s. Your jobs will fail if you use those nodes. You can consider specifying a RAM disk
    as Spark local storage (`/dev/shm`), but you must be sure you have enough space.
-4. Edit the files in `conf` as desired. These control the global Spark settings. You can
+6. Edit the files in `conf` as desired. These control the global Spark settings. You can
    also customize some of the `spark-defaults` parameters when you run `spark-submit` or `pyspark`.
    Refer to the CLI help.
 
@@ -61,10 +73,14 @@ notebooks.
 
 ## Usage
 These instructions assume that you are running in a directory that contains the configuration
-files, directories, and scripts.
+files and directories, and that you've added the `spark_scripts` directory to your `PATH`
+environment variable.
 
 The start script takes one or more SLURM job IDs as inputs. The script will detect the nodes and
 start the container on each.
+
+**Note**: The default container and scripts create bind mounts to `/scratch` and `/projects`.
+If you need to mount other directories then you will need to customize them or contact the developers.
 
 ### Manual mode
 
@@ -81,11 +97,11 @@ $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 3. Start the Spark cluster
 If you allocated the nodes with `salloc`:
 ```
-$ ./scripts/start-spark-cluster . $SLURM_JOB_ID
+$ start-spark-cluster . $SLURM_JOB_ID
 ```
 If you allocated two jobs separately and ssh'd into a node:
 ```
-$ ./scripts/start-spark-cluster . <SLURM_JOB_ID1> <SLURM_JOB_ID2>
+$ start-spark-cluster . <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
 
 4. Load the Singularity container if you want to run with its software. You can also run in your
@@ -98,7 +114,10 @@ $ module load singularity-container
 #### Interactive Python interpreter
 This uses ipython, which is optional.
 ```
-$ singularity run --env PYSPARK_DRIVER_PYTHON=ipython instance://spark pyspark --master spark://`hostname`:7077
+$ singularity run \
+	--env PYSPARK_DRIVER_PYTHON=ipython \
+	instance://spark \
+	pyspark --master spark://`hostname`:7077
 ```
 The Spark session object is available globally in the variable `spark`. Create or load dataframes with it.
 
