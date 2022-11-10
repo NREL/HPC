@@ -12,4 +12,5 @@ export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null &&
 . ${SCRIPT_DIR}/common.sh
 echo "Stop singularity instance on $(hostname)"
 
+singularity exec instance://${CONTAINER_INSTANCE_NAME} stop-worker.sh
 singularity instance stop ${CONTAINER_INSTANCE_NAME}
