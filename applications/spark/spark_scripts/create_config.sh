@@ -16,6 +16,12 @@ while [[ $# -gt 0 ]]; do
       shift
       shift
       ;;
+    -h|--help)
+      echo "Usage: $(basename $0) [-c|--container CONTAINER] [-d|--directory CONFIG_DIRECTORY]"
+      exit 0
+      shift
+      shift
+      ;;
     -*|--*)
       echo "Unknown option $1"
       exit 1

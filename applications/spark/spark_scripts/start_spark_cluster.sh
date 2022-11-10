@@ -66,21 +66,48 @@ function start_spark_processes()
 }
 
 # Main
-if [ -z ${1} ]; then
-    echo "Error: CONFIG_DIR must be passed to start_spark_cluster.sh"
+CONFIG_DIR=$(pwd)
+SLURM_JOB_IDS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--directory)
+      CONFIG_DIR=$(realpath ${2})
+      shift
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: $(basename $0) [-d|--directory CONFIG_DIRECTORY] [SLURM_JOB_ID ...]"
+      exit 0
+      shift
+      shift
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      SLURM_JOB_IDS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if ! [ -d ${CONFIG_DIR} ]; then
+    echo "Error: CONFIG_DIR=${CONFIG_DIR} does not exist"
     exit 1
 fi
-export CONFIG_DIR=$(realpath ${1})
-SLURM_JOB_IDS=${@:2}
+
+num_jobs=${#SLURM_JOB_IDS[@]}
+if [ ${num_jobs} -eq 0 ]; then
+    echo "Error: at least one SLURM job ID must be passed"
+    exit 1
+fi
+
 # Copied from
 # https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
 export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . ${SCRIPT_DIR}/common.sh
-
-if [ -z ${2} ]; then
-    echo "Error: at least one SLURM job ID must be passed"
-    exit 1
-fi
 
 module load singularity-container
 setup

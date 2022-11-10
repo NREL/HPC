@@ -97,11 +97,11 @@ $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 3. Start the Spark cluster
 If you allocated the nodes with `salloc`:
 ```
-$ start-spark-cluster . $SLURM_JOB_ID
+$ start_spark_cluster $SLURM_JOB_ID
 ```
 If you allocated two jobs separately and ssh'd into a node:
 ```
-$ start-spark-cluster . <SLURM_JOB_ID1> <SLURM_JOB_ID2>
+$ start_spark_cluster <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
 
 4. Load the Singularity container if you want to run with its software. You can also run in your
@@ -181,6 +181,9 @@ $ singularity exec \
 	instance://spark \
 	start-history-server.sh
 ```
+
+**Note**: Be sure to cleanly shutdown the cluster with `stop_spark_cluster.sh` if you intend
+to look at the history.
 
 ## Performance monitoring
 Tuning a Spark application and cluster can be difficult. It is advisable to monitor hardware

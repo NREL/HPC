@@ -13,7 +13,7 @@ SCRIPT_DIR=~/repos/HPC/applications/spark/spark_scripts
 rm -f shutdown
 srun collect_stats.sh . &
 
-${SCRIPT_DIR}/start_spark_cluster.sh . $SLURM_JOB_ID
+${SCRIPT_DIR}/start_spark_cluster.sh $SLURM_JOB_ID
 singularity run \
     --bind /lustre:/lustre \
     --bind /projects:/projects \
@@ -27,7 +27,7 @@ singularity run \
     instance://spark \
     pyspark --master spark://`hostname`:7077
 
-${SCRIPT_DIR}/stop_spark_cluster.sh .
+${SCRIPT_DIR}/stop_spark_cluster.sh
 
 touch shutdown
 srun wait_for_stats.sh

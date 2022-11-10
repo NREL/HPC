@@ -1,10 +1,37 @@
 #!/bin/bash
 
-if [ -z ${1} ]; then
-    echo "Error: CONFIG_DIR must be passed to stop_spark_cluster.sh"
+CONFIG_DIR=$(pwd)
+ARGS=()
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--directory)
+      CONFIG_DIR=$(realpath ${2})
+      shift
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: $(basename $0) [-d|--directory CONFIG_DIRECTORY]"
+      exit 0
+      shift
+      shift
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if ! [ -d ${CONFIG_DIR} ]; then
+    echo "Error: CONFIG_DIR=${CONFIG_DIR} does not exist"
     exit 1
 fi
-export CONFIG_DIR=$(realpath ${1})
+
 export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . ${SCRIPT_DIR}/common.sh
 
