@@ -100,8 +100,12 @@ fi
 
 num_jobs=${#SLURM_JOB_IDS[@]}
 if [ ${num_jobs} -eq 0 ]; then
-    echo "Error: at least one SLURM job ID must be passed"
-    exit 1
+    if ! [ -z ${SLURM_JOB_ID} ]; then
+        SLURM_JOB_IDS+=${SLURM_JOB_ID}
+    else
+        echo "Error: at least one SLURM job ID must be passed"
+        exit 1
+    fi
 fi
 
 # Copied from

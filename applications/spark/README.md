@@ -97,7 +97,7 @@ $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 3. Start the Spark cluster
 If you allocated the nodes with `salloc`:
 ```
-$ start_spark_cluster $SLURM_JOB_ID
+$ start_spark_cluster
 ```
 If you allocated two jobs separately and ssh'd into a node:
 ```

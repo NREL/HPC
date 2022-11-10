@@ -64,3 +64,4 @@ if [ $CONTAINER != "" ]; then
     sed -i "s/container = .*/container = ${CONTAINER}/" ${DIRECTORY}/config
 fi
 
+echo "Create configuration files in ${CONFIG_DIR}"
