@@ -14,8 +14,8 @@ Please use the navigation bar on the left to explore the available documentation
 
 ### Highlights 
 * [Systems Guide](https://nrel.github.io/HPC/Documentation/Systems/) to learn about our HPC systems
-* [Jupyterhub](Jupyter/jupyterhub/) to get started with Jupyter Notebooks 
-* [Conda environment](Environments/conda/) howto and Eagle-specific information
+* [Jupyterhub](https://nrel.github.io/HPC/Documentation/Software_Tools/Jupyter/) to get started with Jupyter Notebooks 
+* [Conda environment](https://nrel.github.io/HPC/Documentation/Software_Tools/conda/) howto and Eagle-specific information
 
 ### Other NREL Documentation Resources
 
