@@ -67,6 +67,7 @@ nav:
         - Data and Visualization:
           - Documentation/Software_Tools/FastX/fastx.md
         - Documentation/Software_Tools/conda.md
+        - Documentation/Software_Tools/spack.md  
         - Documentation/Software_Tools/Git/Git.md
       - Languages:
         - Bash:
