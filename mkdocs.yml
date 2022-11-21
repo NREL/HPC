@@ -61,6 +61,7 @@ nav:
           - Documentation/Software_Tools/building-packages/modules.md
         - Documentation/Software_Tools/conda.md
         - Documentation/Software_Tools/Jupyter/jupyterhub.md
+        - Documentation/Software_Tools/spack.md  
       - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
