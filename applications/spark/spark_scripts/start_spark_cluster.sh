@@ -17,7 +17,7 @@ function write_worker_nodes()
     rm -f ${workers_file}
     touch ${workers_file}
 
-    for node in $(${SCRIPT_DIR}/get_node_names.sh ${SLURM_JOB_IDS})
+    for node in $(${SCRIPT_DIR}/get_node_names.sh ${SLURM_JOB_IDS[@]})
     do
         echo "${node}" >> $workers_file
     done
@@ -34,14 +34,15 @@ function start_containers()
 
 function start_spark_processes()
 {
-    master_overhead_memory_kb=$((${MASTER_NODE_MEMORY_OVERHEAD_GB} * 1024 * 1024))
-    worker_overhead_memory_kb=$((${WORKER_NODE_MEMORY_OVERHEAD_GB} * 1024 * 1024))
     master_node=$(hostname | tr -d '\n')
     spark_cluster=spark://${master_node}:7077
 
     exec_spark_process start-master.sh
-    exec_spark_process start-history-server.sh
-    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${master_overhead_memory_kb} ${spark_cluster}
+    check_history_server_enabled
+    if [ $? -eq 0 ]; then
+        exec_spark_process start-history-server.sh
+    fi
+    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${MASTER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
     ret=$?
     if [[ $ret -ne 0 ]]; then
         echo "Error: Failed to start Spark worker on the master node: ${ret}"
@@ -54,7 +55,7 @@ function start_spark_processes()
     for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
         if [[ $node_name != ${master_node} ]]; then
             ssh ${USER}@${node_name} ${SCRIPT_DIR}/start_spark_worker.sh \
-                ${CONFIG_DIR} ${worker_overhead_memory_kb} ${spark_cluster}
+                ${CONFIG_DIR} ${WORKER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
             ret=$?
             if [[ $ret -ne 0 ]]; then
                 echo "Error: Failed to start the container on the worker node ${node_name}: ${ret}"

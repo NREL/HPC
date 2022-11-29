@@ -36,8 +36,11 @@ export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null &&
 . ${SCRIPT_DIR}/common.sh
 
 module load singularity-container
-# Checking for errors is not necessary.
-singularity exec instance://${CONTAINER_INSTANCE_NAME} stop-history-server.sh
+check_history_server_enabled
+if [ $? -eq 0 ]; then
+    # Checking for errors is not necessary.
+    singularity exec instance://${CONTAINER_INSTANCE_NAME} stop-history-server.sh
+fi
 
 # Something about the ssh configuration causes a warning when the Spark
 # scripts ssh to each worker node. It doesn't happen in our ssh commands.

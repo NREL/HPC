@@ -34,11 +34,16 @@ $ create_config.sh -c <path-to-spark-container>
    can read/write at 2 GB/s. The standard nodes have spinning disks that can only read/write at
    ~130 MB/s. Your jobs will fail if you use those nodes. You can consider specifying a RAM disk
    as Spark local storage (`/dev/shm`), but you must be sure you have enough space.
-6. Edit the files in `conf` as desired. These control the global Spark settings. You can
-   also customize some of the `spark-defaults` parameters when you run `spark-submit` or `pyspark`.
-   Refer to the CLI help.
+6. Decide how and when you want to configure your Spark application parameters.
 
-   Here are some parameters to consider editing:
+   - Manually specify global settings in `conf`. Note that worker settings in `conf/spark-env.sh`
+   must be set before starting the cluster.
+   - Auto-configure global settings with `configure_spark.sh`. You can run this script after
+   acquiring compute nodes and it will apply settings based on the hardware resources of those
+   nodes. Run `configure_spark.sh --help` to see available options.
+   - At runtime when you run `spark-submit` or `pyspark`. Refer to the CLI help.
+   
+   Here are some parameters in the `conf` files to consider editing:
 
 **log4j2.properties**:
    - `rootLogger.level`: Spark is verbose when the log level is `info`. Change the level to
@@ -94,22 +99,31 @@ $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 
 1. Allocate nodes however you'd like (`salloc`, `sbatch`, `srun`).
 2. Login to the first node if not already there.
-3. Start the Spark cluster
+3. Optional: Run `configure_spark.sh` to apply settings based on actual compute node resources.
+4. Start the Spark cluster
 If you allocated the nodes with `salloc`:
 ```
-$ start_spark_cluster
+$ start_spark_cluster $SLURM_JOB_ID
 ```
 If you allocated two jobs separately and ssh'd into a node:
 ```
 $ start_spark_cluster <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
 
-4. Load the Singularity container if you want to run with its software. You can also run in your
+5. Load the Singularity container if you want to run with its software. You can also run in your
    own environment as long as you have the same versions of Spark and Python.
 ```
 $ module load singularity-container
 ```
-5. Start a Spark process.
+
+**Note**: If you run in your own environment, set the environment variable `SPARK_CONF_DIR` if
+you want to use the configuration settings created by the scripts.
+
+```
+export SPARK_CONF_DIR=$(pwd)/conf
+```
+
+6. Start a Spark process.
 
 #### Interactive Python interpreter
 This uses ipython, which is optional.
@@ -117,7 +131,7 @@ This uses ipython, which is optional.
 $ singularity run \
 	--env PYSPARK_DRIVER_PYTHON=ipython \
 	instance://spark \
-	pyspark --master spark://`hostname`:7077
+	pyspark --master spark://$(hostname):7077
 ```
 The Spark session object is available globally in the variable `spark`. Create or load dataframes with it.
 
@@ -129,7 +143,7 @@ $ singularity run \
 	--env PYSPARK_DRIVER_PYTHON=jupyter \
 	--env PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --port=8889 --ip=0.0.0.0" \
 	instance://spark \
-	pyspark --master spark://`hostname`:7077
+	pyspark --master spark://$(hostname):7077
 ```
 The Jupyter process will print a URL to the terminal. You can access it from your laptop after you
 forward the ports through an ssh tunnel.
@@ -152,7 +166,7 @@ spark = SparkSession.builder.appName("my_session").getOrCreate()
 ```
 $ singularity run \
 	instance://spark \
-	spark-submit --master spark://`hostname`:7077 <your-script>
+	spark-submit --master spark://$(hostname):7077 <your-script>
 ```
 Note: if your script is Python, the filename must end in .py.
 
@@ -170,7 +184,10 @@ https://spark.apache.org/docs/latest/api/python/user_guide/sql/arrow_pandas.html
 Open the Spark web UI to observe what's happening with your jobs. You will have to forward ports
 8080 and 4040 of the master node (first node in your SLURM allocation) through an ssh tunnel.
 
-Open your browser to http://localhost:4040 after configuring the tunnel.
+Open your browser to http://localhost:4040 after configuring the tunnel to access the application UI.
+
+Before inspecting job details you may first want to confirm that the correct Spark configuration
+settings are in effect by looking at the `Environment` tab.
 
 If you enable the history server then you can open this UI after you relinquish the nodes. Here
 is an example of how to start it:
