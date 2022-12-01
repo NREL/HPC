@@ -9,7 +9,7 @@ Spark Python image. (Apache has other images for Scala and R.) The file has inst
 convert the Docker image to Singularity.
 
 A Singularity image with Spark 3.3 and Python 3.9 is stored on Eagle at
-`/scratch/dthom/containers/spark.sif`. This image includes `jupyter` to empower workflows in
+`/datasets/images/apache_spark/spark.sif`. This image includes `jupyter` to empower workflows in
 notebooks.
 
 ## Setup
@@ -39,8 +39,8 @@ $ create_config.sh -c <path-to-spark-container>
    - Manually specify global settings in `conf`. Note that worker settings in `conf/spark-env.sh`
    must be set before starting the cluster.
    - Auto-configure global settings with `configure_spark.sh`. You can run this script after
-   acquiring compute nodes and it will apply settings based on the hardware resources of those
-   nodes. Run `configure_spark.sh --help` to see available options.
+   acquiring compute nodes and it will apply settings based on the hardware resources (memory/CPU)
+   of those nodes. Run `configure_spark.sh --help` to see available options.
    - At runtime when you run `spark-submit` or `pyspark`. Refer to the CLI help.
    
    Here are some parameters in the `conf` files to consider editing:
@@ -84,15 +84,16 @@ environment variable.
 The start script takes one or more SLURM job IDs as inputs. The script will detect the nodes and
 start the container on each.
 
-**Note**: The default container and scripts create bind mounts to `/scratch` and `/projects`.
-If you need to mount other directories then you will need to customize them or contact the developers.
+**Note**: The default container and scripts create bind mounts to `/lustre`, `/scratch`,
+`/projects`, and `/nopt`. If you need to mount other directories then you will need to make
+customizations or contact the developers.
 
 ### Manual mode
 
 **Note**: The best way to test this functionality is with an interactive session on bigmem nodes
 in the debug partition.
 
-Example command:
+Example command (2 nodes):
 ```
 $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 ```
@@ -103,11 +104,11 @@ $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 4. Start the Spark cluster
 If you allocated the nodes with `salloc`:
 ```
-$ start_spark_cluster $SLURM_JOB_ID
+$ start_spark_cluster.sh
 ```
 If you allocated two jobs separately and ssh'd into a node:
 ```
-$ start_spark_cluster <SLURM_JOB_ID1> <SLURM_JOB_ID2>
+$ start_spark_cluster.sh <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
 
 5. Load the Singularity container if you want to run with its software. You can also run in your
@@ -135,6 +136,20 @@ $ singularity run \
 ```
 The Spark session object is available globally in the variable `spark`. Create or load dataframes with it.
 
+```
+In [1]: spark.read.parquet("my_data.parquet")
+```
+
+Optional: check your environment to ensure that all configuration settings are correct.
+```
+In [2]: spark.sparkContext.getConf().getAll()
+```
+Most importantly, ensure that you connected to the Spark cluster master and are not in local mode.
+There should be an entry like this:
+```
+('spark.master', 'spark://<master-node-name>:7077'),
+```
+
 #### Jupyter notebook
 ```
 $ singularity run \
@@ -152,13 +167,13 @@ This is a Mac/Linux example. On Windows adjust the environment variable syntax a
 or PowerShell.
 ```
 $ export COMPUTE_NODE=<your-compute-node-name>
-$ ssh -L 4040:$COMPUTE_NODE:4040 -L 8080:$COMPUTE_NODE:8080 -L 8889:$COMPUTE_NODE:8889  $USER@eagle.hpc.nrel.gov
+$ ssh -L 4040:$COMPUTE_NODE:4040 -L 8080:$COMPUTE_NODE:8080 -L 8889:$COMPUTE_NODE:8889 $USER@eagle.hpc.nrel.gov
 ```
-Open the link in your browser and start a new notebook. Connect to the Spark session by entering
-this text into a cell.
+Open the link in your browser and start a new notebook.
+Connect to the Spark session by entering this text into a cell.
 ```
 from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("my_session").getOrCreate()
+spark = SparkSession.builder.appName("my_app").getOrCreate()
 ```
 
 
@@ -170,6 +185,11 @@ $ singularity run \
 ```
 Note: if your script is Python, the filename must end in .py.
 
+Connect to the Spark session by including this code in your script.
+```
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("my_app").getOrCreate()
+```
 
 ### Batched execution
 This directory includes sbatch script examples for each of the above execution types.
