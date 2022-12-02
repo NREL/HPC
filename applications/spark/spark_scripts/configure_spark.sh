@@ -86,13 +86,13 @@ EOF
          "spark.executor.memory=${executor_memory_gb}g"
 }
 
-function configure_driver()
+function config_driver()
 {
     cat >> ${DEFAULTS_FILE} << EOF
 spark.driver.memory ${DRIVER_MEMORY_GB}g
 spark.driver.maxResultSize ${DRIVER_MEMORY_GB}g
 EOF
-    echo "Set driver memory to ${DRIVER_MEMORY_GB}"
+    echo "Set driver memory to ${DRIVER_MEMORY_GB}g"
 }
 
 function enable_history_server() {
@@ -229,6 +229,7 @@ module load singularity-container
 check_errors
 copy_defaults_template_file
 config_executors
+config_driver
 if [ ${ENABLE_HISTORY_SERVER} = true ]; then
     enable_history_server
 fi

@@ -4,15 +4,19 @@ The scripts in this directory create ephemeral Apache Spark clusters on HPC comp
 
 ## Prerequisites
 The scripts require the Spark software to be installed in a Singularity container. The
-`docker/python` directory includes a `Dockerfile` that builds an image derived from the base Apache
-Spark Python image. (Apache has other images for Scala and R.) The file has instructions on how to
-convert the Docker image to Singularity.
+`docker` directory includes Dockerfiles that build images derived from the base Apache
+Spark Python and R images. The files have instructions on how to convert the Docker images to
+Singularity.
 
-A Singularity image with Spark 3.3 and Python 3.9 is stored on Eagle at
-`/datasets/images/apache_spark/spark.sif`. This image includes `jupyter` to empower workflows in
-notebooks.
+Existing Singularity containers on Eagle:
+- Spark 3.3.1 and Python 3.9 is at `/datasets/images/apache_spark/spark_py39.sif`.
+This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `pyarrow`.
+- Spark 3.3.1 and $ 4.0.4 is at `/datasets/images/apache_spark/spark_r.sif`.
+This image includes the packages `tidyverse`, `sparklyr`, `data.table`, `here`, `janitor`, and
+`skimr`.
 
 ## Setup
+
 1. Clone the repository:
 ```
 $ git clone https://github.com/NREL/HPC.git
@@ -22,19 +26,20 @@ $ git clone https://github.com/NREL/HPC.git
 ```
 $ export PATH=$PATH:<your-repo-path>/HPC/applications/spark/spark_scripts
 ```
-3. Copy the `config` file and `conf` directory with this command:
+4. Copy the `config` file and `conf` directory with the command below. Specify an alternate
+destination directory with `-d <directory>`.
 ```
 $ create_config.sh -c <path-to-spark-container>
 ```
-   Specify an alternate destination directory with `-d <directory>`.
 
-4. Edit the `config` file if necessary.
-5. Consider what type of compute nodes to acquire. If you will be performing large shuffles
+5. Edit the `config` file if necessary. Note that the rest of this page relies on the setting
+   `container_instance_name = spark`.
+6. Consider what type of compute nodes to acquire. If you will be performing large shuffles
    then you must get nodes with fast local storage. `bigmem` and `gpu` nodes have local SSDs that
    can read/write at 2 GB/s. The standard nodes have spinning disks that can only read/write at
    ~130 MB/s. Your jobs will fail if you use those nodes. You can consider specifying a RAM disk
    as Spark local storage (`/dev/shm`), but you must be sure you have enough space.
-6. Decide how and when you want to configure your Spark application parameters.
+7. Decide how and when you want to configure your Spark application parameters.
 
    - Manually specify global settings in `conf`. Note that worker settings in `conf/spark-env.sh`
    must be set before starting the cluster.
@@ -84,10 +89,6 @@ environment variable.
 The start script takes one or more SLURM job IDs as inputs. The script will detect the nodes and
 start the container on each.
 
-**Note**: The default container and scripts create bind mounts to `/lustre`, `/scratch`,
-`/projects`, and `/nopt`. If you need to mount other directories then you will need to make
-customizations or contact the developers.
-
 ### Manual mode
 
 **Note**: The best way to test this functionality is with an interactive session on bigmem nodes
@@ -111,94 +112,38 @@ If you allocated two jobs separately and ssh'd into a node:
 $ start_spark_cluster.sh <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
 
-5. Load the Singularity container if you want to run with its software. You can also run in your
-   own environment as long as you have the same versions of Spark and Python.
+5. Load the Singularity environment if you want to run with its software. You can also run in your
+   own environment as long as you have the same versions of Spark and Python or R.
 ```
 $ module load singularity-container
 ```
 
-**Note**: If you run in your own environment, set the environment variable `SPARK_CONF_DIR` if
+6. If you run in your own environment, set the environment variable `SPARK_CONF_DIR` if
 you want to use the configuration settings created by the scripts.
 
 ```
-export SPARK_CONF_DIR=$(pwd)/conf
+$ export SPARK_CONF_DIR=$(pwd)/conf
 ```
 
-6. Start a Spark process.
+7. Start a Spark process.
 
-#### Interactive Python interpreter
-This uses ipython, which is optional.
-```
-$ singularity run \
-	--env PYSPARK_DRIVER_PYTHON=ipython \
-	instance://spark \
-	pyspark --master spark://$(hostname):7077
-```
-The Spark session object is available globally in the variable `spark`. Create or load dataframes with it.
+Refer to Python instructions [here](python.md).
 
-```
-In [1]: spark.read.parquet("my_data.parquet")
-```
-
-Optional: check your environment to ensure that all configuration settings are correct.
-```
-In [2]: spark.sparkContext.getConf().getAll()
-```
-Most importantly, ensure that you connected to the Spark cluster master and are not in local mode.
-There should be an entry like this:
-```
-('spark.master', 'spark://<master-node-name>:7077'),
-```
-
-#### Jupyter notebook
-```
-$ singularity run \
-	--net \
-	--network-args "portmap=8889:8889" \
-	--env PYSPARK_DRIVER_PYTHON=jupyter \
-	--env PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --port=8889 --ip=0.0.0.0" \
-	instance://spark \
-	pyspark --master spark://$(hostname):7077
-```
-The Jupyter process will print a URL to the terminal. You can access it from your laptop after you
-forward the ports through an ssh tunnel.
-
-This is a Mac/Linux example. On Windows adjust the environment variable syntax as needed for the Command shell
-or PowerShell.
-```
-$ export COMPUTE_NODE=<your-compute-node-name>
-$ ssh -L 4040:$COMPUTE_NODE:4040 -L 8080:$COMPUTE_NODE:8080 -L 8889:$COMPUTE_NODE:8889 $USER@eagle.hpc.nrel.gov
-```
-Open the link in your browser and start a new notebook.
-Connect to the Spark session by entering this text into a cell.
-```
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("my_app").getOrCreate()
-```
-
-
-#### Run a script
-```
-$ singularity run \
-	instance://spark \
-	spark-submit --master spark://$(hostname):7077 <your-script>
-```
-Note: if your script is Python, the filename must end in .py.
-
-Connect to the Spark session by including this code in your script.
-```
-from pyspark.sql import SparkSession
-spark = SparkSession.builder.appName("my_app").getOrCreate()
-```
+Refer to R instructions [here](r.md).
 
 ### Batched execution
 This directory includes sbatch script examples for each of the above execution types.
 
-Refer to the scripts in `slurm_scripts`.
+Refer to the scripts in the `slurm_scripts` directory.
 
-## Python performance considerations
-Refer to this Spark documentation if you will convert Spark DataFrames to Pandas DataFrames.
-https://spark.apache.org/docs/latest/api/python/user_guide/sql/arrow_pandas.html
+### Mounts
+The configuration scripts mount the following directories inside the container, and so you should
+be able to load data files in any of them:
+- `/lustre`
+- `/projects`
+- `/scratch`
+- `/datasets`
+
 
 ## Debugging problems
 Open the Spark web UI to observe what's happening with your jobs. You will have to forward ports

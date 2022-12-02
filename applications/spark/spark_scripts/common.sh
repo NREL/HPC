@@ -1,7 +1,8 @@
 export LUSTRE_BIND_MOUNTS="-B /lustre:/lustre \
     -B /nopt:/nopt \
     -B /projects:/projects \
-    -B /scratch:/scratch"
+    -B /scratch:/scratch \
+    -B /datasets:/datasets"
 
 function error()
 {

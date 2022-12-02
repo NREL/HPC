@@ -13,17 +13,24 @@
 
 # Methodology for operation of this container is based on https://sylabs.io/2018/10/spark-on-singularity/
 
-FROM apache/spark-py
+FROM apache/spark-r
 
 USER root
 
 # Install OpenSSH to communicate between containers, and dropbear SSH server
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get install -y openssh-client dropbear locales \
+    && apt-get install -y openssh-client dropbear locales libxml2 libxml2-dev libssl-dev libcurl4-openssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install ipython jupyter pandas pyarrow
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN apt-get update
+RUN R -e 'install.packages("tidyverse")'
+RUN R -e 'install.packages("sparklyr")'
+RUN R -e 'install.packages("data.table")'
+RUN R -e 'install.packages("here")'
+RUN R -e 'install.packages("janitor")'
+RUN R -e 'install.packages("skimr")'
 
 # This prevents bash warnings on Eagle.
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \

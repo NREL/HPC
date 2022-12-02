@@ -38,11 +38,9 @@ if ! [ -d ${DIRECTORY} ]; then
     exit 1
 fi
 
-if [ $CONTAINER != "" ]; then
-    if ! [ -f ${CONTAINER} ]; then
-        echo "Error: container=${CONTAINER} does not exist"
-        exit 1
-    fi
+if ! [ -z $CONTAINER ] && ! [ -f ${CONTAINER} ]; then
+    echo "Error: container=${CONTAINER} does not exist"
+    exit 1
 fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -59,9 +57,11 @@ fi
 cp -r ${CONFIG_DIR} ${DIRECTORY}
 cp ${CONFIG_FILE} ${DIRECTORY}
 
-if [ $CONTAINER != "" ]; then
-    CONTAINER=${CONTAINER//\//\\\/}
-    sed -i "s/container = .*/container = ${CONTAINER}/" ${DIRECTORY}/config
+if [ -z $CONTAINER ]; then
+    CONTAINER=$(grep "container\s*=" ${CONFIG_FILE} | awk -F = '{print $2}' | xargs)
+else
+    tmp_name=${CONTAINER//\//\\\/}
+    sed -i "s/container = .*/container = ${tmp_name}/" ${DIRECTORY}/config
 fi
 
-echo "Create configuration files in ${CONFIG_DIR}"
+echo "Created configuration files in ${DIRECTORY} with container = ${CONTAINER}"
