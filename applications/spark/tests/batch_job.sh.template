@@ -1,0 +1,67 @@
+#!/bin/bash
+#SBATCH --account=TEST_ACCOUNT
+#SBATCH --job-name=spark_job
+#SBATCH --time=00:10:00
+#SBATCH --output=output_%j.o
+#SBATCH --error=output_%j.e
+#SBATCH --nodes=2
+#SBATCH --partition=debug
+#SBATCH --qos=standby
+
+module load singularity-container
+SCRIPT_DIR=../../spark_scripts
+${SCRIPT_DIR}/create_config.sh -c /datasets/images/apache_spark/spark_py39.sif
+${SCRIPT_DIR}/configure_spark.sh -H -m 2 --driver-memory-gb 2
+ret=$?
+if [ ${ret} -ne 0 ]; then
+    echo "Error: Failed to run configure_spark.sh: ${ret}"
+    exit 1
+fi
+
+grep "spark.sql.shuffle.partitions 140" conf/spark-defaults.conf
+if [ ${?} -ne 0 ]; then
+    echo "Number of shuffle partitions should have been (36 cores * 2 nodes - 2) * 2"
+    exit 1
+fi
+
+grep "spark.driver.maxResultSize 2g" conf/spark-defaults.conf
+if [ ${?} -ne 0 ]; then
+    echo "driver maxResultSize was not 2g"
+    exit 1
+fi
+
+grep "spark.eventLog.enabled true" conf/spark-defaults.conf
+if [ ${?} -ne 0 ]; then
+    echo "eventLog was not enabled"
+    exit 1
+fi
+
+grep "spark.dynamicAllocation.enabled true" conf/spark-defaults.conf
+if [ ${?} -eq 0 ]; then
+    echo "dynamic allocation should not have been enabled"
+    exit 1
+fi
+echo "Verified Spark configuration settings"
+
+${SCRIPT_DIR}/start_spark_cluster.sh $SLURM_JOB_ID
+ret=$?
+if [ ${ret} -ne 0 ]; then
+    echo "Error: Failed to run start_spark_cluster.sh: ${ret}"
+    exit 1
+fi
+
+singularity run instance://spark spark-submit --master spark://$(hostname):7077 ../test_job.py
+ret=$?
+if [ ${ret} -ne 0 ]; then
+    echo "Error: Failed to run test_job.py: ${ret}"
+    exit 1
+fi
+
+${SCRIPT_DIR}/stop_spark_cluster.sh
+ret=$?
+if [ ${ret} -ne 0 ]; then
+    echo "Error: Failed to run stop_spark_cluster.sh: ${ret}"
+    exit 1
+fi
+
+echo "Tests passed"

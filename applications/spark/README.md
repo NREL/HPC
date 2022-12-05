@@ -33,12 +33,12 @@ $ create_config.sh -c <path-to-spark-container>
 ```
 
 5. Edit the `config` file if necessary. Note that the rest of this page relies on the setting
-   `container_instance_name = spark`.
+`container_instance_name = spark`.
 6. Consider what type of compute nodes to acquire. If you will be performing large shuffles
-   then you must get nodes with fast local storage. `bigmem` and `gpu` nodes have local SSDs that
-   can read/write at 2 GB/s. The standard nodes have spinning disks that can only read/write at
-   ~130 MB/s. Your jobs will fail if you use those nodes. You can consider specifying a RAM disk
-   as Spark local storage (`/dev/shm`), but you must be sure you have enough space.
+then you must get nodes with fast local storage. `bigmem` and `gpu` nodes have local SSDs that
+can read/write at 2 GB/s. The standard nodes have spinning disks that can only read/write at
+~130 MB/s. Your jobs will fail if you use those nodes. You can consider specifying a RAM disk
+as Spark local storage (`/dev/shm`), but you must be sure you have enough space.
 7. Decide how and when you want to configure your Spark application parameters.
 
    - Manually specify global settings in `conf`. Note that worker settings in `conf/spark-env.sh`
@@ -47,8 +47,8 @@ $ create_config.sh -c <path-to-spark-container>
    acquiring compute nodes and it will apply settings based on the hardware resources (memory/CPU)
    of those nodes. Run `configure_spark.sh --help` to see available options.
    - At runtime when you run `spark-submit` or `pyspark`. Refer to the CLI help.
-   
-   Here are some parameters in the `conf` files to consider editing:
+
+    Here are some parameters in the `conf` files to consider editing:
 
 **log4j2.properties**:
    - `rootLogger.level`: Spark is verbose when the log level is `info`. Change the level to
@@ -113,7 +113,7 @@ $ start_spark_cluster.sh <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
 
 5. Load the Singularity environment if you want to run with its software. You can also run in your
-   own environment as long as you have the same versions of Spark and Python or R.
+own environment as long as you have the same versions of Spark and Python or R.
 ```
 $ module load singularity-container
 ```
@@ -219,8 +219,8 @@ $ jade stats collect --interval=1 --output=my-stats
 The tool generates a Parquet file for each resource type as well as HTML plots.
 
 3. Configure your `sbatch` script to run this tool on each node. Refer to the scripts in
-   `slurm_scripts_with_resource_monitoring`. The output directories will contain HTML plots for
-   each comupte node.
+`slurm_scripts_with_resource_monitoring`. The output directories will contain HTML plots for
+each comupte node.
 
 
 ## Resources
