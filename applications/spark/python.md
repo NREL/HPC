@@ -1,5 +1,5 @@
 ## Interactive Python interpreter
-This uses ipython, which is optional.
+This uses ipython, which is optional. Remove the `--env` line to use the regular interpreter.
 ```
 $ singularity run \
 	--env PYSPARK_DRIVER_PYTHON=ipython \

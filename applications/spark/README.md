@@ -11,7 +11,7 @@ Singularity.
 Existing Singularity containers on Eagle:
 - Spark 3.3.1 and Python 3.9 is at `/datasets/images/apache_spark/spark_py39.sif`.
 This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `pyarrow`.
-- Spark 3.3.1 and $ 4.0.4 is at `/datasets/images/apache_spark/spark_r.sif`.
+- Spark 3.3.1 and R 4.0.4 is at `/datasets/images/apache_spark/spark_r.sif`.
 This image includes the packages `tidyverse`, `sparklyr`, `data.table`, `here`, `janitor`, and
 `skimr`.
 
@@ -48,7 +48,7 @@ as Spark local storage (`/dev/shm`), but you must be sure you have enough space.
    of those nodes. Run `configure_spark.sh --help` to see available options.
    - At runtime when you run `spark-submit` or `pyspark`. Refer to the CLI help.
 
-    Here are some parameters in the `conf` files to consider editing:
+Here are some parameters in the `conf` files to consider editing:
 
 **log4j2.properties**:
    - `rootLogger.level`: Spark is verbose when the log level is `info`. Change the level to
@@ -91,6 +91,8 @@ start the container on each.
 
 ### Manual mode
 
+1. Allocate nodes however you'd like (`salloc`, `sbatch`, `srun`).
+
 **Note**: The best way to test this functionality is with an interactive session on bigmem nodes
 in the debug partition.
 
@@ -99,7 +101,6 @@ Example command (2 nodes):
 $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 ```
 
-1. Allocate nodes however you'd like (`salloc`, `sbatch`, `srun`).
 2. Login to the first node if not already there.
 3. Optional: Run `configure_spark.sh` to apply settings based on actual compute node resources.
 4. Start the Spark cluster
@@ -118,9 +119,8 @@ own environment as long as you have the same versions of Spark and Python or R.
 $ module load singularity-container
 ```
 
-6. If you run in your own environment, set the environment variable `SPARK_CONF_DIR` if
-you want to use the configuration settings created by the scripts.
-
+6. If you run in your own environment and want to use the configuration settings created by the
+scripts, set the environment variable `SPARK_CONF_DIR`.
 ```
 $ export SPARK_CONF_DIR=$(pwd)/conf
 ```
@@ -200,7 +200,7 @@ $ iostat -t 1 -xm
 Note that this directory includes a helper script to convert SLURM job IDs to node names.
 Here is a shortcut for the above if you are on a node acquired with `salloc`:
 ```
-$ ./ssh-multi `./scripts/get-node-names $SLURM_JOB_ID`
+$ ./ssh-multi $(./scripts/get-node-names $SLURM_JOB_ID)
 ```
 
 ### Automated performance monitoring
