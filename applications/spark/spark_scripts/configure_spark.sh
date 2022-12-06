@@ -9,6 +9,7 @@ EXECUTOR_CORES=5
 PARTITION_MULTIPLIER=1
 SLURM_JOB_IDS=()
 
+# Check for errors in user input. Exit on error.
 function check_errors()
 {
     master_memory_gb=$(( 1 + ${DRIVER_MEMORY_GB} ))
@@ -22,6 +23,7 @@ function check_errors()
     fi
 }
 
+# Configure executor settings in spark-defaults.conf.
 function config_executors()
 {
     rm -f ${CONFIG_DIR}/conf/worker_memory ${CONFIG_DIR}/conf/worker_num_cpus
@@ -86,6 +88,7 @@ EOF
          "spark.executor.memory=${executor_memory_gb}g"
 }
 
+# Configure driver settings in spark-defaults.conf.
 function config_driver()
 {
     cat >> ${DEFAULTS_FILE} << EOF
@@ -95,6 +98,7 @@ EOF
     echo "Set driver memory to ${DRIVER_MEMORY_GB}g"
 }
 
+# Enable the history server in spark-defaults.conf.
 function enable_history_server() {
     events_dir=${CONFIG_DIR}/events
     mkdir -p ${events_dir}
@@ -110,6 +114,7 @@ EOF
     echo "Enabled Spark history server at ${events_dir}"
 }
 
+# Enable all parameters related to dynamic allocation in spark-defaults.conf.
 function enable_dynamic_allocation() {
     cat >> ${DEFAULTS_FILE} << EOF
 spark.dynamicAllocation.enabled true
@@ -121,6 +126,7 @@ EOF
     echo "Enabled dynamic allocation"
 }
 
+# Make a copy of spark-defaults.conf from the template. Keep a history of 10 files.
 function copy_defaults_template_file() {
     grep -v "^\s*#\|^\s*$" ${DEFAULTS_TEMPLATE_FILE}
     ret=$?
