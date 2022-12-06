@@ -1,5 +1,4 @@
 import shutil
-from pathlib import Path
 
 import pyspark.sql.functions as F
 from pyspark.sql import SparkSession
