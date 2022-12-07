@@ -346,35 +346,21 @@ or to build and run the examples using make instead directly calling icc and ifo
 make run
 ```
 
+# Running VASP on Vermilion
 
-## Running VASP on Vermilion
-
-The batch script given above can be modified to run VASP.
-
-There are actually several builds of Vasp on Vermilion, including builds of VASP 5 and VASP 6.  There are scripts for running them in the directory /nopt/nrel/apps/210929a/example/vasp.  Some of these version use different environments from the one discussed above.  The script example/vasp/runvasp_4 will runs the a GPU enabled version of Vasp on 4 Vermilion GPU nodes.  This version of vasp needs to be launched using mpirun instead of srun.  
-
-The run times and additional information can be found in the file /nopt/nrel/apps/210929a/example/vasp/versions.  The run on the GPU nodes is considerably faster than the CPU node runs.  
-
-The data set for these runs is from a standard NREL vasp benchmark. See [https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2]() This is a system of 519 atoms (Ag504C4H10S1).
-
-There is a NREL report that discuss running the this test case and also a smaller test case with with various setting of nodes, tasks-per-nodes and OMP_NUM_THREADS.  It can be found at: [https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202)
-
-### Running multi-node VASP jobs on Vermilion
-
-VASP runs faster on 1 node than on 2 nodes. In some cases, VASP runtimes on 2 nodes have been observed to be double (or more) the run times on a single node. Many issues have been reported for running VASP on multiple nodes, especially when requesting all available cores in each node. In order for MPI to work reliably on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in each of the scripts below. Different solutions exists for Open MPI and Intel MPI. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce succesful multi-node runs on 4 nodes. 
-
-If many cores are needed for your VASP calcualtion, it is recommended to run VASP on a singe node in the lg partition (60 cores/node), which provides the largest numbers of cores per node. 
-
-### Setting up VASP sbatch scripts
-
-The following sections walk through building sbatch scripts for running VASP on Vermilion, including explanations of necessary tweaks to run multi-node jobs reliably. 
-
+A few different versions of VASP are available on Vermilion:
 - [VASP 5 (Intel MPI)](#Running-VASP-5-with-IntelMPI-on-CPUs)
 - [VASP 6 (Intel MPI)](#Running-VASP-6-with-IntelMPI-on-CPUs)
 - [VASP 6 (Open MPI)](#Running-VASP-6-with-OpenMPI-on-CPUs)
 - [VASP 6 on GPUs](#Running-VASP-6-on-GPUs)
 
-#### Running VASP 5 with IntelMPI on CPUs
+Running VASP with Open MPI shows a small improvement compared to running with Intel MPI, and running VASP on GPUs shows an even larger improvement.
+
+VASP runs faster on 1 node than on 2 nodes. In some cases, VASP run times on 2 nodes have been observed to be double (or more) the run times on a single node. Many issues have been reported for running VASP on multiple nodes. In order for MPI to work successfully on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in each of the scripts below. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce succesful multi-node runs on 4 nodes. 
+
+If many cores are needed for your VASP calcualtion, it is recommended to run VASP on a singe node in the lg partition (60 cores/node), which provides the largest numbers of cores per node. 
+
+## Running VASP 5 with IntelMPI on CPUs
 
 To load a build of VASP 5 that is compatible with Intel MPI (and other necessary modules):
 
@@ -464,7 +450,7 @@ I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
 
 ```
 
-#### Running VASP 6 with IntelMPI on CPUs
+## Running VASP 6 with IntelMPI on CPUs
 
 To load a build of VASP 6 that is compatible with Intel MPI (and other necessary modules):
 
@@ -554,7 +540,7 @@ I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
 
 ```
 
-#### Running VASP 6 with OpenMPI on CPUs
+## Running VASP 6 with OpenMPI on CPUs
 
 To load a build of VASP 6 that is compatible with Open MPI:
 
@@ -635,7 +621,7 @@ srun --mpi=pmi2 -n 16 vasp_std
 
 ```
 
-#### Running VASP 6 on GPUs
+## Running VASP 6 on GPUs
 
 VASP can also be run on Vermilion's GPUs. To do this we need to add a few #SBATCH lines at the top of the script to assign the job to run in the gpu partition and to set the gpu binding. The --gpu-bind flag requires 1 set of "0,1" for each node used. 
 
@@ -711,7 +697,8 @@ wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
 wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
-mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
+mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID.
+
 ```
 
 
