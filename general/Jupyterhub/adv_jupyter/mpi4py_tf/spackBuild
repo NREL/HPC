@@ -7,7 +7,7 @@
 # Make a python/jupyter/mpi4py/pandas/tensorflow/cupy environment using spack.
 
 # We also install a bare version of R with Rmpi. The R and Python versions of 
-# MPI should work together.  See: https://github.com/timkphd/examples/tree/master/mpi/mixedlang
+# MPI should work together.  See: https://github.com/timkphd/examples/tree/code-examples/mpi/mixedlang
 # for examples
 
 # **********  Install directory **********
@@ -37,7 +37,7 @@ cd $IDIR
 #If you don't have tymer use this poor man's version
 command -v tymer >/dev/null 2>&1 || alias tymer='python -c "import sys ;import time ;print(time.time(),time.asctime(),sys.argv[1:])" '
 #You can get the full version from
-#https://raw.githubusercontent.com/timkphd/examples/master/tims_tools/tymer
+#https://raw.githubusercontent.com/timkphd/examples/code-examples/tims_tools/tymer
 
 # This is where tymer will put its data so we clean it out
 rm ~/sbuild 
@@ -219,8 +219,8 @@ tymer ~/sbuild done cupy
 
 
 #Add Tim's thread mapping module
-wget  https://raw.githubusercontent.com/NREL/HPC/master/slurm/source/setup.py
-wget  https://raw.githubusercontent.com/NREL/HPC/master/slurm/source/spam.c
+wget  https://raw.githubusercontent.com/NREL/HPC/code-examples/slurm/source/setup.py
+wget  https://raw.githubusercontent.com/NREL/HPC/code-examples/slurm/source/spam.c
 python3 setup.py install
 
 tymer ~/sbuild done spam

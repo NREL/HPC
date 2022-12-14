@@ -74,12 +74,12 @@ or just copy them from this page
 or
 
 ```bash
-wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/enhanced
+wget https://github.nrel.gov/raw/tkaiser2/plexos/code-examples/scripts/enhanced
 ```
 
 and
 ```bash
-wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/simple
+wget https://github.nrel.gov/raw/tkaiser2/plexos/code-examples/scripts/simple
 ```
 
 ## To run:
@@ -88,7 +88,7 @@ If you have never run Plexos on Eagle you will need to set up the license.
 There is a script to do that.  Download it and run it.
 
 ```bash
-wget https://github.nrel.gov/raw/tkaiser2/plexos/master/scripts/makelicense
+wget https://github.nrel.gov/raw/tkaiser2/plexos/code-examples/scripts/makelicense
 chmod 700 makelicense
 ./makelicense
 ```
@@ -146,7 +146,7 @@ module purge
 module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
 
 # Get our data
-wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
+wget https://github.nrel.gov/tkaiser2/plexos/raw/code-examples/week.tgz
 tar -xzf week.tgz
 ls -lt
 
@@ -209,7 +209,7 @@ module purge
 module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
 
 # Get our data
-wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
+wget https://github.nrel.gov/tkaiser2/plexos/raw/code-examples/week.tgz
 tar -xzf week.tgz
 
 # What we have

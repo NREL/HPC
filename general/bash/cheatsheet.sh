@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copied from https://raw.githubusercontent.com/LeCoupa/awesome-cheatsheets/master/languages/bash.sh
+# Copied from https://raw.githubusercontent.com/LeCoupa/awesome-cheatsheets/code-examples/languages/bash.sh
 
 ##############################################################################
 # SHORTCUTS

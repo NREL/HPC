@@ -60,7 +60,7 @@ pip --no-cache-dir install cupy
 
 
 #add Tim's thread mapping module
-wget  https://raw.githubusercontent.com/NREL/HPC/master/slurm/source/setup.py
-wget  https://raw.githubusercontent.com/NREL/HPC/master/slurm/source/spam.c
+wget  https://raw.githubusercontent.com/NREL/HPC/code-examples/slurm/source/setup.py
+wget  https://raw.githubusercontent.com/NREL/HPC/code-examples/slurm/source/spam.c
 python3 setup.py install
 

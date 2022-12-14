@@ -72,7 +72,7 @@ five major components:
 Pyomo has modeling objects for each of these components (as well as a few extra).
 Below we demonstrate their use on a the
 [p-median problem](https://en.wikipedia.org/wiki/Facility_location_problem) adapted from
-[this example](https://github.com/Pyomo/PyomoGallery/blob/master/p_median/p-median.py)
+[this example](https://github.com/Pyomo/PyomoGallery/blob/code-examples/p_median/p-median.py)
 utilizing a `ConcreteModel` and demonstrating some of the modeling flexibility in Pyomo.
 This example is also available as a [stand-alone python module](./p_median.py).
 ```python
@@ -138,7 +138,7 @@ to use an external solver (linked through Pyomo) to *solve* or *optimize*
 this model. 
 
 A more complex example `ConcreteModel` utilizing data brought in from a json
-file is available [here](https://github.com/power-grid-lib/pglib-uc/blob/master/uc_model.py).
+file is available [here](https://github.com/power-grid-lib/pglib-uc/blob/code-examples/uc_model.py).
 
 
 # Solvers

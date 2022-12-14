@@ -190,7 +190,7 @@ CPUs and are not bottle-necked by the storage.
 
 Here is an example of how to run `htop` on multiple nodes simulataneously with `tmux`.
 
-Download this script: https://raw.githubusercontent.com/johnko/ssh-multi/master/bin/ssh-multi
+Download this script: https://raw.githubusercontent.com/johnko/ssh-multi/code-examples/bin/ssh-multi
 
 Run it like this:
 ```
