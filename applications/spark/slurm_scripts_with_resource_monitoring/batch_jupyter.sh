@@ -13,7 +13,8 @@ SCRIPT_DIR=~/repos/HPC/applications/spark/spark_scripts
 rm -f shutdown
 srun collect_stats.sh . &
 
-${SCRIPT_DIR}/start_spark_cluster.sh $SLURM_JOB_ID
+${SCRIPT_DIR}/configure_spark.sh
+${SCRIPT_DIR}/start_spark_cluster.sh
 singularity run \
     --bind /lustre:/lustre \
     --bind /projects:/projects \
