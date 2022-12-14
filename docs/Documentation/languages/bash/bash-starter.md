@@ -227,9 +227,9 @@ see `help declare` at the command line for more information on types that can be
 Further Resources
 --------------------------
 
-[NREL HPC Github](https://github.com/NREL/HPC/tree/master/general/beginner/bash) - User-contributed bash script and examples that you can use on HPC systems.
+[NREL HPC Github](https://github.com/NREL/HPC/tree/code-examples/general/beginner/bash) - User-contributed bash script and examples that you can use on HPC systems.
 
-[BASH cheat sheet](https://github.com/NREL/HPC/blob/master/general/beginner/bash/cheatsheet.sh) - A concise and extensive list of example commands, built-ins, control structures, and other useful bash scripting material.
+[BASH cheat sheet](https://github.com/NREL/HPC/blob/code-examples/general/beginner/bash/cheatsheet.sh) - A concise and extensive list of example commands, built-ins, control structures, and other useful bash scripting material.
 
 
 

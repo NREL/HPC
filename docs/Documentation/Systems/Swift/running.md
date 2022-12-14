@@ -365,7 +365,7 @@ ml openmpi gcc vasp
 
 #### get input and set it up
 #### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/code-examples/bench2
 
 mkdir $SLURM_JOB_ID
 cp input/* $SLURM_JOB_ID
