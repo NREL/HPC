@@ -45,20 +45,20 @@
 # - YARN_CONF_DIR, to point Spark towards YARN configuration files when you use YARN
 
 # Options for the daemons used in the standalone deploy mode
-# - SPARK_code-examples_HOST, to bind the code-examples to a different IP address or hostname
-# - SPARK_code-examples_PORT / SPARK_code-examples_WEBUI_PORT, to use non-default ports for the code-examples
-# - SPARK_code-examples_OPTS, to set config properties only for the code-examples (e.g. "-Dx=y")
+# - SPARK_MASTER_HOST, to bind the master to a different IP address or hostname
+# - SPARK_MASTER_PORT / SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
+# - SPARK_MASTER_OPTS, to set config properties only for the master (e.g. "-Dx=y")
 # - SPARK_WORKER_CORES, to set the number of cores to use on this machine
 # - SPARK_WORKER_MEMORY, to set how much total memory workers have to give executors (e.g. 1000m, 2g)
 # - SPARK_WORKER_PORT / SPARK_WORKER_WEBUI_PORT, to use non-default ports for the worker
 # - SPARK_WORKER_DIR, to set the working directory of worker processes
 # - SPARK_WORKER_OPTS, to set config properties only for the worker (e.g. "-Dx=y")
-# - SPARK_DAEMON_MEMORY, to allocate to the code-examples, worker and history server themselves (default: 1g).
+# - SPARK_DAEMON_MEMORY, to allocate to the master, worker and history server themselves (default: 1g).
 # - SPARK_HISTORY_OPTS, to set config properties only for the history server (e.g. "-Dx=y")
 # - SPARK_SHUFFLE_OPTS, to set config properties only for the external shuffle service (e.g. "-Dx=y")
 # - SPARK_DAEMON_JAVA_OPTS, to set config properties for all daemons (e.g. "-Dx=y")
 # - SPARK_DAEMON_CLASSPATH, to set the classpath for all daemons
-# - SPARK_PUBLIC_DNS, to set the public dns name of the code-examples or workers
+# - SPARK_PUBLIC_DNS, to set the public dns name of the master or workers
 
 # Options for launcher
 # - SPARK_LAUNCHER_OPTS, to set config properties and Java options for the launcher (e.g. "-Dx=y")

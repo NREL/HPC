@@ -31,7 +31,7 @@ function get_config_variable()
 
 export CONTAINER=$(get_config_variable "container")
 export CONTAINER_INSTANCE_NAME=$(get_config_variable "container_instance_name")
-export master_NODE_MEMORY_OVERHEAD_GB=$(get_config_variable "master_node_memory_overhead_gb")
+export MASTER_NODE_MEMORY_OVERHEAD_GB=$(get_config_variable "master_node_memory_overhead_gb")
 export WORKER_NODE_MEMORY_OVERHEAD_GB=$(get_config_variable "worker_node_memory_overhead_gb")
 
 function get_memory_gb()

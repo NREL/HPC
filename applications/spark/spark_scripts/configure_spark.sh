@@ -17,8 +17,8 @@ function check_errors()
         (( master_memory_gb += 1 ))
     fi
 
-    if [ ${master_memory_gb} -gt ${master_NODE_MEMORY_OVERHEAD_GB} ]; then
-        error "master_node_memory_overhead_gb=${master_NODE_MEMORY_OVERHEAD_GB} is too small." \
+    if [ ${master_memory_gb} -gt ${MASTER_NODE_MEMORY_OVERHEAD_GB} ]; then
+        error "master_node_memory_overhead_gb=${MASTER_NODE_MEMORY_OVERHEAD_GB} is too small." \
               "Increase it or reduce driver_memory_gb=${DRIVER_MEMORY_GB}"
     fi
 }
@@ -40,7 +40,7 @@ function config_executors()
     memory_gb_by_node=()
     lowest_memory_gb=0
     for node_mem in $(cat ${CONFIG_DIR}/conf/worker_memory); do
-        mem=$(( ${node_mem} - ${master_NODE_MEMORY_OVERHEAD_GB} ))
+        mem=$(( ${node_mem} - ${MASTER_NODE_MEMORY_OVERHEAD_GB} ))
         if [ ${lowest_memory_gb} -eq 0 ] || [ ${node_mem} -lt ${lowest_memory_gb} ]; then
             lowest_memory_gb=${mem}
         fi

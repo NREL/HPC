@@ -42,7 +42,7 @@ function start_spark_processes()
     if [ $? -eq 0 ]; then
         exec_spark_process start-history-server.sh
     fi
-    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${master_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
+    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${MASTER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
     ret=$?
     if [[ $ret -ne 0 ]]; then
         echo "Error: Failed to start Spark worker on the master node: ${ret}"
