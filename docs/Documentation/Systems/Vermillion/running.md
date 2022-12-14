@@ -355,9 +355,9 @@ There are actually several builds of Vasp on Vermilion, including builds of VASP
 
 The run times and additional information can be found in the file /nopt/nrel/apps/210929a/example/vasp/versions.  The run on the GPU nodes is considerably faster than the CPU node runs.  
 
-The data set for these runs is from a standard NREL vasp benchmark. See [https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2]() This is a system of 519 atoms (Ag504C4H10S1).
+The data set for these runs is from a standard NREL vasp benchmark. See [https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/code-examples/bench2]() This is a system of 519 atoms (Ag504C4H10S1).
 
-There is a NREL report that discuss running the this test case and also a smaller test case with with various setting of nodes, tasks-per-nodes and OMP_NUM_THREADS.  It can be found at: [https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202)
+There is a NREL report that discuss running the this test case and also a smaller test case with with various setting of nodes, tasks-per-nodes and OMP_NUM_THREADS.  It can be found at: [https://github.com/NREL/HPC/tree/code-examples/applications/vasp/Performance%20Study%202](https://github.com/NREL/HPC/tree/code-examples/applications/vasp/Performance%20Study%202)
 
 ### Running multi-node VASP jobs on Vermilion
 
@@ -446,15 +446,15 @@ ml wget
 
 #### get input and set it up
 #### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/code-examples/bench2
 
 
 mkdir input
 
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
 # mpirun is recommended (necessary for multi-node calculations)
 I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
@@ -536,15 +536,15 @@ ml wget
 
 #### get input and set it up
 #### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/code-examples/bench2
 
 
 mkdir input
 
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
 # mpirun is recommended (necessary for multi-node calculations)
 I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
@@ -621,15 +621,15 @@ ml wget
 
 #### get input and set it up
 #### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/code-examples/bench2
 
 
 mkdir input
 
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
 srun --mpi=pmi2 -n 16 vasp_std
 
@@ -701,15 +701,15 @@ ml wget
 
 #### get input and set it up
 #### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
+#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/code-examples/bench2
 
 
 mkdir input
 
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
-wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/master/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/INCAR?token=AAAALJZRV4QFFTS7RC6LLGLBBV67M   -q -O INCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POTCAR?token=AAAALJ6E7KHVTGWQMR4RKYTBBV7SC  -q -O POTCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/POSCAR?token=AAAALJ5WKM2QKC3D44SXIQTBBV7P2  -q -O POSCAR
+wget https://github.nrel.gov/raw/ESIF-Benchmarks/VASP/code-examples/bench2/input/KPOINTS?token=AAAALJ5YTSCJFDHUUZMZY63BBV7NU -q -O KPOINTS
 
 mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
 ```

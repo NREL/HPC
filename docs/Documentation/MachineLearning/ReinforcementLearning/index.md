@@ -71,7 +71,7 @@ If everything works correctly, you will see an output similar to:
 
 RL algorithms are notorious for the amount of data they need to collect in order to learn policies. The more data collected, the better the training will (usually) be. The best way to do it is to run many Gym instances in parallel and collecting experience, and this is where RLlib assists.
 
-[RLlib](https://docs.ray.io/en/master/rllib/index.html) is an open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications. It supports all known deep learning frameworks such as Tensorflow, Pytorch, although most parts are framework-agnostic and can be used by either one.
+[RLlib](https://docs.ray.io/en/code-examples/rllib/index.html) is an open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications. It supports all known deep learning frameworks such as Tensorflow, Pytorch, although most parts are framework-agnostic and can be used by either one.
 
 The RL policy learning examples provided in this tutorial demonstrate the RLlib abilities. For convenience, the `CartPole-v0` OpenAI Gym environment will be used.
 
@@ -84,7 +84,7 @@ Begin trainer by importing the `ray` package:
 import ray
 from ray import tune
 ```
-`Ray` consists of an API readily available for building [distributed applications](https://docs.ray.io/en/master/index.html). On top of it, there are several problem-solving libraries, one of which is RLlib.
+`Ray` consists of an API readily available for building [distributed applications](https://docs.ray.io/en/code-examples/index.html). On top of it, there are several problem-solving libraries, one of which is RLlib.
 
 `Tune` is also one of `Ray`'s libraries for scalable hyperparameter tuning. All RLlib trainers (scripts for RL agent training) are compatible with Tune API, making experimenting easy and streamlined.
 
@@ -139,7 +139,7 @@ tune.run(
 ```
 The RLlib trainer is ready!
 
-Except the aforementioned default hyperparameters, [every RL algorithm](https://docs.ray.io/en/master/rllib-algorithms.html#available-algorithms-overview) provided by RLlib has its own hyperparameters and their default values that can be tuned in advance.
+Except the aforementioned default hyperparameters, [every RL algorithm](https://docs.ray.io/en/code-examples/rllib-algorithms.html#available-algorithms-overview) provided by RLlib has its own hyperparameters and their default values that can be tuned in advance.
 
 The code of the trainer in this example can be found [in the tutorial repo](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py).
 
@@ -402,7 +402,7 @@ Function `register_env` takes two arguments:
 env_name = "custom-env"
 register_env(env_name, lambda config: BasicEnv())
 ```
-Once again, RLlib provides [detailed explanation](https://docs.ray.io/en/master/rllib-env.html) of how `register_env` works.
+Once again, RLlib provides [detailed explanation](https://docs.ray.io/en/code-examples/rllib-env.html) of how `register_env` works.
 
 The `tune.run` function, instead of `args.name_env`, it uses the `env_name` defined above.
 
