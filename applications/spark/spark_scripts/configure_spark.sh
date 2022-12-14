@@ -150,6 +150,7 @@ EOF
 read -r -d "" USAGE << EOM
 Usage: $(basename $0) [OPTION]... [SLURM_JOB_ID]...
 Configure settings in spark-defaults.conf based on hardware resources in one or more SLURM job IDs.
+Reads SLURM_JOB_ID from the environment.
 
 Options:
   -D|--dynamic-allocation        Defaults to false.

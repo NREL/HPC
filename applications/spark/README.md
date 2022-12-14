@@ -27,7 +27,7 @@ $ git clone https://github.com/NREL/HPC.git
 $ export PATH=$PATH:<your-repo-path>/HPC/applications/spark/spark_scripts
 ```
 4. Copy the `config` file and `conf` directory with the command below. Specify an alternate
-destination directory with `-d <directory>`.
+destination directory with `-d <directory>`. This can be done on the login node or compute node.
 ```
 $ create_config.sh -c <path-to-spark-container>
 ```
@@ -101,14 +101,30 @@ Example command (2 nodes):
 $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
 ```
 
-2. Login to the first node if not already there.
+2. Login to the first compute node if not already there.
 3. Optional: Run `configure_spark.sh` to apply settings based on actual compute node resources.
-4. Start the Spark cluster
-If you allocated the nodes with `salloc`:
+The script will check for the environment variable `SLURM_JOB_ID`, which is set by `SLURM` when it
+allocates a node to you. If you ssh'd into the compute node then that variable won't be set.
+Choose the option below that is appropriate for your environment.
+```
+$ configure_spark.sh
+```
+```
+$ configure_spark.sh <SLURM_JOB_ID>
+```
+```
+$ configure_spark.sh <SLURM_JOB_ID1> <SLURM_JOB_ID2>
+```
+4. Start the Spark cluster. Similar to `configure_spark.sh`, this script will check for the
+environment variable `SLURM_JOB_ID`.
+
+Choose the option below that is appropriate for your environment.
 ```
 $ start_spark_cluster.sh
 ```
-If you allocated two jobs separately and ssh'd into a node:
+```
+$ start_spark_cluster.sh <SLURM_JOB_ID1>
+```
 ```
 $ start_spark_cluster.sh <SLURM_JOB_ID1> <SLURM_JOB_ID2>
 ```
