@@ -247,7 +247,7 @@ main()
     printf(HLINE);
 #pragma omp parallel 
     {
-#pragma omp code-examples
+#pragma omp master
 	{
 	    k = omp_get_num_threads();
 	    printf ("Number of Threads requested = %i\n",k);

@@ -377,7 +377,7 @@ Each Julia process is identified by a (64-bit) integer. We can get a list of all
     procs() = [1, 2, 3]
 
 
-There is a distinction between the original Julia process and those we launched. The original Julia process is often called the **code-examples** process and always has id equal to 1. The launched processes are called **workers**. We can obtain a list of workers with the `workers` function:
+There is a distinction between the original Julia process and those we launched. The original Julia process is often called the **master** process and always has id equal to 1. The launched processes are called **workers**. We can obtain a list of workers with the `workers` function:
 
 
 ```julia
@@ -548,7 +548,7 @@ function run_mci_rc()
 end;
 ```
 
-Here we create a `RemoteChannel` on the code-examples process, divide the computationally intensive `integrator` function into two calls and remotely execute them on the worker processes. Then we start a task on the code-examples process to accumulate the values and call fetch to wait for and retrieve the result.
+Here we create a `RemoteChannel` on the master process, divide the computationally intensive `integrator` function into two calls and remotely execute them on the worker processes. Then we start a task on the master process to accumulate the values and call fetch to wait for and retrieve the result.
 
 
 ```julia

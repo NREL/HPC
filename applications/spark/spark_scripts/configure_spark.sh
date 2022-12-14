@@ -12,13 +12,13 @@ SLURM_JOB_IDS=()
 # Check for errors in user input. Exit on error.
 function check_errors()
 {
-    code-examples_memory_gb=$(( 1 + ${DRIVER_MEMORY_GB} ))
+    master_memory_gb=$(( 1 + ${DRIVER_MEMORY_GB} ))
     if [ ${ENABLE_HISTORY_SERVER} = true ]; then
-        (( code-examples_memory_gb += 1 ))
+        (( master_memory_gb += 1 ))
     fi
 
-    if [ ${code-examples_memory_gb} -gt ${code-examples_NODE_MEMORY_OVERHEAD_GB} ]; then
-        error "code-examples_node_memory_overhead_gb=${code-examples_NODE_MEMORY_OVERHEAD_GB} is too small." \
+    if [ ${master_memory_gb} -gt ${master_NODE_MEMORY_OVERHEAD_GB} ]; then
+        error "master_node_memory_overhead_gb=${master_NODE_MEMORY_OVERHEAD_GB} is too small." \
               "Increase it or reduce driver_memory_gb=${DRIVER_MEMORY_GB}"
     fi
 }
@@ -40,7 +40,7 @@ function config_executors()
     memory_gb_by_node=()
     lowest_memory_gb=0
     for node_mem in $(cat ${CONFIG_DIR}/conf/worker_memory); do
-        mem=$(( ${node_mem} - ${code-examples_NODE_MEMORY_OVERHEAD_GB} ))
+        mem=$(( ${node_mem} - ${master_NODE_MEMORY_OVERHEAD_GB} ))
         if [ ${lowest_memory_gb} -eq 0 ] || [ ${node_mem} -lt ${lowest_memory_gb} ]; then
             lowest_memory_gb=${mem}
         fi

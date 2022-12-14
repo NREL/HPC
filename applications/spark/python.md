@@ -4,13 +4,13 @@ This uses ipython, which is optional. Remove the `--env` line to use the regular
 $ singularity run \
 	--env PYSPARK_DRIVER_PYTHON=ipython \
 	instance://spark \
-	pyspark --code-examples spark://$(hostname):7077
+	pyspark --master spark://$(hostname):7077
 ```
 Optional: check your environment to ensure that all configuration settings are correct.
-Most importantly, ensure that you connected to the Spark cluster code-examples and are not in local mode.
+Most importantly, ensure that you connected to the Spark cluster master and are not in local mode.
 pyspark prints the connection information during startup. For example:
 ```
-Spark context available as 'sc' (code-examples = spark://r2i7n35:7077, app id = app-20221202224041-0000).
+Spark context available as 'sc' (master = spark://r2i7n35:7077, app id = app-20221202224041-0000).
 ```
 You can dump all configuration settings with this command:
 ```
@@ -32,7 +32,7 @@ $ singularity run \
 	--env PYSPARK_DRIVER_PYTHON=jupyter \
 	--env PYSPARK_DRIVER_PYTHON_OPTS="notebook --no-browser --port=8889 --ip=0.0.0.0" \
 	instance://spark \
-	pyspark --code-examples spark://$(hostname):7077
+	pyspark --master spark://$(hostname):7077
 ```
 The Jupyter process will print a URL to the terminal. You can access it from your laptop after you
 forward the ports through an ssh tunnel.
@@ -54,7 +54,7 @@ spark = SparkSession.builder.appName("my_app").getOrCreate()
 ```
 $ singularity run \
 	instance://spark \
-	spark-submit --code-examples spark://$(hostname):7077 <your-script>
+	spark-submit --master spark://$(hostname):7077 <your-script>
 ```
 Note: if your script is Python, the filename must end in `.py`.
 

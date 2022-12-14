@@ -22,6 +22,6 @@ singularity run \
 	--network-args \
 	"portmap=8889:8889" \
 	instance://spark \
-    pyspark --code-examples spark://$(hostname):7077
+    pyspark --master spark://$(hostname):7077
 
 ${SCRIPT_DIR}/stop_spark_cluster.sh
