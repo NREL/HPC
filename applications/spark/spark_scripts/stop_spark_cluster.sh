@@ -46,7 +46,7 @@ fi
 # scripts ssh to each worker node. It doesn't happen in our ssh commands.
 # Workaround the issue by stopping the Spark worker inside stop_container.sh.
 # singularity exec instance://${CONTAINER_INSTANCE_NAME} stop-all.sh
-singularity exec instance://${CONTAINER_INSTANCE_NAME} stop-master.sh
+singularity exec instance://${CONTAINER_INSTANCE_NAME} stop-code-examples.sh
 for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
     ssh ${USER}@${node_name} ${SCRIPT_DIR}/stop_container.sh ${CONFIG_DIR}
 done

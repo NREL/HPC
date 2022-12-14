@@ -60,7 +60,7 @@ else:
 
 ### Prerequisites
 
-All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/master/doc/build/build.md#required-build-tools-and-external-libraries) are available on Eagle either by default or through modules.  The needed modules are covered in the instructions.
+All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/code-examples/doc/build/build.md#required-build-tools-and-external-libraries) are available on Eagle either by default or through modules.  The needed modules are covered in the instructions.
 
 ### Terms
 * `JULIA_HOME` is the base directory of julia source code (initially called `julia` after `git clone`)

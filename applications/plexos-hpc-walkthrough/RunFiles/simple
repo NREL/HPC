@@ -27,7 +27,7 @@ module purge
 module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
 
 # Get our data
-wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
+wget https://github.nrel.gov/tkaiser2/plexos/raw/code-examples/week.tgz
 tar -xzf week.tgz
 ls -lt
 

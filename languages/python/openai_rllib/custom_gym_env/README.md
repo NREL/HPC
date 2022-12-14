@@ -75,7 +75,7 @@ Function `register_env` takes two arguments:
 env_name = "custom-env"
 register_env(env_name, lambda config: BasicEnv())
 ```
-Once again, RLlib provides [detailed explanation](https://docs.ray.io/en/master/rllib-env.html) of how `register_env` works.
+Once again, RLlib provides [detailed explanation](https://docs.ray.io/en/code-examples/rllib-env.html) of how `register_env` works.
 
 The `tune.run` function, instead of `args.name_env`, it uses the `env_name` defined above.
 

@@ -163,7 +163,7 @@ be able to load data files in any of them:
 
 ## Debugging problems
 Open the Spark web UI to observe what's happening with your jobs. You will have to forward ports
-8080 and 4040 of the master node (first node in your SLURM allocation) through an ssh tunnel.
+8080 and 4040 of the code-examples node (first node in your SLURM allocation) through an ssh tunnel.
 
 Open your browser to http://localhost:4040 after configuring the tunnel to access the application UI.
 
@@ -190,7 +190,7 @@ CPUs and are not bottle-necked by the storage.
 
 Here is an example of how to run `htop` on multiple nodes simulataneously with `tmux`.
 
-Download this script: https://raw.githubusercontent.com/johnko/ssh-multi/master/bin/ssh-multi
+Download this script: https://raw.githubusercontent.com/johnko/ssh-multi/code-examples/bin/ssh-multi
 
 Run it like this:
 ```

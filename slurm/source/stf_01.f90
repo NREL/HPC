@@ -102,7 +102,7 @@ module mympi
 !   use mpi
     include "mpif.h"
     integer numnodes,myid,mpi_err
-    integer, parameter::mpi_master=0
+    integer, parameter::mpi_code-examples=0
     integer status(MPI_STATUS_SIZE)
 end module
 !*********************
@@ -129,7 +129,7 @@ program stommel
     call MPI_COMM_SIZE( MPI_COMM_WORLD, numnodes, mpi_err )
     call MPI_COMM_RANK( MPI_COMM_WORLD, myid, mpi_err )
 ! get the input.  see above for typical values
-    if(myid .eq. mpi_master)then
+    if(myid .eq. mpi_code-examples)then
         instr="200 200"                ; read(instr,*)nx,ny
         instr="2000000 2000000"        ; read(instr,*)lx,ly
         instr="1.0e-9 2.25e-11 3.0e-6" ; read(instr,*)alpha,beta,gamma
@@ -143,14 +143,14 @@ program stommel
         endif
     endif
 !send the data to other processors
-    call MPI_BCAST(nx,   1,MPI_INTEGER,         mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(ny,   1,MPI_INTEGER,         mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(steps,1,MPI_INTEGER,         mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(lx,   1,MPI_DOUBLE_PRECISION,mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(ly,   1,MPI_DOUBLE_PRECISION,mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(alpha,1,MPI_DOUBLE_PRECISION,mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(beta, 1,MPI_DOUBLE_PRECISION,mpi_master,MPI_COMM_WORLD,mpi_err)
-    call MPI_BCAST(gamma,1,MPI_DOUBLE_PRECISION,mpi_master,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(nx,   1,MPI_INTEGER,         mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(ny,   1,MPI_INTEGER,         mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(steps,1,MPI_INTEGER,         mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(lx,   1,MPI_DOUBLE_PRECISION,mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(ly,   1,MPI_DOUBLE_PRECISION,mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(alpha,1,MPI_DOUBLE_PRECISION,mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(beta, 1,MPI_DOUBLE_PRECISION,mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+    call MPI_BCAST(gamma,1,MPI_DOUBLE_PRECISION,mpi_code-examples,MPI_COMM_WORLD,mpi_err)
 ! calculate the constants for the calculations
     dx=lx/(nx+1)
     dy=ly/(ny+1)
@@ -170,7 +170,7 @@ program stommel
     dj=real(nx,b8)/real(numnodes,b8)
     j1=nint(1.0_b8+myid*dj)
     j2=nint(1.0_b8+(myid+1)*dj)-1
-    if(myid == mpi_master)write(*,'("rows= ",i4)')numnodes
+    if(myid == mpi_code-examples)write(*,'("rows= ",i4)')numnodes
     write(*,101)myid,i1,i2,j1,j2
 101 format("myid= ",i4,3x,&
            " (",i3," <= i <= ",i3,") , ",            &
@@ -196,11 +196,11 @@ program stommel
         call do_transfer(psi,i1,i2,j1,j2)
 !       write(*,*)myid,i,mydiff
 	call MPI_REDUCE(mydiff,diff,1,MPI_DOUBLE_PRECISION, &
-	                MPI_SUM,mpi_master,MPI_COMM_WORLD,mpi_err)
-	if(myid .eq. mpi_master .and. mod(i,iout) .eq. 0)write(*,'(i6,1x,g20.10)')i,diff
+	                MPI_SUM,mpi_code-examples,MPI_COMM_WORLD,mpi_err)
+	if(myid .eq. mpi_code-examples .and. mod(i,iout) .eq. 0)write(*,'(i6,1x,g20.10)')i,diff
     enddo
     t2=MPI_Wtime()
-    if(myid .eq. mpi_master)write(*,'("run time =",f10.2)')t2-t1
+    if(myid .eq. mpi_code-examples)write(*,'("run time =",f10.2)')t2-t1
     !call write_grid(psi,i1,i2,j1,j2)
     call MPI_Finalize(mpi_err)
 end program stommel

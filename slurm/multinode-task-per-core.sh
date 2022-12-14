@@ -18,8 +18,8 @@ USAGE: sbatch –A <project_handle> -N <node amount> multinode-task-per-core.sh
 
 PROCS=$(($SLURM_NNODES * $SLURM_CPUS_ON_NODE)) # Number of CPUs * number of nodes
 
-# Master node in jobs with N > 1 runs these
-echo "I am node $SLURMD_NODENAME and I am the master node of this job with ID $SLURM_NODEID"
+# code-examples node in jobs with N > 1 runs these
+echo "I am node $SLURMD_NODENAME and I am the code-examples node of this job with ID $SLURM_NODEID"
 echo "There are $SLURM_NNODES nodes in this job, and each has $SLURM_CPUS_ON_NODE cores, for a total of $PROCS cores."
 printf "Let's get each node in the job to introduce itself:\n\n"
 
@@ -39,7 +39,7 @@ echo
 :<<++++
 Example Output
 
-I am node r5i0n13 and I am the master node of this job with ID 0
+I am node r5i0n13 and I am the code-examples node of this job with ID 0
 There are 2 nodes in this job, and each has 36 cores, for a total of 72 cores.
 Let's get each node in the job to introduce itself:
 

@@ -34,26 +34,26 @@ function start_containers()
 
 function start_spark_processes()
 {
-    master_node=$(hostname | tr -d '\n')
-    spark_cluster=spark://${master_node}:7077
+    code-examples_node=$(hostname | tr -d '\n')
+    spark_cluster=spark://${code-examples_node}:7077
 
-    exec_spark_process start-master.sh
+    exec_spark_process start-code-examples.sh
     check_history_server_enabled
     if [ $? -eq 0 ]; then
         exec_spark_process start-history-server.sh
     fi
-    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${MASTER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
+    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${code-examples_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
     ret=$?
     if [[ $ret -ne 0 ]]; then
-        echo "Error: Failed to start Spark worker on the master node: ${ret}"
+        echo "Error: Failed to start Spark worker on the code-examples node: ${ret}"
         exit $ret
     fi
-    echo "Started Spark processes on master node ${master_node}"
+    echo "Started Spark processes on code-examples node ${code-examples_node}"
 
     # Spark does provide a way to start all nodes at once: start-workers.sh.
     # But that doesn't allow specifying memory for each node independently.
     for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
-        if [[ $node_name != ${master_node} ]]; then
+        if [[ $node_name != ${code-examples_node} ]]; then
             ssh ${USER}@${node_name} ${SCRIPT_DIR}/start_spark_worker.sh \
                 ${CONFIG_DIR} ${WORKER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
             ret=$?

@@ -1,4 +1,4 @@
-# Adapted from: https://github.com/Pyomo/PyomoGallery/blob/master/p_median/p-median.py
+# Adapted from: https://github.com/Pyomo/PyomoGallery/blob/code-examples/p_median/p-median.py
 import pyomo.environ as pyo
 import random
 

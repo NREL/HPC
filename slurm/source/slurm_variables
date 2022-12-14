@@ -149,7 +149,7 @@ OUTPUT ENVIRONMENT VARIABLES
               Job array's index step size.
 
        SLURM_ARRAY_JOB_ID
-              Job array's master job ID number.
+              Job array's code-examples job ID number.
 
        SLURM_CLUSTER_NAME
               Name of the cluster on which the job is executing.
