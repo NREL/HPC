@@ -27,7 +27,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 * [Software Environments](/general/software-environment-basics)
 * [Building MPI Applications](/general/building-mpi-applications)
 * [Building Packages](/general/building-packages)
-* [Optimized Tensorflow](/general/Optmized_TF)
+* [Optimized Tensorflow](/general/Optimized_TF)
 * [HPC Benchmarking: STREAM](/general/stream_benchmark/StreamTutorial.ipynb)
 
 ## 📈 Applications
@@ -46,7 +46,6 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 
 ## 🔧 Utilities and Tools
 * [Sample Slurm Batch Scripts](/slurm/README.md)
-* [Workshops and Presentations Hosted by NREL HPC Operations Team](/workshops/README.md)
 
 # Contributing
 Please see our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted.
