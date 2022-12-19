@@ -46,7 +46,6 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 
 ## 🔧 Utilities and Tools
 * [Sample Slurm Batch Scripts](/slurm/README.md)
-* [Workshops and Presentations Hosted by NREL HPC Operations Team](/workshops/README.md)
 
 # Contributing
 Please see our [contribution guidelines](CONTRIBUTING.md) for a rundown on how we'd like the contents of this repository to be formatted.

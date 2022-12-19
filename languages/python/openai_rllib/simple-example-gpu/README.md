@@ -11,13 +11,13 @@ conda env create --prefix=/<path_to_chosen_directory>/env_example_gpu -f env_exa
 
 ### **Only for Eagle users:** Creating Anaconda environment using Optimized Tensorflow
 
-NREL's HPC group has recently created [a set of optimized Tensorflow drivers](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) that maximize the efficiency of utilizing Eagle's Tesla V100 GPU units. The drivers are created for various Python 3 and Tensorflow 2.x.x versions. 
+NREL's HPC group has recently created [a set of optimized Tensorflow drivers](https://github.com/NREL/HPC/tree/master/general/Optimized_TF) that maximize the efficiency of utilizing Eagle's Tesla V100 GPU units. The drivers are created for various Python 3 and Tensorflow 2.x.x versions. 
 
-The repo provides an [Anaconda environment version](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml) for using these drivers. This environment is based on one of the [example environments](https://github.com/NREL/HPC/blob/master/workshops/Optimized_TF/py37tf22.yml) provided in the [Optimized TF repo](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF).
+The repo provides an [Anaconda environment version](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml) for using these drivers. This environment is based on one of the [example environments](https://github.com/NREL/HPC/blob/master/general/Optimized_TF/py37tf22.yml) provided in the [Optimized TF repo](https://github.com/NREL/HPC/tree/master/general/Optimized_TF).
 
 **The provided Anaconda environment currently works for Python 3.7, Tensorflow 2.2, and the latest Ray version**
 
-*Make sure to follow the [instructions for installing this particular environment](https://github.com/NREL/HPC/tree/master/workshops/Optimized_TF) explicitly!*
+*Make sure to follow the [instructions for installing this particular environment](https://github.com/NREL/HPC/tree/master/general/Optimized_TF) explicitly!*
 
 ## Allocate GPU node 
 
