@@ -1,5 +1,6 @@
-## How to use singularity on eagle
-Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to eagle and run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes). Input commands are preceded by a `$`
+## How to use singularity on Eagle
+
+Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to Eagle and run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes). Input commands are preceded by a `$`
 
 ### Run hello-world ubuntu image
 
