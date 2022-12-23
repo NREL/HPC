@@ -1,7 +1,7 @@
 ---
  layout: default
- title: Running on Vermillion
- parent: Vermillion
+ title: Running on Vermilion
+ parent: Vermilion
  grand_parent: Systems
 ---
 
