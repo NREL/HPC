@@ -1,5 +1,5 @@
 ---
-title: Workaround for Windows SSH "Correupted MAC on input" Error
+title: Workaround for Windows SSH "Corrupted MAC on input" Error
 ---
 Some people who use Windows 10/11 computers to ssh to Eagle from a Windows command prompt, powershell, or via Visual Studio Code's SSH extension might receive an error message about a "Corrupted MAC on input" or "message authentication code incorrect." This error is due to an outdated OpenSSL library included in Windows and a security-mandated change to ssh on Eagle. However, there is a functional workaround for this issue. (Note: If you are not experiencing the above error, you do not need and should not use the following workaround.)
 
