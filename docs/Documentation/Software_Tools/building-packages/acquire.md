@@ -16,9 +16,9 @@ grand_parent: Intermediate
 wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.0.tar.bz2
 ```
 
-You should now have a compressed tarball in your scratch directory.
+    You should now have a compressed tarball in your scratch directory.
 
-4, List the contents of the tarball before unpacking. This is very useful to avoid inadvertently filling a directory with gobs of files and directories when the tarball has them at the top of the file structure),
+4. List the contents of the tarball before unpacking. This is very useful to avoid inadvertently filling a directory with gobs of files and directories when the tarball has them at the top of the file structure),
 ```
 tar -tf openmpi-4.1.0.tar.bz2
 ```
