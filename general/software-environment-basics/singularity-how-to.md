@@ -1,5 +1,6 @@
-## How to use singularity on eagle
-Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to eagle and run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes). Input commands are preceded by a `$`
+## How to use singularity on Eagle
+
+Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to Eagle and run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes). Input commands are preceded by a `$`
 
 ### Run hello-world ubuntu image
 
@@ -67,86 +68,6 @@ CentOS Linux release 7.4.1708 (Core)
 [$USER@r1i3n18 singularity-images]$ cat /etc/lsb-release
 cat: /etc/lsb-release: No such file or directory
 [$USER@r1i3n18 singularity-images]$ singularity shell hello-world.simg
-Singularity: Invoking an interactive shell within container...
-
-Singularity hello-world.simg:~> cat /etc/lsb-release
-DISTRIB_ID=Ubuntu
-DISTRIB_RELEASE=14.04
-DISTRIB_CODENAME=trusty
-DISTRIB_DESCRIPTION="Ubuntu 14.04.5 LTS"
-Singularity hello-world.simg:~> cat /etc/redhat-release
-cat: /etc/redhat-release: No such file or directory
-```
-
-## How to use singularity on Eagle
-Singularity is installed on CentOS 7 compute nodes as a module named singularity-container.  Images can be copied to Eagle to run or can be generated from a [recipe](http://singularity.lbl.gov/docs-recipes).  In the examples below, output is only shown for test and run blocks.  Input commands are preceded by a `$`
-
-### Run hello-world ubuntu image
-
-1. Log into compute node, checking it is running CentOS 7
-
-```
-ssh peregrine-login4.hpc.nrel.gov
-qsub -I -A MYALLOCATION -q debug -l nodes=1,walltime=01:00:00
-cat /etc/redhat-release
-```
-
-2. Load the singularity-container module
-
-```
-module purge
-module load singularity-container
-```
-
-3. Retrieve hello-world image.  Be sure to use /scratch as images are typically large
-
-```
-cd /scratch/$USER
-mkdir -p singularity-images
-cd singularity-images
-singularity pull --name hello-world.simg shub://vsoch/hello-world
-```
-
-4. Explore image details
-
-```
-# Shows labels
-$ singularity inspect hello-world.simg
-{
-    "org.label-schema.usage.singularity.deffile.bootstrap": "docker",
-    "MAINTAINER": "vanessasaur",
-    "org.label-schema.usage.singularity.deffile": "Singularity",
-    "org.label-schema.schema-version": "1.0",
-    "WHATAMI": "dinosaur",
-    "org.label-schema.usage.singularity.deffile.from": "ubuntu:14.04",
-    "org.label-schema.build-date": "2017-10-15T12:52:56+00:00",
-    "org.label-schema.usage.singularity.version": "2.4-feature-squashbuild-secbuild.g780c84d",
-    "org.label-schema.build-size": "333MB"
-}
-# Shows the script run
-$ singularity inspect -r hello-world.simg
-#!/bin/sh
-
-exec /bin/bash /rawr.sh
-```
-
-5. Run image default script
-
-```
-$ singularity run hello-world.simg
-RaawwWWWWWRRRR!!
-```
-
-6. Run in singularity bash shell
-
-```
-# On compute node
-$ cat /etc/redhat-release
-CentOS Linux release 7.3.1611 (Core)
-$ cat /etc/lsb-release
-cat: /etc/lsb-release: No such file or directory
-# In singularity shell
-$ singularity shell hello-world.simg
 Singularity: Invoking an interactive shell within container...
 
 Singularity hello-world.simg:~> cat /etc/lsb-release
