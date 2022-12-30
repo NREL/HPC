@@ -108,6 +108,7 @@ parser.add_argument("--run", type=str, default="DQN")
 parser.add_argument("--local-mode", action="store_true")
 ```
 All of them are self-explanatory, however let's see each one separately.
+
 1. `--num-cpus`: Defines the number of CPU cores used for experience collection (Default value 0 means allocation of a single CPU core).
 2. `--num-gpus`: Allocates a GPU node for policy learning (works only for Tensorflow-GPU). Except whole values (1,2,etc.), it also accepts partial values, in case 100% of the GPU is not necessary.
 3. `--name-env`: The name of the OpenAI Gym environment.
