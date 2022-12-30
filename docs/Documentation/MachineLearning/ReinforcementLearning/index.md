@@ -111,8 +111,7 @@ All of them are self-explanatory, however let's see each one separately.
 2. `--num-gpus`: Allocates a GPU node for policy learning (works only for Tensorflow-GPU). Except whole values (1,2,etc.), it also accepts partial values, in case 100% of the GPU is not necessary.
 3. `--name-env`: The name of the OpenAI Gym environment.
 4. `--run`: Specifies the RL algorithm for agent training.
-5. `--local-mode`: Helps defining whether experiments running on a single 
-core or multiple cores.
+5. `--local-mode`: Helps defining whether experiments running on a single core or multiple cores.
 
 ### Initialize Ray
 
