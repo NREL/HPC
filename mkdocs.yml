@@ -69,6 +69,8 @@ nav:
         - Documentation/Software_Tools/conda.md
         - Documentation/Software_Tools/spack.md  
         - Documentation/Software_Tools/Git/Git.md
+      - Applications: 
+        - Documentation/Applications/paraview.md
       - Languages:
         - Bash:
           - Documentation/languages/bash/bash-starter.md
