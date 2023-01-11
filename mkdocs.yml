@@ -1,25 +1,5 @@
 nav:
   - Home: index.md
-  - Announcements:
-      - Announcements/2022-08-11-announcement.md
-      - Announcements/2022-05-04-announcement.md
-      - Announcements/2022-04-06-announcement.md
-      - Announcements/2022-03-02-announcement.md
-      - Announcements/2022-02-02-announcement.md
-      - Announcements/2022-01-05-announcement.md
-      - Announcements/2021-12-08-announcement.md
-      - Announcements/2021-11-03-announcement.md
-      - Announcements/2021-09-08-announcement.md
-      - Announcements/2021-08-06-announcement.md
-      - Announcements/2021-07-06-announcement.md
-      - Announcements/2021-06-01-announcement.md
-      - Announcements/2021-05-05-announcement.md
-      - Announcements/2021-04-06-announcement.md
-      - Announcements/2021-03-03-announcement.md
-      - Announcements/2021-02-02-announcement.md
-      - Announcements/2021-01-04-announcement.md
-      - Announcements/2020-12-03-announcement.md
-      - Announcements/2020-11-03-announcement.md
   - Blog: 
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
@@ -27,6 +7,8 @@ nav:
       - blog/2022-10-04-python2to3.md
   - Documentation:
       - Documentation Home: Documentation/index.md
+      - Getting Started: Documentation/Getting_Started/index.md
+      - Accounts: Documentation/Accounts/index.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
         - Swift:
@@ -42,7 +24,8 @@ nav:
           - Documentation/Systems/Vermilion/modules.md
           - Documentation/Systems/Vermilion/running.md
           - Documentation/Systems/Vermilion/applications.md
-      - Data and File Systems:
+        - Kestrel
+      - Storage Systems:
         - File Systems:
           - Documentation/Data-and-File-Systems/File-Systems/index.md 
           - Lustre: 
@@ -51,32 +34,36 @@ nav:
           - Documentation/Data-and-File-Systems/Transferring-Data/FileZilla.md     
           - Documentation/Data-and-File-Systems/Transferring-Data/file-transfers.md     
           - Documentation/Data-and-File-Systems/Transferring-Data/globus.md
-      - Software and Tools:
-        - Containers:
-          - Documentation/Software_Tools/Containers/index.md
-          - Documentation/Software_Tools/Containers/registres.md
-          - Documentation/Software_Tools/Containers/singularity.md
+      - Development:
         - Building Packages:
           - Documentation/Software_Tools/building-packages/index.md
           - Documentation/Software_Tools/building-packages/acquire.md
           - Documentation/Software_Tools/building-packages/config_make_install.md
           - Documentation/Software_Tools/building-packages/modules.md
-        - Jupyter:
-          - Documentation/Software_Tools/Jupyter/index.md
-          - Documentation/Software_Tools/Jupyter/jupyterhub.md
-        - Data and Visualization:
-          - Documentation/Software_Tools/FastX/fastx.md
+        - Languages: 
+          - Bash:
+            - Documentation/languages/bash/bash-starter.md
+          - Fortran: Documentation/languages/fortran/f90.md
+          - Python: 
+            - Documentation/languages/python/NREL_python.md
+            - Documentation/languages/python/index.md
+            - Documentation/languages/python/dask/dask.md
+      - Tools:
+        - Containers:
+          - Documentation/Software_Tools/Containers/index.md
+          - Documentation/Software_Tools/Containers/registres.md
+          - Documentation/Software_Tools/Containers/singularity.md
         - Documentation/Software_Tools/conda.md
         - Documentation/Software_Tools/spack.md  
         - Documentation/Software_Tools/Git/Git.md
-      - Languages:
-        - Bash:
-          - Documentation/languages/bash/bash-starter.md
-        - Fortran: Documentation/languages/fortran/f90.md
-        - Python: 
-          - Documentation/languages/python/NREL_python.md
-          - Documentation/languages/python/index.md
-          - Documentation/languages/python/dask/dask.md
+        - Jupyter:
+          - Documentation/Software_Tools/Jupyter/index.md
+          - Documentation/Software_Tools/Jupyter/jupyterhub.md
+        - Documentation/Software_Tools/FastX/fastx.md
+      - Applications:
+        - VASP
+        - WRF
+        - COMSOL
       - Machine Learning:
         - Reinforcement Learning: 
           - Documentation/MachineLearning/ReinforcementLearning/index.md 
