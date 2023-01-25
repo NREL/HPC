@@ -7,33 +7,40 @@ nav:
       - blog/2022-10-04-python2to3.md
   - Documentation:
       - Documentation Home: Documentation/index.md
-      - Getting Started: Documentation/Getting_Started/index.md
-      - Accounts: Documentation/Accounts/index.md
+      - Getting Started: Documentation/getting_started.md
+      - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
+        - Kestrel: 
+          - Documentation/Systems/Kestrel/index.md
+          - Documentation/Systems/Kestrel/running.md
+          - Documentation/Systems/Kestrel/modules.md
+          - Documentation/Systems/Kestrel/filesystems.md
+        - Eagle: 
+          - Documentation/Systems/Eagle/index.md
+          - Documentation/Systems/Eagle/running.md
+          - Documentation/Systems/Eagle/modules.md
+          - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
           - Documentation/Systems/Swift/index.md
-          - Documentation/Systems/Swift/filesystems.md
-          - Documentation/Systems/Swift/modules.md
           - Documentation/Systems/Swift/running.md
-          - Documentation/Systems/Swift/applications.md
+          - Documentation/Systems/Swift/modules.md
+          - Documentation/Systems/Swift/filesystems.md
           - Documentation/Systems/Swift/known.md
-          - Documentation/Systems/Swift/help.md
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
-          - Documentation/Systems/Vermilion/modules.md
           - Documentation/Systems/Vermilion/running.md
-          - Documentation/Systems/Vermilion/applications.md
-        - Kestrel
-      - Storage Systems:
-        - File Systems:
-          - Documentation/Data-and-File-Systems/File-Systems/index.md 
-          - Lustre: 
-            - Documentation/Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices.md
-        - Transferring Data:
-          - Documentation/Data-and-File-Systems/Transferring-Data/FileZilla.md     
-          - Documentation/Data-and-File-Systems/Transferring-Data/file-transfers.md     
-          - Documentation/Data-and-File-Systems/Transferring-Data/globus.md
+          - Documentation/Systems/Vermilion/modules.md
+          - Documentation/Systems/Vermilion/filesystems.md
+          - Documentation/Systems/Vermilion/known.md
+      - Managing your Data:
+        - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
+        # - MSS: Documentation/Managing_Data/File-Systems/mss.md
+        # - Campaign Storage: Documentation/Data-and-File-Systems/File-Systems/campaign.md
+        - Transferring Files:
+          - Documentation/Managing_Data/Transferring_Files/FileZilla.md     
+          - Documentation/Managing_Data/Transferring_Files/file-transfers.md     
+          - Documentation/Managing_Data/Transferring_Files/globus.md
       - Development:
         - Building Packages:
           - Documentation/Software_Tools/building-packages/index.md
@@ -41,13 +48,13 @@ nav:
           - Documentation/Software_Tools/building-packages/config_make_install.md
           - Documentation/Software_Tools/building-packages/modules.md
         - Languages: 
-          - Bash:
-            - Documentation/languages/bash/bash-starter.md
+          - Bash: Documentation/languages/bash/bash-starter.md
           - Fortran: Documentation/languages/fortran/f90.md
           - Python: 
             - Documentation/languages/python/NREL_python.md
             - Documentation/languages/python/index.md
             - Documentation/languages/python/dask/dask.md
+          - R: Documentation/languages/r.md
       - Tools:
         - Containers:
           - Documentation/Software_Tools/Containers/index.md
@@ -61,9 +68,18 @@ nav:
           - Documentation/Software_Tools/Jupyter/jupyterhub.md
         - Documentation/Software_Tools/FastX/fastx.md
       - Applications:
-        - VASP
-        - WRF
-        - COMSOL
+        - ANSYS CFD: Documentation/Applications/ansys.md
+        - COMSOL: Documentation/Applications/comsol.md
+        - FEniCS: Documentation/Applications/fenics.md
+        - Gaussian: Documentation/Applications/gaussian.md
+        - GAMS: Documentation/Applications/gams.md
+        - Gurobi: Documentation/Applications/gurobi.md
+        - LAMMPS: Documentation/Applications/lammps.md
+        - MATLAB: Documentation/Applications/matlab.md
+        - NAMD: Documentation/Applications/namd.md
+        - Q-Chem: Documentation/Applications/qchem.md
+        - STAR-CCM+: Documentation/Applications/starccm.md
+        - VASP: Documentation/Applications/vasp.md
       - Machine Learning:
         - Reinforcement Learning: 
           - Documentation/MachineLearning/ReinforcementLearning/index.md 
