@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lustre Best Practices
+title: Filesystems
 parent: Lustre
 grand_parent: Filesystems and I/O
 ---
