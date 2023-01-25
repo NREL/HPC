@@ -8,7 +8,7 @@ description: A quick analysis of local I/O performance on Eagle compute nodes ve
 
 We sometimes receive questions about disk types and I/O performance on compute nodes. Eagle has two network file systems. Qumulo provides /home and /nopt. It is NFS and is not considered a performance file system. /home has snapshots for restoration of lost data, but should not be used as a replacement for a source code repository like Git. Lustre is our performance file system, and it provides storage for the /scratch, /projects, /shared-projects and /datasets directories.
 
-Eagle also has two storage options on the compute nodes. /dev/shm, is an in-memory space (shm: shared memory), which is fast, but you need to balance its usage with your jobs memory usage as it is located directly in RAM. /tmp/scratch is physical storage. The type of storage and performance differ depending on the specific type of compute node. 
+Eagle also has two storage options on the compute nodes. /dev/shm is an in-memory space (shm: shared memory), which is fast, but you need to balance its usage with your job's memory usage as it is located directly in RAM. /tmp/scratch is physical storage. The type of storage and performance differ depending on the specific type of compute node. 
 
 If we look under Eagle's [Compute Node Hardware Details](https://www.nrel.gov/hpc/eagle-system-configuration.html) on the central [NREL HPC website](https://www.nrel.gov/hpc), there are nodes listed as having SATA drives, and nodes listed as having SSDs. Our SATA drives are still spinning disks, while SAS (serial attached SCSI) is how the SSD’s are connected to the node. We would generally expect the nodes with SSDs to perform better. Let’s test that out with a simple test. 
 
