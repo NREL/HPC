@@ -21,3 +21,5 @@ NREL operates three on-premises systems for computational work.
 | GPU         |         | Dual NVIDIA Tesla V100 | None | 5 nodes Single A100
 | Memory      |         | 96GB, 192GB, 768GB | 256GB | 256GB (base)
 | Number of Nodes|      | 2618 | 484 | 133 virtual |
+
+
