@@ -58,6 +58,7 @@ nav:
         - Q-Chem: Documentation/Applications/qchem.md
         - STAR-CCM+: Documentation/Applications/starccm.md
         - VASP: Documentation/Applications/vasp.md
+        - WRF: Documentation/Applications/wrf.md
       - Development: 
         - Programming Models: 
           - Documentation/Development/Programming_Models/mpi.md
