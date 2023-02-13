@@ -59,7 +59,7 @@ file `x.dat` contains the result of the MATLAB script.
 #SBATCH --account=<account_string>        # Program-based WCID (account string associated with job)
 
 module purge
-module load matlab/R2018b
+module load matlab
 
 # execute code
 cd $SLURM_SUBMIT_DIR                        # Change directories (output will save here)
