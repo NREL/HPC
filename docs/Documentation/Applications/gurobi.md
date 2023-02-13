@@ -13,10 +13,11 @@ Gurobi includes a linear programming solver (LP), quadratic programming solver
 programming solver (MILP), mixed-integer quadratic programming solver (MIQP),
 and a mixed-integer quadratically constrained programming solver (MIQCP).
 
-NREL hosts 6 general use (including commercial) and 18 academic/government
-standalone Gurobi licenses. The Gurobi interactive shell will run by typing
-"`gurobi.sh`". Gurobi can also be interfaced with C/C++/Java/MATLAB/R codes by
-linking with the Gurobi libraries.
+Gurobi is available on the Eagle system, which hosts 6 general use (including
+commercial) and 18 academic/government standalone Gurobi licenses. After logging
+onto Eagle, load the Gurobi module using `module load gurobi`.  The Gurobi
+interactive shell is run by typing "`gurobi.sh`". Gurobi can also be interfaced
+with C/C++/Java/MATLAB/R codes by linking with the Gurobi libraries.
 
 For details on Gurobi programming, see the [Gurobi Resource
 Center](https://www.gurobi.com/resource-center/) and [Gurobi
