@@ -53,7 +53,12 @@ nav:
         - GAMS: Documentation/Applications/gams.md
         - Gurobi: Documentation/Applications/gurobi.md
         - LAMMPS: Documentation/Applications/lammps.md
-        - MATLAB: Documentation/Applications/matlab.md
+        - MATLAB:
+          - Documentation/Applications/Matlab/index.md
+          - Batch Mode: Documentation/Applications/Matlab/batch.md
+          - Interactive Mode: Documentation/Applications/Matlab/interactive.md
+          - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
+          - Versions and Licenses: Documentation/Applications/Matlab/versions.md
         - NAMD: Documentation/Applications/namd.md
         - Q-Chem: Documentation/Applications/qchem.md
         - STAR-CCM+: Documentation/Applications/starccm.md
