@@ -151,7 +151,9 @@ theme:
     - navigation.indexes
 markdown_extensions:
   - attr_list
+  - admonition
   - meta
+  - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
 extra:
