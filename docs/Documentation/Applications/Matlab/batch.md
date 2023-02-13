@@ -28,28 +28,22 @@ JOBID       PARTITION       NAME       USER       ST       TIME       NODES     
 <JobID>     <partition>     matlabTe   username   PD       0:00       1           (<reason>)
 ```
 
-<!-- TODO: is this right? -->
+<!-- TODO: Are the stdout and stderr filenames correct? -->
 
-Once the job has finished:
-
-```
-JOBID       PARTITION       NAME       USER       ST       TIME       NODES       NODELIST(REASON)
-<JobID>     <partition>     matlabTe   username   CD       0:01       1           
-```
-
-The standard output is saved in a file called `test_matlab.o<JobID>`, standard
-error to `test_matlab.e<JobID>`, and the binary file `x.dat` contains the result
-of the MATLAB script.
+Once the job has finished, the standard output is saved in a file called
+`test_matlab.o<JobID>`, standard error to `test_matlab.e<JobID>`, and the binary
+file `x.dat` contains the result of the MATLAB script.
 
 ## Notes on matlabTest.sb File
 
-<!-- TODO: Add link to user accounts in 2nd bullet below -->
+<!-- TODO: Update User Accounts link in 2nd bullet below -->
 
 - Setting a low walltime increases the chances that the job will be scheduled
   sooner due to backfill.
 - The `--account=<account_string>` flag must include a valid account string or
   the job will encounter a permanent hold (it will appear in the queue but will
-  never run).  For more information, see user accounts.
+  never run).  For more information, see [user
+  accounts](https://www.nrel.gov/hpc/user-accounts.html).
 - The environment variable `$SLURM_SUBMIT_DIR` is set by the scheduler to the
   directory from which the sbatch command was executed, e.g., `/scratch/$USER.`
   In this example, it is also the directory into which MATLAB will write the

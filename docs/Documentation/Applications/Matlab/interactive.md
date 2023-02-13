@@ -2,13 +2,13 @@
 
 *Learn how to run MATLAB software interactively on the Eagle system.*
 
+<!-- TODO: Update link for System Connection. -->
+
 To run MATLAB on Eagle there are two ways to proceed: you can choose to start an
 interactive job and use a basic MATLAB terminal (no GUI), or you can use the GUI
-with a [FastX](../../../Development/Vizualization/FastX/fastx)
-session on a DAV node.
-
-<!-- TODO: Add link for System Connection (part of previous paragraph): -->
-<!-- For information on how to connect to Eagle, see System Connection. -->
+with a [FastX](../../../Development/Vizualization/FastX/fastx) session on a DAV
+node.  For information on how to connect to Eagle, see [System
+Connection](https://www.nrel.gov/hpc/system-connection.html).
 
 ## Running MATLAB via an Interactive Job
 
@@ -21,21 +21,15 @@ $ srun -N # --time 01:00:00 --account=<handle> --pty $SHELL
 
 When your job starts, you will have a shell on a compute node.
 
+<!-- TODO: Update the User Accounts and Interactive Jobs links below. -->
+
 !!! note
 
-    To submit an interactive job you must include the `--account=<handle>` flag
-    and include a valid project allocation handle. For more information, see [User
-    Accounts](https://www.nrel.gov/hpc/user-accounts.html).
-    
-<!-- TODO: Check link for user-accounts.  Add link for interactive jobs.  See
-below template. -->
-
-<!-- !!! note -->
-
-<!--     1. To submit an interactive job you must include the `--account=<handle>` flag -->
-<!--        and include a valid project allocation handle. For more information, see [User -->
-<!--        Accounts](https://www.nrel.gov/hpc/user-accounts.html). -->
-<!--     2. For more information on interactive jobs, see Running Interactive Jobs. -->
+    1. To submit an interactive job you must include the `--account=<handle>` flag
+       and include a valid project allocation handle. For more information, see
+       [User Accounts](https://www.nrel.gov/hpc/user-accounts.html).
+    2. For more information on interactive jobs, see [Running Interactive
+       Jobs](https://www.nrel.gov/hpc/eagle-interactive-jobs.html).
 
 From the shell on the compute node, the next steps are to load the MATLAB module
 to set up your user environment, which includes setting the location of the

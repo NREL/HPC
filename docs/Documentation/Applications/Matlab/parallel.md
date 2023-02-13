@@ -24,20 +24,13 @@ interactive mode than in non-interactive (batch) mode. For this reason, the
 interactive GUI will only be used to set up your local configuration. Runtime
 examples will include batch scripts that submit jobs directly to the scheduler.
 
+<!-- TODO: Update link for Interactive Jobs. -->
+
 To configure your local parallel settings, start an interactive MATLAB session
-with X11 forwarding (see [Environment Modules on the Eagle
-System](../../Systems/Eagle/modules.md)). Open MATLAB R2018b and do the
-following:
-
-<!-- TODO: Replace above paragraph with following, once link for interactive
-jobs is available: -->
-
-<!-- To configure your local parallel settings, start an interactive MATLAB session -->
-<!-- with X11 forwarding (see [Running Interactive Jobs on -->
-<!-- Eagle](todo-interactive.md) and [Environment Modules on the Eagle -->
-<!-- System](../../Systems/Eagle/modules.md)). Open MATLAB R2018b and do the -->
-<!-- following: -->
-
+with X11 forwarding (see [Running Interactive Jobs on
+Eagle](https://www.nrel.gov/hpc/eagle-interactive-jobs.html) and [Environment
+Modules on the Eagle System](../../Systems/Eagle/modules.md)). Open MATLAB
+R2018b and do the following:
 
 1. Under the Home tab, go to Parallel > Parallel Preferences.
 2. In the Parallel Pool box, set the "Preferred number of workers in a parallel
