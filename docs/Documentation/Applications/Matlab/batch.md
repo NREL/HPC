@@ -48,7 +48,7 @@ file `x.dat` contains the result of the MATLAB script.
   directory from which the sbatch command was executed, e.g., `/scratch/$USER.`
   In this example, it is also the directory into which MATLAB will write the
   output file x.dat.
-  
+
 **matlabTest.sb**
 
 ```bash
@@ -58,12 +58,12 @@ file `x.dat` contains the result of the MATLAB script.
 #SBATCH --job-name=matlabTest              # Name of job
 #SBATCH --account=<account_string>        # Program-based WCID (account string associated with job)
 
-module purge                    
-module load matlab/R2018b 
-  
-# execute code  
+module purge
+module load matlab/R2018b
+
+# execute code
 cd $SLURM_SUBMIT_DIR                        # Change directories (output will save here)
-matlab -nodisplay -r matlabTest          # Run the MATLAB script  
+matlab -nodisplay -r matlabTest          # Run the MATLAB script
 ```
 
 **matlabTest.m**
