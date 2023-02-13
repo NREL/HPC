@@ -1,7 +1,4 @@
----
-layout: default
-title: Gurobi
----
+# Using the Gurobi Optimizer Solvers
 
 *Gurobi Optimizer is a suite of solvers for mathematical programming.*
 
