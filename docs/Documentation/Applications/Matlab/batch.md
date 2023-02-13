@@ -28,11 +28,9 @@ JOBID       PARTITION       NAME       USER       ST       TIME       NODES     
 <JobID>     <partition>     matlabTe   username   PD       0:00       1           (<reason>)
 ```
 
-<!-- TODO: Are the stdout and stderr filenames correct? -->
-
 Once the job has finished, the standard output is saved in a file called
-`test_matlab.o<JobID>`, standard error to `test_matlab.e<JobID>`, and the binary
-file `x.dat` contains the result of the MATLAB script.
+`slurm-<JobID>.out`, standard error to `slurm-<JobID>.out`, and the binary file
+`x.dat` contains the result of the MATLAB script.
 
 ## Notes on matlabTest.sb File
 
