@@ -43,106 +43,116 @@ nav:
           - Documentation/Managing_Data/Transferring_Files/globus.md
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
-        - Shell Startup: Documentation/Environment/shell.md
-        - Documentation/Environment/lmod.md
+          - Shell Startup:       Documentation/environment/shell_startup/index.md
+          - Environment Modules: Documentation/environment/environement_modules/index.md
+          - Lmod:                Documentation/environment/lmod/index.md
+          - Options/Customization:
+               - Spack: Documnetation/envirnement/customization/spack.md
+               - Anaconda: Documnetation/envirnement/customization/anaconda.md
+               - Containers: Documnetation/envirnement/customization/containers.md
+          - Modulefiles creation: Documnetation/envirnement/modulefiles.md
       - Applications:
-        - ANSYS CFD: Documentation/Applications/ansys.md
-        - COMSOL: Documentation/Applications/comsol.md
-        - FEniCS: Documentation/Applications/fenics.md
-        - Gaussian: Documentation/Applications/gaussian.md
-        - GAMS: Documentation/Applications/gams.md
-        - Gurobi: Documentation/Applications/gurobi.md
-        - LAMMPS: Documentation/Applications/lammps.md
-        - MATLAB: Documentation/Applications/matlab.md
-        - NAMD: Documentation/Applications/namd.md
-        - Q-Chem: Documentation/Applications/qchem.md
-        - STAR-CCM+: Documentation/Applications/starccm.md
-        - VASP: Documentation/Applications/vasp.md
-        - WRF: Documentation/Applications/wrf.md
-      - Development: 
-        - Programming Models: 
-          - Documentation/Development/Programming_Models/mpi.md
-          - Documentation/Development/Programming_Models/openmp.md
-          - Documentation/Development/Programming_Models/openacc.md
-          - Documentation/Development/Programming_Models/cuda.md
-          - Documentation/Development/Programming_Models/upc.md
-          - Documentation/Development/Programming_Models/upc++.md
-          - Documentation/Development/Programming_Models/coarrays.md
-          - Documentation/Development/Programming_Models/sycl.md
-          - Documentation/Development/Programming_Models/kokkos.md
-          - Documentation/Development/Programming_Models/raja.md
-        - Compilers:
-          - Base Compilers: 
-            - Documentation/Development/Compilers/Base_Compilers/gnu.md
-            - Documentation/Development/Compilers/Base_Compilers/intel.md
-            - Documentation/Development/Compilers/Base_Compilers/nvhpc.md
-            - Documentation/Development/Compilers/Base_Compilers/aocc.md
-            - Documentation/Development/Compilers/Base_Compilers/cray.md
-          - Compiler Wrappers: Documentation/Development/Compilers/Compiler_Wrappers/compiler_wrappers.md
-        - Build Tools:
-          - Documentation/Development/Build_Tools/spack.md
-          - Documentation/Development/Build_Tools/git.md
-          - Documentation/Development/Build_Tools/cmake.md
-          - Building your own Module:
-            - Documentation/Development/Build_Tools/Building_Packages/index.md
-            - Documentation/Development/Build_Tools/Building_Packages/acquire.md
-            - Documentation/Development/Build_Tools/Building_Packages/config_make_install.md
-            - Documentation/Development/Build_Tools/Building_Packages/modules.md
-        - Languages: 
-          - Bash: Documentation/Development/Languages/Bash/bash-starter.md
-          - Fortran: Documentation/Development/Languages/fortran/f90.md
-          - Python: 
-            - Documentation/Development/Languages/Python/NREL_python.md
-            - Documentation/Development/Languages/Python/index.md
-            - Documentation/Development/Languages/Python/dask/dask.md
-            - Documentation/Development/Languages/Python/conda.md
-          - R: Documentation/Development/Languages/r.md
-          - Julia: Documentation/Development/Languages/julia.md
-          - C++: Documentation/Development/Languages/c++.md
-          - IDL: Documentation/Development/Languages/idl.md
-        - Libraries:
-          - FFTW: Documentation/Development/Libraries/fftw.md
-          - LAPACK: Documentation/Development/Libraries/lapack.md
-          - MKL: Documentation/Development/Libraries/mkl.md
-          - LibSci: Documentation/Development/Libraries/libsci.md
-          - HDF5: Documentation/Development/Libraries/hdf5.md
-          - NetCDF: Documentation/Development/Libraries/netcdf.md
-          - PeTSc: Documentation/Development/Libraries/petsc.md
-        - Containers:
-          - Documentation/Development/Containers/index.md
-          - Documentation/Development/Containers/registres.md
-          - Documentation/Development/Containers/singularity.md
-        - Performance Tools:
-          - Advisor: Documentation/Development/Performance_Tools/advisor.md
-          - APS: Documentation/Development/Performance_Tools/aps.md
-          - ARM: Documentation/Development/Performance_Tools/arm.md
-          - Intel Parallel Studio: Documentation/Development/Performance_Tools/intel_parallel.md
-          - Codee: Documentation/Development/Performance_Tools/codee.md
-          - CrayPat: Documentation/Development/Performance_Tools/craypat.md
-          - Darshan: Documentation/Development/Performance_Tools/darshan.md
-          - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
-          - LIKWID: Documentation/Development/Performance_Tools/likwid.md
-          - Reveal: Documentation/Development/Performance_Tools/reveal.md
-          - Roofline Performance Model: Documentation/Development/Performance_Tools/roofline.md
-          - Timemory: Documentation/Development/Performance_Tools/timemory.md
-        - Debug Tools:
-          - ARM: Documentation/Development/Debug_Tools/arm.md
-          - GDB: Documentation/Development/Debug_Tools/gdb.md
-          - CCDB: Documentation/Development/Debug_Tools/ccdb.md
-          - Intel C Inspector: Documentation/Development/Debug_Tools/intelc.md
-          - TotalView: Documentation/Development/Debug_Tools/totalview.md
-          - Valgrind: Documentation/Development/Debug_Tools/valgrind.md
-        - Vizualization and Analytics: 
-          - FastX: Documentation/Development/Vizualization/FastX/fastx.md
-        - Jupyter:
-          - Documentation/Development/Jupyter/index.md
-          - Documentation/Development/Jupyter/jupyterhub.md
+          - Avizo:      Documentation/Applications/avizo.md
+          - ANSYS CFD : Documentation/Applications/ansys.md
+          - COMSOL:     Documentation/Applications/comsol.md
+          - FEniCS:     Documentation/Applications/fenics.md
+          - Gaussian:   Documentation/Applications/guassian.md
+          - GAMS:       Documentation/Applications/gams.md
+          - Git:        Documentation/Applications/git.md
+          - Gurobi:     Documentation/Applications/gurobi.md
+          - LAMMPS:     Documentation/Applications/lammps.md
+          - MATLAB:     Documentation/Applications/matlab.md
+          - Paraview:   Documentation/Applications/paraview.md
+          - Q-chem:     Documentation/Applications/qchem.md
+          - R:          Documentation/Applications/r.md
+          - STAR-CCM+:  Documentation/Applications/starccm+.md
+          - VASP:       Documentation/Applications/vasp.md
+          - Visit:      Documentation/Applications/visit.md
+      - Development:
+         - Languages:
+             - Julia:   Documentation/development/languages/julia/index.md
+             - C++:     Documentation/development/languages/c++/index.md
+             - R:       Documentation/development/languages/r/index..md
+             - Bash:    Documentation/development/languages/bash/index.md
+             - Fortran: Documentation/development/languages/fortran/index.md
+             - Python:
+                  - Documentation/development/languages/python/index.md
+                  - Documentation/development/languages/python/nrel_hpc_python/index.md
+                  - Documentation/development/languages/python/dask/index.md
+                  - Jupyter: Documentation/development/languages/python/jupyter/index.md
+                  - Anaconda: Documentation/development/languages/python/anaconda/index.md
+         - Programming Models:
+              - development/programming-models/index.md
+              - MPI:
+                - development/programming-models/mpi/index.md
+                - Cray-MPICH: development/programming-models/mpi/cray-mpich.md
+                - OpenMPI: development/programming-models/mpi/openmpi.md
+                - Intel-MPI: development/programming-models/mpi/intelmpi.md
+              - OpenMP:
+                - development/programming-models/openmp/index.md
+              - OpenACC:
+                - development/programming-models/openacc/index.md
+              - CUDA:
+                - development/programming-models/cuda/index.md
+         - Compilers:
+              - GNU  : Documentation/development/compilers/gnu/index.md
+              - Intel: Documentation/development/compilers/intel/index.md
+              - NVHPC: Documentation/development/compilers/nvhpc/index.md
+              - AOCC : Documentation/development/compilers/aocc/index.md
+              - Cray : Documentation/development/compilers/cray/index.md
+         - Build Tools:
+              - Documentation/development/build_tools/index.md
+              - Config Make Install : Documentation/development/build_tools/config_make_install/config_make_install.md
+              - CMAKE : Documentation/development/build_tools/cmake/index.md
+              - spack : Documentation/development/build_tools/spack/index.md
+              - GIT : Documentation/development/build_tools/git/index.md
+         - Libraries:
+              - development/libraries/index.md
+              - FFTW:   Documentation/development/libraries/fftw/index.md
+              - LAPACK: Documentation/development/libraries/lapack/index.md
+              - MKL:    Documentation/development/libraries/mkl/index.md
+              - LibSci: Documentation/development/libraries/libsci/index.md
+              - HDF5:   Documentation/development/libraries/hdf5/index.md
+              - NetCDF: Documentation/development/libraries/netcdf/index.md
+              - PETSc:  Documentation/development/libraries/petsc/index.md
+         - Performance Tools:
+             - tools/performance/index.md
+             - ARM Performance-Reports:
+               - Documentation/development/performance_tools/arm/index.md
+               - MAP : tools/performance/aps/index.md
+               - Performance reports : tools/performance/aps/index.md
+             - Intel Parallel Studio:
+               - tools/performance/aps/index.md
+               - Trace Analyser : Documentation/development/performance_tools/trace/index.md
+               - VTune : Documentation/development/performance_tools/vtune/index.md
+             - CrayPat:
+               - tools/performance/craypat/index.md
+             - HPCToolkit:
+               - tools/performance/hpctoolkit/index.md
+         - Debug Tools:
+             - tools/debug/index.md
+             - ARM:
+               - tools/debug/ddt/index.md
+               - DDT:
+                 - tools/debug/ddt/index.md
+             - GDB:
+               - tools/debug/gdb/index.md
+             - Inspector:
+               - tools/debug/inspector/index.md
+             - Valgrind:
+               - tools/debug/valgrind/index.md
+         - Containers:
+             - Documentation/Software_Tools/Containers/index.md
+             - Documentation/Software_Tools/Containers/singularity.md
+      - Visualization and Analytics:
+         - Documentation/viz_analytics/index.md
+         - VirtualGL and FastX : Documentation/viz_analytics/virtualgl_fastx.md 
       - Machine Learning:
-        - Reinforcement Learning: 
-          - Documentation/MachineLearning/ReinforcementLearning/index.md 
-        - Tensor Board:
-          - Documentation/MachineLearning/TensorBoard/index.md
-        - Documentation/MachineLearning/tensorflow.md
+           - Reinforcement Learning:
+             - Documentation/MachineLearning/ReinforcementLearning/index.md
+           - Tensor Board:
+             - Documentation/MachineLearning/TensorBoard/index.md
+           - Documentation/MachineLearning/tensorflow.md
 theme:
   name: material
   custom_dir: overrides
@@ -150,10 +160,10 @@ theme:
     - navigation.tabs
     - navigation.indexes
 markdown_extensions:
-  - attr_list
   - admonition
   - meta
   - pymdownx.details
+  - attr_list
   - pymdownx.highlight
   - pymdownx.superfences
 extra:

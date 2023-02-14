@@ -1,9 +1,12 @@
+<<<<<<<< HEAD:docs/Documentation/Development/Build_Tools/Building_Packages/index.md
 ---
 layout: default
 title: Building Packages
 parent: General
 ---
 
+========
+>>>>>>>> develop:general/building-packages/README.md
 # Building packages on Eagle for individual or project use.
 This training module will walk through how to build a reasonably complex package, OpenMPI, and deploy
 it for use by yourself or members of a project.
