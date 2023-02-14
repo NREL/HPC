@@ -18,30 +18,32 @@ your_simulation.sim
 
 Create a Slurm script `<your_scriptfile>` as shown below:
 
-``` bash
-#!/bin/bash -l
-#SBATCH --time=2:00:00             # walltime limit of 2 hours
-#SBATCH --nodes=2                  # number of nodes
-#SBATCH --ntasks-per-node=36       # number of tasks per node
-#SBATCH --ntasks=72                # total number of tasks
-#SBATCH --job-name=your_simulation # name of job #
-#SBATCH --account=<allocation-id>  # name of project allocation
+??? example "Example Slurm script"
 
-export TMPDIR="/scratch/$USER/<sim_dir>"
-scontrol show hostnames > nodelist
-module load starccm \
+    ``` bash
+    #!/bin/bash -l
+    #SBATCH --time=2:00:00             # walltime limit of 2 hours
+    #SBATCH --nodes=2                  # number of nodes
+    #SBATCH --ntasks-per-node=36       # number of tasks per node
+    #SBATCH --ntasks=72                # total number of tasks
+    #SBATCH --job-name=your_simulation # name of job #
+    #SBATCH --account=<allocation-id>  # name of project allocation
 
-# Run Job
+    export TMPDIR="/scratch/$USER/<sim_dir>"
+    scontrol show hostnames > nodelist
+    module load starccm \
 
-echo "------ Running Starccm+ ------"
+    # Run Job
 
-date
-starccm+ -rsh "ssh -oStrictHostKeyChecking=no" -machinefile nodelist -np $SLURM_NTASKS -batch /scratch/$USER/<sim_dir>/your_simulation.sim >> simulation.log   
-rm nodelist
-date
+    echo "------ Running Starccm+ ------"
 
-echo "------ End of the job ------"
-```
+    date
+    starccm+ -rsh "ssh -oStrictHostKeyChecking=no" -machinefile nodelist -np $SLURM_NTASKS -batch /scratch/$USER/<sim_dir>/your_simulation.sim >> simulation.log   
+    rm nodelist
+    date
+
+    echo "------ End of the job ------"
+    ```
 
 Note that you must give the full path of your input file in the script.
 
