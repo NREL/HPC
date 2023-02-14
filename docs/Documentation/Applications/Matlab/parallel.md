@@ -60,52 +60,56 @@ non-interactive (batch) job submission.
 
     Each example below will check out one "MATLAB" and one
     "Distrib_Computing_Toolbox" license at runtime.
-    
+
 ### Hello World Example
 
 In this example, a parallel pool is opened and each worker identifies itself via
 [`spmd`](http://www.mathworks.com/help/distcomp/spmd.html) ("single program
 multiple data"). Create the MATLAB script helloWorld.m:
 
-```matlab
-% open the local cluster profile
-p = parcluster('local');
+??? example "MATLAB Hello World script"
 
-% open the parallel pool, recording the time it takes
-tic;
-parpool(p); % open the pool
-fprintf('Opening the parallel pool took %g seconds.\n', toc)
+    ```matlab
+    % open the local cluster profile
+    p = parcluster('local');
 
-% "single program multiple data"
-spmd
-  fprintf('Worker %d says Hello World!\n', labindex)
-end
+    % open the parallel pool, recording the time it takes
+    tic;
+    parpool(p); % open the pool
+    fprintf('Opening the parallel pool took %g seconds.\n', toc)
 
-delete(gcp); % close the parallel pool
-exit 
-```
+    % "single program multiple data"
+    spmd
+      fprintf('Worker %d says Hello World!\n', labindex)
+    end
+
+    delete(gcp); % close the parallel pool
+    exit
+    ```
 
 To run the script on a compute node, create the file helloWorld.sb:
 
-```bash
-#!/bin/bash
-#SBATCH --time=05:00
-#SBATCH --nodes=1
-#SBATCH --job-name=helloWorld
-#SBATCH --account=<account_string>
-  
-# load modules
-module purge
-module load matlab/R2018b 
-  
-# define an environment variable for the MATLAB script and output
-BASE_MFILE_NAME=helloWorld
-MATLAB_OUTPUT=${BASE_MFILE_NAME}.out
+??? example "Slurm batch script for Hello World"
 
-# execute code
-cd $SLURM_SUBMIT_DIR
-matlab -nodisplay -r $BASE_MFILE_NAME > $MATLAB_OUTPUT
-```
+    ```bash
+    #!/bin/bash
+    #SBATCH --time=05:00
+    #SBATCH --nodes=1
+    #SBATCH --job-name=helloWorld
+    #SBATCH --account=<account_string>
+
+    # load modules
+    module purge
+    module load matlab/R2018b
+
+    # define an environment variable for the MATLAB script and output
+    BASE_MFILE_NAME=helloWorld
+    MATLAB_OUTPUT=${BASE_MFILE_NAME}.out
+
+    # execute code
+    cd $SLURM_SUBMIT_DIR
+    matlab -nodisplay -r $BASE_MFILE_NAME > $MATLAB_OUTPUT
+    ```
 
 where, again, the fields in `< >` must be properly specified.  Finally, at the
 terminal prompt, submit the job to the scheduler:
@@ -132,99 +136,105 @@ other values.
 First, create a MATLAB function stiffODEfun.m that defines the right-hand side
 of the ODE system:
 
-```matlab
-function dy = stiffODEfun(t,y,c)
-  % This is a modified example from MATLAB's documentation at:
-  % http://www.mathworks.com/help/matlab/ref/ode15s.html
-  % The difference here is that the coefficient c is passed as an argument.
-    dy = zeros(2,1);
-    dy(1) = y(2);
-    dy(2) = c*(1 - y(1)^2)*y(2) - y(1);
-end
-```
+??? example "MATLAB code stiffODEfun.m"
+
+    ```matlab
+    function dy = stiffODEfun(t,y,c)
+      % This is a modified example from MATLAB's documentation at:
+      % http://www.mathworks.com/help/matlab/ref/ode15s.html
+      % The difference here is that the coefficient c is passed as an argument.
+        dy = zeros(2,1);
+        dy(1) = y(2);
+        dy(2) = c*(1 - y(1)^2)*y(2) - y(1);
+    end
+    ```
 
 Second, create a driver file stiffODE.m that samples the input parameter and
 solves the ODE using the ode15s function.
 
-```matlab
-%{ 
-   This script samples a parameter of a stiff ODE and solves it both in
-   serial and parallel (via parfor), comparing both the run times and the
-   max absolute values of the computed solutions. The code -- especially the
-   serial part -- will take several minutes to run on Eagle.
-%}
+??? example "MATLAB script stiffODE.m"
 
-% open the local cluster profile
-p = parcluster('local');
+    ```matlab
+    %{
+       This script samples a parameter of a stiff ODE and solves it both in
+       serial and parallel (via parfor), comparing both the run times and the
+       max absolute values of the computed solutions. The code -- especially the
+       serial part -- will take several minutes to run on Eagle.
+    %}
 
-% open the parallel pool, recording the time it takes
-time_pool = tic;
-parpool(p);
-time_pool = toc(time_pool);
-fprintf('Opening the parallel pool took %g seconds.\n', time_pool)
+    % open the local cluster profile
+    p = parcluster('local');
 
-% create vector of random coefficients on the interval [975,1050]
-nsamples = 100; % number of samples
-coef = 975 + 50*rand(nsamples,1); % randomly generated coefficients
+    % open the parallel pool, recording the time it takes
+    time_pool = tic;
+    parpool(p);
+    time_pool = toc(time_pool);
+    fprintf('Opening the parallel pool took %g seconds.\n', time_pool)
 
-% compute solutions within serial loop
-time_ser = tic;
-y_ser = cell(nsamples,1); % cell to save the serial solutions
-for i = 1:nsamples
-  if mod(i,10)==0
-    fprintf('Serial for loop, i = %d\n', i);
-  end
-  [~,y_ser{i}] = ode15s(@(t,y) stiffODEfun(t,y,coef(i)) ,[0 10000],[2 0]);
-end
-time_ser = toc(time_ser);
+    % create vector of random coefficients on the interval [975,1050]
+    nsamples = 100; % number of samples
+    coef = 975 + 50*rand(nsamples,1); % randomly generated coefficients
 
-% compute solutions within parfor
-time_parfor = tic;
-y_par = cell(nsamples,1); % cell to save the parallel solutions
-err = zeros(nsamples,1); % vector of errors between serial and parallel solutions
-parfor i = 1:nsamples
-  if mod(i,10)==0
-    fprintf('Parfor loop, i = %d\n', i);
-  end
-  [~,y_par{i}] = ode15s(@(t,y) stiffODEfun(t,y,coef(i)) ,[0 10000],[2 0]);
-  err(i) = norm(y_par{i}-y_ser{i}); % error between serial and parallel solutions
-end
-time_parfor = toc(time_parfor);
-time_par = time_parfor + time_pool;
+    % compute solutions within serial loop
+    time_ser = tic;
+    y_ser = cell(nsamples,1); % cell to save the serial solutions
+    for i = 1:nsamples
+      if mod(i,10)==0
+        fprintf('Serial for loop, i = %d\n', i);
+      end
+      [~,y_ser{i}] = ode15s(@(t,y) stiffODEfun(t,y,coef(i)) ,[0 10000],[2 0]);
+    end
+    time_ser = toc(time_ser);
 
-% print results
-fprintf('RESULTS\n\n')
-fprintf('Serial time : %g\n', time_ser)
-fprintf('Parfor time : %g\n', time_par)
-fprintf('Speedup : %g\n\n', time_ser/time_par)
-fprintf('Max error between serial and parallel solutions = %e\n', max(abs(err)))
+    % compute solutions within parfor
+    time_parfor = tic;
+    y_par = cell(nsamples,1); % cell to save the parallel solutions
+    err = zeros(nsamples,1); % vector of errors between serial and parallel solutions
+    parfor i = 1:nsamples
+      if mod(i,10)==0
+        fprintf('Parfor loop, i = %d\n', i);
+      end
+      [~,y_par{i}] = ode15s(@(t,y) stiffODEfun(t,y,coef(i)) ,[0 10000],[2 0]);
+      err(i) = norm(y_par{i}-y_ser{i}); % error between serial and parallel solutions
+    end
+    time_parfor = toc(time_parfor);
+    time_par = time_parfor + time_pool;
 
-% close the parallel pool
-delete(gcp)
-exit
-```
+    % print results
+    fprintf('RESULTS\n\n')
+    fprintf('Serial time : %g\n', time_ser)
+    fprintf('Parfor time : %g\n', time_par)
+    fprintf('Speedup : %g\n\n', time_ser/time_par)
+    fprintf('Max error between serial and parallel solutions = %e\n', max(abs(err)))
+
+    % close the parallel pool
+    delete(gcp)
+    exit
+    ```
 
 Finally, create the batch script stiffODE.sb:
 
-```bash
-#!/bin/bash
-#SBATCH --time=20:00
-#SBATCH --nodes=1
-#SBATCH --job-name=stiffODE
-#SBATCH --account=<account_string>
+??? example "Slurm batch script stiffODE.sb"
 
-# load modules
-module purge
-module load matlab/R2018b
+    ```bash
+    #!/bin/bash
+    #SBATCH --time=20:00
+    #SBATCH --nodes=1
+    #SBATCH --job-name=stiffODE
+    #SBATCH --account=<account_string>
 
-# define environment variables for MATLAB script and output
-BASE_MFILE_NAME=stiffODE
-MATLAB_OUTPUT=${BASE_MFILE_NAME}.out
+    # load modules
+    module purge
+    module load matlab/R2018b
 
-# execute code
-cd $SLURM_SUBMIT_DIR
-matlab -nodisplay -r $BASE_MFILE_NAME > MATLAB_OUTPUT
-```
+    # define environment variables for MATLAB script and output
+    BASE_MFILE_NAME=stiffODE
+    MATLAB_OUTPUT=${BASE_MFILE_NAME}.out
+
+    # execute code
+    cd $SLURM_SUBMIT_DIR
+    matlab -nodisplay -r $BASE_MFILE_NAME > MATLAB_OUTPUT
+    ```
 
 Next, submit the job (which will take several minutes to finish on Eagle):
 
