@@ -26,19 +26,19 @@ Create a Slurm script `<your_scriptfile>` as shown below:
     #SBATCH --nodes=2                  # number of nodes
     #SBATCH --ntasks-per-node=36       # number of tasks per node
     #SBATCH --ntasks=72                # total number of tasks
-    #SBATCH --job-name=your_simulation # name of job #
+    #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
 
     export TMPDIR="/scratch/$USER/<sim_dir>"
     scontrol show hostnames > nodelist
-    module load starccm \
+    module load starccm
 
     # Run Job
 
     echo "------ Running Starccm+ ------"
 
     date
-    starccm+ -rsh "ssh -oStrictHostKeyChecking=no" -machinefile nodelist -np $SLURM_NTASKS -batch /scratch/$USER/<sim_dir>/your_simulation.sim >> simulation.log   
+    starccm+ -rsh "ssh -oStrictHostKeyChecking=no" -machinefile nodelist -np $SLURM_NTASKS -batch /scratch/$USER/<sim_dir>/your_simulation.sim >> simulation.log
     rm nodelist
     date
 
@@ -51,7 +51,7 @@ Note that you must give the full path of your input file in the script.
 The simulation may be tested in an interactive job before being submitted to the
 batch queue.
 
-After the interactive job is allocated, type the commands from the SLURM script
+After the interactive job is allocated, type the commands from the Slurm script
 and make sure the job runs:
 
 ``` bash
