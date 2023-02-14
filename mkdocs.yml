@@ -1,84 +1,142 @@
 nav:
   - Home: index.md
-  - Announcements:
-      - Announcements/2022-08-11-announcement.md
-      - Announcements/2022-05-04-announcement.md
-      - Announcements/2022-04-06-announcement.md
-      - Announcements/2022-03-02-announcement.md
-      - Announcements/2022-02-02-announcement.md
-      - Announcements/2022-01-05-announcement.md
-      - Announcements/2021-12-08-announcement.md
-      - Announcements/2021-11-03-announcement.md
-      - Announcements/2021-09-08-announcement.md
-      - Announcements/2021-08-06-announcement.md
-      - Announcements/2021-07-06-announcement.md
-      - Announcements/2021-06-01-announcement.md
-      - Announcements/2021-05-05-announcement.md
-      - Announcements/2021-04-06-announcement.md
-      - Announcements/2021-03-03-announcement.md
-      - Announcements/2021-02-02-announcement.md
-      - Announcements/2021-01-04-announcement.md
-      - Announcements/2020-12-03-announcement.md
-      - Announcements/2020-11-03-announcement.md
   - Blog: 
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
       - blog/2021-06-18-srun.md
       - blog/2022-10-04-python2to3.md
+      - blog/2022-12-19-windows_ssh.md
   - Documentation:
       - Documentation Home: Documentation/index.md
+      - Getting Started: Documentation/getting_started.md
+      - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
+        - Kestrel: 
+          - Documentation/Systems/Kestrel/index.md
+          - Documentation/Systems/Kestrel/running.md
+          - Documentation/Systems/Kestrel/modules.md
+          - Documentation/Systems/Kestrel/filesystems.md
+        - Eagle: 
+          - Documentation/Systems/Eagle/index.md
+          - Documentation/Systems/Eagle/running.md
+          - Documentation/Systems/Eagle/modules.md
+          - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
           - Documentation/Systems/Swift/index.md
-          - Documentation/Systems/Swift/filesystems.md
-          - Documentation/Systems/Swift/modules.md
           - Documentation/Systems/Swift/running.md
-          - Documentation/Systems/Swift/applications.md
+          - Documentation/Systems/Swift/modules.md
+          - Documentation/Systems/Swift/filesystems.md
           - Documentation/Systems/Swift/known.md
-          - Documentation/Systems/Swift/help.md
-        - Vermillion:
-          - Documentation/Systems/Vermillion/index.md
-          - Documentation/Systems/Vermillion/modules.md
-          - Documentation/Systems/Vermillion/running.md
-          - Documentation/Systems/Vermillion/applications.md
-      - Data and File Systems:
-        - File Systems:
-          - Documentation/Data-and-File-Systems/File-Systems/index.md 
-          - Lustre: 
-            - Documentation/Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices.md
-        - Transferring Data:
-          - Documentation/Data-and-File-Systems/Transferring-Data/FileZilla.md     
-          - Documentation/Data-and-File-Systems/Transferring-Data/file-transfers.md     
-          - Documentation/Data-and-File-Systems/Transferring-Data/globus.md
-      - Software and Tools:
+        - Vermilion:
+          - Documentation/Systems/Vermilion/index.md
+          - Documentation/Systems/Vermilion/running.md
+          - Documentation/Systems/Vermilion/modules.md
+          - Documentation/Systems/Vermilion/filesystems.md
+          - Documentation/Systems/Vermilion/known.md
+      - Managing your Data:
+        - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
+        - Mass Storage System: Documentation/Managing_Data/mss.md
+        - Transferring Files:
+          - Documentation/Managing_Data/Transferring_Files/FileZilla.md     
+          - Documentation/Managing_Data/Transferring_Files/file-transfers.md     
+          - Documentation/Managing_Data/Transferring_Files/globus.md
+          - Documentation/Managing_Data/Transferring_Files/winscp.md
+      - Environment:
+        - Shell Startup: Documentation/Environment/shell.md
+        - Documentation/Environment/lmod.md
+      - Applications:
+        - ANSYS CFD: Documentation/Applications/ansys.md
+        - COMSOL: Documentation/Applications/comsol.md
+        - FEniCS: Documentation/Applications/fenics.md
+        - Gaussian: Documentation/Applications/gaussian.md
+        - GAMS: Documentation/Applications/gams.md
+        - Gurobi: Documentation/Applications/gurobi.md
+        - LAMMPS: Documentation/Applications/lammps.md
+        - MATLAB: Documentation/Applications/matlab.md
+        - NAMD: Documentation/Applications/namd.md
+        - Q-Chem: Documentation/Applications/qchem.md
+        - STAR-CCM+: Documentation/Applications/starccm.md
+        - VASP: Documentation/Applications/vasp.md
+        - WRF: Documentation/Applications/wrf.md
+      - Development: 
+        - Programming Models: 
+          - Documentation/Development/Programming_Models/mpi.md
+          - Documentation/Development/Programming_Models/openmp.md
+          - Documentation/Development/Programming_Models/openacc.md
+          - Documentation/Development/Programming_Models/cuda.md
+          - Documentation/Development/Programming_Models/upc.md
+          - Documentation/Development/Programming_Models/upc++.md
+          - Documentation/Development/Programming_Models/coarrays.md
+          - Documentation/Development/Programming_Models/sycl.md
+          - Documentation/Development/Programming_Models/kokkos.md
+          - Documentation/Development/Programming_Models/raja.md
+        - Compilers:
+          - Base Compilers: 
+            - Documentation/Development/Compilers/Base_Compilers/gnu.md
+            - Documentation/Development/Compilers/Base_Compilers/intel.md
+            - Documentation/Development/Compilers/Base_Compilers/nvhpc.md
+            - Documentation/Development/Compilers/Base_Compilers/aocc.md
+            - Documentation/Development/Compilers/Base_Compilers/cray.md
+          - Compiler Wrappers: Documentation/Development/Compilers/Compiler_Wrappers/compiler_wrappers.md
+        - Build Tools:
+          - Documentation/Development/Build_Tools/spack.md
+          - Documentation/Development/Build_Tools/git.md
+          - Documentation/Development/Build_Tools/cmake.md
+          - Building your own Module:
+            - Documentation/Development/Build_Tools/Building_Packages/index.md
+            - Documentation/Development/Build_Tools/Building_Packages/acquire.md
+            - Documentation/Development/Build_Tools/Building_Packages/config_make_install.md
+            - Documentation/Development/Build_Tools/Building_Packages/modules.md
+        - Languages: 
+          - Bash: Documentation/Development/Languages/Bash/bash-starter.md
+          - Fortran: Documentation/Development/Languages/fortran/f90.md
+          - Python: 
+            - Documentation/Development/Languages/Python/NREL_python.md
+            - Documentation/Development/Languages/Python/index.md
+            - Documentation/Development/Languages/Python/dask/dask.md
+            - Documentation/Development/Languages/Python/conda.md
+          - R: Documentation/Development/Languages/r.md
+          - Julia: Documentation/Development/Languages/julia.md
+          - C++: Documentation/Development/Languages/c++.md
+          - IDL: Documentation/Development/Languages/idl.md
+        - Libraries:
+          - FFTW: Documentation/Development/Libraries/fftw.md
+          - LAPACK: Documentation/Development/Libraries/lapack.md
+          - MKL: Documentation/Development/Libraries/mkl.md
+          - LibSci: Documentation/Development/Libraries/libsci.md
+          - HDF5: Documentation/Development/Libraries/hdf5.md
+          - NetCDF: Documentation/Development/Libraries/netcdf.md
+          - PeTSc: Documentation/Development/Libraries/petsc.md
         - Containers:
-          - Documentation/Software_Tools/Containers/index.md
-          - Documentation/Software_Tools/Containers/registres.md
-          - Documentation/Software_Tools/Containers/singularity.md
-        - Building Packages:
-          - Documentation/Software_Tools/building-packages/index.md
-          - Documentation/Software_Tools/building-packages/acquire.md
-          - Documentation/Software_Tools/building-packages/config_make_install.md
-          - Documentation/Software_Tools/building-packages/modules.md
+          - Documentation/Development/Containers/index.md
+          - Documentation/Development/Containers/registres.md
+          - Documentation/Development/Containers/singularity.md
+        - Performance Tools:
+          - Advisor: Documentation/Development/Performance_Tools/advisor.md
+          - APS: Documentation/Development/Performance_Tools/aps.md
+          - ARM: Documentation/Development/Performance_Tools/arm.md
+          - Intel Parallel Studio: Documentation/Development/Performance_Tools/intel_parallel.md
+          - Codee: Documentation/Development/Performance_Tools/codee.md
+          - CrayPat: Documentation/Development/Performance_Tools/craypat.md
+          - Darshan: Documentation/Development/Performance_Tools/darshan.md
+          - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
+          - LIKWID: Documentation/Development/Performance_Tools/likwid.md
+          - Reveal: Documentation/Development/Performance_Tools/reveal.md
+          - Roofline Performance Model: Documentation/Development/Performance_Tools/roofline.md
+          - Timemory: Documentation/Development/Performance_Tools/timemory.md
+        - Debug Tools:
+          - ARM: Documentation/Development/Debug_Tools/arm.md
+          - GDB: Documentation/Development/Debug_Tools/gdb.md
+          - CCDB: Documentation/Development/Debug_Tools/ccdb.md
+          - Intel C Inspector: Documentation/Development/Debug_Tools/intelc.md
+          - TotalView: Documentation/Development/Debug_Tools/totalview.md
+          - Valgrind: Documentation/Development/Debug_Tools/valgrind.md
+        - Vizualization and Analytics: 
+          - FastX: Documentation/Development/Vizualization/FastX/fastx.md
         - Jupyter:
-          - Documentation/Software_Tools/Jupyter/index.md
-          - Documentation/Software_Tools/Jupyter/jupyterhub.md
-        - Data and Visualization:
-          - Documentation/Software_Tools/FastX/fastx.md
-        - Documentation/Software_Tools/conda.md
-        - Documentation/Software_Tools/spack.md  
-        - Documentation/Software_Tools/Git/Git.md
-      - Applications: 
-        - Documentation/Applications/paraview.md
-      - Languages:
-        - Bash:
-          - Documentation/languages/bash/bash-starter.md
-        - Fortran: Documentation/languages/fortran/f90.md
-        - Python: 
-          - Documentation/languages/python/NREL_python.md
-          - Documentation/languages/python/index.md
-          - Documentation/languages/python/dask/dask.md
+          - Documentation/Development/Jupyter/index.md
+          - Documentation/Development/Jupyter/jupyterhub.md
       - Machine Learning:
         - Reinforcement Learning: 
           - Documentation/MachineLearning/ReinforcementLearning/index.md 
@@ -93,7 +151,9 @@ theme:
     - navigation.indexes
 markdown_extensions:
   - attr_list
+  - admonition
   - meta
+  - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
 extra:

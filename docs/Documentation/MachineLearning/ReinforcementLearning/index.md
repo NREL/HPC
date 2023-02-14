@@ -89,9 +89,11 @@ from ray import tune
 `Tune` is also one of `Ray`'s libraries for scalable hyperparameter tuning. All RLlib trainers (scripts for RL agent training) are compatible with Tune API, making experimenting easy and streamlined.
 
 Import also the `argparse` package and setup some flags. Although that step is not mandatory, these flags will allow controlling of certain hyperparameters, such as:
+
 * RL algorithm utilized (e.g. PPO, DQN)
 * Number of CPUs/GPUs
 * ...and others
+
 ```python
 import argparse
 ```
@@ -106,6 +108,7 @@ parser.add_argument("--run", type=str, default="DQN")
 parser.add_argument("--local-mode", action="store_true")
 ```
 All of them are self-explanatory, however let's see each one separately.
+
 1. `--num-cpus`: Defines the number of CPU cores used for experience collection (Default value 0 means allocation of a single CPU core).
 2. `--num-gpus`: Allocates a GPU node for policy learning (works only for Tensorflow-GPU). Except whole values (1,2,etc.), it also accepts partial values, in case 100% of the GPU is not necessary.
 3. `--name-env`: The name of the OpenAI Gym environment.
@@ -121,9 +124,11 @@ For the first experiment, only a single core is needed, therefore, setup ray to 
 ### Run experiments with Tune
 
 This is the final step in this basic trainer. Tune's `tune.run` function initiates the agent training process. There are three main arguments in this function:
+
 * RL algorithm (string): It is defined in the `--run` flag (PPO, DQN, etc.).
 * `stop` (dictionary): Provides a criterion to stop training (in this example is the number of training iterations; stop training when iterations reach 10,000).
 * `config` (dictionary): Basic information for training, contains the OpenAI Gym environment name, number of CPUs/GPUs, and others.
+
 ```python
 tune.run(
     args.run,
@@ -258,6 +263,7 @@ Begin at first by specifying some basic options, similarly to previous section:
 The slurm script will clearly define the various jobs. These jobs include the CPU nodes that will carry the environment rollouts, and the GPU node for policy learning. Eagle has 44 GPU nodes and each node has 2 GPUs. Either request one GPU per node (`--gres=gpu:1`), or both of them (`--gres=gpu:2`). For the purposes of this tutorial, one GPU core on a single node is utilized.
 
 In total, slurm nodes can be categorized as: 
+
  * A head node, and multiple rollout nodes (as before)
  * A policy training node (GPU)
 
@@ -329,12 +335,13 @@ The repo contains the complete slurm file versions for both [`env_example_gpu`](
 
 So far, only benchmark Gym environments were used in order to demonstrate the processes for running experiments. It is time now to see how one can create their own Gym environment, carefully tailor-made to one's needs. OpenAI Gym functionality allows the creation of custom-made environments using the same structure as the benchmark ones. 
 
-Custom-made environments can become extremely complex due to the mechanics involved and may require many subscripts that perform parts of the simulation. Nevertheless, the basis of all environments is simply a Python class that inherits the `gym.Env` class, where the user can implement the three main Gym functions and define any hyperapameters necessary:
+Custom-made environments can become extremely complex due to the mechanics involved and may require many subscripts that perform parts of the simulation. Nevertheless, the basis of all environments is simply a Python class that inherits the `gym.Env` class, where the user can implement the three main Gym functions and define any hyperpameters necessary:
+
  * `def __init__(self)`: Initializes the environment. It defines initial values for variables/hyperparameters and may contain other necessary information. It also defines the dimensionality of the problem. Dimensionality is expressed at the sizes of the observation and action spaces, which are given using the parameters `self.observation_space` and `self.action_space`, respectively. Depending on their nature, they can take discrete, continuous, or a combination of values. OpenAI provides [detailed examples](https://gym.openai.com/docs/) of each one of these types of spaces.
  * `def reset(self)`: When called, it *resets* the environment on a previous state (hence the name). This state can either be a user-defined initial state or it may be a random initial position. The latter can be found on environments that describe locomotion like `CartPole`, where the initial state can be any possible position of the pole on the cart.
- * `def step(self, action)`: The heart of the class. It defines the inner mechanics of the environment, hence it can be seen as some kind of simulator. Its main input is the sampled action, which when acted upon moves the environment into a new state and calculates the new reward. The new state and reward are two of the function's output and they are necessary for policy training since they are also inputs to the policy network. Other outputs include a boolean variable `done` that is **True** when the environment reaches its final state (if it exists), and **False** otherwise<sup>*</sup>, as well as a dictionary (`info`) with user-defined key-value objects that contain further information from the inner workings of the environment. 
+ * `def step(self, action)`: The heart of the class. It defines the inner mechanics of the environment, hence it can be seen as some kind of simulator. Its main input is the sampled action, which when acted upon moves the environment into a new state and calculates the new reward. The new state and reward are two of the function's output and they are necessary for policy training since they are also inputs to the policy network. Other outputs include a boolean variable `done` that is **True** when the environment reaches its final state (if it exists), and **False** otherwise<sup>\*</sup>, as well as a dictionary (`info`) with user-defined key-value objects that contain further information from the inner workings of the environment.
  
-<sup>*</sup>*Many environments do not consider a final state, since it might not make sense (e.g. a traffic simulator for fleets of autonomous ridesharing vehicles that reposition themselves based on a certain criterion. In this case the reward will get better every time, but there is no notion of a final vehicle position).*
+<sup>\*</sup> *Many environments do not consider a final state, since it might not make sense (e.g. a traffic simulator for fleets of autonomous ridesharing vehicles that reposition themselves based on a certain criterion. In this case the reward will get better every time, but there is no notion of a final vehicle position).*
 
 Directions of how to create and register a custom-made OpenAI Gym environment are given below.
 
@@ -396,8 +403,10 @@ from custom_env import BasicEnv
 The `register_env` function is used to register the new environment, which is imported from the `custom_env.py`.
 
 Function `register_env` takes two arguments:
+
 * Training name of the environment, chosen by the developer.
 * Actual name of the environment (`BasicEnv`) in a `lambda config:` function.
+
 ```python
 env_name = "custom-env"
 register_env(env_name, lambda config: BasicEnv())

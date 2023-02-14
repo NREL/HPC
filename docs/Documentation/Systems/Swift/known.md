@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Known Issues/FAQ
+title: Known Issues
 parent: Swift
 grand_parent: Systems
 ---

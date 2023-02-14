@@ -8,6 +8,7 @@ parent: Machine Learning
 # Validating ML results using Tensorboard
 
 [**Tensorboard**](https://www.tensorflow.org/tensorboard) provides visualization and tooling needed for machine learning, deep learning, and reinforcement learning experimentation:
+
  * Tracking and visualizing metrics such as loss and accuracy.
  * Visualizing the model graph (ops and layers).
  * Viewing histograms of weights, biases, or other tensors as they change over time.
@@ -16,6 +17,7 @@ parent: Machine Learning
  * Profiling TensorFlow programs.
 
 For RL it is useful to visualize metrics such as:
+
  * Mean, min, and max reward values.
  * Episodes/iteration.
  * Estimated Q-values.
@@ -27,6 +29,7 @@ cd ~/ray_results/
 ```
 
 There are three main methods for activating Tensorboard:
+
 * If you included Tensorboard installation in an Anaconda environment, simply activate it:
    ```
    module purge
