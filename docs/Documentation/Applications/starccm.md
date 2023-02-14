@@ -1,6 +1,6 @@
 # Running STAR-CCM+ Software
 
-*Learn how to run STAR-CCM+ software on the the Eagle system.*
+*Learn how to run STAR-CCM+ software on the Eagle system.*
 
 For information about the software's features, see the [STAR-CCM+
 website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
