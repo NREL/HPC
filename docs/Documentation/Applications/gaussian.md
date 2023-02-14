@@ -14,7 +14,7 @@ I agree to this statement.
 
 ## Configuration and Default Settings
 
-Eagle currently has Gaussian16 Revision B.01 and C.01 installed, and the user manual can be found at the [Gaussian website](https://gaussian.com/man). Gaussian may be configured on Eagle to run on one or more physical nodes, with or without shared memory parallelism. Distributed memory, parallel setup is taken care of automatically based on settings in the SLURM script example below. Gaussian 16 C.01 also has an GPU version, and for instructions on how to run Gaussian 16 on GPU nodes, see GitHub.
+NREL currently has Gaussian16 Revision B.01 and C.01 installed, and the user manual can be found at the [Gaussian website](https://gaussian.com/man).  Gaussian 16 C.01 also has an GPU version, and for instructions on how to run Gaussian 16 on GPU nodes, see [GitHub](https://github.nrel.gov/hlong/Gaussian_GPU).
 
 Previous Gaussian 09 users sometimes may feel Gaussian 16 runs slower than Gaussian 09. That's because Gaussian G16 has changed the default accuracy into `Int=Acc2E=12 Grid=Ultrafine`, which means that individual SCF iterations will take longer with G16 than with G09. 
 
@@ -27,6 +27,9 @@ This scratch space is set automatically by the example script below. The Gaussia
 ### Sample Job Scripts
 
 #### Eagle
+
+Gaussian may be configured on Eagle to run on one or more physical nodes, with or without shared memory parallelism. Distributed memory, parallel setup is taken care of automatically based on settings in the SLURM script example below.
+
 ??? example "Eagle Sample Submission Script"
 
 	```
