@@ -1,7 +1,7 @@
 # Using Specific Module Versions on the HPC
 
-Modules on NREL HPCs are updated to a newer versions with on a regular basis.
-Since Lmod, the undelying module system, sets the most recent version of a module as the default, a user's typical workflow may break if they are not specifying the exact module version in their scripts.
+Modules on NREL HPCs are updated to with newer versions with on a regular basis.
+Since Lmod, the underlying module system, sets the most recent version of a module as the default, a user's typical workflow may break if they are not specifying the exact module version in their scripts.
 
 For example, at the time of this writing, the current default module for Conda on Eagle is 4.9.2.
 If a user wishes to use conda v4.12.0, they must specify the version in the module command as
