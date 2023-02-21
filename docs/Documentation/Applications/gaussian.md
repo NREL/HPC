@@ -120,4 +120,3 @@ To submit a job with the example script, named g16.slurm, one would type:
 	
 	TODO: Provide example script
 
-
