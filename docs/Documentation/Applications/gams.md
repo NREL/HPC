@@ -52,7 +52,7 @@ A sample script for batch submission is provided here:
 
 ??? example "Eagle Sample Submission Script"
 
-	```
+	```bash
 	#!/bin/bash --login
 	#SBATCH --name gams_run
 	#SBATCH --nodes=1
@@ -89,7 +89,7 @@ where `version-of-python` =  27, 36, 37, or 38 for python version 2.7, 3.6, 3.7,
 
 For example, for python 3.7 and the bash shell, `$PYTHONPATH` can be set using the following script:
 
-```
+```bash
 module purge
 module load gams/31.1.0
 if [ -z ${PYTHONPATH+x} ]

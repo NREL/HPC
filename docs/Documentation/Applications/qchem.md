@@ -1,6 +1,6 @@
 # Using Q-Chem
 
-Q-Chem is a comprehensive *ab initio* quantum chemistry package with special strengths in excited state methods, non-adiabatic coupling, solvation models, explicitly correlated wave-function methods, and cutting-edge density functional theory (DFT). 
+*Q-Chem is a comprehensive *ab initio* quantum chemistry package with special strengths in excited state methods, non-adiabatic coupling, solvation models, explicitly correlated wave-function methods, and cutting-edge density functional theory (DFT).* 
 
 ## Running Q-Chem
 
@@ -25,7 +25,7 @@ A template Slurm script to run Q-Chem with 36 threads is:
 
 ??? example "Eagle Sample Submission Script"
 
-	```
+	```bash
 	#SBATCH --job-name=my_qchem_job
 	#SBATCH --account=my_allocation_ID
 	#SBATCH --ntasks=36
