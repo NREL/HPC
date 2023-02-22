@@ -89,7 +89,7 @@ There are several options for running R scripts:
     R CMD BATCH is an older function that behaves similar to Rscript. All output is piped to a corresponding .Rout file.
 
     ```
-    $ R CMD BATCH hello_world.R --no-site-file
+    $ R CMD BATCH --no-site-file hello_world.R
     $ cat hello_world.Rout 
 
     > #hello_world.R
