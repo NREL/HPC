@@ -10,7 +10,7 @@ We sometimes receive questions about disk types and I/O performance on compute n
 
 Eagle also has two storage options on the compute nodes. /dev/shm is an in-memory space (shm: shared memory), which is fast, but you need to balance its usage with your job's memory usage as it is located directly in RAM. /tmp/scratch is physical storage. The type of storage and performance differ depending on the specific type of compute node. 
 
-If we look under Eagle's [Compute Node Hardware Details](https://www.nrel.gov/hpc/eagle-system-configuration.html) on the central [NREL HPC website](https://www.nrel.gov/hpc), there are nodes listed as having SATA drives, and nodes listed as having SSDs. Our SATA drives are still spinning disks, while SAS (serial attached SCSI) is how the SSD’s are connected to the node. We would generally expect the nodes with SSDs to perform better. Let’s test that out with a simple test. 
+If we look under Eagle's [Compute Node Hardware Details](https://www.nrel.gov/hpc/eagle-system-configuration.html) on the central [NREL HPC website](https://www.nrel.gov/hpc), there are nodes listed as having SATA drives, and nodes listed as having SSDs. Our SATA drives are still spinning disks, while SAS (serial attached SCSI) is how the SSDs are connected to the node. We would generally expect the nodes with SSDs to perform better. Let’s test that out with a simple test. 
 
 This following is a command we regularly use to verify Lustre OST (object storage target) performance. It’s designed to write enough information so that you are seeing disk performance, and not just the performance of the storage controller of the disk: 
 
