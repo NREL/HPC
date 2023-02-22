@@ -26,6 +26,7 @@ nav:
       - blog/2021-06-18-srun.md
       - blog/2022-10-04-python2to3.md
       - blog/2022-03-05-local-io-performance.md
+      - blog/2022-12-19-windows_ssh.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Systems: 
