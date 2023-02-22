@@ -74,7 +74,7 @@ For example, a job that requests 64 cores and 128GB RAM (one half of a node) wou
 1 hour walltime * 0.5 nodes * 1 QoS Factor * 5 Charge Factor = **2.5** AU per node-hour.
 
 ## Software Environments and Example Files
-Multiple software environments are available on Swift, with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectorie, in the directory /nopt/nrel/apps. Each environment directory has a file myenv.\*.  Sourcing that file will enable the environment.
+Multiple software environments are available on Swift, with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectories, in the directory /nopt/nrel/apps. Each environment directory has a file myenv.\*.  Sourcing that file will enable the environment.
 
 When you login you will have access to the default environments and the *myenv* file will have been sourced for you. You can see the directory containing the environment by running the `module avail` command.  
 
