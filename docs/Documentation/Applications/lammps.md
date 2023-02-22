@@ -1,6 +1,6 @@
 # Using LAMMPS Software
 
-*Learn how to use LAMMPS software—an open-source, classical molecular dynamics program designed for massively parallel systems. It is distributed by Sandia National Laboratories.*
+*Learn how to use LAMMPS software — an open-source, classical molecular dynamics program designed for massively parallel systems. It is distributed by Sandia National Laboratories.*
 
 LAMMPS has numerous built-in potentials for simulations of solid-state, soft matter, and coarse-grained systems. It can be run on a single processor or in parallel using MPI. To learn more, see the [LAMMPS website](https://www.lammps.org/#gsc.tab=0). 
 
