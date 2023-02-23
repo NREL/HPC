@@ -23,3 +23,6 @@ VisIt features a robust remote visualization capability.  To enable remote visua
 3. Copy the file `host-eagle.xml` to `$HOME/.visit/hosts` on your local machine.
 4. Restart VisIt.
 5. The installed profile can be viewed and edited by clicking on 'Options --> Host profiles ... '. A remote host profile should appear.
+6. Go to Launch Profiles.
+7. Go to the Parallel tab, set up the job parameters, select sbatch/srun for ‘Parallel launch method’ and then click Apply.
+8. 
