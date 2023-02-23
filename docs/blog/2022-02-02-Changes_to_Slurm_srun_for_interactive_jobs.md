@@ -1,6 +1,6 @@
 # Changes to Slurm "srun" for Interactive Jobs
 
-The Slurm job scheduler was upgraded during the recent system time on January 10, 2022 . 
+The Slurm job scheduler was upgraded during the recent system time on January 10, 2022. 
 One of the side effects of this was a change in the way Slurm handles job steps internally in certain cases. 
 This may affect the way some users run job steps with srun inside of interactive jobs `srun --pty $SHELL`, so we wanted to provide some guidance as we work on updating our documentation to reflect this change. 
 
