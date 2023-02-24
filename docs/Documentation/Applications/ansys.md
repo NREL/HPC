@@ -1,6 +1,6 @@
-#Using ANSYS on Eagle
+#Using ANSYS 
 
-ANSYS is a licensed commercial application for the Eagle system. 
+*ANSYS is a licensed commercial application for the Eagle system.* 
 
 The NREL Computation Science Center (CSC) maintains an ANSYS computational fluid dynamics (CFD) license pool for general use, including two seats of CFD and four ANSYS HPC Packs for parallel solves.
 

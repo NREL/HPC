@@ -1,5 +1,5 @@
-#Using Avizo Software on the Eagle System
-Learn about using Avizo 3D analysis software for scientific and industrial data on the Eagle System.
+#Using Avizo Software 
+*Learn about using Avizo 3D analysis software for scientific and industrial data on the Eagle System.*
 
 ##Introduction
 Avizo software is a powerful, multifaceted commercial software tool for visualizing, manipulating, and understanding scientific and industrial data. 
@@ -20,8 +20,11 @@ Avizo can also be run on a local desktop connected to the NREL network — the m
 
 ##Install the Software
 First install the software:
+
 [Avizo 9.3 for Windows](ftp://ftp.vsg3d.com/private/MASTERS/Avizo/9.3.0/f93abe0f/Avizo-930-Windows64-VC12.exe)
+
 [Avizo 9.3 for Linux](ftp://ftp.vsg3d.com/private/MASTERS/Avizo/9.3.0/f93abe0f/Avizo-930-Linux64-gcc44.bin)
+
 [Avizo 9.3 for Mac OS X](ftp://ftp.vsg3d.com/private/MASTERS/Avizo/9.3.0/f93abe0f/Avizo-930-MacOSX-gcc42.pkg)
 
 Activate the License

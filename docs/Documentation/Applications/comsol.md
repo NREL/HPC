@@ -2,15 +2,15 @@
 title: Comsol
 ---
 
-# Using COMSOL Software on the Eagle System
-COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL Desktop GUI (graphical user interface) offers an environment for building and solving models. It provides script-based modeling capabilities.
+# Using COMSOL Software 
+*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL Desktop GUI (graphical user interface) offers an environment for building and solving models. It provides script-based modeling capabilities.*
 
-Currently, we host three floating network licenses and a number of additional modules. Issue the command lmstat.comsol to see current license status and COMSOL modules available.
+Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available.
 
-Building a COMSOL Model
+# Building a COMSOL Model
 Extensive documentation is available in the menu: Help > Documentation and in Help > Dynamic Help. For beginners, it is highly recommended to follow the steps in Introduction to COMSOL Multiphysics found in Help > Documentation.
 
-For instructional videos, see the COMSOL website.
+For instructional videos, see the COMSOL (website)[https://www.comsol.com].
 
 Running COMSOL Interactively
 License status, including how many licenses are presently checked out, can be viewed by invoking the following command:
