@@ -14,11 +14,11 @@ NREL has large-memory GPU-equipped data analysis and visualization (DAV) nodes a
 Launch a FastX session using Web browser or Desktop Client.
 
 ??? abstract "NREL On-Site and VPN Users" 
-    ####Using Web Browser
+    (**Using Web Browser**)
     
     Launch a web browser on your local machine and connect to https://eagle-dav.hpc.nrel.gov. After logging in with your HPC username/password you will be able to launch a FastX session by choosing a desktop environment of your choice.
     
-    **"KNOWN BUG":
+    (**KNOWN BUG**):
     
     When launching a new session, the new session browser tab may load an error page.
     
@@ -28,24 +28,24 @@ Launch a FastX session using Web browser or Desktop Client.
     
     
     
-    ####Using Desktop Client
+    (**Using Desktop Client**)
     
     Download the [Desktop Client](https://www.nrel.gov/hpc/eagle-software-fastx.html#download) and install it on your local machine, then follow these instructions to connect to one of the DAV nodes.
     
     
     
-    ####Step 1:
+    (**Step 1**):
     
     Launch the FastX Desktop Client.
     
     
     
-    ####Step 2:
+    (**Step 2**):
     
     Add a profile using the + button on the right end corner of the tool using the Web protocol.
     ![](images/installer-image-1.png)
     
-    ####Step 3:
+    (**Step 3**):
     
     Give your profile a name and enter the settings...
     
@@ -55,13 +55,13 @@ Launch a FastX session using Web browser or Desktop Client.
     
     ...and then save the profile.
     
-    ####Step 4:
+    (**Step 4**):
     
     Once your profile is saved, you will be prompted for your password to connect.
     
     
     
-    ####Step 5:
+    (**Step 5**):
     
     If a previous session exists, click (double click if in "List View") on current session to reconnect.
     
@@ -69,11 +69,11 @@ Launch a FastX session using Web browser or Desktop Client.
     
     OR
     
-    ####Step 5a:
+    (**Step 5a**):
     
     Click the PLUS (generally in the upper right corner of the session window) to add a session and continue to step 6.
     
-    ####Step 6:
+    (**Step 6**):
     
     Select a Desktop environment of your choice and click OK to launch.
     ![](images/xfce-interface-cleaned-step5.png)
@@ -87,16 +87,16 @@ Launch a FastX session using Web browser or Desktop Client.
     
     
     
-    ####Step 1:
+    (**Step 1**):
     
     Launch the FastX Desktop Client.
     
-    ####Step 2:
+    (**Step 2**):
     
     Add a profile using the + button on the right end corner of the tool using the SSH protocol.
     ![](images/installer-image-1-2.png)
 
-    ####Step 3:
+    (**Step 3**):
     
     Give your profile a name and enter the settings...
     
@@ -110,13 +110,13 @@ Launch a FastX session using Web browser or Desktop Client.
     
     ![](images/eagle-dav-ssh-login-fastx-cleaned-step3.png)
     
-    ####Step 4:
+    (**Step 4**):
     
     Once your profile is saved. You will be prompted for your password+OTP_token (your multifactor authentication code) to connect.
     
     ![](images/eagle-dav-step4-offsite.png)
     
-    ####Step 5:
+    (**Step 5**):
     
     Select a Desktop environment of your choice and click OK.
     
@@ -133,6 +133,7 @@ $ vglrun matlab
 ##Download FastX Desktop Client
 
 |Operating System |	Installer|
-|Mac	          |Download](https://starnet.com/files/private/FastX31/FastX3-3.1.22.dmg) |
-|Linux	          |Download](https://starnet.com/files/private/FastX31/FastX3-3.1.21.rhel7.x86_64.tar.gz) |
-|Windows          |Download](https://starnet.com/files/private/FastX31/FastX-3.1.22-setup.exe) |
+|-----------------|----------|
+|Mac	          |[Download](https://starnet.com/files/private/FastX31/FastX3-3.1.22.dmg) |
+|Linux	          |[Download](https://starnet.com/files/private/FastX31/FastX3-3.1.21.rhel7.x86_64.tar.gz) |
+|Windows          |[Download](https://starnet.com/files/private/FastX31/FastX-3.1.22-setup.exe) |

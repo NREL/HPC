@@ -6,11 +6,8 @@ has_children: true
 
 # Git
 
-<<<<<<<< HEAD:docs/Documentation/Development/Build_Tools/git.md
 To begin, let's start by clearing up some common misconceptions about git. You probably have heard of git through the popular git-repository hosting web-service [GitHub](https://github.com). GitHub (the hosting service) is to git (the open-source version control software) what the internet is to computers&mdash;git is used locally to track incremental development and modifications to a collection of files, and GitHub gets those changes to serve as a synchronized, common access point. GitHub also has social aspects, like tracking who changed what and why. There are other git hosting services like [GitLab](https://gitlab.com) which are similar to GitHub but offer slightly different features.
 
-========
->>>>>>>> develop:general/git/git.md
 The git workflow has some pretty colorful vocabulary, so let's define some of the terms to avoid confusion going forward:
 * **Repository/repo**: A git repository is an independent grouping of files to be tracked. A git repo has a "root" which is the directory that it sits in, and tracks further directory nesting from that. A single repo is often thought of as a complete project or application, though it's not uncommon to nest modules of an application as child repositories to isolate the development history of those submodules.
   
