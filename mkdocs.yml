@@ -55,6 +55,9 @@ nav:
             - Documentation/Development/Environment/Building_Packages/config_make_install.md
             - Documentation/Development/Environment/Building_Packages/modules.md
       - Applications:
+          - Templates:
+            - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
+            - Blank Template: Documentation/Applications/Templates/applications_template.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
@@ -150,9 +153,9 @@ theme:
     - navigation.indexes
 markdown_extensions:
   - admonition
+  - attr_list
   - meta
   - pymdownx.details
-  - attr_list
   - pymdownx.highlight
   - pymdownx.superfences
 extra:
