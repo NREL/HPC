@@ -50,10 +50,9 @@ nav:
                - Spack: Documentation/Environment/Customization/spack.md
                - Anaconda: Documentation/Environment/Customization/anaconda.md
                - Containers: Documentation/Environment/Customization/containers.md
-          - Modulefiles creation: Documentation/Environment/modulefiles.md
+          - Building an Application: Documentation/Environment/build_application.md
       - Applications:
           - ANSYS CFD : Documentation/Applications/ansys.md
-          - Avizo:      Documentation/Applications/avizo.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
           - GAMS:       Documentation/Applications/gams.md
@@ -61,11 +60,9 @@ nav:
           - Gurobi:     Documentation/Applications/gurobi.md
           - LAMMPS:     Documentation/Applications/lammps.md
           - MATLAB:     Documentation/Applications/matlab.md
-          - Paraview:   Documentation/Applications/paraview.md
           - Q-chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
-          - Visit:      Documentation/Applications/visit.md
           - Wrf:        Documentation/Applications/wrf.md
       - Development:
          - Languages:
@@ -78,18 +75,17 @@ nav:
                   - Documentation/Development/Languages/Python/index.md
                   - Documentation/Development/Languages/Python/nrel_hpc_python.md
                   - Documentation/Development/Languages/Python/dask.md
-                  - Jupyter: Documentation/Development/Languages/Python/jupyter.md
                   - Anaconda: Documentation/Development/Languages/Python/anaconda.md
+         - Jupyter: 
+             - Documentation/Development/Jupyter/index.md
+             - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
               - Documentation/Development/Programming_models/index.md
               - MPI: 
                 - Documentation/Development/Programming_models/Mpi/index.md
-                - Cray-MPICH: Documentation/Development/Programming_models/Mpi/cray-mpich.md
-                - OpenMPI:    Documentation/Development/Programming_models/Mpi/openmpi.md
-                - Intel-MPI:  Documentation/Development/Programming_models/Mpi/intelmpi.md
               - OpenMP:  Documentation/Development/Programming_models/openmp.md
               - OpenACC: Documentation/Development/Programming_models/openacc.md
-              - CUDA:    Documentation/Development/Programming_models/cuda.md
+                #- CUDA:    Documentation/Development/Programming_models/cuda.md
          - Compilers:
               - GNU  : Documentation/Development/Compilers/gnu.md
               - Intel: Documentation/Development/Compilers/intel.md
@@ -98,7 +94,6 @@ nav:
               - Cray : Documentation/Development/Compilers/cray.md
          - Build Tools:
               - Documentation/Development/Build_Tools/index.md
-              - Config Make Install : Documentation/Development/Build_Tools/config_make_install.md
               - CMAKE : Documentation/Development/Build_Tools/cmake.md
               - spack : Documentation/Development/Build_Tools/spack.md
               - GIT :   Documentation/Development/Build_Tools/git.md
@@ -129,14 +124,17 @@ nav:
                -  Documentation/Development/Tools/Debug/Arm/index.md
                - DDT: Documentation/Development/Tools/Debug/Arm/ddt.md
              - GDB:       Documentation/Development/Tools/Debug/gdb.md
-             - Inspector: Documentation/Development/Tools/Debug/inspector.md
-             - Valgrind:  Documentation/Development/Tools/Debug/valgrind.md
+               #- Inspector: Documentation/Development/Tools/Debug/inspector.md
+               #- Valgrind:  Documentation/Development/Tools/Debug/valgrind.md
          - Containers:
              - Documentation/Development/Containers/index.md
              - Documentation/Development/Containers/singularity.md
       - Visualization and Analytics:
          - Documentation/Viz_analytics/index.md
          - VirtualGL and FastX : Documentation/Viz_analytics/virtualgl_fastx.md 
+         - Avizo:      Documentation/Viz_analytics/avizo.md
+         - Paraview:   Documentation/Viz_analytics/paraview.md
+         - Visit:      Documentation/Viz_analytics/visit.md
       - Machine Learning:
            - Reinforcement Learning:
              - Documentation/MachineLearning/ReinforcementLearning/index.md
