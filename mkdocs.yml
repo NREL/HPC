@@ -50,10 +50,10 @@ nav:
                - Conda Enviornments: Documentation/Environment/Customization/anaconda.md
                - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
-            - Documentation/Development/Environment/Building_Packages/index.md
-            - Documentation/Development/Environment/Building_Packages/acquire.md
-            - Documentation/Development/Environment/Building_Packages/config_make_install.md
-            - Documentation/Development/Environment/Building_Packages/modules.md
+            - Documentation/Environment/Building_Packages/index.md
+            - Documentation/Environment/Building_Packages/acquire.md
+            - Documentation/Environment/Building_Packages/config_make_install.md
+            - Documentation/Environment/Building_Packages/modules.md
       - Applications:
           - Templates:
             - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
