@@ -47,7 +47,7 @@ nav:
           - Lmod: Documentation/Environment/lmod.md
           - Customization:
                - Spack Environments: Documentation/Environment/Customization/spack.md
-               - Conda Enviornments: Documentation/Environment/Customization/anaconda.md
+               - Conda Environments: Documentation/Environment/Customization/conda.md
                - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
