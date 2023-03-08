@@ -117,7 +117,6 @@ nav:
                - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
-               - Documentation/Development/Performance_Tools/Intel/intel_parallel.md
                - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
                - VTune : Documentation/Development/Performance_Tools/Intel/vtune.md
              - CrayPat: Documentation/Development/Performance_Tools/craypat.md
