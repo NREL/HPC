@@ -148,4 +148,3 @@ When using the suite of tools from Intel Parallel Studio on Eagle, we recommend 
 
 !!! tip "Important:"
 	Please make sure that you clean up this directory after your job completes.
-
