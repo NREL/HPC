@@ -44,12 +44,11 @@ nav:
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
           - Shell Startup:       Documentation/Environment/shell.md
-          - Environment Modules: Documentation/Environment/environement_modules.md
           - Lmod:                Documentation/Environment/lmod.md
           - Customization:
-               - Spack: Documentation/Environment/Customization/spack.md
-               - Anaconda: Documentation/Environment/Customization/anaconda.md
-               - Containers: Documentation/Environment/Customization/containers.md
+               - Spack (environment): Documentation/Environment/Customization/spack.md
+               - Anaconda (environment): Documentation/Environment/Customization/anaconda.md
+               - Containers (environment): Documentation/Environment/Customization/containers.md
           - Building an Application: Documentation/Environment/build_application.md
       - Applications:
           - ANSYS CFD : Documentation/Applications/ansys.md
@@ -80,7 +79,6 @@ nav:
              - Documentation/Development/Jupyter/index.md
              - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
-              - Documentation/Development/Programming_models/index.md
               - MPI: 
                 - Documentation/Development/Programming_models/Mpi/index.md
               - OpenMP:  Documentation/Development/Programming_models/openmp.md
@@ -93,9 +91,8 @@ nav:
               - AOCC : Documentation/Development/Compilers/aocc.md
               - Cray : Documentation/Development/Compilers/cray.md
          - Build Tools:
-              - Documentation/Development/Build_Tools/index.md
               - CMAKE : Documentation/Development/Build_Tools/cmake.md
-              - spack : Documentation/Development/Build_Tools/spack.md
+              - Spack : Documentation/Development/Build_Tools/spack.md
               - GIT :   Documentation/Development/Build_Tools/git.md
          - Libraries:
               - Documentation/Development/Libraries/index.md
@@ -113,7 +110,8 @@ nav:
                - MAP :  Documentation/Development/Tools/Performance/Arm/map.md
                - Performance reports :  Documentation/Development/Tools/Performance/Arm/performance_rep.md
              - Intel Parallel Studio:
-               -  Documentation/Development/Tools/Performance/Intel/index.md
+               - Advisor :  Documentation/Development/Tools/Performance/Intel/advisor.md
+               - Performance Snapshot :  Documentation/Development/Tools/Performance/Intel/performance_snapshot.md
                - Trace Analyser :  Documentation/Development/Tools/Performance/Intel/trace.md
                - VTune :  Documentation/Development/Tools/Performance/Intel/vtune.md
              - CrayPat: Documentation/Development/Tools/Performance/craypat.md

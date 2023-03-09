@@ -3,26 +3,11 @@
 
 *The Open MPI Project is an open source Message Passing Interface implementation that is developed and maintained by a consortium of academic, research, and industry partners. Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.*
 
-## Getting Started
-
-Two version of OpenMpi are available: `openmpi/$version-gcc` and `openmpi/$version-intel`.
-The first is compiled with `gcc` and the second with `intel-compilers`.
-OpenMpi is intalled on all systems (Eagle, Vermilion, Swift) and can be loaded using 
-
-```
-module avail program
-   openmpi/4.1.5-gcc     openmpi/4.1.5-intel 
-```
-
-```
-module load openmpi/4.1.5-gcc
-```
-
 ## Supported Versions
 
 | Eagle                                | Swift          | Vermillion |
 |:------------------------------------:|:--------------:|:----------------:|
-openmpi/1.10.7/gcc-8.4.0               |  openmpi/4.1.1 |openmpi/4.1.4-gcc |   
+openmpi/1.10.7/gcc-8.4.0               |openmpi/4.1.1-6vr2flz |openmpi/4.1.4-gcc |   
 openmpi/3.1.6/gcc-8.4.0                |                |                  |
 openmpi/4.0.4/gcc-8.4.0                |                |                  |
 openmpi/4.1.1/gcc+cuda                 |||
@@ -31,22 +16,30 @@ openmpi/4.1.2/intel                    |||
 openmpi/4.1.3/gcc-11.3.0-cuda-11.7     |||
 openmpi/4.1.0/gcc-8.4.0                |||
 
-    
 
-## Advanced
+# IntelMpi
+**Documentation:** [ link to documentation](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html)
 
-Include advanced user information about the code here (see BerkeleyGW page for some examples)
+*Intel® MPI Library is a multifabric message-passing library that implements the open source MPICH specification. Use the library to create, maintain, and test advanced, complex applications that perform better on HPC clusters based on Intel® and compatible processors.*
 
-One common "advanced case" might be that users want to build their own version of the code.
+## Supported Versions
 
-### Building From Source
+| Eagle                                | Swift          | Vermillion |
+|:------------------------------------:|:--------------:|:----------------:|
+|intel-mpi/2020.1.217                  |intel-oneapi-mpi/2021.3.0-hcp2lkf  |intel-oneapi-mpi/2021.7.1-intel |   
 
-Please refere to ()[].
 
-## Troubleshooting
+# MPT
+**Documentation:** [ link to documentation](https://support.hpe.com/hpesc/public/docDisplay?docId=a00105727en_us&docLocale=en_US)
 
-Include known problems and workarounds here, if applicable
+*HPE's Message Passing Interface (MPI) is a component of the HPE Message Passing Toolkit (MPT), a software package that supports parallel programming across a network of computer systems through a technique known as message passing.*
 
+## Supported Versions
+
+| Eagle                                | Swift          | Vermillion |
+|:------------------------------------:|:--------------:|:----------------:|
+|mpt/2.23                              |                |                  |   
+|mpt/2.22                              |                |                  |
 
 
 # Mpich
@@ -55,49 +48,10 @@ Include known problems and workarounds here, if applicable
 *MPICH is a high performance and widely portable implementation of the Message Passing Interface (MPI) standard. 
 MPICH and its derivatives form the most widely used implementations of MPI in the world. They are used exclusively on nine of the top 10 supercomputers (June 2016 ranking), including the world’s fastest supercomputer: Taihu Light.*
 
-## Getting Started
-
-Two version of Mpich are available: `mpich/$version-gcc` and `mpich/$version-intel`.
-The first is compiled with `gcc` and the second with `intel-compilers`.
-OpenMpi is intalled on all systems (Eagle, Vermilion, Swift) and can be loaded using 
-
-```
-module avail program
-   openmpi/4.1.5-gcc     openmpi/4.1.5-intel 
-```
-
-```
-module load openmpi/4.1.5-gcc
-```
-
 ## Supported Versions
 
 | Eagle                                | Swift          | Vermillion |
 |:------------------------------------:|:--------------:|:----------------:|
-openmpi/1.10.7/gcc-8.4.0               |  openmpi/4.1.1 |openmpi/4.1.4-gcc |   
-openmpi/3.1.6/gcc-8.4.0                |                |                  |
-openmpi/4.0.4/gcc-8.4.0                |                |                  |
-openmpi/4.1.1/gcc+cuda                 |||
-openmpi/4.1.2/gcc                      |||
-openmpi/4.1.2/intel                    |||
-openmpi/4.1.3/gcc-11.3.0-cuda-11.7     |||
-openmpi/4.1.0/gcc-8.4.0                |||
-
-    
-
-## Advanced
-
-Include advanced user information about the code here (see BerkeleyGW page for some examples)
-
-One common "advanced case" might be that users want to build their own version of the code.
-
-### Building From Source
-
-Please refere to ()[].
-
-## Troubleshooting
-
-Include known problems and workarounds here, if applicable
-
+|                                      |mpich/3.4.2-h2s5tru | mpich/4.0.2-gcc  |   
 
 
