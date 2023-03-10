@@ -103,16 +103,201 @@ Performance recommendations for Eagle here: https://github.com/NREL/HPC/tree/mas
 Performance recommendations for Swift here: https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202 
 
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs"
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=test
+#SBATCH --time=4:00:00
+#SBATCH --ntasks-per-node=64
+#SBATCH --nodes=1
+
+#Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
+#You will be charged for the full node regardless of the fraction of CPUs/node used
+#SBATCH --exclusive
+
+module purge
+
+#Load Intel MPI VASP build and necessary modules
+ml vaspintel 
+ml slurm/21-08-1-1-o2xw5ti 
+ml gcc/9.4.0-v7mri5d 
+ml intel-oneapi-compilers/2021.3.0-piz2usr 
+ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
+ml intel-oneapi-mkl/2021.3.0-giz47h4
+
+srun -n 64 vasp_std &> out
+```
 
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs: run multiple jobs on the same node(s)"
 
+The following script launches two instances of ```srun vasp_std``` on the same node using an array job. Each job will be constricted to 32 cores on the node. 
+
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=parallel
+#SBATCH --time=4:00:00
+#SBATCH --ntasks-per-node=32
+#SBATCH --nodes=1
+
+#Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
+#You will be charged for the full node regardless of the fraction of CPUs/node used
+#SBATCH --exclusive=user
+
+#Set how many jobs you would like to run at the same time as an array job
+#In this example, an array of 2 jobs will be run at the same time. This script will be run once for each job.
+#SBATCH --array=1-2
+
+#The SLURM_ARRAY_TASK_ID variable can be used to modify the parameters of the distinct jobs in the array.
+#In the case of array=1-2, the first job will have SLURM_ARRAY_TASK_ID=1, and the second will have SLURM_ARRAY_TASK_ID=2.
+#For example, you could assign different input files to runs 1 and 2 by storing them in directories input_1 and input_2 and using the following code:
+
+mkdir run_${SLURM_ARRAY_TASK_ID}
+cd run_${SLURM_ARRAY_TASK_ID}
+cp ../input_${SLURM_ARRAY_TASK_ID}/POSCAR .
+cp ../input_${SLURM_ARRAY_TASK_ID}/POTCAR .
+cp ../input_${SLURM_ARRAY_TASK_ID}/INCAR .
+cp ../input_${SLURM_ARRAY_TASK_ID}/KPOINTS .
+
+#Now load vasp and run the job...
+
+module purge
+
+#Load Intel MPI VASP build and necessary modules
+ml vaspintel 
+ml slurm/21-08-1-1-o2xw5ti 
+ml gcc/9.4.0-v7mri5d 
+ml intel-oneapi-compilers/2021.3.0-piz2usr 
+ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
+ml intel-oneapi-mkl/2021.3.0-giz47h4
+
+srun -n 32 vasp_std &> out
+```
+
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs: run a single job on a node shared with other users"
 
+The following script launches ```srun vasp_std``` on only 32 cores on a single node. The other 32 cores remain open for other users to use. You will only be charged for half of the node hours. 
+
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=test
+#SBATCH --time=4:00:00
+#SBATCH --ntasks-per-node=32
+#SBATCH --nodes=1
+
+#To make sure that you are only being charged for the CPUs your job is using, set mem=2GB*CPUs/node
+#--mem sets the memory used per node
+#SBATCH --mem=64G
+
+module purge
+
+#Load Intel MPI VASP build and necessary modules
+ml vaspintel 
+ml slurm/21-08-1-1-o2xw5ti 
+ml gcc/9.4.0-v7mri5d 
+ml intel-oneapi-compilers/2021.3.0-piz2usr 
+ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
+ml intel-oneapi-mkl/2021.3.0-giz47h4
+
+srun -n 32 vasp_std &> out
+```
+
 ??? example "Swift: VASP 6 (Open MPI) on CPUs"
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=test
+#SBATCH --time=4:00:00
+#SBATCH --ntasks-per-node=64
+#SBATCH --nodes=1
+
+#Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
+#You will be charged for the full node regardless of the fraction of CPUs/node used
+#SBATCH --exclusive
+
+module purge
+
+#Load OpenMPI VASP build and necessary modules
+ml vasp 
+ml slurm/21-08-1-1-o2xw5ti 
+ml openmpi/4.1.1-6vr2flz
+
+srun -n 64 vasp_std &> out
+```
 
 ??? example "Swift: VASP 6 (Open MPI) on CPUs: run multiple jobs on the same node(s)"
 
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=parallel
+#SBATCH --time=4:00:00
+#SBATCH --ntasks-per-node=32
+#SBATCH --nodes=1
+
+#Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
+#You will be charged for the full node regardless of the fraction of CPUs/node used
+#SBATCH --exclusive=user
+
+#Set how many jobs you would like to run at the same time as an array job
+#In this example, an array of 2 jobs will be run at the same time. This script will be run once for each job.
+#SBATCH --array=1-2
+
+#The SLURM_ARRAY_TASK_ID variable can be used to modify the parameters of the distinct jobs in the array.
+#In the case of array=1-2, the first job will have SLURM_ARRAY_TASK_ID=1, and the second will have SLURM_ARRAY_TASK_ID=2.
+#For example, you could assign different input files to runs 1 and 2 by storing them in directories input_1 and input_2 and using the following code:
+
+mkdir run_${SLURM_ARRAY_TASK_ID}
+cd run_${SLURM_ARRAY_TASK_ID}
+cp ../input_${SLURM_ARRAY_TASK_ID}/POSCAR .
+cp ../input_${SLURM_ARRAY_TASK_ID}/POTCAR .
+cp ../input_${SLURM_ARRAY_TASK_ID}/INCAR .
+cp ../input_${SLURM_ARRAY_TASK_ID}/KPOINTS .
+
+#Now load vasp and run the job...
+
+module purge
+
+#Load OpenMPI VASP build and necessary modules
+ml vasp 
+ml slurm/21-08-1-1-o2xw5ti 
+ml openmpi/4.1.1-6vr2flz
+
+srun -n 32 vasp_std &> out
+```
+
 ??? example "Swift: VASP 6 (Open MPI) on CPUs: run a single job on a node shared with other users"
+
+The following script launches ```srun vasp_std``` on only 32 cores on a single node. The other 32 cores remain open for other users to use. You will only be charged for half of the node hours. 
+
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=test
+#SBATCH --time=4:00:00
+#SBATCH --ntasks-per-node=32
+#SBATCH --nodes=1
+
+#To make sure that you are only being charged for the CPUs your job is using, set mem=2GB*CPUs/node
+#--mem sets the memory used per node
+#SBATCH --mem=64G
+
+module purge
+
+#Load OpenMPI VASP build and necessary modules
+ml vasp 
+ml slurm/21-08-1-1-o2xw5ti 
+ml openmpi/4.1.1-6vr2flz
+
+srun -n 32 vasp_std &> out
+```
 
 ### Vermilion
 
