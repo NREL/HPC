@@ -82,9 +82,11 @@ On Vermilion, you should see:
    vasp/5.4.4    vasp/6.1.1-openmpi    vasp/6.3.1-nvhpc_acc    vasp/6.3.1 (D)
 ```
 
-## Example Job Scripts
+## Example Job Scripts And Performance Recommendations
 
 ### For Eagle
+
+Performance recommendations for Eagle here: https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202 
 
 ??? example "Eagle: VASP 6 (Intel MPI) on CPUs"
 
@@ -98,7 +100,7 @@ On Vermilion, you should see:
 
 ### For Swift
 
-Unlike the compute nodes on Eagle and Vermilion, nodes on Swift can be used by multiple users at the same time, . If you 
+Performance recommendations for Swift here: https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202 
 
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs"
 
