@@ -27,7 +27,7 @@ Once status can be confirmed, we can provide access to our VASP builds on Eagle,
 
 NREL offers support for VASP 5 and VASP 6 on CPUs, and a GPU build on Eagle and Vermilion as well.
 - For CPUs, VASP can be built with either Intel compilers/Intel MPI or GNU compilers/Open MPI. In general the Intel MPI builds are faster and are reoccommended over the Open MPI builds.
-- For GPUs, VASP can be built with Cuda or with OpenACC. The OpenACC GPU-port of VASP was released with VASP 6.2.0, and the Cuda GPU-port of VASP was dropped in VASP.6.3.0. The OpenACC build shows significant performance improvement compared to the Cuda build, but is more susceptible to running out of memory. 
+- For GPUs, VASP can be built with Cuda or with OpenACC. The OpenACC GPU-port of VASP was released with VASP 6.2.0, and the Cuda GPU-port of VASP was dropped in VASP 6.3.0. The OpenACC build shows significant performance improvement compared to the Cuda build, but is more susceptible to running out of memory. 
 
 |                    |     Eagle     |     Swift     |   Vermilion   |
 | ------------------ | ------------- | ------------- | ------------- |
@@ -82,21 +82,125 @@ On Vermilion, you should see:
    vasp/5.4.4    vasp/6.1.1-openmpi    vasp/6.3.1-nvhpc_acc    vasp/6.3.1 (D)
 ```
 
+### Input Files
+
+To run VASP, 4 input files are needed: POSCAR, POTCAR, INCAR, KPOINTS. For more information about VASP input files, see the [VASP wiki](https://www.vasp.at/wiki/index.php/Input).
+
+NREL's benchmark repositry contains input files for two VASP benchmarks. Benchmark 1 represents a typical high-accuracy band structure calculation, involving bootstrapping from an initial approximate GGA wavefunction, through a hybrid HSE function, to a final band structure from a GW calculation. Benchmark 2 represents a typical surface catalysis study calculation, with large unit cell and k-point sampling limited to the Gamma point. A single model chemistry (DFT functional and plane-wave basis) is employed, and strong scaling with respect to MPI rank count is of interest. The input files can be accessed in the [bench1](https://github.com/NREL/ESIFHPC3/tree/master/VASP/bench1/input) and [bench2](https://github.com/NREL/ESIFHPC3/tree/master/VASP/bench2/input) folders.
+
 ## Example Job Scripts And Performance Recommendations
 
 ### For Eagle
 
-Performance recommendations for Eagle here: https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202 
+Performance recommendations for Eagle here: https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202
+Also another performance study here: https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%201
 
 ??? example "Eagle: VASP 6 (Intel MPI) on CPUs"
 
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=short
+#SBATCH --time=4:00:00
+#SBATCH --nodes=1
+
+module purge
+
+#Load Intel MPI VASP build
+ml vasp
+
+srun -n 36 vasp_std &> out
+```
+
 ??? example "Eagle: VASP 6 (Open MPI) on CPUs"
+
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=short
+#SBATCH --time=4:00:00
+#SBATCH --nodes=1
+
+module purge
+
+#Load Open MPI VASP build
+source /nopt/nrel/apps/210830a/myenv.2108301742
+ml vasp/6.1.1-l2mkbb2
+
+srun -n 36 vasp_std &> out
+```
 
 ??? example "Eagle: VASP 5 (Intel MPI) on CPUs"
 
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=short
+#SBATCH --time=4:00:00
+#SBATCH --nodes=1
+
+module purge
+
+#Load Intel MPI VASP 5 build
+ml vasp/5.4.4_raptor
+
+srun -n 36 vasp_std &> out
+```
+
 ??? example "Eagle: VASP 6 (OpenACC) on GPUs"
 
+```
+#!/bin/bash
+#SBATCH --job-name=vasp_gpu
+#SBATCH --time=1:00:00
+#SBATCH --error=std.err
+#SBATCH --output=std.out
+#SBATCH --partition=gpu
+#SBATCH --gpus-per-node=2
+#SBATCH --account=hpcapps
+#SBATCH --nodes=1
+#SBATCH --gpu-bind=map_gpu:0,1
+
+#To run on multiple nodes, change the last two SBATCH lines:
+#SBATCH --nodes=4
+#SBATCH --gpu-bind=map_gpu:0,1,0,1,0,1,0,1 #one set of "0,1" per node
+
+module purge
+
+#Load the OpenACC GPU build and necessary modules
+module use /nopt/nrel/apps/220511a/modules/lmod/linux-centos7-x86_64/gcc/12.1.0
+ml fftw nvhpc
+export LD_LIBRARY_PATH=/nopt/nrel/apps/220511a/install/opt/spack/linux-centos7-skylake_avx512/gcc-12.1.0/nvhpc-22.3-c4qk6fly5hls3mjimoxg6vyuy5cc3vti/Linux_x86_64/22.3/compilers/extras/qd/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/nopt/nrel/apps/220511a/install/opt/spack/linux-centos7-skylake_avx512/gcc-12.1.0/nvhpc-22.3-c4qk6fly5hls3mjimoxg6vyuy5cc3vti/Linux_x86_64/22.3/compilers/extras/qd/lib:$LD_LIBRARY_PATH
+export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
+
+mpirun -npernode 2 vasp_std &> out
+```
+
 ??? example "Eagle: VASP 6 (Cuda) on GPUs"
+
+To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` exectuable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gres=gpu:2``` and ```#SBATCH --ntasks-per-node=2```.
+
+```
+#!/bin/bash
+#SBATCH --job-name="benchmark"
+#SBATCH --account=hpcapps
+#SBATCH --partition=short
+#SBATCH --time=4:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=2 
+#SBATCH --gres=gpu:2
+
+module purge
+
+#Load Intel MPI VASP build
+ml vasp
+
+srun -n 36 vasp_gpu &> out
+```
 
 ### For Swift
 
@@ -300,6 +404,22 @@ srun -n 32 vasp_std &> out
 ```
 
 ### Vermilion
+
+VASP runs faster on 1 node than on 2 nodes. In some cases, VASP runtimes on 2 nodes have been observed to be double (or more) the run times on a single node. Many issues have been reported for running VASP on multiple nodes, especially when requesting all available cores in each node. In order for MPI to work reliably on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in each of the scripts below. Different solutions exists for Open MPI and Intel MPI. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce succesful multi-node runs on 4 nodes. The Open MPI multi-node jobs are more reliable on Vermilion, but Intel MPI VASP jobs show better runtime performance. 
+
+If your multi-node Intel MPI VASP job is crashing on Vermilion, try replacing your srun line with the following mpirun run line. ```-iface ens7``` sets ens7 as the interconnect. 
+```
+I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 16 vasp_std
+```
+
+If your multi-node Open MPI VASP job is crashing on Vermilion, replace a call to load an openmpi module with the following lines. The OMPI_MCA_param variable sets ens7 as the interconnect. 
+```
+module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
+module load openmpi
+OMPI_MCA_param="btl_tcp_if_include ens7"
+```
+
+Due to low performance and reliability of multi-node VASP jobs on Vermilion, it is recommended to run VASP on a singe node. If many cores are needed for your VASP calcualtion, run your job in the lg partition (60 cores/node), which provides the largest numbers of cores per node.
 
 ??? example "Vermilion: VASP 6 (Intel MPI) on CPUs"
 
