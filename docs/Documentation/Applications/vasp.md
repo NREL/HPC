@@ -84,7 +84,45 @@ On Vermilion, you should see:
 
 ## Example Job Scripts
 
+### For Eagle
 
+??? example "Eagle: VASP 6 (Intel MPI) on CPUs"
+
+??? example "Eagle: VASP 6 (Open MPI) on CPUs"
+
+??? example "Eagle: VASP 5 (Intel MPI) on CPUs"
+
+??? example "Eagle: VASP 6 (OpenACC) on GPUs"
+
+??? example "Eagle: VASP 6 (Cuda) on GPUs"
+
+### For Swift
+
+Unlike the compute nodes on Eagle and Vermilion, nodes on Swift can be used by multiple users at the same time, . If you 
+
+??? example "Swift: VASP 6 (Intel MPI) on CPUs"
+
+??? example "Swift: VASP 6 (Intel MPI) on CPUs: run multiple jobs on the same node(s)"
+
+??? example "Swift: VASP 6 (Intel MPI) on CPUs: run a single job on a node shared with other users"
+
+??? example "Swift: VASP 6 (Open MPI) on CPUs"
+
+??? example "Swift: VASP 6 (Open MPI) on CPUs: run multiple jobs on the same node(s)"
+
+??? example "Swift: VASP 6 (Open MPI) on CPUs: run a single job on a node shared with other users"
+
+### Vermilion
+
+??? example "Vermilion: VASP 6 (Intel MPI) on CPUs"
+
+??? example "Vermilion: VASP 6 (Open MPI) on CPUs"
+
+??? example "Vermilion: VASP 5 (Intel MPI) on CPUs"
+
+??? example "Vermilion: VASP 6 (OpenACC) on GPUs"
+
+??? example "Vermilion: VASP 6 (Cuda) on GPUs"
 
 ## Troubleshooting
 
@@ -92,4 +130,6 @@ VASP known issues
 - VASP on Vermilion can crash on multi-node jobs (see workarounds in Vermilion section) - OpenMPI more stable for multi-node jobs
 - OpenACC build eats up more memory but is faster (Cuda build doesn't eat up as much memory)
 - VASP 6.1.1 (or maybe it's 6.1.2?) crashes hse calculations (due to specific version of compiler and vasp) - use a newer version instead
+
+## Perfmarmance Recommendations
 
