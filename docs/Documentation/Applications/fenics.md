@@ -17,8 +17,7 @@ conda create -n myfenics -c conda-forge fenics mshr matplotlib scipy jupyter
 ```
 
 These commands will create a new environment named myfenics which contains all necessary packages as well as some commonly-used packages for programming FEniCS simulations.  
-By default, this Conda environment will be installed in the directory `/home/[your username]/.conda-envs/myfenics`.  
-It will take roughly 3 GB of storage.  
+By default, this Conda environment will be installed in the directory `/home/$USER/.conda-envs/myfenics`. It will take roughly 3 GB of storage.  
 Please make sure you have enough storage quota in the home directory before installation by running the `du -hs ~` command (which will take a minute or two to complete).   
 
 To run FEniCS, execute the following commands using an interactive bash shell or in a Slurm batch submission script with "#!/bin/bash" in the first line:
