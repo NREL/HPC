@@ -7,7 +7,7 @@ title: Comsol
 
 Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available.
 
-# Building a COMSOL Model
+## Building a COMSOL Model
 Extensive documentation is available in the menu: Help > Documentation and in Help > Dynamic Help. For beginners, it is highly recommended to follow the steps in Introduction to COMSOL Multiphysics found in Help > Documentation.
 
 For instructional videos, see the COMSOL (website)[https://www.comsol.com].
@@ -35,7 +35,7 @@ From an X-enabled shell on a compute node, replace the last command with
 [user@r1i7n24 ~]$ comsol -3drend sw
 ```
 
-Running a COMSOL Job in Batch Mode
+## Running a COMSOL Job in Batch Mode
 You can save your model built in GUI mode into a file such as myinputfile.mph. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
 
 ```bash
@@ -48,3 +48,4 @@ You can save your model built in GUI mode into a file such as myinputfile.mph. O
 #SBATCH --error=comsol-%j.err
 
 # This helps ensure your job runs from the directory
+```
