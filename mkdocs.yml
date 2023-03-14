@@ -138,7 +138,7 @@ nav:
          - VirtualGL and FastX : Documentation/Viz_Analytics/virtualgl_fastx.md 
          - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
-         - Visit: Documentation/Viz_Analytics/visit.md
+         - VisIT: Documentation/Viz_Analytics/visit.md
       - Machine Learning:
            - Reinforcement Learning:
              - Documentation/Machine_Learning/Reinforcement_Learning/index.md
