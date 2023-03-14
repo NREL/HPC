@@ -65,7 +65,12 @@ nav:
           - Gaussian:   Documentation/Applications/gaussian.md
           - Gurobi:     Documentation/Applications/gurobi.md
           - LAMMPS:     Documentation/Applications/lammps.md
-          - MATLAB:     Documentation/Applications/matlab.md
+          - MATLAB:
+            - Documentation/Applications/Matlab/index.md
+            - Batch Mode: Documentation/Applications/Matlab/batch.md
+            - Interactive Mode: Documentation/Applications/Matlab/interactive.md
+            - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
+            - Versions and Licenses: Documentation/Applications/Matlab/versions.md
           - Q-Chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
@@ -135,7 +140,9 @@ nav:
             - Documentation/Development/Containers/singularity.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
-         - VirtualGL and FastX : Documentation/Viz_Analytics/virtualgl_fastx.md 
+         - FastX:
+            - VirtualGL and FastX : Documentation/Viz_Analytics/FastX/virtualgl_fastx.md 
+            - FastX: Documentation/Viz_Analytics/FastX/fastx.md 
          - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - VisIT: Documentation/Viz_Analytics/visit.md
