@@ -9,7 +9,7 @@ VisIt was designed to handle very large data set sizes in the terascale range, a
 
 For more information on VisIt, see their [Lawrence Livermore National Laboratory website](https://wci.llnl.gov/simulation/computer-codes/visit).
 
-# Using VisIT
+## Using VisIT
 
 VisIt features a robust remote visualization capability.  To enable remote visualization (client/server), follow these steps.
 
@@ -41,4 +41,6 @@ VisIt features a robust remote visualization capability.  To enable remote visua
 ![Alt text](/assets/images/VisIT/eagle-14.png)
 15. Once you choose your data file, VisIt will display the job information; you can change them and then click OK.
 16. VisIt will display the following window.
-17. Once the job is submitted, you can start applying visualization filters to your data. 
+17. Once the job is submitted, you can start applying visualization filters to your data. For the job information:
+    - Bank / Account: enter the project name you are charging to.
+    - Time limit: enter the time you need for the job in the following format H:M:S.
