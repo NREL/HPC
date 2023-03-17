@@ -73,7 +73,11 @@ cat: /etc/redhat-release: No such file or directory
 ```
 ### Create a CentOS 7 EPEL image with MPI support
 
-This example shows how to create a CentOS 7 singularity image with openmpi installed.  It requires root/admin privileges to create the image so must be run on a user's computer with singularity installed.  After creation, the image can be copied to Eagle and run.
+This example shows how to create a CentOS 7 singularity image with openmpi installed.  Due to the need for admin priveleges, Singularity containers cannot be built on the HPC system.  Instead, the image can be built locally or using an online service, and then the image can be copied to Eagle and run.
+
+!!! note
+
+    Creating singularity images requires root/admin priveleges and cannot be done on the HPC systems.  Users that have access to a local Linux system with admin priveleges may run Singularity locally to build images.  Some options exist for running Singularity on Windows and Mac (see the [Singularity admin installation guide](https://docs.sylabs.io/guides/3.11/admin-guide/installation.html)), although support for Mac Silicone chips does not exist at the time of writing.  Another option is to use [Singularity Container Service](https://cloud.sylabs.io/), which provides free accounts with a limited amount of container build time.
 
 **Step 1**: Create a new recipe based on singularityhub/centos:latest
 ```bash
