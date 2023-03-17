@@ -4,9 +4,11 @@ title: Singularity on Eagle
 parent: Containers
 ---
 
-Singularity is installed on Eagle's compute nodes as a module named singularity-container.  Images can be copied to eagle and run, or can be generated from a [recipe (definition file)](https://sylabs.io/guides/3.6/user-guide/definition_files.html). 
+Singularity is installed on Eagle's compute nodes as a module named `singularity-container`.  Images can be copied to eagle and run, or can be generated from a [recipe (definition file)](https://sylabs.io/guides/3.6/user-guide/definition_files.html). 
 
-Note: Input commands in the following examples are preceded by a `$`.
+!!! note
+
+    Input commands in the following examples are preceded by a `$`.
 
 ### Run hello-world ubuntu image
 
@@ -19,14 +21,14 @@ $ ssh eagle.hpc.nrel.gov
 CentOS Linux release 7.7.1908 (Core) 
 ```
 
-**Step 2**: Load the singularity-container module
+**Step 2**: Load the `singularity-container` module
 
 ```bash
 [$USER@r1i3n18 ~]$ module purge
 [$USER@r1i3n18 ~]$ module load singularity-container
 ```
 
-**Step 3**: Retrieve hello-world image.  Be sure to use /scratch as images are typically large
+**Step 3**: Retrieve `hello-world` image.  Be sure to use `/scratch`, as images are typically large
 
 ```bash
 [$USER@r1i3n18 ~]$ cd /scratch/$USER
@@ -65,6 +67,7 @@ RaawwWWWWWRRRR!! Avocado.
 CentOS Linux release 7.7.1908 (Core)
 [$USER@r1i3n18 singularity-images]$ cat /etc/lsb-release 
 cat: /etc/lsb-release: No such file or directory
+
 [$USER@r1i3n18 singularity-images]$ singularity shell hello-world.simg
 Singularity: Invoking an interactive shell within container...
 
