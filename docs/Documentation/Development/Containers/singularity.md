@@ -37,28 +37,7 @@ Progress |===================================| 100.0%
 Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-world.simg
 ```
 
-**Step 4**: Explore image details
-
-```bash
-[$USER@r1i3n18 singularity-images]$ singularity inspect hello-world.simg # Shows labels
-{
-    "org.label-schema.usage.singularity.deffile.bootstrap": "docker",
-    "MAINTAINER": "vanessasaur",
-    "org.label-schema.usage.singularity.deffile": "Singularity",
-    "org.label-schema.schema-version": "1.0",
-    "WHATAMI": "dinosaur",
-    "org.label-schema.usage.singularity.deffile.from": "ubuntu:14.04",
-    "org.label-schema.build-date": "2017-10-15T12:52:56+00:00",
-    "org.label-schema.usage.singularity.version": "2.4-feature-squashbuild-secbuild.g780c84d",
-    "org.label-schema.build-size": "333MB"
-}
-[$USER@r1i3n18 singularity-images]$ singularity inspect -r hello-world.simg # Shows the script run
-#!/bin/sh 
-
-exec /bin/bash /rawr.sh
-```
-
-**Step 5**: Run image default script
+**Step 4**: Run image default script
 
 ```bash
 [$USER@r1i3n18 singularity-images]$ singularity run hello-world.simg
@@ -79,7 +58,7 @@ RaawwWWWWWRRRR!! Avocado.
     $ unset LD_PRELOAD
     ```
 
-**Step 6**: Run in singularity bash shell
+**Step 5**: Run in singularity bash shell
 
 ```bash
 [$USER@r1i3n18 singularity-images]$ cat /etc/redhat-release 
