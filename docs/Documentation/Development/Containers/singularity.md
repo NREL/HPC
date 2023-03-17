@@ -65,6 +65,20 @@ exec /bin/bash /rawr.sh
 RaawwWWWWWRRRR!! Avocado.
 ```
 
+!!! note
+
+    Running the image may produces errors such as:
+    
+    ```
+    ERROR: ld.so: object '/nopt/xalt/xalt/lib64/libxalt_init.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+    ```
+    
+    This can be resolved by unsetting `LD_PRELOAD`:
+    
+    ```bash
+    $ unset LD_PRELOAD
+    ```
+
 **Step 6**: Run in singularity bash shell
 
 ```bash
