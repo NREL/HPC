@@ -10,7 +10,7 @@ grand_parent: Programming Languages
 
 ## Why Conda?
 
-Conda is a **package manager** which allows you to easily create and switch betwen different software environments in different languages for different purposes.  With Conda, it's easy to:
+Conda is a **package manager** which allows you to easily create and switch between different software environments in different languages for different purposes.  With Conda, it's easy to:
 
 * Manage different (potentially conflicting) versions of the same software without complication
 
@@ -113,7 +113,7 @@ We can use `conda list` to see which packages are currently installed, but for a
 
 `conda list --revisions`
 
-which shows changes to the environment over time.  To revert back to a previous environemnt
+which shows changes to the environment over time.  To revert back to a previous environment
 
 `conda install --revision 1`
 
