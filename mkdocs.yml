@@ -81,7 +81,6 @@ nav:
                   - Documentation/Development/Languages/Python/index.md
                   - Documentation/Development/Languages/Python/NREL_python.md
                   - Documentation/Development/Languages/Python/dask.md
-                  - Conda: Documentation/Development/Languages/Python/conda.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
              - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
