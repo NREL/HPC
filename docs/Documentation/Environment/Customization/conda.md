@@ -78,7 +78,7 @@ conda deactivate
 
 ## Creating Environments by Location
 
-Creating environments by location is especially helpful when working on the Eagle HPC, as the default location is your `/home/<username>/` directory, which is limited to 50 GB.  To create a Conda environment somewhere besides the default location, use the `--prefix` flag (or the shortened `-p`) instead of `--name` when creating.
+Creating environments by location is especially helpful when working on the HPC systems, as the default location is your `/home/<username>/` directory, which may have limited storage (for example, on Eagle, the home directory is limited to 50 GB).  To create a Conda environment somewhere besides the default location, use the `--prefix` flag (or the shortened `-p`) instead of `--name` when creating:
 
 ```
 conda create --prefix /path/to/mypy python=3.7 numpy
@@ -88,9 +88,9 @@ This re-creates the python+numpy environment from earlier, but with all download
 
 !!! warning
 
-    Keep in mind that scratch on Eagle is **temporary** in that files are purged after 28 days of inactivity.
+    Keep in mind that `/scratch/<username>` is **temporary**, and files are purged after 28 days of inactivity.
 
-Unfortunately, placing environments outside of the default /env folder means that it needs to be activated with the full path (`conda activate /path/to/mypy`) and will show the full path rather than the environment name at the command prompt. 
+Unfortunately, placing an environment outside of the default folder means that it needs to be activated with the full path (`conda activate /path/to/mypy`) and will show the full path rather than the environment name at the command prompt. 
 
 To fix the cumbersome command prompt, simply modify the `env_prompt` setting in your `.condarc` file:
 
@@ -125,7 +125,7 @@ pip <pip_subcommand>
 
     Issues may arise when using pip and conda together. When combining conda and pip, it is best to use an isolated conda environment. **Only after conda has been used to install as many packages as possible should pip be used to install any remaining software**. If modifications are needed to the environment, it is best to create a new environment rather than running conda after pip. When appropriate, conda and pip requirements should be stored in text files.
 
-For more information on this point, check out the [User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment)
+    For more information, see the [User Guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment).
 
 We can use `conda list` to see which packages are currently installed, but for a more version-control-flavored approach:
 
@@ -203,28 +203,27 @@ By default, the conda module uses the home directory for package caches and name
 
 * Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  Calling `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/scratch/$USER/.conda-pkgs` will reduce home directory usage.
 
-## Eagle Considerations
+## HPC Considerations
 
-Interacting with your Conda environments on Eagle should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
+Interacting with your Conda environments on the HPC system should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
 
 1. Create the environment locally
 2. Verify that environment works on a minimal working example
-3. Export local environment file and copy to Eagle
-4. Duplicate local environment on Eagle
-5. Execute production-level runs on Eagle
+3. Export local environment file and copy to HPC (`conda env export > environment.yaml`)
+4. Duplicate local environment on HPC (`conda env create -f environment.yaml`)
+5. Execute production-level runs on HPC:
 
 ```bash
 #!/bin/bash 
-#SBATCH --ntasks=4
 #SBATCH --nodes=1
-#SBATCH --time=5
+#SBATCH --time=60
 #SBATCH --account=<project_handle>
 
 module purge
 module load conda
 conda activate mypy
 
-srun -n 8 python my_main.py
+python my_main.py
 ```
 
 ## Cheat Sheet of Common Commands
@@ -233,7 +232,7 @@ srun -n 8 python my_main.py
 |---------------------|-----------------------------------------------|---------------------------------------|
 | Create by name      | `conda create -n mypy pkg1 pkg2`              | N/A                                   |
 | Create by path      | `conda create -p path/to/mypy pkg1 pkg2`      | N/A                                   |
-| Create by file      | `conda env create -f environment.yml`         | N/A                                   |
+| Create by file      | `conda env create -f environment.yaml`         | N/A                                   |
 | Show environments   | `conda env list`                              | N/A                                   |
 | Activate            | `conda activate mypy`                         | N/A                                   |
 | Deactivate          | N/A                                           | `conda deactivate`                    |
