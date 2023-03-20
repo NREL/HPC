@@ -1,10 +1,3 @@
----
-layout: default
-title: Conda
-parent: Python
-grand_parent: Programming Languages
----
-
 ![conda logo](images/conda_logo.png)
 
 
