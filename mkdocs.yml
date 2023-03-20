@@ -79,7 +79,6 @@ nav:
              - Fortran: Documentation/Development/Languages/f90.md
              - Python:
                   - Documentation/Development/Languages/Python/index.md
-                  - Documentation/Development/Languages/Python/NREL_python.md
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md

@@ -198,6 +198,8 @@ By default, the conda module uses the home directory for package caches and name
 
 ## HPC Considerations
 
+### Migrating from local to HPC system
+
 Interacting with your Conda environments on the HPC system should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
 
 1. Create the environment locally
@@ -218,6 +220,25 @@ conda activate mypy
 
 python my_main.py
 ```
+
+### Where to store Conda environments
+
+As mentioned previously, Conda stores environments in your home directory by default.  This can cause problems on the HPC systems, because Conda environments can require a lot of storage space, and the home directory typically has a limited amount of space on the HPC systems.  T
+
+By default, the conda module uses the home directory for package caches and named environments.  This results in a lot of the home directory quota used. Some ways to reduce home directory usage include:
+
+* Use the `-p PATH_NAME` switch when creating or updating your environment.  Make sure `PATH_NAME` isn't in the home directory.
+
+* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  Calling `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/scratch/$USER/.conda-pkgs` will reduce home directory usage.
+
+Following are some guidelines and suggestions regarding where to store environments:
+
+| Path | When to use | Caveats |
+|------|-------------|---------|
+| `\home` | `$HOME/.conda` is the default location for environments. For one-off environments, or if you don't create environments often, this is a reasonable location for your environments and doesn't require any extra flags or parameters.            | On systems such as Eagle, `$HOME` is limited to 50 GB.         |
+| `\scratch` | `/scratch` or `/projects` are well-suited for multiple-node jobs because these locations provide enhanced filesystem performance for parallel access. | The contents of `\scratch` are purged after 28 days of inactivity. |
+| `/projects` | Ideal location for storing environments that will be shared with colleagues that are working on the same project. | Storage under `/projects` is contingent on having an HPC project allocation, and the project allocation has its own storage quota. |
+
 
 ## Cheat Sheet of Common Commands
 
