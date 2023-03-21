@@ -1,9 +1,3 @@
-* Cray MPICH
-* Open MPI
-* Intel MPI
-* MPI in NVHPC 
-
-
 # OpenMpi
 **Documentation:** [ link to documentation](https://www.open-mpi.org)
 
