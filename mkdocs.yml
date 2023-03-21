@@ -48,7 +48,6 @@ nav:
           - Customization:
                - Spack Environments: Documentation/Environment/Customization/spack.md
                - Conda Environments: Documentation/Environment/Customization/conda.md
-               - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
             - Documentation/Environment/Building_Packages/acquire.md
