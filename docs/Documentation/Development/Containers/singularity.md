@@ -1,16 +1,27 @@
 ---
 layout: default
-title: Singularity on Eagle
+title: Singularity
 parent: Containers
 ---
 
-Singularity is installed on Eagle's compute nodes as a module named `singularity-container`.  Images can be copied to eagle and run, or can be generated from a [recipe (definition file)](https://sylabs.io/guides/3.6/user-guide/definition_files.html). 
+As discussed in [Intro to Containers](index.md), Singularity is a platform designed specifically for running containers on HPC systems.  Singularity is installed on Eagle, Swift, and Vermillion.  Images can be built locally and copied to the HPC system or pulled from an online registry.  For more information about building containers, see [here](index.md#building).
+
+The table below shows the appropriate commands for loading Singularity on each system:
+
+| System     | Module command                      |
+|------------|-------------------------------------|
+| Eagle      | `module load singularity-container` |
+| Swift      | `module load singularity`           |
+| Vermillion | `module load singularity`           |
+
+
+### Run hello-world ubuntu image on Eagle
+
+The following example shows how to download and run a simple "hello-world" container based on Ubuntu.  The example is written for Eagle but can be adapated to other systems by using the appropriate module command.
 
 !!! note
 
     Input commands in the following examples are preceded by a `$`.
-
-### Run hello-world ubuntu image
 
 **Step 1**: Log into compute node, checking it is running CentOS 7 
 
