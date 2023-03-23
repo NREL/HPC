@@ -81,7 +81,9 @@ nav:
              - C++:     Documentation/Development/Languages/c++.md
              - R:       Documentation/Development/Languages/r.md
              - Bash:    Documentation/Development/Languages/bash.md
-             - Fortran: Documentation/Development/Languages/f90.md
+             - Fortran: 
+               - Overview: Documentation/Development/Languages/Fortran/f90.md
+               - Advanced: Documentation/Development/Languages/Fortran/f90_advanced.md
              - Python:
                   - Documentation/Development/Languages/Python/index.md
                   - Documentation/Development/Languages/Python/NREL_python.md

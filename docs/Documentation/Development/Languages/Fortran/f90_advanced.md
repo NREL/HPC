@@ -14,6 +14,8 @@ grand_parent: Programming Languages
 This document is derived from an HTML page written at the [San Diego Supercomper Center](https://www.sdsc.edu) many years ago.  
 Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It does this by presenting an example program and introducing concepts as various routines of the program are presented.  The original web page has been used over the years and has been translated into several languages. 
 
+**Note:** See our [Fortran Overview](f90.md) page for basic getting started instructions and compiler/toolchain information.
+
 - - -
 - - -
 
@@ -97,11 +99,11 @@ Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It do
 
 ## Why Fortran?
  Famous Quote: *"I don't know what the technical characteristics of
- *the standard language for scientific and engineering*
- *computation in the year 2000 will be... but I know it*
- *will be called Fortran." John Backus.* 
+ the standard language for scientific and engineering
+ computation in the year 2000 will be... but I know it
+ will be called Fortran." John Backus.*
 
- ### Note: He claimed that he never said this.
+Note: He claimed that he never said this.
  
 - Language of choice for Scientific programming
 - Large installed user base.
@@ -234,7 +236,7 @@ Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It do
 - - -
 - - -
 
-# Start of real Fortran 90 discussion
+**Start of real Fortran 90 discussion**
 
 - - -
 - - -
@@ -1992,7 +1994,7 @@ end
 - - -
 
 
-# Overview of F90
+## Documentation Overview
 
 
 1. [Introduction to Fortran Language](#introduction-to-fortran-language)
@@ -2010,7 +2012,7 @@ end
 
 
 
-## Introduction to Fortran Language
+### Introduction to Fortran Language
 ```
   Brought to you by ANSI committee X3J3 and ISO-IEC/JTC1/SC22/WG5 (Fortran)
   This is neither complete nor precisely accurate, but hopefully, after
@@ -2032,7 +2034,7 @@ end
   Separate words with space or any form of "white space" or punctuation.
 ```
 
-## Meta language used in this compact summary 
+### Meta language used in this compact summary 
 
 ```
   <xxx> means fill in something appropriate for xxx and do not type
@@ -2049,7 +2051,7 @@ end
 
 ```
 
-## Structure of files that can be compiled 
+### Structure of files that can be compiled 
 ```
 
   program <name>                  usually file name is  <name>.f90
@@ -2107,7 +2109,7 @@ end
 
 ```
 
-## Executable Statements and Constructs 
+### Executable Statements and Constructs 
 ```
 
   <statement> will mean exactly one statement in this section
@@ -2193,7 +2195,7 @@ end
     many old forms of statements are not listed
 ```
 
-##  Declarations 
+###  Declarations 
 ```
 
   There are five (5) basic types: integer, real, complex, character and logical.
@@ -2247,7 +2249,7 @@ end
     Note:        not all combinations of attributes are legal
 ```
 
-## Key words (other than I/O) 
+### Key words (other than I/O) 
 ```
 
   note: "statement" means key word that starts a statement, one line
@@ -2335,7 +2337,7 @@ end
   while                construct, a while form of a do loop
 ```
 
-## Key words related to I/O 
+### Key words related to I/O 
 ```
 
   backspace            statement, back up one record
@@ -2351,7 +2353,7 @@ end
 
 ```
 
-## Operators 
+### Operators 
 ```
 
   **    exponentiation
@@ -2392,7 +2394,7 @@ end
 
 ```
 
-## Constants 
+### Constants 
 ```
 
   Logical constants:
@@ -2446,7 +2448,7 @@ end
 
 ```
 
-## Input/Output Statements 
+### Input/Output Statements 
 ```
 
     open (<unit number>)
@@ -2530,7 +2532,7 @@ end
 
 ```
 
-## Formats 
+### Formats 
 ```
 
     format                    an explicit format can replace * in any
@@ -2618,7 +2620,7 @@ end
 
 ```
 
-## Intrinsic Functions 
+### Intrinsic Functions 
 
 ```
 
@@ -2632,7 +2634,7 @@ end
 ```
 
 
-###  Intrinsic Functions (alphabetical):
+####  Intrinsic Functions (alphabetical):
 
 ```
     abs(integer_real_complex) result(integer_real_complex)
@@ -2751,9 +2753,9 @@ end
 
 
 
-###  Intrinsic Functions (grouped by topic):
+####  Intrinsic Functions (grouped by topic):
 
-####  Intrinsic Functions (Numeric)
+#####  Intrinsic Functions (Numeric)
 ```
     abs(integer_real_complex) result(integer_real_complex)
     acos(real) result(real)  arccosine  |real| &le; 1.0   0&le;result&le;Pi
@@ -2817,7 +2819,7 @@ end
 ```
 
 
-####  Intrinsic Functions (Logical and bit)
+#####  Intrinsic Functions (Logical and bit)
 
 ```
     all(mask [,dim]) result(logical)  true if all elements of mask are true
@@ -2843,7 +2845,7 @@ end
 
 
 
-####  Intrinsic Functions (Character or string)
+#####  Intrinsic Functions (Character or string)
 
 ```
     achar(integer) result(character)  integer to character
@@ -2867,7 +2869,7 @@ end
 ```
 
 
-## Fortran 95
+### Fortran 95
 - New Features
     -  The statement **FORALL** as an alternative to the DO-statement
     -  Partial nesting of FORALL and WHERE statements
