@@ -108,11 +108,12 @@ nav:
               - Git :   Documentation/Development/Build_Tools/git.md
          - Libraries:
               - Documentation/Development/Libraries/index.md
-              - FFTW:   Documentation/Development/Libraries/fftw.md
-              - HDF5:   Documentation/Development/Libraries/hdf5.md
-              - LAPACK: Documentation/Development/Libraries/lapack.md
-              - LibSci: Documentation/Development/Libraries/libsci.md
-              - MKL:    Documentation/Development/Libraries/mkl.md
+              - Libraries How-to:   Documentation/Development/Libraries/howto.md
+              - FFTW:   Documentation/Development/Libraries/index#fftw
+              - HDF5:   Documentation/Development/Libraries/index#hdf5
+              - LAPACK: Documentation/Development/Libraries/index#lapack-and-scalapack
+              - LibSci: Documentation/Development/Libraries/index#libsci
+              - MKL:    Documentation/Development/Libraries/index#mkl
               - NetCDF: Documentation/Development/Libraries/netcdf.md
               - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
