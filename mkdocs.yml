@@ -77,7 +77,9 @@ nav:
           - WRF:        Documentation/Applications/wrf.md
       - Development:
          - Languages:
-             - Julia:   Documentation/Development/Languages/julia.md
+             - Julia:
+                  - Documentation/Development/Languages/Julia/index.md
+                  - Documentation/Development/Languages/Julia/julia.md
              - C++:     Documentation/Development/Languages/c++.md
              - R:       Documentation/Development/Languages/r.md
              - Bash:    Documentation/Development/Languages/bash.md
