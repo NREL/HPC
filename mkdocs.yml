@@ -80,6 +80,8 @@ nav:
              - Julia:
                   - Documentation/Development/Languages/Julia/index.md
                   - Documentation/Development/Languages/Julia/julia.md
+                  - Documentation/Development/Languages/Julia/julia_install.md
+                  - Documentation/Development/Languages/Julia/julia_IPOPT_HSL.md
              - C++:     Documentation/Development/Languages/c++.md
              - R:       Documentation/Development/Languages/r.md
              - Bash:    Documentation/Development/Languages/bash.md
@@ -112,6 +114,8 @@ nav:
               - Documentation/Development/Libraries/index.md
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
+              - HSL:  Documentation/Development/Libraries/hsl.md
+              - IPOPT: Documentation/Development/Libraries/ipopt.md
               - LAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
