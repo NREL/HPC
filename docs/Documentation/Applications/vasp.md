@@ -97,7 +97,7 @@ NREL's benchmark repositry contains input files for two VASP benchmarks. Benchma
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
@@ -115,7 +115,7 @@ srun -n 36 vasp_std &> out
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
@@ -123,8 +123,7 @@ srun -n 36 vasp_std &> out
 module purge
 
 #Load Open MPI VASP build
-source /nopt/nrel/apps/210830a/myenv.2108301742
-ml vasp/6.1.1-l2mkbb2
+ml vasp/6.1.1-openmpi
 
 srun -n 36 vasp_std &> out
 ```
@@ -134,7 +133,7 @@ srun -n 36 vasp_std &> out
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
@@ -156,23 +155,23 @@ srun -n 36 vasp_std &> out
 #SBATCH --error=std.err
 #SBATCH --output=std.out
 #SBATCH --partition=gpu
-#SBATCH --gpus-per-node=2
-#SBATCH --account=hpcapps
 #SBATCH --nodes=1
+#SBATCH --gres=gpu:2
 #SBATCH --gpu-bind=map_gpu:0,1
+#SBATCH --account=myaccount
 
 #To run on multiple nodes, change the last two SBATCH lines:
-#SBATCH --nodes=4
-#SBATCH --gpu-bind=map_gpu:0,1,0,1,0,1,0,1 #one set of "0,1" per node
+##SBATCH --nodes=4
+##SBATCH --gpu-bind=map_gpu:0,1,0,1,0,1,0,1 #one set of "0,1" per node
 
 module purge
 
-#Load the OpenACC GPU build and necessary modules
+#Load the OpenACC build of VASP
+ml vasp/6.3.1-nvhpc_acc
+
+#Load some additional modules
 module use /nopt/nrel/apps/220511a/modules/lmod/linux-centos7-x86_64/gcc/12.1.0
 ml fftw nvhpc
-export LD_LIBRARY_PATH=/nopt/nrel/apps/220511a/install/opt/spack/linux-centos7-skylake_avx512/gcc-12.1.0/nvhpc-22.3-c4qk6fly5hls3mjimoxg6vyuy5cc3vti/Linux_x86_64/22.3/compilers/extras/qd/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/nopt/nrel/apps/220511a/install/opt/spack/linux-centos7-skylake_avx512/gcc-12.1.0/nvhpc-22.3-c4qk6fly5hls3mjimoxg6vyuy5cc3vti/Linux_x86_64/22.3/compilers/extras/qd/lib:$LD_LIBRARY_PATH
-export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
 
 mpirun -npernode 2 vasp_std &> out
 ```
@@ -184,7 +183,7 @@ To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` ex
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
@@ -205,7 +204,7 @@ srun -n 36 vasp_gpu &> out
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=64
@@ -235,7 +234,7 @@ The following script launches two instances of ```srun vasp_std``` on the same n
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=parallel
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
@@ -282,7 +281,7 @@ The following script launches ```srun vasp_std``` on only 32 cores on a single n
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
@@ -309,7 +308,7 @@ srun -n 32 vasp_std &> out
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=64
@@ -334,7 +333,7 @@ srun -n 64 vasp_std &> out
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=parallel
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
@@ -378,7 +377,7 @@ The following script launches ```srun vasp_std``` on only 32 cores on a single n
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
-#SBATCH --account=hpcapps
+#SBATCH --account=myaccount
 #SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
@@ -426,20 +425,21 @@ Due to low performance and reliability of multi-node VASP jobs on Vermilion, it 
 ##SBATCH --output=std.out
 #SBATCH --partition=lg
 #SBATCH --exclusive
-
-source /nopt/nrel/apps/210929a/myenv.2110041605
+#SBATCH --account=myaccount
 
 module purge
-source /nopt/nrel/apps/210929a/myenv.2110041605 
-ml intel-oneapi-mkl
-ml intel-oneapi-compilers
-ml intel-oneapi-mpi
-ml vaspintel
+ml vasp/6.3.1
+
+source /nopt/nrel/apps/220525b/myenv.2110041605
+ml intel-oneapi-compilers/2022.1.0-k4dysra
+ml intel-oneapi-mkl/2022.1.0-akthm3n
+ml intel-oneapi-mpi/2021.6.0-ghyk7n2
 
 # some extra lines that have been shown to improve VASP reliability on Vermilion
 ulimit -s unlimited
 export UCX_TLS=tcp,self
 export OMP_NUM_THREADS=1
+ml ucx
 
 srun -n 60 vasp_std
 
@@ -457,17 +457,17 @@ srun -n 60 vasp_std
 ##SBATCH --output=std.out
 #SBATCH --partition=lg
 #SBATCH --exclusive
-
-source /nopt/nrel/apps/210929a/myenv.2110041605
+#SBATCH --account=myaccount
 
 module purge
 ml gcc
-ml vasp
+ml vasp/6.1.1-openmpi
 
 # some extra lines that have been shown to improve VASP reliability on Vermilion
 ulimit -s unlimited
 export UCX_TLS=tcp,self
 export OMP_NUM_THREADS=1
+ml ucx
 
 # lines to set "ens7" as the interconnect network
 module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
@@ -487,12 +487,13 @@ srun --mpi=pmi2 -n 60 vasp_std
 ##SBATCH --output=std.out
 #SBATCH --partition=lg
 #SBATCH --exclusive
-
-source /nopt/nrel/apps/210929a/myenv.2110041605
+#SBATCH --account=myaccount
 
 module purge
-module use  /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0/
+
 ml vasp/5.5.4
+
+source /nopt/nrel/apps/220525b/myenv.2110041605
 ml intel-oneapi-mkl
 ml intel-oneapi-compilers
 ml intel-oneapi-mpi
@@ -520,22 +521,18 @@ srun -n 60 vasp_std
 #SBATCH --partition=gpu
 #SBATCH --gpu-bind=map_gpu:0,1,0,1
 #SBATCH --exclusive
+#SBATCH --account=myaccount
 
-#load necessary modules and set library paths
+# Load the OpenACC build of VASP
+ml vasp/6.3.1-nvhpc_acc
+
+# Load some additional modules
 module use  /nopt/nrel/apps/220421a/modules/lmod/linux-rocky8-x86_64/gcc/11.3.0/
 ml nvhpc
-ml gcc
 ml fftw
-export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/nvhpc-22.2-ruzrtpyewnnrif6s7w7rehvpk7jimdrd/Linux_x86_64/22.2/compilers/extras/qd/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/nopt/nrel/apps//220421a/install/opt/spack/linux-rocky8-zen2/gcc-11.3.0/gcc-11.3.0-c3u46uvtuljfuqimb4bgywoz6oynridg/lib64:$LD_LIBRARY_PATH
-
-#add a path to the gpu build of VASP to your script
-export PATH=/projects/hpcapps/tkaiser2/vasp/6.3.1/nvhpc_acc:$PATH
 
 mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
 ```
-
-??? example "Vermilion: VASP 6 (Cuda) on GPUs"
 
 ## Troubleshooting
 
