@@ -50,7 +50,7 @@ or
 
 A sample script for batch submission is provided here:
 
-??? example "Eagle Sample Submission Script"
+??? example "Sample Submission Script"
 
 	```bash
 	#!/bin/bash --login
