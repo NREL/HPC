@@ -147,11 +147,13 @@ nav:
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - VisIT: Documentation/Viz_Analytics/visit.md
       - Machine Learning:
+           - Documentation/Machine_Learning/machine-learning.md
            - Reinforcement Learning:
              - Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard:
              - Documentation/Machine_Learning/TensorBoard/index.md
-           - Documentation/Machine_Learning/tensorflow.md
+           - Containerized TensorFlow:
+             - Documentation/Machine_Learning/tensorflow.md
 theme:
   name: material
   custom_dir: overrides
