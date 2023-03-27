@@ -79,8 +79,8 @@ nav:
          - Languages:
              - Julia:
                   - Documentation/Development/Languages/Julia/index.md
-                  - Documentation/Development/Languages/Julia/julia.md
                   - Documentation/Development/Languages/Julia/julia_install.md
+                  - Documentation/Development/Languages/Julia/julia.md
                   - Documentation/Development/Languages/Julia/julia_IPOPT_HSL.md
              - C++:     Documentation/Development/Languages/c++.md
              - R:       Documentation/Development/Languages/r.md

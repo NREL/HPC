@@ -1,6 +1,6 @@
-# Eagle Installation
+# Installation
 
-Julia modules exist on Eagle and provide an easy way to use Julia on the HPC system. Access simply with
+Julia modules exist on Eagle and provide an easy way to use it on the HPC system. Access simply with
 
 ```bash
 module load julia
@@ -14,13 +14,13 @@ module spider julia
 
 If you need a version of Julia for which a module does not exist or want your own personal Julia build, there are several options described in the rest of this document. Below is a general guide for what approach to use:
 
-* fast and easy - Anaconda
-* perfomance and ease - Spack
-* performance or need to customize Julia build - do it yourself (i.e. build from source)
+* fast and easy - [Anaconda](#anaconda)
+* performance and ease - [Spack](#spack-build)
+* performance or need to customize Julia build - [do it yourself](#do-it-yourself-build-v-12-or-later) (i.e. build from source)
 
 ## Anaconda
 
-Older versions of Julia are available from conda-forge channel
+Older versions of Julia are available from `conda-forge` channel
 
 ```bash
 conda create -n julia-env
@@ -32,7 +32,7 @@ conda install -c conda-forge julia
 
 ### Pre-requites
 
-A working version of Spack. For detailed instructions on getting spack setup see the github repository. Briefly, this can be done with the following
+A working version of Spack. For detailed instructions on getting spack setup see the GitHub repository. Briefly, this can be done with the following
 
 ```bash
 git clone https://github.com/spack/spack.git
@@ -45,7 +45,7 @@ git checkout releases/v0.15 # Change to desired release
 
 **NOTE:** Steps 1 and 2 may be skipped when using the develop branch or any release branch after v0.15.
 
-1. In the spack repository, open the file var/spack/repos/builtin/packages/julia/package.py in your favorite editor.
+1. In the Spack repository, open the file `var/spack/repos/builtin/packages/julia/package.py` in your favorite editor.
 2. There is an if-else statement under the if statement
     ```python
     if spec.target.family == 'x86_64'  or spec.target.family == 'x86':
@@ -59,7 +59,7 @@ git checkout releases/v0.15 # Change to desired release
             'JULIA_CPU_TARGET={0}'.format(target_str)
         ]
     ```
-3. Now install julia with spack
+3. Now install Julia with Spack
     ```bash
     spack install julia
     ```
@@ -71,12 +71,12 @@ git checkout releases/v0.15 # Change to desired release
 All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/master/doc/build/build.md#required-build-tools-and-external-libraries) are available on Eagle either by default or through modules.  The needed modules are covered in the instructions.
 
 ### Terms
-* `JULIA_HOME` is the base directory of julia source code (initially called `julia` after `git clone`)
+* `JULIA_HOME` is the base directory of Julia source code (initially called `julia` after `git clone`)
 
 ### Instructions
 When compiling Julia you can choose to compile against Intel's MKL libraries or OpenBLAS for the Julia linear algebra operations. If you are going to be doing significant matrix-vector operations directly in Julia, then you will want to compile it with MKL. If most of the matrix-vector operations are being done in a subprogram or library (e.g. Ipopt) then it will make no difference what you compile Julia with.  In this latter case, it is recommended that you compile with OpenBLAS since that is significantly easier. Instructions for both choices are given below.
 
-**NOTE**: When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. ipopt or coinhsl) loaded by Julia also need to be linked to MKL with this approach.  Failing to do so will result in unusual behavior (like getting garbage values passed to the MKL function calls).
+**NOTE**: When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. Ipopt or CoinHSL) loaded by Julia also need to be linked to MKL with this approach. Failing to do so will result in unusual behavior, e.g. getting garbage values passed to the MKL function calls.
 
 1. Load the following modules:
     * gcc (>= 5.1)

@@ -1,3 +1,13 @@
+---
+title: IPOPT
+postdate: October 27, 2020
+layout: default
+author: Jonathan Maack
+description: How to install and use IPOPT with different programming languages
+parent: Libraries
+grand_parent: Development
+---
+
 # Ipopt
 
 *Ipopt (Interior Point OPTimizer, pronounced "Eye-Pea-Opt") is an open-source non-linear optimizer using the interior point method.*

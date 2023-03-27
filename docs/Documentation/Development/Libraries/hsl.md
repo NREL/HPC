@@ -1,3 +1,13 @@
+---
+title: HSL
+postdate: October 27, 2020
+layout: default
+author: Jonathan Maack
+description: How to install and use HSL with with IPOPT
+parent: Libraries
+grand_parent: Development
+---
+
 # HSL for Ipopt
 
 *HSL (Harwell Subroutine Library) for Ipopt are a set of linear solvers that can greatly accelerate the speed of the optimization over the default MUMPS solver.*
