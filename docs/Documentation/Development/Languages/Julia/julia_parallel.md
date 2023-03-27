@@ -3,7 +3,7 @@ title: Julia Parallel Computing
 postdate: November 9, 2022
 layout: default
 author: Jonathan Maack
-description: Guide to installing Julia on on NREL systems
+description: Guide to parallelism in Julia
 parent: Julia
 grand_parent: Languages
 ---

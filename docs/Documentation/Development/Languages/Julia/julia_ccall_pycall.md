@@ -3,14 +3,14 @@ title: PyCall and CCall
 postdate: September 28, 2021
 layout: default
 author: Jonathan Maack
-description: Guide to installing Julia on on NREL systems
+description: Explains how to call software in other languages from Julia
 parent: Julia
 grand_parent: Languages
 ---
 
 # Calling Python, C, and FORTRAN from Julia
 
-The following sections describe Julia packages and native function calls that can be used to call Python, C, and FORTRAN libraries.
+*The following sections describe Julia packages and native function calls that can be used to call Python, C, and FORTRAN libraries.*
 
 ## Calling Python
 
@@ -95,7 +95,7 @@ x = np.linalg.solve(A, b)
 
 
 
-In the previous slide `A` and `b` are created by Julia while `x` is created by Python but we are using them interchangeably. We can do this because PyCall handles most type conversions automatically.
+In the previous slide `A` and `b` are created by Julia while `x` is created by Python, but we are using them interchangeably. We can do this because PyCall handles most type conversions automatically.
 
 
 ```julia

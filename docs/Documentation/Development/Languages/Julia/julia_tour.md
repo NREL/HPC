@@ -8,7 +8,7 @@ parent: Julia
 grand_parent: Languages
 ---
 
-# Julia Tour
+# Tour of Julia
 
 *"Julia aims to create an unprecedented combination of ease-of-use, power, and efficiency in a single language." --Julia Documentation*
 

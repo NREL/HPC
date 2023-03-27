@@ -13,22 +13,27 @@ This section contains demos (in the form of scripts and notebooks) and how to gu
 
 ## Contents
 
-### 1. Demos
+1. [Installing Julia](julia_install.md)
+2. [Tour of Julia](julia_tour.md)
+3. [Parallel Computing in Julia](julia_parallel.md)
+4. [Calling Python, C, and FORTRAN from Julia](julia_ccall_pycall.md)
 
-  * PyJulia -- calling Julia from Python (demos/notebooks/PyJulia_Demo.ipynb)
-  * integrating mpi4py and MPI.jl
-    * Hello World (demos/scripts/mpi_jl_hello_world.py)
-    * Self contained approximation of pi (demos/scripts/mpi_jl_pi.py)
-    * Approximation of pi as "library" call (demos/scripts/mpi_jl_pi_as_lib.py)
-    * Comparing different Control Variates to approximate pi -- uses MPI Split (demos/scripts/mpi_jl_cv_pi.py)
-  * example batch script (demos/scripts/run_demo.sh)
+## Demo Scripts and Notebooks
 
-### 2. How To Guides
+The following scripts and notebooks are available on the [`master` branch of NREL/HPC](https://github.com/NREL/HPC) to download and run,
 
-  * building Julia on Eagle
-  * building Ipopt with Harwell Subroutine Library (HSL) on Eagle (includes instructions for Mac OSX as well)
+* [Julia Tour](https://github.com/NREL/HPC/blob/master/languages/julia/julia-tutorial/source-notebooks/Julia-Tuor.ipynb)
+* [Julia Parallel Computing](https://github.com/NREL/HPC/blob/master/languages/julia/julia-tutorial/source-notebooks/Julia-Parallel-Computing.ipynb)
+* [Calling Python, C, and FORTRAN from Julia](https://github.com/NREL/HPC/blob/master/languages/julia/julia-tutorial/source-notebooks/Julia-Calling-Python-C-Tutorial.ipynb)
+* PyJulia -- calling Julia from Python ([`PyJulia_Demo.ipynb`](https://github.com/NREL/HPC/tree/master/languages/julia/demos/notebooks))
+* Integrating `mpi4py` and `MPI.jl`
+    * [Hello World](https://github.com/NREL/HPC/blob/master/languages/julia/demos/scripts/mpi_jl_hello_world.py)
+    * [Self contained approximation of pi](https://github.com/NREL/HPC/blob/master/languages/julia/demos/scripts/mpi_jl_pi.py)
+    * [Approximation of pi as "library" call](https://github.com/NREL/HPC/blob/master/languages/julia/demos/scripts/mpi_jl_pi_as_lib.py)
+    * [Comparing different Control Variates to approximate pi](https://github.com/NREL/HPC/blob/master/languages/julia/demos/scripts/mpi_jl_cv_pi.py) -- uses MPI Split
+    * [Example batch script for all of the above](https://github.com/NREL/HPC/blob/master/languages/julia/demos/scripts/run_demo.sh)
 
-## Requirements and Installation
+### Requirements and Installation
 
 Running the demos requires the python modules `mpi4py` and `julia`. For details on installing these modules, see the 'Environment Setup' section of the [README found in the demos/scripts directory](demos/scripts/README.md).
 
