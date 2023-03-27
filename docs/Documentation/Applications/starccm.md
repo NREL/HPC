@@ -1,9 +1,8 @@
 # Running STAR-CCM+ Software
 
-*Learn how to run STAR-CCM+ software on the Eagle system.*
 
-For information about the software's features, see the [STAR-CCM+
-website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
+*For information about the software's features, see the [STAR-CCM+
+website](https://mdx.plm.automation.siemens.com/star-ccm-plus).*
 
 STAR-CCM+ can be run interactively on Eagle using X windows. The network
 licenses are checked out from the license server running on wind-lic.nrel.gov.
