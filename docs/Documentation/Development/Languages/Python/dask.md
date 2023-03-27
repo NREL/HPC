@@ -9,9 +9,11 @@ grand_parent: Programming Languages
 
 
 # Dask
-Dask provides a way to parallelize Python code either on a single node or across the cluster. It is similar to the functionality provided by Apache Spark, with easier setup. It provides a similar API to other common Python packages such as NumPY, Pandas, and others. 
+
+Dask provides a framework for parallelizing Python code.  The most common use case is to enable Python programmers to scale scientific and machine learning analyses to run on distributed hardware.  Dask has similarities to Apache Spark (see [FAQ](https://docs.dask.org/en/stable/faq.html#how-does-dask-compare-with-apache-spark) for comparison), but Dask is more Python native and interfaces with common scientific libraries such as numpy and pandas.
 
 ## Dask single node
+
 Dask can be used locally on your laptop or an individual node. Additionally, it provides wrappers for multiprocessing and threadpools. The advantage of using `LocalCluster` though is you can easily drop in another cluster configuration to further parallelize. 
 
 ```python
