@@ -1,3 +1,13 @@
+---
+title: Installing Julia
+postdate: November 7, 2022
+layout: default
+author: Jonathan Maack
+description: Guide to installing Julia on on NREL systems
+parent: Julia
+grand_parent: Languages
+---
+
 # Installation
 
 Julia modules exist on Eagle and provide an easy way to use it on the HPC system. Access simply with

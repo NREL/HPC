@@ -12,14 +12,14 @@ grand_parent: Languages
 
 *"Julia aims to create an unprecedented combination of ease-of-use, power, and efficiency in a single language." --Julia Documentation*
 
-## Why Julia
+## Why Julia?
 
 Feature Highlights:
 
 * Designed for scientific computing
 * Non-vectorized code is just as fast as vectorized code
-* Desgined for distributed and parallel computing
-* Call C/Fortran functions directly
+* Designed for distributed and parallel computing
+* Call C/FORTRAN functions directly
 * Metaprogramming
 
 ## Basics
@@ -32,10 +32,10 @@ Feature Highlights:
 ### REPL (Read-Evaluate-Print-Loop)
 
 * Command line julia interface
-* Type the command `julia` in a terminal (assuming julia is in your path)
+* Type the command `julia` in a terminal (assuming Julia is in your path)
 * Basic way to interact with objects, packages and environments
 
-```
+```julia
 jmaack-32918s:~ jmaack$ julia
                _
    _       _ _(_)_     |  Documentation: https://docs.julialang.org
