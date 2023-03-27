@@ -141,8 +141,7 @@ nav:
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - FastX:
-            - VirtualGL and FastX : Documentation/Viz_Analytics/FastX/virtualgl_fastx.md 
-            - FastX: Documentation/Viz_Analytics/FastX/fastx.md 
+            - VirtualGL and FastX: Documentation/Viz_Analytics/FastX/fastx.md 
          - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - Visit: Documentation/Viz_Analytics/visit.md
