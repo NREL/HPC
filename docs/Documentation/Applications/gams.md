@@ -4,7 +4,7 @@
 
 GAMS includes a DSL compiler and also a stable of integrated high-performance solvers. GAMS is able to solve complex, large-scale modeling problems. For documentation, forums, and FAQs, see the [GAMS website](https://www.gams.com/).
 
-A 40-user license of GAMS is made available to Eagle users. The GAMS license requires users to be a member of a "workgroup." If you need the GAMS software or a specific solver from GAMS, or if you have trouble running GAMS, please [contact us](https://www.nrel.gov/hpc/contact-us.html).
+A 60-user license of GAMS is made available to NREL users. This GAMS license requires users to be a member of a "workgroup." If you need the GAMS software package or a specific solver from GAMS, or if you have trouble running GAMS, please [contact us](https://www.nrel.gov/hpc/contact-us.html).
 
 ## Initializing Your Environment
 
