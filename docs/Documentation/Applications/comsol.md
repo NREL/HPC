@@ -1,5 +1,6 @@
 ---
 title: Comsol
+parent: Applications
 ---
 
 # COMSOL Multiphysics 
