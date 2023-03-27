@@ -18,7 +18,7 @@ your_simulation.sim
 
 Create a Slurm script `<your_scriptfile>` as shown below:
 
-??? example "Example Slurm script"
+???+ example "Example Slurm script"
 
     ``` bash
     #!/bin/bash -l
@@ -46,11 +46,9 @@ Create a Slurm script `<your_scriptfile>` as shown below:
     ```
 
 Note that you must give the full path of your input file in the script.
-
 <!-- TODO: link to docs for interactive job -->
 The simulation may be tested in an interactive job before being submitted to the
 batch queue.
-
 After the interactive job is allocated, type the commands from the Slurm script
 and make sure the job runs:
 
