@@ -150,7 +150,7 @@ nav:
            - Documentation/Machine_Learning/index.md 
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
-           - Containerized TensorFlow: Documentation/Machine_Learning/tensorflow.md
+           - Containerized TensorFlow: Documentation/Machine_Learning/index.md
 theme:
   name: material
   custom_dir: overrides
