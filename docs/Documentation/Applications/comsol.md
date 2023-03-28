@@ -4,7 +4,7 @@ parent: Applications
 ---
 
 # COMSOL Multiphysics 
-*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies.*
+COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies.
 
 Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available.
 
@@ -28,7 +28,7 @@ When licenses are available, COMSOL can be used by starting the COMSOL GUI which
 [user@ed3 ~]$ vglrun comsol
 ```
 
-Because FastX desktop sessions are supported from DAV node nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI by primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell (ssh -Y ...) on a compute node if the `vglrun comosl` command is replaced with:
+Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell (ssh -Y ...) on a compute node by replacing the `vglrun comosl` command with:
 
 ```
 [user@r1i7n24 ~]$ comsol -3drend sw
@@ -39,7 +39,7 @@ However, the performance may be slow and certain display features may behave une
 ## Running a COMSOL Model in Batch Mode
 You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
 
-??? example "Example Submission Script"
+???+ example "Example Submission Script"
 
     ```bash
     #!/bin/bash
@@ -71,16 +71,16 @@ You can save your model built in FastX+GUI mode into a file such as `myinputfile
     comsol batch -np 36 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
 
-Once this script file (assumed to be named `script-comsol.slurm`) is saved, it can be submitted to the job scheduler with
+Once this script file (assumed to be named `comsol-job.slurm`) is saved, it can be submitted to the job scheduler with
 
 ```
-[user@el3 ~]$ sbatch script-comsol.slurm
+[user@el3 ~]$ sbatch comsol-job.slurm
 ```
 
 ## Running a COMSOL Model in Batch Mode (with MPI)
 To configure a COMSOL job with multiple MPI ranks, required for any job where the number of nodes >1, you can build on the following template:
 
-??? example "Example Multiprocess Submission Script"
+???+ example "Example Multiprocess Submission Script"
     ```bash
     #!/bin/bash
     #SBATCH --job-name=comsol-batch-4proc
