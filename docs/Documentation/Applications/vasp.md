@@ -98,7 +98,6 @@ NREL's benchmark repositry contains input files for two VASP benchmarks. Benchma
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 
@@ -116,7 +115,6 @@ srun -n 36 vasp_std &> out
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 
@@ -134,7 +132,6 @@ srun -n 36 vasp_std &> out
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 
@@ -184,7 +181,6 @@ To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` ex
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=short
 #SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2 
@@ -205,7 +201,6 @@ srun -n 36 vasp_gpu &> out
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=64
 #SBATCH --nodes=1
@@ -235,7 +230,6 @@ The following script launches two instances of ```srun vasp_std``` on the same n
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=parallel
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
 #SBATCH --nodes=1
@@ -282,7 +276,6 @@ The following script launches ```srun vasp_std``` on only 32 cores on a single n
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
 #SBATCH --nodes=1
@@ -309,7 +302,6 @@ srun -n 32 vasp_std &> out
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=64
 #SBATCH --nodes=1
@@ -334,7 +326,6 @@ srun -n 64 vasp_std &> out
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=parallel
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
 #SBATCH --nodes=1
@@ -378,7 +369,6 @@ The following script launches ```srun vasp_std``` on only 32 cores on a single n
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
-#SBATCH --partition=test
 #SBATCH --time=4:00:00
 #SBATCH --ntasks-per-node=32
 #SBATCH --nodes=1
