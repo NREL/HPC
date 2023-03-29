@@ -87,7 +87,7 @@ Any WRF version can be downloaded [here](https://github.com/wrf-model/WRF/releas
 
 ??? example "Building on Kestrel"
 
-The following `configure.wrf` file was used to build WRF v4.2.2 on Kestral (to date). Copy this configure.wrf into your WRF build dir WRF-4.x.y, and do `% cd WRF-4.x.y`.
+    The following `configure.wrf` file was used to build WRF v4.2.2 on Kestral (to date). Copy this configure.wrf into your WRF build dir WRF-4.x.y, and do `% cd WRF-4.x.y`.
     ```
     # configure.wrf
     #
@@ -137,12 +137,12 @@ The following `configure.wrf` file was used to build WRF v4.2.2 on Kestral (to d
     DWORDSIZE = 8
     LWORDSIZE = 4
 
-	##############################################################################
-	#### The settings in this section are defaults that may be overridden by the
-	#### architecture-specific settings in the next section.  
-	##############################################################################
+    ##############################################################################
+    #### The settings in this section are defaults that may be overridden by the
+    #### architecture-specific settings in the next section.  
+    ##############################################################################
 
-	##############################################################################
+    ##############################################################################
 	#### NOTE:  Do not modify these default values here.  To override these 
 	####        values, make changes after "Architecture specific settings".  
 	##############################################################################
@@ -659,7 +659,7 @@ After loading the modules for the appropriate toolchain, supporting netcdf, hdf5
 	```
 	
 
-## Troubleshooting
+<! ## Troubleshooting
 
-Include known problems and workarounds here, if applicable
+ Include known problems and workarounds here, if applicable !>
 
