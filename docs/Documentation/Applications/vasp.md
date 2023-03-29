@@ -125,6 +125,11 @@ ml vasp/6.1.1-openmpi
 
 srun -n 36 vasp_std &> out
 ```
+Note: the following warning may be printed to the vasp output and can be ignored.
+```
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG
+```
 
 ??? example "Eagle: VASP 5 (Intel MPI) on CPUs"
 
@@ -138,7 +143,7 @@ srun -n 36 vasp_std &> out
 module purge
 
 #Load Intel MPI VASP 5 build
-ml vasp/5.4.4_raptor
+ml vasp/5.4.4_centos77
 
 srun -n 36 vasp_std &> out
 ```
@@ -153,7 +158,7 @@ srun -n 36 vasp_std &> out
 #SBATCH --output=std.out
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:2
+#SBATCH --gpus-per-node=2
 #SBATCH --gpu-bind=map_gpu:0,1
 #SBATCH --account=myaccount
 
@@ -172,26 +177,34 @@ ml fftw nvhpc
 
 mpirun -npernode 2 vasp_std &> out
 ```
+Note: the following warning may be printed to the vasp output and can be ignored so long as the run produces the expected results.
+
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+```
 
 ??? example "Eagle: VASP 6 (Cuda) on GPUs"
 
-To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` exectuable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gres=gpu:2``` and ```#SBATCH --ntasks-per-node=2```.
+To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` exectuable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
 
 ```
 #!/bin/bash
 #SBATCH --job-name="benchmark"
 #SBATCH --account=myaccount
 #SBATCH --time=4:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=2 
-#SBATCH --gres=gpu:2
+#SBATCH --nodes=1 
+#SBATCH --gpus-per-node=2
+#SBATCH --ntasks-per-node=2
 
 module purge
 
 #Load Intel MPI VASP build
 ml vasp
 
-srun -n 36 vasp_gpu &> out
+srun -n 2 vasp_gpu &> out
 ```
 
 ### For Swift
