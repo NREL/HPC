@@ -179,6 +179,7 @@ mpirun -npernode 2 vasp_std &> out
 ```
 Note: the following warning may be printed to the vasp output and can be ignored so long as the run produces the expected results.
 
+```
 Warning: ieee_invalid is signaling
 Warning: ieee_divide_by_zero is signaling
 Warning: ieee_underflow is signaling
