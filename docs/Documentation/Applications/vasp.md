@@ -425,8 +425,8 @@ Due to low performance and reliability of multi-node VASP jobs on Vermilion, it 
 #SBATCH --job-name=vasp
 #SBATCH --nodes=1
 #SBATCH --time=8:00:00
-##SBATCH --error=std.err
-##SBATCH --output=std.out
+#SBATCH --error=std.err
+#SBATCH --output=std.out
 #SBATCH --partition=lg
 #SBATCH --exclusive
 #SBATCH --account=myaccount
@@ -445,7 +445,7 @@ export UCX_TLS=tcp,self
 export OMP_NUM_THREADS=1
 ml ucx
 
-srun -n 60 vasp_std
+srun --mpi=pmi2 -n 60 vasp_std
 
 # If the multi-node calculations are breaking, replace the srun line with this line
 # I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
@@ -457,8 +457,8 @@ srun -n 60 vasp_std
 #SBATCH --job-name=vasp
 #SBATCH --nodes=1
 #SBATCH --time=8:00:00
-##SBATCH --error=std.err
-##SBATCH --output=std.out
+#SBATCH --error=std.err
+#SBATCH --output=std.out
 #SBATCH --partition=lg
 #SBATCH --exclusive
 #SBATCH --account=myaccount
@@ -495,12 +495,12 @@ srun --mpi=pmi2 -n 60 vasp_std
 
 module purge
 
-ml vasp/5.5.4
+ml vasp/5.4.4
 
 source /nopt/nrel/apps/220525b/myenv.2110041605
-ml intel-oneapi-mkl
-ml intel-oneapi-compilers
-ml intel-oneapi-mpi
+ml intel-oneapi-compilers/2022.1.0-k4dysra
+ml intel-oneapi-mkl/2022.1.0-akthm3n
+ml intel-oneapi-mpi/2021.6.0-ghyk7n2
 
 # some extra lines that have been shown to improve VASP reliability on Vermilion
 ulimit -s unlimited
@@ -508,7 +508,7 @@ export UCX_TLS=tcp,self
 export OMP_NUM_THREADS=1
 ml ucx
 
-srun -n 60 vasp_std
+srun --mpi=pmi2 -n 60 vasp_std
 
 # If the multi-node calculations are breaking, replace the srun line with this line
 # I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
@@ -543,7 +543,7 @@ mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
 VASP known issues
 - VASP on Vermilion can crash on multi-node jobs (see workarounds in Vermilion section) - OpenMPI more stable for multi-node jobs
 - OpenACC build eats up more memory but is faster (Cuda build doesn't eat up as much memory)
-- VASP 6.1.1 (or maybe it's 6.1.2?) crashes hse calculations (due to specific version of compiler and vasp) - use a newer version instead
+- VASP 6.1.1 crashes hse calculations (due to specific version of compiler and vasp) - use a newer version instead
 
 ## Perfmarmance Recommendations
 
