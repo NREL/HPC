@@ -156,7 +156,6 @@ srun -n 36 vasp_std &> out
 #SBATCH --time=1:00:00
 #SBATCH --error=std.err
 #SBATCH --output=std.out
-#SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --gpus-per-node=2
 #SBATCH --gpu-bind=map_gpu:0,1
