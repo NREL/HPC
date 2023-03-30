@@ -20,7 +20,7 @@ A sample Slurm script for LAMMPS is given below:
     #SBATCH --error=std.err
 
     module purge
-    module load lammps/20190807 
+    module load lammps/20220623 
     cd $SLURM_SUBMIT_DIR
 
     srun -n 144 lmp -in lmp.in -l lmp.out
