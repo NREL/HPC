@@ -1,6 +1,6 @@
 # Using FEniCS Software 
 
-*Learn how to use FEniCS software on the Eagle system.*
+*Learn how to use FEniCS software on the Eagle and Swift system.*
 
 FEniCS is a collection of open-source software components designed to enable the automated solution of differential equations by the finite element method.  For documentation, forums, and FAQs, see the [FEniCS website](https://fenicsproject.org/).
 
