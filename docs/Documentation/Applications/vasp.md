@@ -93,312 +93,314 @@ NREL's benchmark repositry contains input files for two VASP benchmarks. Benchma
 ### For Eagle
 
 ??? example "Eagle: VASP 6 (Intel MPI) on CPUs"
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --nodes=1
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --nodes=1
+  module purge
 
-module purge
+  #Load Intel MPI VASP build
+  ml vasp/6.3.1
 
-#Load Intel MPI VASP build
-ml vasp
-
-srun -n 36 vasp_std &> out
-```
+  srun -n 36 vasp_std &> out
+  ```
 
 ??? example "Eagle: VASP 6 (Open MPI) on CPUs"
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --nodes=1
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --nodes=1
+  module purge
 
-module purge
+  #Load Open MPI VASP build
+  ml vasp/6.1.1-openmpi
 
-#Load Open MPI VASP build
-ml vasp/6.1.1-openmpi
-
-srun -n 36 vasp_std &> out
-```
-Note: the following warning may be printed to the vasp output and can be ignored.
-```
-Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
-Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG
-```
+  srun -n 36 vasp_std &> out
+  ```
+  Note: the following warning may be printed to the vasp output and can be ignored.
+  ```
+  Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+  Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG
+  ```
 
 ??? example "Eagle: VASP 5 (Intel MPI) on CPUs"
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --nodes=1
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --nodes=1
+  module purge
 
-module purge
+  #Load Intel MPI VASP 5 build
+  ml vasp/5.4.4_centos77
 
-#Load Intel MPI VASP 5 build
-ml vasp/5.4.4_centos77
-
-srun -n 36 vasp_std &> out
-```
+  srun -n 36 vasp_std &> out
+  ```
 
 ??? example "Eagle: VASP 6 (OpenACC) on GPUs"
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name=vasp_gpu
+  #SBATCH --time=1:00:00
+  #SBATCH --error=std.err
+  #SBATCH --output=std.out
+  #SBATCH --nodes=1
+  #SBATCH --gpus-per-node=2
+  #SBATCH --gpu-bind=map_gpu:0,1
+  #SBATCH --account=myaccount
 
-```
-#!/bin/bash
-#SBATCH --job-name=vasp_gpu
-#SBATCH --time=1:00:00
-#SBATCH --error=std.err
-#SBATCH --output=std.out
-#SBATCH --nodes=1
-#SBATCH --gpus-per-node=2
-#SBATCH --gpu-bind=map_gpu:0,1
-#SBATCH --account=myaccount
+  #To run on multiple nodes, change the last two SBATCH lines:
+  ##SBATCH --nodes=4
+  ##SBATCH --gpu-bind=map_gpu:0,1,0,1,0,1,0,1 #one set of "0,1" per node
 
-#To run on multiple nodes, change the last two SBATCH lines:
-##SBATCH --nodes=4
-##SBATCH --gpu-bind=map_gpu:0,1,0,1,0,1,0,1 #one set of "0,1" per node
+  module purge
 
-module purge
+  #Load the OpenACC build of VASP
+  ml vasp/6.3.1-nvhpc_acc
 
-#Load the OpenACC build of VASP
-ml vasp/6.3.1-nvhpc_acc
+  #Load some additional modules
+  module use /nopt/nrel/apps/220511a/modules/lmod/linux-centos7-x86_64/gcc/12.1.0
+  ml fftw nvhpc
 
-#Load some additional modules
-module use /nopt/nrel/apps/220511a/modules/lmod/linux-centos7-x86_64/gcc/12.1.0
-ml fftw nvhpc
+  mpirun -npernode 2 vasp_std &> out
+  ```
+  Note: the following warning may be printed to the vasp output and can be ignored so long as the run produces the expected results.
 
-mpirun -npernode 2 vasp_std &> out
-```
-Note: the following warning may be printed to the vasp output and can be ignored so long as the run produces the expected results.
-
-```
-Warning: ieee_invalid is signaling
-Warning: ieee_divide_by_zero is signaling
-Warning: ieee_underflow is signaling
-Warning: ieee_inexact is signaling
-FORTRAN STOP
-```
+  ```
+  Warning: ieee_invalid is signaling
+  Warning: ieee_divide_by_zero is signaling
+  Warning: ieee_underflow is signaling
+  Warning: ieee_inexact is signaling
+  FORTRAN STOP
+  ```
 
 ??? example "Eagle: VASP 6 (Cuda) on GPUs"
+    
+  To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` exectuable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
+    
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --nodes=1 
+  #SBATCH --gpus-per-node=2
+  #SBATCH --ntasks-per-node=2
 
-To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` exectuable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
+  module purge
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --nodes=1 
-#SBATCH --gpus-per-node=2
-#SBATCH --ntasks-per-node=2
+  #Load Intel MPI VASP build
+  ml vasp/6.1.2
 
-module purge
-
-#Load Intel MPI VASP build
-ml vasp
-
-srun -n 2 vasp_gpu &> out
-```
+  srun -n 2 vasp_gpu &> out
+  ```
 
 ### For Swift
 
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs"
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=64
-#SBATCH --nodes=1
+    
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --ntasks-per-node=64
+  #SBATCH --nodes=1
 
-#Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
-#You will be charged for the full node regardless of the fraction of CPUs/node used
-#SBATCH --exclusive
+  #Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
+  #You will be charged for the full node regardless of the fraction of CPUs/node used
+  #SBATCH --exclusive
 
-module purge
+  module purge
 
-#Load Intel MPI VASP build and necessary modules
-ml vaspintel 
-ml slurm/21-08-1-1-o2xw5ti 
-ml gcc/9.4.0-v7mri5d 
-ml intel-oneapi-compilers/2021.3.0-piz2usr 
-ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
-ml intel-oneapi-mkl/2021.3.0-giz47h4
+  #Load Intel MPI VASP build and necessary modules
+  ml vaspintel 
+  ml slurm/21-08-1-1-o2xw5ti 
+  ml gcc/9.4.0-v7mri5d 
+  ml intel-oneapi-compilers/2021.3.0-piz2usr 
+  ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
+  ml intel-oneapi-mkl/2021.3.0-giz47h4
 
-srun -n 64 vasp_std &> out
-```
+  srun -n 64 vasp_std &> out
+  ```
 
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs: run multiple jobs on the same node(s)"
+  
+  The following script launches two instances of ```srun vasp_std``` on the same node using an array job. Each job will be constricted to 32 cores on the node. 
 
-The following script launches two instances of ```srun vasp_std``` on the same node using an array job. Each job will be constricted to 32 cores on the node. 
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --ntasks-per-node=32
+  #SBATCH --nodes=1
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=32
-#SBATCH --nodes=1
+  #Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
+  #You will be charged for the full node regardless of the fraction of CPUs/node used
+  #SBATCH --exclusive=user
 
-#Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
-#You will be charged for the full node regardless of the fraction of CPUs/node used
-#SBATCH --exclusive=user
+  #Set how many jobs you would like to run at the same time as an array job
+  #In this example, an array of 2 jobs will be run at the same time. This script will be run once for each job.
+  #SBATCH --array=1-2
 
-#Set how many jobs you would like to run at the same time as an array job
-#In this example, an array of 2 jobs will be run at the same time. This script will be run once for each job.
-#SBATCH --array=1-2
+  #The SLURM_ARRAY_TASK_ID variable can be used to modify the parameters of the distinct jobs in the array.
+  #In the case of array=1-2, the first job will have SLURM_ARRAY_TASK_ID=1, and the second will have SLURM_ARRAY_TASK_ID=2.
+  #For example, you could assign different input files to runs 1 and 2 by storing them in directories input_1 and input_2 and using the following code:
 
-#The SLURM_ARRAY_TASK_ID variable can be used to modify the parameters of the distinct jobs in the array.
-#In the case of array=1-2, the first job will have SLURM_ARRAY_TASK_ID=1, and the second will have SLURM_ARRAY_TASK_ID=2.
-#For example, you could assign different input files to runs 1 and 2 by storing them in directories input_1 and input_2 and using the following code:
+  mkdir run_${SLURM_ARRAY_TASK_ID}
+  cd run_${SLURM_ARRAY_TASK_ID}
+  cp ../input_${SLURM_ARRAY_TASK_ID}/POSCAR .
+  cp ../input_${SLURM_ARRAY_TASK_ID}/POTCAR .
+  cp ../input_${SLURM_ARRAY_TASK_ID}/INCAR .
+  cp ../input_${SLURM_ARRAY_TASK_ID}/KPOINTS .
 
-mkdir run_${SLURM_ARRAY_TASK_ID}
-cd run_${SLURM_ARRAY_TASK_ID}
-cp ../input_${SLURM_ARRAY_TASK_ID}/POSCAR .
-cp ../input_${SLURM_ARRAY_TASK_ID}/POTCAR .
-cp ../input_${SLURM_ARRAY_TASK_ID}/INCAR .
-cp ../input_${SLURM_ARRAY_TASK_ID}/KPOINTS .
+  #Now load vasp and run the job...
 
-#Now load vasp and run the job...
+  module purge
 
-module purge
+  #Load Intel MPI VASP build and necessary modules
+  ml vaspintel 
+  ml slurm/21-08-1-1-o2xw5ti 
+  ml gcc/9.4.0-v7mri5d 
+  ml intel-oneapi-compilers/2021.3.0-piz2usr 
+  ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
+  ml intel-oneapi-mkl/2021.3.0-giz47h4
 
-#Load Intel MPI VASP build and necessary modules
-ml vaspintel 
-ml slurm/21-08-1-1-o2xw5ti 
-ml gcc/9.4.0-v7mri5d 
-ml intel-oneapi-compilers/2021.3.0-piz2usr 
-ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
-ml intel-oneapi-mkl/2021.3.0-giz47h4
-
-srun -n 32 vasp_std &> out
-```
+  srun -n 32 vasp_std &> out
+  ```
 
 ??? example "Swift: VASP 6 (Intel MPI) on CPUs: run a single job on a node shared with other users"
+  
+  The following script launches ```srun vasp_std``` on only 32 cores on a single node. The other 32 cores remain open for other users to use. You will only be charged for half of the node hours. 
 
-The following script launches ```srun vasp_std``` on only 32 cores on a single node. The other 32 cores remain open for other users to use. You will only be charged for half of the node hours. 
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --ntasks-per-node=32
+  #SBATCH --nodes=1
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=32
-#SBATCH --nodes=1
+  #To make sure that you are only being charged for the CPUs your job is using, set mem=2GB*CPUs/node
+  #--mem sets the memory used per node
+  #SBATCH --mem=64G
 
-#To make sure that you are only being charged for the CPUs your job is using, set mem=2GB*CPUs/node
-#--mem sets the memory used per node
-#SBATCH --mem=64G
+  module purge
 
-module purge
+  #Load Intel MPI VASP build and necessary modules
+  ml vaspintel 
+  ml slurm/21-08-1-1-o2xw5ti 
+  ml gcc/9.4.0-v7mri5d 
+  ml intel-oneapi-compilers/2021.3.0-piz2usr 
+  ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
+  ml intel-oneapi-mkl/2021.3.0-giz47h4
 
-#Load Intel MPI VASP build and necessary modules
-ml vaspintel 
-ml slurm/21-08-1-1-o2xw5ti 
-ml gcc/9.4.0-v7mri5d 
-ml intel-oneapi-compilers/2021.3.0-piz2usr 
-ml intel-oneapi-mpi/2021.3.0-hcp2lkf 
-ml intel-oneapi-mkl/2021.3.0-giz47h4
-
-srun -n 32 vasp_std &> out
-```
+  srun -n 32 vasp_std &> out
+  ```
 
 ??? example "Swift: VASP 6 (Open MPI) on CPUs"
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=64
-#SBATCH --nodes=1
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --ntasks-per-node=64
+  #SBATCH --nodes=1
 
-#Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
-#You will be charged for the full node regardless of the fraction of CPUs/node used
-#SBATCH --exclusive
+  #Set --exclusive if you would like to prevent any other jobs from running on the same nodes (including your own)
+  #You will be charged for the full node regardless of the fraction of CPUs/node used
+  #SBATCH --exclusive
 
-module purge
+  module purge
 
-#Load OpenMPI VASP build and necessary modules
-ml vasp 
-ml slurm/21-08-1-1-o2xw5ti 
-ml openmpi/4.1.1-6vr2flz
+  #Load OpenMPI VASP build and necessary modules
+  ml vasp 
+  ml slurm/21-08-1-1-o2xw5ti 
+  ml openmpi/4.1.1-6vr2flz
 
-srun -n 64 vasp_std &> out
-```
+  srun -n 64 vasp_std &> out
+  ```
 
 ??? example "Swift: VASP 6 (Open MPI) on CPUs: run multiple jobs on the same node(s)"
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --ntasks-per-node=32
+  #SBATCH --nodes=1
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=32
-#SBATCH --nodes=1
+  #Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
+  #You will be charged for the full node regardless of the fraction of CPUs/node used
+  #SBATCH --exclusive=user
 
-#Set --exclusive=user if you would like to prevent anyone else from running on the same nodes as you
-#You will be charged for the full node regardless of the fraction of CPUs/node used
-#SBATCH --exclusive=user
+  #Set how many jobs you would like to run at the same time as an array job
+  #In this example, an array of 2 jobs will be run at the same time. This script will be run once for each job.
+  #SBATCH --array=1-2
 
-#Set how many jobs you would like to run at the same time as an array job
-#In this example, an array of 2 jobs will be run at the same time. This script will be run once for each job.
-#SBATCH --array=1-2
+  #The SLURM_ARRAY_TASK_ID variable can be used to modify the parameters of the distinct jobs in the array.
+  #In the case of array=1-2, the first job will have SLURM_ARRAY_TASK_ID=1, and the second will have SLURM_ARRAY_TASK_ID=2.
+  #For example, you could assign different input files to runs 1 and 2 by storing them in directories input_1 and input_2 and using the following code:
 
-#The SLURM_ARRAY_TASK_ID variable can be used to modify the parameters of the distinct jobs in the array.
-#In the case of array=1-2, the first job will have SLURM_ARRAY_TASK_ID=1, and the second will have SLURM_ARRAY_TASK_ID=2.
-#For example, you could assign different input files to runs 1 and 2 by storing them in directories input_1 and input_2 and using the following code:
+  mkdir run_${SLURM_ARRAY_TASK_ID}
+  cd run_${SLURM_ARRAY_TASK_ID}
+  cp ../input_${SLURM_ARRAY_TASK_ID}/POSCAR .
+  cp ../input_${SLURM_ARRAY_TASK_ID}/POTCAR .
+  cp ../input_${SLURM_ARRAY_TASK_ID}/INCAR .
+  cp ../input_${SLURM_ARRAY_TASK_ID}/KPOINTS .
 
-mkdir run_${SLURM_ARRAY_TASK_ID}
-cd run_${SLURM_ARRAY_TASK_ID}
-cp ../input_${SLURM_ARRAY_TASK_ID}/POSCAR .
-cp ../input_${SLURM_ARRAY_TASK_ID}/POTCAR .
-cp ../input_${SLURM_ARRAY_TASK_ID}/INCAR .
-cp ../input_${SLURM_ARRAY_TASK_ID}/KPOINTS .
+  #Now load vasp and run the job...
 
-#Now load vasp and run the job...
+  module purge
 
-module purge
+  #Load OpenMPI VASP build and necessary modules
+  ml vasp 
+  ml slurm/21-08-1-1-o2xw5ti 
+  ml openmpi/4.1.1-6vr2flz
 
-#Load OpenMPI VASP build and necessary modules
-ml vasp 
-ml slurm/21-08-1-1-o2xw5ti 
-ml openmpi/4.1.1-6vr2flz
-
-srun -n 32 vasp_std &> out
-```
+  srun -n 32 vasp_std &> out
+  ```
 
 ??? example "Swift: VASP 6 (Open MPI) on CPUs: run a single job on a node shared with other users"
+  
+  The following script launches ```srun vasp_std``` on only 32 cores on a single node. The other 32 cores remain open for other users to use. You will only be charged for half of the node hours. 
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name="benchmark"
+  #SBATCH --account=myaccount
+  #SBATCH --time=4:00:00
+  #SBATCH --ntasks-per-node=32
+  #SBATCH --nodes=1
 
-The following script launches ```srun vasp_std``` on only 32 cores on a single node. The other 32 cores remain open for other users to use. You will only be charged for half of the node hours. 
+  #To make sure that you are only being charged for the CPUs your job is using, set mem=2GB*CPUs/node
+  #--mem sets the memory used per node
+  #SBATCH --mem=64G
 
-```
-#!/bin/bash
-#SBATCH --job-name="benchmark"
-#SBATCH --account=myaccount
-#SBATCH --time=4:00:00
-#SBATCH --ntasks-per-node=32
-#SBATCH --nodes=1
+  module purge
 
-#To make sure that you are only being charged for the CPUs your job is using, set mem=2GB*CPUs/node
-#--mem sets the memory used per node
-#SBATCH --mem=64G
+  #Load OpenMPI VASP build and necessary modules
+  ml vasp 
+  ml slurm/21-08-1-1-o2xw5ti 
+  ml openmpi/4.1.1-6vr2flz
 
-module purge
-
-#Load OpenMPI VASP build and necessary modules
-ml vasp 
-ml slurm/21-08-1-1-o2xw5ti 
-ml openmpi/4.1.1-6vr2flz
-
-srun -n 32 vasp_std &> out
-```
+  srun -n 32 vasp_std &> out
+  ```
 
 ### Vermilion
 
@@ -419,123 +421,127 @@ OMPI_MCA_param="btl_tcp_if_include ens7"
 Due to low performance and reliability of multi-node VASP jobs on Vermilion, it is recommended to run VASP on a singe node. If many cores are needed for your VASP calcualtion, run your job in the lg partition (60 cores/node), which provides the largest numbers of cores per node.
 
 ??? example "Vermilion: VASP 6 (Intel MPI) on CPUs"
-```
-#!/bin/bash
-#SBATCH --job-name=vasp
-#SBATCH --nodes=1
-#SBATCH --time=8:00:00
-#SBATCH --error=std.err
-#SBATCH --output=std.out
-#SBATCH --partition=lg
-#SBATCH --exclusive
-#SBATCH --account=myaccount
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name=vasp
+  #SBATCH --nodes=1
+  #SBATCH --time=8:00:00
+  #SBATCH --error=std.err
+  #SBATCH --output=std.out
+  #SBATCH --partition=lg
+  #SBATCH --exclusive
+  #SBATCH --account=myaccount
 
-module purge
-ml vasp/6.3.1
+  module purge
+  ml vasp/6.3.1
 
-source /nopt/nrel/apps/220525b/myenv.2110041605
-ml intel-oneapi-compilers/2022.1.0-k4dysra
-ml intel-oneapi-mkl/2022.1.0-akthm3n
-ml intel-oneapi-mpi/2021.6.0-ghyk7n2
+  source /nopt/nrel/apps/220525b/myenv.2110041605
+  ml intel-oneapi-compilers/2022.1.0-k4dysra
+  ml intel-oneapi-mkl/2022.1.0-akthm3n
+  ml intel-oneapi-mpi/2021.6.0-ghyk7n2
 
-# some extra lines that have been shown to improve VASP reliability on Vermilion
-ulimit -s unlimited
-export UCX_TLS=tcp,self
-export OMP_NUM_THREADS=1
-ml ucx
+  # some extra lines that have been shown to improve VASP reliability on Vermilion
+  ulimit -s unlimited
+  export UCX_TLS=tcp,self
+  export OMP_NUM_THREADS=1
+  ml ucx
 
-srun --mpi=pmi2 -n 60 vasp_std
+  srun --mpi=pmi2 -n 60 vasp_std
 
-# If the multi-node calculations are breaking, replace the srun line with this line
-# I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
-```
+  # If the multi-node calculations are breaking, replace the srun line with this line
+  # I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
+  ```
 
 ??? example "Vermilion: VASP 6 (Open MPI) on CPUs"
-```
-#!/bin/bash
-#SBATCH --job-name=vasp
-#SBATCH --nodes=1
-#SBATCH --time=8:00:00
-#SBATCH --error=std.err
-#SBATCH --output=std.out
-#SBATCH --partition=lg
-#SBATCH --exclusive
-#SBATCH --account=myaccount
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name=vasp
+  #SBATCH --nodes=1
+  #SBATCH --time=8:00:00
+  #SBATCH --error=std.err
+  #SBATCH --output=std.out
+  #SBATCH --partition=lg
+  #SBATCH --exclusive
+  #SBATCH --account=myaccount
 
-module purge
-ml gcc
-ml vasp/6.1.1-openmpi
+  module purge
+  ml gcc
+  ml vasp/6.1.1-openmpi
 
-# some extra lines that have been shown to improve VASP reliability on Vermilion
-ulimit -s unlimited
-export UCX_TLS=tcp,self
-export OMP_NUM_THREADS=1
-ml ucx
+  # some extra lines that have been shown to improve VASP reliability on Vermilion
+  ulimit -s unlimited
+  export UCX_TLS=tcp,self
+  export OMP_NUM_THREADS=1
+  ml ucx
 
-# lines to set "ens7" as the interconnect network
-module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
-module load openmpi
-OMPI_MCA_param="btl_tcp_if_include ens7"
+  # lines to set "ens7" as the interconnect network
+  module use /nopt/nrel/apps/220525b/level01/modules/lmod/linux-rocky8-x86_64/gcc/12.1.0
+  module load openmpi
+  OMPI_MCA_param="btl_tcp_if_include ens7"
 
-srun --mpi=pmi2 -n 60 vasp_std
-```
+  srun --mpi=pmi2 -n 60 vasp_std
+  ```
 
 ??? example "Vermilion: VASP 5 (Intel MPI) on CPUs"
-```
-#!/bin/bash
-#SBATCH --job-name=vasp
-#SBATCH --nodes=1
-#SBATCH --time=8:00:00
-##SBATCH --error=std.err
-##SBATCH --output=std.out
-#SBATCH --partition=lg
-#SBATCH --exclusive
-#SBATCH --account=myaccount
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name=vasp
+  #SBATCH --nodes=1
+  #SBATCH --time=8:00:00
+  ##SBATCH --error=std.err
+  ##SBATCH --output=std.out
+  #SBATCH --partition=lg
+  #SBATCH --exclusive
+  #SBATCH --account=myaccount
 
-module purge
+  module purge
 
-ml vasp/5.4.4
+  ml vasp/5.4.4
 
-source /nopt/nrel/apps/220525b/myenv.2110041605
-ml intel-oneapi-compilers/2022.1.0-k4dysra
-ml intel-oneapi-mkl/2022.1.0-akthm3n
-ml intel-oneapi-mpi/2021.6.0-ghyk7n2
+  source /nopt/nrel/apps/220525b/myenv.2110041605
+  ml intel-oneapi-compilers/2022.1.0-k4dysra
+  ml intel-oneapi-mkl/2022.1.0-akthm3n
+  ml intel-oneapi-mpi/2021.6.0-ghyk7n2
 
-# some extra lines that have been shown to improve VASP reliability on Vermilion
-ulimit -s unlimited
-export UCX_TLS=tcp,self
-export OMP_NUM_THREADS=1
-ml ucx
+  # some extra lines that have been shown to improve VASP reliability on Vermilion
+  ulimit -s unlimited
+  export UCX_TLS=tcp,self
+  export OMP_NUM_THREADS=1
+  ml ucx
 
-srun --mpi=pmi2 -n 60 vasp_std
+  srun --mpi=pmi2 -n 60 vasp_std
 
-# If the multi-node calculations are breaking, replace the srun line with this line
-# I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
-```
+  # If the multi-node calculations are breaking, replace the srun line with this line
+  # I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
+  ```
 
 ??? example "Vermilion: VASP 6 (OpenACC) on GPUs"
-```
-#!/bin/bash
-#SBATCH --job-name=vasp
-#SBATCH --nodes=2
-#SBATCH --time=1:00:00
-##SBATCH --error=std.err
-##SBATCH --output=std.out
-#SBATCH --partition=gpu
-#SBATCH --gpu-bind=map_gpu:0,1,0,1
-#SBATCH --exclusive
-#SBATCH --account=myaccount
+  
+  ```
+  #!/bin/bash
+  #SBATCH --job-name=vasp
+  #SBATCH --nodes=2
+  #SBATCH --time=1:00:00
+  ##SBATCH --error=std.err
+  ##SBATCH --output=std.out
+  #SBATCH --partition=gpu
+  #SBATCH --gpu-bind=map_gpu:0,1,0,1
+  #SBATCH --exclusive
+  #SBATCH --account=myaccount
 
-# Load the OpenACC build of VASP
-ml vasp/6.3.1-nvhpc_acc
+  # Load the OpenACC build of VASP
+  ml vasp/6.3.1-nvhpc_acc
 
-# Load some additional modules
-module use  /nopt/nrel/apps/220421a/modules/lmod/linux-rocky8-x86_64/gcc/11.3.0/
-ml nvhpc
-ml fftw
+  # Load some additional modules
+  module use  /nopt/nrel/apps/220421a/modules/lmod/linux-rocky8-x86_64/gcc/11.3.0/
+  ml nvhpc
+  ml fftw
 
-mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
-```
+  mpirun -npernode 1 vasp_std > vasp.$SLURM_JOB_ID
+  ```
 
 ## Troubleshooting
 
@@ -544,7 +550,7 @@ VASP known issues
 - OpenACC build eats up more memory but is faster (Cuda build doesn't eat up as much memory)
 - VASP 6.1.1 crashes hse calculations (due to specific version of compiler and vasp) - use a newer version instead
 
-## Perfmarmance Recommendations
+## Performance Recommendations
 
 Studies have been performed to evaluate the performance on VASP on Swift and Eagle using [ESIF VASP Benchmarks](https://github.com/NREL/ESIFHPC3/tree/master/VASP) 1 and 2. Benchmark 1 is a system of 16 atoms (Cu<sub>4</sub>In<sub>4</sub>Se<sub>8</sub>), and Benchmark 2 is a system of 519 atoms (Ag<sub>504</sub>C<sub>4</sub>H<sub>10</sub>S<sub>1</sub>). They can be found [here](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%201) and [here](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202).
 
