@@ -4,7 +4,7 @@
 
 LAMMPS has numerous built-in potentials for simulations of solid-state, soft matter, and coarse-grained systems. It can be run on a single processor or in parallel using MPI. To learn more, see the [LAMMPS website](https://www.lammps.org/#gsc.tab=0). 
 
-The most recent version of LAMMPS on Eagle at the time of this page being published is the 03Mar20 version. The following packages have been installed in this version: asphere, class2, kspace, manybody, misc, molecule, mpiio, opt, replica, rigid,  mc, qeq, body, colloid, dipole, python, granular, shock, user-dpd, user-drude, user-fep, user-omp, user-intel, user-qmmm, user-reaxc, user-misc, user-meamc, voronoi, user-tally. 
+The most recent version of LAMMPS on Eagle and Swift at the time of this page being published is the 23Jun22 version. The following packages have been installed in this version: asphere, body, bocs, class2, colloid, dielectric, diffraction, dipole, dpd-basic, drude, eff, electrode, extra-fix, extra-pair, fep, granular, h5md, intel, interlayer, kspace, manifold, manybody, mc, meam, misc, molecule, mpiio, openmp, opt, python, phonon, qep, qmmm, reaction, reaxff, replica, rigid, shock, spin, voronoi.
 
 ## Sample Slurm Script 
 A sample Slurm script for LAMMPS is given below:
