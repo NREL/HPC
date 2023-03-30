@@ -90,7 +90,7 @@ Gaussian may be configured on Eagle to run on one or more physical nodes, with o
 	# so clean these to make sure there is enough space. 
 	# 
 	 
-	mkdir $SCRATCH 
+	mkdir -p $SCRATCH 
 	rm $SCRATCH2/* 
 	
 	# Run Gaussian job 
