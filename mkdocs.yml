@@ -109,11 +109,11 @@ nav:
          - Libraries:
               - Documentation/Development/Libraries/index.md
               - Libraries How-to:   Documentation/Development/Libraries/howto.md
-              - FFTW:   Documentation/Development/Libraries/index#fftw
-              - HDF5:   Documentation/Development/Libraries/index#hdf5
-              - LAPACK: Documentation/Development/Libraries/index#lapack-and-scalapack
-              - LibSci: Documentation/Development/Libraries/index#libsci
-              - MKL:    Documentation/Development/Libraries/index#mkl
+              - FFTW:   Documentation/Development/Libraries/fftw.md
+              - HDF5:   Documentation/Development/Libraries/hdf5.md
+              - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
+              - LibSci: Documentation/Development/Libraries/libsci.md
+              - MKL:    Documentation/Development/Libraries/mkl.md
               - NetCDF: Documentation/Development/Libraries/netcdf.md
               - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
@@ -160,6 +160,8 @@ theme:
     - navigation.tabs
     - navigation.indexes
 markdown_extensions:
+  - toc:
+      permalink: "#"
   - admonition
   - attr_list
   - meta
