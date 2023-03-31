@@ -75,7 +75,7 @@ This re-creates the python+numpy environment from earlier, but with all download
 <br><br>
 </div>
 
-Unfortunately, placing environments outside of the default /env folder means that it needs to be activated with the full path (`conda activate /path/to/mypy`) and will show the full path rather than the environment name at the command prompt. 
+Unfortunately, placing environments outside of the default ~/.conda-envs/ folder means that it needs to be activated with the full path (`conda activate /path/to/mypy`) and will show the full path rather than the environment name at the command prompt. 
 
 To fix the cumbersome command prompt, simply modify the `env_prompt` setting in your `.condarc` file:
 
@@ -95,10 +95,10 @@ Conda will ensure that all dependencies are satisfied which may include upgrades
 
 To add a pip-installable package to your environment:
 
-`
+```bash
 conda install pip
 pip <pip_subcommand>
-`
+```
 
 <div class="alert alert-block alert-danger">
 <br>
