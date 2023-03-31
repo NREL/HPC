@@ -52,7 +52,7 @@ The following is a summary of available compilers and toolchains.  User are enco
 |-----------|--------------|--------------------------|-------------------|
 | gcc       | `g++`        | `gcc`                    | All               |
 | Intel     | `icpc`       | `comp-intel`             | Eagle             |
-| Intel     | `icpc`       | `intel-oneapi-compilers` | Swift, Vermillion |
+| Intel     | `icpc`       | `intel-oneapi-compilers` | Swift, Vermilion |
 | Intel     | `icpc`       | `comp-intel`             | Eagle             |
 | Cray      | `CC`         | `PrgEnv-cray`            | Kestrel           |
 
