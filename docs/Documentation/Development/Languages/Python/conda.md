@@ -5,8 +5,7 @@ parent: Python
 grand_parent: Programming Languages
 ---
 
-![conda logo](images/conda_logo.png)
-
+[![Conda logo](https://docs.conda.io/en/latest/_images/conda_logo.svg)](https://docs.conda.io/en/latest/)
 
 ## Why Conda?
 
