@@ -161,7 +161,7 @@ By default, the conda module uses the home directory for package caches and name
 
 * Use the -p PATH_NAME switch when creating or updating your environment.  Make sure PATH_NAME isn't in the home directory.  Keep in mind files in /scratch are deleted after about a month of inactivity.
 
-* Change the directory used for caching.  This location is set by the module file to ~/.conda-pkgs.  Calling export CONDA_PKGS_DIRS=PATH_NAME to somewhere to store downloads and cached files such as /scratch/$USER/.conda-pkgs will reduce home directory usage.  
+* Change the directory used for caching.  This location is set by the module file to ~/.conda-pkgs.  A simple way to avoid filling up the home directory with cached conda data is to soft link a location on scratch to ~/.conda-pkgs such as `ln -s /scratch/$USER/.conda-pkgs /home/$USER/.conda-pkgs`  Calling export CONDA_PKGS_DIRS=PATH_NAME to somewhere to store downloads and cached files such as /scratch/$USER/.conda-pkgs will reduce home directory usage.  
 
 ## HPC Considerations
 
