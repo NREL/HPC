@@ -16,7 +16,7 @@ check_quota()
         proj_id=$(lfs project -d /projects/$proj | cut -f2 -d " ")
         proj_all=$(lfs quota -hp $proj_id /projects/$proj | grep "T")
 
-        if [ ${#proj} -lt 7 ]; then
+        if [ ${#proj} -lt 6 ]; then
             # proj name is short
             proj_used=$(echo $proj_all  | cut -f2 -d " ")
             proj_quota=$(echo $proj_all | cut -f3 -d " ")
