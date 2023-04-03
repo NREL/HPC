@@ -17,7 +17,7 @@ For links to in-depth tutorials and walkthroughs of GDB features, please see [Re
 
 ## Availability
 
-| Eagle | Swift | Vermillion |
+| Eagle | Swift | Vermilion |
 |:-------:|:-----:|:-----------|
 | gdb/7.6.1\*| gdb/8.2\*  |gdb/12.1, gdb/8.2\*  |
 
@@ -25,8 +25,8 @@ For links to in-depth tutorials and walkthroughs of GDB features, please see [Re
 
 ## Resources
 
-* Introduction to GDB: [here](https://www.cs.umd.edu/~srhuang/teaching/cmsc212/gdb-tutorial-handout.pdf)
+* [Introduction to GDB](https://www.cs.umd.edu/~srhuang/teaching/cmsc212/gdb-tutorial-handout.pdf)
 
-* Sample GDB session: [here](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Sample-Session.html#Sample-Session)
+* [Sample GDB session](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Sample-Session.html#Sample-Session)
 
-* "Print statement"-style debugging with GDB: [here](https://developers.redhat.com/articles/2021/10/05/printf-style-debugging-using-gdb-part-1#)
+* ["Print statement"-style debugging with GDB](https://developers.redhat.com/articles/2021/10/05/printf-style-debugging-using-gdb-part-1#)
