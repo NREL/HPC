@@ -126,18 +126,18 @@ When the job is done, the file hello.out should contain the same output as you f
 
 | Compiler        | Compiler Executable | Module Avail | Systems available on |
 |:---------------:|:-------------------:|:------------:|:--------------------:|
-| gcc             | gfortran            | gcc          | Kestrel(Eagle), Swift, Vermillion
-| intel           | ifort               | intel-oneapi | Kestrel(Eagle), Swift, Vermillion
+| gcc             | gfortran            | gcc          | Kestrel(Eagle), Swift, Vermilion
+| intel           | ifort               | intel-oneapi | Kestrel(Eagle), Swift, Vermilion
 | intel           | ifort               | intel-classic| Kestrel
 
 ### Fortran-MPI Toolchains
 
 | Compiler       | MPI     | Compiler Executable | Module Avail                    | Systems available on |
 |:--------------:|:-------:|:-------------------:|:-------------------------------:|:--------------------:|
-| gcc            | openmpi | mpifort             | openmpi                         | Kestrel(Eagle), Swift, Vermillion
+| gcc            | openmpi | mpifort             | openmpi                         | Kestrel(Eagle), Swift, Vermilion
 | intel          | openmpi | mpifort             | openmpi/4.1.x-intel             | Kestrel(Eagle)
-| intel          | intel   | mpiifort            | intel-oneapi-mpi                | Kestrel, Swift, Vermillion
-| gcc            | MPICH   | mpifort             | mpich                           | Kestrel, Swift, Vermillion
+| intel          | intel   | mpiifort            | intel-oneapi-mpi                | Kestrel, Swift, Vermilion
+| gcc            | MPICH   | mpifort             | mpich                           | Kestrel, Swift, Vermilion
 | intel          | MPICH   | mpifort             | mpich/4.0.2-intel               | Kestrel only
 | cray           | MPICH   | ftn                 | cray-mpich                      | Kestrel only
 
