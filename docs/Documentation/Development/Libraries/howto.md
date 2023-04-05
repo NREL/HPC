@@ -2,7 +2,7 @@
 
 This page is a tutorial explaining how to include scientific libraries when compiling software. 
 
-There are a few common scientific libraries: LAPACK, BLAS, BLACS, scaLAPACK, fftw, hdf5, and others. These libraries are generally highly optimized, and many scientific programs favor use of these libraries over in-house implementations of similar functionality. See our [libraries overview](index.md) page for more information.
+There are a few common scientific libraries: LAPACK, BLAS, BLACS, scaLAPACK, FFTW, HDF5, and others. These libraries are generally highly optimized, and many scientific programs favor use of these libraries over in-house implementations of similar functionality. See our [libraries overview](index.md) page for more information.
 
 Scientific libraries can be packaged together, like in the Intel Math Kernel Library (MKL), or Cray’s LibSci. They can also be built completely separately and act as standalone libraries. These libraries can be built with different MPI implementations and compiler choices. 
 
