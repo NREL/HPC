@@ -296,6 +296,7 @@ contains
 
 ## Obsolescent features
  The following are available in Fortran 90. On the other hand, the concept of "obsolescence" is introduced. This means that some constructs may be removed in the future.
+
 - Arithmetic IF-statement
 - Control variables in a DO-loop which are floating point or double-precision floating-point
 - Terminating several DO-loops on the same statement
