@@ -1,6 +1,3 @@
-# MPI Frameworks
-
-
 ## OpenMPI
 
 **Documentation:** [OpenMPI](https://www.open-mpi.org)
