@@ -7,6 +7,9 @@ website](https://mdx.plm.automation.siemens.com/star-ccm-plus).*
 STAR-CCM+ can be run interactively on Eagle using X windows. The network
 licenses are checked out from the license server running on wind-lic.nrel.gov.
 
+???+ Note "Notes"
+    STAR-CCM+ is not supported on Vemilion and Swift.
+
 First, build your simulation `<your_simulation.sim>` on your workstation and
 copy to your `/scratch/$USER/<sim_dir>` directory on Eagle:
 
