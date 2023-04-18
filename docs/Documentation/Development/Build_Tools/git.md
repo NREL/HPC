@@ -24,7 +24,7 @@ $ git config --global user.name "Your name"
 $ git config --global user.email "your.name@nrel.gov"
 ```
 
-Github does not accept account passwords when authenticating git operations on Github.com. Instead, token-based authentication ([PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) or [SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh)) is required.
+Github does not accept account passwords for authenticated Git operations. Instead, token-based authentication ([PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) or [SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh)) is required.
 
 ### Set Up SSH Authorization
 Users already have SSH keys created on the HPC systems. To set up Github SSH authorization, you can add the existing SSH (secure shell) key(s) to your Github profile. You will also need to change any remote repo URL to use SSH instead of HTTPS. 
@@ -142,8 +142,10 @@ Users already have SSH keys created on the HPC systems. To set up Github SSH aut
 
 ??? note "Delete a branch"
     Once you've merged a branch and you are done with it, you can delete it:  
-    `git branch --delete <branchName> # deletes branchName from your local repo`  
-    `git push origin --delete <branchName> # deletes the remote branch if you pushed it to the remote server`
+    ```
+    git branch --delete <branchName> # deletes branchName from your local repo
+    git push origin --delete <branchName> # deletes the remote branch if you pushed it to the remote server
+    ```
 
 ??? note "Git diff tricks"
     You can use `git log` to see when the commits happened, and then `git diff` has some options that can help identify changes.  
@@ -164,30 +166,30 @@ Users already have SSH keys created on the HPC systems. To set up Github SSH aut
     `git checkout tagname`
 
 ??? "Unmodify a modified file"
-    What if you realize that you don't want to keep your changes to the important_code.py file? How can you easily un-modify it — revert it back to what it looked like when you last committed (or initially cloned, or however you got it into your working directory)? Luckily, `git status` tells you how to do that, too. In the last example output, the unstaged area looks like this:  
+    To revert your file back to your last commit and discard current changes, use the output from `git status` to easily un-modify it. 
     ```
-    # Changed but not updated:
-    # (use "git add <file>..." to update what will be committed)
-    # (use "git checkout -- <file>..." to discard changes in working directory)
-    #
-    # modified: important_code.py
-    It tells you pretty explicitly how to discard the changes you've made. Let's do what it says:
-    $ git checkout -- important_code.py
     $ git status
-    # On branch master
-    # Changes to be committed:
-    # (use "git reset HEAD <file>..." to unstage) #
-    # modified: README.txt #
+    # Changes not staged for commit:  
+    # (use "git add <file>..." to update what will be committed)
+    # (use "git restore <file>..." to discard changes in working directory)
+        # modified: modified_code.py  
+
+    # Run the command in the above output to discard changes:  
+    $ git restore modified_code.py
+
     ```
-    You can see that the changes have been reverted. You should also realize that this is a dangerous command: any changes you made to that file are gone — you just copied another file over it. Don't ever use this command unless you absolutely know that you don't want the file.
+    If you run `git status` again you will see that the changes have been reverted. Just be sure that you want to revert the file before doing so, because all current changes will not be recoverable. 
 
 ??? note "Point your repo to a different remote server"
-    Let's say you were working on some code that you'd checked-out from a repo on some other server, say from github.com. Now, you want to check that code into NREL's repository. Once you've requested a new NREL git repo from ITS and it's configured, you can:  
-    `git remote set-url origin git@github.nrel.gov:hpc/my.<strongnewprojectname>.git`  
-    See `git help remote` for more details or you can just edit `.git/config` and change the URLs there. You're not in any danger of losing history unless you do something very silly, If you're worried, just make a copy of your repo, since your repo is your history.
+    For example, you may need to do this if you were working on code from a repo that was checked-out from Github.com, and you want to check that code into a repository on NREL's github server. Once you've requested a new NREL git repo from ITS and it's configured, you can:    
+    ```
+    git remote set-url origin git@github.nrel.gov:hpc/my.<newprojectname>.git
+    ```    
+    See `git help remote` for more details or you can just edit `.git/config` and change the URLs there. 
+    This shouldn't cause any lost repo history, but if you want to be sure, you can make a copy of your repo until the url change is confirmed. 
 
 ??? note "Send someone a copy of your current code (not the whole repo)"
-    You can export a copy of your code to your $HOME directory using the following command:  
+    You can export a copy of your code to your $HOME directory using the following command:    
     `git archive master --prefix=my.projectname/ --output=~/my.projectname.tgz`
 
 
