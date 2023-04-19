@@ -11,7 +11,7 @@ has_children: true
 Git is used locally to track incremental development and modifications to a collection of files. [GitHub](https://github.com) is a git-repository hosting web-service, which serves as a synchronized, common access point for the file collections. GitHub also has social aspects, like tracking who changed what and why. There are other git hosting services like [GitLab](https://gitlab.com) which are similar to GitHub but offer slightly different features.
 
 
-NREL has a Github Enterprise server (github.nrel.gov) for internally-managed repos. Please note that github.nrel.gov is only available interally using the NREL network or VPN. NREL's git server uses SAML/SSO for logging into GitHub Enterprise. To get help accessing the server or creating a repository, please contact NREL ITS.
+NREL has a Github Enterprise server (github.nrel.gov) for internally-managed repos. Please note that github.nrel.gov is only available internally using the NREL network or VPN. NREL's git server uses SAML/SSO for logging into GitHub Enterprise. To get help accessing the server or creating a repository, please contact NREL ITS.
 
 ## Git Configuration Set Up
 
