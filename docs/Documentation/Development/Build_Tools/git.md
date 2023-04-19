@@ -101,12 +101,12 @@ Users already have SSH keys created on the HPC systems. To set up Github SSH aut
     ```
 
 ??? note "Revert to a previous commit"
-    Find the commit you want to reset to:  
+    You can use `git revert` to remove unwanted changes.
+    Find the hash of the commit that you need to undo:  
     `git log`  
     Once you have the hash:  
-    `git reset --hard <hash>`  
-    And to push onto the remote:  
-    `git push -f <remote> <branch>`  
+    `git revert <hash of commit to undo>`  
+    The `git revert` command will undo only the changes associated with the chosen commit, even if it is not the most recent commit. The reverted commit will still be stored in the history of changes, so it can still be accessed or reviewed in the future. 
 
 ??? note "Make a branch"
     Create a local branch called "experimental" based on the current master branch:
