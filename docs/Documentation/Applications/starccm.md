@@ -1,12 +1,14 @@
 # Running STAR-CCM+ Software
 
-*Learn how to run STAR-CCM+ software on the Eagle system.*
 
-For information about the software's features, see the [STAR-CCM+
-website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
+*For information about the software's features, see the [STAR-CCM+
+website](https://mdx.plm.automation.siemens.com/star-ccm-plus).*
 
 STAR-CCM+ can be run interactively on Eagle using X windows. The network
 licenses are checked out from the license server running on wind-lic.nrel.gov.
+
+???+ Note "Notes"
+    STAR-CCM+ is not supported on Vemilion and Swift.
 
 First, build your simulation `<your_simulation.sim>` on your workstation and
 copy to your `/scratch/$USER/<sim_dir>` directory on Eagle:
@@ -18,7 +20,7 @@ your_simulation.sim
 
 Create a Slurm script `<your_scriptfile>` as shown below:
 
-??? example "Example Slurm script"
+???+ example "Example Slurm script"
 
     ``` bash
     #!/bin/bash -l
@@ -46,11 +48,9 @@ Create a Slurm script `<your_scriptfile>` as shown below:
     ```
 
 Note that you must give the full path of your input file in the script.
-
 <!-- TODO: link to docs for interactive job -->
 The simulation may be tested in an interactive job before being submitted to the
 batch queue.
-
 After the interactive job is allocated, type the commands from the Slurm script
 and make sure the job runs:
 
