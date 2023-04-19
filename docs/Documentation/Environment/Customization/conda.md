@@ -71,7 +71,7 @@ conda deactivate
 
 ## Creating Environments by Location
 
-Creating environments by location is especially helpful when working on the HPC systems, as the default location is your `/home/<username>/` directory, which may have limited storage (for example, on Eagle, the home directory is limited to 50 GB).  To create a Conda environment somewhere besides the default location, use the `--prefix` flag (or the shortened `-p`) instead of `--name` when creating:
+Creating environments by location is especially helpful when working on the HPC systems, as the default location is your `/home/<username>/` directory, which is limited to 50 GB.  To create a Conda environment somewhere besides the default location, use the `--prefix` flag (or the shortened `-p`) instead of `--name` when creating:
 
 ```
 conda create --prefix /path/to/mypy python=3.7 numpy
@@ -109,10 +109,10 @@ conda install --channel conda-forge fenics
 
 To add a pip-installable package to your environment:
 
-`
+```
 conda install pip
 pip <pip_subcommand>
-`
+```
 
 !!! warning "Warning: Mixing Conda and Pip"
 
@@ -131,7 +131,6 @@ which shows changes to the environment over time.  To revert back to a previous 
 ```
 conda install --revision 1
 ```
-
 
 To remove packages from the currently activated environment:
 
@@ -174,7 +173,7 @@ conda env export --from-history > environment.yaml
 To create a new environment with the recipe specified in the .yaml file:
 
 ```
-conda env create --name mypyeagle --file environment.yaml
+conda env create --name mypyhpc --file environment.yaml
 ```
 
 If a name or prefix isn't specified, the environment will be given the same name as the original environment the recipe was exported from (which may be desirable if you're moving to a different computer).
@@ -194,19 +193,19 @@ By default, the conda module uses the home directory for package caches and name
 
 * Use the `-p PATH_NAME` switch when creating or updating your environment.  Make sure `PATH_NAME` isn't in the home directory.  Keep in mind files in /scratch are deleted after about a month of inactivity.
 
-* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  Calling `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/scratch/$USER/.conda-pkgs` will reduce home directory usage.
+* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  A simple way to avoid filling up the home directory with cached conda data is to soft link a location on scratch to `~/.conda-pkgs`, for example `ln -s /scratch/$USER/.conda-pkgs /home/$USER/.conda-pkgs`.  Alternatively, calling `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/scratch/$USER/.conda-pkgs` will reduce home directory usage.
 
 ## HPC Considerations
 
 ### Migrating from local to HPC system
 
-Interacting with your Conda environments on the HPC system should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
+Interacting with your Conda environments on the HPC systems should feel exactly the same as working on your desktop.  An example desktop-to-HPC workflow might go:
 
 1. Create the environment locally
 2. Verify that environment works on a minimal working example
-3. Export local environment file and copy to HPC (`conda env export > environment.yaml`)
-4. Duplicate local environment on HPC (`conda env create -f environment.yaml`)
-5. Execute production-level runs on HPC:
+3. Export local environment file and copy to HPC system (`conda env export > environment.yaml`)
+4. Duplicate local environment on HPC system (`conda env create -f environment.yaml`)
+5. Execute production-level runs on HPC system:
 
 ```bash
 #!/bin/bash 
