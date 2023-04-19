@@ -110,9 +110,10 @@ nav:
               - Git :   Documentation/Development/Build_Tools/git.md
          - Libraries:
               - Documentation/Development/Libraries/index.md
+              - Libraries How-to:   Documentation/Development/Libraries/howto.md
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
-              - LAPACK: Documentation/Development/Libraries/lapack.md
+              - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
               - NetCDF: Documentation/Development/Libraries/netcdf.md
@@ -160,6 +161,8 @@ theme:
     - navigation.tabs
     - navigation.indexes
 markdown_extensions:
+  - toc:
+      permalink: "#"
   - admonition
   - attr_list
   - meta
