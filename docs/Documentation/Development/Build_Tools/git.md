@@ -37,7 +37,7 @@ Users already have SSH keys created on the HPC systems. To set up Github SSH aut
     ```
     git remote set-url origin <git@github.nrel.gov:username/my-projectname.git>.
     ```
-    Your URL can be retrived in the Github UI by going to the remote repo, then "Code" > "SSH".
+    Your URL can be retrieved in the Github UI by going to the remote repo, then "Code" > "SSH".
 
 !!! warning 
     Please do not alter or delete the key pair that exists on the HPC systems in ~/.ssh/. You can copy the public key to Github. 
