@@ -79,7 +79,7 @@ git checkout releases/v0.15 # Change to desired release
 
 ### Pre-requites
 
-All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/master/doc/build/build.md#required-build-tools-and-external-libraries) are available on Eagle either by default or through modules.  The needed modules are covered in the instructions.
+All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/master/doc/build/build.md#required-build-tools-and-external-libraries) are available on the clusters either by default or through modules.  The needed modules are covered in the instructions.
 
 ### Terms
 * `JULIA_HOME` is the base directory of Julia source code (initially called `julia` after `git clone`)
@@ -89,6 +89,9 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
 
 !!! note
     When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. Ipopt or CoinHSL) loaded by Julia also need to be linked to MKL with this approach. Failing to do so will result in unusual behavior, e.g. getting garbage values passed to the MKL function calls.
+
+!!! info
+    We are using Eagle for as an example for this demonstration. The process remains the same for other clusters.
 
 1. Load the following modules:
     * gcc (>= 5.1)

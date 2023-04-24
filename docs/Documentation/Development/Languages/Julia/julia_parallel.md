@@ -583,7 +583,7 @@ Alternatively, we can also just exit Julia and the workers will be shutdown as p
 
 ### Overview of MPI.jl
 
-[`MPI.jl`](https://github.com/JuliaParallel/MPI.jl) is a Julia wrapper around an MPI library. By default it will download an MPI library suitable for running on the installing system. However, it is easily configured to use an existing system MPI implementation (e.g. one of the MPI modules on Eagle). See the documentation for [instructions on how to do this](https://juliaparallel.github.io/MPI.jl/stable/configuration/).
+[`MPI.jl`](https://github.com/JuliaParallel/MPI.jl) is a Julia wrapper around an MPI library. By default it will download an MPI library suitable for running on the installing system. However, it is easily configured to use an existing system MPI implementation (e.g. one of the MPI modules on the cluster). See the documentation for [instructions on how to do this](https://juliaparallel.github.io/MPI.jl/stable/configuration/).
 
 `MPI.jl` mostly requires transmitted things to be buffers of basic types (types that are easily converted to C). Some functions can transmit arbitrary data by serializing them, but this functionality is not as fleshed out as in mpi4py.
 
