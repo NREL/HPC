@@ -10,19 +10,19 @@ grand_parent: Languages
 
 # Installation
 
-Julia modules exist on Eagle and provide an easy way to use it on the HPC system. Access simply with
+Julia modules exist on NREL HPC systems. Access simply with
 
 ```bash
 module load julia
 ```
 
-To see all available Julia modules, use the command
+To see all available Julia modules on the system, use the command
 
 ```bash
 module spider julia
 ```
 
-If you need a version of Julia for which a module does not exist or want your own personal Julia build, there are several options described in the rest of this document. Below is a general guide for what approach to use:
+However, If you need a version of Julia for which a module does not exist or want your own personal Julia build, there are several options described in the rest of this document. Below is a general guide for what approach to use:
 
 * fast and easy - [Anaconda](#anaconda)
 * performance and ease - [Spack](#spack-build)
@@ -53,7 +53,8 @@ git checkout releases/v0.15 # Change to desired release
 
 ### Instructions
 
-**NOTE:** Steps 1 and 2 may be skipped when using the develop branch or any release branch after v0.15.
+!!! info 
+    Steps 1 and 2 may be skipped when using the develop branch or any release branch after v0.15.
 
 1. In the Spack repository, open the file `var/spack/repos/builtin/packages/julia/package.py` in your favorite editor.
 2. There is an if-else statement under the if statement
@@ -86,7 +87,8 @@ All the [required build tools and libraries](https://github.com/JuliaLang/julia/
 ### Instructions
 When compiling Julia you can choose to compile against Intel's MKL libraries or OpenBLAS for the Julia linear algebra operations. If you are going to be doing significant matrix-vector operations directly in Julia, then you will want to compile it with MKL. If most of the matrix-vector operations are being done in a subprogram or library (e.g. Ipopt) then it will make no difference what you compile Julia with.  In this latter case, it is recommended that you compile with OpenBLAS since that is significantly easier. Instructions for both choices are given below.
 
-**NOTE**: When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. Ipopt or CoinHSL) loaded by Julia also need to be linked to MKL with this approach. Failing to do so will result in unusual behavior, e.g. getting garbage values passed to the MKL function calls.
+!!! note
+    When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. Ipopt or CoinHSL) loaded by Julia also need to be linked to MKL with this approach. Failing to do so will result in unusual behavior, e.g. getting garbage values passed to the MKL function calls.
 
 1. Load the following modules:
     * gcc (>= 5.1)
@@ -101,7 +103,8 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
     * *If you want to compile Julia **with** MKL also add the following*
         * `USE_INTEL_MKL=1` -- Use Intel versions of BLAS and LAPACK (this is why we loaded mkl module)
         * `USE_BLAS64=0` -- Use the 64-bit library with the 32-bit integer interface. This will necessitate changes in `Make.inc`. The reasons for this are discussed in step 7.
-    * **NOTE**: I found it useful to create the file `Make.user` in another location (e.g. home directory) and drop a link into the Julia build directory as I used `git clean -x -f -d` to make sure everything is completely clean
+    !!! tip
+         I found it useful to create the file `Make.user` in another location (e.g. home directory) and drop a link into the Julia build directory as I used `git clean -x -f -d` to make sure everything is completely clean
 6. (Skip to step 8 if compiling Julia **without** MKL.) There are a couple of problems to overcome when compiling Julia with MKL.  The first is that a makefile in the SuiteSparse library package defines a `USER` variable that leads to problems with `xalt/ld` (a script that invokes ld).  To fix this do the following:
     * In JULIA_HOME fetch and unpack the SuiteSparse libraries
 `make -C deps/ extract-suitesparse`

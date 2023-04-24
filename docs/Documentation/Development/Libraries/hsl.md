@@ -36,9 +36,11 @@ conda create -n <conda_environment>
 conda activate <conda_environment>
 conda install -c conda-forge metis
 ```
-**Note**: `module load conda` loads the default anaconda module. You may use a different conda module based on your needs.
+!!! info 
+    `module load conda` loads the default anaconda module. You may use a different conda module based on your needs.
 
-**Note**: Anaconda packages sometimes have issues when they come from different channels.  We tend to pull everything from `conda-forge` hence the channel choice above.
+!!! note
+    Anaconda packages sometimes have issues when they come from different channels.  We tend to pull everything from `conda-forge` hence the channel choice above.
 
 ##### pkg-config
 
@@ -147,13 +149,14 @@ Ipopt has a feature called the linear solver loader (read about it [here](https:
 
 The only thing you have to do is to make the HSL dynamic library findable.  This is done by adding the directory containing the HSL library to the environment variable `DYLD_LIBRARY_PATH` in MacOS and `LD_LIBRARY_PATH` on Linux-based systems. See above for MacOS and [here](ipopt.md#using-custom-ipopt-with-jump) for NREL systems. To use the new linear solvers just use the `linear_solver="<solver>"` argument to `Ipopt.Optimizer`.
 
-**Note**: The Ipopt build that comes with `Ipopt.jl` seems to expect the HSL library to have the name `libhsl.dylib` on MacOS. The repo ThirdParty-HSL builds the library `libcoinhsl.dylib`.  The simplest fix is to do the following:
+!!! info
+    The Ipopt build that comes with `Ipopt.jl` seems to expect the HSL library to have the name `libhsl.dylib` on MacOS. The repo ThirdParty-HSL builds the library `libcoinhsl.dylib`.  The simplest fix is to do the following:
 
-```bash
-cd ${MYLIB}
-# Create a symbolic link called libhsl.dylib
-ln -s libcoinhsl.dylib libhsl.dylib
-```
+    ```bash
+    cd ${MYLIB}
+    # Create a symbolic link called libhsl.dylib
+    ln -s libcoinhsl.dylib libhsl.dylib
+    ```
 
 The following Julia code is useful for testing the HSL linear solvers are working
 

@@ -22,7 +22,8 @@ The default installation instructions can be found in the [Ipopt documentation h
 
 We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to build Ipopt along with the dependencies ASL, HSL and Mumps libraries. 
 
-**NOTE:** Follow the [instructions to setup the environment](hsl.md#Eagle) for HSL before proceeding with the steps below.
+!!! note
+    Follow the [instructions to setup the environment](hsl.md#Eagle) for HSL before proceeding with the steps below.
 
 1. `module load gcc/8.4.0 mkl`
 2. Clone (or download) the [coinbrew](https://github.com/coin-or/coinbrew) repo. If you download the repo you may have to change the permissions on the `coinbrew` *script* before using it: `chmod u+x coinbrew/coinbrew`
@@ -47,24 +48,27 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
     * `--with-lapack-lflags` gives the location of LAPACK and BLAS libraries as well as the needed linker lines.  Here we are using Intel's single dynamic library interface (google "mkl single dynamic library" for more details on this).
     * `ADD_CFLAGS`, `ADD_FCFLAGS` and `ADD_FFLAGS` say to use those extra flags when compiling C and fortran code, respectively. Specifically, `-march=skylake-avx512` tells the compiler to optimize code for the skylake CPUs on Eagle which is [recommended for perfomance reasons](https://www.nrel.gov/hpc/eagle-software-libraries-mkl.html).
 
-**Note**: When linking with MKL libraries, Intel's [link line advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) is extremely helpful.
+!!! tip
+    When linking with MKL libraries, Intel's [link line advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) is extremely helpful.
 
-**Note**: When compiling Julia with MKL libraries, the single dynamic library interface is used to link against.  This is why we are also using that linking method.  Using a different linking method will cause unusual behaviors when using Ipopt with Julia (e.g. through JuMP).
+!!! note 
+    When compiling Julia with MKL libraries, the single dynamic library interface is used to link against.  This is why we are also using that linking method.  Using a different linking method will cause unusual behaviors when using Ipopt with Julia (e.g. through JuMP).
 
 ## Usage
 
 ### Using Custom Ipopt with JuMP
 
-**NOTE:** When running your custom Ipopt build on Eagle, you will need to do two things:
+!!! note
+    When running your custom Ipopt build on Eagle, you will need to do two things:
 
-1. Load the same MKL module you compiled against:
-    ```bash
-    module load mkl
-    ```
-2. Add the directory containing Ipopt and HSL libraries to your LD_LIBRARY_PATH
-    ```bash
-    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MYLIB}
-    ```
+    1. Load the same MKL module you compiled against:
+        ```bash
+        module load mkl
+        ```
+    2. Add the directory containing Ipopt and HSL libraries to your LD_LIBRARY_PATH
+        ```bash
+        export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MYLIB}
+        ```
 
 
 To use our custom installation of Ipopt with `Ipopt.jl`, we do the following:

@@ -172,7 +172,8 @@ end;
       24.318 ms (75 allocations: 4.78 KiB)
 
 
-**NOTE:** The `@sync` macro will block at the end of the code block until all inclosed `@async` statements have completed execution.
+!!! note
+    The `@sync` macro will block at the end of the code block until all enclosed `@async` statements have completed execution.
 
 ### 3. Communicating Between Tasks
 
@@ -195,7 +196,8 @@ function integrator(output::Channel{Float64}, N::Int)
 end;
 ```
 
-**NOTE:** If the channel is full, `put!` will block until space opens up.
+!!! note 
+    If the channel is full, `put!` will block until space opens up.
 
 
 The second function will take the results off the channel using the `take!` function and accumulate them into an average. We keep pulling results from the channel as long as there is a result or the channel is open. We can check the former with `isready` and the latter with `isopen`.
@@ -214,7 +216,8 @@ function accumulator(input::Channel{Float64})
 end;
 ```
 
-**NOTE:** If the channel is empty, the `take!` function will block until there is an item available.
+!!! note
+    If the channel is empty, the `take!` function will block until there is an item available.
 
 
 Now we create channel which can hold 10 results, create and schedule both tasks and finally fetch the result.
@@ -351,7 +354,8 @@ end;
       22.183 ms (35 allocations: 1.61 KiB)
 
 
-**NOTE:** We can see from the timing results this is not the best way to distribute the work since the `integrator` function has much more computational work than the `accumulator` function.
+!!! note
+    We can see from the timing results this is not the best way to distribute the work since the `integrator` function has much more computational work than the `accumulator` function.
 
 ## Distributed Computing with Distributed.jl
 
@@ -446,7 +450,8 @@ end;
 
 Between the macro and the for loop is an optional reduction. Here we have used `+` but this can be any valid reduction operator including a user defined function. The values given to the reduction are the values of the last expression in the loop.
 
-**NOTE:** If we do not provide a reduction, `@distributed` creates a task for each element of the loop and schedules them on worker processes and returns without waiting for the tasks to complete. To wait for completion of the tasks, the whole block can be wrapped with `@sync` macro.
+!!! note
+    If we do not provide a reduction, `@distributed` creates a task for each element of the loop and schedules them on worker processes and returns without waiting for the tasks to complete. To wait for completion of the tasks, the whole block can be wrapped with `@sync` macro.
 
 ### 4. `@spawnat` Macro
 
@@ -477,7 +482,8 @@ The first argument to `@spawnat` is the worker to run the computation on. Here w
 
 
 
-**WARNING:** The entire expression is sent to the worker process before anything in the expression is executed. This can cause performance issues if we need a small part of a big object or array.
+!!! warning
+    The entire expression is sent to the worker process before anything in the expression is executed. This can cause performance issues if we need a small part of a big object or array.
 
 
 ```julia
