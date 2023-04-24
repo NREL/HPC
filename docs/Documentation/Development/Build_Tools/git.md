@@ -100,7 +100,7 @@ Users already have SSH keys created on the HPC systems. To set up Github SSH aut
     git push origin main
     ```
 
-??? note "Revert to a previous commit"
+??? note "Revert a commit"
     You can use `git revert` to remove unwanted changes.
     Find the hash of the commit that you need to undo:  
     `git log`  
