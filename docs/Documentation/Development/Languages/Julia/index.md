@@ -11,6 +11,13 @@ parent: Programming Languages
 
 This section contains demos (in the form of scripts and notebooks) and how-to guides for doing various things with Julia on NREL HPC environments.
 
+## Available modules
+
+| Eagle                                | Swift          | Vermilion |
+|:------------------------------------:|:--------------:|:----------------:|
+|                                      |julia/1.6.2-ocsfign ||  
+julia/1.7.2                            |julia/1.7.2-gdp7a25 |julia/1.7.2 |   
+
 ## Contents
 
 1. [Installing Julia](julia_install.md)
