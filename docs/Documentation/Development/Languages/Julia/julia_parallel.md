@@ -10,12 +10,6 @@ grand_parent: Languages
 
 # Parallel Computing in Julia
 
-1. [Asynchronous Tasks](#tasks)
-2. [Multi-Threading](#multi-threading)
-3. [Distributed Computing with Distributed.jl](#distributed-computing-with-distributedjl)
-4. [Distributed Computing with MPI.jl](#distributed-computing-with-mpijl)
-4. [GPU Computing](GPU-Computing) (available packages)
-
 We will make use of the following basic Monte Carlo integration function throughout this presentation
 
 
@@ -40,17 +34,13 @@ end;
 
 ## Asynchronous Tasks
 
-1. [What are Tasks?](#what-are-tasks)
-2. [Creating and Running Tasks](#creating-and-running-tasks)
-3. [Communication Between Tasks](#communication-between-tasks)
-
-### 1. What are Tasks?
+### What are Tasks?
 
 **Tasks** are execution streams that do not depend on each other and can be done in any order. They can be executed asynchronously but they are not executed in parallel. That is, only one task is running at a given time but the order of execution is not predetermined.
 
 Tasks are also known as **coroutines**.
 
-### 2. Creating and Running Tasks
+### Creating and Running Tasks
 
 Running a task is done in 3 steps:
 
@@ -175,7 +165,7 @@ end;
 !!! note
     The `@sync` macro will block at the end of the code block until all enclosed `@async` statements have completed execution.
 
-### 3. Communicating Between Tasks
+### Communicating Between Tasks
 
 Sometimes we need to communicate between tasks. An easy way to accomplish this is to use Julia's `Channel` type. We can think of a `Channel` like a pipe or a queue: objects are put in at one end and taken off at the other.
 
@@ -241,7 +231,7 @@ end;
       22.097 ms (25 allocations: 1.45 KiB)
 
 
-### 4. Why Tasks?
+### Why Tasks?
 
 If tasks aren't parallel, why are we talking about them in a parallel computing tutorial?
 
@@ -249,12 +239,7 @@ Remeber that tasks are discrete computation units. They naturally define boundar
 
 ## Multi-Threading
 
-1. [Starting Julia with Multiple Threads](#starting-julia-with-multiple-threads)
-2. [`@threads` Macro](#threads-macro)
-3. [`@spawn` Macro](#spawn-macro)
-4. [Using Channels](#using-channels)
-
-### 1. Starting Julia with Multiple Threads
+### Starting Julia with Multiple Threads
 
 Julia (v1.3 or greater) has multithreading built into the language. By default, Julia starts with a single thread.  To start Julia with multiple threads either
 * set the environment variable `JULIA_NUM_THREADS` to some value > 1
@@ -274,7 +259,7 @@ Threads.nthreads()
 
 
 
-### 2. `@threads` Macro
+### `@threads` Macro
 
 Many computations take the form of looping over an array where the result of the computation is put into an element in the array and these computations do not interact. In this case, we can make use of the `Threads.@threads` macro.
 
@@ -300,7 +285,7 @@ end;
       11.118 ms (12 allocations: 1.00 KiB)
 
 
-### 3. `@spawn` Macro
+### `@spawn` Macro
 
 Some applications require dispatching individual tasks on different threads. We can do this using the `Threads.@spawn` macro. This is like the `@async` macro but will schedule the task on an available thread. That is, it creates a `Task` and schedules it but on an available thread.
 
@@ -331,7 +316,7 @@ There are a couple of oddities about Julia's multi-threading capability to remem
 
 The combination of these two behaviors can lead to load imbalances amongst threads when there are blocking operations within a thread's tasks.
 
-### 4. Using Channels
+### Using Channels
 
 Just as before, we can use a `Channel` to communicate between tasks in a multi-threaded environment. The only difference is that we replace `@async` with `Threads.@spawn`.
 
@@ -359,22 +344,15 @@ end;
 
 ## Distributed Computing with Distributed.jl
 
-1. [Architecture](#architecture)
-2. [Setting Up](#setting-up)
-3. [`@distributed` Macro](#distributed-macro)
-4. [`@spawnat` Macro](#spawnat-macro)
-5. [Remote Channels](#remote-channels)
-6. [Shutting Down](shutting-down)
+### Architecture
 
-### 1. Architecture
-
-Communication patterns are one-sided so users only manage one process. Communication itself takes the form of function or macro calls rather than explicit send and receive calls.
+Communication patterns are one-sided, so users only manage one process. Communication itself takes the form of function or macro calls rather than explicit send and receive calls.
 
 Distributed.jl is built on two basic types: remote calls and remote references. A remote call is a directive to execute a particular function on a particular process. A remote reference is a reference to a variable stored on a particular process.
 
-There is a strong resemblence to the way Julia handles tasks: Function calls (wrapped in appropriate types) are scheduled on worker processes through remote calls which return remote references. The results of these calls are then retrieved by fetching the values using the remote references.
+There is a strong resemblance to the way Julia handles tasks: Function calls (wrapped in appropriate types) are scheduled on worker processes through remote calls which return remote references. The results of these calls are then retrieved by fetching the values using the remote references.
 
-### 2. Setting Up
+### Setting Up
 
 We can launch more Julia processes on the same or other machines with the `addprocs` function. Here we launch 2 worker processes on the local machine:
 
@@ -425,7 +403,7 @@ The Julia global state is not copied in the new processes. We need to manually l
 end;
 ```
 
-### 3. `@distributed` Macro
+### `@distributed` Macro
 
 The `@distributed` macro is the distributed memory equivalent of the `Threads.@threads` macro. This macro partitions the range of the for loop and executes the computation on all worker processes. 
 
@@ -453,7 +431,7 @@ Between the macro and the for loop is an optional reduction. Here we have used `
 !!! note
     If we do not provide a reduction, `@distributed` creates a task for each element of the loop and schedules them on worker processes and returns without waiting for the tasks to complete. To wait for completion of the tasks, the whole block can be wrapped with `@sync` macro.
 
-### 4. `@spawnat` Macro
+### `@spawnat` Macro
 
 Julia also provides more fine grained control for launching tasks on workers with the `@spawnat` Macro:
 
@@ -523,7 +501,7 @@ end;
       192.843 μs (100 allocations: 3.80 KiB)
 
 
-### 5. Remote Channels
+### Remote Channels
 
 As suggested by the name, these are the remote versions of the `Channel` type we've already seen. If you look at the source code, they are actually wrap an `AbstractChannel` to provide the needed remote functionality. We can effectively treat them just like a `Channel`.
 
@@ -577,7 +555,7 @@ Here we create a `RemoteChannel` on the master process, divide the computational
       12.328 ms (1066 allocations: 41.97 KiB)
 
 
-### 6. Shutting Down
+### Shutting Down
 
 To shutdown the worker processes we can use `rmprocs`.
 
@@ -597,22 +575,19 @@ Alternatively, we can also just exit Julia and the workers will be shutdown as p
 
 ## Distributed Computing with MPI.jl
 
-1. [Overview of MPI.jl](#overview-of-mpijl)
-2. [Example](#example)
-
 <!-- **TODO:** Stuff:
 1. Outline
 2. describe MPI.jl api and capabilities
 2. breakup script
 3. describe what we're doing -->
 
-### 1. Overview of MPI.jl
+### Overview of MPI.jl
 
 [`MPI.jl`](https://github.com/JuliaParallel/MPI.jl) is a Julia wrapper around an MPI library. By default it will download an MPI library suitable for running on the installing system. However, it is easily configured to use an existing system MPI implementation (e.g. one of the MPI modules on Eagle). See the documentation for [instructions on how to do this](https://juliaparallel.github.io/MPI.jl/stable/configuration/).
 
 `MPI.jl` mostly requires transmitted things to be buffers of basic types (types that are easily converted to C). Some functions can transmit arbitrary data by serializing them, but this functionality is not as fleshed out as in mpi4py.
 
-### 2. Example
+### Example
 
 We first need to load and initialize MPI.
 

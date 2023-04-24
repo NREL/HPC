@@ -24,11 +24,6 @@ Feature Highlights:
 
 ## Basics
 
-* [REPL (Read-Evaluate-Print-Loop)](#repl-read-evaluate-print-loop)
-* [Definining Functions](#definining-functions)
-* [Using Installed Packages](#using-installed-packages)
-* [Vectorizing](#vectorizing)
-
 ### REPL (Read-Evaluate-Print-Loop)
 
 * Command line julia interface
@@ -60,7 +55,8 @@ search: Int Int8 Int64 Int32 Int16 Int128 Integer intersect intersect! Interacti
 julia> exit()
 ```
 
-**NOTE:** When using the REPL, the result of the (last) expression is always printed. This is sometimes undesirable. We can supress printing by ending the last expression with a semicolon `;`. This is used throughout this presentation for appearance purposes. *Unless otherwise stated any semicolon in code is not needed.*
+!!! tip
+    When using the REPL, the result of the (last) expression is always printed. This is sometimes undesirable. We can suppress printing by ending the last expression with a semicolon `;`. This is used throughout this presentation for appearance purposes. *Unless otherwise stated any semicolon in code is not needed.*
 
 ### Defining Functions
 
@@ -99,7 +95,8 @@ f = (x)->x^2;
     f(pi) = 9.869604401089358
 
 
-**NOTE:** Julia uses the standard control flow keywords such as `for`, `while`, `if`, `elseif`, `else`. See the [Control Flow](https://docs.julialang.org/en/v1/manual/control-flow/) section of the Julia documentation for more details. Obviously, these are helpful in writing functions.
+!!! info 
+    Julia uses the standard control flow keywords such as `for`, `while`, `if`, `elseif`, `else`. See the [Control Flow](https://docs.julialang.org/en/v1/manual/control-flow/) section of the Julia documentation for more details. Obviously, these are helpful in writing functions.
 
 ### Using Installed Packages
 
@@ -154,7 +151,8 @@ Statistics._conj(x)
 
 
 
-**NOTE:** Like in python, there are no private attributes. Users may access anything created by a module. Package authors can suggest attributes that users should not use by not exporting them or with naming conventions (e.g. prefixing `_` to any name that is internal only).
+!!! note 
+    Like in python, there are no private attributes. Users may access anything created by a module. Package authors can suggest attributes that users should not use by not exporting them or with naming conventions (e.g. prefixing `_` to any name that is internal only).
 
 Julia 1.6 introduced the "pythonic" import syntax
 
@@ -185,7 +183,8 @@ St.mean(x)
 
 
 
-**ADVICE:** When writing Julia code, use `import` rather than `using`. This makes code easier to follow as well as giving hints on where to look for documentation.
+!!! tip 
+    When writing Julia code, use `import` rather than `using`. This makes code easier to follow as well as giving hints on where to look for documentation.
 
 ### Vectorizing
 
@@ -271,13 +270,6 @@ y = rand(10000)
 
 
 ## Package Manager
-
-* [Managing Packages (REPL)](Managing-Packages-(REPL))
-* [Managing Packages (Scripts)](Managing-Packages-(Scripts))
-* [Environments](Environments)
-* [Activating Environments](Activating-Environments)
-* [Copying Environments](Copying-Environments)
-* [Environment Layering](Environment-Layering)
 
 ### Managing Packages (REPL)
 
@@ -369,7 +361,8 @@ Pkg.status(); Pkg.update()
   No Changes to `~/.julia/environments/v1.6/Manifest.toml`
 ```
 
-**WARNING:** If you want to use Julia within Jupyter notebook, some package management features (like adding new packages) do not work well. It is best to add/remove/update either with a script or using the REPL.
+!!! warning
+    If you want to use Julia within Jupyter notebook, some package management features (like adding new packages) do not work well. It is best to add/remove/update either with a script or using the REPL.
 
 ### Environments
 
@@ -429,9 +422,11 @@ Precompiling project...
   1 dependency successfully precompiled in 2 seconds (11 already precompiled)
 ```
 
-**NOTE:** Alternatively, you can use the `Pkg.instantiate` function.
+!!! note 
+    Alternatively, you can use the `Pkg.instantiate` function.
 
-**NOTE:** If you need to exactly copy an environment exactly copy both the `Project.toml` and `Manifest.toml` files into the desired directory and use the `instantiate` command.
+!!! info 
+    If you need to exactly copy an environment exactly copy both the `Project.toml` and `Manifest.toml` files into the desired directory and use the `instantiate` command.
 
 ### Environment Layering
 
@@ -453,9 +448,6 @@ When loading a package, Julia has a hierarchy of environments that it checks for
 These environment stacks are discussed more in the [Environments](https://docs.julialang.org/en/v1/manual/code-loading/#Environments) subsection of the Code Loading part of the Julia Manual.
 
 ## Types
-
-* [Type Hierarchy](#type-hierarchy)
-* [Multiple Dispatch](#multiple-dispatch)
 
 ### Type Hierarchy
 
@@ -587,7 +579,8 @@ Int <: AbstractFloat
 
 
 
-**WARNING:** Subtypes and supertypes get complicated when dealing with containers:
+!!! warning 
+    Subtypes and supertypes get complicated when dealing with containers:
 
 
 ```julia
@@ -680,15 +673,13 @@ end
 
 Notice that the functions have the same name, but the correct one is executed based on the type of the argument. This is called **Multiple Dispatch**.
 
-**ADVICE:** Add typing information for any function you are likely to use a lot. There are two reasons
-1. Type information is used by the Julia compiler to make code more efficient
-2. Type information is a fast and easy way to document your code and catch bugs.
+!!! tip 
+    Add typing information for any function you are likely to use a lot. There are two reasons:
+
+    1. Type information is used by the Julia compiler to make code more efficient
+    2. Type information is a fast and easy way to document your code and catch bugs.
 
 ## Structs
-
-* [Defining Structs](#defining-structs)
-* [Mutable Structs](#mutable-structs)
-* [Parametric Types](#parametric-types)
 
 ### Defining Structs
 
@@ -860,10 +851,6 @@ p1 = ParametricPoint(2.0, 0.0)
 
 ## Metaprogramming
 
-* [How Julia Code is Executed](#how-julia-code-is-executed)
-* [Expressions](#expressions)
-* [Macros](#macros)
-
 ### How Julia Code is Executed
 
 At a very high level, Julia code is executed in two phases:
@@ -888,7 +875,7 @@ expr
 
 
 
-While the expression prints as a human readable mathematical expression, it is actually a tree:
+While the expression prints as a human-readable mathematical expression, it is actually a tree:
 
 
 ```julia
