@@ -86,7 +86,9 @@ nav:
              - C++:     Documentation/Development/Languages/c++.md
              - R:       Documentation/Development/Languages/r.md
              - Bash:    Documentation/Development/Languages/bash.md
-             - Fortran: Documentation/Development/Languages/f90.md
+             - Fortran: 
+               - Documentation/Development/Languages/Fortran/index.md
+               - Advanced: Documentation/Development/Languages/Fortran/f90_advanced.md
              - Python:
                   - Documentation/Development/Languages/Python/index.md
                   - Documentation/Development/Languages/Python/NREL_python.md
@@ -113,11 +115,12 @@ nav:
               - Git :   Documentation/Development/Build_Tools/git.md
          - Libraries:
               - Documentation/Development/Libraries/index.md
+              - Libraries How-to:   Documentation/Development/Libraries/howto.md
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
               - HSL:  Documentation/Development/Libraries/hsl.md
               - IPOPT: Documentation/Development/Libraries/ipopt.md
-              - LAPACK: Documentation/Development/Libraries/lapack.md
+              - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
               - NetCDF: Documentation/Development/Libraries/netcdf.md
@@ -148,8 +151,7 @@ nav:
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - FastX:
-            - VirtualGL and FastX : Documentation/Viz_Analytics/FastX/virtualgl_fastx.md 
-            - FastX: Documentation/Viz_Analytics/FastX/fastx.md 
+            - VirtualGL and FastX: Documentation/Viz_Analytics/FastX/fastx.md 
          - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - VisIT: Documentation/Viz_Analytics/visit.md
@@ -166,6 +168,8 @@ theme:
     - navigation.tabs
     - navigation.indexes
 markdown_extensions:
+  - toc:
+      permalink: "#"
   - admonition
   - attr_list
   - meta

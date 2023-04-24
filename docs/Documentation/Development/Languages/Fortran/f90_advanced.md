@@ -11,8 +11,9 @@ grand_parent: Programming Languages
 
 # Advanced Fortran 90
 
-This document is derived from an HTML page written at the [San Diego Supercomper Center](https://www.sdsc.edu) many years ago.  
-Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It does this by presenting an example program and introducing concepts as various routines of the program are presented.  The original web page has been used over the years and has been translated into several languages. 
+This document is derived from an HTML page written at the [San Diego Supercomper Center](https://www.sdsc.edu) many years ago. Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It does this by presenting an example program and introducing concepts as various routines of the program are presented.  The original web page has been used over the years and has been translated into several languages. 
+
+**Note:** See our [Fortran Overview](f90.md) page for basic getting started instructions and compiler/toolchain information.
 
 - - -
 - - -
@@ -97,11 +98,11 @@ Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It do
 
 ## Why Fortran?
  Famous Quote: *"I don't know what the technical characteristics of
- *the standard language for scientific and engineering*
- *computation in the year 2000 will be... but I know it*
- *will be called Fortran." John Backus.* 
+ the standard language for scientific and engineering
+ computation in the year 2000 will be... but I know it
+ will be called Fortran." John Backus.*
 
- ### Note: He claimed that he never said this.
+Note: He claimed that he never said this.
  
 - Language of choice for Scientific programming
 - Large installed user base.
@@ -125,65 +126,6 @@ Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It do
 - Old tricks
 - Power features
 - Overview of F90
-
-- - -
-- - -
-
-## Listing_of_topics_covered
-1. [Listing of topics covered](#listing-of-topics-covered)
-1. [What is a Genetic Algorithm](#what-is-a-genetic-algorithm)
-1. [Simple algorithm for a GA](#simple-algorithm-for-a-ga)
-1. [Our example problem](#our-example-problem)
-1. [Start of real Fortran 90 discussion](#start-of-real-fortran-90-discussion)
-1. [Comparing a FORTRAN 77 routine to a Fortran 90 routine](#comparing-a-fortran-77-routine-to-a-fortran-90-routine)
-1. [Obsolescent features](#obsolescent-features)
-1. [New source Form and related things](#new-source-form-and-related-things)
-1. [New data declaration method](#new-data-declaration-method)
-1. [Kind facility](#kind-facility)
-1. [Modules](#modules)
-1. [Module functions and subroutines](#module-functions-and-subroutines)
-1. [Allocatable arrays (the basics)](#allocatable-arrays-(the-basics))
-1. [Passing arrays to subroutines](#passing-arrays-to-subroutines)
-1. [Interface for passing arrays](#interface-for-passing-arrays)
-1. [Optional arguments and intent](#optional-arguments-and-intent)
-1. [Derived data types](#derived-data-types)
-1. [Using defined types](#using-defined-types)
-1. [User defined operators](#user-defined-operators)
-1. [Recursive functions introduction](#recursive-functions-introduction)
-1. [Fortran 90 recursive functions](#fortran-90-recursive-functions)
-1. [Pointers](#pointers)
-1. [Function and subroutine overloading](#function-and-subroutine-overloading)
-1. [Fortran Minval and Minloc routines](#fortran-minval-and-minloc-routines)
-1. [Pointer assignment](#pointer-assignment)
-1. [More pointer usage, association and nullify](#more-pointer-usage,-association-and-nullify)
-1. [Pointer usage to reference an array](#pointer-usage-to-reference-an-array)
-1. [Data assignment with structures](#data-assignment-with-structures)
-1. [Using the user defined operator](#using-the-user-defined-operator)
-1. [Passing arrays with a given arbitrary lower bounds](#passing-arrays-with-a-given-arbitrary-lower-bounds)
-1. [Using pointers to access sections of arrays](#using-pointers-to-access-sections-of-arrays)
-1. [Allocating an array inside a subroutine](#allocating-an-array-inside-a-subroutine)
-1. [Our fitness function](#our-fitness-function)
-1. [Linked lists](#linked-lists)
-1. [Linked list usage](#linked-list-usage)
-1. [Our map representation](#our-map-representation)
-1. [Date and time functions](#date-and-time-functions)
-1. [Non advancing and character IO](#non-advancing-and-character-io)
-1. [Internal IO](#internal-io)
-1. [Inquire function](#inquire-function)
-1. [Namelist](#namelist)
-1. [Vector valued functions](#vector-valued-functions)
-1. [Complete source for recent discussions](#complete-source-for-recent-discussions)
-1. [Some array specific intrinsic functions](#some-array-specific-intrinsic-functions)
-1. [The rest of our GA](#the-rest-of-our-ga)
-1. [Compiler Information](#compiler-information)
-1. [Summary](#summary)
-1. [Overview of F90](#overview_of_f90)
-1. [Fortran 95](#fortran-95)
-1. [References](#references)
-
-- - -
-- - -
-
 
 ## What is a Genetic Algorithm
 - A "suboptimization" system
@@ -234,7 +176,7 @@ Its purpose is to Introduce Fortran 90 concepts to Fortran 77 programers.  It do
 - - -
 - - -
 
-# Start of real Fortran 90 discussion
+**Start of real Fortran 90 discussion**
 
 - - -
 - - -
@@ -354,6 +296,7 @@ contains
 
 ## Obsolescent features
  The following are available in Fortran 90. On the other hand, the concept of "obsolescence" is introduced. This means that some constructs may be removed in the future.
+
 - Arithmetic IF-statement
 - Control variables in a DO-loop which are floating point or double-precision floating-point
 - Terminating several DO-loops on the same statement
@@ -1988,29 +1931,7 @@ end
     - Help show how things work
     - Reference for future use
 
-- - -
-- - -
-
-
-# Overview of F90
-
-
-1. [Introduction to Fortran Language](#introduction-to-fortran-language)
-1. [Meta language used in this compact summary](#meta-language-used-in-this-compact-summary)
-1. [Structure of files that can be compiled](#structure-of-files-that-can-be-compiled)
-1. [Executable Statements and Constructs](#executable-statements-and-constructs)
-1. [Declarations](#declarations)
-1. [Key words - other than I/O](#key-words-/-other-than-I/O)
-1. [Key words related to I/O](#key-words-related-to-I/O)
-1. [Operators](#operators)
-1. [Constants](#constants)
-1. [Input/Output Statements](#input/output-statements)
-1. [Formats](#formats)
-1. [Intrinsic Functions](#intrinsic-functions)
-
-
-
-## Introduction to Fortran Language
+### Introduction to Fortran Language
 ```
   Brought to you by ANSI committee X3J3 and ISO-IEC/JTC1/SC22/WG5 (Fortran)
   This is neither complete nor precisely accurate, but hopefully, after
@@ -2032,7 +1953,7 @@ end
   Separate words with space or any form of "white space" or punctuation.
 ```
 
-## Meta language used in this compact summary 
+### Meta language used in this compact summary 
 
 ```
   <xxx> means fill in something appropriate for xxx and do not type
@@ -2049,7 +1970,7 @@ end
 
 ```
 
-## Structure of files that can be compiled 
+### Structure of files that can be compiled 
 ```
 
   program <name>                  usually file name is  <name>.f90
@@ -2107,7 +2028,7 @@ end
 
 ```
 
-## Executable Statements and Constructs 
+### Executable Statements and Constructs 
 ```
 
   <statement> will mean exactly one statement in this section
@@ -2193,7 +2114,7 @@ end
     many old forms of statements are not listed
 ```
 
-##  Declarations 
+###  Declarations 
 ```
 
   There are five (5) basic types: integer, real, complex, character and logical.
@@ -2247,7 +2168,7 @@ end
     Note:        not all combinations of attributes are legal
 ```
 
-## Key words (other than I/O) 
+### Key words (other than I/O) 
 ```
 
   note: "statement" means key word that starts a statement, one line
@@ -2335,7 +2256,7 @@ end
   while                construct, a while form of a do loop
 ```
 
-## Key words related to I/O 
+### Key words related to I/O 
 ```
 
   backspace            statement, back up one record
@@ -2351,7 +2272,7 @@ end
 
 ```
 
-## Operators 
+### Operators 
 ```
 
   **    exponentiation
@@ -2392,7 +2313,7 @@ end
 
 ```
 
-## Constants 
+### Constants 
 ```
 
   Logical constants:
@@ -2446,7 +2367,7 @@ end
 
 ```
 
-## Input/Output Statements 
+### Input/Output Statements 
 ```
 
     open (<unit number>)
@@ -2530,7 +2451,7 @@ end
 
 ```
 
-## Formats 
+### Formats 
 ```
 
     format                    an explicit format can replace * in any
@@ -2618,7 +2539,7 @@ end
 
 ```
 
-## Intrinsic Functions 
+### Intrinsic Functions 
 
 ```
 
@@ -2632,7 +2553,7 @@ end
 ```
 
 
-###  Intrinsic Functions (alphabetical):
+####  Intrinsic Functions (alphabetical):
 
 ```
     abs(integer_real_complex) result(integer_real_complex)
@@ -2751,9 +2672,9 @@ end
 
 
 
-###  Intrinsic Functions (grouped by topic):
+####  Intrinsic Functions (grouped by topic):
 
-####  Intrinsic Functions (Numeric)
+#####  Intrinsic Functions (Numeric)
 ```
     abs(integer_real_complex) result(integer_real_complex)
     acos(real) result(real)  arccosine  |real| &le; 1.0   0&le;result&le;Pi
@@ -2817,7 +2738,7 @@ end
 ```
 
 
-####  Intrinsic Functions (Logical and bit)
+#####  Intrinsic Functions (Logical and bit)
 
 ```
     all(mask [,dim]) result(logical)  true if all elements of mask are true
@@ -2843,7 +2764,7 @@ end
 
 
 
-####  Intrinsic Functions (Character or string)
+#####  Intrinsic Functions (Character or string)
 
 ```
     achar(integer) result(character)  integer to character
@@ -2867,7 +2788,7 @@ end
 ```
 
 
-## Fortran 95
+### Fortran 95
 - New Features
     -  The statement **FORALL** as an alternative to the DO-statement
     -  Partial nesting of FORALL and WHERE statements
