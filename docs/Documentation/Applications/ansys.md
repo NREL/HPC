@@ -13,7 +13,7 @@ The main workflow that we support has two stages. The first is interactive graph
      License usage can be checked on Eagle with the command `lmstat.ansys`. Network floating licenses are a shared resource. Whenever you open an Ansys Fluent window, a license is pulled from the pool and becomes unavailable to other Eagle users. *Please do not keep idle windows open if you are not actively using the application*, close it and return the associated licenses to the pool. Excessive retention of software licenses falls under the inappropriate use policy.
 
 ## Building Models in the Ansys GUI
-GUI access is provided through [FastX desktops](https://eagle-dav.hpc.nrel.gov/session/). Open the a terminal, load, and launch the Ansys Fluent environment with:
+GUI access is provided through [FastX desktops](https://eagle-dav.hpc.nrel.gov/session/). Open a terminal, load, and launch the Ansys Fluent environment with:
 
 ```
 module load ansys/<version>
