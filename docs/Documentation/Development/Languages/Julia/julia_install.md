@@ -77,7 +77,7 @@ git checkout releases/v0.15 # Change to desired release
 
 ## Do It Yourself Build (v 1.2 or later)
 
-### Pre-requites
+### Prerequisites
 
 All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/master/doc/build/build.md#required-build-tools-and-external-libraries) are available on the clusters either by default or through modules.  The needed modules are covered in the instructions.
 
