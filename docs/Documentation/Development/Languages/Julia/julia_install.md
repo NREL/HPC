@@ -91,7 +91,7 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
     When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. Ipopt or CoinHSL) loaded by Julia also need to be linked to MKL with this approach. Failing to do so will result in unusual behavior, e.g. getting garbage values passed to the MKL function calls.
 
 !!! info
-    We are using Eagle for as an example for this demonstration. The process remains the same for other clusters.
+    We are using Eagle as an example for this demonstration. The process remains the same for other clusters.
 
 1. Load the following modules:
     * gcc (>= 5.1)
