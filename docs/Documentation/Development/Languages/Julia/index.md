@@ -42,7 +42,7 @@ The following scripts and notebooks are available on the [`master` branch of NRE
 
 ### Requirements and Installation
 
-Running the demos requires the python modules `mpi4py` and `julia`. For details on installing these modules, see the 'Environment Setup' section of the [README found in the demos/scripts directory](demos/scripts/README.md).
+Running the demos requires the python modules `mpi4py` and `julia`. For details on installing these modules, see the 'Environment Setup' section of the [README found in the demos/scripts directory](https://github.com/NREL/HPC/blob/master/languages/julia/demos/scripts/README.md).
 
 For more information on mpi4py, see the [mpi4py documentation](https://mpi4py.readthedocs.io/en/stable/)
 

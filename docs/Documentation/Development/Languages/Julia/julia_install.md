@@ -42,7 +42,7 @@ conda install -c conda-forge julia
 
 ### Prerequisites
 
-A working version of Spack. For detailed instructions on getting Spack setup see the GitHub repository. Briefly, this can be done with the following
+A working version of [Spack](../../Build_Tools/spack.md). For detailed instructions on getting Spack setup see the GitHub repository. Briefly, this can be done with the following
 
 ```bash
 git clone https://github.com/spack/spack.git
@@ -79,7 +79,7 @@ git checkout releases/v0.15 # Change to desired release
 
 ### Prerequisites
 
-All the [required build tools and libraries](https://github.com/JuliaLang/julia/blob/master/doc/build/build.md#required-build-tools-and-external-libraries) are available on the clusters either by default or through modules.  The needed modules are covered in the instructions.
+All the [required build tools and libraries](https://docs.julialang.org/en/v1/devdocs/build/build/#Required-Build-Tools-and-External-Libraries) are available on the clusters either by default or through modules.  The needed modules are covered in the instructions.
 
 ### Terms
 * `JULIA_HOME` is the base directory of Julia source code (initially called `julia` after `git clone`)
@@ -102,7 +102,7 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
 3. `cd julia`
 4. Change to the version of Julia you want to build `git checkout <julia_version>`
 5. In `Make.user` (you will need to create the file if it doesn't exist) in `JULIA_HOME` put the following:
-	* `MARCH=skylake-avx512` -- tell the compiler to [optimize floating point instructions for Eagle's Skylake processors](https://www.nrel.gov/hpc/eagle-software-libraries-mkl.html)
+	* `MARCH=skylake-avx512` -- tell the compiler to [optimize floating point instructions for Eagle's Skylake processors](../../Libraries/mkl.md#user-tips)
     * *If you want to compile Julia **with** MKL also add the following*
         * `USE_INTEL_MKL=1` -- Use Intel versions of BLAS and LAPACK (this is why we loaded mkl module)
         * `USE_BLAS64=0` -- Use the 64-bit library with the 32-bit integer interface. This will necessitate changes in `Make.inc`. The reasons for this are discussed in step 7.

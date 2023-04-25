@@ -27,7 +27,7 @@ If you have needs not covered by these, use Intel's interactive [MKL Link Line A
 ## User Tips
 MKL will provide optimized library code based on the most advanced instruction set able to run on discovered hardware. So for floating point math, although GNU and Intel compilers will generate application code with SSE 4.2 instructions by default, MKL libraries will use AVX-512 float point instructions available on Skylake processors.  
 
-As the code executes, rapid transition between different such floating point instruction sets may cause a significant performance penalty. Consider compiling the base code optimized for AVX instructions, i.e., adding “-xcore-AVX512” for Intel and “-march=skylake-avx512” for GNU.
+As the code executes, rapid transition between different such floating point instruction sets may cause a significant performance penalty. Consider compiling the base code optimized for AVX instructions, i.e., adding `-xcore-AVX512` for Intel and `-march=skylake-avx512` for GNU.
 
-Using `-mkl` by default generates the code to use multithreaded MKL routines. There is an extra initialization overhead associated with using multithreaded MKL. With the smaller problem size or with sparce vectors it may be more beneficial from the performance standpoint to use sequential MKL routines ( `-mkl=sequential`). 
+Using `-mkl` by default generates the code to use multithreaded MKL routines. There is an extra initialization overhead associated with using multithreaded MKL. With the smaller problem size or with sparse vectors it may be more beneficial from the performance standpoint to use sequential MKL routines ( `-mkl=sequential`). 
 
