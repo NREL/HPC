@@ -22,7 +22,7 @@ To see all available Julia modules on the system, use the command
 module spider julia
 ```
 
-However, If you need a version of Julia for which a module does not exist or want your own personal Julia build, there are several options described in the rest of this document. Below is a general guide for what approach to use:
+However, if you need a version of Julia for which a module does not exist or want your own personal Julia build, there are several options described in the rest of this document. Below is a general guide for what approach to use:
 
 * fast and easy - [Anaconda](#anaconda)
 * performance and ease - [Spack](#spack-build)
