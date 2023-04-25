@@ -42,7 +42,7 @@ conda install -c conda-forge julia
 
 ### Prerequisites
 
-A working version of Spack. For detailed instructions on getting spack setup see the GitHub repository. Briefly, this can be done with the following
+A working version of Spack. For detailed instructions on getting Spack setup see the GitHub repository. Briefly, this can be done with the following
 
 ```bash
 git clone https://github.com/spack/spack.git
