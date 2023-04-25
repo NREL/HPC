@@ -234,7 +234,7 @@ Following are some guidelines and suggestions regarding where to store environme
 
 | Path | When to use | Caveats |
 |------|-------------|---------|
-| `\home` | `$HOME/.conda` is the default location for environments. For one-off environments, or if you don't create environments often, this is a reasonable location for your environments and doesn't require any extra flags or parameters.            | On systems such as Eagle, `$HOME` is limited to 50 GB.         |
+| `/home` | `$HOME/.conda` is the default location for environments. For one-off environments, or if you don't create environments often, this is a reasonable location for your environments and doesn't require any extra flags or parameters.            | On systems such as Eagle, `$HOME` is limited to 50 GB.         |
 | `\scratch` | `/scratch` or `/projects` are well-suited for multiple-node jobs because these locations provide enhanced filesystem performance for parallel access. | The contents of `\scratch` are purged after 28 days of inactivity. |
 | `/projects` | Ideal location for storing environments that will be shared with colleagues that are working on the same project. | Storage under `/projects` is contingent on having an HPC project allocation, and the project allocation has its own storage quota. |
 
