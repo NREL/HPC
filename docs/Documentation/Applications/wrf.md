@@ -25,7 +25,7 @@ there is current effort underway to make that available on future systems.
 
 Next, we look at how to use the wrf module. Below is an example job script
 
-### Example Job Scripts
+### Example Job Script
 
 ??? example "Kestrel CPU"
 
