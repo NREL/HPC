@@ -1,4 +1,4 @@
-# How to use the WRF application software 
+# How to Use the WRF Application Software 
 
 **Documentation:** [Weather Research Framework (WRF) Model](https://www.mmm.ucar.edu/models/wrf)
 
