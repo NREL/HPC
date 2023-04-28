@@ -440,7 +440,7 @@ You can get an interactive session on a compute node by running the command
 [nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
 ```
 
-but replacing *hpcapps* with your account.  After you get an session module load python and run as shown above.
+but replacing *hpcapps* with your account.  After you get a session, module load python and run as shown above.
 
 ```bash
 [nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
@@ -481,37 +481,3 @@ ssh -t -L 8888:localhost:8475 swift-login-1 ssh -L 8475:localhost:8888 c1-28
 ```
 
 replacing *8888* with the value in the URL if needed and c1-28 with the name of the compute node on which you are running.  Then again paste the URL in a web browser.  You should get a notebook running on the compute node.
-
-
-## Running Julia 
-
-Julia is also available via a module.  
-
-```bash
-[nrmc2l@swift-login-1:~ ] $ module spider julia
-...
-     Versions:
-        julia/1.6.2-ocsfign
-        julia/1.7.2-gdp7a25
-...
-[nrmc2l@swift-login-1:~ ] $ 
-
-[nrmc2l@swift-login-1:~/examples/spack ] $ module load julia/1.7.2-gdp7a25 
-[nrmc2l@swift-login-1:~/examples/spack ] $ which julia
-/nopt/nrel/apps/210928a/level03/install/linux-rocky8-zen2/gcc-9.4.0/julia-1.7.2-gdp7a253nsglyzssybqknos2n5amkvqm/bin/julia
-[nrmc2l@swift-login-1:~/examples/spack ] $ 
-
-```
-Julia can be run in a Jupyter notebook as discussed above.  However, before doing so you will need to run the following commands in each Julia version you are using.  
-
-```bash
-julia> using Pkg
-julia> Pkg.add("IJulia")
-
-```
-
-
-See [https://datatofish.com/add-julia-to-jupyter/](https://datatofish.com/add-julia-to-jupyter/) more more information.
-
-If you would like to install your own copy of Julia complete with Jupyter-lab contact Tim Kaiser **tkaiser2@nrel.gov** for a script to do so.
-
