@@ -20,7 +20,7 @@ available for two different versions of WRF and built with the intel
 compiler v20.1 toolchain. This command also shows that the version
 4.1.3 is the default build which is automatically loaded with `module
 load wrf`. Users are free to choose any of the module versions
-available for use. Currently there are no modules to run wrf on GPUs, but
+available for use. Currently there are no modules to run WRF on GPUs, but
 there is current effort underway to make that available on future systems.
 
 Next, we look at how to use the WRF module. Below is an example job script:
