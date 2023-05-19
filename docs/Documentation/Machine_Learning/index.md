@@ -74,4 +74,4 @@ sbatch <your_batch_file_name>.sb
 
 The above examples are simple CPU-based computing environments. To build conda environments for GPUs we refer you to the [PyTorch](https://pytorch.org/get-started/locally/) and [TensorFlow](https://www.tensorflow.org/install) install directions. 
 
-For optimized TensorFlow performance, we recommend using a [containerized version of TensorFlow](https://). 
+For optimized TensorFlow performance, we recommend using a [containerized version of TensorFlow](Containerized_TensorFlow/index.md). 
