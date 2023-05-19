@@ -168,7 +168,7 @@ Occasionally there may be a fourth leading digit. This is used for setuid, setgi
 
 #### Caution with Mode 777
 
-The command `chmod 777` is the equivalent of `chmod a+rwx`, which grants read, write, and execute permission to ALL users on the system for the file(s) specified. Use of command should be EXTREMELY rare, and any suggestions that it be applied should be examined closely, as it poses a major security risk to your files and data. Use your best judgement.
+The command `chmod 777` is the equivalent of `chmod a+rwx`, which grants read, write, and execute permission to ALL users on the system for the file(s) specified. Use of this command should be EXTREMELY rare, and any suggestions that it be applied should be examined closely, as it poses a major security risk to your files and data. Use your best judgement.
 
 ## Further Reading About File Permissions
 
