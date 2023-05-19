@@ -43,7 +43,6 @@ pip install tensorflow-cpu
 ```
 You should now be up and running with a TensorFlow! Similar to PyTorch, the [TensorFlow webpage](https://www.tensorflow.org/learn) has lots of great resources for getting started, including turotials, basic examples, and more! 
 
-Include a section on how to run the job, e.g., with job script examples or commands for an interactive session.
 
 ### Example Job Script
 
