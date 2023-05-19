@@ -45,7 +45,7 @@ The first field of `ls -l` output for each file consists of ten characters. Thes
 The first bit is reserved to describe the type of file. The three most common file types are:
 
 * **-** : a dash indicates a regular file (no special file type)
-* **d** : a `d` ndicates that this is a directory (a type of "file" that stores a list of other files)
+* **d** : a `d` indicates that this is a directory (a type of "file" that stores a list of other files)
 * **l** : an `l` indicates a symbolic link to another file/directory
 
 The next nine bits describe the file permissions that are set. These are always in the order of read, write, and execute. 
