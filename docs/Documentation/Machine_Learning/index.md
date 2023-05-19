@@ -1,7 +1,5 @@
 # Machine Learning
 
-**Documentation:** [ link to documentation](https://nrel.gov)
-
 *Machine learning refers to a set of techniques and algorithms that enable computers to automatically learn from data and improve their performance on a specific task over time. Types of machine learning methods include, but are not limited to, supervised learning (algorithms trained on labeled datasets), unsupervised learning (algorithms trained on unlabeled datasets), and reinforcement learning (learning by trial and error). The Computational Science Center at NREL conducts research in these types of machine learning, and also supports the use of machine learning software on Kestrel.*
 
 ## Getting Started
@@ -72,60 +70,8 @@ Once you have completed your batch file, submit using
 sbatch <your_batch_file_name>.sb
 ```
 
-## Supported Versions
-
-| Kestrel | Swift | Vermillion |
-|:-------:|:-----:|:----------:|
-| 0.0.0   | 0.0.0 | 0.0.0      |
-
 ## Advanced
 
 The above examples are simple CPU-based computing environments. To build conda environments for GPUs we refer you to the [PyTorch](https://pytorch.org/get-started/locally/) and [TensorFlow](https://www.tensorflow.org/install) install directions. 
 
 For optimized TensorFlow performance, we recommend using a [containerized version of TensorFlow](https://). 
-
-### Building From Source
-
-Here, give detailed and step-by-step instructions on how to build the code, if this step is necessary. Include detailed instructions for how to do it on each applicable HPC system. Be explicit in your instructions. Ideally a user reading one of the build sections can follow along step-by-step
-and have a functioning build by the end.
-
-If building from source is not something anyone would reasonably want to do, remove this section.
-
-Be sure to include where the user can download the source code
-
-??? example "Building on Kestrel"
-
-	Include here, for example, a Kestrel-specific makefile (see berkeleygw example page). This template assumes that we build the code with only one toolchain, which may not be the case. If someone might reasonably want to build with multiple toolchains, use the "Multiple toolchain instructions on Kestrel" template instead.
-	
-	```
-	Include relevant commands in blocks.
-	```
-	or as in-line `blocks`
-
-	Be sure to state how to set-up the necessary environment, e.g.:
-
-	```
-	module load gcc/8.4.0
-	module load openmpi/3.1.6/gcc-8.4.0
-	module load hdf5/1.10.6/gcc-ompi
-	```
-
-	Give instructions on compile commands. E.g., to view the available make targets, type `make`. To compile all program executables, type:
-
-	```
-	make cleanall
-	make all
-	```
-	
-??? example "Building on Vermillion"
-
-	information on how to build on Vermillion
-
-??? example "Building on Swift"
-
-	information on how to build on Swift
-
-
-## Troubleshooting
-
-If you run into any issues with the installation instructions above, please reach out to User and Apps Support...
