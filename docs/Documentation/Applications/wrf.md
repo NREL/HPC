@@ -16,7 +16,7 @@ This section provides the minimum amount of information necessary to successfull
 ```
 
 The `module avail wrf` command shows that two WRF modules are
-available for two different versions of wrf and built with the intel
+available for two different versions of WRF and built with the intel
 compiler v20.1 toolchain. This command also shows that the version
 4.1.3 is the default build which is automatically loaded with `module
 load wrf`. Users are free to choose any of the module versions
