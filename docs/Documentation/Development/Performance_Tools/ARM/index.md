@@ -15,7 +15,7 @@ Across the top we see our metrics data for the default metrics: main thread acti
 * Dark purple: Accelerator time. 
 
 ![VASP-MAP-1](/assets/images/Profiling/ARM-MAP-1.png)
-Across the bottom we have different view tabs. The I/O view displays your program I/O. The Project Files view allows you to navigate through your code base. The Functions view shows a flat profile of the functions in your program. The Stacks view allows you follow down from the main function to see which code paths took the most time. Each line of the Stacks view shows the performance of one line of your source code, including all the functions called by that line.
+Across the bottom we have different view tabs. The I/O view displays your program I/O. The Project Files view allows you to navigate through your code base. The Functions view shows a flat profile of the functions in your program. The Stacks view allows you to follow down from the main function to see which code paths took the most time. Each line of the Stacks view shows the performance of one line of your source code, including all the functions called by that line.
 
 You can select different metrics to view from the metrics menu: 
 ![VASP-MAP-2](/assets/images/Profiling/ARM-MAP-2.png)
