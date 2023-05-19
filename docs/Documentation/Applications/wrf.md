@@ -23,7 +23,7 @@ load wrf`. Users are free to choose any of the module versions
 available for use. Currently there are no modules to run wrf on GPUs, but
 there is current effort underway to make that available on future systems.
 
-Next, we look at how to use the wrf module. Below is an example job script
+Next, we look at how to use the WRF module. Below is an example job script:
 
 ### Example Job Script
 
