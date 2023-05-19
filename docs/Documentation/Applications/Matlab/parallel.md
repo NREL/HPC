@@ -1,6 +1,6 @@
 # Using the Parallel Computing Toolbox with MATLAB
 
-*Learn how to use the Parallel Computing Toolbox (PCT) with MATLAB software on the Eagle system.*
+*Learn how to use the Parallel Computing Toolbox (PCT) with MATLAB software on the NREL HPC systems.*
 
 !!! note
 
@@ -11,7 +11,7 @@
 PCT provides the simplest way for users to run parallel MATLAB code on a single,
 multi-core compute node. Here, we describe how to configure your local MATLAB
 settings to utilize the PCT and provide some basic examples of running parallel
-code on Eagle.
+code on NREL HPC systems.
 
 For more extensive examples of PCT usage and code examples, see the [MathWorks
 documentation](https://www.mathworks.com/products/parallel-computing.html).
@@ -50,7 +50,7 @@ case, MATLAB will just use the largest number available.
 
 ## Examples
 
-Here we demonstrate how to use the PCT on a single compute node on Eagle. Learn
+Here we demonstrate how to use the PCT on a single compute node on NREL HPC systems. Learn
 how to open a local parallel pool with some examples of how to use it for
 parallel computations. Because the opening of parallel pools can be extremely
 slow in interactive sessions, the examples here will be restricted to
@@ -236,7 +236,7 @@ Finally, create the batch script stiffODE.sb:
     matlab -nodisplay -r $BASE_MFILE_NAME > MATLAB_OUTPUT
     ```
 
-Next, submit the job (which will take several minutes to finish on Eagle):
+Next, submit the job (which will take several minutes to complete):
 
 ```
 $ sbatch stiffODE.sb
