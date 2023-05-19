@@ -6,7 +6,8 @@
 
 ## Getting Started
 
-This section provides basic examples for getting started with two popular machine learning libraries: [PyTorch](https://pytorch.org/) and [TensorFlow](https://www.tensorflow.org/). Both examples use [Anaconda environments](https://www.anaconda.com/), so if you are not familiar with their use please refer to the NREL HPC page on using Anaconda environments on Kestrel (INCLUDE LINK HERE!) and also the Anaconda guide to [managing environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). 
+<!-- TODO: Add link to NREL conda documentation. -->
+This section provides basic examples for getting started with two popular machine learning libraries: [PyTorch](https://pytorch.org/) and [TensorFlow](https://www.tensorflow.org/). Both examples use [Anaconda environments](https://www.anaconda.com/), so if you are not familiar with their use please refer to the NREL HPC page on using Conda environments and also the Conda guide to [managing environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). 
 
 ###Getting started with PyTorch
 
