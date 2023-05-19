@@ -17,7 +17,7 @@ module load conda
 
 conda create -p /projects/YOUR_PROJECT/YOUR_USER_NAME_HERE/FOLDER_FOR_CONDA_ENVIRONMENTS/pt python=3.9
 ```
-Answer yes to proceed, and you should end up with directions for starting your conda environment pt. Note that these instructions place your environment in the projects folder. This is advisable, as opposed to installing conda environments in their default location in your home directory. See the using Anaconda environment on Kestrel instructions on Kestrel (INCLUDE LINK HERE!) for more information.
+Answer yes to proceed, and you should end up with directions for starting your conda environment pt. Note that these instructions place your environment in the specified /projects folder. This is advisable, as opposed to installing conda environments in their default location in your home directory. See our [Conda documentation](../Environment/Customization/conda.md#where-to-store-conda-environments) for more information.
 
 Activate the pt conda environment and install PyTorch into the active conda environment:
 ```
