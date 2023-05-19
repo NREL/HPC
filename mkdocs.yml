@@ -148,8 +148,7 @@ nav:
             - Documentation/Development/Containers/singularity.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
-         - FastX:
-            - VirtualGL and FastX: Documentation/Viz_Analytics/FastX/fastx.md 
+         - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
          - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - VisIT: Documentation/Viz_Analytics/visit.md

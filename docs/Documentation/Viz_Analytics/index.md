@@ -8,7 +8,7 @@
 
 ## VirtualGL/FastX
 
-Provides remote visualization for OpenGL-based applications. For more information, see [using VirtualGL and FastX ](FastX/fastx.md).
+Provides remote visualization for OpenGL-based applications. For more information, see [using VirtualGL and FastX ](virtualgl_fastx.md).
 
 ## ParaView
 
