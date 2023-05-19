@@ -49,6 +49,7 @@ nav:
       - Data and File Systems:
         - File Systems:
           - Documentation/Data-and-File-Systems/File-Systems/index.md 
+          - Documentation/Data-and-File-Systems/File-Permissions.md
           - Lustre: 
             - Documentation/Data-and-File-Systems/File-Systems/Lustre/lustrebestpractices.md
         - Transferring Data:
