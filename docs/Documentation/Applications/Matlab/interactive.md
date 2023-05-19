@@ -1,18 +1,18 @@
 # Running MATLAB Software Interactively
 
-*Learn how to run MATLAB software interactively on the Eagle system.*
+*Learn how to run MATLAB software interactively on NREL HPC systems.*
 
 <!-- TODO: Update link for System Connection. -->
 
-To run MATLAB on Eagle there are two ways to proceed: you can choose to start an
+To run MATLAB interactively there are two ways to proceed: you can choose to start an
 interactive job and use a basic MATLAB terminal (no GUI), or you can use the GUI
 with a [FastX](../../../Development/Vizualization/FastX/fastx) session on a DAV
-node.  For information on how to connect to Eagle, see [System
+node.  For information on how to connect to NREL HPC systems, see [System
 Connection](https://www.nrel.gov/hpc/system-connection.html).
 
 ## Running MATLAB via an Interactive Job
 
-After connecting to Eagle, the next step is to start an interactive job. For
+After connecting to the login node, the next step is to start an interactive job. For
 example, the following command gets # nodes for interactive use for an hour:
 
 ```
