@@ -1,7 +1,7 @@
 # How to run MAP
 
 ## FastX Setup
-In order to run MAP you will need to have FastX. Follow instructions here to download the and install the desktop client and connect to DAV nodes using it: [FastX](https://nrel.github.io/HPC/Documentation/Software_Tools/FastX/fastx/)
+In order to run MAP you will need to have FastX. Follow instructions here to download and install the desktop client and connect to DAV nodes using it: [FastX](https://nrel.github.io/HPC/Documentation/Software_Tools/FastX/fastx/)
 
 
 ## Program Setup
