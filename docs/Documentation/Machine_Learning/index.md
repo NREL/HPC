@@ -27,7 +27,7 @@ Answer yes to proceed, and you should be up and running with PyTorch! The [PyTor
 
 ###Getting started with TensorFlow
 
-Getting started with TensorFlow is similar to process for PyTorch. The first step is to construct anempty conda environment to work in:
+Getting started with TensorFlow is similar to the process for PyTorch. The first step is to construct an empty conda environment to work in:
 ```
 module load conda
 
