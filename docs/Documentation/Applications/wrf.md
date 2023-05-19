@@ -77,10 +77,6 @@ To submit the above wrf jobscript named `submit_wrf.sh`, do ``` sbatch submit_wr
 
 ## Advanced
 
-Include advanced user information about how to build the application software from source.
-
-One common "advanced case" might be that users want to build their own version of the code.
-
 ### Building Instructions From Source
 
 Any WRF version can be downloaded [here](https://github.com/wrf-model/WRF/releases). Pursuant to building WRF, appropriate versions of `netcdf`, `hdf5` and `pnetcdf` (if parallel netcdf is required) must also be built since they are dependent for building WRF. These dependent supporting softwares may already be offered as modules. If not, then users need to build them first, instructions for which are not provided here. 
