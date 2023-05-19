@@ -7,7 +7,7 @@ In order to run MAP you will need to have FastX. Follow instructions here to dow
 ## Program Setup
 ARM-MAP can show you how much time was spent on each line of code. To see the source code in MAP, you must use a version of your code that is compiled with the debug flag. For most compilers, this is `-g`. Note: You should not just use a debug build but should keep optimization flags `-O0` turned on when profiling. 
 
-For more information, see the ARM-MAP documentation on getting started. In particular, if your program uses statically linked libraries, the map profiler libraries will not be automatically linked and you will need to do so yourself. 
+For more information, see the ARM-MAP documentation on getting started. In particular, if your program uses statically linked libraries, the MAP profiler libraries will not be automatically linked and you will need to do so yourself. 
 
 Note: Ensure that your program is working before trying to run it in MAP
 
