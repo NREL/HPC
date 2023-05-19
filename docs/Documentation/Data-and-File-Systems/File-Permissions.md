@@ -64,7 +64,7 @@ The next two fields are the User and Group with access rights to the file. A fil
 
 ### Special Permissions Flags: Setuid, Setgid, and Sticky Bits
 
-an `s` in the e(x)ecute bit field has a special meaning, depending on whether it's in the User or Group permissions. A `t` in the "Others" 
+An `s` in the e(x)ecute bit field has a special meaning, depending on whether it's in the User or Group permissions. A `t` in the "Others" 
 e(x)ecute also has a special meaning.
 
 In the Group permission bits, an `s` for the eXecute bit indicates that `SETGID` is enabled. This can be set for an individual file or for a directory, but
