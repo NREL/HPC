@@ -6,7 +6,7 @@
 
 To run MATLAB interactively there are two ways to proceed: you can choose to start an
 interactive job and use a basic MATLAB terminal (no GUI), or you can use the GUI
-with a [FastX](../../../Development/Vizualization/FastX/fastx) session on a DAV
+with a [FastX](../../Viz_Analytics/virtualgl_fastx.md) session on a DAV
 node.  For information on how to connect to NREL HPC systems, see [System
 Connection](https://www.nrel.gov/hpc/system-connection.html).
 
@@ -48,7 +48,7 @@ $ matlab -nodisplay
 ## Running MATLAB via a FastX Session on a DAV Node
 
 For instructions on starting a FastX session on a DAV node, see the [FastX
-page](../../../.../../Development/Vizualization/FastX/fastx). Once you have
+page](../../Viz_Analytics/virtualgl_fastx.md). Once you have
 started a FastX session and have access to a terminal, load the MATLAB module to
 set up your user environment, which includes setting the location of the license
 server,

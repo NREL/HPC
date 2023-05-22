@@ -23,7 +23,7 @@ To save certain intermediate files for, *e.g.*, restart, a directory name needs 
 
 A template Slurm script to run Q-Chem with 36 threads is:
 
-??? example "Eagle Sample Submission Script"
+??? example "Sample Submission Script"
 
 	```bash
 	#SBATCH --job-name=my_qchem_job
@@ -57,5 +57,7 @@ A template Slurm script to run Q-Chem with 36 threads is:
 	# Start run. Keep restart files without intermediate temp files in directory called "my_save"
 	qchem -nt 36 job.in job.out my_save
 	```
+
+To run this script on Swift, the number of threads can be changed to 64. 
 
 A large number of example Q-Chem input examples are available in `/nopt/nrel/apps/q-chem/5.3/samples`.
