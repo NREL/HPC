@@ -27,17 +27,16 @@ Next, we look at how to use the WRF module. Below is an example job script:
 
 ### Example Job Script
 
-??? example "Kestrel CPU"
+??? example "Kestrel CPU Sample Submission Script"
 
 	```slurm
 	#!/bin/bash
 
-	# In a comment summarize the hardware requested, e.g. number of nodes, 
-        # number of tasks per node
+	# This job requests 102 tasks per node. This may need to be adjusted based on system hardware. 
 
 	#SBATCH --time=
-	#SBATCH --nodes=
-	#SBATCH --ntasks-per-node=
+	#SBATCH --nodes=4
+	#SBATCH --ntasks-per-node=102
 	#SBATCH --partition=
 	#SBATCH --exclusive=user
 	#SBATCH --account=
@@ -45,25 +44,24 @@ Next, we look at how to use the WRF module. Below is an example job script:
 	#SBATCH --job-name
 	#SBATCH --output=out_%j
 
-	# include a section of relevant export environment and module load commands, e.g.:
-
-	  module load cray-hdf5
-	  module load cray-netcdf
+	module load cray-hdf5
+	module load cray-netcdf
 
 
-	  export LD_LIBRARY_PATH=/opt/cray/pe/netcdf/default/CRAYCLANG/14.0/lib:/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0/lib:/sfs/nopt/nrel/apps/testing/apurkaya/wrf/cray/installs/pnetcdf/lib:$LD_LIBRARY_PATH
-	  export HDF5=/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0
-	  export NETCDF=/opt/cray/pe/netcdf/default/CRAYCLANG/14.0
-	  export PNETCDF=/sfs/nopt/nrel/apps/testing/apurkaya/wrf/cray/installs/pnetcdf
+	export LD_LIBRARY_PATH=/opt/cray/pe/netcdf/default/CRAYCLANG/14.0/lib:/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0/lib:/sfs/nopt/nrel/apps/testing/apurkaya/wrf/cray/installs/pnetcdf/lib:$LD_LIBRARY_PATH
+	export HDF5=/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0
+	export NETCDF=/opt/cray/pe/netcdf/default/CRAYCLANG/14.0
+	export PNETCDF=/sfs/nopt/nrel/apps/testing/apurkaya/wrf/cray/installs/pnetcdf
 
-	  # Note that builds with different toolchains may require different modules and environments to be loaded
+	# Note that builds with different toolchains may require different modules and environments to be loaded
 
- 	  export OMP_NUM_THREADS=1
+	export OMP_NUM_THREADS=1
 
-	# include a sample srun command or similar
 	srun wrf.exe
 
 	```
+
+
 
 
 
