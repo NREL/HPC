@@ -9,168 +9,188 @@ grand_parent: Programming Languages
 
 
 # Dask
-Dask provides a way to parallelize Python code either on a single node or across the cluster. It is similar to the functionality provided by Apache Spark, with easier setup. It provides a similar API to other common Python packages such as NumPY, Pandas, and others. 
+
+Dask is a framework for parallelizing Python code.  The most common use case is to enable Python programmers to scale scientific and machine learning analyses to run on distributed hardware.  Dask has similarities to Apache Spark (see [FAQ](https://docs.dask.org/en/stable/faq.html#how-does-dask-compare-with-apache-spark) for comparison), but Dask is more Python native and interfaces with common scientific libraries such as NumPy and Pandas.
+
+## Installation
+
+Dask can be installed via Conda.  For example, to install Dask into a new conda environment:
+
+```
+conda env create -n dask python=3.9
+conda activate dask
+conda install dask
+```
+
+This install Dask along with common dependencies such as NumPy.  Additionally, the `dask-jobqueue` package (discussed below), can be installed via:
+
+```
+conda install dask-jobqueue
+```
+
+Further, there is the `dask-mpi` package (also discussed below).  To ensure compatibility with the system MPI libraries, it is recommended to install `dask-mpi` using pip.  As such, we recommending installing any conda packages first.  `dask-mpi` depends on `mpi4py`, although we have found that the pip install command does not automatically install `mpi4py`, so we install it explicitly.  Also, installation of `mpi4py` will link against the system libraries, so the desired MPI library should be loaded first.  For example:
+
+```
+module load intel-mpi
+pip install dask-mpi mpi4py
+```
 
 ## Dask single node
-Dask can be used locally on your laptop or an individual node. Additionally, it provides wrappers for multiprocessing and threadpools. The advantage of using `LocalCluster` though is you can easily drop in another cluster configuration to further parallelize. 
 
-```python
-from distributed import Client, LocalCluster
-import dask
-import time
-import random 
+Dask can be used locally on your laptop or an individual node. Additionally, it provides wrappers for multiprocessing and threadpools. One advantage of using `LocalCluster` is that you can easily drop in another cluster configuration to further parallelize, with minimal modification of the code.
 
-@dask.delayed
-def inc(x):
-    time.sleep(random.random())
-    return x + 1
+The following is a simple example that uses a local cluster with the `dask.delayed` interface, which can be used when the problem doesn't fit into one of the built-in collection types such as `dask.array` or `dask.dataframe`:
 
-@dask.delayed
-def dec(x):
-    time.sleep(random.random())
-    return x - 1
+??? example "Dask local cluster"
 
-@dask.delayed
-def add(x, y):
-    time.sleep(random.random())
-    return x + y
+    ```python
+    from distributed import Client, LocalCluster
+    import dask
+    import time
+    import random 
+    
+    @dask.delayed
+    def inc(x):
+        time.sleep(random.random())
+        return x + 1
+    
+    @dask.delayed
+    def dec(x):
+        time.sleep(random.random())
+        return x - 1
+    
+    @dask.delayed
+    def add(x, y):
+        time.sleep(random.random())
+        return x + y
+    
+    def main ():
+       cluster = LocalCluster(n_workers=2)
+       client = Client(cluster)
+       zs = []
+       for i in range(256):
+          x = inc(i)
+          y = dec(x)
+          z = add(x, y)
+          zs.append(z)
+       
+       result = dask.compute(*zs)
+       print (result)
+    
+    
+    if __name__ == "__main__":
+       main()
+    ```
 
-def main ():
-   cluster = LocalCluster(n_workers=2)
-   client = Client(cluster)
-   zs = []
-   for i in range(256):
-      x = inc(i)
-      y = dec(x)
-      z = add(x, y)
-      zs.append(z)
-   
-   result = dask.compute(*zs)
-   print (result)
+## Dask Jobqueue
 
+The [`dask-jobqueue`](https://jobqueue.dask.org/en/latest/index.html#) library makes it easy to deploy Dask to a distributed cluster using Slurm.  This is particularly useful when running an interactive notebook, where the workers can be scaled dynamically. 
 
-if __name__ == "__main__":
-   main()
+For the following example, first make sure that both `dask` and `dask-jobqueue` have been installed.  Create a file named `dask_slurm_example.py` with the following contents, and replace `<project>` with your project allocation.
+
+??? example "`dask_slurm_example.py`"
+
+    ```python
+    from dask_jobqueue import SLURMCluster
+    import socket
+    from dask.distributed import Client
+    from collections import Counter
+    
+    cluster = SLURMCluster(
+       cores=18,
+       memory='24GB',
+       queue='short',
+       project='<project>,
+       walltime='00:30:00',
+       interface='ib0',
+       processes=17,
+    )
+    
+    client = Client(cluster)
+    
+    def test():
+       return socket.gethostname()
+    
+    result = []
+    cluster.scale(jobs=2)
+    
+    for i in range(2000):
+       result.append(client.submit(test).result())
+       
+    print(Counter(result))
+    print(cluster.job_script())
+    ```
+    
+Then the script can simply be executed directly from a login node:
+
+```bash
+python dask_slurm_example.py
 ```
+
+Note that although 2 jobs are requested, Dask launches the jobs dynamically, so depending on the status of the job queue, your results may indicate that only a single node was used.
+
 
 ## Dask MPI
-Dask-MPI can be used to parallelize calculations across a number of nodes as part of a batch job submitted to slurm. Dask will automatically create a scheduler on rank 0 and workers will be created on all other ranks. 
 
-### Install
-**Note:** The version of dask-mpi installed via Conda may be incompatible with the MPI libaries on Eagle. Use the pip install instead. 
+Dask also provides a package called [`dask-mpi`](http://mpi.dask.org/en/latest/index.html) that uses MPI to create the cluster.  Note that `dask-mpi` only uses MPI to start the cluster, not for inter-node communication.
 
-```
-conda create -n daskmpi python=3.7
-conda activate daskmpi
-pip install dask-mpi
-```
+Dask-MPI provides two interfaces to launch Dask, either from a batch script using the Python API, or from the command line.
 
-**Python script**: This script holds the calculation to be performed in the test function. The script relies on the Dask cluster setup on MPI which is created in the 
-```python
-from distributed import Client, LocalCluster
-import dask
-import time
-from dask_mpi import initialize
-import random 
+Here we show a simple example that uses Dask-MPI with a batch script.  Make sure that you have installed `dask-mpi` following the [Installation Instructions](#installation).  Create `dask_mpi_example.py` and `dask_mpi_launcher.sh` with the contents below.  In `dask_mpi_launcher.sh`, replace `<project>` with your allocation.
 
-@dask.delayed
-def inc(x):
-    time.sleep(random.random())
-    return x + 1
+??? example "`dask_mpi_example.py`"
 
-@dask.delayed
-def dec(x):
-    time.sleep(random.random())
-    return x - 1
+    ```python
+    from dask_mpi import initialize
+    from dask.distributed import Client
+    import socket
+    import time
+    from collections import Counter
+    
+    def test():
+       return socket.gethostname()
+       
+    def main():
+       initialize(interface='ib0',
+                  nthreads=5)
+       client = Client()
+       time.sleep(15)
+    
+       result = []
+    
+       for i in range (0,100):
+          result.append(client.submit(test).result())
+          time.sleep(1)
+          
+       out = str(Counter(result))
+       print(f'nodes: {out}')
+    
+    main()
+    ```
+    
+??? example "`dask_mpi_launcher.sh`"
 
-@dask.delayed
-def add(x, y):
-    time.sleep(random.random())
-    return x + y
+    ```bash
+    #!/bin/bash 
+    #SBATCH --nodes=2
+    #SBATCH --ntasks=4
+    #SBATCH --time=10
+    #SBATCH --account=<project>
+    #SBATCH --partition=debug
+    
+    ml intel-mpi
+    mpiexec -np 4 python dask_mpi_example.py
+    ```
+    
+The job is then launched as:
 
-def main ():
-   initialize(nanny=False,
-      interface='ib0',
-      protocol='tcp',
-      memory_limit=0.8,
-      local_directory='/tmp/scratch/dask',
-      nthreads=1)
-
-   client = Client()
-   zs = []
-   for i in range(256):
-      x = inc(i)
-      y = dec(x)
-      z = add(x, y)
-      zs.append(z)
-   
-   result = dask.compute(*zs)
-   print (result)
-
-
-if __name__ == "__main__":
-   main()
-```
-
-Running the above script with MPI will automatically set a Dask worker on each MPI rank. 
-```shell
-mpiexec -np 30 python dask_mpi.py
+```bash
+sbatch dask_mpi_launcher.sh
 ```
 
-## Dask jobqueue
-Dask can also run using the Slurm scheduler already installed on Eagle. The Jobqueue library can handle submission of a computation to the cluster. This is particularly useful when running an interactive notebook or similar and you need to scale workers. 
+!!! warning
 
-```python
-import dask
-import time
-from dask_jobqueue import SLURMCluster
-from distributed import Client
-import random 
-
-@dask.delayed
-def inc(x):
-    time.sleep(random.random())
-    return x + 1
-
-@dask.delayed
-def dec(x):
-    time.sleep(random.random())
-    return x - 1
-
-@dask.delayed
-def add(x, y):
-    time.sleep(random.random())
-    return x + y
-
-def main ():
-   cluster = SLURMCluster(
-      cores=18,
-      memory='24GB',
-      queue='short',
-      project='hpcapps',
-      walltime='00:30:00',
-      interface='ib0',
-      processes=18,
-   )
-   cluster.scale(jobs=2)
-
-   client = Client(cluster)
-   zs = []
-   for i in range(256):
-      x = inc(i)
-      y = dec(x)
-      z = add(x, y)
-      zs.append(z)
-   
-  
-   result = dask.compute(*zs)
-   print (result)
-
-
-if __name__ == "__main__":
-   main()
-
-```
+    We have observed errors such as `distributed.comm.core.CommClosedError` when using `dask-mpi`.  These errors may be related to known issues such as [GitHub Issue #94](https://github.com/dask/dask-mpi/issues/94).  Users that experience issues with `dask-mpi` are encouraged to use `dask-jobqueue` instead.
 
 ## References
 [Dask documentation](https://docs.dask.org/en/latest/)
