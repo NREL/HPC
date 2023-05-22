@@ -19,6 +19,8 @@ swift-login-1.hpc.nrel.gov
 
 External (non-NREL) users will need to either use the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), or connect to an intermediate system such as the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html) at hpcsh.nrel.gov first, then ssh from that host to one of the addresses above. Note that hpcsh.nrel.gov will require Password+OTP to log in, but the connection to Swift will only require a password, no OTP code.
 
+## SSH Keys
+User accounts have a default set of keys `cluster` and `cluster.pub`. The `config` file will use these even if you generate a new keypair using `ssh-keygen`. If you are adding your keys to Github or elsewhere you should either use `cluster.pub` or will have to modify the `config` file.
 
 ## Slurm and Partitions
 
@@ -34,6 +36,11 @@ The most up to date list of partitions can always be found by running the `sinfo
 Each partition also has a matching `-standby` partition. Allocations which have consumed all awarded AUs for the year may only submit jobs to these partitions, and their default QoS will be set to `standby`. Jobs in standby partitions will be scheduled when there are otherwise idle cycles and no other non-standby jobs are available. 
 
 Any allocation may submit a job to a standby QoS, even if there are unspent AUs.
+
+By default, nodes can be shared between users.  To get exclusive access to a node use the `--exclusive` flag in your sbatch script or on the sbatch command line.
+
+!!! tip "Important"
+    Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core. This behavior differs from Eagle.
 
 ## Allocation Unit (AU) Charges
 
@@ -84,6 +91,8 @@ In the directory for an environment you will see a subdirectory **example**. Thi
 cp -r example ~/example
 cd ~/example
 ```
+#### Conda
+There is a very basic version of conda in the "anaconda" directory in each  /nopt/nrel/apps/YYMMDDa directory. However, there is a more complete environment pointed to by the module under /nopt/nrel/apps/modules. This is set up like Eagle. Please see our [Conda Documentation](../../Environment/Customization/conda.md) for more information.
 
 ## Simple batch script
 
