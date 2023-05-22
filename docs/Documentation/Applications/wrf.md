@@ -61,10 +61,6 @@ Next, we look at how to use the WRF module. Below is an example job script:
 
 	```
 
-
-
-
-
 To submit the above WRF jobscript named `submit_wrf.sh`, do ``` sbatch submit_wrf.sh ```
 
 ## Supported Versions
