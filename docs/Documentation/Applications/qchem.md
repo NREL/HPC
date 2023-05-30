@@ -17,7 +17,7 @@ For example, to run a job with 36 threads:
 !!! tip "Note"
 	 The Q-Chem input file must be in the same directory in which you issue the qchem command. In other words, `qchem ... SOMEPATH/<input file>` won't work. 
 
-For a full list of which types of calculation are parallelized and the types of parallelism, see the [Q-Chem User's Manual](https://manual.q-chem.com/5.3/). Note that the currently installed Q-Chem versions on Eagle are not MPI-parallelized. If a significant use case exists for MPI parallelism, please reach out to [hpc-help@nrel.gov](mailto:hpc-help@nrel.gov). 
+For a full list of which types of calculation are parallelized and the types of parallelism, see the [Q-Chem User's Manual](https://manual.q-chem.com/5.3/).
 
 To save certain intermediate files for, *e.g.*, restart, a directory name needs to be provided. If not provided, all scratch files will be automatically deleted at job's end by default. If provided, a directory `$QCSCRATCH/savename` will be created and will hold saved files. In order to save all intermediate files, you can add the `-save` option. 
 
@@ -58,4 +58,4 @@ A template Slurm script to run Q-Chem with 36 threads is:
 	qchem -nt 36 job.in job.out my_save
 	```
 
-A large number of example Q-Chem input decks are available in `/nopt/nrel/apps/q-chem/5.3/samples`.
+A large number of example Q-Chem input decks are available on Eagle in `/nopt/nrel/apps/q-chem/5.3/samples`.
