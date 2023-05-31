@@ -1,6 +1,6 @@
 # Using MATLAB Software
 
-*Learn how to use MATLAB software on the Eagle system.*
+*Learn how to use MATLAB software on the NREL HPC systems.*
 
 ### [Running MATLAB in Batch Mode](batch.md)
 

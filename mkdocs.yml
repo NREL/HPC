@@ -77,7 +77,12 @@ nav:
           - WRF:        Documentation/Applications/wrf.md
       - Development:
          - Languages:
-             - Julia:   Documentation/Development/Languages/julia.md
+             - Julia:
+                  - Documentation/Development/Languages/Julia/index.md
+                  - Documentation/Development/Languages/Julia/julia_install.md
+                  - Documentation/Development/Languages/Julia/julia_tour.md
+                  - Documentation/Development/Languages/Julia/julia_parallel.md
+                  - Documentation/Development/Languages/Julia/julia_ccall_pycall.md
              - C++:     Documentation/Development/Languages/c++.md
              - R:       Documentation/Development/Languages/r.md
              - Bash:    Documentation/Development/Languages/bash.md
@@ -86,9 +91,7 @@ nav:
                - Advanced: Documentation/Development/Languages/Fortran/f90_advanced.md
              - Python:
                   - Documentation/Development/Languages/Python/index.md
-                  - Documentation/Development/Languages/Python/NREL_python.md
                   - Documentation/Development/Languages/Python/dask.md
-                  - Conda: Documentation/Development/Languages/Python/conda.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
              - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
@@ -110,9 +113,12 @@ nav:
               - Git :   Documentation/Development/Build_Tools/git.md
          - Libraries:
               - Documentation/Development/Libraries/index.md
+              - Libraries How-to:   Documentation/Development/Libraries/howto.md
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
-              - LAPACK: Documentation/Development/Libraries/lapack.md
+              - HSL:  Documentation/Development/Libraries/hsl.md
+              - IPOPT: Documentation/Development/Libraries/ipopt.md
+              - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
               - NetCDF: Documentation/Development/Libraries/netcdf.md
@@ -142,17 +148,15 @@ nav:
             - Documentation/Development/Containers/singularity.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
-         - FastX:
-            - VirtualGL and FastX: Documentation/Viz_Analytics/FastX/fastx.md 
+         - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
          - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - VisIT: Documentation/Viz_Analytics/visit.md
       - Machine Learning:
-           - Reinforcement Learning:
-             - Documentation/Machine_Learning/Reinforcement_Learning/index.md
-           - TensorBoard:
-             - Documentation/Machine_Learning/TensorBoard/index.md
-           - Documentation/Machine_Learning/tensorflow.md
+           - Documentation/Machine_Learning/index.md 
+           - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
+           - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
+           - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
 theme:
   name: material
   custom_dir: overrides
@@ -160,6 +164,8 @@ theme:
     - navigation.tabs
     - navigation.indexes
 markdown_extensions:
+  - toc:
+      permalink: "#"
   - admonition
   - attr_list
   - meta

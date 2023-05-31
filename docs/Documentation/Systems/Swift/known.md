@@ -23,5 +23,5 @@ grand_parent: Systems
 1. There are some example slurm scripts in the example directory.
 
 # How to Get Help
-Please visit the [Help and Support Page](./help.md) for assistance or to report an issue.
+Please visit the [Help and Support Page](../../help.md) for assistance or to report an issue.
 

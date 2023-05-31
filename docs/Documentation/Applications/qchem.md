@@ -36,7 +36,7 @@ A template Slurm script to run Q-Chem with 36 threads is:
 	#SBATCH --error=std-%j.err
 	 
 	# Load the Q-Chem environment
-	module load q-chem/5.3
+	module load q-chem
 	 
 	# Go to the location of job files, presumably from where this file was submitted
 	cd $SLURM_SUBMIT_DIR
@@ -59,3 +59,4 @@ A template Slurm script to run Q-Chem with 36 threads is:
 	```
 
 A large number of example Q-Chem input decks are available on Eagle in `/nopt/nrel/apps/q-chem/5.3/samples`.
+
