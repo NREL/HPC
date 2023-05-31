@@ -10,10 +10,19 @@ has_children: true
 Vermilion is an OpenHPC-based cluster running on Dual AMD EPYC 7532 Rome CPUs. The nodes run as virtual machines in a local virtual private cloud (OpenStack). Mellanox drivers and OFED are installed on all nodes.
 
 ## Accessing Vermilion
+Access to Vermilion requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
+
+#### For NREL Employees:
 To access vermilion, log into the NREL network and connect via ssh:
 
     ssh vs.hpc.nrel.gov
     ssh vermilion.hpc.nrel.gov
+
+#### For External Collaborators:
+There are currently no external-facing login nodes for Vermilion. There are two options to connect:
+
+1. Connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html) and log in with your username, password, and OTP code. Once connected, ssh to the login nodes as above.
+1. Connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) and ssh to the login nodes as above.
 
 There are currently two login nodes. They share the same home directory so work done on one will appear on the other. They are:
 
