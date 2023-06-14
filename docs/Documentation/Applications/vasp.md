@@ -39,9 +39,9 @@ NREL offers support for VASP 5 and VASP 6 on CPUs as well as GPU builds on certa
 
 Three executables have been made available with each build of VASP:
 
-1. `vasp_gam` is for Gamma-point-only runs typical for large unit cells;
+1. `vasp_gam` is for Gamma-point-only runs typical for large unit cells.
 
-2. `vasp_std` is for general k-point meshes with collinear spins; and,
+2. `vasp_std` is for general k-point meshes with collinear spins. 
 
 3. `vasp_ncl` is for general k-point meshes with non-collinear spins.
 
@@ -53,7 +53,7 @@ VASP is available through modules on Eagle, Swift and Vermilion. Use the command
 
 To run VASP, the following 4 input files are needed: POSCAR, POTCAR, INCAR, KPOINTS. For more information about VASP input files, see the [VASP wiki](https://www.vasp.at/wiki/index.php/Input).
 
-## Example Job Scripts And Performance Recommendations
+## Example Job Scripts
 ### Eagle
 
 ??? example "Eagle: VASP 6 (Intel MPI) on CPUs"
@@ -478,9 +478,7 @@ To run VASP, the following 4 input files are needed: POSCAR, POTCAR, INCAR, KPOI
     ```
 
 !!! Note
-    On Vermilion, VASP runs more performantly on a single node. Many issues have been reported for running VASP on multiple nodes, especially when requesting all available cores in each node. In some cases, VASP runtimes on 2 nodes have been observed to be double (or more) the run times on a single node. In order for MPI to work reliably on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in each of the scripts below. Different solutions exist for Open MPI and Intel MPI. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce succesful multi-node runs on 4 nodes. The Open MPI multi-node jobs are more reliable on Vermilion, but Intel MPI VASP jobs show better runtime performance. 
-
-    Due to low performance and reliability of multi-node VASP jobs on Vermilion, it is recommended to run VASP on a singe node. If many cores are needed for your VASP calcualtion, run your job in the lg partition (60 cores/node), which provides the largest numbers of cores per node.
+    On Vermilion, VASP runs more performantly on a single node. Many issues have been reported for running VASP on multiple nodes, especially when requesting all available cores in each node. In order for MPI to work reliably on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented below. Please see the [Performance Recommendations section](vasp.md#performance-recommendations) for more details.
 
 #### Workarounds
 
@@ -522,16 +520,13 @@ Below, a few performance recommendations around resource requests and MPI are li
 
 ??? example "Swift"
     Intel MPI is recommended over Open MPI for all VASP calculations on Swift. Using an Intel MPI build of VASP and running over Intel MPI, Benchmark 2 ran in average of 76%, 72% and 46% of the time as the same calculations using an Open MPI build of VASP over Open MPI on 32, 64 and 128 CPUs/node, respectively. For Benchmark 1, Intel MPI calculations ran in an average of 76.89% of the time as Open MPI calculcations. 
+
     On Swift, each node has 64 physical cores, and each core is subdivided into two virtual cores in a process that is identical to hyperthreading. Because of this, up to 128 cores can be requested from a single Swift node, but each core will only represent half of a physical core. Unlike on Eagle, Swift charges for only the portion of the node requested by a job, as long as the memory requested for the job is no more than 2GB/CPU. If the entire 256GB of memory is requested per node, but only half of the CPUs per node are requested, you will be charged for the full node. Swift charges 5 AUs/hour when running on 128 CPUs (one full node), so running on 32 CPUs, for example, would charge only (32/128) * 5 AUs/hour rather than the full 5 AUs/node-hour. 
+
     On Swift, VASP is most efficiently run on partially full nodes. 32 CPUs/node was found to have the fastest runtime/core, followed by 64 CPUs/node and 128 CPUs/node. Compared to jobs on 64 CPUs/node, jobs on 32 CPUs/node using the same total number of cores ran in 70%-90% of the 64 CPUs/node runtime.
-    Unlike on Eagle, multiple jobs can run on the same nodes on Swift. This runtime performance was simualted by the "shared" nodes in the graphs. (Find scripts for running multiple VASP jobs on the same nodes in [this section](#Scripts-for-Running-VASP-on-Swift)). So if you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which we suspect might deteriorate the performance since "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exclusive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
-    The graphs below are meant to help users identify the number of CPUs/node that will be most efficient in running their jobs. The graphs that show "performance/core" match jobs that use the same number of cores (but different number of nodes depending on CPUs/node), and they show the efficiency per core. These graphs are most useful if you will be charged by CPU (i.e. --exclusive tag is not set). The graphs that show "performance/node" match jobs that use the same number of nodes (but different number of cores depending on CPUs/node), and they show efficiency per node. These graphs are most useful if you will be charged by node (i.e. --exclusive tag is set). 
-    Intel MPI, performance/core  |  Intel MPI, performance/node
-    :-------------------------:|:-------------------------:
-    ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Intel_Cores.png) |  ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Intel_Nodes.png)
-    Open MPI, performance/core  |  Open MPI, performance/node 
-    :-------------------------:|:-------------------------:
-    ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Open_Cores.png)  |  ![](https://github.com/NREL/HPC/blob/master/applications/vasp/Performance%20Study%202/Images/Swift_2_Open_Nodes.png)
+
+    Unlike on Eagle, multiple jobs can run on the same nodes on Swift. This runtime performance was simualted by the "shared" nodes in the graphs. (Find scripts for running multiple VASP jobs on the same nodes in [this section](vasp.md#swift)). So if you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which we suspect might deteriorate the performance since "shared" nodes in the graphs below are shown to have the slowest rates. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. In some cases, running on 32 CPUs/node with the --exclusive flag set might minimize your allocation charge. For example, in the "Open MPI, performance/node" graph, we see that 32 CPUs/node shows consistently the fastest runtime per node for all jobs using 2 or more nodes, so using 32 CPUs/node on 2 nodes could complete faster than 64 CPUs/node on 2 nodes. 
+
+    Please see the graphs in the [VASP Performance Benchmark Study](https://github.com/NREL/HPC/tree/master/applications/vasp/Performance%20Study%202) for more details on how to help identify the number of CPUs/node that will be most efficient for running your jobs. 
 ??? example "Vermilion"
-    VASP runs faster on 1 node than on 2 nodes. In some cases, VASP runtimes on 2 nodes have been observed to be double (or more) the run times on a single node. Many issues have been reported for running VASP on multiple nodes, especially when requesting all available cores in each node. In order for MPI to work reliably on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in each of the scripts below. Different solutions exists for Open MPI and Intel MPI. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce succesful multi-node runs on 4 nodes.
-    If many cores are needed for your VASP calcualtion, it is recommended to run VASP on a singe node in the lg partition (60 cores/node), which provides the largest numbers of cores per node.
+    VASP runs faster on 1 node than on 2 nodes. In some cases, VASP runtimes on 2 nodes have been observed to be double (or more) the run times on a single node. Many issues have been reported for running VASP on multiple nodes, especially when requesting all available cores in each node. In order for MPI to work reliably on Vermilion, it is necessary to specify the interconnect network that Vermilion should use to communicate between nodes. This is documented in the [example run scripts](vasp.md#example-job-scripts). Different solutions exist for Open MPI and Intel MPI. The documented recommendations for setting the interconnect network have been shown to work well for multi-node jobs on 2 nodes, but aren't guaranteed to produce successful multi-node runs on 4 nodes.  The Open MPI multi-node jobs are more reliable on Vermilion, but Intel MPI VASP jobs show better runtime performance. If many cores are needed for your VASP calculation, it is recommended to run VASP on a singe node in the lg partition (60 cores/node), which provides the largest numbers of cores per node.
