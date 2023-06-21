@@ -1,7 +1,9 @@
 ---
 title: Getting Started
 
-[Learn how to request an NREL HPC user account.](https://www.nrel.gov/hpc/user-accounts.html)
+In order to use the NREL HPC systems, you will need to [request a user account](https://www.nrel.gov/hpc/user-accounts.html). For a guide to accessing our systems, please see our [User Basics guide](https://www.nrel.gov/hpc/eagle-user-basics.html)
+
+Below we've collected answers for many of the most frequently asked questions. 
 
 ## Frequently Asked Questions
 

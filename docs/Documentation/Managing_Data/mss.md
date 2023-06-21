@@ -1,5 +1,5 @@
 # Mass Storage Sytem (MSS)
-*Mass Storage System NREL’s Amazon Web Services (AWS) Mass Storage System (MSS)
+*NREL’s Amazon Web Services (AWS) Mass Storage System (MSS)
 is an additional data archival resource available to active projects and users
 on the Eagle high-performance computing (HPC) system.*
 
@@ -19,14 +19,15 @@ individual tarballs need to be under this limit (although multiple tarballs that
 
 **The recommended command is:**
 
-<kbd>$ tar czvf /destination/descriptor-YYYMMDD.tgz <source-files-directories\></kbd>
+```$ tar czvf /destination/descriptor-YYYMMDD.tgz <source-files-directories\>```
 
 **Example, from Eagle’s /projects/csc000/data-to-be-copied from an Eagle Login
 node:**
 
-<kbd>$ cd /projects/csc000 </kbd> 
-<kbd>$ tar czvf /mss/projects/csc000/data-to-be-copied-20211215.tgz
-data-to-be-copied</kbd> 
+```
+$ cd /projects/csc000
+$ tar czvf /mss/projects/csc000/data-to-be-copied-20211215.tgz data-to-be-copied
+```
 
 Data placed in /mss/projects/<project_handle> and
 /mss/home/<username> is synced to AWS MSS and then purged from
@@ -37,12 +38,10 @@ Data placed in /mss/projects/<project_handle> and
 - Restore requests of AWS MSS data will require a request to
 the [HPC Help Desk](mailto:HPC-Help@nrel.gov) and may require 48 hours or more to be able to stage from
 Deep Archive to recover.  
-- Users can request a list of the archived files they
-have on AWS MSS by sending a request to the HPC Help Desk.  
-    - alternatively, users may search the following file: <kbd>/mss/MSS-archived-files</kbd>
-    - the MSS-archived-files has limited information, but all archives 
+- Users can see a list of the archived files they have on AWS MSS by searching the following file: ```/mss/MSS-archived-files```
+    - The MSS-archived-files has limited information, but all archives 
       related to a project can be found using a command such as:
-      <kbd>$ grep <project name\> /mss/MSS-archived-files </kbd>
+      ```$ grep <project name> /mss/MSS-archived-files```
 
 - Let the [HPC Help Desk](mailto:HPC-Help@nrel.gov) know specifically what file(s) you would like to recover, and where the
 recovered files should be placed.  
