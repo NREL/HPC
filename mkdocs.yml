@@ -107,6 +107,7 @@ nav:
               - NVHPC: Documentation/Development/Compilers/nvhpc.md
               - AOCC : Documentation/Development/Compilers/aocc.md
               - Cray : Documentation/Development/Compilers/cray.md
+              - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
