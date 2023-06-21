@@ -4,8 +4,11 @@ title: Filesystems
 parent: Lustre
 grand_parent: Filesystems and I/O
 ---
+# Eagle Filesystems
 
-## Lustre best practices
+For an overview of the Eagle filesystem architecture, visit the [Eagle System Configuration](https://www.nrel.gov/hpc/eagle-system-configuration.html) page. 
+
+## Lustre Best Practices
 In some cases special care must be taken while using Lustre so as not to affect the performance of the filesystem for yourself and other users. The below Do's and Don'ts are provided as guidance. 
 
 * **Do**
