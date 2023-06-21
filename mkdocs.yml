@@ -19,7 +19,15 @@ nav:
           - Documentation/Systems/Kestrel/filesystems.md
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
-          - Documentation/Systems/Eagle/running.md
+          - Running on Eagle: 
+            - Partitions and Scheduling: Documentation/Systems/Eagle/eagle_partitions.md
+            - Job Priorities: Documentation/Systems/Eagle/running.md
+            - Batch Jobs: Documentation/Systems/Eagle/running.md
+            - Interactive Jobs: Documentation/Systems/Eagle/running.md
+            - Multiple Sub-Jobs: Documentation/Systems/Eagle/running.md
+            - Sample Batch Scripts: Documentation/Systems/Eagle/running.md
+            - Debugging at Scale: Documentation/Systems/Eagle/running.md
+            - Monitor and Control Commands: Documentation/Systems/Eagle/running.md
           - Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
