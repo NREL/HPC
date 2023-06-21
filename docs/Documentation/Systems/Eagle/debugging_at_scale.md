@@ -8,7 +8,7 @@ To debug applications that use many nodes, there are three possible approaches.
     Submit an interactive job asking for the number of tasks you will need. For example:
 
     ```srun -n 3600 -t 1-00 -A <handle> --pty $SHELL```
-    This asks for 3600 cores (100 nodes) for 1 day. When the nodes are available for your job, you "land" in an interactive session (shell) on one of the 100 compute nodes. From there you may run scripts, execute parallel programs across any of the 100 nodes, or use an interactive debugger such as #TODO ARM DDT.
+    This asks for 3600 cores (100 nodes) for 1 day. When the nodes are available for your job, you "land" in an interactive session (shell) on one of the 100 compute nodes. From there you may run scripts, execute parallel programs across any of the 100 nodes, or use an interactive debugger such as [ARM DDT](../../Development/Debug_Tools/ARM/ddt.md).
 
     When you are done working, exit the interactive session.
 
@@ -52,4 +52,4 @@ To debug applications that use many nodes, there are three possible approaches.
 
     The problem should be scaled down such that it can easily get access to an interactive queue (around 2 nodes). Create an interactive session and open the ARM DDT debugger(GUI). Run the program and set evaluations, tracepoints, watchpoints etc in the DDT session. Save the session file. 
 
-    You can then submit a larger job with #TODOARM DDT in offline mode pointing to the session file created in the previous step. At the end of the run, you can view the generated debugging report in html or text mode.
+    You can then submit a larger job with [ARM DDT](../../Development/Debug_Tools/ARM/ddt.md) in offline mode pointing to the session file created in the previous step. At the end of the run, you can view the generated debugging report in html or text mode.
