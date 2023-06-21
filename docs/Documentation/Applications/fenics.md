@@ -55,7 +55,7 @@ conda create -n myfenics -c conda-forge fenics-dolfinx
 
     ```
 
-??? example "Vermillion"
+??? example "Vermilion"
 
     ```slurm
     #!/bin/bash
@@ -107,7 +107,7 @@ To run this script, first download the Poisson demo [ here ](https://fenicsproje
 
 ## Supported Versions
 
-| Kestrel | Vermillion | Swift |
+| Kestrel | Vermilion | Swift |
 |:-------:|:----------:|:-----:|
 | 2019.1.0 | 2019.1.0 | 2019.1.0 |
 
