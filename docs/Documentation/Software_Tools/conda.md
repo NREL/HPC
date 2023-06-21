@@ -25,7 +25,7 @@ To create a basic Conda environment, we'll start by running
 
 `conda create --name mypy python`
 
-where the `--name` option (or the shortened `-n`) means the environment will be specified by **name** and `myenv` will be the name of the created environment.  Any arguments following the environment name are the packages to be installed.
+where the `--name` option (or the shortened `-n`) means the environment will be specified by **name** and `mypy` will be the name of the created environment.  Any arguments following the environment name are the packages to be installed.
 
 To specify a specific version of a package, simply add the version number after the "=" sign
 
