@@ -19,8 +19,16 @@ nav:
           - Documentation/Systems/Kestrel/filesystems.md
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
-          - Documentation/Systems/Eagle/running.md
-          - Documentation/Systems/Eagle/modules.md
+          - Running on Eagle: 
+            - Partitions and Scheduling: Documentation/Systems/Eagle/eagle_partitions.md
+            - Job Priorities: Documentation/Systems/Eagle/eagle_job_priorities.md
+            - Batch Jobs: Documentation/Systems/Eagle/batch_jobs.md
+            - Interactive Jobs: Documentation/Systems/Eagle/interactive_jobs.md
+            - Multiple Sub-Jobs: Documentation/Systems/Eagle/multiple_sub_jobs.md
+            - Sample Batch Scripts: Documentation/Systems/Eagle/sample_sbatch.md
+            - Debugging at Scale: Documentation/Systems/Eagle/debugging_at_scale.md
+            - Monitor and Control Commands: Documentation/Systems/Eagle/monitor_and_control.md
+          - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
           - Documentation/Systems/Swift/index.md
@@ -105,6 +113,7 @@ nav:
               - NVHPC: Documentation/Development/Compilers/nvhpc.md
               - AOCC : Documentation/Development/Compilers/aocc.md
               - Cray : Documentation/Development/Compilers/cray.md
+              - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
