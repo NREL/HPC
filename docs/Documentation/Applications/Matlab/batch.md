@@ -34,8 +34,6 @@ Once the job has finished, the standard output is saved in a file called
 
 ## Notes on matlabTest.sb File
 
-<!-- TODO: Update User Accounts link in 2nd bullet below -->
-
 - Setting a low walltime increases the chances that the job will be scheduled
   sooner due to backfill.
 - The `--account=<account_string>` flag must include a valid account string or

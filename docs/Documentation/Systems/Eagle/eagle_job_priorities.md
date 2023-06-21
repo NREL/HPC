@@ -1,6 +1,7 @@
 # Job Priorities on Eagle 
 *Job priority on Eagle is determined by a number of factors including queue wait time (AGE), job size, the need for limited resources (PARTITION), request for priority boost (QOS), and Fair-Share.*
-Learn about job partitions and scheduling policies. #TODO
+
+Learn about [job partitions and scheduling policies](./eagle_partitions.md).
 
 ## How to View Your Job's Priority 
 The ```sprio``` command may be used to look at your job's priority. Priority for a job in the queue is calculated as the sum of these components:

@@ -10,9 +10,7 @@ For more information related to the R project, see the [R website](http://www.r-
 
 ## Running R Interactively on Eagle
 
-<!-- TODO: Add link to running interactive jobs. -->
-
-R is most commonly used via an interactive shell. To do this on Eagle, first request an interactive compute node (see running interactive jobs on Eagle) using the srun command. Alternatively, R can be used through Europa running Jupyterhub. For more details, see [Jupyterhub](../Jupyter/jupyterhub.md).
+R is most commonly used via an interactive shell. To do this on Eagle, first request an interactive compute node ([see running interactive jobs on Eagle](../../Systems/Eagle/interactive_jobs.md)) using the srun command. Alternatively, R can be used through Europa running Jupyterhub. For more details, see [Jupyterhub](../Jupyter/jupyterhub.md).
 
 Anaconda R is our actively supported distribution on Eagle. For specific examples of working with R in the Anaconda framework, see the [Anaconda Documentation website](https://docs.anaconda.com/anaconda/user-guide/tasks/use-r-language/). 
 
