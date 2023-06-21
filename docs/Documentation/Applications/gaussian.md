@@ -115,4 +115,4 @@ To submit a job with the example script, named g16.slurm, one would type:
 `sbatch g16.slurm`
 
 #### Swift
-The only difference to run on Swift is to change the scratch directory because Swift has no /tmp/scratch directory. Please change `SCRATCH=/tmp/scratch/$SLURM_JOB_ID` in the above Eagle sciprt into `SCRATCH=/scratch/$USR/$SLURM_JOB_ID`.
+The only difference to run on Swift is to change the scratch directory because Swift has no /tmp/scratch directory. Please change `SCRATCH=/tmp/scratch/$SLURM_JOB_ID` in the above Eagle script into `SCRATCH=/scratch/$USR/$SLURM_JOB_ID`.
