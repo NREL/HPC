@@ -69,7 +69,7 @@ See the "master" main branch of the [Github repository](https://www.github.com/N
 
 ## Sample Batch Scripts for Running Jobs on the Eagle System
 
-??? info "Sample Batch script for a serial job in the debug queue"
+??? info "Sample batch script for a serial job in the debug queue"
     ```
     #!/bin/bash 
     #SBATCH --ntasks=4 # Tasks to be run 
@@ -107,10 +107,10 @@ See the "master" main branch of the [Github repository](https://www.github.com/N
     cd /scratch/<userid>/mydir
 
     srun hpcapp -options /home/hpcuser/app/parameters  # use your application's commands 
-    **For best scheduling functionality, it is not recommended to select a partition. 
     ```
+    *For best scheduling functionality, it is not recommended to select a partition.*
 
-??? info "Sample batch script to utilize Local Dick (/tmp/scratch)"
+??? info "Sample batch script to utilize Local Disk (/tmp/scratch)"
     ```
     #!/bin/bash 
     #SBATCH --ntasks=36                # CPU cores requested for job 
@@ -121,9 +121,9 @@ See the "master" main branch of the [Github repository](https://www.github.com/N
     export TMPDIR=$LOCAL_SCRATCH 
     cp /scratch/<userid>/myfiles* $TMPDIR 
 
-    srun ./my_parallel_readwrite_program -input-options $TMPDIR/myfiles  # use your application's commands 
-    If you or your application has a need for large local disk, please use /tmp/scratch. In the example above, environment variable $LOCAL_SCRATCH can be used in place of the size limited /tmp. 
+    srun ./my_parallel_readwrite_program -input-options $TMPDIR/myfiles  # use your application's commands  
     ```
+    *If you or your application has a need for large local disk, please use /tmp/scratch. In the example above, environment variable $LOCAL_SCRATCH can be used in place of the size limited /tmp.*
 
 ??? info "Sample batch script for an MPI job"
     ```
@@ -138,8 +138,8 @@ See the "master" main branch of the [Github repository](https://www.github.com/N
     module purge
     module load mpi/intelmpi/18.0.3.222 
     srun ./compiled_mpi_binary          # srun will infer which mpirun to use
-    **For best scheduling functionality, it is not recommended to select a partition.
     ```
+    *For best scheduling functionality, it is not recommended to select a partition.*
 
 ??? info "Sample batch script for high-priority job"
     ```
