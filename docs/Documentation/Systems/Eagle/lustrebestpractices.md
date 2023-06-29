@@ -6,7 +6,15 @@ grand_parent: Filesystems and I/O
 ---
 # Eagle Filesystems
 
-For an overview of the Eagle filesystem architecture, visit the [Eagle System Configuration](https://www.nrel.gov/hpc/eagle-system-configuration.html) page. 
+The Home File System (HFS) subsystem on Eagle is a robust NFS file system intended to provide highly reliable storage for user home directories and NREL-specific software. HFS has a capacity of 182 TB. Snapshots (backup copies) of files in the HFS filesystem are available up to 30 days after change/deletion.
+
+**/home**
+
+The /home directory on Eagle resides on HFS and is intended to hold small files. These include shell startup files, scripts, source code, executables, and data files.  Each user has a quota of 50 GB.
+
+**/nopt**
+
+The /nopt directory on Eagle resides on HFS and is where NREL-specific software, module files, licenses, and licensed software is kept.
 
 ## Lustre Best Practices
 In some cases special care must be taken while using Lustre so as not to affect the performance of the filesystem for yourself and other users. The below Do's and Don'ts are provided as guidance. 
