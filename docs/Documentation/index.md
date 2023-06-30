@@ -13,9 +13,9 @@ Welcome to the central source of user-contributed documentation for Eagle and ot
 Please use the navigation bar on the left to explore the available documentation by category.
 
 ### Highlights 
-* [Systems Guide](https://nrel.github.io/HPC/Documentation/Systems/) to learn about our HPC systems
-* [Jupyterhub](https://nrel.github.io/HPC/Documentation/Software_Tools/Jupyter/) to get started with Jupyter Notebooks 
-* [Conda environment](https://nrel.github.io/HPC/Documentation/Software_Tools/conda/) howto and Eagle-specific information
+* [Systems Guide](./Systems/index.md) to learn about our HPC systems
+* [Jupyterhub](./Development/Jupyter/index.md) to get started with Jupyter Notebooks 
+* [Conda environment](./Environment/Customization/conda.md) howto and Eagle-specific information
 
 ### Other NREL Documentation Resources
 
