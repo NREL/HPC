@@ -25,8 +25,9 @@ The HPC community also hosts workshops covering various topics. Check the traini
 
 
 ## Additional NREL resources
+* [About NREL HPC](https://www.nrel.gov/hpc/about-hpc.html)
 * [User Basics](https://www.nrel.gov/hpc/eagle-user-basics.html)
-* [Eagle Slurm partitions](https://www.nrel.gov/hpc/eagle-job-partitions-scheduling.html)
+
 
 
 ## Calendar

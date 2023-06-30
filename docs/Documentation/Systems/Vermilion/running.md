@@ -5,13 +5,11 @@
  grand_parent: Systems
 ---
 
-The page [Modules](./modules.md) discuses how to activate and use the modules on Vermilion. Modules are not available by default and must be activated.  Please see the [Modules](./modules.md) page for more information about setting up your environment and loading modules. 
-
 # Running on Vermilion
 
-This page discusses the compute nodes, partitions and gives some examples of building and running applications including running Vasp.
+*This page discusses the compute nodes, partitions and gives some examples of building and running applications including running Vasp.*
 
-
+The page [Modules](./modules.md) discuses how to activate and use the modules on Vermilion. Modules are not available by default and must be activated.  Please see the [Modules](./modules.md) page for more information about setting up your environment and loading modules. 
 ## Compute hosts
 Vermilion is a collection of physical nodes with each regular node containing Dual AMD EPYC 7532 Rome CPUs.  However, each node is virtualized.  That is it is split up into virtual nodes with each virtual node having a portion of the cores and memory of the physical node.  Similar virtual nodes are then assigned slurm partitions as shown below.  
 
