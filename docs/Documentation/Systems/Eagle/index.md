@@ -1,44 +1,32 @@
 ---
-title: Running on Eagle
+layout: default
+title: File Systems 
+has_children: true
+hide:
+ - toc
 ---
 
-# Running Jobs on the Eagle System
+# About the Eagle Cluster
 
-*Learn about running jobs on the Eagle high-performance computing (HPC) system.*
+Eagle is configured to run compute-intensive and parallel computing jobs. It is a cluster comprised of 2604 nodes (servers) that run the Linux operating system (Red Had Linux or the derivative CentOS distribution), with a peak performance of 8 PetaFLOPS.
 
-!!! note "Running Different Types of Jobs"
-    * [Batch Jobs](./batch_jobs.md)
-    * [Interactive Jobs](./interactive_jobs.md)
-    * [Multiple Sub-Jobs](./multiple_sub_jobs.md)
+Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
 
-## Job Scheduling and Management
-To allow multiple users to share the system, Eagle uses the Slurm workload manager/job scheduler and resource manager. Slurm has commands for job submission, job monitoring, and job control (hold, delete, and resource request modification).
+## Accessing Eagle
+Access to Eagle requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
 
-A **"job"** contains a list of required consumable resources (such as nodes), a list of job constraints (when, where and how the job should run), and an execution environment, which includes things like an executable, input and output files.
+#### For NREL Employees:
 
-Both [interactive jobs](./interactive_jobs.md) (*i.e.*, where you are given a shell prompt on one of possibly several assigned compute nodes) and regular [batch jobs](./batch_jobs.md) are supported.
+Users on an NREL device may connect via ssh to **eagle.hpc.nrel.gov** from the NREL network. This will connect to one of the three login nodes. Users also have the option of connecting directly to an individual login node using one of the following names: 
 
-At present, compute nodes are scheduled so that each active job has exclusive access to its assigned nodes.
+* el1.hpc.nrel.gov
+* el2.hpc.nrel.gov
+* el3.hpc.nrel.gov
 
-To run a job on Eagle, you must have a [project resource allocation](https://www.nrel.gov/hpc/resource-allocations.html).
+#### For External Collaborators:
+If you are an external HPC user, you will need a [One-Time Password Multifactor token (OTP)](https://www.nrel.gov/hpc/multifactor-tokens.html) for two-factor authentication.
 
-Each project has a **project handle** associated with it, which was specified in the project request document. Jobs submitted without a valid project handle will be rejected with an error message.  Please note that this project identifier is referred to as an **allocation handle** in error messages and as an **account string** in system man pages.  The project handle may be included with the `-A` option either on the command line or within the batch script.  After usage exceeds the node hour allocation for a project, jobs will run at very low priority.
+For command line access, you may login directly to **eagle.nrel.gov**. Alternatively, you can connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html).  If you need to use web-based applications, X11 applications, or perform file transfers on non-Eagle systems, connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html). 
 
-## Submitting Jobs
-You can submit jobs using one of `sbatch`, `salloc`, or `srun`. Below are some nuances between these commands:
-
-* `sbatch` and `salloc` both request resources from the system (and thus, must wait in the job queue for the appropriate resources); whereas srun is what actually executes commands across the allocated nodes, serving as a generic wrapper for various MPI interfaces and managing parallel task distribution.
-* `salloc` is interactive and blocking, meaning your shell session will wait until the resources are granted, and you will be able to interact directly with the compute node(s) via the command line. The output of any executables will print directly to your terminal session.
-* `sbatch` is the "background" analog to `salloc`, meaning your executable will run once the resources are allocated independent of your terminal session. Output from any executables you submit will be captured into output files (the default directory for these is where you launch the `sbatch` command for that job.)
-* If you use `srun` outside of a job, it will first invoke `salloc` to get a resource allocation. If you use `srun` within a job, this constitutes a "job step" and parallelizes the given task(s), the distribution of which can be configured across the nodes with a multitude of argument flags such as `--ntasks-per-node`.
-
-Some example job submissions:
-```
-sbatch -A <project-handle> -t 5:00:00 my_job
-
-salloc -A <project-handle> -t 5
-
-srun -A <project-handle> -t 15 -N 6 --pty $SHELL         # An alternative to salloc
-```
-
-
+## Get Help With Eagle
+Please see the [Help and Support Page](../../help.md) for further information on how to seek assistance with Eagle or your NREL HPC account. 
