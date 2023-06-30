@@ -50,7 +50,7 @@ The National Solar Radiation Database (NSRDB) is a serially complete collection 
 
 **/datasets/WIND**
 
-The Wind Integration National Data Set (WIND) Toolkit consists of wind resource data for North America and was produced using the Weather Research and Forecasting Model (WRF).
+The Wind Integration National Data Set (WIND) Toolkit consists of wind resource data for North America and was produced using the [Weather Research and Forecasting Model (WRF)](https://www.mmm.ucar.edu/models/wrf).
 
 ## Node File System
 
@@ -60,7 +60,7 @@ Each Eagle compute node has a local solid-state drive (SSD) for use by compute j
 
 The local disk is mounted at /tmp/scratch and set under the $LOCAL_SCRATCH environment variable during a job. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. 
 
-For more information about requesting this feature, please see Resource Request Descriptions on the Eagle Batch Jobs page.
+For more information about requesting this feature, please see Resource Request Descriptions on the [Eagle Batch](https://www.nrel.gov/hpc/eagle-batch-jobs.html) Jobs page.
 
 ## Lustre Best Practices
 In some cases special care must be taken while using Lustre so as not to affect the performance of the filesystem for yourself and other users. The below Do's and Don'ts are provided as guidance. 
