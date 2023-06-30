@@ -25,15 +25,25 @@ provides more reliable high performance file transfer and synchronization than
 scp or rsync. It automatically tunes parameters to maximize bandwidth while
 providing automatic fault recovery and notification of completion or problems.
 
+## Get a Globus Account
+
+To get a Globus account, sign up on the [Globus account website](https://www.globusid.org/create).
+
+## Globus NREL Endpoints
+
+The current NREL Globus Endpoints are:
+
+- **nrel#eglobus** - this endpoint allows access to any files on Eagle 
+(e.g., /projects, /scratch, /home, /datasets, /campaign, and /shared-projects)
+- **nrel#globus-hpc1** and **nrel#globus-hpc2** - these endpoints allows access to *some* files
+on Eagle (e.g., /campaign, /datasets, /shared-projects, /mss) and can be mounted
+to other systems within the ESIF Data Center upon request
+
 ## Globus Personal Endpoints
 
 You can set up a "Globus Connect Personal EndPoint", which turns your personal
 computer into an endpoint, by downloading and installing the Globus Connect
 Personal application on your system. 
-
-## Get a Globus Account
-
-To get a Globus account, sign up on the [Globus account website](https://www.globusid.org/create).
 
 ### Set Up a Personal EndPoint
 
@@ -48,16 +58,6 @@ To get a Globus account, sign up on the [Globus account website](https://www.glo
   Website for both
 [Mac](https://docs.globus.org/how-to/globus-connect-personal-mac/) and
 [Windows](https://docs.globus.org/how-to/globus-connect-personal-windows/).
-
-## Globus NREL Endpoints
-
-The current NREL Globus Endpoints are:
-
-- **nrel#eglobus** - this endpoint allows access to any files on Eagle 
-(e.g., /projects, /scratch, /home, /datasets, /campaign, and /shared-projects)
-- **nrel#globus-hpc1** and **nrel#globus-hpc2** - these endpoints allows access to *some* files
-on Eagle (e.g., /campaign, /datasets, /shared-projects, /mss) and can be mounted
-to other systems within the ESIF Data Center upon request
 
 ## Transferring Files
 
