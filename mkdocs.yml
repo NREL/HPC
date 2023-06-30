@@ -20,14 +20,15 @@ nav:
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 
-            - Partitions and Scheduling: Documentation/Systems/Eagle/eagle_partitions.md
-            - Job Priorities: Documentation/Systems/Eagle/eagle_job_priorities.md
-            - Batch Jobs: Documentation/Systems/Eagle/batch_jobs.md
-            - Interactive Jobs: Documentation/Systems/Eagle/interactive_jobs.md
-            - Multiple Sub-Jobs: Documentation/Systems/Eagle/multiple_sub_jobs.md
-            - Sample Batch Scripts: Documentation/Systems/Eagle/sample_sbatch.md
-            - Debugging at Scale: Documentation/Systems/Eagle/debugging_at_scale.md
-            - Monitor and Control Commands: Documentation/Systems/Eagle/monitor_and_control.md
+            - Documentation/Systems/Eagle/Running/index.md
+            - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
+            - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
+            - Batch Jobs: Documentation/Systems/Eagle/Running/batch_jobs.md
+            - Interactive Jobs: Documentation/Systems/Eagle/Running/interactive_jobs.md
+            - Multiple Sub-Jobs: Documentation/Systems/Eagle/Running/multiple_sub_jobs.md
+            - Sample Batch Scripts: Documentation/Systems/Eagle/Running/sample_sbatch.md
+            - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
+            - Monitor and Control Commands: Documentation/Systems/Eagle/Running/monitor_and_control.md
           - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
@@ -44,26 +45,26 @@ nav:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
         - Transferring Files:
-          - Documentation/Managing_Data/Transferring_Files/FileZilla.md     
-          - Documentation/Managing_Data/Transferring_Files/file-transfers.md     
+          - Documentation/Managing_Data/Transferring_Files/index.md
+          - Documentation/Managing_Data/Transferring_Files/FileZilla.md
           - Documentation/Managing_Data/Transferring_Files/globus.md
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
           - Shell Startup: Documentation/Environment/shell.md
-          - Lmod: Documentation/Environment/lmod.md
-          - Customization:
-               - Spack Environments: Documentation/Environment/Customization/spack.md
-               - Conda Environments: Documentation/Environment/Customization/conda.md
-               - Container Environments: Documentation/Environment/Customization/containers.md
+          # - Lmod: Documentation/Environment/lmod.md
+          # - Customization:
+              #  - Spack Environments: Documentation/Environment/Customization/spack.md
+          - Conda: Documentation/Environment/Customization/conda.md
+              #  - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
             - Documentation/Environment/Building_Packages/acquire.md
             - Documentation/Environment/Building_Packages/config_make_install.md
             - Documentation/Environment/Building_Packages/modules.md
       - Applications:
-          - Templates:
-            - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
-            - Blank Template: Documentation/Applications/Templates/applications_template.md
+          # - Templates:
+          #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
+          #   - Blank Template: Documentation/Applications/Templates/applications_template.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
@@ -102,18 +103,18 @@ nav:
              - Documentation/Development/Jupyter/index.md
              - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
-              - Documentation/Development/Programming_Models/index.md
+              # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
-              - OpenMP: Documentation/Development/Programming_Models/openmp.md
-              - OpenACC: Documentation/Development/Programming_Models/openacc.md
+              # - OpenMP: Documentation/Development/Programming_Models/openmp.md
+              # - OpenACC: Documentation/Development/Programming_Models/openacc.md
                 #- CUDA:    Documentation/Development/Programming_Models/cuda.md
-         - Compilers:
-              - GNU  : Documentation/Development/Compilers/gnu.md
-              - Intel: Documentation/Development/Compilers/intel.md
-              - NVHPC: Documentation/Development/Compilers/nvhpc.md
-              - AOCC : Documentation/Development/Compilers/aocc.md
-              - Cray : Documentation/Development/Compilers/cray.md
-              - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
+         - Compilers: Documentation/Development/Compilers/rosetta_stone.md
+              # - GNU  : Documentation/Development/Compilers/gnu.md
+              # - Intel: Documentation/Development/Compilers/intel.md
+              # - NVHPC: Documentation/Development/Compilers/nvhpc.md
+              # - AOCC : Documentation/Development/Compilers/aocc.md
+              # - Cray : Documentation/Development/Compilers/cray.md
+              # - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
@@ -128,8 +129,8 @@ nav:
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
-              - NetCDF: Documentation/Development/Libraries/netcdf.md
-              - PETSc:  Documentation/Development/Libraries/petsc.md
+              # - NetCDF: Documentation/Development/Libraries/netcdf.md
+              # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
              - ARM Performance Reports:
                - Documentation/Development/Performance_Tools/ARM/index.md
@@ -137,12 +138,11 @@ nav:
                - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
-               - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
-               - VTune : Documentation/Development/Performance_Tools/Intel/vtune.md
-             - CrayPat: Documentation/Development/Performance_Tools/craypat.md
-             - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
+              #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
+              #  - VTune : Documentation/Development/Performance_Tools/Intel/vtune.md
+            #  - CrayPat: Documentation/Development/Performance_Tools/craypat.md
+            #  - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
          - Debug Tools:
-             -  Documentation/Development/Debug_Tools/index.md
              - ARM:
                - Documentation/Development/Debug_Tools/ARM/index.md
                - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md

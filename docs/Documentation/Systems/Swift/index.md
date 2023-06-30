@@ -29,8 +29,6 @@ There are currently no external-facing login nodes for Swift. There are two opti
 1. Connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) and ssh to the login nodes as above.
 
 ## Get Help With Swift
-The [Known Issues and Answers](./known.md) page has answers to common Swift questions. 
-
 Please see the [Help and Support Page](../../help.md) for further information on how to seek assistance with Swift or your NREL HPC account. 
 
 
