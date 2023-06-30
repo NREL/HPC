@@ -23,4 +23,3 @@ NREL operates three on-premises systems for computational work.
 | Number of Nodes| 2454 | 2618 | 484 | 133 virtual |
 
 
-
