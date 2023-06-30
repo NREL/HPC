@@ -29,7 +29,6 @@ The HPC community also hosts workshops covering various topics. Check the traini
 * [User Basics](https://www.nrel.gov/hpc/eagle-user-basics.html)
 
 
-
 ## Calendar
 Calendar of training events and office hours for NREL's HPC. 
 <iframe width=900, height=700 scrolling="no" frameBorder=0 src="_includes/calendar.html"></iframe>
