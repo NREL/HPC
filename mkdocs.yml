@@ -46,7 +46,7 @@ nav:
         - Mass Storage System: Documentation/Managing_Data/mss.md
         - Transferring Files:
           - Documentation/Managing_Data/Transferring_Files/index.md
-          - Documentation/Managing_Data/Transferring_Files/FileZilla.md          
+          - Documentation/Managing_Data/Transferring_Files/FileZilla.md
           - Documentation/Managing_Data/Transferring_Files/globus.md
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
