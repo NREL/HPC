@@ -20,14 +20,15 @@ nav:
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 
-            - Partitions and Scheduling: Documentation/Systems/Eagle/eagle_partitions.md
-            - Job Priorities: Documentation/Systems/Eagle/eagle_job_priorities.md
-            - Batch Jobs: Documentation/Systems/Eagle/batch_jobs.md
-            - Interactive Jobs: Documentation/Systems/Eagle/interactive_jobs.md
-            - Multiple Sub-Jobs: Documentation/Systems/Eagle/multiple_sub_jobs.md
-            - Sample Batch Scripts: Documentation/Systems/Eagle/sample_sbatch.md
-            - Debugging at Scale: Documentation/Systems/Eagle/debugging_at_scale.md
-            - Monitor and Control Commands: Documentation/Systems/Eagle/monitor_and_control.md
+            - Documentation/Systems/Eagle/Running/index.md
+            - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
+            - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
+            - Batch Jobs: Documentation/Systems/Eagle/Running/batch_jobs.md
+            - Interactive Jobs: Documentation/Systems/Eagle/Running/interactive_jobs.md
+            - Multiple Sub-Jobs: Documentation/Systems/Eagle/Running/multiple_sub_jobs.md
+            - Sample Batch Scripts: Documentation/Systems/Eagle/Running/sample_sbatch.md
+            - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
+            - Monitor and Control Commands: Documentation/Systems/Eagle/Running/monitor_and_control.md
           - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:

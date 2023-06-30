@@ -29,7 +29,7 @@ You can submit jobs using one of `sbatch`, `salloc`, or `srun`. Below are some n
 
 * `sbatch` and `salloc` both request resources from the system (and thus, must wait in the job queue for the appropriate resources); whereas srun is what actually executes commands across the allocated nodes, serving as a generic wrapper for various MPI interfaces and managing parallel task distribution.
 * `salloc` is interactive and blocking, meaning your shell session will wait until the resources are granted, and you will be able to interact directly with the compute node(s) via the command line. The output of any executables will print directly to your terminal session.
-* `sbatch` is the "background" analog to `salloc`, meaning your executable will run once the resources are allocated independent of your terminal session. Output from any executables you submit will be captured into output files (the default directory for these is where you launch the `sbatch` command for that job.)
+* `sbatc`h` is the "background" analog to salloc, meaning your executable will run once the resources are allocated independent of your terminal session. Output from any executables you submit will be captured into output files (the default directory for these is where you launch the sbatch command for that job.)
 * If you use `srun` outside of a job, it will first invoke `salloc` to get a resource allocation. If you use `srun` within a job, this constitutes a "job step" and parallelizes the given task(s), the distribution of which can be configured across the nodes with a multitude of argument flags such as `--ntasks-per-node`.
 
 Some example job submissions:

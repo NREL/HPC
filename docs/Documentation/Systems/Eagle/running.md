@@ -1,3 +1,0 @@
----
-title: Running on Eagle
----
