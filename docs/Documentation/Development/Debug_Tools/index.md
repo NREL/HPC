@@ -4,7 +4,7 @@ Debugging code can be difficult on a good day, and parallel code introduces addi
 
 We offer several suites of parallel tools: 
 
-* The [ARM Forge suite](https://developer.arm.com/documentation/101136/latest/) (DDT - debugger)
+* The [Linaro Forge suite](https://developer.arm.com/documentation/101136/latest/) (DDT - debugger)
 * The [Intel oneAPI HPC Toolkit]() 
 * HPE’s tool suite (Kestrel-only):
 	* [Cray Debugger Support Tools (CDST)](https://support.hpe.com/hpesc/public/docDisplay?docId=a00113947en_us&page=Cray_Debugger_Support_Tools_CDST.html), including [gdb4hpc](https://support.hpe.com/hpesc/public/docDisplay?docLocale=en_US&docId=a00115304en_us&page=Debug_Crashed_Applications_With_gdb4hpc.html), a command-line parallel debugger based on [GDB](gdb.md).
@@ -18,7 +18,7 @@ To skip to a walk-through example of parallel debugging, click [here](#walk-thro
 
 Parallel debuggers typically come equipped with the same features available on serial debuggers (breakpoint setting, variable inspection, etc.). However, unlike serial debuggers, parallel debuggers provide valuable MPI task- and thread-specific information, too. We present some key parallel features here.
 
-Note that while we present features of ARM DDT below, we stress that the many parallel debugging tools function in similar ways and offer similar features.
+Note that while we present features of Linaro DDT (formerly ARM DDT) below, we stress that the many parallel debugging tools function in similar ways and offer similar features.
 
 
 ### Fail points
