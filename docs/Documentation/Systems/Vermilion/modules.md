@@ -5,13 +5,18 @@ parent: Vermillion
 grand_parent: Systems
 ---
 
-The page [Running](./running.md) describes running on Vermilion in more detail including a description of the hardware, partitions, simple build and run scripts and launching Vasp.
+
 
 # Vermilion Modules and Applications
-This page describes how to activate and use the modules available on Vermilion. Modules are not available by default on the machine.  This page discusses how to enable them.
+*This page describes how to activate and use the modules available on Vermilion. Modules are not available by default on the machine.  This page discusses how to enable them.*
 
+The page [Running](./running.md) describes running on Vermilion in more detail including a description of the hardware, partitions, simple build and run scripts and launching Vasp.
 
-## Selecting a user Environment 
+The Vermilion HPC cluster marries traditional HPC deployments and modern cloud architectures, both using the OpenHPC infrastructure, and [Spack](https://spack.io). 
+
+There are a few packages installed using the OpenHPC infrastructure. These can be found in `/opt/ohpc/pub/`. These are not in your path by default. Some can be loaded via the `module load` command. Running the command `module avail` you will see which of the packages can be loaded under the heading `/opt/ohpc/pub/modulefiles`. However, there are many additional modules that can be made available. 
+
+## Selecting a User Environment 
 Environments are provided with a number of commonly used modules including compilers, common build tools, optimized libraries, and some analysis tools. 
 
 Since Vermilion is a new machine with an unusual architecture we are experimenting with environments. The environments are defined in date stamped subdirectories under the directory /nopt/nrel/apps.  Some of the environments in this directory are experimental and not intended for general use.   

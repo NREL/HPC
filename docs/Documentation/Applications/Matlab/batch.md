@@ -1,6 +1,6 @@
 # Running MATLAB in Batch Mode
 
-*Learn how to run MATLAB software in batch mode on the Eagle system*
+*Learn how to run MATLAB software in batch mode*
 
 Below is an example MATLAB script, matlabTest.m, that creates and populates a
 vector using a simple for-loop and writes the result to a binary file,
@@ -33,8 +33,6 @@ Once the job has finished, the standard output is saved in a file called
 `x.dat` contains the result of the MATLAB script.
 
 ## Notes on matlabTest.sb File
-
-<!-- TODO: Update User Accounts link in 2nd bullet below -->
 
 - Setting a low walltime increases the chances that the job will be scheduled
   sooner due to backfill.

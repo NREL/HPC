@@ -15,7 +15,7 @@
 
 ## Configuration and Default Settings
 
-NREL currently has Gaussian16 Revision B.01 and C.01 installed, and the user manual can be found at the [Gaussian website](https://gaussian.com/man).  Gaussian 16 C.01 also has an GPU version, and for instructions on how to run Gaussian 16 on GPU nodes, see [GitHub](https://github.nrel.gov/hlong/Gaussian_GPU).
+NREL currently has Gaussian16 Revision C.01 installed, and the user manual can be found at the [Gaussian website](https://gaussian.com/man).  Gaussian 16 C.01 also has an GPU version, and for instructions on how to run Gaussian 16 on GPU nodes, see [GitHub](https://github.nrel.gov/hlong/Gaussian_GPU).
 
 Previous Gaussian 09 users sometimes may feel Gaussian 16 runs slower than Gaussian 09. That's because Gaussian G16 has changed the default accuracy into `Int=Acc2E=12 Grid=Ultrafine`, which means that individual SCF iterations will take longer with G16 than with G09. 
 
@@ -43,7 +43,7 @@ Gaussian may be configured on Eagle to run on one or more physical nodes, with o
 	#SBATCH --account=hpcapps
 	
 	# Load Gaussian module to set environment
-	module load gaussian/G16B
+	module load gaussian
 	cd $SLURM_SUBMIT_DIR
 	
 	# Set script variables
@@ -72,8 +72,8 @@ Gaussian may be configured on Eagle to run on one or more physical nodes, with o
 	fi 
 	
 	# 
-	# Run gaussian Eagle script (performs much of the Gaussian setup) 
-	g16_eagle 
+	# Run gaussian NREL script (performs much of the Gaussian setup) 
+	g16_nrel 
 	
 	# 
 	# Set required Gaussian environment variables 
@@ -90,7 +90,7 @@ Gaussian may be configured on Eagle to run on one or more physical nodes, with o
 	# so clean these to make sure there is enough space. 
 	# 
 	 
-	mkdir $SCRATCH 
+	mkdir -p $SCRATCH 
 	rm $SCRATCH2/* 
 	
 	# Run Gaussian job 
@@ -114,9 +114,5 @@ To submit a job with the example script, named g16.slurm, one would type:
 
 `sbatch g16.slurm`
 
-
 #### Swift
-??? example "Swift Sample Submission Script"
-	
-	TODO: Provide example script
-
+The only difference to run on Swift is to change the scratch directory because Swift has no /tmp/scratch directory. Please change `SCRATCH=/tmp/scratch/$SLURM_JOB_ID` in the above Eagle script into `SCRATCH=/scratch/$USR/$SLURM_JOB_ID`.
