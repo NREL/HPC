@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+---
 
 In order to use the NREL HPC systems, you will need to [request a user account](https://www.nrel.gov/hpc/user-accounts.html). For a guide to accessing our systems, please see our [User Basics guide](https://www.nrel.gov/hpc/eagle-user-basics.html)
 
