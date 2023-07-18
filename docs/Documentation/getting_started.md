@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+---
 
 In order to use the NREL HPC systems, you will need to [request a user account](https://www.nrel.gov/hpc/user-accounts.html). For a guide to accessing our systems, please see our [User Basics guide](https://www.nrel.gov/hpc/eagle-user-basics.html)
 
@@ -31,7 +32,7 @@ Below we've collected answers for many of the most frequently asked questions.
     allocations' compute-time approximates the projected availability of the entire system.
     Project allocations are identified by a unique "handle" which doubles as a Linux account
     under which you submit HPC jobs related to the project to the job scheduler. Learn
-    more about [requesting an allocation](https:/www.nrel.gov/hpc/resource-allocation-requests.html).
+    more about [requesting an allocation](https://www.nrel.gov/hpc/resource-allocation-requests.html).
 
 ??? note "How can I access NREL HPC systems?"
 
