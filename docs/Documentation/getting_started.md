@@ -36,7 +36,7 @@ Below we've collected answers for many of the most frequently asked questions.
 ??? note "How can I access NREL HPC systems?"
 
     Begin by [requesting an NREL HPC account](https:/www.nrel.gov/hpc/user-accounts.html). 
-    Then, consult our guide on [how to connect to the NREL HPC system](https:/www.nrel.gov/hpc/system-connection.html).
+    Then, consult our guide on [how to connect to the NREL HPC system](https://www.nrel.gov/hpc/system-connection.html).
 
 ??? note "What is a one-time password (OTP) token?"
 
