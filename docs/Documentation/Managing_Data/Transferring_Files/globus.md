@@ -105,5 +105,5 @@ Online](https://www.globus.org) website or via the [CLI](https://docs.globus.org
 
     For installing **globus-cli**, the recommendation is to use a Conda environment.  In this 
     case, it is advised to follow the instructions about mixing Conda and Pip, 
-    and only use Pip after establishing a base environment using Conda.  For more information about mixing Conda and Pip, refer to our internal documentation at: [Conda](https://nrel.github.io/HPC/Documentation/Software_Tools/conda/)
+    and only use Pip after establishing a base environment using Conda.  For more information about mixing Conda and Pip, refer to our internal documentation at: [Conda](/Documentation/Environment/Customization/conda/)
     
