@@ -7,7 +7,7 @@ has_children: true
 
 # About the Swift Cluster
 
-Swift is an NREL supercomputing cluster housed in the ESIF data center for LDRD projects, as an alternative to the NREL flagship cluster Eagle.  Swift is an AMD-based cluster, featuring 484 nodes with two EPYC 7532 (32 core/64 thread) CPUs and 256GB RAM each.
+Swift is an NREL supercomputing cluster housed in the ESIF data center for VTO projects, as an alternative to the NREL flagship cluster Eagle.  Swift is an AMD-based cluster, featuring 484 nodes with two EPYC 7532 (32 core/64 thread) CPUs and 256GB RAM each.
 
 Please see the [System Configurations](https://nrel.github.io/HPC/Documentation/Systems/) page for more information about hardware, storage, and networking.
 
