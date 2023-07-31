@@ -7,7 +7,7 @@ has_children: true
 
 # About the Swift Cluster
 
-Swift is an NREL supercomputing cluster housed in the ESIF data center for VTO projects, as an alternative to the NREL flagship cluster Eagle.  Swift is an AMD-based cluster, featuring 484 nodes with two EPYC 7532 (32 core/64 thread) CPUs and 256GB RAM each.
+Swift is an AMD-based HPC cluster with AMD EPYC 7532 (Rome) CPU's that supports EERE Vehicles Technologies Office (VTO) projects. Any VTO funded EERE project is eligible for an allocation on Swift. Allocation decisions are made by EERE through the annual allocation cycle. Swift is well suited for parallel jobs up to 64 nodes and offers better queue wait times for projects that are eligible.
 
 Please see the [System Configurations](https://nrel.github.io/HPC/Documentation/Systems/) page for more information about hardware, storage, and networking.
 
