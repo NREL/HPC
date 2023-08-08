@@ -36,8 +36,8 @@ Below we've collected answers for many of the most frequently asked questions.
 
 ??? note "How can I access NREL HPC systems?"
 
-    Begin by [requesting an NREL HPC account](https:/www.nrel.gov/hpc/user-accounts.html). 
-    Then, consult our guide on [how to connect to the NREL HPC system](https:/www.nrel.gov/hpc/system-connection.html).
+    Begin by [requesting an NREL HPC account](https://www.nrel.gov/hpc/user-accounts.html). 
+    Then, consult our guide on [how to connect to the NREL HPC system](https://www.nrel.gov/hpc/system-connection.html).
 
 ??? note "What is a one-time password (OTP) token?"
 
@@ -92,7 +92,7 @@ Below we've collected answers for many of the most frequently asked questions.
     occupy resources and make the system less responsive for other users. Please reserve
     your computationally intensive tasks (especially those that will fully utilize CPU
     cores) for jobs submitted to compute nodes. Offenders of login node abuse will be
-    admonished accordingly. For more information please see our [policy](https:/www.nrel.gov/hpc/inappropriate-use-policy.html) on what 
+    admonished accordingly. For more information please see our [policy](https://www.nrel.gov/hpc/inappropriate-use-policy.html) on what 
     constitutes inappropriate use.
 
 ??? note "What is "system time?""
@@ -103,7 +103,7 @@ Below we've collected answers for many of the most frequently asked questions.
     the system or submit jobs during system times.**  System times occur the first Monday 
     every month. A reminder announcement is sent out prior to every system time detailing 
     what changes will take place, and includes an estimate of how long the system time will be. 
-    You can check the [system status page](https:/www.nrel.gov/hpc/system-status.html) if you are ever 
+    You can check the [system status page](https://www.nrel.gov/hpc/system-status.html) if you are ever 
     unsure if an NREL HPC system is currently down for system time.
 
 ??? note "How can I more closely emulate a Linux/macOS workflow on my Windows workstation?"
@@ -127,7 +127,7 @@ Below we've collected answers for many of the most frequently asked questions.
 
 ??? note "Why aren't my jobs running?"
 
-    Good question! There may be hundreds of reasons why. Please [contact HPC support](https:/www.nrel.gov/hpc/contact-us.html)
+    Good question! There may be hundreds of reasons why. Please [contact HPC support](https://www.nrel.gov/hpc/contact-us.html)
     with a message containing as many relevant details as you can provide so we are more
     likely to be able to offer useful guidance (such as what software you're using, how
     you are submitting your job, what sort of data you are using, how you are setting
