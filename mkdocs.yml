@@ -165,8 +165,7 @@ nav:
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
   - Kestrel Friendly Users:
-      - Home: Friendly_User/index.md
-      - Getting Started: Friendly_User/Getting_Started/index.md
+      - Getting Started: Friendly_User/Getting_Started/getting_started.md
       - Environments:
         - Cray Programming Environment: Friendly_User/Environments/cray_overview.md
         - Toolchains:
