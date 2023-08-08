@@ -1,7 +1,5 @@
 # Compiler Information
 
-**Documentation:** [ link to documentation](https://nrel.gov)
-
 *This document describes some of the important command line options for various compilers.  This includes gcc, gfortran, g++, Intel, Fortran, C, C++, as well as the Cray compilers. The infomation contained herein is not complete but only a small subset of what is available in man pages and full documentation.  For example, the man page for gcc is over 21,000 lines long.*
 
 
