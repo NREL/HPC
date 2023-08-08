@@ -167,6 +167,16 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
+  - Kestrel Friendly Users:
+      - Getting Started:
+        - Friendly_User/Getting_Started/index.md
+        - Known Issues: Friendly_User/Getting_Started/known_issues.md
+      - Environments:
+        - Cray Programming Environment: Friendly_User/Environments/cray_overview.md
+        - Toolchains:
+          - Intel: Friendly_User/Environments/Toolchains/intel.md
+      - Applications:
+        - VASP: Friendly_User/Applications/vasp.md
 theme:
   name: material
   custom_dir: overrides
