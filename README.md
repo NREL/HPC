@@ -16,7 +16,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 
 # Table of Contents
 
-## 🎓 General tutorials
+## 🎓 General Tutorials
 * [Markdown](/general/markdown/README.md)
 * [Bash](/general/bash/README.md)
 * [Git](/general/git/README.md)
@@ -30,6 +30,8 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 * [Optimized Tensorflow](/general/Optimized_TF)
 * [HPC Benchmarking: STREAM](/general/stream_benchmark/StreamTutorial.ipynb)
 
+## 🐦 Kestrel Examples
+
 ## 📈 Applications
 * [Gaussian](/applications/gaussian)
 * [Lammps](/applications/lammps)
@@ -38,7 +40,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 * [Plexos Quick-start](/applications/plexos-quick-start)
 * [VASP](/applications/vasp)
 
-## ℹ️ Programming languages
+## ℹ️ Programming Languages
 * [C](/languages/c)
 * [Fortran](/languages/fortran)
 * [Julia](/languages/julia)
