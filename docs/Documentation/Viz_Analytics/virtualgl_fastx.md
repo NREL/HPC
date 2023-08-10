@@ -49,7 +49,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
 
     **Step 2**:
 
-    Add a profile using the + button on the right end corner of the tool using the Web protocol.
+    Add a profile using the + button on the right end corner of the tool using the Web protocol. Testing for testings
     ![image](/assets/images/FastX/fastx-installer-image-1.png)
 
     **Step 3**:
