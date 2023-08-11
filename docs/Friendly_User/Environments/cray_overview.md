@@ -1,1 +1,0 @@
-# Cray Programming Environment Overview

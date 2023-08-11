@@ -172,7 +172,7 @@ nav:
         - Friendly_User/Getting_Started/index.md
         - Known Issues: Friendly_User/Getting_Started/known_issues.md
       - Environments:
-        - Cray Programming Environment: Friendly_User/Environments/cray_overview.md
+        - Kestrel Environments Overview: Friendly_User/Environments/index.md
         - Toolchains:
           - Intel: Friendly_User/Environments/Toolchains/intel.md
       - Applications:
