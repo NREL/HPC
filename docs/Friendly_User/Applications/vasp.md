@@ -42,7 +42,7 @@ We have found that it is optimal to run an intel toolchain build of VASP using c
 
 ## Building VASP
 
-We reccomend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architechture as at runtime:
+We recomend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 ```
 salloc -N 1 -p standard -t TIME [-A account once accounting has been implemented]
 ```
@@ -56,6 +56,6 @@ module load intel-oneapi-mpi
 module load intel-oneapi-mkl
 ```
 !!! Note
-    On Kestrel, any modules you have loaded on the log in node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. 
+    On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. 
 
 Sample makefiles for vasp5 and vasp6 on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel) under the vasp folder.
