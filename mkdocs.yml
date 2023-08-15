@@ -175,6 +175,7 @@ nav:
         - Kestrel Environments Overview: Friendly_User/Environments/index.md
         - Toolchains:
           - Intel: Friendly_User/Environments/Toolchains/intel.md
+        - Environments Tutorial: Friendly_User/Environments/tutorial.md
       - Applications:
         - VASP: Friendly_User/Applications/vasp.md
 theme:
