@@ -1,0 +1,67 @@
+#!/usr/bin/bash
+#SBATCH --job-name="run_intel_mpi"
+#SBATCH --nodes=2
+#SBATCH --exclusive
+#SBATCH --export=ALL
+#SBATCH --time=00:05:00
+#SBATCH --partition=standard
+
+BASE=`pwd`
+
+#Make a new directory
+mkdir $SLURM_JOB_ID
+cd $SLURM_JOB_ID
+
+#Copy everything 
+cat $0 > script
+cp $BASE/make* .
+cp $BASE/ex1.f90  .
+cp $BASE/ex1.c  .
+cp $BASE/triad.c  .
+
+#Build our programs. Put make output in make.log
+make  > make.log 2>&1
+
+
+#These lines will use every core on a node
+# tasks per node
+  export NTPN=13
+# threads per task
+  export OMP_NUM_THREADS=`echo "104 / $NTPN" | bc `
+
+
+#These lines will use a subets of the cores
+# tasks per node
+  export NTPN=2
+# threads per task
+  export OMP_NUM_THREADS=3
+
+  #export KMP_AFFINITY=scatter
+  export OMP_PROC_BIND=spread
+  export BIND="--cpu-bind=v,cores"
+
+
+module purge
+module load libfabric
+#### module load intel-oneapi-compilers
+#### module load intel-oneapi-mpi
+#### module load gcc
+
+#Show what our srun command line is
+export SRUNOPTS=`echo --mpi=pmi2 $BIND  --threads-per-core=1 --tasks-per-node=$NTPN --cpus-per-task=$OMP_NUM_THREADS`
+printenv SRUNOPTS  > srunline
+# The *.out files contain normal progam output
+# The *.info files contain thread mapping info
+     srun $SRUNOPTS  ./ex_c > ex_c.out 2> ex_c.info
+     srun $SRUNOPTS  ./ex_f > ex_f.out 2> ex_f.info
+
+     srun $SRUNOPTS  ./gex_c > gex_c.out 2> gex_c.info
+     srun $SRUNOPTS  ./gex_f > gex_f.out 2> gex_f.info
+
+
+#Summerize the results
+#This line pulls the node name and core for each MPI task/OpenMP thread.  There sould not be any duplicates.
+#There will be "repeats" of cores but on different nodes.  
+#There will be "repeats" of nodes but with different cores.
+for f in *out ; do echo $f ; grep task $f |  awk '{print $6,$14}' | sort -k2,2 ; done > results     
+
