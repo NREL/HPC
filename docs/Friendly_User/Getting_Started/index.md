@@ -31,6 +31,10 @@ where "np" is N*npn.
 There are example job submission scripts in the [Environments Tutorial](../Environments/tutorial.md) page. 
 
 ## Compiling
+To compile and build software, ssh to the dedicated compile node:
+```
+ssh USERID@x1007c7s7b0n0
+```
 
 
 ## Contributions

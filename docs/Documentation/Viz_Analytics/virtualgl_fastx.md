@@ -173,4 +173,4 @@ launching into a base environment upon login.
 
 ### How to Get Help
 Please contact the [HPC Helpdesk](https://www.nrel.gov/hpc/help.html) at [hpc-help@nrel.gov](mailto://hpc-help@nrel.gov) if you have any questions, technical issues,
-or receive a "no free licenses" error.
+or receive a "no free licenses" error. 
