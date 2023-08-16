@@ -50,7 +50,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
     **Step 2**:
 
     Add a profile using the + button on the right end corner of the tool using the Web protocol.
-    ![Error loading image](/assets/images/FastX/fastx-installer-image-1.png)
+    ![image](/assets/images/FastX/fastx-installer-image-1.png)
 
     **Step 3**:
 
@@ -83,7 +83,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
     **Step 6**:
 
     Select a Desktop environment of your choice and click OK to launch.
-    ![Error loading image](/assets/images/FastX/xfce-interface-cleaned-step5.png)
+    ![](/assets/images/FastX/xfce-interface-cleaned-step5.png)
 
 
 
@@ -101,7 +101,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
     **Step 2**:
 
     Add a profile using the + button on the right end corner of the tool using the SSH protocol.
-    ![Error loading image](/assets/images/FastX/fastx-installer-image-1.png)
+    ![Alt text](/assets/images/FastX/fastx-installer-image-1.png)
 
     **Step 3**:
 
@@ -115,19 +115,19 @@ NREL users may use the web browser or the FastX desktop client. External users m
 
     ...and then save the profile.
 
-    ![Error loading image](/assets/images/FastX/eagle-dav-ssh-login-fastx-cleaned-step3.png)
+    ![](/assets/images/FastX/eagle-dav-ssh-login-fastx-cleaned-step3.png)
 
     **Step 4**:
 
     Once your profile is saved. You will be prompted for your password+OTP_token (your multifactor authentication code) to connect.
 
-    ![Error loading image](/assets/images/FastX/eagle-dav-step4-offsite.png)
+    ![](/assets/images/FastX/eagle-dav-step4-offsite.png)
 
     **Step 5**:
 
     Select a Desktop environment of your choice and click OK.
 
-    ![Error loading image](/assets/images/FastX/eagle-dav-replacement-mate-interface-step5-offsite.png)
+    ![](/assets/images/FastX/eagle-dav-replacement-mate-interface-step5-offsite.png)
 
 ## Launching OpenGL Applications
 You can now run applications in the remote desktop. You can run X applications normally; however, to run hardware-accelerated OpenGL applications, you must run the application prefaced by the vglrun command. 
