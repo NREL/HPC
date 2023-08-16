@@ -1,10 +1,10 @@
-# Linaro (ARM) DDT
+# ARM DDT
 
-**Documentation:** [Linaro (ARM) DDT]( https://developer.arm.com/documentation/101136/22-1-3/DDT?lang=en)
+**Documentation:** [ARM DDT]( https://developer.arm.com/documentation/101136/22-1-3/DDT?lang=en)
 
-*Linaro DDT (formerly ARM DDT) is a powerful GUI-based parallel debugger. It is part of the Linaro Forge suite of parallel tools, alongside Linaro MAP and Linaro Performance Reports.*
+*ARM DDT is a powerful GUI-based parallel debugger. It is part of the ARM Forge suite of parallel tools, alongside ARM MAP and ARM Performance Reports.*
 
-The focus of this page is on setting up and running DDT, rather than the useful features of DDT. For an overview of parallel debuggers, with a focus on DDT and its capabilities, see our [parallel debugging overview](/Documentation/Development/Debug_tools) page. For links to in-depth tutorials and guides on DDT, see our [resources](#resources) section. For help setting up ARM DDT, contact [HPC help](mailto:hpc-help@nrel.gov)
+The focus of this page is on setting up and running ARM DDT, rather than the useful features of DDT. For an overview of parallel debuggers, with a focus on DDT and its capabilities, see our [parallel debugging overview](/Documentation/Development/Debug_tools) page. For links to in-depth tutorials and guides on DDT, see our [resources](#resources) section. For help setting up ARM DDT, contact [HPC help](mailto:hpc-help@nrel.gov)
 
 ## Compiling for debugging
 
@@ -68,7 +68,7 @@ Then, click the “run” button. A window will appear that states “listening 
 
 ## Resources
 
-* NERSC has an excellent in-depth DDT tutorial [here]( https://docs.nersc.gov/tools/debug/ddt/#basic-debugging-functionality)
-* See [these slides]( https://www.alcf.anl.gov/sites/default/files/2020-05/Hulguin_Arm_DDT.pdf) for a high-level overview of the Linaro Forge toolkit, including DDT
+* NERSC has an excellent in-depth ARM DDT tutorial [here]( https://docs.nersc.gov/tools/debug/ddt/#basic-debugging-functionality)
+* See [these slides]( https://www.alcf.anl.gov/sites/default/files/2020-05/Hulguin_Arm_DDT.pdf) for a high-level overview of the ARM Forge toolkit, including DDT
 * See [this tutorial]( https://www.bsc.es/support/DDT-ug.pdf) for a user-friendly walkthrough of DDT
 
