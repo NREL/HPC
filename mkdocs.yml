@@ -135,10 +135,10 @@ nav:
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
               # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
-             - ARM Performance Reports:
-               - Documentation/Development/Performance_Tools/ARM/index.md
-               - MAP : Documentation/Development/Performance_Tools/ARM/map.md
-               - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
+            #  - ARM Performance Reports:
+            #    - Documentation/Development/Performance_Tools/ARM/index.md
+            #    - MAP : Documentation/Development/Performance_Tools/ARM/map.md
+            #    - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
@@ -146,9 +146,9 @@ nav:
             #  - CrayPat: Documentation/Development/Performance_Tools/craypat.md
             #  - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
          - Debug Tools:
-             - ARM:
-               - Documentation/Development/Debug_Tools/ARM/index.md
-               - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md
+            #  - ARM:
+            #    - Documentation/Development/Debug_Tools/ARM/index.md
+            #    - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
                #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
