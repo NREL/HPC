@@ -50,8 +50,8 @@ NREL users may use the web browser or the FastX desktop client. External users m
     **Step 2**:
 
     Add a profile using the + button on the right end corner of the tool using the Web protocol.
-    ![image](../../assets/images/FastX/fastx-installer-image-1.png)
-    
+    ![Error loading image](/assets/images/FastX/fastx-installer-image-1.png)
+
     **Step 3**:
 
     Give your profile a name and enter the settings...
@@ -83,7 +83,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
     **Step 6**:
 
     Select a Desktop environment of your choice and click OK to launch.
-    ![](../../assets/images/FastX/xfce-interface-cleaned-step5.png)
+    ![Error loading image](/assets/images/FastX/xfce-interface-cleaned-step5.png)
 
 
 
@@ -101,7 +101,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
     **Step 2**:
 
     Add a profile using the + button on the right end corner of the tool using the SSH protocol.
-    ![Alt text](../../assets/images/FastX/fastx-installer-image-1.png)
+    ![Error loading image](/assets/images/FastX/fastx-installer-image-1.png)
 
     **Step 3**:
 
@@ -115,19 +115,19 @@ NREL users may use the web browser or the FastX desktop client. External users m
 
     ...and then save the profile.
 
-    ![](../../assets/images/FastX/eagle-dav-ssh-login-fastx-cleaned-step3.png)
+    ![Error loading image](/assets/images/FastX/eagle-dav-ssh-login-fastx-cleaned-step3.png)
 
     **Step 4**:
 
     Once your profile is saved. You will be prompted for your password+OTP_token (your multifactor authentication code) to connect.
 
-    ![](../../assets/images/FastX/eagle-dav-step4-offsite.png)
+    ![Error loading image](/assets/images/FastX/eagle-dav-step4-offsite.png)
 
     **Step 5**:
 
     Select a Desktop environment of your choice and click OK.
 
-    ![](../../assets/images/FastX/eagle-dav-replacement-mate-interface-step5-offsite.png)
+    ![Error loading image](/assets/images/FastX/eagle-dav-replacement-mate-interface-step5-offsite.png)
 
 ## Launching OpenGL Applications
 You can now run applications in the remote desktop. You can run X applications normally; however, to run hardware-accelerated OpenGL applications, you must run the application prefaced by the vglrun command. 
