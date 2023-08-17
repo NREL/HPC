@@ -23,7 +23,7 @@ To start an interactive session:
     ```salloc --nodes=N --ntasks-per-node=npn --time=1:00:00 ```
 1. 
 ```srun -n np --mpi=pmi2 ./executable``` <br>
-where "np" is N*npn. 
+where "np" is N*npn, and npn=104 if requesting a whole node. 
 
 !!! warning
     If the argument --mpi=pmi2 is not used, the executable will be launched np times instead of being launched once using np cores. 
