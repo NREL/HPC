@@ -49,14 +49,14 @@ NREL users may use the web browser or the FastX desktop client. External users m
 
     **Step 2**:
 
-    Add a profile using the + button on the right end corner of the tool using the Web protocol.
+    Add a profile using the + button on the right end corner of the tool using the SSH protocol.
     ![image](../../assets/images/FastX/fastx-installer-image-1.png)
     
     **Step 3**:
 
     Give your profile a name and enter the settings...
 
-    URL: <https://eagle-dav.hpc.nrel.gov>
+    Address/URL: eagle-dav.hpc.nrel.gov OR you may use the address of an individual ed node if you would like to resume a previous session
 
     Username: <HPC Username>
 
@@ -140,9 +140,9 @@ $ vglrun matlab
 
 |Operating System |	Installer|
 |-----------------|----------|
-|Mac	          |[Download](https://starnet.com/files/private/FastX31/FastX3-3.1.22.dmg) |
-|Linux	          |[Download](https://starnet.com/files/private/FastX31/FastX3-3.1.21.rhel7.x86_64.tar.gz) |
-|Windows          |[Download](https://starnet.com/files/private/FastX31/FastX-3.1.22-setup.exe) |
+|Mac	          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe)|
+|Linux	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.2.32.rhel7.x86_64.tar.gz) |
+|Windows          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe) |
 
 
 ## Multiple FastX Sessions
