@@ -70,6 +70,7 @@ module unuse /nopt/nrel/apps/modules/default/utilities_libraries/
 module unuse /nopt/nrel/apps/modules/default/applications/
 
 # load the actual environment
+module load craype-x86-spr
 module load PrgEnv-cray
 ```
 
@@ -146,6 +147,7 @@ module unuse /nopt/nrel/apps/modules/default/compilers_mpi/
 module unuse /nopt/nrel/apps/modules/default/utilities_libraries/
 module unuse /nopt/nrel/apps/modules/default/applications/
 
+module load craype-x86-spr
 module load PrgEnv-cray
 
 srun -N 1 --tasks-per-node=104 --mpi=pmi2 your/path/to/IMB-tutorial/PrgEnv-cray/mpi-benchmarks/IMB-MPI1 Allreduce > out
@@ -163,6 +165,7 @@ Now, load the PrgEnv-intel environment:
 
 ```
 module purge
+module load craype-x86-spr
 module load PrgEnv-intel
 ```
 
@@ -226,6 +229,7 @@ module unuse /nopt/nrel/apps/modules/default/compilers_mpi/
 module unuse /nopt/nrel/apps/modules/default/utilities_libraries/
 module unuse /nopt/nrel/apps/modules/default/applications/
 
+module load craype-x86-spr
 module load PrgEnv-intel
 
 srun -N 1 --tasks-per-node=104 --mpi=pmi2 your/path/to/IMB-tutorial/PrgEnv-intel/mpi-benchmarks/IMB-MPI1 Allreduce > out
