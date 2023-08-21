@@ -16,7 +16,8 @@ This section contains demos (in the form of scripts and notebooks) and how-to gu
 | Eagle                                | Swift          | Vermilion |
 |:------------------------------------:|:--------------:|:----------------:|
 |                                      |julia/1.6.2-ocsfign ||  
-julia/1.7.2                            |julia/1.7.2-gdp7a25 |julia/1.7.2 |   
+julia/1.7.2                            |julia/1.7.2-gdp7a25 |julia/1.7.2 |
+julia/1.9.0                            |                    |            |    
 
 ## Contents
 
