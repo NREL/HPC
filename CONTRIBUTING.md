@@ -145,7 +145,60 @@ HPC  # i.e. the root of this repo
 
 ## Blog posts
 
-### Formatting a blog post
+### Creating a blog post
 Here is a brief overview on how to create and style a new blog post:
 
-First, you will need to add 
+First, we need to create the Markdown file for the blog. The files name must follow the following styling. The files name must start with the date in this format XXXX-XX-XX- where each of the X sections correspond to this format YEAR-MONTH-DAY- and then is followed by a simple name that has something to do with the blog. Example Markdown file name: 2023-12-02-python_tutorial.md. The file name is prefaced with blog/ and added to the bottom of the Blog section within the mkdocs.yml file as follows: 
+```bash 
+ nav:
+  - Home: index.md
+  - Blog:
+      - blog/2020-12-01-numba.md
+      - blog/2021-05-06-tf.md
+      - blog/2021-06-18-srun.md
+      - blog/2022-10-04-python2to3.md
+      - blog/2022-12-19-windows_ssh.md
+      - blog/index.md
+      - blog/2023-12-02-python_tutorial.md # <-- Added new Markdown file to the bottom of the Blog: section
+```  
+
+Second, we need to add the author to the authors.yml file within the blog directory. Each author has four required elements. Their authors_name, name, description, and avatar. The authors_name will be referenced within the Markdown file later. The name is the authors full name. The description is set to "Author" and the avatar must be set to default.png as follows:
+
+```bash
+  authors_name_here:
+    name: John Doe
+    description: Author
+    avatar: default.png
+```
+
+Third, we need to add a new Markdown file to the posts directory within the blog directory.
+
+```bash
+  - HPC
+      - docs
+        - blog
+          - posts
+            - XXXX-XX-XX-new_file_goes_in_here.md
+```
+
+Next we have to format the blog post as follows:
+
+```bash
+  ---
+  date: XXXX-XX-XX
+  authors:
+      - authors_name_here # This is the authors_name we created earlier within the authors.yml file
+  ---
+
+  # Title of the blog goes here with the "#" character included
+
+  This will be the first paragraph of the blog post. This first paragraph will be previewed on the blog landing page. Try to make this first paragraph within three sentences or so to not clutter the blog landing page. Do not forget to add the "<!-- more -->" after this first paragraph as this is what will seperate the first paragraph in the blog preview from the rest of the blog. 
+
+  <!-- more --> # This seperates the blog preview from the rest of the blog
+
+  This is where the rest of the blog content will go.
+  It is important to not forget to end the file with the "..." at the bottom with the exact spacing as shown below.
+
+  ...
+
+```
