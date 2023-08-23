@@ -143,3 +143,9 @@ HPC  # i.e. the root of this repo
 *  Any links to internal files must be the relative path to it from the referencing file, not the absolute path. 
 *  Code blocks will be automatically highlighted when rendered on the website, so please either use a code block or `inline` code whenever practical instead of a screenshot of a terminal.
 
+## Blog posts
+
+### Formatting a blog post
+Here is a brief overview on how to create and style a new blog post:
+
+First, you will need to add 
