@@ -1,12 +1,11 @@
 nav:
   - Home: index.md
-  - Blog:
+  - Blog: 
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
       - blog/2021-06-18-srun.md
       - blog/2022-10-04-python2to3.md
       - blog/2022-12-19-windows_ssh.md
-      - blog/index.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
@@ -189,6 +188,3 @@ extra_css:
 site_name: NREL HPC 
 repo_url: https://github.com/NREL/HPC/tree/gh-pages
 repo_name: NREL/HPC
-plugins:
-  - blog:
-      authors_file: blog/authors.yml
