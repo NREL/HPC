@@ -1,7 +1,7 @@
 ---
 date: 2022-12-19
 authors: 
-    - aco
+  - aco
 ---
 
 # Workaround for Windows SSH "Corrupted MAC on input" Error
