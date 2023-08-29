@@ -191,3 +191,4 @@ plugins:
       blog_dir: blog
       post_dir: blog/posts
       post_readtime: false
+      categories: false
