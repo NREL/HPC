@@ -24,7 +24,7 @@ There are modules for CPU builds of VASP 5.4.4 and VASP 6.3.2 each with solvatio
 
 ## Compiling VASP yourself
 
-This section has reccomendations for toolchains to use for building and running VASP. Please read carefully before compilling on Kestrel's cray architecture.
+This section has recommendations for toolchains to use for building and running VASP. Please read carefully before compiling on Kestrel's cray architecture.
 
 ### Building VASP
 
