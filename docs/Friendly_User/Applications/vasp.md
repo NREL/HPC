@@ -28,7 +28,7 @@ This section has recommendations for toolchains to use for building and running 
 
 ### Building VASP
 
-We recomend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
+We recommend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 ```
 salloc -N 1 -p standard -t TIME -A ACCOUNT
 ```
