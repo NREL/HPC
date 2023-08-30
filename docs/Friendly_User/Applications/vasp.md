@@ -1,6 +1,6 @@
 ## VASP modules on Kestrel
 
-There are modules for CPU builds of VASP 5.4.4 and VASP 6.3.2 each with solvation, transision state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/5.4.4``` or ```module load vasp/6.3.2```. A sample job script is shown below.
+There are modules for CPU builds of VASP 5.4.4 and VASP 6.3.2 each with solvation, transition state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/5.4.4``` or ```module load vasp/6.3.2```. A sample job script is shown below.
 
 !!! Note
     It is necessary to specify the launcher using srun --mpi=pmi2 
