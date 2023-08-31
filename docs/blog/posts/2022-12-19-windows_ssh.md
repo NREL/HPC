@@ -20,5 +20,3 @@ Host eagle
 ```
 
 The configuration file will also apply to command-line ssh in Windows. This [Visual Studio Blog post](https://code.visualstudio.com/blogs/2019/10/03/remote-ssh-tips-and-tricks) has further instructions on how to create the ssh configuration file for Windows and VS Code.
-
-...
