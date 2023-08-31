@@ -148,7 +148,7 @@ HPC  # i.e. the root of this repo
 ### Creating a blog post
 Here is a brief overview on how to create and style a new blog post:
 
-First, we need to create the Markdown file for the blog. The files name must follow the following styling. The files name must start with the date in this format XXXX-XX-XX- where each of the X sections correspond to this format YEAR-MONTH-DAY- and then is followed by a simple name that has something to do with the blog. Example Markdown file name: 2023-12-02-python_tutorial.md. The file must be placed within the posts directory which can be found as follows: 
+First, we need to create the Markdown file for the blog. The file's name must follow the following styling. The files name must start with the date in this format XXXX-XX-XX- where each of the X sections correspond to this format YEAR-MONTH-DAY- and then is followed by a simple name that has something to do with the blog. Example Markdown file name: 2023-12-02-python_tutorial.md. The file must be placed within the posts directory which can be found as follows: 
 
 ```bash 
  - HPC
@@ -158,7 +158,7 @@ First, we need to create the Markdown file for the blog. The files name must fol
         - XXXX-XX-XX-new_file_goes_in_here.md
 ```  
 
-Second, we need to add the author to the authors.yml file within the blog directory. Each author has four required elements. Their's the authors_name, name, description, and avatar. The authors_name is going to be the author's fullname in all lowercase with no space (example: johndoe) and this will be referenced within the blogs Markdown file later. The name is the authors full name. The description must be set to "Author" and the avatar must be set to http://nrel.github.io/HPC/blog/assets/avatar/default.png as follows:
+Second, we need to add the author to the authors.yml file within the blog directory. Each author has four required elements. There's the authors_name, name, description, and avatar. The authors_name is going to be the author's fullname in all lowercase with no space (example: johndoe) and this will be referenced within the blogs Markdown file later. The name is the authors full name. The description must be set to "Author" and the avatar must be set to http://nrel.github.io/HPC/blog/assets/avatar/default.png as follows:
 
 ```bash
   johndoe: # This is the authors_name 
