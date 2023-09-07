@@ -84,7 +84,7 @@ The following batch script is an example that runs the job using two MPI ranks a
 
     export OMP_NUM_THREADS=2
     export I_MPI_OFI_PROVIDER=tcp
-    srun --mpi=pmi2 -n 2 ./phost.intelmpi -F
+    srun --mpi=pmi2 --cpus-per-task 2 -n 2 ./phost.intelmpi -F
     ```
     
 Your output should look similar to the following:
@@ -93,12 +93,42 @@ Your output should look similar to the following:
 MPI VERSION Intel(R) MPI Library 2021.9 for Linux* OS
 
 task    thread             node name  first task    # on node  core
-0000      0000           vs-std-0001        0000         0000  0028
-0001      0000           vs-std-0002        0001         0000  0028
-0000      0001           vs-std-0001        0000         0000  0001
-0001      0001           vs-std-0002        0001         0000  0001
+0000      0000           vs-std-0001        0000         0000  0001
+0000      0001           vs-std-0001        0000         0000  0000
+0001      0000           vs-std-0002        0001         0000  0001
+0001      0001           vs-std-0002        0001         0000  0000
 ```
-    
+
+### Compile and run with Open MPI
+
+Please note that multi-node Open MPI jobs are not currently functioning properly.  If running on multiple nodes is needed, it is advised to use Intel MPI or try to run your jobs on a different system.
+
+Use the following commands to load the Open MPI modules and compile the test program into an executable named `phost.openmpi`:
+
+```bash
+source /nopt/nrel/apps/210929a/myenv.2110041605
+ml gcc openmpi
+mpicc -fopenmp phostone.c -o phost.openmpi
+```
+
+The following is an example script that runs two tasks on a single node, with two threads per task:
+
+
+??? example "Submission script"
+
+    ```bash
+    #!/bin/bash
+    #SBATCH --nodes=1
+    #SBATCH --exclusive
+    #SBATCH --time=00:01:00
+    #SBATCH --account=<myaccount>
+
+    source /nopt/nrel/apps/210929a/myenv.2110041605
+    ml gcc openmpi
+
+    export OMP_NUM_THREADS=2
+    mpirun -np 2 --map-by socket:PE=2 ./phost.openmpi -F
+    ```
 
 ## Linking Intel's MKL library.
 
