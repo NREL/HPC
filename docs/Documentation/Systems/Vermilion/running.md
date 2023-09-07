@@ -33,9 +33,9 @@ Partitions are flexible and fluid on Vermilion.  A list of partitions can be fou
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
 
 
-## Example: Build and run an MPI application
+## Examples: Build and run simple applications
 
-This section discusses how to compile and run a simple MPI application.
+This section discusses how to compile and run a simple MPI application, as well as how to link against the Intel MKL library.
 
 Environments are provided with a number of commonly used compilers, common build tools, specific optimized libraries, and some analysis tools. Environments must be enabled before modules can be seen.  This is discussed in detail on the page [Modules](./modules.md)
 
@@ -70,7 +70,7 @@ mpiicc -fopenmp phostone.c -o phost.intelmpi
 The following batch script is an example that runs the job using two MPI ranks across two nodes and two threads per rank.  Save this script to a file such as `submit_intel.sh`, replace `<myaccount>` with the appropriate account, and submit using `sbatch submit_intel.sh`.  Feel free to experiment with different numbers of tasks, threads, and nodes.  Note that multi-node jobs on Vermilion can be finicky, and applications may not scale as well as they do on other systems.  If you experience problems with a multi-node job, start by first making sure that you application can run on a single node.
 
 
-??? example "Submission script"
+??? example "Intel MPI submission script"
 
     ```bash
     #!/bin/bash
@@ -99,7 +99,7 @@ task    thread             node name  first task    # on node  core
 0001      0001           vs-std-0002        0001         0000  0000
 ```
 
-#### Linking Intel's MKL library.
+### Link Intel's MKL library
 
 The environment defined by sourcing the file `/nopt/nrel/apps/210929a/myenv.2110041605`
 enables loading of many other modules, including one for Intel's MKL
@@ -121,7 +121,7 @@ icc -O3 -qmkl mkl.c -o mkl
 
 An example submission script is:
 
-??? example "Submission script"
+??? example "Intel MKL submission script"
 
     ```bash
     #!/bin/bash
@@ -152,7 +152,7 @@ mpicc -fopenmp phostone.c -o phost.openmpi
 The following is an example script that runs two tasks on a single node, with two threads per task:
 
 
-??? example "Submission script"
+??? example "Open MPI submission script"
 
     ```bash
     #!/bin/bash
