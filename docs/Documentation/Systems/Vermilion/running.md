@@ -99,6 +99,44 @@ task    thread             node name  first task    # on node  core
 0001      0001           vs-std-0002        0001         0000  0000
 ```
 
+#### Linking Intel's MKL library.
+
+The environment defined by sourcing the file `/nopt/nrel/apps/210929a/myenv.2110041605`
+enables loading of many other modules, including one for Intel's MKL
+library. Then to build against MKL using the Intel compilers
+icc or ifort you normally just need to add the flag `-qmkl`.
+
+There are examples in the directory `/nopt/nrel/apps/210929a/example/mkl`.
+There is a Readme.md file that explains in a bit more detail.
+
+To compile a simple test program that links against MKL, run:
+
+```bash
+cp /nopt/nrel/apps/210929a/example/mkl/mkl.c .
+
+source /nopt/nrel/apps/210929a/myenv.2110041605
+ml intel-oneapi-mkl intel-oneapi-compilers gcc
+icc -O3 -qmkl mkl.c -o mkl
+```
+
+An example submission script is:
+
+??? example "Submission script"
+
+    ```bash
+    #!/bin/bash
+    #SBATCH --nodes=1
+    #SBATCH --exclusive
+    #SBATCH --time=00:01:00
+    #SBATCH --account=<myaccount>
+
+    source /nopt/nrel/apps/210929a/myenv.2110041605
+    ml intel-oneapi-mkl intel-oneapi-compilers gcc
+
+    ./mkl
+    ```
+
+
 ### Compile and run with Open MPI
 
 Please note that multi-node Open MPI jobs are not currently functioning properly.  If running on multiple nodes is needed, it is advised to use Intel MPI or try to run your jobs on a different system.
@@ -130,37 +168,6 @@ The following is an example script that runs two tasks on a single node, with tw
     mpirun -np 2 --map-by socket:PE=2 ./phost.openmpi -F
     ```
 
-## Linking Intel's MKL library.
-
-The environment defined by sourcing the file /nopt/nrel/apps/210929a/myenv.2110041605
-enables loading of many other modules, including one for Intel's MKL 
-library. Then to build against MKL using the Intel compilers
-icc or ifort you normally just need to add the flag **-mkl**.
-
-There are examples in the directory /nopt/nrel/apps/210929a/example/mkl.
-There is a Readme.md file that explains in a bit more detail.
-
-Assuming you copied the example directory to you home directory the mkl examples will be in ~example/mkl
-
-The short version is that you can:
-
-```
-[joeuser@vs-login-1 mkl]$ cd ~/example/mkl
-[joeuser@vs-login-1 mkl]$ source /nopt/nrel/apps/210929a/myenv.2110041605
-[joeuser@vs-login-1 mkl]$ module purge
-[joeuser@vs-login-1 mkl]$ module load intel-oneapi-compilers
-[joeuser@vs-login-1 mkl]$ module load intel-oneapi-mkl
-[joeuser@vs-login-1 mkl]$ module load gcc
-
-[joeuser@vs-login-1 mkl]$ icc   -O3 -o mklc mkl.c   -mkl
-[joeuser@vs-login-1 mkl]$ ifort -O3 -o mklf mkl.f90 -mkl
-
-```
-or to build and run the examples using make instead directly calling icc and ifort you can:
-
-```
-make run
-```
 
 
 ## Running VASP on Vermilion
