@@ -33,7 +33,10 @@ Partitions are flexible and fluid on Vermilion.  A list of partitions can be fou
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
 
 
-## Example
+## Example: Build and run an MPI application
+
+This section discusses how to compile and run a simple MPI application.
+
 Environments are provided with a number of commonly used compilers, common build tools, specific optimized libraries, and some analysis tools. Environments must be enabled before modules can be seen.  This is discussed in detail on the page [Modules](./modules.md)
 
 You can use the "standard" environment by running the command:
@@ -42,275 +45,60 @@ You can use the "standard" environment by running the command:
 source /nopt/nrel/apps/210929a/myenv.2110041605
 ```
 
-The examples on this page uses the environment enabled by this command.   You may want to add this command to your .bashrc file so you have a useful environment when you login.  
+The examples on this page uses the environment enabled by this command.   You may want to add this command to your `.bashrc` file so you have a useful environment when you login.
 
 In the directory **/nopt/nrel/apps/210929a** you will see a subdirectory **example**.  This contains a makefile for a simple hello world program written in both Fortran and C and several run scripts. The README.md file contains additional information, some of which is replicated here. 
 
-It is suggested you copy the directory to run the examples:
+We will begin by creating a new directory and copying the source for a simple MPI test program.  More details about the test program are available in the README.md file that accompanies it.  Run the following commands to create a new directory and make a copy of the source code:
 
-```
-cp -r /nopt/nrel/apps/210929a/example ~/example
-cd ~/example
-```
-
-## Simple batch script
-
-Here is a sample batch script, *runopenmpi*, for running the hello world examples .  **NOTE: You must build the applications before running this script.**   Please see **Building hello world first** below.
-
-```
-#!/bin/bash
-#SBATCH --job-name="install"
-#SBATCH --nodes=2
-#SBATCH --exclusive
-#SBATCH --partition=t
-#SBATCH --time=00:01:00
-
-cat $0
-
-source /nopt/nrel/apps/210929a/myenv*
-ml gcc   openmpi 
-
-export OMP_NUM_THREADS=2
-srun --mpi=pmi2 -n 2 ./fhostone -F
-srun --mpi=pmi2 -n 2 ./phostone -F
-
+```bash
+mkdir example
+cd example
+cp /nopt/nrel/apps/210929a/example/phostone.c .
 ```
 
+### Compile and run with Intel MPI
 
-The submission command is:
+First we will look at how to compile and run the application using Intel MPI.  To build the application, we load the necessary Intel modules.  Execute the following commands to load the modules and build the application, naming the output `phost.intelmpi`.  Note that this application uses OpenMP as well as MPI, so we provide the `-fopenmp` flag to link against the OpenMP libraries.
 
-```
-sbatch --partition=sm --account=MY_HPC_ACCOUNT runopenmpi
-```
-
-where MY\_HPC\_ACCOUNT is your account. 
-
-## Building hello world first
-
-For the script given above to work you must first build the application.  You need to:
-
-1. Load the environment
-2. Load the modules
-3. make
-
-#### Loading the environment
-Loading the environment is just a matter of sourcing the file
-
-```
+```bash
 source /nopt/nrel/apps/210929a/myenv.2110041605
-
-```
-
-#### Loading the modules.
-
-We are going to use gnu compilers with OpenMPI.
-
-```
-module load gcc 
-module load openmpi
-```
-
-#### Run make
-
-```
-make
-```
-
-## Full procedure screen dump
-
-```
-[joeuser@vs-login-1 ~]$ cp -r /nopt/nrel/apps/210929a/example ~/example
-[joeuser@vs-login-1 ~]$ cd example/
-[joeuser@vs-login-1 example]$ source /nopt/nrel/apps/210929a/myenv.2110041605
-[joeuser@vs-login-1 example]$ module load gcc
-[joeuser@vs-login-1 example]$ module load openmpi
-[joeuser@vs-login-1 example]$ make
-mpif90 -Wno-argument-mismatch -g -fopenmp fhostone.f90  -o fhostone 
-rm getit.mod  mympi.mod  numz.mod
-mpicc -g -fopenmp phostone.c -o phostone
-[joeuser@vs-login-1 example]$ cat runopenmpi 
-#!/bin/bash
-#SBATCH --job-name="install"
-#SBATCH --nodes=2
-#SBATCH --exclusive
-#SBATCH --partition=t
-#SBATCH --time=00:01:00
-
-cat $0
-
-source /nopt/nrel/apps/210929a/myenv*
-ml gcc   openmpi 
-
-export OMP_NUM_THREADS=2
-srun --mpi=pmi2 -n 2 ./fhostone -F
-srun --mpi=pmi2 -n 2 ./phostone -F
-
-
-[joeuser@vs-login-1 example]$ sbatch --account=MY_HPC_ACCOUNT runopenmpi 
-Submitted batch job 50031771
-[joeuser@vs-login-1 example]$ 
-```
-
-### Results
-
-```
-[joeuser@vs example]$ cat slurm-187.out
-[joeuser@vs-login-1 example]$ cat slurm-50031771.out
-#!/bin/bash
-#SBATCH --job-name="install"
-#SBATCH --nodes=2
-#SBATCH --exclusive
-#SBATCH --partition=t
-#SBATCH --time=00:01:00
-
-cat $0
-
-source /nopt/nrel/apps/210929a/myenv*
-ml gcc   openmpi 
-
-export OMP_NUM_THREADS=2
-srun --mpi=pmi2 -n 2 ./fhostone -F
-srun --mpi=pmi2 -n 2 ./phostone -F
-
-SRUN --mpi=pmi2 -n 2 ./fhostone -F
-
-MPI Version:Open MPI v4.1.1, package: Open MPI joeuser@vs-sm-0001 Distribution, ident: 4.1.1, repo rev: v4.1.1, Apr 24, 2021
-task    thread             node name  first task    # on node  core
-0000      0000    vs-t-0012.vs.hpc.n        0000         0000   002
-0000      0001    vs-t-0012.vs.hpc.n        0000         0000   003
-0001      0000    vs-t-0013.vs.hpc.n        0001         0000   003
-0001      0001    vs-t-0013.vs.hpc.n        0001         0000   002
-SRUN --mpi=pmi2 -n 2 ./phostone -F
-
-MPI VERSION Open MPI v4.1.1, package: Open MPI joeuser@vs-sm-0001 Distribution, ident: 4.1.1, repo rev: v4.1.1, Apr 24, 2021
-task    thread             node name  first task    # on node  core
-0000      0000    vs-t-0012.vs.hpc.nrel.gov        0000         0000  0003
-0000      0001    vs-t-0012.vs.hpc.nrel.gov        0000         0000  0002
-0001      0000    vs-t-0013.vs.hpc.nrel.gov        0001         0000  0003
-0001      0001    vs-t-0013.vs.hpc.nrel.gov        0001         0000  0000
-[joeuser@vs-login-1 example]$ 
-
-```
-
-
-Many programs can be built/run with OpenMPI and with icc/ifort as the backend compilers or built/run with the Intel version of MPI with either gcc/gfortran or icc/ifort as the backend compilers.  These options are discussed below.
-
-## Building with Intel Fortran or Intel C and OpenMPI
-
-
-You can build parallel programs using OpenMPI and the Intel Fortran *ifort* and Intel C *icc* compilers.
-
-
-
-If you want to use the Intel compilers you first do a module load.
-
-```
-ml intel-oneapi-compilers
-```
-
-Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*.  Then recompile.
-
-```
-[joeuser@vs example]$ export OMPI_FC=ifort
-[joeuser@vs example]$ export OMPI_CC=icc
-[joeuser@vs example]$ mpif90 -fopenmp fhostone.f90 -o fhostone
-[joeuser@vs example]$ mpicc -fopenmp phostone.c -o phostone
-
-```
-
-If you do a *ls -l* on the executable files you will note the size of the files change with different compiler versions.  You can also see the difference by running the commands
-
-```
-nm fhostone | grep intel | wc
-nm phostone | grep intel | wc
-```
-
-on the two versions of the program.  It will show how many calls to Intel routines are in each, 51 and 36 compared to 0 for the gnu versions.
-
-
-## Building and Running with Intel MPI
-
-We can build with the Intel versions of MPI and with icc and ifort as the backend compilers.  We load the modules:
-
-```
-ml gcc
-ml intel-oneapi-compilers
-ml intel-oneapi-mpi
-```
-
-Then, building and running the same example as above:
-
-```
-make clean
-make PFC=mpiifort PCC=mpiicc
-```
-
-The actual compile lines produced by make are:
-
-```
-mpiifort -g -fopenmp fhostone.f90  -o fhostone 
-mpiicc   -g -fopenmp phostone.c    -o phostone
-```
-
-For running, we need to make some changes to our batch script.  Replace the load of openmpi with:
-
-```
-ml intel-oneapi-compilers
-ml intel-oneapi-mpi
-```
-
-Launch with the srun command:
-
-```
-
-srun --mpi=pmi2  ./a.out -F
-
-```
-
-Our IntelMPI batch script is:
-
-
-```
-[joeuser@vs-login-1 example]$ cat runintel 
-#!/bin/bash
-#SBATCH --job-name="install"
-#SBATCH --nodes=2
-#SBATCH --exclusive
-#SBATCH --partition=lg
-#SBATCH --time=00:01:00
-
-cat $0
-
-source /nopt/nrel/apps/210929a/myenv*
 ml intel-oneapi-mpi intel-oneapi-compilers gcc
-
-export OMP_NUM_THREADS=2
-srun --mpi=pmi2 -n 2 ./fhostone -F
-srun --mpi=pmi2 -n 2 ./phostone -F
-
-
-
+mpiicc -fopenmp phostone.c -o phost.intelmpi
 ```
 
-With output
+The following batch script is an example that runs the job using two MPI ranks across two nodes and two threads per rank.  Save this script to a file such as `submit_intel.sh`, replace `<myaccount>` with the appropriate account, and submit using `sbatch submit_intel.sh`.  Feel free to experiment with different numbers of tasks, threads, and nodes.  Note that multi-node jobs on Vermilion can be finicky, and applications may not scale as well as they do on other systems.  If you experience problems with a multi-node job, start by first making sure that you application can run on a single node.
+
+
+??? example "Submission script"
+
+    ```bash
+    #!/bin/bash
+    #SBATCH --nodes=2
+    #SBATCH --exclusive
+    #SBATCH --time=00:01:00
+    #SBATCH --account=<myaccount>
+
+    source /nopt/nrel/apps/210929a/myenv.2110041605
+    ml intel-oneapi-mpi intel-oneapi-compilers gcc
+
+    export OMP_NUM_THREADS=2
+    export I_MPI_OFI_PROVIDER=tcp
+    srun --mpi=pmi2 -n 2 ./phost.intelmpi -F
+    ```
+    
+Your output should look similar to the following:
 
 ```
-MPI Version:Intel(R) MPI Library 2021.3 for Linux* OS
+MPI VERSION Intel(R) MPI Library 2021.9 for Linux* OS
 
 task    thread             node name  first task    # on node  core
-0000      0000                 c1-32        0000         0000   127
-0000      0001                 c1-32        0000         0000   097
-0001      0000                 c1-32        0000         0001   062
-0001      0001                 c1-32        0000         0001   099
-
-MPI VERSION Intel(R) MPI Library 2021.3 for Linux* OS
-
-task    thread             node name  first task    # on node  core
-0000      0000                 c1-32        0000         0000  0127
-0000      0001                 c1-32        0000         0000  0097
-0001      0000                 c1-32        0000         0001  0127
-0001      0001                 c1-32        0000         0001  0099
+0000      0000           vs-std-0001        0000         0000  0028
+0001      0000           vs-std-0002        0001         0000  0028
+0000      0001           vs-std-0001        0000         0000  0001
+0001      0001           vs-std-0002        0001         0000  0001
 ```
+    
 
 ## Linking Intel's MKL library.
 
