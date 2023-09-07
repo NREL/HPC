@@ -12,7 +12,7 @@ For more information related to the R project, see the [R website](http://www.r-
 
 R is most commonly used via an interactive shell. To do this on Eagle, first request an interactive compute node ([see running interactive jobs on Eagle](../../Systems/Eagle/interactive_jobs.md)) using the srun command. Alternatively, R can be used through Europa running Jupyterhub. For more details, see [Jupyterhub](../Jupyter/jupyterhub.md).
 
-Anaconda R is our actively supported distribution on Eagle. For specific examples of working with R in the Anaconda framework, see the [Anaconda Documentation website](https://docs.anaconda.com/anaconda/user-guide/tasks/use-r-language/). 
+Anaconda R is our actively supported distribution on Eagle. For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://docs.anaconda.com/free/anaconda/packages/using-r-language/). 
 
 Once on a compute node, R environments can be accessed through the conda module (see [environment modules on the Eagle System](../../Systems/Eagle/modules.md) for general instructions on using modules).  To avoid possible conflicts, remove any Intel compiler modules before loading R. One way to do this is via the following: 
 
