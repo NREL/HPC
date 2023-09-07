@@ -3,6 +3,8 @@ layout: default
 title: Vermilion
 parent: Systems
 has_children: true
+hide:
+ - toc
 ---
 
 # About Vermilion

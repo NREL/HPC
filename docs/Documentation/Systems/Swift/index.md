@@ -3,6 +3,8 @@ layout: default
 title: Swift
 parent: Systems
 has_children: true
+hide:
+ - toc
 ---
 
 # About the Swift Cluster
