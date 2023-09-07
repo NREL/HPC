@@ -82,7 +82,7 @@ The above salloc command will log you into one of the two nodes automatically. Y
 If your single-node job needs a GUI that uses X-windows:
 
 ```
-$ ssh -Y eagle.hpc.nrel.gov
+$ ssh -Y kestrel.hpc.nrel.gov
 ...
 $ salloc --time=20 --account=<handle> --nodes=1 --x11
 ```
@@ -98,7 +98,7 @@ $ salloc --time=20 --account=<handle> --nodes=2
 Then from your local workstation:
 
 ```
-$ ssh -Y eagle.hpc.nrel.gov
+$ ssh -Y kestrel.hpc.nrel.gov
 ...
 [hpc_user@el1 ~]$ ssh -Y r3i5n13  #(from login node to reserved compute node)
 ...

@@ -9,13 +9,15 @@ has_children: false
 ## Job Scheduling and Management
 Batch jobs are run by submitting a job script to the scheduler. The job script contains the commands needed to set up your environment and run your application. (This is an "unattended" run, with results written to a file for later access.)
 
-Once submitted, the scheduler will insert your job script into the queue to be run at some point in the future, based on priority.
+Once submitted, the scheduler will insert your job script into the queue to be run at some point in the future, based on priority and how many jobs are in the queue currently.
 
-To submit jobs on Eagle, the Slurm sbatch command should be used:
+Priority factors vary on a cluster-by-cluster basis, but typically include a "fairshare" value based on the resources assigned to the allocation, as well as weighting by the job's age, partition, resources (e.g. node count) and/or Quality of Service (qos) factor. Please see the [Monitoring and Control commands](monitor_and_control) page for more information on checking your job's priority. The [Systems](../Systems/) documentation for each cluster will also have more information about the priority weighting, QOS factors, and any associated AU upcharges. 
+
+To submit batch jobs on an HPC system at NREL, the Slurm sbatch command should be used:
 
 `$ sbatch --account=<project-handle> <batch_script>`
 
-Scripts and program executables may reside in any file system, but input and output files should be read from or written to the /scratch file system mount. /scratch uses the Lustre filesystem which is designed to utilize the parallelized networking fabric that exists between Eagle nodes, and will result in much higher throughput on file manipulations.
+Scripts and program executables may reside in any file system, but input and output files should be read from or written to the /scratch file system mount. /scratch uses the Lustre filesystem which is designed to utilize the parallelized networking fabric that exists between compute nodes, and will result in much higher throughput on file manipulations.
 
 Arguments to sbatch may be used to specify resource limits such as job duration (referred to as "walltime"), number of nodes, etc., as well as what hardware features you want your job to run with. These can also be supplied within the script itself by placing #SBATCH comment directives within the file. 
 
@@ -51,7 +53,7 @@ Arguments to sbatch may be used to specify resource limits such as job duration 
 | Parameter        | Semantic Value    | Sample Value             |
 | ---------------- | ----------------- | ------------------------ |
 | `$LOCAL_SCRATCH` | Absolute directory path for local-only disk space per node. This should always be /tmp/scratch for compute nodes.| `/tmp/scratch`|
-| `$SLURM_CLUSTER_NAME` | The cluster name as per the master configuration in Slurm. Identical to `$NREL_CLUSTER`. | `eagle`|
+| `$SLURM_CLUSTER_NAME` | The cluster name as per the master configuration in Slurm. Identical to `$NREL_CLUSTER`. | `kestrel`, `eagle`,`swift`|
 | `$SLURM_CPUS_ON_NODE` | Quantity of CPUs per compute node. | `104` |
 | `$SLURMD_NODENAME` | Slurm name of the node on which the variable is evaluated. Matches hostname. | `r4i2n3`|
 | `$SLURMD_JOB_ACCOUNT` | The Slurm account used to submit the job. Matches the project handle. | `csc000` |
