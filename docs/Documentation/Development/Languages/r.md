@@ -8,20 +8,40 @@ R is an open-source programming language designed for statistical computing and 
 
 For more information related to the R project, see the [R website](http://www.r-project.org/).
 
-## Running R Interactively on Eagle
+## Accessing R
 
-R is most commonly used via an interactive shell. To do this on Eagle, first request an interactive compute node ([see running interactive jobs on Eagle](../../Systems/Eagle/interactive_jobs.md)) using the srun command. Alternatively, R can be used through Europa running Jupyterhub. For more details, see [Jupyterhub](../Jupyter/jupyterhub.md).
+The supported method for using R on the HPC systems is via Anaconda.  In order to access R, first load the anaconda module (on Kestrel, this is `module load anaconda3`).  Then, create a new conda environment that contains at least the `r-base` package.  Optionally, install the `r-essentials` bundle, which provides many of the most popular R packages for data science.
 
-Anaconda R is our actively supported distribution on Eagle. For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://docs.anaconda.com/free/anaconda/packages/using-r-language/). 
+For example, to create and activate a new environment named `r_env` on Kestrel that includes the `r-essentials` bundle:
 
-Once on a compute node, R environments can be accessed through the conda module (see [environment modules on the Eagle System](../../Systems/Eagle/modules.md) for general instructions on using modules).  To avoid possible conflicts, remove any Intel compiler modules before loading R. One way to do this is via the following: 
-
+```bash
+module load anaconda3
+conda create -n r_env r-essentials r-base
+conda activate r_env
 ```
-$ module purge
-$ module load conda
-```
 
-To access the R interactive console using the default environment installed with conda, type R at the command line. You will be prompted with the familiar R console in your terminal window: 
+For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://docs.anaconda.com/free/anaconda/packages/using-r-language/).
+
+!!! note
+
+    To avoid possible conflicts, remove any Intel compiler modules before loading R. One way to do this is via the following: 
+
+    ```
+    $ module purge
+    $ module load anaconda3
+    ```
+
+!!! note "R on Eagle"
+
+    On Eagle, after loading the Anaconda module via `module load conda`, R is
+    available in the base conda environment.  However, it is still possible to
+    install R into a custom environment as outlined above.
+
+## Running R Interactively
+
+R is most commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Systems/Eagle/Running/interactive_jobs.md)) using the `srun` command. Alternatively, R can be used through Europa running Jupyterhub. For more details, see [Jupyterhub](../Jupyter/jupyterhub.md).
+
+Once on a compute node, R environments can be accessed through Anaconda as described above. To access the R interactive console, type R at the command line. You will be prompted with the familiar R console in your terminal window: 
 
 ??? note "R Terminal"
 
@@ -106,9 +126,9 @@ There are several options for running R scripts:
     
 ## Submitting Jobs
 
-Another option for using R on Eagle is to submit them as part of job scripts to be run on non-interactive nodes. 
+Another option for using R on the HPC systems is to submit batch jobs to be run on non-interactive nodes. 
 
-An example job script for running the hello_world.R example is below:
+An example job script for running the hello_world.R example is below (make sure to update your allocation name as well as the name of the conda environment where R has been installed):
 
 ```bash
 #! /bin/bash
@@ -118,7 +138,8 @@ An example job script for running the hello_world.R example is below:
 #SBATCH --account=<your_allocation_id>
   
 module purge
-module load conda
+module load anaconda3
+conda activate <r_env>
 Rscript hello_world.R
 ```
     
@@ -186,7 +207,7 @@ Packages are loaded into the current R environment through the `library()` funct
 
 ## Graphics
 
-R is commonly used to produce high-quality graphics based on data. This capability is built-in and can be extended through the use of packages such as ggplot2. To produce graphics on Eagle, the easiest method is to output graphical displays to an appropriate filetype (pdf, jpeg, etc.). Then this file can be moved to your local machine using command line tools such as scp or rsync.
+R is commonly used to produce high-quality graphics based on data. This capability is built-in and can be extended through the use of packages such as ggplot2. To produce graphics on the HPC systems, the easiest method is to output graphical displays to an appropriate filetype (pdf, jpeg, etc.). Then this file can be moved to your local machine using command line tools such as scp or rsync.
 
 ??? example "Example R Script for Graphics Output"
 
