@@ -255,6 +255,14 @@ Most of these packages will have to be installed in a custom environment as many
 ??? note "Using the pbdR Project"
 
     The [pbdR project](http://r-pbd.org/) "enables high-level distributed data parallelism in R, so that it can easily utilize large HPC platforms with thousands of cores, making the R language scale to unparalleled heights." There are several packages within this project: pbdMPI for easy MPI work, pbdDMAT for distributed data matrices and associated functions, and pbdDEMO for a tutorial/vignette describing most of the project's details.
+    
+    The `pbdMPI` package provides the MPI interface, which requires Open MPI.  Note that Open MPI must be loaded prior to installing the package.  For example, on Kestrel:
+    
+    ```
+    $ module load openmpi/4.1.5-gcc
+    $ R
+    > install.packages("pbdMPI")
+    ```
 
     The following script is a ranknode.R example using the pbdMPI package:
 
@@ -281,24 +289,27 @@ Most of these packages will have to be installed in a custom environment as many
     #SBATCH --account=<your_allocation_id>
 
     module purge
-    module load conda
+    module load anaconda3
+    module load openmpi/4.1.5-gcc
+    conda activate <r_env>
 
     INPUT_BASENAME=ranknode # JOB NAME - USER INPUT PARAMETER
     JOB_FILE=$INPUT_BASENAME.R
     OUT_FILE=$INPUT_BASENAME.Rout
-    mpirun -np 48 Rscript $JOB_FILE > $OUT_FILE
+    srun -n 48 Rscript $JOB_FILE > $OUT_FILE
     ```
 
     In either case (interactive or queue submission), the output produced from the ranknode.R script should look like this:
 
     ```
-    I am 0 of 48 on r1i5n1.
-    I am 1 of 48 on r1i5n1.
-    I am 2 of 48 on r1i5n1.
+    I am 0 of 48 on x1004c0s2b0n0.
+    I am 1 of 48 on x1004c0s2b0n0.
+    I am 2 of 48 on x1004c0s2b0n0.
     ...
-    I am 45 of 48 on r1i5n2.
-    I am 46 of 48 on r1i5n2.
-    I am 47 of 48 on r1i5n2.
+    I am 46 of 48 on x1004c0s2b0n1.
+    I am 47 of 48 on x1004c0s2b0n1.
+    I am 42 of 48 on x1004c0s2b0n1.
+    I am 45 of 48 on x1004c0s2b0n1.
     ```
 
 ## Contacts
