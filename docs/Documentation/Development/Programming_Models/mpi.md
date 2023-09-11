@@ -1,3 +1,27 @@
+## Cray-Mpich
+
+**Documentation:** [Cray-Mpich](https://cpe.ext.hpe.com/docs/mpt/mpich/index.html)
+
+*Cray's MPICH is a high performance and widely portable implementation of the Message Passing Interface (MPI) standard.*
+
+Note Cray-Mpich is only available on Kestrel.
+In order to use Cray-Mpich, it is recommanded to use the HPE cray complier wrapers `cc`, `CC` and `ftn`.
+The wrappers will find the necessary mpi headers and libraries as well as scientific libraries provided bi LibSci. 
+
+Depending on the compiler of choice, we can load a different instance of Cray-Mpich.
+For example, if we decide to use `Prgenv-Intel`, we can load the module `Prgenv-Intel` which will invoke an intel instance of `Cray-Mpich` that can be used through `cc`, `CC` and `ftn`.
+We can also use the usual mpi compilers `mpicc`, `mpicxx` and `mpif90`/`mpifort` but it is recommanded to use the wrappers. 
+
+Cray-Mpich takes into consideration the processor architecture through `craype-x86-spr` and the network type through `craype-network-ofi`.
+
+### Cray-Mpich-abi
+
+For codes compiled using `intel-mpi` or `mpich`, we can load the module `Cray-Mpich-abi`, an HPE provided Mpi that allows pre-compiled software to leverage mpich benefits on Kestrel network topology. 
+
+
+
+
+
 ## OpenMPI
 
 **Documentation:** [OpenMPI](https://www.open-mpi.org)
@@ -20,16 +44,16 @@ Non-default locations of this file may be set through the `OMPI_TMPDIR` environm
 
 ### Supported Versions
 
-| Eagle                                | Swift          | Vermilion |
-|:------------------------------------:|:--------------:|:----------------:|
-openmpi/1.10.7/gcc-8.4.0               |openmpi/4.1.1-6vr2flz |openmpi/4.1.4-gcc |   
-openmpi/3.1.6/gcc-8.4.0                |                |                  |
-openmpi/4.0.4/gcc-8.4.0                |                |                  |
-openmpi/4.1.1/gcc+cuda                 |||
-openmpi/4.1.2/gcc                      |||
-openmpi/4.1.2/intel                    |||
-openmpi/4.1.3/gcc-11.3.0-cuda-11.7     |||
-openmpi/4.1.0/gcc-8.4.0                |||
+|Kestrel             | Eagle                                | Swift          | Vermilion |
+|:------------------:|:------------------------------------:|:--------------:|:----------------:|
+|openmpi/4.1.5-gcc    |openmpi/1.10.7/gcc-8.4.0               |openmpi/4.1.1-6vr2flz |openmpi/4.1.4-gcc |   
+|openmpi/4.1.5-intel  |openmpi/3.1.6/gcc-8.4.0                |                |                  |
+|                     |openmpi/4.0.4/gcc-8.4.0                |                |                  |
+|                     |openmpi/4.1.1/gcc+cuda                 |||
+|                     |openmpi/4.1.2/gcc                      |||
+|                     |openmpi/4.1.2/intel                    |||
+|                     |openmpi/4.1.3/gcc-11.3.0-cuda-11.7     |||
+|                     |openmpi/4.1.0/gcc-8.4.0                |||
 
 
 ## IntelMPI
@@ -41,9 +65,9 @@ Intel's MPI library enables tight interoperability with its processors and softw
 
 ### Supported Versions
 
-| Eagle                                | Swift          | Vermilion |
-|:------------------------------------:|:--------------:|:----------------:|
-|intel-mpi/2020.1.217                  |intel-oneapi-mpi/2021.3.0-hcp2lkf  |intel-oneapi-mpi/2021.7.1-intel |   
+|Kestrel                          | Eagle                                | Swift          | Vermilion |
+|--------------------------------:|:------------------------------------:|:--------------:|:----------------:|
+|intel-oneapi-mpi/2021.10.0-intel |intel-mpi/2020.1.217                  |intel-oneapi-mpi/2021.3.0-hcp2lkf  |intel-oneapi-mpi/2021.7.1-intel |   
 
 
 ## MPT
@@ -54,12 +78,14 @@ Intel's MPI library enables tight interoperability with its processors and softw
 Hewlett-Packard Enterprise (HPE)—Eagle's creator—offers a very performant MPI library as well, built on top of and colloquially known via its underlying Message Passing Toolkit high-performance communications component as "MPT."
 ### Supported Versions
 
-| Eagle                                | Swift          | Vermilion |
-|:------------------------------------:|:--------------:|:----------------:|
-|mpt/2.23                              |                |                  |   
-|mpt/2.22                              |                |                  |
+| Eagle                                |
+|:------------------------------------:|
+|mpt/2.23                              |   
+|mpt/2.22                              |
 
+Note: 
 
+MPT is only installed on Eagle.
 ## MPICH
 **Documentation:** [MPICH](https://www.mpich.org)
 
@@ -68,9 +94,10 @@ MPICH and its derivatives form the most widely used implementations of MPI in th
 
 ### Supported Versions
 
-| Eagle                                | Swift          | Vermilion |
-|:------------------------------------:|:--------------:|:----------------:|
-|                                      |mpich/3.4.2-h2s5tru | mpich/4.0.2-gcc  |   
+|Kestrel                          | Eagle                                | Swift          | Vermilion |
+|--------------------------------:|:------------------------------------:|:--------------:|:----------------:|
+|mpich/4.1-gcc                    |                                      |mpich/3.4.2-h2s5tru | mpich/4.0.2-gcc  |   
+|mpich/4.1-intel                  | ||| 
 
 ## Running MPI Jobs on Eagle GPUs
 
