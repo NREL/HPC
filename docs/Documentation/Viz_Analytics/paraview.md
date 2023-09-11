@@ -76,7 +76,7 @@ To download the correct ParaView client binary version for your desktop environm
     | Structured Data   | 5-10 M               | 20 M              |
     | Unstructured Data | 250-500 K            | 1 M               |
     
-    So for example, if you have data stored in an unstructured mesh with 6 M cells, you'd want to aim for between 12 and 24 ParaView server processes, which easily fits on a single Eagle or Kestrel nodes.  
+    So for example, if you have data stored in an unstructured mesh with 6 M cells, you'd want to aim for between 12 and 24 ParaView server processes, which easily fits on a single Eagle or Kestrel node.  
     If the number of unstructured mesh cells was instead around 60 M, you'd want to aim for 120 to 240 processes, which means requesting a minimum of 4 eagle nodes at the low end (36 x 4 = 144) or 2 Kestrel nodes.  
     Note, this 4-node/2-nodes request may remain in the queue longer while the scheduler looks for resources, so depending on your needs, it may be necessary to factor queue times into your optimal cells-per-process calculation.
     
