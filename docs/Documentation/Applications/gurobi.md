@@ -40,6 +40,7 @@ includes Gurobi solvers. For more information, see [using GAMS](gams.md).
 Note that the Gurobi license for this interface is separate from the standalone
 Gurobi license, and supports far more instances.
 
-**Important: When using the Gurobi solver in GAMS, the user should NOT load the
-Gurobi module. Simply using "module load gams" will be enough to load the
-required Gurobi components and access rights.**
+!!! tip "Important"
+    When using the Gurobi solver in GAMS, the user should NOT load the
+    Gurobi module. Simply using "module load gams" will be enough to load the
+    required Gurobi components and access rights.

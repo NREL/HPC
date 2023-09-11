@@ -1,45 +1,46 @@
 ---
 title: Comsol
+parent: Applications
 ---
 
-# Using COMSOL Software 
-*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL Desktop GUI (graphical user interface) offers an environment for building and solving models. It provides script-based modeling capabilities.*
+# COMSOL Multiphysics 
+
+*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies.*
 
 Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available.
 
 ## Building a COMSOL Model
-Extensive documentation is available in the menu: **Help > Documentation** and in **Help > Dynamic Help**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
+Extensive documentation is available in the menu: **Help > Documentation**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
 
-For instructional videos, see the [COMSOL website](https://www.comsol.com).
+For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
-<!-- TODO: Update the FastX link below. -->
-## Running COMSOL Interactively
-License status, including how many licenses are presently checked out, can be viewed by invoking the following command:
+## Building Models in the COMSOL GUI
+Before beginning, it is good practice to check the license status with:
 
 ```
 [user@el3 ~]$ lmstat.comsol
 ```
 
-COMSOL can be used by starting the COMSOL GUI that allows one to build models, run the COMSOL computational engine, and analyze results. With the COMSOL engine running on Eagle, the input to and output from the GUI must be available on a remote machine. The remote machine must be able to send/receive information for X Windows.
-
-From the Terminal application on a [FastX desktop](https://www.nrel.gov/hpc/eagle-software-fastx.html), the following should bring up the COMSOL interface.
+When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://eagle-dav.hpc.nrel.gov/session/) by opening a terminal and running the following commands:
 
 ```
 [user@ed3 ~]$ module purge
-[user@ed3 ~]$ module load comsol/5.4
+[user@ed3 ~]$ module load comsol/6.0
 [user@ed3 ~]$ vglrun comsol
 ```
 
-From an X-enabled shell on a compute node, replace the last command with
+Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell (ssh -Y ...) on a compute node by replacing the `vglrun comosl` command with:
 
 ```
 [user@r1i7n24 ~]$ comsol -3drend sw
 ```
 
-## Running a COMSOL Job in Batch Mode
-You can save your model built in GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
+However, the performance may be slow and certain display features may behave unexpectedly.
 
-??? example "Example Submission Script"
+## Running a COMSOL Model in Batch Mode
+You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
+
+???+ example "Example Submission Script"
 
     ```bash
     #!/bin/bash
@@ -56,7 +57,7 @@ You can save your model built in GUI mode into a file such as `myinputfile.mph`.
 
     # Set up environment, and list to stdout for verification
     module purge
-    module load comsol/5.4
+    module load comsol/6.0
     echo " "
     module list
     echo " "
@@ -70,15 +71,17 @@ You can save your model built in GUI mode into a file such as `myinputfile.mph`.
 
     comsol batch -np 36 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
-Once this script file (assumed to be named `script-comsol.slurm`) is saved, it can be submitted to the job scheduler with
+
+Once this script file (assumed to be named `comsol-job.slurm`) is saved, it can be submitted to the job scheduler with
+
 ```
-[user@el3 ~]$ sbatch script-comsol.slurm
+[user@el3 ~]$ sbatch comsol-job.slurm
 ```
 
-## Running a Multiprocess COMSOL Job
-To configure a COMSOL job with multiple MPI ranks, the example Slurm script here might serve as a template:
+## Running a COMSOL Model in Batch Mode (with MPI)
+To configure a COMSOL job with multiple MPI ranks, required for any job where the number of nodes >1, you can build on the following template:
 
-??? example "Example Multiprocess Submission Script"
+???+ example "Example Multiprocess Submission Script"
     ```bash
     #!/bin/bash
     #SBATCH --job-name=comsol-batch-4proc
@@ -95,7 +98,7 @@ To configure a COMSOL job with multiple MPI ranks, the example Slurm script here
 
     # Set up environment, and list to stdout for verification
     module purge
-    module load comsol/5.4
+    module load comsol/6.0
     echo " "
     module list
     echo " "
@@ -106,9 +109,10 @@ To configure a COMSOL job with multiple MPI ranks, the example Slurm script here
 
     # Run a 2-node, 4-rank parallel COMSOL job with 18 threads for each rank.
     # -nn = total number of MPI ranks
-    # -nnhost = number of MPI ranks per host
+    # -nnhost = number of MPI ranks per "host", here equivalent to node
     # -np = number of threads per rank
 
     comsol –nn 4 -nnhost 2 batch -np 18 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
-The job script is submitted to the scheduler just the same as above for the single-process example.
+
+The job script is submitted to the scheduler just the same as above for the single-process example. For jobs that require >1 node, this approach, which uses multiple MPI ranks, must be used. Note that in this case, we choose 4 MPI ranks, 2 per node, each using 18 threads to demonstrate the available submission options *not* any optimal performance recommendation. A different arrangement, e.g., `-nn 2 --nnhost 1 batch -np 36`, which translates to 2 MPI ranks, 1 per node, each using 36 threads may perform better for your application. The optimal configuration depends on your particular problem and choice of solver, so some experimentation may be required.

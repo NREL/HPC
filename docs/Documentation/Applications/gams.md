@@ -4,7 +4,7 @@
 
 GAMS includes a DSL compiler and also a stable of integrated high-performance solvers. GAMS is able to solve complex, large-scale modeling problems. For documentation, forums, and FAQs, see the [GAMS website](https://www.gams.com/).
 
-A 40-user license of GAMS is made available to Eagle users. The GAMS license requires users to be a member of a "workgroup." If you need the GAMS software or a specific solver from GAMS, or if you have trouble running GAMS, please [contact us](https://www.nrel.gov/hpc/contact-us.html).
+A 60-user license of GAMS is made available to NREL users. This GAMS license requires users to be a member of the "gams workgroup." If you need the GAMS software package or a specific solver from GAMS, or if you have trouble running GAMS, please [contact us](https://www.nrel.gov/hpc/contact-us.html).
 
 ## Initializing Your Environment
 
@@ -42,15 +42,13 @@ The available solvers for different procedures are shown in the following with t
 
 By typing `gams <input_filename>` on the command line, the default procedure LP and the default solver Gurobi will be used. In order to override the default option to use, *e.g.*, Soplex, you can try the following two methods: 
 
-[1]  Use the *option* statement in your GAMS input file. For example, if your model input uses LP procedure and you want to use Gurobi solver to solve it, just add `option lp=soplex` to your input file.
+1.  Use the *option* statement in your GAMS input file. For example, if your model input uses LP procedure and you want to use Gurobi solver to solve it, just add `option lp=soplex` to your input file.
 
-or
-
-[2]  Specify the solver in the command line, *e.g.*, `gams <input_filename> lp=soplex`. 
+1.  Specify the solver in the command line, *e.g.*, `gams <input_filename> lp=soplex`. 
 
 A sample script for batch submission is provided here:
 
-??? example "Eagle Sample Submission Script"
+??? example "Sample Submission Script"
 
 	```bash
 	#!/bin/bash --login

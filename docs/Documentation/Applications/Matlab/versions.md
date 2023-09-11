@@ -1,10 +1,10 @@
 # MATLAB Software Versions and Licenses
 
-*Learn about the MATLAB software versions and licenses available for the Eagle system.*
+*Learn about the MATLAB software versions and licenses available for the NREL HPC systems.*
 
 ## Versions
 
-The latest version available on Eagle is R2020a.
+The latest version available on NREL HPC systems is R2023a.
 
 ## Licenses
 
@@ -19,8 +19,7 @@ an interactive MATLAB session and run:
 >> ver
 ```
 
-For a comprehensive list of the MATLAB-related licenses available on Eagle
-(including those not under active maintenance, such as the Database Toolbox), as
+For a comprehensive list of available MATLAB-related licenses (including those not under active maintenance, such as the Database Toolbox), as
 well as their current availability, run the following terminal command:
 
 ```
