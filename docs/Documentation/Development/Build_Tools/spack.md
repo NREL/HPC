@@ -325,3 +325,100 @@ packages
 	theta
 ```
 
+### Kestrel specific configuration
+
+In order to add HPE installed compilers to Kestrel we can edit the `compilers.yaml` file as discussed earlier. 
+We can add the 3 PrgEnv of choice (Cray, Intel, Gnu) using the following lines 
+
+```
+- compiler:
+    spec: intel@=2023.2.0
+    modules:
+    - PrgEnv-intel
+    - intel/2023.2.0
+    paths:
+      cc:  cc
+      cxx: CC
+      f77: ftn
+      fc:  ftn
+    flags: {}
+    operating_system: rhel8
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
+- compiler:
+    spec: cce@=14.0.4
+    modules:
+    - PrgEnv-cray
+    - cce/14.0.4
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: rhel8
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
+- compiler:
+    spec: gcc@=12.1.0
+    modules:
+    - PrgEnv-gnu
+    - gcc/12.1.0
+    paths:
+      cc: cc
+      cxx: CC
+      f77: ftn
+      fc: ftn
+    flags: {}
+    operating_system: rhel8
+    target: x86_64
+    environment: {}
+    extra_rpaths: []
+```
+
+
+Similarly, we can add the HPE provided Mpis (Cray-Mpich) by editing the `packages.yaml` file and adding the following
+
+```
+cray-mpich:
+    externals:
+    - spec: "cray-mpich@8.1.23%intel@2023.2.0"
+      modules:
+      - intel/2023.2.0 
+      - cray-dsmml/0.2.2     
+      - craype-network-ofi  
+      - cray-libsci/22.12.1.1   
+      - craype-x86-spr
+      - craype/2.7.19   
+      - libfabric/1.15.2.0   
+      - cray-mpich/8.1.23
+      - PrgEnv-intel/8.3.3 
+      prefix: /opt/cray/pe/mpich/8.1.23/ofi/intel/19.0
+    - spec: "cray-mpich@8.1.23%gcc@12.1.0"
+      modules:
+      - cray-dsmml/0.2.2     
+      - craype-network-ofi  
+      - cray-libsci/22.12.1.1   
+      - craype-x86-spr
+      - craype/2.7.19   
+      - libfabric/1.15.2.0   
+      - cray-mpich/8.1.23
+      - PrgEnv-gnu/8.3.3
+      - cray-mpich/8.1.23
+      prefix: /opt/cray/pe/mpich/8.1.23/ofi/gnu/9.1 
+    - spec: "cray-mpich@8.1.23%cce@14.0.4"
+      modules:
+      - cray-dsmml/0.2.2     
+      - craype-network-ofi  
+      - cray-libsci/22.12.1.1   
+      - craype-x86-spr
+      - craype/2.7.19   
+      - libfabric/1.15.2.0   
+      - cray-mpich/8.1.23
+      - PrgEnv-cray/8.3.3       
+      - cray-mpich/8.1.23
+      prefix: /opt/cray/pe/mpich/8.1.23/ofi/cray/10.0 
+    buildable: False
+```
