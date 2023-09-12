@@ -2,10 +2,12 @@
 
 ## Logging In
 
-To access Kestrel and connect via ssh:
+NREL employees can access Kestrel via ssh:
 ```
 ssh <username>@kestrel.hpc.nrel.gov
 ```
+
+There are no external-facing login nodes for Kestrel. External collaborators can connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) and ssh to Kestrel as directed above. 
 
 DAV nodes can be accessed by using a web browser and connecting to ```https://kestrel-dav.hpc.nrel.gov``` or by using the FastX desktop client. 
 
