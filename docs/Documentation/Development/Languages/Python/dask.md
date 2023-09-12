@@ -14,7 +14,7 @@ Dask is a framework for parallelizing Python code.  The most common use case is 
 
 ## Installation
 
-Dask can be installed via Conda.  For example, to install Dask into a new conda environment:
+Dask can be installed via Conda.  For example, to install Dask into a new conda environment, first load the appropriate anaconda moduel (e.g., `module load anaconda3` on Kestrel), adn then run:
 
 ```
 conda env create -n dask python=3.9
@@ -25,14 +25,14 @@ conda install dask
 This install Dask along with common dependencies such as NumPy.  Additionally, the `dask-jobqueue` package (discussed below), can be installed via:
 
 ```
-conda install dask-jobqueue
+conda install dask-jobqueue -c conda-forge
 ```
 
-Further, there is the `dask-mpi` package (also discussed below).  To ensure compatibility with the system MPI libraries, it is recommended to install `dask-mpi` using pip.  As such, we recommending installing any conda packages first.  `dask-mpi` depends on `mpi4py`, although we have found that the pip install command does not automatically install `mpi4py`, so we install it explicitly.  Also, installation of `mpi4py` will link against the system libraries, so the desired MPI library should be loaded first.  For example:
+Further, there is the `dask-mpi` package (also discussed below).  To ensure compatibility with the system MPI libraries, it is recommended to install `dask-mpi` using pip.  As such, we recommending installing any conda packages first.  `dask-mpi` depends on `mpi4py`, although we have found that the pip install command does not automatically install `mpi4py`, so we install it explicitly.  Also, installation of `mpi4py` will link against the system libraries, so the desired MPI library should be loaded first.  In addition, it may be necessary to explicitly specify the MPI compiler driver.  For example, to install mpi4py on Kestrel using the default programming environment and MPI (PrgEnv-cray using Cray MPICH):
 
 ```
-module load intel-mpi
-pip install dask-mpi mpi4py
+module load PrgEnv-cray
+env MPICC=cc pip install dask-mpi mpi4py
 ```
 
 ## Dask single node
