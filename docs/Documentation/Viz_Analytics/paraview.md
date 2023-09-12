@@ -154,7 +154,7 @@ How to use ParaView in batch mode to generate single frames and animations on Ea
 
         or
 
-        ssh {username}@Kestrel.hpc.nrel.gov 
+        ssh {username}@kestrel.hpc.nrel.gov 
 
 2.  Request an interactive compute session for 60 minutes):
 
