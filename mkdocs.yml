@@ -54,7 +54,7 @@ nav:
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
           - Shell Startup: Documentation/Environment/shell.md
-          # - Lmod: Documentation/Environment/lmod.md
+          - Lmod: Documentation/Environment/lmod.md
           # - Customization:
               #  - Spack Environments: Documentation/Environment/Customization/spack.md
           - Conda: Documentation/Environment/Customization/conda.md
