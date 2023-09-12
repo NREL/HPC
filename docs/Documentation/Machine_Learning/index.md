@@ -11,7 +11,7 @@ This section provides basic examples for getting started with two popular machin
 
 To begin, we will outline basic steps for building a simple CPU-based conda environment for PyTorch. First, load the anaconda module and create a new conda environment:
 ```
-module load conda
+module load anaconda3
 
 conda create -p /projects/YOUR_PROJECT/YOUR_USER_NAME_HERE/FOLDER_FOR_CONDA_ENVIRONMENTS/pt python=3.9
 ```
@@ -29,7 +29,7 @@ Answer yes to proceed, and you should be up and running with PyTorch! The [PyTor
 
 Getting started with TensorFlow is similar to the process for PyTorch. The first step is to construct an empty conda environment to work in:
 ```
-module load conda
+module load anaconda3
 
 conda create -p /projects/YOUR_PROJECT/YOUR_USER_NAME_HERE/FOLDER_FOR_CONDA_ENVIRONMENTS/tf python=3.9
 ```

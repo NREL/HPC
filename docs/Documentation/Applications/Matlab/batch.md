@@ -53,6 +53,7 @@ Once the job has finished, the standard output is saved in a file called
 #SBATCH --nodes=1                # Number of nodes
 #SBATCH --job-name=matlabTest              # Name of job
 #SBATCH --account=<account_string>        # Program-based WCID (account string associated with job)
+#SBATCH --partition=standard
 
 module purge
 module load matlab
