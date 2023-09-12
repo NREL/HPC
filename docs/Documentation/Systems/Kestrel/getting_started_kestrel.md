@@ -21,8 +21,7 @@ To start an interactive session:
 
 1. Allocate the node(s):<br>
     ```salloc --nodes=N --ntasks-per-node=npn --time=1:00:00 ```
-1. 
-```srun -n np ./executable``` <br>
+1. ```srun -n np ./executable``` <br>
 where "np" is N*npn, and npn=104 if requesting a whole node. 
 
 
