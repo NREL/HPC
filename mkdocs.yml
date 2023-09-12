@@ -132,8 +132,8 @@ nav:
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
+              - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
-              # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
             #  - ARM Performance Reports:
             #    - Documentation/Development/Performance_Tools/ARM/index.md
