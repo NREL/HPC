@@ -28,4 +28,7 @@ where "np" is N*npn, and npn=104 if requesting a whole node.
 There are example job submission scripts in the [Environments Tutorial](../../../Friendly_User/Environments/tutorial.md) page. 
 
 ## Contributions
-The [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel) is open for contributions of examples, scripts, and other resources that would benefit the user community. To contribute, please open a Pull Request or contact [haley.yandt@nrel.gov](mailto:haley.yandt@nrel.gov) and [olivia.hull@nrel.gov](mailto:olivia.hull@nrel.gov). 
+The [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel) is open for contributions of examples, scripts, and other resources that would benefit the user community. To contribute, please open a Pull Request or contact [hpc-help@nrel.gov](mailto:hpc-help@nrel.gov). 
+
+## Getting Help
+Please contact [hpc-help@nrel.gov](mailto:hpc-help@nrel.gov) with any questions. 
