@@ -7,7 +7,7 @@ To access Kestrel and connect via ssh:
 ssh <username>@kestrel.hpc.nrel.gov
 ```
 
-DAV nodes can be accessed by using a web browser and connecting to ```https://kd1.hpc.nrel.gov``` or by using the FastX desktop client. 
+DAV nodes can be accessed by using a web browser and connecting to ```https://kestrel-dav.hpc.nrel.gov``` or by using the FastX desktop client. 
 
 ## Additional Resources
 
