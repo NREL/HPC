@@ -14,7 +14,7 @@ We can also use the usual MPI compilers `mpicc`, `mpicxx` and `mpif90`/`mpifort`
 
 Cray-MPICH takes into consideration the processor architecture through `craype-x86-spr` and the network type through `craype-network-ofi`.
 
-### Cray-Mpich-abi
+### cray-mpich-abi
 
 For codes compiled using `intel-mpi` or `mpich`, we can load the module `cray-mpich-abi`, an HPE provided MPI that allows pre-compiled software to leverage MPICH benefits on Kestrel's network topology. 
 
