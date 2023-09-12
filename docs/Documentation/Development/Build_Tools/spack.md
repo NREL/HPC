@@ -327,8 +327,8 @@ packages
 
 ### Kestrel specific configuration
 
-In order to add HPE installed compilers to Kestrel we can edit the `compilers.yaml` file as discussed earlier. 
-We can add the 3 PrgEnv of choice (Cray, Intel, Gnu) using the following lines 
+In order to add HPE installed compilers to Kestrel, we can edit the `compilers.yaml` file as discussed earlier. 
+We can add the 3 PrgEnv of choice (Cray, Intel, Gnu) using the following lines:
 
 ```
 - compiler:
@@ -379,7 +379,7 @@ We can add the 3 PrgEnv of choice (Cray, Intel, Gnu) using the following lines
 ```
 
 
-Similarly, we can add the HPE provided Mpis (Cray-Mpich) by editing the `packages.yaml` file and adding the following
+Similarly, we can add the HPE provided MPIs (Cray-MPICH) by editing the `packages.yaml` file and adding the following:
 
 ```
 cray-mpich:
