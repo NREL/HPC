@@ -4,7 +4,7 @@
 
 *PETSc is a suite of data structures and routines for the scalable (parallel) solution of scientific applications modeled by partial differential equations.*
 
-On kestrel, PETSc is provided under multiple toolchains
+On Kestrel, PETSc is provided under multiple toolchains
 
 ```
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
