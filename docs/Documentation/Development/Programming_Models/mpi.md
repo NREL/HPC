@@ -9,7 +9,7 @@ In order to use Cray-MPICH, it is recommended to use the HPE Cray complier wrapp
 The wrappers will find the necessary MPI headers and libraries as well as scientific libraries provided by LibSci. 
 
 Depending on the compiler of choice, we can load a different instance of Cray-MPICH.
-For example, if we decide to use `Prgenv-intel`, we can load the module `Prgenv-intel` which will invoke an Intel instance of `cray-mpich` that can be used through `cc`, `CC` and `ftn`.
+For example, if we decide to use `PrgEnv-intel`, we can load the module `PrgEnv-intel` which will invoke an Intel instance of `cray-mpich` that can be used through `cc`, `CC` and `ftn`.
 We can also use the usual MPI compilers `mpicc`, `mpicxx` and `mpif90`/`mpifort` but it is recommended to use the wrappers. 
 
 Cray-MPICH takes into consideration the processor architecture through `craype-x86-spr` and the network type through `craype-network-ofi`.
