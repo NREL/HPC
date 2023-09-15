@@ -173,14 +173,6 @@ nav:
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
   - Kestrel Friendly Users:
-      - Getting Started:
-        - Friendly_User/Getting_Started/index.md
-        - Known Issues: Friendly_User/Getting_Started/known_issues.md
-      - Environments:
-        - Kestrel Environments Overview: Friendly_User/Environments/index.md
-        - Toolchains:
-          - Intel: Friendly_User/Environments/Toolchains/intel.md
-        - Environments Tutorial: Friendly_User/Environments/tutorial.md
       - Applications:
         - VASP: Friendly_User/Applications/vasp.md
 theme:
