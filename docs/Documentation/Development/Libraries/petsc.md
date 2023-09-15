@@ -17,7 +17,7 @@ On Kestrel, PETSc is provided under multiple toolchains
 
 ```
 
-`petsc/3.14.6-cray-mpich-intel` is a PETSc installation that uses HPE provided `Prgenv-Intel`. 
+`petsc/3.14.6-cray-mpich-intel` is a PETSc installation that uses HPE provided `PrgEnv-intel`. 
 Therefore, the mpi used here is *cray-mpich* and the compiler is *intel/2023*.
 
 `petsc/3.19.3-intel-oneapi-mpi-intel` is a PETSc installation that uses *intel-oneapi-compilers* and *intel-oneapi-mpi* for the compilers and mpi, respectively.
