@@ -17,9 +17,14 @@ nav:
         - Systems: Documentation/Systems/index.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
+          - Documentation/Systems/Kestrel/getting_started_kestrel.md
           - Documentation/Systems/Kestrel/running.md
-          - Documentation/Systems/Kestrel/modules.md
-          - Documentation/Systems/Kestrel/filesystems.md
+          - Documentation/Systems/Kestrel/filesystems.md 
+          - Environments: 
+            - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
+            - Toolchains:
+              - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+            - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 
@@ -132,8 +137,8 @@ nav:
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
+              - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
-              # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
             #  - ARM Performance Reports:
             #    - Documentation/Development/Performance_Tools/ARM/index.md
@@ -168,14 +173,6 @@ nav:
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
   - Kestrel Friendly Users:
-      - Getting Started:
-        - Friendly_User/Getting_Started/index.md
-        - Known Issues: Friendly_User/Getting_Started/known_issues.md
-      - Environments:
-        - Kestrel Environments Overview: Friendly_User/Environments/index.md
-        - Toolchains:
-          - Intel: Friendly_User/Environments/Toolchains/intel.md
-        - Environments Tutorial: Friendly_User/Environments/tutorial.md
       - Applications:
         - VASP: Friendly_User/Applications/vasp.md
 theme:
