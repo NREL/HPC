@@ -53,7 +53,7 @@ grand_parent: Intermediate
 2. Now logout, log back in, and you should see your personal modules collection with a brand new module.
 
 	```
-	[cchang@el1 ~]$ module avail
+	[$USER@el1 ~]$ module avail
 	
 	---------------------------------- /scratch/$USER/modules/default -----------------------------------
 	openmpi/4.1.0/gcc-8.4.0
