@@ -13,7 +13,7 @@ grand_parent: Intermediate
 
 3. There are several packaging options. 
 Here, we'll get the bzipped tarball `openmpi-4.1.0.tar.bz2`. 
-You can either download it to a local machine (laptop) and then `scp` the file over to Kestrel/Eagle, or get it directly on Kestrel/Eagle with `wget`.
+You can either download it to a local machine (laptop) and then `scp` the file over to the HPC cluster, or get it directly on the superomuter using `wget`.
 ```
 wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.0.tar.bz2
 ```
