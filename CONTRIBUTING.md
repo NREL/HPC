@@ -146,19 +146,17 @@ HPC  # i.e. the root of this repo
 ## Blog posts
 
 ### Creating a blog post
-Here is a brief overview on how to create and style a new blog post:
+Here is a brief overview on how to create and style a new blog post for Github Pages:
 
-First, we need to create the Markdown file for the blog. The file's name must follow the following styling. The files name must start with the date in this format XXXX-XX-XX- where each of the X sections correspond to this format YEAR-MONTH-DAY- and then is followed by a simple name that has something to do with the blog. Example Markdown file name: 2023-12-02-python_tutorial.md. The file must be placed within the posts directory which can be found as follows: 
+First, we need to create the Markdown file for the blog. The file's name must start with the date in this format XXXX-XX-XX- where each of the X sections correspond to this format YEAR-MONTH-DAY- and then is followed by a short, descriptive name. Example Markdown file name: 2023-12-02-python_tutorial.md. The file must be placed within the `posts` directory which can be found by following this directory path: 
 
 ```bash 
- - HPC
-  - docs
-    - blog
-      - posts
-        - XXXX-XX-XX-new_file_goes_in_here.md
+ - HPC/docs/blog/posts/XXXX-XX-XX-new_file_goes_in_here.md
 ```  
 
-Second, we need to add the author to the authors.yml file within the blog directory. Each author has four required elements. There's the authors_name, name, description, and avatar. The authors_name is going to be the author's fullname in all lowercase with no space (example: johndoe) and this will be referenced within the blogs Markdown file later. The name is the authors full name. The description must be set to "Author" and the avatar must be set to http://nrel.github.io/HPC/blog/assets/avatar/default.png as follows:
+Note: You do not have to add this file to the mkdocs.yml file.
+
+Second, we need to add a new author to the authors.yml file within the blog directory. If your author has been added to the authors.yml file already then you may skip this step and use the existing authors_name in the next step. To add a new author it will include four required elements. There's the authors_name, name, description, and avatar. The authors_name is going to be the author's fullname in all lowercase with no space (example: johndoe) and this will be referenced within the blog's Markdown file later. The name is the author's full name. The description must be set to "Author" and the avatar must be set to http://nrel.github.io/HPC/blog/assets/avatar/default.png as follows:
 
 ```bash
   johndoe: # This is the authors_name 
