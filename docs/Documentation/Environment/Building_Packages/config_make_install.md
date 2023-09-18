@@ -10,7 +10,7 @@ grand_parent: Intermediate
 
 1. We will illustrate a package build that relies on the popular autotools system. 
 Colloquially, this is the `configure; make; make install` process that is often encountered first by those new to package builds on Linux. 
-Other build systems like `CMake` (which differ primarily in the configuration steps) won't be covered. 
+Other build systems like [CMake](../../Development/Build_Tools/cmake.md) (which differ primarily in the configuration steps) won't be covered. 
 If you need to build a package that relies on CMake, please contact hpc-help@nrel.gov for assistance.
 
 2. We'll use *GCC* version 8.4.0 for this illustration, so load the associated module first (_i.e._, `gcc/8.4.0`).
