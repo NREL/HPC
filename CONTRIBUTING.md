@@ -176,7 +176,10 @@ Lastly, we have to format the blog post as follows:
 
   # Title of the blog goes here with the "#" character included
 
-  This will be the first paragraph of the blog post. This first paragraph will be previewed on the blog landing page. Try to make this first paragraph within three sentences or so to not clutter the blog landing page. Do not forget to add the "<!-- more -->" after this first paragraph as this is what will seperate the first paragraph in the blog preview from the rest of the blog. 
+  This will be the first paragraph of the blog post.\n 
+  This first paragraph will be previewed on the blog landing page.\n 
+  Try to make this first paragraph within three sentences or so to not clutter the blog landing page.\n
+  Do not forget to add the "<!-- more -->" after this first paragraph as this is what will seperate the first paragraph in the blog preview from the rest of the blog. 
 
   <!-- more --> # This seperates the blog preview from the rest of the blog
 
