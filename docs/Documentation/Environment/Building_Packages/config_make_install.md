@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Config,Make,Install
+title: Config, Make, Install
 parent: Building Packages
 grand_parent: Intermediate
 ---
