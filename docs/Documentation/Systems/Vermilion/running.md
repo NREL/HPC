@@ -192,10 +192,10 @@ If many cores are needed for your VASP calcualtion, it is recommended to run VAS
 
 The following sections walk through building sbatch scripts for running VASP on Vermilion, including explanations of necessary tweaks to run multi-node jobs reliably. 
 
-- [VASP 5 (Intel MPI)](#Running-VASP-5-with-IntelMPI-on-CPUs)
-- [VASP 6 (Intel MPI)](#Running-VASP-6-with-IntelMPI-on-CPUs)
-- [VASP 6 (Open MPI)](#Running-VASP-6-with-OpenMPI-on-CPUs)
-- [VASP 6 on GPUs](#Running-VASP-6-on-GPUs)
+- [VASP 5 (Intel MPI)](#running-vasp-5-with-intelmpi-on-cpus)
+- [VASP 6 (Intel MPI)](#running-vasp-6-with-intelmpi-on-cpus)
+- [VASP 6 (Open MPI)](#running-vasp-6-with-openmpi-on-cpus)
+- [VASP 6 on GPUs](#running-vasp-6-on-gpus)
 
 #### Running VASP 5 with IntelMPI on CPUs
 
