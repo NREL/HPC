@@ -30,7 +30,7 @@ Users on an NREL device may connect via ssh to **kestrel.hpc.nrel.gov** from the
 If you are an external HPC user, you will need a [One-Time Password Multifactor token (OTP)](https://www.nrel.gov/hpc/multifactor-tokens.html) for two-factor authentication.
 
 !!! note
-    The external login nodes are not active currently.  For access to Kestrel at this time, you can connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), and then connect to one of the Kestrel hostnames listed above.
+    The external login nodes are not active currently.  For access to Kestrel at this time you can connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), and once connected, ssh to one of the login nodes listed above.
 
     Alternatively, you can connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html) and log in with your username, password, and OTP code. Once connected, ssh to the login nodes as above.
 
