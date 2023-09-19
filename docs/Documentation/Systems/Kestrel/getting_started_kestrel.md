@@ -64,8 +64,6 @@ Please see the [Kestrel Environments section](./Environments/index.md) for detai
 * A collection of sample makefiles, source codes, and scripts for Kestrel can be found in the [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel). 
 * A recording of the Kestrel onboarding meeting, as well as the slides, are posted on the [Compuational Science Tutorials  team](https://teams.microsoft.com/l/team/19%3a6nLmPDt9QHQMEuLHVBaxfsitEZSGH6oXT6lyVauMvXY1%40thread.tacv2/conversations?groupId=22ad3c7b-a45a-4880-b8b4-b70b989f1344&tenantId=a0f29d7e-28cd-4f54-8442-7885aee7c080). 
 
-<!--TODO: Post Training Slides PDF once complete --> 
-
 ## Contributions
 
 The [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel) is open for contributions of examples, scripts, and other resources that would benefit the user community. To contribute, please open a Pull Request or contact [HPC-Help@nrel.gov](mailto://hpc-help@nrel.gov). To recommend topics to be covered, please open an [issue](https://github.com/NREL/HPC/issues) in the repository.
