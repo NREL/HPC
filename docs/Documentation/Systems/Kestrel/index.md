@@ -9,7 +9,7 @@ hide:
 
 # About the Kestrel Cluster
 
-Kestrel is configured to run compute-intensive and parallel computing jobs. It is a cluster comprised of 2454 nodes (servers) that run the Linux operating system (Red Had Enterprise Linux), with a peak performance of 44 PetaFLOPS.
+Kestrel is configured to run compute-intensive and parallel computing jobs. It is a cluster comprised of 2454 nodes (servers) that run the Linux operating system (Red Hat Enterprise Linux), with a peak performance of 44 PetaFLOPS.
 
 Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
 
@@ -30,11 +30,7 @@ Users on an NREL device may connect via ssh to **kestrel.hpc.nrel.gov** from the
 If you are an external HPC user, you will need a [One-Time Password Multifactor token (OTP)](https://www.nrel.gov/hpc/multifactor-tokens.html) for two-factor authentication.
 
 !!! note
-    The external login nodes are not active currently.  For access to Kestrel at this time, you can connect the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), and then connect to one of the following names:
-
-    * kl1.hpc.nrel.gov
-    * kl2.hpc.nrel.gov
-    * kl3.hpc.nrel.gov
+    The external login nodes are not active currently.  For access to Kestrel at this time, you can connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), and then connect to one of the Kestrel hostnames listed above.
 
     Alternatively, you can connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html) and log in with your username, password, and OTP code. Once connected, ssh to the login nodes as above.
 
