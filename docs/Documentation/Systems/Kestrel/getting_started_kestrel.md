@@ -5,12 +5,15 @@
 ## Accessing Kestrel
 Access to Kestrel requires an NREL HPC account and access to a project allocation on Kestrel. 
 
-###NREL Employees:
+### NREL Employees
 
 To access Kestrel, connect via ssh to `kestrel.hpc.nrel.gov` from the NREL network. 
 
-### External Collaborators:
+### External Collaborators
 There are currently no external-facing login nodes on Kestrel. You will need to connect to the [SSH gateway](https://www.nrel.gov/hpc/ssh-gateway-connection.html) or [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) and then ssh to Kestrel as directed above. 
+
+### Remote Visualization
+Kestrel has several Data Analysis and Visualization (DAV) nodes available. You can connect to them via your web browser at [https://kestrel-dav.hpc.nrel.gov](https://kestrel-dav.hpc.nrel.gov) or using the FastX desktop client. External Users will need to be connected to the HPC VPN in order to use FastX. For more information on FastX and DAV nodes, you can follow the [FastX](../../Viz_Analytics/virtualgl_fastx.md) documentation. 
 
 ## System Comparison 
 
@@ -74,7 +77,7 @@ Globus is expected to be available soon. Please contact [HPC-Help@nrel.gov](mail
 
 ## Jupyterhub
 
-Jupyterhub is not yet available. 
+Jupyterhub (Europa on Eagle) is not yet available. Currently, to use Jupyter, you will need to use a compute node. To do so, you can follow the [process documented for Eagle](../../Development/Jupyter/index.md/#using-a-compute-node), but substitute the Kestrel nodenames. 
 
 ## Environments 
 
