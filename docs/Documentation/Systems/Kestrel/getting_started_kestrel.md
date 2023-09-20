@@ -37,6 +37,28 @@ Kestrel currently has no GPU nodes. They are expected to be available in Q2 of F
 
 ### Job Submission Recommendations:
 
+#### OpenMP
+
+When running codes with OpenMP enabled, we recommend manually setting one of the following environment variables:
+
+
+```
+
+export OMP_PROC_BIND=spread # for non-intel built codes
+
+export KMP_AFFINITY=balanced # for codes built with intel compilers
+
+```
+You may need to export these variables even if you are not running your job with threading, i.e., with `OMP_NUM_THREADS=1`
+
+#### Scaling
+
+Currently, some applications on Kestrel are not scaling with the expected performance. For these applications, we recommend:
+
+1. Submitting jobs with the fewest number of nodes possible.
+
+1. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
+1. Building and running with Intel MPI or Cray MPICH, rather than OpenMPI.
 
 ## File System
 
