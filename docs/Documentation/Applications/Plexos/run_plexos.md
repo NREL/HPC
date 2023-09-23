@@ -50,3 +50,13 @@ $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelpl
 
 # Example scripts
 
+## Example 1: Basic Functionality Test
+
+## Example 2: Simple batch script submission
+
+## Example 3: Enhanced batch script submission
+
+## Example 4: Submitting multiple PLEXOS jobs
+
+## Example 5: Running PLEXOS with SLURM array jobs
+
