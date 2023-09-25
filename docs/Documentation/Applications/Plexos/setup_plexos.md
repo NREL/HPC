@@ -4,50 +4,66 @@ parent: Plexos
 grand_parent: Applications
 ---
 
-# Setting up the License
+## Loading the Appropriate Modules
+
+!!! info
+    A user can only run PLEXOS with Gurobi solvers on the clusters at this time. Please set up your model accordingly.
+
+Plexos XML model files can only run with the Gurobi solver specified while creating the models. The most common combinations you may encounter are
+
+| PLEXOS Module   | Gurobi Module |
+|:---------------:|:-------------:|
+| plexos/9.000R09 | gurobi/9.5.1  |
+| plexos/9.200R05 | gurobi/10.0.1 |
+| plexos/9.200R06 | gurobi/10.0.2 |
+
+Please [contact us](https://www.nrel.gov/hpc/contact-us.html) if you encounter any issues or require a newer version.
+
+## Setting up the License
 
 Before we can run PLEXOS, we need to create a license file on the cluster. For this, run the following commands with some minor modifications
 
-```bash
-mkdir -p ~/.config/PLEXOS
-echo '<?xml version="1.0"?>
-<XmlRegistryRoot>
-  <comms>
-    <licServer_IP val="10.60.3.188" />
-    <licServer_CommsPort val="399" />
-    <licServer_IP_Secondary />
-    <connect>
-      <PrimaryServer_Port />
-      <SecondaryServer_Port />
-    </connect>
-    <licServer_CommsPort_Secondary />
-    <LastLicTypeUsed val="server" />
-  </comms>
-  <server>
-    <licServer_LogFolder val="/tmp/" />
-    <licServer_LogEvents val="true" />
-  </server>
-  <proxy_cred>
-    <proxy_ip val="" />
-    <proxy_port val="" />
-    <proxy_uname val="" />
-    <proxy_pass val="" />
-  </proxy_cred>
-  <BannedList>
-    <BanListedMachines val="true" />
-  </BannedList>
-  <ProductUpdates>
-    <LastUpdateDate val="10/10/2021 13:11:10" />
-  </ProductUpdates>
-  <UserName />
-  <Company />
-  <UserEmail />
-  <CompanyCode />
-  <LicenseServerRequestCount />
-</XmlRegistryRoot>'   > ~/.config/PLEXOS/EE_reg.xml
-```
+??? example "EE_reg.xml"
 
-# Conda environment for PLEXOS with python and R
+    ```bash
+    mkdir -p ~/.config/PLEXOS
+    echo '<?xml version="1.0"?>
+    <XmlRegistryRoot>
+      <comms>
+        <licServer_IP val="10.60.3.188" />
+        <licServer_CommsPort val="399" />
+        <licServer_IP_Secondary />
+        <connect>
+          <PrimaryServer_Port />
+          <SecondaryServer_Port />
+        </connect>
+        <licServer_CommsPort_Secondary />
+        <LastLicTypeUsed val="server" />
+      </comms>
+      <server>
+        <licServer_LogFolder val="/tmp/" />
+        <licServer_LogEvents val="true" />
+      </server>
+      <proxy_cred>
+        <proxy_ip val="" />
+        <proxy_port val="" />
+        <proxy_uname val="" />
+        <proxy_pass val="" />
+      </proxy_cred>
+      <BannedList>
+        <BanListedMachines val="true" />
+      </BannedList>
+      <ProductUpdates>
+        <LastUpdateDate val="10/10/2021 13:11:10" />
+      </ProductUpdates>
+      <UserName />
+      <Company />
+      <UserEmail />
+      <CompanyCode />
+      <LicenseServerRequestCount />
+    </XmlRegistryRoot>'   > ~/.config/PLEXOS/EE_reg.xml
+    ```
+## Conda environment for PLEXOS with python and R
 
 1. We need to load a few modules and create the requisite conda environment. First, we need to create a conda environment for PLEXOS.
     ```bash
@@ -111,7 +127,7 @@ echo '<?xml version="1.0"?>
     pip install numpy pandas
     ```
 
-# Loading an existing PLEXOS environment
+## Loading an existing PLEXOS environment
 
 If you have successfully followed all the instructions in the previous subsection and installed PLEXOS, you can simply load the following modules and activate the conda environment
 
@@ -121,7 +137,7 @@ module load comp-intel intel-mpi mkl conda
 conda activate plex1
 ```
 
-# Using your own version of R and Python
+## Using your own version of R and Python
 
 This section is in regards to Point 3 in [setting up the PLEXOS environment](setup_plexos.md#Conda-environment-for-PLEXOS-with-python-and-R).
 The following R libraries will need to be installed manually in this case.

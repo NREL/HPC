@@ -16,13 +16,13 @@ Please follow the [setup instructions](setup_plexos.md) before running the examp
 
     This should display all of the test modules available in addition to the defaults. We encourage you to reach out to us at HPC-Help@nrel.gov for access if you would like access to these modules.
 
-# PLEXOS Versions 9 and Up
+## Example Run
 
-PLEXOS 9.XRY now comes bundled with its own `mono` software. Therefore, so we no longer need to load and call it for  running PLEXOS. We load the following modules
+We will load the requisite modules for running PLEXOS 9.2R06 for this example. Please see the [module compatibility](setup_plexos.md#Loading-the-Appropriate-Modules) chart for loading the correct modules
 
 ```bash
-module load centos gurobi/9.5.1
-module load plexos/9.000R09
+module load gurobi/10.0.2
+module load plexos/9.200R06
 ```
 
 Recall that we can only use the Gurobi solver while running the PLEXOS on the NREL cluster.Now that we have the modules loaded, PLEXOS can be called as follows
@@ -45,18 +45,105 @@ Fortunately, we can bypass the prompt for a local PLEXOS account username and pa
 $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelplexos -cp Nr3lplex0s
 ```
 
-!!! caution
-    Not providing the username and password in batch jobs WILL cause your jobs to fail.
+!!! warning
+    Not providing the username and password in batch jobs **WILL** cause your jobs to fail.
 
-# Example scripts
+## Example scripts
 
-## Example 1: Basic Functionality Test
+The example scripts are available [here](). Please clone the repository to run those examples.
 
-## Example 2: Simple batch script submission
+### 1: Basic Functionality Test
 
-## Example 3: Enhanced batch script submission
+The basic functionality test is the same the example run in the section above. We will
 
-## Example 4: Submitting multiple PLEXOS jobs
+1. Request an interactive node
+2. Go to the correct example directory
+3. Run the PLEXOS example interactively
 
-## Example 5: Running PLEXOS with SLURM array jobs
+??? example "Simple 5 bus problem"
+
+    ```bash
+    # Request an interactive session on the cluster
+    salloc -N 1 --account=<your_hpc_allocation_name> --time=1:00:00 --partition=debug
+
+    # Go to the working directory that contains the 5_bus_system_v2.xml example
+    cd /to/you/XML/file/
+
+    # Load the requisite modules
+    module load gurobi/10.0.2
+    module load plexos/9.200R06
+
+    # Finally run the PLEXOS executable
+    $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelplexos -cp Nr3lplex0s
+    ```
+
+### 2: Simple batch script submission
+
+We will run the same example by submitting the job to the SLURM queue so. In order to run this example as is, run the following commands
+
+??? example "Submit job in a batch file."
+
+    ```bash
+    # SSH into Kestrel or your cluster of choice
+    ssh $USER@kestrel.hpc.nrel.gov
+
+    # Clone the HPC master branch in your scratch folder
+    cd /scratch/${USER}/
+    git clone git@github.com:NREL/HPC.git
+
+    # Go to the appropriate folder and submit the job on the HPC
+    cd HPC/applications/plexos-hpc-walkthrough/RunFiles
+    sbatch submit_simple.sh
+    ```
+
+### 3: Enhanced batch script submission
+
+This builds upon the previous example where it tries to run all the models in a PLEXOS XML file one after the other
+
+??? example "Slightly enhanced batch submission script"
+
+    ```bash
+    # Skip this if you already have the repo cloned in your scratch directory
+    ssh $USER@kestrel.hpc.nrel.gov
+    cd /scratch/${USER}/
+    git clone git@github.com:NREL/HPC.git
+
+    # Go into the appropriate directory
+    cd /scratch/${USER}/HPC/applications/plexos-hpc-walkthrough/RunFiles
+    sbatch submit_enhanced.sh
+    ```
+
+### 4: Submitting multiple PLEXOS jobs
+
+This example demonstrates how to submit multiple PLEXOS jobs
+
+??? example "Submit multiple PLEXOS jobs"
+
+    ```bash
+    # Skip this if you already have the repo cloned in your scratch directory
+    ssh $USER@kestrel.hpc.nrel.gov
+    cd /scratch/${USER}/
+    git clone git@github.com:NREL/HPC.git
+
+    # Go into the appropriate directory
+    cd /scratch/${USER}/HPC/applications/plexos-hpc-walkthrough/RunFiles
+    sbatch submit_multiple.sh
+    ```
+
+### 5: Running PLEXOS with SLURM array jobs
+
+This example demonstrates the use of SLURM job arrays to run multiple PLEXOS jobs
+
+??? example "Submit Slurm job-array for PLEXOS"
+
+    ```bash
+    # Skip this if you already have the repo cloned in your scratch directory
+    ssh $USER@kestrel.hpc.nrel.gov
+    cd /scratch/${USER}/
+    git clone git@github.com:NREL/HPC.git
+
+    # Go into the appropriate directory
+    cd /scratch/${USER}/HPC/applications/plexos-hpc-walkthrough/RunFiles
+    sbatch submit_job_array.sh
+    ```
 
