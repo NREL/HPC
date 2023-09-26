@@ -92,8 +92,8 @@ We will run the same example by submitting the job to the SLURM queue so. In ord
     git clone git@github.com:NREL/HPC.git
 
     # Go to the appropriate folder and submit the job on the HPC
-    cd HPC/applications/plexos-hpc-walkthrough/RunFiles
-    sbatch submit_simple.sh
+    cd HPC/applications/plexos/RunFiles
+    sbatch -A account_name --mail-user=your.email@nrel.gov submit_simple.sh
     ```
 
 ### 3: Enhanced batch script submission
@@ -109,8 +109,8 @@ This builds upon the previous example where it tries to run all the models in a 
     git clone git@github.com:NREL/HPC.git
 
     # Go into the appropriate directory
-    cd /scratch/${USER}/HPC/applications/plexos-hpc-walkthrough/RunFiles
-    sbatch submit_enhanced.sh
+    cd /scratch/${USER}/HPC/applications/plexos/RunFiles
+    sbatch -A account_name --mail-user=your.email@nrel.gov submit_enhanced.sh
     ```
 
 ### 4: Submitting multiple PLEXOS jobs
@@ -126,8 +126,8 @@ This example demonstrates how to submit multiple PLEXOS jobs
     git clone git@github.com:NREL/HPC.git
 
     # Go into the appropriate directory
-    cd /scratch/${USER}/HPC/applications/plexos-hpc-walkthrough/RunFiles
-    sbatch submit_multiple.sh
+    cd /scratch/${USER}/HPC/applications/plexos/RunFiles
+    sbatch -A account_name --mail-user=your.email@nrel.gov submit_multiple.sh
     ```
 
 ### 5: Running PLEXOS with SLURM array jobs
@@ -143,7 +143,7 @@ This example demonstrates the use of SLURM job arrays to run multiple PLEXOS job
     git clone git@github.com:NREL/HPC.git
 
     # Go into the appropriate directory
-    cd /scratch/${USER}/HPC/applications/plexos-hpc-walkthrough/RunFiles
-    sbatch submit_job_array.sh
+    cd /scratch/${USER}/HPC/applications/plexos/RunFiles
+    sbatch -A account_name --mail-user=your.email@nrel.gov submit_job_array.sh
     ```
 
