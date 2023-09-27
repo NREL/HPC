@@ -10,10 +10,10 @@ Connection](https://www.nrel.gov/hpc/system-connection.html).
 
 ## Running MATLAB via an Interactive Job
 
-After connecting to the login node, the next step is to start an interactive job. For example, the following command gets a user-selected number of nodes for interactive use, taking as input tasks per node, job duration, account, and partition.
+After connecting to the login node, the next step is to start an interactive job. For example, the following command gets a user-selected number of nodes for interactive use, taking as input tasks per node, job duration, and account.
 
 ```
-$ salloc --nodes=<number of nodes> --ntasks-per-node=<tasks per node> --account=<your account here> --time=<desired time> --partition=<desired partition>
+$ salloc --nodes=<number of nodes> --ntasks-per-node=<tasks per node> --account=<your account here> --time=<desired time>
 ```
 
 When your job starts, you will have a shell on a compute node.
