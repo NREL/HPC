@@ -95,7 +95,6 @@ To run the script on a compute node, create the file helloWorld.sb:
     #SBATCH --nodes=1
     #SBATCH --job-name=helloWorld
     #SBATCH --account=<account_string>
-    #SBATCH --partition=standard
 
     # load modules
     module purge
@@ -221,7 +220,6 @@ Finally, create the batch script stiffODE.sb:
     #SBATCH --nodes=1
     #SBATCH --job-name=stiffODE
     #SBATCH --account=<account_string>
-    #SBATCH --partition=standard
 
     # load modules
     module purge
