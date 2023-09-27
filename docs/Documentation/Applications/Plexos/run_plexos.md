@@ -67,7 +67,7 @@ The example scripts are available [here](https://github.com/NREL/HPC/tree/master
 
 ### 1: Basic Functionality Test
 
-The basic functionality test is the same the example run in the section above. We will
+The basic functionality test is the same as the example run in the section above. We will
 
 1. Request an interactive node
 2. Go to the correct example directory
