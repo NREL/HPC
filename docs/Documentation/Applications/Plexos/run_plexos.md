@@ -111,7 +111,7 @@ We will run the same example by submitting the job to the SLURM queue. In order 
 
 ### 3: Enhanced batch script submission
 
-This builds upon the previous example where it tries to run the same model as before, but adds redundancy where the job doesnt fail if a license is not found. The submission script attempts to re-run the job after waiting 120 seconds for each attempt.
+This builds upon the previous example where it tries to run the same model as before, but adds redundancy where the job doesn't fail if a license is not found. The submission script attempts to re-run the job after waiting 120 seconds for each attempt.
 
 ??? example "Slightly enhanced batch submission script"
 
