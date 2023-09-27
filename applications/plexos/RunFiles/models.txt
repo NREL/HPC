@@ -1,4 +1,4 @@
 2024_yr_15percPV_Gurobi
-2024_yr_30percPV Gurobi
-2024_yr_30percPV_30percWind Gurobi
-2024_yr_30percPV_30PercWind_Sto
+2024_yr_30percPV
+2024_yr_30percPV_30percWind
+2024_yr_30percWind
