@@ -9,7 +9,7 @@ parent: Applications
 
 Users can run PLEXOS models on NREL's computing clusters. However, users need to build the PLEXOS models on a Windows system as there is no GUI available on the clusters and on Linux in general
 
-## Available modules
+## Available Modules
 
 | Kestrel         | Eagle           | Swift           | Vermilion |
 |:---------------:|:---------------:|:---------------:|:---------:|
