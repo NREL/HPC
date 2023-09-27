@@ -4,7 +4,7 @@
 #SBATCH --time=00:30:00   # Required, estimate 5 minutes
 #SBATCH --partition=debug
 #SBATCH --mail-type=BEGIN,END,FAIL,REQUE
-#SBATCH --job-name="PLSimple"
+#SBATCH --job-name="PLEnhanced"
 
 module purge
 module load craype-x86-spr

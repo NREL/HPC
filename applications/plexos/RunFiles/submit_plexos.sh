@@ -4,6 +4,10 @@
 #SBATCH --mail-type=ALL # Get emails for everything
 #SBATCH --job-name="PLMultiple"
 
+###############################################################################
+# Bash functions
+###############################################################################
+
 # This function attempts to ping the PLEXOS license server 5 times. If it is
 # unable to find the server after 5 attempts, it exits with a status code 
 # 404.
@@ -30,7 +34,10 @@ ping_license_servers () {
 }
 
 
+###############################################################################
 # This is where the actual job execution happens
+###############################################################################
+
 ping_license_servers
 if [ $? -eq 404 ] ; then
     echo Could not find the license server
@@ -45,4 +52,6 @@ else
     cd /scratch/${USER}/HPC/applications/plexos/RunFiles/
     # Finally run PLEXOS
     $PLEXOS/PLEXOS64 -n ${filename}.xml -m ${model} -cu nrelplexos -cp Nr3lplex0s > fout_${filename}_${model} 2>&1
+
+    # Move the resulting output folder into the working directory.
 fi

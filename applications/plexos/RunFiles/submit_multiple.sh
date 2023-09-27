@@ -24,8 +24,5 @@ while read line
 do
     # This line exports environment variables "filename" and "model" to the runscript. 
     # Think of this as passing function arguments.
-    sbatch -A ${alloc} -t ${runtime} --export=filename="${xml_name}",model="${line}" ${runscript} --qos=medium
-
-    # We will then move the solution folder into the working directory
-    
+    sbatch -A ${alloc} -t ${runtime} --export=filename="${xml_name}",model="${line}" ${runscript} --qos=medium   
 done
