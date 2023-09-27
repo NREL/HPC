@@ -48,7 +48,7 @@ $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelpl
 !!! warning
     Not providing the username and password in batch jobs **WILL** cause your jobs to fail.
 
-## Example scripts
+## Example Scripts
 
 The example scripts are available [here](https://github.com/NREL/HPC/tree/master/applications/plexos/RunFiles). Please clone the repository to run those examples.
 
