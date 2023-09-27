@@ -9,7 +9,7 @@ grand_parent: Applications
 !!! info
     A user can only run PLEXOS with Gurobi solvers on the clusters at this time. Please set up your model accordingly.
 
-Plexos XML model files can only run with the Gurobi solver specified while creating the models. The most common combinations you may encounter are
+PLEXOS XML model files can only run with the Gurobi solver specified while creating the models. The most common combinations you may encounter are
 
 | PLEXOS Module   | Gurobi Module |
 |:---------------:|:-------------:|
