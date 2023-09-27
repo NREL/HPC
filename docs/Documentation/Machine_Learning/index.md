@@ -50,10 +50,9 @@ You should now be up and running with a TensorFlow! Similar to PyTorch, the [Ten
 	#SBATCH --nodes=1			# Run the tasks on the same node
 	#SBATCH --time=1:00:00			# Required, estimate 1 hour
 	#SBATCH --account=<your_account>
-	#SBATCH --partition=debug
 	#SBATCH --exclusive			# if you want to use the whole node
 
-	module load conda 
+	module load anaconda3 
 
 	cd /projects/<your_project_here>/<your_code_directory>
 
