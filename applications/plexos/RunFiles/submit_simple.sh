@@ -12,4 +12,4 @@ module load gurobi/10.0.2 plexos/9.200R06
 
 cd /scratch/${USER}/HPC/applications/plexos/RunFiles/
 
-$PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelplexos -cp Nr3lplex0s > fout_${SLURM_JOB_ID} 2>&1
+$PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_Gurobi -cu nrelplexos -cp Nr3lplex0s > fout_${SLURM_JOB_ID} 2>&1
