@@ -92,7 +92,7 @@ The basic functionality test is the same as the example run in the section above
 
 ### 2: Simple batch script submission
 
-We will run the same example by submitting the job to the SLURM queue so. In order to run this example as is, run the following commands
+We will run the same example by submitting the job to the SLURM queue. In order to run this example as is, run the following commands
 
 ??? example "Submit job in a batch file."
 
