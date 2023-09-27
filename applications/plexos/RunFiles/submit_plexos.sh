@@ -50,8 +50,8 @@ else
 
     # Go to the correct project folder
     cd /scratch/${USER}/HPC/applications/plexos/RunFiles/
-    # Finally run PLEXOS
-    $PLEXOS/PLEXOS64 -n ${filename}.xml -m ${model} -cu nrelplexos -cp Nr3lplex0s > fout_${filename}_${model} 2>&1
+    # Finally run PLEXOS. We will direct the results to a custom directory 
+    # using -o command line argument.
+    $PLEXOS/PLEXOS64 -n ${filename}.xml -m ${model} -cu nrelplexos -cp Nr3lplex0s -o output_${filename}/ > output_${filename}/fout_${model} 2>&1
 
-    # Move the resulting output folder into the working directory.
 fi

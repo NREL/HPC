@@ -15,7 +15,7 @@ xml_name = "${1%.*}"
 model_list_file=$2
 
 echo $xml_name
-working_dir=example_multiple_${xml_name}
+working_dir=output_${xml_name}
 
 if [ -d "$working_dir" ]; then rm -Rf ${working_dir}; fi
 mkdir -p ${working_dir}
