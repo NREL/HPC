@@ -5,6 +5,8 @@
 #SBATCH --partition=debug
 #SBATCH --mail-type=BEGIN,END,FAIL,REQUE
 #SBATCH --job-name="PLEnhanced"
+#SBATCH --out=%J.out
+#SBATCH --error=%J.err
 
 module purge
 module load craype-x86-spr
@@ -17,7 +19,7 @@ export WAIT_TIME=120
 for attempt in {1..10}
 do
     start_time=`date +%s`
-    $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelplexos -cp Nr3lplex0s > fout_${SLURM_JOB_ID} 2>&1
+    $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_Gurobi -cu nrelplexos -cp Nr3lplex0s > fout_${SLURM_JOB_ID} 2>&1
     end_time=`date +%s`
     run_time=$((end_time-start_time))
     echo Run Time = ${run_time}
