@@ -26,4 +26,4 @@ Users can run PLEXOS models on NREL's computing clusters. However, users need to
 ## Contents
 
 1. [Setting up PLEXOS](setup_plexos.md)
-2. [Running Plexos](run_plexos.md)
+2. [Running PLEXOS](run_plexos.md)
