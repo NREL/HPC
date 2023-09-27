@@ -63,7 +63,7 @@ Before we can run PLEXOS, we need to create a license file on the cluster. For t
       <LicenseServerRequestCount />
     </XmlRegistryRoot>'   > ~/.config/PLEXOS/EE_reg.xml
     ```
-## Conda environment for PLEXOS with python and R
+## Conda environment for PLEXOS with Python and R
 
 1. We need to load a few modules and create the requisite conda environment. First, we need to create a conda environment for PLEXOS.
     ```bash
