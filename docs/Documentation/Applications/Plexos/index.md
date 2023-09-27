@@ -5,7 +5,7 @@ parent: Applications
 
 # PLEXOS
 
-*PLEXOS is a simulation sorftware for modeling electric, gas, and water systems for optimizing energy markets* 
+*PLEXOS is a simulation software for modeling electric, gas, and water systems for optimizing energy markets.* 
 
 Users can run PLEXOS models on NREL's computing clusters. However, users need to build the PLEXOS models on a Windows system as there is no GUI available on the clusters and on Linux in general
 
