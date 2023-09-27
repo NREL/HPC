@@ -84,7 +84,7 @@ nav:
           - PLEXOS:
             - Documentation/Applications/Plexos/index.md
             - Setting Up: Documentation/Applications/Plexos/setup_plexos.md
-            - Runnning models: Documentation/Applications/Plexos/run_plexos.md
+            - Running Models: Documentation/Applications/Plexos/run_plexos.md
           - Q-Chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
