@@ -142,7 +142,7 @@ NREL also offers support for additional functionalities such as [transition stat
 
 ??? note "Performance Notes"
 
-    The Intel MPI builds are reccomended over the Open MPI builds as they exhibit fastest performance.
+    The Intel MPI builds are recommended over the Open MPI builds as they exhibit fastest performance.
 
     If using the openmpi builds, you may see the following warning in the vasp output that can be ignored:
     ```
