@@ -340,7 +340,7 @@ NREL also offers support for additional functionalities such as [transition stat
     ```
 
 ??? note "Performance Notes"
-    The Intel MPI builds are reccomended over the Open MPI builds as they exhibit fastest performance.
+    The Intel MPI builds are recommended over the Open MPI builds as they exhibit fastest performance.
 
     Use at most 64 cores/node. On Swift, each node has 64 physical cores, and each core is subdivided into two virtual cores in a process that is identical to hyperthreading. Because of this, up to 128 cores can be requested from a single Swift node, but each core will only represent half of a physical core. 
 
