@@ -190,7 +190,7 @@ NREL also offers support for additional functionalities such as [transition stat
     ```
 ??? example "Sample job script: Eagle - VASP 6 (Cuda)"
     
-    To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` exectuable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
+    To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` executable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
       
     ```
     #!/bin/bash
