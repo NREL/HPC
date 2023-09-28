@@ -85,11 +85,11 @@ Before we can run PLEXOS, we need to create a license file on the cluster. For t
     conda install r-covr
     ```
 
-!!! note
-    Most of the R libraries should be added as part of the initial install, but keep an eye out for the following packages.
+    !!! note
+        Most of the R libraries should be added as part of the initial install, but keep an eye out for the following packages.
 
-!!! info
-    See [below](setup_plexos.md#using-your-own-version-of-r-and-python) if you wish to use your own version of R and Python for PLEXOS.
+    !!! info
+        See [below](setup_plexos.md#using-your-own-version-of-r-and-python) if you wish to use your own version of R and Python for PLEXOS.
 
 4. We need to install one, `rplexos` library from source. To do this, execute the following commands
     ```bash
@@ -100,14 +100,14 @@ Before we can run PLEXOS, we need to create a license file on the cluster. For t
     CXX=`which icpc` R CMD INSTALL .
     ```
 
-!!! note
-    `rplexos` needs to be built using an Intel compiler and R always wishes to build libraries using the same compilers that was used in its creation. If setting `CXX=which icpc` shown above does not work, we need to fool R by renaming the intel C++ compiler using a symbolic link. *This is a hack* and should only be used if the above way of installation fails. In order for the hack run the following after replacing username in the 3rd line with your own username.
-    ```bash
-    ln -s `which icpc` x86_64-conda_cos6-linux-gnu-c++
-    export PATH=`pwd`:$PATH
-    Rscript -e  "install.packages('/home/username/temporary/rplexos/',repos=NULL,type='source')"
-    rm x86_64-conda_cos6-linux-gnu-c++
-    ```
+    !!! note
+        `rplexos` needs to be built using an Intel compiler and R always wishes to build libraries using the same compilers that was used in its creation. If setting `CXX=which icpc` shown above does not work, we need to fool R by renaming the intel C++ compiler using a symbolic link. *This is a hack* and should only be used if the above way of installation fails. In order for the hack run the following after replacing username in the 3rd line with your own username.
+        ```bash
+        ln -s `which icpc` x86_64-conda_cos6-linux-gnu-c++
+        export PATH=`pwd`:$PATH
+        Rscript -e  "install.packages('/home/username/temporary/rplexos/',repos=NULL,type='source')"
+        rm x86_64-conda_cos6-linux-gnu-c++
+        ```
 
 5. For some PLEXOS examples, we need to install an additional package called `plexos-coad`. For this run the following
     ```bash
@@ -139,7 +139,7 @@ conda activate plex1
 
 ## Using your own version of R and Python
 
-This section is in regards to Point 3 in [setting up the PLEXOS environment](setup_plexos.md#Conda-environment-for-PLEXOS-with-python-and-R).
+This section is in regards to Point 3 in [setting up the PLEXOS environment](#conda-environment-for-plexos-with-python-and-r).
 The following R libraries will need to be installed manually in this case.
 
 ```

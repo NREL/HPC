@@ -4,7 +4,7 @@ parent: Plexos
 grand_parent: Applications
 ---
 
-Please follow the [setup instructions](setup_plexos.md) before running the examples. Example scripts for new users are available within the master branch.
+Please follow the [setup instructions](setup_plexos.md) before running the examples. Example scripts for new users are available within the [master branch](https://github.com/NREL/HPC/tree/master/applications/plexos).
 
 !!! note
     Sometimes newer modules may be availabe in a `test` directory which is hidden by default from the general user base. This obscured release is done to iron out any bugs that may arise during the installation and use of the module while avoiding breaking users existing jobs and workflows. You can use these test modules by running
@@ -18,7 +18,7 @@ Please follow the [setup instructions](setup_plexos.md) before running the examp
 
 ## Example Run
 
-We will load the requisite modules for running PLEXOS 9.2R06 for this example. Please see the [module compatibility](setup_plexos.md#Loading-the-Appropriate-Modules) chart for loading the correct modules
+We will load the requisite modules for running PLEXOS 9.2R06 for this example. Please see the [module compatibility](setup_plexos.md#loading-the-appropriate-modules) chart for loading the correct modules
 
 ```bash
 module load gurobi/10.0.2
