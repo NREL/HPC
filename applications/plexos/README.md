@@ -1,18 +1,19 @@
-# plexos-hpc-walkthrough
-Introduction for new users to run Plexos on the HPC
+# PLEXOS Examples
 
-1. [Obtain an account for NREL HPC](Obtain-Account.md)
+Introductory example scripts for new users to run PLEXOS on the HPC:
 
-2. [Install git and bash on your laptop](INSTALL-GIT-BASH.md)
+1. [submit_simple.sh](submit_simple.sh) : Run a simple PLEXOS model
 
-3. [Login into NREL HPC, eagle](Login-HPC.md)
+2. [submit_enhanced.sh](submit_enhanced.sh) : Runs a simple PLEXOS model but attempts retries if the PLEXOS license cannot be found
 
-4. [View software and initiate a session on a compute node](Initial-Session.md)
+3. [submit_multiple.sh](submit_multiple.sh) : Runs multiple PLEXOS models by submitting multiple batch files
 
-5. [First Time Setup of PLEXOS on HPC](Setup-PLEXOS.md)
+4. [submit_job_array.sh](submit_job_array.sh) : Run multiple PLEXOS models using Job array instead
 
-6. [Run a week of the Base Case](Run-PLEXOS.md)
+5. [submit_plexos.sh](submit_plexos.sh) : Actual batch file called by `submit_multiple.sh` to submit multiple jobs
 
-7. Will not work on eagle - use laptop. [Run Magma on that week](Run-Magma.md)
+6. [models.txt](models.txt) : Contains a list of models that exist within the `5_bus_system_v2.xml` dataset. This is not an exhaustive list
 
-8. [Example TDSVis of week](https://gridmod.github.io/MSPCM-Workshop/PLEXOS_TDSVIS-Workshop.html)
+7. [5_bus_system_v2.xml](5_bus_system_v2.xml) : PLEXOS dataset that we will use for these examples
+
+8. Solar, wind, and load timeseries CSV files.
