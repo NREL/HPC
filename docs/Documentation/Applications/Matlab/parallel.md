@@ -27,7 +27,7 @@ examples will include batch scripts that submit jobs directly to the scheduler.
 To configure your local parallel settings, start an interactive MATLAB session
 with X11 forwarding (see [Running Interactive Jobs on
 Kestrel](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/running/) and [Environment
-Modules on the Kestrel System](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/modules/)). Open MATLAB
+Modules on the Kestrel System](../../Systems/Kestrel/Environments/index.md)). Open MATLAB
 R2023a and do the following:
 
 1. Under the Home tab, go to Parallel > Parallel Preferences.
