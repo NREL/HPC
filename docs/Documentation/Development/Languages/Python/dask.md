@@ -14,7 +14,7 @@ Dask is a framework for parallelizing Python code.  The most common use case is 
 
 ## Installation
 
-Dask can be installed via Conda.  For example, to install Dask into a new conda environment, first load the appropriate anaconda moduel (e.g., `module load anaconda3` on Kestrel), adn then run:
+Dask can be installed via Conda.  For example, to install Dask into a new conda environment, first load the appropriate anaconda module (e.g., `module load anaconda3` on Kestrel), and then run:
 
 ```
 conda env create -n dask python=3.9
@@ -22,7 +22,7 @@ conda activate dask
 conda install dask
 ```
 
-This install Dask along with common dependencies such as NumPy.  Additionally, the `dask-jobqueue` package (discussed below), can be installed via:
+This installs Dask along with common dependencies such as NumPy.  Additionally, the `dask-jobqueue` package (discussed below), can be installed via:
 
 ```
 conda install dask-jobqueue -c conda-forge
