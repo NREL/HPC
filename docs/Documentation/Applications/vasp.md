@@ -68,7 +68,7 @@ NREL also offers support for additional functionalities such as [transition stat
 #### Compiling your build
 
 !!! tip "Important"
-    On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Environments/) for more details on programming environments.
+    On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](../Systems/Kestrel/Environments/index.md) for more details on programming environments.
 
 ??? example "Build recommendations for VASP"
 
