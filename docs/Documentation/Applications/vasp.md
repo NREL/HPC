@@ -18,7 +18,7 @@ The Vienna Ab initio Simulation Package (VASP) is an application for atomic scal
     Once status can be confirmed, we can provide access to our VASP builds. 
 
 ## Getting Started
-VASP is available through modules on all HPC systems. Use the command `module avail vasp` to view the versions of VASP available on each cluster, and `module load vasp/<version>` to load a specific version. If no version is specified, the default module (marked with "(D)") will be loaded.  In the following sections, we will give sample input scripts and reccomendations for the different builds. To run VASP, the following 4 input files are needed: POSCAR, POTCAR, INCAR, KPOINTS. For more information about VASP input files, see the [VASP wiki](https://www.vasp.at/wiki/index.php/Input).
+VASP is available through modules on all HPC systems. Use the command `module avail vasp` to view the versions of VASP available on each cluster, and `module load vasp/<version>` to load a specific version. If no version is specified, the default module (marked with "(D)") will be loaded.  In the following sections, we will give sample input scripts and recommendations for the different builds. To run VASP, the following 4 input files are needed: POSCAR, POTCAR, INCAR, KPOINTS. For more information about VASP input files, see the [VASP wiki](https://www.vasp.at/wiki/index.php/Input).
 
 !!! warning "Attention"
 	If you would like to build your own VASP on Kestrel, please read our section [Building VASP on Kestrel](vasp.md#building-vasp-on-kestrel) carefully before compiling on Kestrel's cray architecture. 
