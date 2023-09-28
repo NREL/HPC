@@ -128,7 +128,7 @@ This builds upon the previous example where it tries to run the same model as be
 
 ### 4: Submitting multiple PLEXOS jobs
 
-This example demonstrates how to submit multiple PLEXOS jobs
+This example demonstrates how to submit multiple PLEXOS jobs. The model names are present in a file called `models.txt`. `submit_multiple.sh` is simply a wrapper that calls the batch file `submit_plexos.sh`.  
 
 ??? example "Submit multiple PLEXOS jobs"
 
@@ -140,7 +140,7 @@ This example demonstrates how to submit multiple PLEXOS jobs
 
     # Go into the appropriate directory
     cd /scratch/${USER}/HPC/applications/plexos/RunFiles
-    sbatch -A account_name --mail-user=your.email@nrel.gov submit_multiple.sh
+    ./submit_multiple.sh 5_bus_system_v2.xml models.txt
     ```
 
 ### 5: Running PLEXOS with SLURM array jobs
@@ -157,6 +157,8 @@ This example demonstrates the use of SLURM job arrays to run multiple PLEXOS job
 
     # Go into the appropriate directory
     cd /scratch/${USER}/HPC/applications/plexos/RunFiles
-    sbatch -A account_name --mail-user=your.email@nrel.gov submit_job_array.sh
+    export filename=5_bus_system_v2 # Export the XML dataset name
+    export models.txt # Export the file that contains the models names within the XML dataset
+    sbatch -A account_name -t 5 --mail-user=your.email@nrel.gov --array=1-4 submit_job_array.sh
     ```
 
