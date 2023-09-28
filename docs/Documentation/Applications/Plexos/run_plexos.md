@@ -14,7 +14,7 @@ Please follow the [setup instructions](setup_plexos.md) before running the examp
     module avail
     ```
 
-    This should display all of the test modules available in addition to the defaults. We encourage you to reach out to us at HPC-Help@nrel.gov for access if you would like access to these modules.
+    This should display all of the test modules available in addition to the defaults. We encourage you to reach out to us at [HPC-Help@nrel.gov](mailto:HPC-Help@nrel.gov) for access if you would like access to these modules.
 
 ## Example Run
 
