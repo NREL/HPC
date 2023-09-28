@@ -70,7 +70,7 @@ NREL also offers support for additional functionalities such as [transition stat
 !!! tip "Important"
     On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Environments/) for more details on programming environments.
 
-??? example "Build reccomendations for VASP"
+??? example "Build recommendations for VASP"
 
     We recommend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 
