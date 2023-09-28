@@ -51,6 +51,8 @@ else
     module purge
     module load craype-x86-spr
     module load gurobi/10.0.2 plexos/9.200R06
+    
+    cd /scratch/${USER}/HPC/applications/plexos/RunFiles/
 
     # get the JOB and SUBJOB ID
     if [[ $SLURM_ARRAY_JOB_ID ]] ; then
@@ -75,20 +77,11 @@ else
     export TEMP=$PLEXOS_TEMP
 
     # make a top level directory for the job if it does not already exist and enter it
-    mkdir -p $JOB_ID && cd $JOB_ID
+    mkdir -p $JOB_ID
 
-    export model=`head -n $SUB_ID $SLURM_SUBMIT_DIR/$LIST | tail -1`
-
-    mkdir -p $model && cd $model
-    mkdir -p $PLEXOS_TEMP $TEMP
-
-    # Create symbolic links to the original PLEXOS submit file
-    ln -fs $SLURM_SUBMIT_DIR/${filename}.xml .
-    ln -fs $SLURM_SUBMIT_DIR/data .
+    export model=`head -n $SUB_ID $LIST | tail -1`
 
     # Finally run the PLEXOS model
-    $PLEXOS/PLEXOS64 -n ${filename}.xml -m ${model} -cu nrelplexos -cp Nr3lplex0s
-
-    # Once the jobs have run move them as needed.
+    $PLEXOS/PLEXOS64 -n ${filename}.xml -m ${model} -o ${JOB_ID} -cu nrelplexos -cp Nr3lplex0s
 
 fi
