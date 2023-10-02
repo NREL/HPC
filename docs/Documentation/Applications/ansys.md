@@ -17,8 +17,8 @@ The main workflow that we support has two stages. The first is interactive graph
 GUI access is provided through [FastX desktops](https://kestrel-dav.hpc.nrel.gov/session/). Open a terminal, load, and launch the Ansys Fluent environment with:
 
 ```
-module load ansys/<version>
-vglrun runwb2
+[user@kd1 ~]$ module load ansys/<version>
+[user@kd1 ~]$ vglrun runwb2
 ```
 
 where `<version>` will be replaced with an Ansys version/release e.g., `2021R2`. Press `tab` to auto-suggest all available versions. Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs.
@@ -73,7 +73,7 @@ TODO: Update this example with kestrel specific modules
 Once this script file (assumed to be named `ansys-job.slurm`) is saved, it can be submitted to the job scheduler with
 
 ```
-[user@el3 ~]$ sbatch ansys-job.slurm
+[user@kl1 ~]$ sbatch ansys-job.slurm
 ```
 
 In this example batch script, `2ddp` can be replaced with the version of FLUENT your job requires (`2d`, `3d`, `2ddp`, or `3ddp`), `-g` specifies that the job should run without the GUI, `-t` specifies the number of processors to use (in this example, 2 x 104 processors), `-cnf` specifies the hosts file (the list of nodes allocated to this job), `-mpi` and `-p<...>` specify the MPI implementation and interconnect, respectively, and`-i` is used to specify the job input file.  Note that generally speaking the generation of the hostname file,`myhosts.txt`, must be repeated in the beginning of each job since the allocated nodes will likely change for each run. 

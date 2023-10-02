@@ -24,13 +24,14 @@ For instructional videos, see the [COMSOL website](https://www.comsol.com) Video
 When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/session/) by opening a terminal and running the following commands:
 
 ```
-[user@ed3 ~]$ module purge
-[user@ed3 ~]$ module load comsol/6.0
-[user@ed3 ~]$ vglrun comsol
+[user@kd1 ~]$ module purge
+[user@kd1 ~]$ module load comsol/6.0
+[user@kd1 ~]$ vglrun comsol
 ```
 
 Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell (ssh -Y ...) on a compute node by replacing the `vglrun comosl` command with:
 
+TODO: Update with kestrel node
 ```
 [user@r1i7n24 ~]$ comsol -3drend sw
 ```
@@ -40,8 +41,8 @@ However, the performance may be slow and certain display features may behave une
 ## Running a COMSOL Model in Batch Mode
 You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
 
+TODO: Update this and following example with kestrel specific modules
 ???+ example "Example Submission Script"
-
     ```bash
     #!/bin/bash
     #SBATCH --job-name=comsol-batch-1proc
@@ -75,7 +76,7 @@ You can save your model built in FastX+GUI mode into a file such as `myinputfile
 Once this script file (assumed to be named `comsol-job.slurm`) is saved, it can be submitted to the job scheduler with
 
 ```
-[user@el3 ~]$ sbatch comsol-job.slurm
+[user@kl1@ ~]$ sbatch comsol-job.slurm
 ```
 
 ## Running a COMSOL Model in Batch Mode (with MPI)
