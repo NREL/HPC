@@ -413,7 +413,7 @@ NREL also offers support for additional functionalities such as [transition stat
 
     srun --mpi=pmi2 -n 60 vasp_std
     ```
-??? example "Sample job script: Vermillion - VASP 5 (Intel MPI)"
+??? example "Sample job script: Vermilion - VASP 5 (Intel MPI)"
   
     ```
     #!/bin/bash
