@@ -7,7 +7,7 @@ parent: Applications
 
 *COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies.*
 
-Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available.
+<!-- Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available. -->
 
 ## Building a COMSOL Model
 Extensive documentation is available in the menu: **Help > Documentation**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
@@ -15,13 +15,13 @@ Extensive documentation is available in the menu: **Help > Documentation**. For 
 For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
 ## Building Models in the COMSOL GUI
-Before beginning, it is good practice to check the license status with:
+<!-- Before beginning, it is good practice to check the license status with:
 
 ```
 [user@el3 ~]$ lmstat.comsol
 ```
-
-When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://eagle-dav.hpc.nrel.gov/session/) by opening a terminal and running the following commands:
+ -->
+When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/session/) by opening a terminal and running the following commands:
 
 ```
 [user@ed3 ~]$ module purge
@@ -66,10 +66,10 @@ You can save your model built in FastX+GUI mode into a file such as `myinputfile
     outputfile=$SLURM_SUBMIT_DIR/myoutputfilename
     logfile=$SLURM_SUBMIT_DIR/mylogfilename
 
-    # Run a COMSOL job with 36 threads.
+    # Run a COMSOL job with 104 threads.
     # -np = number of threads per rank
 
-    comsol batch -np 36 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
+    comsol batch -np 104 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
 
 Once this script file (assumed to be named `comsol-job.slurm`) is saved, it can be submitted to the job scheduler with
@@ -107,12 +107,12 @@ To configure a COMSOL job with multiple MPI ranks, required for any job where th
     outputfile=$SLURM_SUBMIT_DIR/myoutputfilename
     logfile=$SLURM_SUBMIT_DIR/mylogfilename
 
-    # Run a 2-node, 4-rank parallel COMSOL job with 18 threads for each rank.
+    # Run a 2-node, 4-rank parallel COMSOL job with 52 threads for each rank.
     # -nn = total number of MPI ranks
     # -nnhost = number of MPI ranks per "host", here equivalent to node
     # -np = number of threads per rank
 
-    comsol –nn 4 -nnhost 2 batch -np 18 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
+    comsol –nn 4 -nnhost 2 batch -np 52 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
 
-The job script is submitted to the scheduler just the same as above for the single-process example. For jobs that require >1 node, this approach, which uses multiple MPI ranks, must be used. Note that in this case, we choose 4 MPI ranks, 2 per node, each using 18 threads to demonstrate the available submission options *not* any optimal performance recommendation. A different arrangement, e.g., `-nn 2 --nnhost 1 batch -np 36`, which translates to 2 MPI ranks, 1 per node, each using 36 threads may perform better for your application. The optimal configuration depends on your particular problem and choice of solver, so some experimentation may be required.
+The job script is submitted to the scheduler just the same as above for the single-process example. For jobs that require >1 node, this approach, which uses multiple MPI ranks, must be used. Note that in this case, we choose 4 MPI ranks, 2 per node, each using 52 threads to demonstrate the available submission options *not* any optimal performance recommendation. A different arrangement, e.g., `-nn 2 --nnhost 1 batch -np 104`, which translates to 2 MPI ranks, 1 per node, each using 104 threads may perform better for your application. The optimal configuration depends on your particular problem and choice of solver, so some experimentation may be required.
