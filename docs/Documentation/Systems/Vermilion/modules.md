@@ -45,17 +45,17 @@ myenv.\* in sub directories.  For example
     * 	Has some newer versions of compilers and other packages such as python 3.10.2 & gcc 12.1.
 
 
+!!! warning "Important"
+    Currently, none of these environments are loaded by default for users.  Users must source one of the  /nopt/nrel/apps/210929a/myenv.\* files to enable an environment.  
 
-Currently, none of these environments are loaded by default for users.  Users must source one of the  /nopt/nrel/apps/210929a/myenv.\* files to enable an environment.  
-
-The recommended environment is enabled by running the source command:
+    The recommended environment is enabled by running the source command:
 
 
-```
-source /nopt/nrel/apps/210929a/myenv.2110041605
-```
+    ```
+    source /nopt/nrel/apps/210929a/myenv.2110041605
+    ```
 
-!!! note
+
     You may want to add this line to your .bashrc file so modules are available at login.
 
 After sourcing this file you will have access to a set of modules. These can be listed using the following command:
