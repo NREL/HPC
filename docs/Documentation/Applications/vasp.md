@@ -466,7 +466,7 @@ NREL also offers support for additional functionalities such as [transition stat
 
 #### GPU
 
-??? example "Sample job script: Vermillion - VASP 6 (OpenACC)"
+??? example "Sample job script: Vermilion - VASP 6 (OpenACC)"
   
     ```
     #!/bin/bash
