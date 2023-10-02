@@ -351,7 +351,7 @@ NREL also offers support for additional functionalities such as [transition stat
 ## VASP on Vermilion
 
 #### CPU
-??? example "Sample job script: Vermillion - VASP 6 (Intel MPI)"
+??? example "Sample job script: Vermilion - VASP 6 (Intel MPI)"
   
     ```
     #!/bin/bash
