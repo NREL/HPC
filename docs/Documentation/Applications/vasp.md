@@ -75,7 +75,7 @@ NREL also offers support for additional functionalities such as [transition stat
     We recommend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 
     ```
-    salloc -N 1 -p standard -t <time> -A <account>
+    salloc -N 1 -t <time> -A <account>
     ```
     Then, load appropriate modules for your mpi, compilers, and math packages:
     ```
