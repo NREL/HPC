@@ -383,7 +383,7 @@ NREL also offers support for additional functionalities such as [transition stat
     # If the multi-node calculations are breaking, replace the srun line with this line
     # I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
     ```
-??? example "Sample job script: Vermillion - VASP 6 (Open MPI)"
+??? example "Sample job script: Vermilion - VASP 6 (Open MPI)"
   
     ```
     #!/bin/bash
