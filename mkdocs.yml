@@ -159,7 +159,7 @@ nav:
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
          - Containers:
             - Documentation/Development/Containers/index.md
-            - Documentation/Development/Containers/registres.md
+            - Documentation/Development/Containers/registries.md
             - Documentation/Development/Containers/singularity.md
             - Documentation/Development/Containers/apptainer.md
       - Visualization and Analytics:
