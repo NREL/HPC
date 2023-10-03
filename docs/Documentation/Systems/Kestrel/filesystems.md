@@ -25,7 +25,7 @@ The Parallel File System (PFS) ProjectFS and ScratchFS on Kestrel is a ClusterSt
 
 **/scratch**
 
-Each user has their own directory in /scratch. Data in /scratch is subject to deletion after 28 days of inactivity.
+Each user has their own directory in /scratch. Data in /scratch is subject to deletion after 28 days of inactivity. 
 
 **/projects**
 
