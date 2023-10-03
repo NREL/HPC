@@ -172,9 +172,6 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
-  - Kestrel Friendly Users:
-      - Applications:
-        - VASP: Friendly_User/Applications/vasp.md
 theme:
   name: material
   custom_dir: overrides
