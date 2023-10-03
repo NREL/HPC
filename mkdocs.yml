@@ -161,6 +161,7 @@ nav:
             - Documentation/Development/Containers/index.md
             - Documentation/Development/Containers/registres.md
             - Documentation/Development/Containers/singularity.md
+            - Documentation/Development/Containers/apptainer.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
