@@ -1,0 +1,38 @@
+Bootstrap: localimage
+from: slurm.sif
+
+%environment
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cray/pe/lib64
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cray/libfabric/1.15.2.0/lib64
+    # Point to OPENMPI binaries, libraries man pages
+    export OPENMPI_DIR=/opt/openmpi
+    export PATH="$OPENMPI_DIR/bin:$PATH"
+    export LD_LIBRARY_PATH="$OPENMPI_DIR/lib:$LD_LIBRARY_PATH"
+    export MANPATH=$OPENMPI_DIR/share/man:$MANPATH
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cray/pe/lib64
+
+
+
+
+%post
+    mkdir -p /opt/openmpi/src
+    cd /opt/openmpi
+    curl https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz --output openmpi-4.1.5.tar.gz
+    tar -xzf openmpi-4.1.5.tar.gz -C /opt/openmpi/src
+
+
+    echo "Installing OPENMPI..."
+     # Compile and install
+    cd /opt/openmpi/src/* && ./configure --prefix=/opt/openmpi --with-pmi=/opt/spack/spack/opt/spack/linux-ubuntu22.04-icelake/gcc-11.3.0/slurm-23-02-2-1-vuli4oeqrx4yjrese2zmrnttmdw2b3qu/ --enable-orterun-prefix-by-default && make install
+
+    # Set env variables so we can compile our application
+    export PATH=/opt/openmpi/bin:$PATH
+    export LD_LIBRARY_PATH=/opt/openmpi/lib:$LD_LIBRARY_PATH
+
+    echo "Compiling the MPI application..."
+    echo "Compiling the MPI application..."
+    cd /opt && git clone https://github.com/timkphd/examples.git
+    cd /opt/examples/affinity/tds && mpicc -fopenmp phostone.c -o phostone
+    cd /opt/examples/affinity/tds && mpicc ppong.c -lm -o ppong
+
+

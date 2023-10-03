@@ -1,0 +1,33 @@
+Bootstrap: localimage
+from: mods_intel.sif
+
+%help
+basic environment on which to build
+module avail
+
+
+%environment
+source `find /opt/local/opt/*/*/lmod* -name bash`
+module use /opt/local/lmod/*/Core/
+#export LD_LIBRARY_PATH=/opt/local/lib:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=/opt/local/lib64:$LD_LIBRARY_PATH
+module load libfabric
+
+
+%post
+cd /opt
+cd spack
+export SPACK_DISABLE_LOCAL_CONFIG=true
+export SPACK_ROOT=`pwd`
+export SPACK_USER_CACHE_PATH=${SPACK_ROOT}/.cache
+export TMPDIR=$SPACK_ROOT/tmp
+. share/spack/setup-env.sh
+spack load intel-mpi
+cd /opt/examples/affinity/tds/
+mpicc -fopenmp phostone.c  -o phostone
+mpicc -fopenmp ppong.c -lm -o ppong
+
+
+
+
+

@@ -1,0 +1,24 @@
+Bootstrap: localimage
+from: intel2.sif
+
+%environment
+. /opt/lmod/stable/init/bash
+module use /opt/spack/install/lmod/linux-ubuntu22.04-x86_64/Core
+module load intel-oneapi-mpi/2021.9.0-hnwuxap
+module load intel-oneapi-compilers/2023.1.0-ankkni2  
+
+
+
+
+%post
+
+. /opt/lmod/stable/init/bash
+module use /opt/spack/install/lmod/linux-ubuntu22.04-x86_64/Core
+module load intel-oneapi-mpi/2021.9.0-hnwuxap
+module load intel-oneapi-compilers/2023.1.0-ankkni2  
+#    cd /opt && git clone https://github.com/timkphd/examples.git
+    cd /opt/examples/affinity/tds && mpicc -fopenmp phostone.c -o phostone
+    cd /opt/examples/affinity/tds && mpicc ppong.c -lm -o ppong
+
+
+

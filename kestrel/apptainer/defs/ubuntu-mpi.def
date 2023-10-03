@@ -1,0 +1,32 @@
+Bootstrap: docker
+from: ubuntu:latest
+
+%environment
+    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+    export PMIX_MCA_gds=^ds12
+
+%post
+    echo "Installing basic development packages..."
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update 
+    apt-get install -y bash gcc g++ gfortran make curl python3
+#    apt-get install -y gfortran
+
+    echo "Installing OPENMPI..."
+    curl https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.5.tar.gz --output openmpi-4.1.5.tar.gz
+    mkdir -p /opt/openmpi/src
+    tar -xzf openmpi-4.1.5.tar.gz -C /opt/openmpi/src
+    cd /opt/openmpi/src/*
+    ./configure --disable-mpi-fortran 
+#    ./configure 
+    make install
+
+    echo "Build OPENMPI Example..."
+    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH  
+    cd /opt/openmpi/src/*/examples 
+    mpicc ring_c.c -o /usr/bin/ring
+
+%runscript
+    /usr/bin/ring
+
+
