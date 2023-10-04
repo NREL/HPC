@@ -15,13 +15,13 @@ Here we show the information you can obtain with Linaro Performance reports usin
 
 Here is the header of performance report obtained for a VASP run on 1 node with 36 processes:
 
-![1n36p report-1](../../../../../overrides/assets/images/Profiling/PR-1.png)
+![1n36p report-1](../../../../../assets/images/Profiling/PR-1.png)
  
 This shows time spent running application code, sending MPI calls, and time on I/O. In this case, we see that we are MPI-bound, which makes sense given that we are running a small, simple test case on more MPI tasks than necessary, which creates unnecssary MPI communication overhead.
 	
 The rest of the report shows a further breakdown of each of these categories:
 
-![1n36p report-2](../../../../../overrides/assets/images/Profiling/PR-2.png)
+![1n36p report-2](../../../../../assets/images/Profiling/PR-2.png)
 
 ## Running a performance report
 
