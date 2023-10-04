@@ -41,7 +41,8 @@ Gaussian may be configured on Eagle and Kestrel to run on one or more physical n
 #SBATCH --job-name=G16test
 #SBATCH --output=std.out
 #SBATCH --error=std.err
-#SBATCH --account=hpcapps
+#SBATCH --account=<your-allocation-id>
+
 	
 # Load Gaussian module to set environment
 module load gaussian
