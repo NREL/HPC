@@ -31,7 +31,7 @@ Continue to the [profiling section](map.md#profiling-a-program)
 
 
 ### Option 2: FastX Setup
-To run MAP with FastX, follow instructions to download and install the desktop client and connect to a host on the [FastX](https://nrel.github.io/HPC/Documentation/Software_Tools/FastX/fastx/) page.
+To run MAP with FastX, follow instructions to download and install the desktop client and connect to a host on the [FastX](../../../Viz_Analytics/virtualgl_fastx.md) page.
 
 Once you have FastX installed and an appropriate build of your program to profile, start an xterm window from within FastX connected to an HPC host (We recommend using DAV nodes if available on your system). Then continue to the [profiling section](map.md#profiling-a-program)
 
