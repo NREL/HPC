@@ -140,10 +140,10 @@ nav:
               - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
          - Performance Tools:
-            #  - ARM Performance Reports:
-            #    - Documentation/Development/Performance_Tools/ARM/index.md
-            #    - MAP : Documentation/Development/Performance_Tools/ARM/map.md
-            #    - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
+             - Linaro-Forge:
+               - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
+               - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
+               - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
