@@ -57,10 +57,10 @@ Once you have an appropriate build of your program to profile and either the Lin
     Make sure your working directory includes your input files, or specify your stdin file and its path.
     Adjust other parameters as needed for profiling.
 
-    ![Linaro-MAP-GUI](../../../../../overrides/assets/images/Profiling/MAP-6.png)
+    ![Linaro-MAP-GUI](../../../../../assets/images/Profiling/MAP-6.png)
 
 5.	Start your profile by clicking “Run”
 
 You should now see the profiling data we described in the previous section [MAP](index.md). Please refer to that page as well as the [Linaro Forge Documentation](https://www.linaroforge.com/documentation/) for more details on what you can learn from such profiles.
 
-![Linaro-MAP-Profile](../../../../../overrides/assets/images/Profiling/MAP-7.png)
+![Linaro-MAP-Profile](../../../../../assets/images/Profiling/MAP-7.png)
