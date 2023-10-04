@@ -14,24 +14,24 @@ Across the top we see our metrics data for the default metrics: main thread acti
 * &#x1F7E0; Orange: I/O time
 * &#128995; Dark purple: Accelerator time. 
 
-![VASP-MAP-1](../../../../../overrides/assets/images/Profiling/MAP-1.png)
+![VASP-MAP-1](../../../../../assets/images/Profiling/MAP-1.png)
 
 Across the bottom we have different view tabs. The I/O view displays your program I/O. The Project Files view allows you to navigate through your code base. The Functions view shows a flat profile of the functions in your program. The Stacks view allows you to follow down from the main function to see which code paths took the most time. Each line of the Stacks view shows the performance of one line of your source code, including all the functions called by that line.
 
 You can select different metrics to view from the metrics menu: 
 
-![VASP-MAP-2](../../../../../overrides/assets/images/Profiling/MAP-2.png)
+![VASP-MAP-2](../../../../../assets/images/Profiling/MAP-2.png)
 
 As well as zoom in on specific times in your program run.
 
-![VASP-MAP-3](../../../../../overrides/assets/images/Profiling/MAP-3.png)
+![VASP-MAP-3](../../../../../assets/images/Profiling/MAP-3.png)
 
 By clicking on the functions in the “Main Thread Stacks,” the profiler will take you to those calls in your code. Here we see that the call to the Davidson algorithm takes 68.6% of the program time.
 
-![VASP-MAP-4](../../../../../overrides/assets/images/Profiling/MAP-4.png)
+![VASP-MAP-4](../../../../../assets/images/Profiling/MAP-4.png)
 
 Digging in further, we can find that most of the time is spent in the CALLMPI function, and the activity shows as blue indicating this MPI communication and wait time.
 
-![VASP-MAP-5](../../../../../overrides/assets/images/Profiling/MAP-5.png)
+![VASP-MAP-5](../../../../../assets/images/Profiling/MAP-5.png)
 
 See the next section [MAP](map.md) for how to obtain these.
