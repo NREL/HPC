@@ -18,8 +18,10 @@ NREL operates three on-premises systems for computational work.
 | Interconnect | HPE Slingshot 11 | InfiniBand EDR | InfiniBand HDR| 25GbE |
 | HPC scheduler | Slurm | Slurm | Slurm | Slurm |
 | Network Storage | 95PB Lustre | 17PB Lustre FS | 3PB NFS | 440 TB
-| GPU         | 132 4x NVIDIA H100 SXM GPUs | Dual NVIDIA Tesla V100 | None | 5 nodes Single A100
+| GPU         | *132 4x NVIDIA H100 SXM GPUs* | Dual NVIDIA Tesla V100 | None | 5 nodes Single A100
 | Memory      | 256GB, 384GB, 2TB | 96GB, 192GB, 768GB | 256GB | 256GB (base)
 | Number of Nodes| 2454 | 2618 | 484 | 133 virtual |
 
+!!! note
+    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2 (January, 2024). 
 
