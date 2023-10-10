@@ -20,18 +20,18 @@ Across the bottom we have different view tabs. The I/O view displays your progra
 
 You can select different metrics to view from the metrics menu: 
 
-![VASP-MAP-2](../../../../../assets/images/Profiling/MAP-2.png)
+![VASP-MAP-2](../../../../assets/images/Profiling/MAP-2.png)
 
 As well as zoom in on specific times in your program run.
 
-![VASP-MAP-3](../../../../../assets/images/Profiling/MAP-3.png)
+![VASP-MAP-3](../../../../assets/images/Profiling/MAP-3.png)
 
 By clicking on the functions in the “Main Thread Stacks,” the profiler will take you to those calls in your code. Here we see that the call to the Davidson algorithm takes 68.6% of the program time.
 
-![VASP-MAP-4](../../../../../assets/images/Profiling/MAP-4.png)
+![VASP-MAP-4](../../../../assets/images/Profiling/MAP-4.png)
 
 Digging in further, we can find that most of the time is spent in the CALLMPI function, and the activity shows as blue indicating this MPI communication and wait time.
 
-![VASP-MAP-5](../../../../../assets/images/Profiling/MAP-5.png)
+![VASP-MAP-5](../../../../assets/images/Profiling/MAP-5.png)
 
 See the next section [MAP](map.md) for how to obtain these.

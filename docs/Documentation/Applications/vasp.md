@@ -106,6 +106,7 @@ NREL also offers support for additional functionalities such as [transition stat
     # Load cray-mpich-abi and its dependencies within PrgEnv-intel, intel compilers, mkl, and unload cray's libsci
     module purge
     module load PrgEnv-intel
+    module load craype-x86-spr
     module swap cray-mpich cray-mpich-abi
     module unload cray-libsci
     module load intel-oneapi-compilers
