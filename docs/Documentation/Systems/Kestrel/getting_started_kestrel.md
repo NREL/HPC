@@ -71,9 +71,9 @@ The Home File System (HFS) on Kestrel is part of the ClusterStor used for PFS, p
 
 ## Data Transfer
 
-To transfer small batches of data, use `rsync` or `scp`. 
+We recommend using [Globus](../../Managing_Data/Transferring_Files/globus.md) to transfer files between Eagle and Kestrel. Please see our [Globus documentation](../../Managing_Data/Transferring_Files/globus.md) for information about the Kestrel Globus endpoints. 
 
-Globus is expected to be available soon. Please contact [HPC-Help@nrel.gov](mailto://hpc-help@nrel.gov) if you need help with transferring data to Kestrel. 
+To transfer small batches of data, `rsync` or `scp` are also available. 
 
 ## Jupyterhub
 
