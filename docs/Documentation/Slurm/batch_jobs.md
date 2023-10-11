@@ -13,7 +13,7 @@ Once submitted, the scheduler will insert your job script into the queue to be r
 
 Priority factors vary on a cluster-by-cluster basis, but typically include a "fairshare" value based on the resources assigned to the allocation, as well as weighting by the job's age, partition, resources (e.g. node count) and/or Quality of Service (qos) factor. Please see the [Monitoring and Control commands](monitor_and_control) page for more information on checking your job's priority. The [Systems](../Systems/) documentation for each cluster will also have more information about the priority weighting, QOS factors, and any associated AU upcharges. 
 
-To submit batch jobs on an HPC system at NREL, the Slurm sbatch command should be used:
+To submit batch jobs on an HPC system at NREL, the Slurm `sbatch` command should be used:
 
 `$ sbatch --account=<project-handle> <batch_script>`
 
