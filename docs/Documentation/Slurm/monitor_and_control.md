@@ -104,7 +104,7 @@ Example output:
           13182480     debug  runtest  jwright2 R      31:01      1 2023-09-01T14:49:54  normal 59:00        r3i7n35
 ```
 
-Many other options are available in the man page.
+Many other options are available in the `man` page.
 
 
 ### scontrol
