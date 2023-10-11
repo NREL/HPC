@@ -31,7 +31,7 @@ Recall that we can only use the Gurobi solver while running the PLEXOS on the NR
 $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi
 ```
 
-The command above assumes that we are running the model `2024_yr_15percPV_MT_Gurobi` from file `5_bus_system_v2.xml`. PLEXOS 9.0RX requires validating user-credentials for a local 
+The command above assumes that we are running the model `2024_yr_15percPV_MT_Gurobi` from file [`5_bus_system_v2.xml`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/5_bus_system_v2.xml). PLEXOS 9.0RX requires validating user-credentials for a local 
 PLEXOS account for each run. Therefore, if we ran the above command in an interactive session, we would need to enter the following username and password
 
 ```txt
@@ -71,7 +71,7 @@ The basic functionality test is the same as the example run in the section above
 
 1. Request an interactive node
 2. Go to the correct example directory
-3. Run the PLEXOS example interactively
+3. Run the [PLEXOS example](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/5_bus_system_v2.xml) interactively
 
 ??? example "Simple 5 bus problem"
 
@@ -92,7 +92,7 @@ The basic functionality test is the same as the example run in the section above
 
 ### 2: Simple batch script submission
 
-We will run the same example by submitting the job to the SLURM queue. In order to run this example as is, run the following commands
+We will run the same example by submitting the job to the SLURM queue. This example uses the batch file [`submit_simple.sh`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/submit_simple.sh). In order to run this example as is, run the following commands
 
 ??? example "Submit job in a batch file."
 
@@ -111,7 +111,7 @@ We will run the same example by submitting the job to the SLURM queue. In order 
 
 ### 3: Enhanced batch script submission
 
-This builds upon the previous example where it tries to run the same model as before, but adds redundancy where the job doesn't fail if a license is not found. The submission script attempts to re-run the job after waiting 120 seconds for each attempt.
+This builds upon the previous example where it tries to run the same model as before, but adds redundancy where the job doesn't fail if a license is not found. The submission script [`submit_enhanced.sh`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/submit_enhanced.sh) attempts to re-run the job after waiting 120 seconds for each attempt.
 
 ??? example "Slightly enhanced batch submission script"
 
@@ -128,7 +128,7 @@ This builds upon the previous example where it tries to run the same model as be
 
 ### 4: Submitting multiple PLEXOS jobs
 
-This example demonstrates how to submit multiple PLEXOS jobs. The model names are present in a file called `models.txt`. `submit_multiple.sh` is simply a wrapper that calls the batch file `submit_plexos.sh`.  
+This example demonstrates how to submit multiple PLEXOS jobs. The model names are present in a file called [`models.txt`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/models.txt). [`submit_multiple.sh`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/submit_multiple.sh) is simply a wrapper that calls the batch file [`submit_plexos.sh`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/submit_plexos.sh).  
 
 ??? example "Submit multiple PLEXOS jobs"
 
@@ -145,7 +145,7 @@ This example demonstrates how to submit multiple PLEXOS jobs. The model names ar
 
 ### 5: Running PLEXOS with SLURM array jobs
 
-This example demonstrates the use of SLURM job arrays to run multiple PLEXOS jobs
+This example demonstrates the use of SLURM job arrays to run multiple PLEXOS jobs using the script [`submit_job_array.sh`](https://github.com/NREL/HPC/blob/master/applications/plexos/RunFiles/submit_job_array.sh)
 
 ??? example "Submit Slurm job-array for PLEXOS"
 
