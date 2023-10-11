@@ -70,7 +70,7 @@ $ squeue --start -j 509851,509852
 
 The displayed fields in `squeue` can be highly customized to display the information that's most relevant for the user by using the `-o` or `-O` flags. The full list of customizable fields can be found under the entries for these flags in the `man squeue` command on the system. 
 
-By setting the environment variable export $SQUEUE_FORMAT, you can override the system's default squeue fields with your own. For example, if you run the following line (or place it in your `~/.bashrc` or `~/.bash_aliases` file to make it peristent across logins):
+By setting the environment variable export $SQUEUE_FORMAT, you can override the system's default squeue fields with your own. For example, if you run the following line (or place it in your `~/.bashrc` or `~/.bash_aliases` file to make it persistent across logins):
 
 `export SQUEUE_FORMAT="%.18i %.15P %.8q %.12a %.8p %.8j %.8u %.2t %.10M %.6D %R"`
 
