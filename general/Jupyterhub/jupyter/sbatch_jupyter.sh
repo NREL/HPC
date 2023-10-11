@@ -10,7 +10,7 @@
 
 module purge
 module load conda
-source activate /home/$USER/.conda/envs/jupyterenv
+source activate /home/$USER/.conda-envs/jupyterenv
 
 port=7878
 
