@@ -1,0 +1,11 @@
+export PLEXOS_VERSION="8.0"
+export XPRESSMP_VERSION="8.5.6"
+module purge
+module load centos mono/4.6.2.7 xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
+
+#not sure this is needed since it was done above when we started conda.
+module load conda
+
+export PLEXOS_TEMP=/scratch/$USER/tmp/$SLURM_JOBID
+export TEMP=$PLEXOS_TEMP
+mkdir -p $PLEXOS_TEMP

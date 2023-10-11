@@ -1,0 +1,41 @@
+#!/bin/bash
+#SBATCH --job-name="4plexos"
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
+#SBATCH --time=00:15:00
+#SBATCH --partition=debug
+### You need to change the next line
+#SBATCH --account=hpcapps
+
+mkdir $SLURM_JOB_ID
+cat $0 > $SLURM_JOB_ID/script
+cd $SLURM_JOB_ID
+
+export MAX_TEMP_FILE_AGE=50
+export PLEXOS_TEMP=`pwd`/plexos_temp
+export TEMP=$PLEXOS_TEMP
+
+mkdir -p $PLEXOS_TEMP
+
+## Select our version...
+
+export PLEXOS_VERSION="8.200R01"
+export XPRESSMP_VERSION="8.5.6"
+export MONO_VERSION="6.8.0.105"
+
+module purge
+module load centos mono/$MONO_VERSION xpressmp/$XPRESSMP_VERSION plexos/$PLEXOS_VERSION
+
+# Get our data
+wget https://github.nrel.gov/tkaiser2/plexos/raw/master/week.tgz
+tar -xzf week.tgz
+ls -lt
+
+mono $PLEXOS/PLEXOS64.exe -n "one_week_model.xml" -m DAY_AHEAD &> mono_log.$SLURM_JOB_ID || echo "mono fail"
+
+# Remove the files in the *tgz file.  We don't need them anymore.
+tar -tzf week.tgz | grep -v tymer |sed "s,/.*,," | sort -u  | while IFS= read -r line ; do rm -rf "$line" ; done
+
+# Copy slurm stderr & stdout to this directory.
+pwd
+cp ../std*.$SLURM_JOB_ID . || echo "No std*.$SLURM_JOB_ID"

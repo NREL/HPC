@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<XmlRegistryRoot>
+  <comms>
+    <licServer_IP val="10.60.3.188" />
+    <licServer_CommsPort val="399" />
+    <licServer_IP_Secondary />
+    <connect>
+      <PrimaryServer_Port />
+      <SecondaryServer_Port />
+    </connect>
+    <licServer_CommsPort_Secondary />
+    <LastLicTypeUsed val="server" />
+  </comms>
+  <server>
+    <licServer_LogFolder val="/tmp/" />
+    <licServer_LogEvents val="true" />
+  </server>
+  <proxy_cred>
+    <proxy_ip val="" />
+    <proxy_port val="" />
+    <proxy_uname val="" />
+    <proxy_pass val="" />
+  </proxy_cred>
+  <BannedList>
+    <BanListedMachines val="true" />
+  </BannedList>
+  <ProductUpdates>
+    <LastUpdateDate val="10/10/2021 13:11:10" />
+  </ProductUpdates>
+  <UserName />
+  <Company />
+  <UserEmail />
+  <CompanyCode />
+  <LicenseServerRequestCount />
+</XmlRegistryRoot>
