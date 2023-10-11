@@ -10,7 +10,7 @@ grand_parent: Systems
 # Vermilion Modules and Applications
 *This page describes how to activate and use the modules available on Vermilion. Modules are not available by default on the machine.  This page discusses how to enable them.*
 
-The page [Running on Vermilion](./running.md) describes running on Vermilion in more detail including a description of the hardware, partitions, and simple build and run scripts. For performance recommendations and sample scripts for running specific applications, please see the [Applications](../../Applications/ansys.md) section. 
+The page [Running on Vermilion](./running.md) describes running on Vermilion in more detail including a description of the hardware, partitions, and simple build and run scripts. For performance recommendations and sample scripts for running specific applications, please see the pages in the "Applications" section. 
 
 The Vermilion HPC cluster marries traditional HPC deployments and modern cloud architectures, both using the OpenHPC infrastructure, and [Spack](https://spack.io). 
 
@@ -85,6 +85,5 @@ You can load the Intel compilers (icc,icpc, ifort, mpiicc, mpiifort...) with the
 The python in this environment is very up to date, version 3.10.0.  It also contains many important packages including: numpy, scypi, matplotlib, pandas, jupyter, and jupyter-lab.
 
 ## Examples
-
-The directory /nopt/nrel/apps/210929a/example contains some simple build and run scripts.  The directory /nopt/nrel/apps/210929a/example/vasp contains information about running VASP.  These are discussed in more detail in the page [Running on Vermilion](./running.md).
+Example build and run scripts are discussed in more detail on the page [Running on Vermilion](./running.md). Information about running VASP on Vermilion can be found on the [VASP page](../../Applications/vasp.md). 
 
