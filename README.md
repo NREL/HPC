@@ -36,7 +36,7 @@ This repository serves as a collection of walkthroughs, utilities, and other res
 * [Gaussian](/applications/gaussian)
 * [Lammps](/applications/lammps)
 * [Paraview](/applications/paraview)
-* [Plexos](/applications/plexos-hpc-walkthrough)
+* [Plexos](/applications/plexos)
 * [Plexos Quick-start](/applications/plexos-quick-start)
 * [VASP](/applications/vasp)
 
