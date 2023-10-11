@@ -108,7 +108,7 @@ Many other options are available in the `man` page.
 
 
 ### scontrol
-To get detailed information about your job before and while it runs, you may use scontrol show job with the JOBID.  For example:
+To get detailed information about your job before and while it runs, you may use `scontrol show job` with the JOBID.  For example:
 ```
 $ scontrol show job 522616
 JobId=522616 JobName=myscript.sh
