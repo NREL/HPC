@@ -74,7 +74,7 @@ By setting the environment variable export $SQUEUE_FORMAT, you can override the 
 
 `export SQUEUE_FORMAT="%.18i %.15P %.8q %.12a %.8p %.8j %.8u %.2t %.10M %.6D %R"`
 
-Using squeue will now provide the formatted output:
+Using `squeue` will now provide the formatted output:
 
 ```
 JOBID    PARTITION   QOS    ACCOUNT   PRIORITY     NAME     USER    ST     TIME    NODES NODELIST(REASON)
