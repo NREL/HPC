@@ -10,14 +10,19 @@
 *This page discusses the compute nodes, partitions, and gives some examples of building and running applications.*
 
 The page [Modules](./modules.md) discuses how to activate and use the modules on Vermilion. Modules are not available by default and must be activated.  Please see the [Modules](./modules.md) page for more information about setting up your environment and loading modules. 
-## Compute hosts
+
+
+## About Vermilion
+
+### Compute hosts
+
 Vermilion is a collection of physical nodes with each regular node containing Dual AMD EPYC 7532 Rome CPUs.  However, each node is virtualized.  That is it is split up into virtual nodes with each virtual node having a portion of the cores and memory of the physical node.  Similar virtual nodes are then assigned slurm partitions as shown below.  
 
-## Shared file systems
+### Shared file systems
 
 Vermilion's home directories are shared across all nodes.  There is also /scratch/$USER and /projects spaces seen across all nodes.
 
-## Partitions
+### Partitions
 
 Partitions are flexible and fluid on Vermilion.  A list of partitions can be found by running the `sinfo` command.  Here are the partitions as of 10/20/2022.
 
@@ -29,7 +34,7 @@ Partitions are flexible and fluid on Vermilion.  A list of partitions can be fou
 | sm                                 | 28  |  61 GB |   16            |     256,981,000| 0.875 |
 | t                                  | 15  |  16 GB |   4             |      61,665,000| 0.4375 |
 
-## Allocation Unit (AU) Charges
+### Allocation Unit (AU) Charges
 
 The equation for calculating the AU cost of a job on Vermilion is: 
 
@@ -39,7 +44,7 @@ The Walltime is the actual length of time that the job runs, in hours or fractio
 
 The **Charge Factor** for each partition is listed in the table above. 
 
-## Operating Software
+### Operating Software
 
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
 
