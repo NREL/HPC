@@ -153,7 +153,7 @@ An example submission script is:
 
 ### Compile and run with Open MPI
 
-Please note that multi-node Open MPI jobs are not currently functioning properly.  If running on multiple nodes is needed, it is advised to use Intel MPI or try to run your jobs on a different system.
+Please note that multi-node jobs with Open MPI may not function properly.  If running on multiple nodes is needed, it is advised to use Intel MPI or try to run your jobs on a different system.
 
 Use the following commands to load the Open MPI modules and compile the test program into an executable named `phost.openmpi`:
 
