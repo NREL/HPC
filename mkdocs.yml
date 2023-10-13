@@ -86,6 +86,10 @@ nav:
             - Interactive Mode: Documentation/Applications/Matlab/interactive.md
             - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
             - Versions and Licenses: Documentation/Applications/Matlab/versions.md
+          - PLEXOS:
+            - Documentation/Applications/Plexos/index.md
+            - Setting Up: Documentation/Applications/Plexos/setup_plexos.md
+            - Running Models: Documentation/Applications/Plexos/run_plexos.md
           - Q-Chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
@@ -140,10 +144,10 @@ nav:
               - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
          - Performance Tools:
-            #  - ARM Performance Reports:
-            #    - Documentation/Development/Performance_Tools/ARM/index.md
-            #    - MAP : Documentation/Development/Performance_Tools/ARM/map.md
-            #    - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
+             - Linaro-Forge:
+               - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
+               - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
+               - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
@@ -159,7 +163,7 @@ nav:
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
          - Containers:
             - Documentation/Development/Containers/index.md
-            - Documentation/Development/Containers/registres.md
+            - Documentation/Development/Containers/registries.md
             - Documentation/Development/Containers/singularity.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
@@ -172,9 +176,6 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
-  - Kestrel Friendly Users:
-      - Applications:
-        - VASP: Friendly_User/Applications/vasp.md
 theme:
   name: material
   custom_dir: overrides

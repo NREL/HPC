@@ -48,36 +48,37 @@ By typing `gams <input_filename>` on the command line, the default procedure LP 
 
 A sample script for batch submission is provided here:
 
-??? example "Sample Submission Script"
+**Sample Submission Script**
 
-	```bash
-	#!/bin/bash --login
-	#SBATCH --name gams_run
-	#SBATCH --nodes=1
-	#SBATCH --ntasks-per-node=36
-	#SBATCH --time=00:05:00
-	#SBATCH --account=<allocation-id>
-	#SBATCH --error=gams-%j.err
-	#SBATCH --output=gams-%j.out
+```bash
+#!/bin/bash --login
+#SBATCH --name gams_run
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=36
+#SBATCH --time=00:05:00
+#SBATCH --account=<allocation-id>
+#SBATCH --error=gams-%j.err
+#SBATCH --output=gams-%j.out
 	 
-	# Ensure script location
-	cd $SLURM_SUBMIT_DIR
+# Ensure script location
+cd $SLURM_SUBMIT_DIR
 	 
-	# Create runtime environment
-	module purge
-	module load gams/<version>
+# Create runtime environment
+module purge
+module load gams/<version>
 	  
-	# Run GAMS
-	gams trnsport lp=gurobi
-	```
+# Run GAMS
+gams trnsport lp=gurobi
+```
 
 For a certain solver, necessary control parameters for the algorithm—such as convergence criteria—can be loaded from the option file named as `<solver_name>.opt` in the directory that you run GAMS. For example, for the Gurobi solver, its option file would be *"gurobi.opt"*. For the details of how to set those parameters, please see the [GAMS Solver Manuals](https://www.gams.com/latest/docs/S_MAIN.html). 
 
-!!! tip "Important"
-	 When using the Gurobi solver in GAMS, the user should NOT try to load the Gurobi module. Simply using "module load gams" will automatically load the Gurobi solver.
+### Important Tip
+**When using the Gurobi solver in GAMS, the user should NOT try to load the Gurobi module. Simply using "module load gams" will automatically load the Gurobi solver.**
 
 ## Using GAMS Python API
 
+### For GAMS version < 40.0
 In order to use GAMS python API, the environment parameter `$PYTHONPATH` should include these two directories: 
 
 `$GAMS_PYTHON_API_FILES/gams`
@@ -97,3 +98,11 @@ else
         export PYTHONPATH=$GAMS_PYTHON_API_FILES/api_37:$GAMS_PYTHON_API_FILES/gams:$PYTHONPATH
 fi
 ```
+
+### For GAMS version > 40.0
+The GAMS API can be installed using Anaconda and Pip. Please follow the instruction on the [GAMS website.](https://www.gams.com/latest/docs/API_PY_GETTING_STARTED.html) Currently GAMS supports python version 3.7~3.11. In general, it can be installed using the following command:
+
+```
+pip install gams[your choice of sub-module] --find-links $GAMS_PYTHON_API_FILES
+```
+

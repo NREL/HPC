@@ -48,12 +48,13 @@ Hello, World!
 
 The following is a summary of available compilers and toolchains.  User are encouraged to run `module avail` to check for the most up-to-date information on a particular system.
 
-| Toolchain | C++ Compiler | Module                   | Systems           |
-|-----------|--------------|--------------------------|-------------------|
-| gcc       | `g++`        | `gcc`                    | All               |
-| Intel     | `icpc`       | `comp-intel`             | Eagle             |
-| Intel     | `icpc`       | `intel-oneapi-compilers` | Swift, Vermilion |
-| Intel     | `icpc`       | `comp-intel`             | Eagle             |
-| Cray      | `CC`         | `PrgEnv-cray`            | Kestrel           |
+| Toolchain | C++ Compiler | Module                   | Systems                   |
+|-----------|--------------|--------------------------|---------------------------|
+| gcc       | `g++`        | `gcc`                    | All                       |
+| Intel     | `icpc`       | `intel-oneapi-compilers` | Swift, Vermilion, Kestrel |
+| Intel     | `icpc`       | `comp-intel`             | Eagle                     |
+| Cray      | `CC`         | `PrgEnv-cray`            | Kestrel                   |
+
+Note that Kestrel also provides the `PrgEnv-intel` and `PrgEnv-gnu` modules, which combine the Intel or gcc compilers together with Cray MPICH.  Please refer to [Kestrel Programming Environments Overview](../../Systems/Kestrel/Environments/index.md) for details about the programming environments available on Kestrel.
 
 For information specific to compiling MPI applications, refer to [MPI](../Programming_Models/mpi.md).
