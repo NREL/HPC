@@ -30,6 +30,7 @@ Partitions are flexible and fluid on Vermilion.  A list of partitions can be fou
 | t                                  | 15  |  16 GB |   4             |      61,665,000| 0.4375 |
 
 ## Allocation Unit (AU) Charges
+
 The equation for calculating the AU cost of a job on Vermilion is: 
 
 ```AU cost = (Walltime in hours * Number of Nodes * Charge Factor)```
@@ -39,6 +40,7 @@ The Walltime is the actual length of time that the job runs, in hours or fractio
 The **Charge Factor** for each partition is listed in the table above. 
 
 ## Operating Software
+
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
 
 
@@ -163,7 +165,6 @@ mpicc -fopenmp phostone.c -o phost.openmpi
 
 The following is an example script that runs two tasks on a single node, with two threads per task:
 
-
 ??? example "Open MPI submission script"
 
     ```bash
@@ -181,11 +182,6 @@ The following is an example script that runs two tasks on a single node, with tw
     ```
 
 
-
 ## Running VASP on Vermilion
-Please see the [VASP page](../../Applications/vasp.md) for detailed information and recommendations for running VASP on Vermilion. 
 
-
-
-
-
+Please see the [VASP page](../../Applications/vasp.md) for detailed information and recommendations for running VASP on Vermilion.
