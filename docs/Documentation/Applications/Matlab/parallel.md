@@ -16,7 +16,7 @@ code on NREL HPC systems.
 For more extensive examples of PCT usage and code examples, see the [MathWorks
 documentation](https://www.mathworks.com/products/parallel-computing.html).
 
-## Configuration in MATLAB R2018b
+## Configuration in MATLAB R2023a
 
 Configuration of the PCT is done most easily through the interactive
 GUI. However, the opening of parallel pools can be significantly slower in
@@ -24,28 +24,26 @@ interactive mode than in non-interactive (batch) mode. For this reason, the
 interactive GUI will only be used to set up your local configuration. Runtime
 examples will include batch scripts that submit jobs directly to the scheduler.
 
-<!-- TODO: Update link for Interactive Jobs. -->
-
 To configure your local parallel settings, start an interactive MATLAB session
 with X11 forwarding (see [Running Interactive Jobs on
-Eagle](https://www.nrel.gov/hpc/eagle-interactive-jobs.html) and [Environment
-Modules on the Eagle System](../../Systems/Eagle/modules.md)). Open MATLAB
-R2018b and do the following:
+Kestrel](../../Systems/Kestrel/running.md) and [Environment
+Modules on the Kestrel System](../../Systems/Kestrel/Environments/index.md)). Open MATLAB
+R2023a and do the following:
 
 1. Under the Home tab, go to Parallel > Parallel Preferences.
 2. In the Parallel Pool box, set the "Preferred number of workers in a parallel
-   pool" to at least 36 (the max number of cores currently available on a Eagle
+   pool" to at least 104 (the max number of cores currently available on a standard Kestrel
    compute node).
 3. Click OK.
 4. Exit MATLAB.
 
-For various reasons, you might not have 36 workers available at runtime. In this
+For various reasons, you might not have 104 workers available at runtime. In this
 case, MATLAB will just use the largest number available.
 
 !!! note
 
-    Specifying the number of tasks for an interactive job (i.e., using `srun
-    --ntasks=<n>` to start your interactive job) will interfere with parallel
+    Specifying the number of tasks for an interactive job (i.e., using `salloc
+    --ntasks-per-node=<n>` to start your interactive job) will interfere with parallel
     computing toolbox. We recommend not specifying the number of tasks.
 
 ## Examples
@@ -71,7 +69,7 @@ multiple data"). Create the MATLAB script helloWorld.m:
 
     ```matlab
     % open the local cluster profile
-    p = parcluster('local');
+    p = parcluster('Processes');
 
     % open the parallel pool, recording the time it takes
     tic;
@@ -100,7 +98,7 @@ To run the script on a compute node, create the file helloWorld.sb:
 
     # load modules
     module purge
-    module load matlab/R2018b
+    module load matlab/R2023a
 
     # define an environment variable for the MATLAB script and output
     BASE_MFILE_NAME=helloWorld
@@ -163,7 +161,7 @@ solves the ODE using the ode15s function.
     %}
 
     % open the local cluster profile
-    p = parcluster('local');
+    p = parcluster('Processes');
 
     % open the parallel pool, recording the time it takes
     time_pool = tic;
@@ -172,7 +170,7 @@ solves the ODE using the ode15s function.
     fprintf('Opening the parallel pool took %g seconds.\n', time_pool)
 
     % create vector of random coefficients on the interval [975,1050]
-    nsamples = 100; % number of samples
+    nsamples = 10000; % number of samples
     coef = 975 + 50*rand(nsamples,1); % randomly generated coefficients
 
     % compute solutions within serial loop
@@ -225,7 +223,7 @@ Finally, create the batch script stiffODE.sb:
 
     # load modules
     module purge
-    module load matlab/R2018b
+    module load matlab/R2023a
 
     # define environment variables for MATLAB script and output
     BASE_MFILE_NAME=stiffODE

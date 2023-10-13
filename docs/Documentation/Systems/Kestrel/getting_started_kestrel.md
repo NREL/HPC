@@ -11,11 +11,10 @@ There are no external-facing login nodes for Kestrel. External collaborators can
 
 DAV nodes can be accessed by using a web browser and connecting to ```https://kestrel-dav.hpc.nrel.gov``` or by using the FastX desktop client. 
 
-## Additional Resources
 
-* [Kestrel System Configuration](https://www.nrel.gov/hpc/kestrel-system-configuration.html)
-* A collection of sample makefiles, source codes, and scripts for Kestrel can be found in the [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel). 
+We recommend using [Globus](../../Managing_Data/Transferring_Files/globus.md) to transfer files between Eagle and Kestrel. Please see our [Globus documentation](../../Managing_Data/Transferring_Files/globus.md) for information about the Kestrel Globus endpoints. 
 
+To transfer small batches of data, `rsync` or `scp` are also available. 
 
 ## Running Jobs
 
