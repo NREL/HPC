@@ -95,5 +95,4 @@ Please see the [Kestrel Environments section](./Environments/index.md) for detai
 
 ## Contributions
 
-The [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel) is open for contributions of examples, scripts, and other resources that would benefit the user community. To contribute, please open a Pull Request or contact [HPC-Help@nrel.gov](mailto://hpc-help@nrel.gov). To recommend topics to be covered, please open an [issue](https://github.com/NREL/HPC/issues) in the repository.
-
+The [Kestrel repo](https://github.com/NREL/HPC/tree/master/kestrel) is open for contributions of examples, scripts, and other resources that would benefit the user community. To contribute, please open a Pull Request or contact [HPC-Help@nrel.gov](mailto://hpc-help@nrel.gov). To recommend topics to be covered, please open an [issue](https://github.com/NREL/HPC/issues) in the repository. 
