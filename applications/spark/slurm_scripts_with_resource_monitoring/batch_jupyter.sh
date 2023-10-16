@@ -5,17 +5,17 @@
 #SBATCH --output=output_%j.o
 #SBATCH --error=output_%j.e
 #SBATCH --nodes=2
+#SBATCH --tmp=1600G
 #SBATCH --partition=debug
 
-module load singularity-container
+module load apptainer
 SCRIPT_DIR=~/repos/HPC/applications/spark/spark_scripts
 
 rm -f shutdown
 srun collect_stats.sh . &
 
-${SCRIPT_DIR}/configure_spark.sh
-${SCRIPT_DIR}/start_spark_cluster.sh
-singularity run \
+${SCRIPT_DIR}/configure_and_start_spark.sh
+apptainer run \
     --bind /lustre:/lustre \
     --bind /projects:/projects \
     --bind /scratch:/scratch \

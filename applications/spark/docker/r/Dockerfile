@@ -2,14 +2,14 @@
 # Do not run this while connected to the VPN.
 # docker build --tag spark .
 
-# This container can be converted to a Singularity container on Eagle with these commands:
+# This container can be converted to an Apptainer container on Eagle with these commands:
 # Save and upload the docker image to Eagle.
 # $ docker save -o spark.tar spark
 # $ scp spark_container.tar <username>@eagle.hpc.nrel.gov:/scratch/<username>
 # Acquire a compute node.
-# $ export SINGULARITY_TMPDIR=/dev/shm
-# $ module load singularity-container
-# $ singularity build spark.sif docker-archive://spark.tar
+# $ export APPTAINER_CACHEDIR=/dev/shm
+# $ module load apptainer
+# $ apptainer build spark.sif docker-archive://spark.tar
 
 # Methodology for operation of this container is based on https://sylabs.io/2018/10/spark-on-singularity/
 

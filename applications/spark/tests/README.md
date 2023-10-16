@@ -1,6 +1,6 @@
 # Instructions
 
-1. Change to this directory on Eagle.
+1. Change to this directory on Kestrel.
 2. Run the tests with a valid account.
 ```
 $ ./run_tests.sh ACCOUNT

@@ -19,5 +19,9 @@ if [ $? -ne 0 ]; then
 fi
 
 cd run
-sbatch batch_job.sh
-echo "Check results manually when complete and delete the directory ./run."
+output=$(sbatch batch_job.sh)
+echo "${output}"
+job_id=$(echo "${output}" | grep -oE "[0-9]+")
+echo "Monitor for job completion with squeue -j ${job_id}"
+echo "When complete, check results by verifying ExitCode=0 with sacct -j ${job_id}"
+echo "Delete the directory ./run to clean up."
