@@ -69,7 +69,7 @@ Kestrel has a **95 PB** ClusterStor Lustre file system. Running jobs out of `/sc
 
 The Home File System (HFS) on Kestrel is part of the ClusterStor used for PFS, providing highly reliable storage for user home directories and NREL-specific software. HFS will provide 1.2 PB of capacity. Snapshots of files on the HFS will be available up to 30 days after change/deletion. `/home` directories have a quota of 50 GB. 
 
-Please see the [Kestrel Filesystem page](../Kestrel/filesystems.md) for more information. 
+Please see the [Kestrel Filesystem page](./filesystems.md) for more information. 
 
 ## Data Transfer
 
