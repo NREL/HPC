@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+# coding: utf-8
+
+# In[1]:
+helptxt="""
+
+Designed to pull the container definition from a *sif file.
+Tested on containers created with apptainer.  Most likely
+will not work on Docker images.
+
+You may need to change "bootstrap" to match what is in the 
+container.
+
+"""
+
+
+import os
+import sys
+import string
+def fnd(fname, s, start=0):
+    s=bytes(s,'utf-8')
+    with open(fname, 'rb') as f:
+        fsize = os.path.getsize(fname)
+        bsize = 4096
+        buffer = None
+        if start > 0:
+            f.seek(start)
+        overlap = len(s) - 1
+        while True:
+            if (f.tell() >= overlap and f.tell() < fsize):
+                f.seek(f.tell() - overlap)
+            buffer = f.read(bsize)
+            if buffer:
+                pos = buffer.find(s)
+                if pos >= 0:
+                    return f.tell() - (len(buffer) - pos)
+            else:
+                return -1
+def portion(fname,startf,endf) :
+    with open(fname, 'rb') as f:
+        f.seek(startf)
+        bsize=endf-startf
+        buffer = f.read(bsize)
+        f.close()
+    return buffer
+        
+        
+
+
+# In[2]:
+
+
+thesif="bonk.sif"
+if len(sys.argv) == 2 :
+   thesif=sys.argv[1] 
+startf=fnd(thesif,"BootStrap")
+if startf == -1 :
+    startf=fnd(thesif,"Bootstrap")
+if startf == -1 :
+    startf=fnd(thesif,"bootstrap")
+endf=fnd(thesif,'{"data":')
+if startf >= endf :
+    print('Ccould not find sentinels bootstrap and {"data": ',startf,endf,file=sys.stderr)
+    print(helptxt,file=sys.stderr)
+    exit()
+#print(startf,endf)
+x=portion(thesif,startf,endf)
+#type(x)
+x=x.decode()
+#type(x)
+x=x.split("\n")
+printable = set(string.printable)
+for z in x:
+    #print(z)
+    print(''.join(filter(lambda x: x in string.printable, z)))
+
+

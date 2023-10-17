@@ -1,0 +1,11 @@
+Bootstrap: localimage
+from: bonk.sif
+
+%post
+/opt/spack/install/opt/linux-ubuntu22.04-icelake/gcc-11.3.0/apptainer-1.1.9-qwfi3awtynmorfilfev3kblit5etbfix/bin/spack_perms_fix.sh
+
+
+%environment
+export PATH=/opt/spack/install/opt/linux-ubuntu22.04-icelake/gcc-11.3.0/apptainer-1.1.9-qwfi3awtynmorfilfev3kblit5etbfix/bin:$PATH
+
+

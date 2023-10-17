@@ -1,0 +1,56 @@
+Bootstrap: docker
+from: ubuntu:latest
+
+%environment
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cray/pe/lib64
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cray/libfabric/1.15.2.0/lib64
+    # Point to OPENMPI binaries, libraries man pages
+    export OPENMPI_DIR=/opt/openmpi
+    export PATH="$OPENMPI_DIR/bin:$PATH"
+    export LD_LIBRARY_PATH="$OPENMPI_DIR/lib:$LD_LIBRARY_PATH"
+    export MANPATH=$OPENMPI_DIR/share/man:$MANPATH
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cray/pe/lib64
+
+
+
+
+%post
+    echo "Installing required packages..."
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y wget git bash gcc gfortran g++ make python3 vim
+    apt-get install coreutils;
+    apt-get install vim
+    apt install -y git
+    apt install -y curl
+    apt install xz-utils
+    apt install -y lbzip2
+    apt install -y software-properties-common
+    add-apt-repository -y ppa:apptainer/ppa
+    apt update
+    apt install -y apptainer-suid
+    apt install sudo
+    useradd -p $(openssl passwd -1 026+SmR) joeuser
+    usermod -aG sudo joeuser
+    rm -rf /opt/spack
+    mkdir /opt/spack
+    cd /opt/spack
+# at this point we have a version of apptainer installed but we use spack to get a specific version:q
+    git clone -c feature.manyFiles=true https://github.com/spack/spack.git  
+    wget https://raw.githubusercontent.com/timkphd/examples/master/tims_tools/setinstall
+    chmod 755 setinstall
+    cd spack
+    ../setinstall `realpath -P etc/spack/defaults` /opt/spack/install
+    . share/spack/setup-env.sh
+    spack compiler find
+    spack external find
+    #git checkout b431c4dc06ec0757b00b6f790be25b601f774a53
+    # Do the install
+    #for pack in intel-oneapi-compilers intel-oneapi-mpi intel-oneapi-ccl  intel-oneapi-dal intel-oneapi-dnn intel-oneapi-ipp intel-oneapi-ippcp intel-oneapi-mkl intel-oneapi-tbb  intel-oneapi-vpl  ; do
+    #for pack in "python@3.11.2 +tkinter" intel-oneapi-compilers intel-oneapi-mpi intel-oneapi-mkl  ; do
+    #for pack in "python@3.9.0 +tkinter" "python@3.11.2 +tkinter" "python@3.9.0 +tkinter" "python@3.11.2 +tkinter" ; do
+    #for pack in aspell  ; do
+    for pack in aspell apptainer@1.1.9 ; do
+    #for pack in slurm ; do
+    echo $pack
+    spack install --no-check-signature $pack
+    done
