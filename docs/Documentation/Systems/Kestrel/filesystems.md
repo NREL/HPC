@@ -28,7 +28,7 @@ The Parallel File System (PFS) ProjectFS and ScratchFS on Kestrel is a ClusterSt
 
 The datasets directories on Kestrel host widely used data sets. 
 
-There are multiple big datasets that are commonly used across various projects for computation and analysis on NREL's HPC Systems. We provide locations on Kestrel's parallel filesystem at both `/kfs3/sdatasets` on ScratchFS and `/kfs2/pdatasets` on ProjectFS where these data sets are available for global reading by all compute nodes on Kestrel. Each dataset contains a readme file that covers background, references, explanation of the data structure, and Python examples.
+There are multiple big datasets that are commonly used across various projects for computation and analysis on NREL's HPC Systems. We provide locations on Kestrel's parallel filesystem at both `/kfs3/sdatasets` on ScratchFS and `/kfs2/pdatasets` on ProjectFS where these data sets are available for global reading by all compute nodes on Kestrel. Each dataset contains a README file that covers background, references, explanation of the data structure, and examples.
 
 A few of the datasets include:
 
