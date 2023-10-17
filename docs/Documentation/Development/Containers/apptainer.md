@@ -1,52 +1,51 @@
 ## How to use Apptainer (Singularity) on Kestrel
 
-Singularity has been deprecated in favor of a new container application called apptainer. Apptainer is a decendent of singularity.  Apptainer will run singularity  containers and it supports singularity commands. On Kestrel singularity is an alias for apptainer and the two commands can be use interchangeably in most instances. However, since singularity is depricated it is advised to use apptainer.
+Singularity has been deprecated in favor of a new container application called Apptainer. Apptainer is a decendent of singularity.  Apptainer will run Singularity containers and it supports Singularity commands. On Kestrel, `singularity` is an alias for `apptainer` and the two commands can be used interchangeably in most instances. However, since Singularity is deprecated, it is advised to use Apptainer.
 
-More information about apptainer can be found at [https://apptainer.org](https://apptainer.org). 
+More information about Apptainer can be found at [https://apptainer.org](https://apptainer.org). 
 
-Apptainer is installed on compute nodes and is accessed via a module named *apptainer*.  
+Apptainer is installed on compute nodes and is accessed via a module named `apptainer`.  
 
-The directory /nopt/nrel/apps/software/apptainer/1.1.9/examples
+The directory `/nopt/nrel/apps/software/apptainer/1.1.9/examples`
 holds a number of containers and an example script that shows how to run containers hosting MPI programs across multiple nodes.  
 
-Before we get to more complicated examples we'll first look at downloading and working with a simple remote image.
+Before we get to more complicated examples, we'll first look at downloading and working with a simple remote image.
 
-Input commands are preceded by a `$`
+Input commands are preceded by a `$`.
 
-### Run hello-world ubuntu image
+### Run hello-world Ubuntu image
 
 ##### Log into compute node.
 
 ```
-$ ssh kl1.hpc.nrel.gov
-[$kuser@el1 ~]$ salloc --exclusive --mem=0 --tasks-per-node=104 --nodes=1 --time=01:00:00 --account=MYACCOUNT --partition=debug
-[$kuser@r1i3n18 ~]$ cat /etc/redhat-release
-Red Hat Enterprise Linux release 8.6 (Ootpa
+$ ssh <username>@kestrel.hpc.nrel.gov
+[$kuser@kl1 ~]$ salloc --exclusive --mem=0 --tasks-per-node=104 --nodes=1 --time=01:00:00 --account=MYACCOUNT --partition=debug
+[$kuser@x1000c0s0b0n0 ~]$ cat /etc/redhat-release
+Red Hat Enterprise Linux release 8.6 (Ootpa)
 
 ```
 
 ##### Load the apptainer module
 
 ```
-[$kuser@r1i3n18 ~]$ module purge
-[$kuser@r1i3n18 ~]$ module load apptainer
+[$kuser@x1000c0s0b0n0 ~]$ module purge
+[$kuser@x1000c0s0b0n0 ~]$ module load apptainer
 ```
 
 ##### Retrieve hello-world image.  Be sure to use /scratch as images are typically large
 
 ```
-[$kuser@r1i3n18 ~]$ cd /scratch/$USER
-[$kuser@r1i3n18 $kuser]$ mkdir -p apptainer-images
-[$kuser@r1i3n18 $kuser]$ cd apptainer-images
-[$kuser@r1i3n18 apptainer-images]$ apptainer pull --name hello-world.simg shub://vsoch/hello-world
+[$kuser@x1000c0s0b0n0 ~]$ cd /scratch/$USER
+[$kuser@x1000c0s0b0n0 $kuser]$ mkdir -p apptainer-images
+[$kuser@x1000c0s0b0n0 $kuser]$ cd apptainer-images
+[$kuser@x1000c0s0b0n0 apptainer-images]$ apptainer pull --name hello-world.simg shub://vsoch/hello-world
 Progress |===================================| 100.0%
-Done. Container is at: /lustre/eaglefs/scratch/$USER/apptainer-images/hello-world.simg
 ```
 
 ##### Explore image details
 
 ```
-[$kuser@r1i3n18 apptainer-images]$ apptainer inspect hello-world.simg # Shows labels
+[$kuser@x1000c0s0b0n0 apptainer-images]$ apptainer inspect hello-world.simg # Shows labels
 {
     "org.label-schema.usage.apptainer.deffile.bootstrap": "docker",
     "MAINTAINER": "vanessasaur",
@@ -58,7 +57,7 @@ Done. Container is at: /lustre/eaglefs/scratch/$USER/apptainer-images/hello-worl
     "org.label-schema.usage.apptainer.version": "2.4-feature-squashbuild-secbuild.g780c84d",
     "org.label-schema.build-size": "333MB"
 }
-[$kuser@r1i3n18 apptainer-images]$ apptainer inspect -r hello-world.simg # Shows the script run
+[$kuser@x1000c0s0b0n0 apptainer-images]$ apptainer inspect -r hello-world.simg # Shows the script run
 #!/bin/sh
 
 exec /bin/bash /rawr.sh
@@ -67,24 +66,25 @@ exec /bin/bash /rawr.sh
 ##### Run image default script
 
 ```
-[$kuser@r1i3n18 apptainer-images]$ apptainer run hello-world.simg
+[$kuser@x1000c0s0b0n0 apptainer-images]$ apptainer run hello-world.simg
 RaawwWWWWWRRRR!! Avocado!
+```
 
 ### Run images containing MPI programs on multiple nodes
 
-```
 
-As mentioned above there is a script in the apptainer directory that shows how MPI applications built inside a container image can be run on multiple nodes. We'll look at 5 containers with different versions of MPI. Each container has two MPI programs installed, a glorified Hello World (phostone) and PingPong (ppong).  The 5 versions of MPI are
+
+As mentioned above, there is a script in the apptainer directory that shows how MPI applications built inside a container image can be run on multiple nodes. We'll look at 5 containers with different versions of MPI. Each container has two MPI programs installed, a glorified Hello World (phostone) and PingPong (ppong). The 5 versions of MPI are:
 
 1. openmpi
-1. IntemMPI
+1. IntelMPI
 1. MPICH - with ch4
 1. MPICH - with ch4 with different compile options
 1. MPICH - with ch3
 
-"ch*" can be thought as a "lower level" communications protocol.  A MPICH container might be build with either but we have found that ch4 is considerably faster on Kestrel. 
+"ch*" can be thought as a "lower level" communications protocol. A MPICH container might be built with either but we have found that ch4 is considerably faster on Kestrel. 
 
-The script can be found at /nopt/nrel/apps/software/apptainer/1.1.9/examples/script and at [https://github.com/NREL/HPC/tree/master/kestrel/apptainer](https://github.com/NREL/HPC/tree/master/kestrel/apptainer)
+The script can be found at /nopt/nrel/apps/software/apptainer/1.1.9/examples/script and at [https://github.com/NREL/HPC/blob/master/kestrel/apptainer/script](https://github.com/NREL/HPC/blob/master/kestrel/apptainer/script)
 
 Here is a copy:
 
@@ -150,20 +150,19 @@ mv $STARTDIR/apptainer.log .
          
 ```
 
-We set the variable CDIR which points to the directory from which we will get our containers.
+We set the variable `CDIR` which points to the directory from which we will get our containers.
 
-We next create a dirctory for our run and go there. The `cat` and `printenv`commands give us a copy of our script and the environment in which we are running. This is useful for debugging.
+We next create a directory for our run and go there. The `cat` and `printenv`commands give us a copy of our script and the environment in which we are running. This is useful for debugging.
 
-
-Before we run the MPI containers we run the command `hostname` from inside a very simple container `alpine.sif`.  We show containers can be run without/with `srun`. In the second instance we `cat /etc/os-release` to show we are running a different OS.  
+Before we run the MPI containers, we run the command `hostname` from inside a very simple container `alpine.sif`. We show containers can be run without/with `srun`. In the second instance we `cat /etc/os-release` to show we are running a different OS.  
 
 Then we get into the MPI containers. This is done in a loop over containers containing the MPI versions: openmpi, intelmpi, mpich_ch4, mpich_ch4b, and mpich_ch3. 
 
 The application *tymer* is a simple wall clock timer.  
 
-The *--mpi=* option on the srun line instructs slurm how to launch jobs. The normal option is `--mpi=pmi2`.  However, containers using OpenMPI might need to use the option `--mpi=pmix` as we do here.
+The `--mpi=` option on the srun line instructs slurm how to launch jobs. The normal option is `--mpi=pmi2`. However, containers using OpenMPI might need to use the option `--mpi=pmix` as we do here.
 
-The first loop just runs a quick "hello world" example. The second loop runs a pingpong test. We skip mpich_ch3 pingpong test because it runs very slowly.
+The first loop just runs a quick "hello world" example. The second loop runs a pingpong test. We skip the mpich_ch3 pingpong test because it runs very slowly.
 
 You can see example output from this script in the directory:
 
@@ -171,16 +170,16 @@ You can see example output from this script in the directory:
 /nopt/nrel/apps/software/apptainer/1.1.9/examples/output/
 ```
 
-The directory /nopt/nrel/apps/software/apptainer/1.1.9/examples/defs containes the recipes for the containers. The containers `apptainer.sif`` and `intel.sif` were built in two steps using app_base.def - apptainer.def and mods_intel.def - intel.def. They can also be found at [https://github.com/NREL/HPC/tree/master/kestrel/apptainer](https://github.com/NREL/HPC/tree/master/kestrel/apptainer)
+The directory `/nopt/nrel/apps/software/apptainer/1.1.9/examples/defs` contains the recipes for the containers. The containers `apptainer.sif` and `intel.sif` were built in two steps using app_base.def - apptainer.def and mods_intel.def - intel.def. They can also be found in the [HPC code examples repository](https://github.com/NREL/HPC/tree/master/kestrel/apptainer/defs).
 
-The script `sif2def` can be used to generate a recipe from a container. It has not been extensively tested and may not work for all containers and is provided here "as is."
+The script `sif2def` can be used to generate a recipe from a container. It has not been extensively tested, so it may not work for all containers and is provided here "as is."
 
 
 ### Create a Ubuntu image with MPI support
 
 Images can be generated from a [recipe](https://apptainer.org/docs/user/main/build_a_container.html). 
 
-This example shows how to create a Ubuntu singularity image with openmpi installed. The recipe is shown in pieces to make it easier to describe what each section does.  The complete recipe can be found in the `defs` directory. Building containers normally requires root/admin privileges so the build process must be run on a user's computer with apptainer installed.  After creation, the image can be copied to Kestrel and run.  
+This example shows how to create a Ubuntu singularity image with openmpi installed. The recipe is shown in pieces to make it easier to describe what each section does. The complete recipe can be found in the `defs` directory. Building containers normally requires root/admin priviledges so the build process must be run on a user's computer with apptainer installed. After creation, the image can be copied to Kestrel and run.  
 
 ##### Create a new recipe based on ubuntu:latest
 
@@ -219,7 +218,7 @@ from: ubuntu:latest
     make install
 ```
 
-##### Compile and install example mpi application
+##### Compile and install example MPI application
 
 ```
     echo "Build OPENMPI example..."
@@ -245,12 +244,12 @@ sudo $(type -p apptainer) build small.sif  ubuntu-mpi.def
 ##### Test image
 
 ```
-[kuser@kl1.hpc.nrel.gov ~]$salloc --exclusive --mem=0 --tasks-per-node=104 --nodes=2 --time=01:00:00 --account=MYACCOUNT --partition=debug
+[kuser@kl1 ~]$ salloc --exclusive --mem=0 --tasks-per-node=104 --nodes=2 --time=01:00:00 --account=MYACCOUNT --partition=debug
 salloc: Granted job allocation 90367
 salloc: Waiting for resource configuration
 salloc: Nodes x3000c0s25b0n0,x3000c0s27b0n0 are ready for job
-[kuser@x3000c0s25b0n0 ~]$module load apptainer 
-[kuser@x3000c0s25b0n0 ~]$srun -n 8 --tasks-per-node=4 --mpi=pmix apptainer run small.sif
+[kuser@x3000c0s25b0n0 ~]$ module load apptainer 
+[kuser@x3000c0s25b0n0 ~]$ srun -n 8 --tasks-per-node=4 --mpi=pmix apptainer run small.sif
 Process 2 exiting
 Process 3 exiting
 Process 0 sending 10 to 1, tag 201 (8 processes in ring)
