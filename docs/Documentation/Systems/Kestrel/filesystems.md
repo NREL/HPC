@@ -48,9 +48,10 @@ Directories in /projects have a quota assigned based on the project resource all
     [user@kl1 ~]$ lfs quota -hp 110255 /projects/csc000
 
     Disk quotas for prj 110255 (pid 110255):
-    Filesystem kbytes quota limit grace files quota limit grace /projects/csc000 3165308* 3072 4096 - 48 1073741824 2147483648 -
-
-    # An asterisk(*) indicates the project has exceeded its quota of storage, and writes to /projects/csc000 are not allowed.
+        Filesystem    used   quota   limit   grace   files   quota   limit   grace 
+    /projects/csc000    
+                    617.5G    100T    100T       -  636875       0       0       -
+    # An asterisk(*) by the used value indicates the project has exceeded its quota of storage, and writes to the directory are not allowed.
     ```
 
 **/shared-projects**
