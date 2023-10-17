@@ -4,7 +4,7 @@ title: Singularity
 parent: Containers
 ---
 
-As discussed in [Intro to Containers](index.md), Singularity is a platform designed specifically for running containers on HPC systems.  Singularity is installed on Eagle, Swift, and Vermillion.  Images can be built locally and copied to the HPC system or pulled from an online registry.  For more information about building containers, see [here](index.md#building).
+As discussed in [Intro to Containers](index.md), Singularity is a platform designed specifically for running containers on HPC systems. Images can be built locally and copied to the HPC system or pulled from an online registry.  For more information about building containers, see [here](index.md#building).
 
 The table below shows the appropriate commands for loading Singularity on each system:
 
@@ -13,7 +13,10 @@ The table below shows the appropriate commands for loading Singularity on each s
 | Eagle      | `module load singularity-container` |
 | Swift      | `module load singularity`           |
 | Vermilion  | `module load singularity`           |
+| Kestrel    | `module load apptainer`             | 
 
+!!! note
+    Singularity has been deprecated in favor of a new container application called Apptainer. For more information about Apptainer and using it on Kestrel, see [Apptainer](./apptainer.md).
 
 ### Run hello-world ubuntu image on Eagle
 
