@@ -19,7 +19,7 @@ To submit batch jobs on an HPC system at NREL, the Slurm `sbatch` command should
 
 Scripts and program executables may reside in any file system, but input and output files should be read from or written to the /scratch file system mount. /scratch uses the Lustre filesystem which is designed to utilize the parallelized networking fabric that exists between compute nodes, and will result in much higher throughput on file manipulations.
 
-Arguments to sbatch may be used to specify resource limits such as job duration (referred to as "walltime"), number of nodes, etc., as well as what hardware features you want your job to run with. These can also be supplied within the script itself by placing #SBATCH comment directives within the file. 
+Arguments to `sbatch` may be used to specify resource limits such as job duration (referred to as "walltime"), number of nodes, etc., as well as what hardware features you want your job to run with. These can also be supplied within the script itself by placing #SBATCH comment directives within the file. 
 
 ## Required Flags 
 
