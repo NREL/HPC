@@ -20,7 +20,7 @@ The following table summarizes the partitions on Eagle.
 |```gpu```       | Nodes with dual NVIDIA Tesla V100 PCIe <br> 16 GB Computational Accelerators for GPU-based software | 20 nodes total<br> 10 nodes per user<br> 2 GPUs per node | ```--gres=gpu:1 (1 per node)```<br>```--gres=gpu:2 (2 per node)```<br>```--timelimit <= 2 days```|
 |```gpul```      | Nodes with dual NVIDIA Tesla V100 PCIe <br> 16 GB Computational Accelerators for GPU-based software | 8 nodes <br> 2 nodes per user<br> 2 GPUs per node | ```--gres=gpu:1 (1 per node)```<br>```--gres=gpu:2 (2 per node)```<br>```--timelimit > 2 days```|
 
-Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  Sample job scripts and the syntax for specifying the queue are available on the [sample job scripts page](./sample_sbatch.md).
+Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  Sample job scripts and the syntax for specifying the queue are available on the [sample job scripts page](/Documentation/Slurm/sample_sbatch).
 
 ## Job Scheduling Policies
 The [system configuration page](https://www.nrel.gov/hpc/eagle-system-configuration.html) lists the four categories that Eagle nodes exhibit based on their hardware features. No single user can have jobs running on more than half of the nodes from each hardware category. For example, the maximum quantity of data and analysis visualization (DAV) nodes a single job can use is 25.
