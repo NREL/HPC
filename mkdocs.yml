@@ -26,6 +26,7 @@ nav:
             - Documentation/Systems/Eagle/Running/index.md
             - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
             - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
+            - Example Sbatch Scripts: Documentation/Systems/Eagle/Running/example_sbatch.md
             - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
           - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
@@ -43,7 +44,6 @@ nav:
         - Documentation/Slurm/index.md
         - Monitor and Control Commands: Documentation/Slurm/monitor_and_control.md
         - Submitting Batch Jobs: Documentation/Slurm/batch_jobs.md
-        - Example Batch Scripts: Documentation/Slurm/sample_sbatch.md
         - Running Interactive Jobs: Documentation/Slurm/interactive_jobs.md
         - Multiple Sub-Jobs: Documentation/Slurm/multiple_sub_jobs.md
       - Managing your Data:

@@ -185,7 +185,7 @@ $ sprio -u hpcuser -n
  526752      short  hpcuser  0.01010100  0.0008642  0.0009747  0.0000000  0.1000000
 ```
 
-The `sprio` command also has some options that can be used to view the entire queue by priority order. The following command will show the "long" (`-l`) format sprio will extended information, sorted by priority in descending order (`-S -Y`), and piped through the `less` command with line numbers shown on the far left (`less -N`):
+The `sprio` command also has some options that can be used to view the entire queue by priority order. The following command will show the "long" (`-l`) format sprio with extended information, sorted by priority in descending order (`-S -Y`), and piped through the `less` command with line numbers shown on the far left (`less -N`):
 
 `sprio -S -Y -l | less -N`
 
