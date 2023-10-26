@@ -9,7 +9,7 @@ title: Running on Kestrel
 
 Kestrel nodes are associated with one or more partitions.  Each partition is associated with one or more job characteristics, which include run time, per-node memory requirements, and per-node local scratch disk requirements.
 
-Jobs will be automatically routed to the appropriate partitions by Slurm based on node quantity, walltime, hardware features, and other aspects specified in the submission. Jobs will have access to the largest number of nodes, thus shortest wait, **if the partition is not specified during job submission.**
+Excluding the shared node and debug partition, jobs will be automatically routed to the appropriate partitions by Slurm based on node quantity, walltime, hardware features, and other aspects specified in the submission. Jobs will have access to the largest number of nodes, thus shortest wait, **if the partition is not specified during job submission.**.
 
 The [Kestrel system configuration page](https://www.nrel.gov/hpc/kestrel-system-configuration.html) lists the four categories that Kestrel nodes exhibit based on their hardware features. 
 
@@ -24,13 +24,46 @@ The following table summarizes the partitions on Kestrel:
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total<br> 262 nodes per user|  ```--time <= 10-00```<br>```--mem <= 250000```<br>```--tmp <= 1700000 (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.8 TB NVMe local disk. | 8 nodes total<br> 4 nodes per user | ```--mem > 250000```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*  | 4 nodes total<br> 3 nodes per user | ```--mem > 250000```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
-
+| ```shared```|  Nodes that can be shared by multiple users and jobs | 32 nodes total. <br> No limit per user. | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
 
 !!! note
     For now, more information on Slurm and job submission script examples can be found under the [Eagle Running Jobs section](../Eagle/Running/index.md).
-    
+
+
+### Shared Node Partition 
+
+Unlike the other partitions, nodes in the shared partition can be shared by multiple users or jobs. This partition is intended for jobs that do not require a whole node. 
+
+p shared, where -n X or --mem=XGB controls memory or core request).
+#### Usage
+
+Currently, there are 32 standard compute nodes available in the shared partition. These nodes have 250GB of usable RAM and 104 cores. **By default, your job will be allocated 1.024 GB of RAM per core requested.** To change this amount, you can use the ```--mem``` flag in your job submission. 
+
+Example Submission Script:
+
+
+
+#### Accounting
+
+The equation for calculating the AU cost of a job is:
+
+`AU cost = (Walltime in hours * Number of Nodes * QoS Factor * Charge Factor)`
+
+In the shared node partition, the value for `Number of Nodes` can be a fraction of a node. This value will be calculated based on either the amount of cores or the amount of memory requested, whichever is a greater percentage of the total of that resource available on the node.
+
+For example, if you request 125 GB of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour. 
+
+#### To determine the Number of Nodes fraction value: 
+125/250 = 0.5
+
+26/104 = 0.25 
+
+#### Final calculation
+
+1 hour walltime * 0.5 nodes * 1 QoS Factor * 10 Charge Factor = 
+
 
 ## Job Submission Recommendations
 
