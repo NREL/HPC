@@ -17,7 +17,7 @@ To submit batch jobs on an HPC system at NREL, the Slurm `sbatch` command should
 
 `$ sbatch --account=<project-handle> <batch_script>`
 
-Scripts and program executables may reside in any file system, but it's generally a good idea to have your executables, conda environments, and so on stored in a /projects directory. Input and output files should typically be read from or written to either /projects or /scratch directories. Both /projects and /scratch use the Lustre/Clusterstor filesystem, which is designed to utilize the parallelized networking fabric that exists between compute nodes, and will result in much higher throughput (better I/O performance.) 
+Sbatch scripts may be stored on or run from any file system (/home or /projects, for example), as they are typically fairly lightweight shell scripts. However, on most HPC systems it's generally a good idea to have your executables, conda environments, other software that your sbatch script executes stored in a /projects directory. Your input and output files should typically be read from and/or written to either /projects or /scratch directories, as well. Please see the appropriate [Systems](/Documentation/Systems/) page for more information specific to the filesystems on the NREL-hosted cluster you're working on.
 
 Arguments to `sbatch` may be used to specify resource limits such as job duration (referred to as "walltime"), number of nodes, etc., as well as what hardware features you want your job to run with. These can also be supplied within the script itself by placing #SBATCH comment directives within the file. 
 
