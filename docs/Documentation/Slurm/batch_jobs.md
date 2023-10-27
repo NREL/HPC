@@ -85,7 +85,7 @@ You may use these environment variables in your sbatch scripts to help control o
 | `$SLURM_TASKS_PER_NODE` | Contained the value specified by `--tasks-per-node` in the job request. | 1 |
 
 
-# Example SBATCH Script Walkthrough
+## Example SBATCH Script Walkthrough
 
 Many examples of sbatch scripts are available in the [HPC Repository Slurm Directory](https://github.com/NREL/HPC/tree/master/slurm) on Github.
 
@@ -105,17 +105,17 @@ myprogram.sh
 
 ```
 
-## Script Details
+### Script Details
 
 Here is a section-by-section breakdown of the sample sbatch script, to help you begin writing your own.
 
-### Script Begin
+#### Script Begin
 
 `#!/bin/bash`
 
 This denotes the start of the script, and that it is written in BASH shell language, the most common Linux environment.
 
-### SBATCH Directives
+#### SBATCH Directives
 
 ```
 #SBATCH --account=<allocation>
@@ -137,7 +137,7 @@ Note that sbatch flags do not need to be issued via directives inside the script
 
 `sbatch --account=csc000 --time=60 --partition=debug mytestjob.sh`
 
-#### Job Instructions
+##### Job Instructions
 
 After the sbatch directive block, you may then begin executing your job. The syntax is normal BASH shell scripting. You may load system modules for software, load virtual environments, define environment variables, and execute your software to perform work.
 
