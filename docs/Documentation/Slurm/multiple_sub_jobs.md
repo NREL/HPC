@@ -14,7 +14,7 @@ For illustration, we use a simple C code to calculate pi. The source code and in
 
 ### Sample Program
 
-Copy and paste the following into a terminal window that's connected to Eagle.
+Copy and paste the following into a terminal window that's connected to the cluster.
 This will stream the pasted contents into a file called `pi.c` using the command `cat << eof > pi.c`.
 
 ```c
@@ -56,7 +56,7 @@ A sample batch job script file to run 8 copies of the pi_test program on a node 
 
 ### Copy and paste the following into a text file 
 
-Place that batch file into one of your directories on Eagle. Make sure to change the allocation to a project-handle you belong to.
+Place that batch file into one of your directories on the cluster. Make sure to change the allocation to a project-handle you belong to.
 
 ```bash
 #!/bin/bash
@@ -96,7 +96,7 @@ grep "PI" $JOBNAME.*/log
 
 ```
 
-### Submit the batch script on Eagle
+### Submit the Batch Script
 
 Use the following Slurm sbatch command to submit the script. The job will be scheduled, and you can view the output once the job completes to confirm the results.
 
