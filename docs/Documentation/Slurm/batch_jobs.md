@@ -137,7 +137,7 @@ Note that sbatch flags do not need to be issued via directives inside the script
 
 `sbatch --account=csc000 --time=60 --partition=debug mytestjob.sh`
 
-##### Job Instructions
+#### Job Instructions
 
 After the sbatch directive block, you may then begin executing your job. The syntax is normal BASH shell scripting. You may load system modules for software, load virtual environments, define environment variables, and execute your software to perform work.
 
