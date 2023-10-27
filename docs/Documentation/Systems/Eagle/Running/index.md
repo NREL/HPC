@@ -43,5 +43,5 @@ srun -A <project-handle> -t 15 -N 6 --pty $SHELL         # An alternative to sal
 
 Please see the [Slurm Job Scheduler](/Documentation/Slurm) documentation for an overview of job scheduling.
 
-[Eagle-specific sbatch examples](./sample_sbatch/) are also available.
+[Eagle-specific sbatch examples](./example_sbatch/) are also available.
 
