@@ -17,7 +17,6 @@ nav:
         - Systems: Documentation/Systems/index.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
-          - Documentation/Systems/Kestrel/getting_started_kestrel.md
           - Documentation/Systems/Kestrel/running.md
           - Documentation/Systems/Kestrel/filesystems.md 
           - Environments: 

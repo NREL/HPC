@@ -94,8 +94,7 @@ Some Kestrel compute nodes have an NVMe local solid-state drive (SSD) for use by
 
 The local disk is mounted at /tmp/scratch. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. 
 
-<!-- TODO: add link to resource request descriptions once available (For more information about requesting this feature, please see Resource Request Descriptions on the [Eagle Batch Jobs](./Running/batch_jobs.md) page.) -->
-To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`)
+To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). For more information about requesting this feature, please see the [Running on Kestrel page](./running.md).
 
 
 
