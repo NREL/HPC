@@ -7,10 +7,10 @@ parent: Programming Languages
 
 # Python
 
-## Eagle tutorials
-* [Python environments](../../../Environment/Customization/conda.md) : Utilize a specific version of Python on Eagle and install packages
+## NREL HPC Tutorials
+* [Python environments](../../../Environment/Customization/conda.md) : Utilize a specific version of Python and install packages
 * [Dask](dask.md) : Parallelize your Python code
-* [Jupyter notebooks](../../Jupyter/index.md) : Run interactive notebooks on Eagle
+* [Jupyter notebooks](../../Jupyter/index.md) : Run interactive notebooks
 
 ## HPC Python
 Links to External resources:
