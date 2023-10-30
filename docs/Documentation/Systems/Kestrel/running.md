@@ -28,6 +28,7 @@ The following table summarizes the partitions on Kestrel:
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
 
+<<<<<<< HEAD
 !!! note
     For now, more information on Slurm and job submission script examples can be found under the [Eagle Running Jobs section](../Eagle/Running/index.md).
 
@@ -64,7 +65,11 @@ For example, if you request 125 GB of RAM (half of the available RAM on the node
 
 1 hour walltime * 0.5 nodes * 1 QoS Factor * 10 Charge Factor = 
 
+=======
+For more information on running jobs and Slurm job scheduling, please see the [Slurm documentation section](../../Slurm/index.md).
+>>>>>>> gh-pages
 
+    
 ## Job Submission Recommendations
 
 #### OpenMP
