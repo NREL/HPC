@@ -49,19 +49,6 @@ The **Charge Factor** for each partition is listed in the table above.
 The Vermilion HPC cluster runs fairly current versions of OpenHPC and SLURM on top of OpenStack.
 
 
-## Software Environments
-
-Environments are provided with a number of commonly used compilers, common build tools, specific optimized libraries, and some analysis tools. Environments must be enabled before modules can be seen.  This is discussed in detail on the page [Modules](./modules.md).
-
-You can use the "standard" environment by running the command:
-
-```
-source /nopt/nrel/apps/210929a/myenv.2110041605
-```
-
-The examples on this page uses the environment enabled by this command.   You may want to add this command to your `.bashrc` file so you have a useful environment when you login.
-
-
 ## Examples: Build and run simple applications
 
 This section discusses how to compile and run a simple MPI application, as well as how to link against the Intel MKL library.
@@ -81,25 +68,23 @@ cp /nopt/nrel/apps/210929a/example/phostone.c .
 First we will look at how to compile and run the application using Intel MPI.  To build the application, we load the necessary Intel modules.  Execute the following commands to load the modules and build the application, naming the output `phost.intelmpi`.  Note that this application uses OpenMP as well as MPI, so we provide the `-fopenmp` flag to link against the OpenMP libraries.
 
 ```bash
-source /nopt/nrel/apps/210929a/myenv.2110041605
-ml intel-oneapi-mpi intel-oneapi-compilers gcc
+ml intel-oneapi-mpi intel-oneapi-compilers
 mpiicc -fopenmp phostone.c -o phost.intelmpi
 ```
 
-The following batch script is an example that runs the job using two MPI ranks across two nodes and two threads per rank.  Save this script to a file such as `submit_intel.sh`, replace `<myaccount>` with the appropriate account, and submit using `sbatch submit_intel.sh`.  Feel free to experiment with different numbers of tasks, threads, and nodes.  Note that multi-node jobs on Vermilion can be finicky, and applications may not scale as well as they do on other systems.  If you experience problems with a multi-node job, start by first making sure that you application can run on a single node.
+The following batch script is an example that runs the job using two MPI ranks on a single node with two threads per rank.  Save this script to a file such as `submit_intel.sh`, replace `<myaccount>` with the appropriate account, and submit using `sbatch submit_intel.sh`.  Feel free to experiment with different numbers of tasks and threads.  Note that multi-node jobs on Vermilion can be finicky, and applications may not scale as well as they do on other systems.  At this time, it is not expected that multi-node jobs will always run successfully.
 
 
 ??? example "Intel MPI submission script"
 
     ```bash
     #!/bin/bash
-    #SBATCH --nodes=2
+    #SBATCH --nodes=1
     #SBATCH --exclusive
     #SBATCH --time=00:01:00
     #SBATCH --account=<myaccount>
 
-    source /nopt/nrel/apps/210929a/myenv.2110041605
-    ml intel-oneapi-mpi intel-oneapi-compilers gcc
+    ml intel-oneapi-mpi intel-oneapi-compilers
 
     export OMP_NUM_THREADS=2
     export I_MPI_OFI_PROVIDER=tcp
@@ -112,29 +97,26 @@ Your output should look similar to the following:
 MPI VERSION Intel(R) MPI Library 2021.9 for Linux* OS
 
 task    thread             node name  first task    # on node  core
-0000      0000           vs-std-0001        0000         0000  0001
-0000      0001           vs-std-0001        0000         0000  0000
-0001      0000           vs-std-0002        0001         0000  0001
-0001      0001           vs-std-0002        0001         0000  0000
+0000      0000           vs-std-0044        0000         0000  0001
+0000      0001           vs-std-0044        0000         0000  0000
+0001      0000           vs-std-0044        0000         0001  0003
+0001      0001           vs-std-0044        0000         0001  0002
 ```
 
 ### Link Intel's MKL library
 
-The environment defined by sourcing the file `/nopt/nrel/apps/210929a/myenv.2110041605`
-enables loading of many other modules, including one for Intel's MKL
-library. Then to build against MKL using the Intel compilers
-icc or ifort you normally just need to add the flag `-qmkl`.
-
-There are examples in the directory `/nopt/nrel/apps/210929a/example/mkl`.
-There is a Readme.md file that explains in a bit more detail.
+The `intel-oneapi-mkl` module is available for linking against Intel's MKL
+library.  Then to build against MKL using the Intel compilers icc or ifort, you
+normally just need to add the flag `-qmkl`. There are examples in the directory
+`/nopt/nrel/apps/210929a/example/mkl`, and there is a Readme.md file that
+explains in a bit more detail.
 
 To compile a simple test program that links against MKL, run:
 
 ```bash
 cp /nopt/nrel/apps/210929a/example/mkl/mkl.c .
 
-source /nopt/nrel/apps/210929a/myenv.2110041605
-ml intel-oneapi-mkl intel-oneapi-compilers gcc
+ml intel-oneapi-mkl intel-oneapi-compilers
 icc -O3 -qmkl mkl.c -o mkl
 ```
 
@@ -158,12 +140,13 @@ An example submission script is:
 
 ### Compile and run with Open MPI
 
-Please note that multi-node jobs with Open MPI may not function properly.  If running on multiple nodes is needed, it is advised to use Intel MPI or try to run your jobs on a different system.
+!!! warning
+
+    Please note that multi-node jobs are not currently supported with Open MPI.
 
 Use the following commands to load the Open MPI modules and compile the test program into an executable named `phost.openmpi`:
 
 ```bash
-source /nopt/nrel/apps/210929a/myenv.2110041605
 ml gcc openmpi
 mpicc -fopenmp phostone.c -o phost.openmpi
 ```
@@ -179,7 +162,6 @@ The following is an example script that runs two tasks on a single node, with tw
     #SBATCH --time=00:01:00
     #SBATCH --account=<myaccount>
 
-    source /nopt/nrel/apps/210929a/myenv.2110041605
     ml gcc openmpi
 
     export OMP_NUM_THREADS=2
