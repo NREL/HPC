@@ -49,7 +49,7 @@ NREL also offers support for additional functionalities such as [transition stat
 There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, transition state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/<version>```.
 
 !!! tip "Important: Conserving your AUs on Kestrel"
-	Kestrel nodes have nearly 3x as many cores as Eagle. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/getting_started_kestrel.m#shared-node-partition).
+	Kestrel nodes have nearly 3x as many cores as Eagle. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition).
 
 ??? example "Sample job script: Kestrel - Full node"
 
