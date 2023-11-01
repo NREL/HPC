@@ -68,7 +68,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 
 ??? example "Sample job script: Kestrel - Shared (partial) node"
 
-    As described in detail in the [Shared partition documentation](../Systems/Kestrel/getting_started_kestrel.m#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (256 GB total) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
+    As described in detail in the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (256 GB total) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
 
     ```
     #!/bin/bash
