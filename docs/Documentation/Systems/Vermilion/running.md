@@ -9,8 +9,6 @@
 
 *This page discusses the compute nodes, partitions, and gives some examples of building and running applications.*
 
-The page [Modules](./modules.md) discuses how to activate and use the modules on Vermilion. Modules are not available by default and must be activated.  Please see the [Modules](./modules.md) page for more information about setting up your environment and loading modules. 
-
 
 ## About Vermilion
 

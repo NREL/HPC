@@ -47,7 +47,6 @@ nav:
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
           - Documentation/Systems/Vermilion/running.md
-          - Documentation/Systems/Vermilion/modules.md
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
