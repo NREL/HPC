@@ -184,6 +184,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.indexes
+    - announce.dismiss
 markdown_extensions:
   - toc:
       permalink: "#"
