@@ -7,16 +7,16 @@ title: Running on Eagle
 *Learn about running jobs on the Eagle high-performance computing (HPC) system.*
 
 !!! note "Running Different Types of Jobs"
-    * [Batch Jobs](./batch_jobs.md)
-    * [Interactive Jobs](./interactive_jobs.md)
-    * [Multiple Sub-Jobs](./multiple_sub_jobs.md)
+    * [Batch Jobs](/Documentation/Slurm/batch_jobs)
+    * [Interactive Jobs](/Documentation/Slurm/interactive_jobs)
+    * [Multiple Sub-Jobs](/Documentation/Slurm/multiple_sub_jobs)
 
 ## Job Scheduling and Management
 To allow multiple users to share the system, Eagle uses the Slurm workload manager/job scheduler and resource manager. Slurm has commands for job submission, job monitoring, and job control (hold, delete, and resource request modification).
 
 A **"job"** contains a list of required consumable resources (such as nodes), a list of job constraints (when, where and how the job should run), and an execution environment, which includes things like an executable, input and output files.
 
-Both [interactive jobs](./interactive_jobs.md) (*i.e.*, where you are given a shell prompt on one of possibly several assigned compute nodes) and regular [batch jobs](./batch_jobs.md) are supported.
+Both [interactive jobs](/Documentation/Slurm/interactive_jobs) (*i.e.*, where you are given a shell prompt on one of possibly several assigned compute nodes) and regular [batch jobs](/Documentation/Slurm/batch_jobs) are supported.
 
 At present, compute nodes are scheduled so that each active job has exclusive access to its assigned nodes.
 
@@ -41,4 +41,7 @@ salloc -A <project-handle> -t 5
 srun -A <project-handle> -t 15 -N 6 --pty $SHELL         # An alternative to salloc
 ```
 
+Please see the [Slurm Job Scheduler](/Documentation/Slurm) documentation for an overview of job scheduling.
+
+[Eagle-specific sbatch examples](./example_sbatch/) are also available.
 

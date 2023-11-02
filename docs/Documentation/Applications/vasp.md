@@ -46,9 +46,12 @@ NREL also offers support for additional functionalities such as [transition stat
 
 #### CPU
 
-??? example "Sample job script: Kestrel - VASP CPU"
+There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, transition state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/<version>```.
 
-    There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, transition state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/<version>```. A sample job script is shown below.
+!!! tip "Important: Conserving your AUs on Kestrel"
+	Kestrel nodes have nearly 3x as many cores as Eagle. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition).
+
+??? example "Sample job script: Kestrel - Full node"
 
     ```
     #!/bin/bash
@@ -62,6 +65,32 @@ NREL also offers support for additional functionalities such as [transition stat
 
     srun vasp_std |& tee out
     ```
+
+??? example "Sample job script: Kestrel - Shared (partial) node"
+
+    As described in detail in the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (256 GB total) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
+
+    ```
+    #!/bin/bash
+    #SBATCH --nodes=1
+    #SBATCH --partition=shared
+    #SBATCH --tasks=26 #How many cpus you want
+    #SBATCH --mem-per-cpu=2G #Default is 1 GB/core but 2 GB/core is a good starting place
+    #SBATCH --time=2:00:00
+    #SBATCH --account=<your-account-name>
+    #SBATCH --job-name=<your-job-name>
+
+    module load vasp/<version>
+
+    srun vasp_std |& tee out
+    ```
+
+??? note "Performance Notes"
+
+    Internal testing at NREL has indicated that standard VASP DFT calculations from sizes 50-200 atoms run most efficiently on a quarter to a half node. The graph below shows the performance of a 192-atom VASP DFT job using partial nodes on the shared partition. Up to 1/2 a node, near perfect scaling is observed, but using the full node gives a speedup of only 1.5 relative to using 1/2 a node. So, the calculation will cost 50% more AUs if run on a single node compared to a half node. For a 48-atom surface Pt calculation, using the full node gives no speedup relative to using 1/2 a node, so the calculation will cost 100% more AUs if run on a single node compared to half a node. 
+
+    ![VASP-sharednodescaling](../../../assets/images/VASP/sharedscaling-192.png)
+
 
 ### Building VASP on Kestrel
  
@@ -154,7 +183,7 @@ NREL also offers support for additional functionalities such as [transition stat
 
 #### GPU
 
-??? example "Sample job script: Eagle - VASP 6 (OpenACC)"
+??? example "Sample job script: Eagle - VASP 6 GPU (OpenACC)"
     ```
     #!/bin/bash
     #SBATCH --job-name=vasp_gpu
@@ -189,7 +218,7 @@ NREL also offers support for additional functionalities such as [transition stat
     Warning: ieee_inexact is signaling
     FORTRAN STOP
     ```
-??? example "Sample job script: Eagle - VASP 6 (Cuda)"
+??? example "Sample job script: Eagle - VASP 6 GPU (Cuda)"
     
     To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` executable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
       
@@ -216,7 +245,7 @@ NREL also offers support for additional functionalities such as [transition stat
 ## VASP on Swift
 
 #### CPU
-??? example "Sample job script: Swift - VASP 6 (Intel MPI)"
+??? example "Sample job script: Swift - VASP 6 CPU (Intel MPI)"
     
     ```
     #!/bin/bash
@@ -243,7 +272,7 @@ NREL also offers support for additional functionalities such as [transition stat
     srun -n 64 vasp_std &> out
     ```
 
-??? example "Sample job script: Swift - VASP 6 (Open MPI)"
+??? example "Sample job script: Swift - VASP 6 CPU (Open MPI)"
   
     ```
     #!/bin/bash
@@ -352,7 +381,7 @@ NREL also offers support for additional functionalities such as [transition stat
 ## VASP on Vermilion
 
 #### CPU
-??? example "Sample job script: Vermilion - VASP 6 (Intel MPI)"
+??? example "Sample job script: Vermilion - VASP 6 CPU (Intel MPI)"
   
     ```
     #!/bin/bash
@@ -384,7 +413,7 @@ NREL also offers support for additional functionalities such as [transition stat
     # If the multi-node calculations are breaking, replace the srun line with this line
     # I_MPI_OFI_PROVIDER=tcp mpirun -iface ens7 -np 60 vasp_std
     ```
-??? example "Sample job script: Vermilion - VASP 6 (Open MPI)"
+??? example "Sample job script: Vermilion - VASP 6 CPU (Open MPI)"
   
     ```
     #!/bin/bash
@@ -414,7 +443,7 @@ NREL also offers support for additional functionalities such as [transition stat
 
     srun --mpi=pmi2 -n 60 vasp_std
     ```
-??? example "Sample job script: Vermilion - VASP 5 (Intel MPI)"
+??? example "Sample job script: Vermilion - VASP 5 CPU (Intel MPI)"
   
     ```
     #!/bin/bash
@@ -467,7 +496,7 @@ NREL also offers support for additional functionalities such as [transition stat
 
 #### GPU
 
-??? example "Sample job script: Vermilion - VASP 6 (OpenACC)"
+??? example "Sample job script: Vermilion - VASP 6 CPU (OpenACC)"
   
     ```
     #!/bin/bash

@@ -17,7 +17,6 @@ nav:
         - Systems: Documentation/Systems/index.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
-          - Documentation/Systems/Kestrel/getting_started_kestrel.md
           - Documentation/Systems/Kestrel/running.md
           - Documentation/Systems/Kestrel/filesystems.md 
           - Environments: 
@@ -31,12 +30,8 @@ nav:
             - Documentation/Systems/Eagle/Running/index.md
             - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
             - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
-            - Batch Jobs: Documentation/Systems/Eagle/Running/batch_jobs.md
-            - Interactive Jobs: Documentation/Systems/Eagle/Running/interactive_jobs.md
-            - Multiple Sub-Jobs: Documentation/Systems/Eagle/Running/multiple_sub_jobs.md
-            - Sample Batch Scripts: Documentation/Systems/Eagle/Running/sample_sbatch.md
+            - Example Sbatch Scripts: Documentation/Systems/Eagle/Running/example_sbatch.md
             - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
-            - Monitor and Control Commands: Documentation/Systems/Eagle/Running/monitor_and_control.md
           - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
@@ -47,6 +42,12 @@ nav:
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
           - Documentation/Systems/Vermilion/running.md
+      - Slurm Job Scheduling:
+        - Documentation/Slurm/index.md
+        - Monitor and Control Commands: Documentation/Slurm/monitor_and_control.md
+        - Submitting Batch Jobs: Documentation/Slurm/batch_jobs.md
+        - Running Interactive Jobs: Documentation/Slurm/interactive_jobs.md
+        - Multiple Sub-Jobs: Documentation/Slurm/multiple_sub_jobs.md
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
@@ -163,6 +164,7 @@ nav:
             - Documentation/Development/Containers/index.md
             - Documentation/Development/Containers/registries.md
             - Documentation/Development/Containers/singularity.md
+            - Documentation/Development/Containers/apptainer.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
@@ -180,6 +182,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.indexes
+    - announce.dismiss
 markdown_extensions:
   - toc:
       permalink: "#"
