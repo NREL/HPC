@@ -124,7 +124,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
 
     ...and then save the profile.
 
-    ![](../../assets/images/FastX/kestrel-dav-ssh-login-fastx-step3.png)
+    ![](../../assets/images/FastX/kestrel-dav-ssh-login-fastx-step3-external.png)
 
     **Step 4**:
 
