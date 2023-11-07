@@ -37,9 +37,8 @@ The current NREL Globus Endpoints are:
 (e.g., /projects, /scratch, /home, /datasets, /campaign, and /shared-projects)
 - **nrel#globus-hpc1** and **nrel#globus-hpc2** - these endpoints allows access to *some* files
 on Eagle (e.g., /campaign, /datasets, /shared-projects, /mss) and can be mounted
-to other systems within the ESIF Data Center upon request
-- **nrel#kglobus_home** - this connects to the Kestrel home directory linked to the user account used to authenticate.  
-- **nrel#kglobus_projects** and **nrel#kglobus_scratch** - these endpoints allow access to Kestrel, and point to /projects and /scratch respectively. 
+to other systems within the ESIF Data Center upon request  
+- **nrel#kglobus_projects** - this endpoint allows access to Kestrel, and points to /projects.
 
 ## Globus Personal Endpoints
 
