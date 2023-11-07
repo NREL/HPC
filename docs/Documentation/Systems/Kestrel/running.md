@@ -24,7 +24,7 @@ The following table summarizes the partitions on Kestrel:
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total<br> 262 nodes per user|  ```--time <= 10-00```<br>```--mem <= 250000```<br>```--tmp <= 1700000 (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.8 TB NVMe local disk. | 8 nodes total<br> 4 nodes per user | ```--mem > 250000```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*  | 4 nodes total<br> 3 nodes per user | ```--mem > 250000```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
-| ```shared```|  Nodes that can be shared by multiple users and jobs. | 32 nodes total. <br> No limit per user. | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
+| ```shared```|  Nodes that can be shared by multiple users and jobs. Walltime <= 2 days. | 32 nodes total. <br> No limit per user. | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
 
