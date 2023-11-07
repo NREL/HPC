@@ -15,6 +15,7 @@ Please see the [System Configurations](../index.md) page for more information ab
 
 !!! note
     GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2 (January, 2024).   
+
 ## Accessing Kestrel
 Access to Kestrel requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
 
@@ -42,12 +43,8 @@ There are eight DAV nodes available on Kestrel, which are nodes intended for HPC
 
 [FastX](https://nrel.github.io/HPC/Documentation/Viz_Analytics/virtualgl_fastx/) is available for HPC users to use graphical applications on the DAV nodes.
 
-To connect to a DAV node using the load balancing algorithim, you can connect to:
+To connect to a DAV node using the load balancing algorithim, NREL employees can connect to **kestrel-dav.hpc.nrel.gov**. To connect from outside the NREL network, use **kestrel-dav.nrel.gov**. 
 
-* kestrel-dav.hpc.nrel.gov
-
-!!! note
-    The [Visualization and Analytics Software Tools](https://nrel.github.io/HPC/Documentation/Viz_Analytics/) page has not been updated for Kestrel yet; however, the instructions provided can be used as a proxy for Kestrel.
 
 ## Get Help With Kestrel
 Please see the [Help and Support Page](../../help.md) for further information on how to seek assistance with Kestrel or your NREL HPC account. 
