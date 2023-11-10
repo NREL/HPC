@@ -2,16 +2,17 @@
 
 *Learn about the Gaussian16 electronic structure program and how to run Gaussian16 jobs at NREL.*
 
-!!! tip "Important"
-	 To run Gaussian16, users must be a member of the Gaussian user group. To be added to the group, contact [HPC-Help](mailto:hpc-help@nrel.gov). In your email message, include your username and copy the following text agreeing not to compete with Gaussian, Inc.:
-	```
-	I am not actively developing applications for a competing software program, or for a project in 
-	collaboration with someone who is actively developing for a competing software program. I agree 
-	that Gaussian output cannot be provided to anyone actively developing for a competing software program.
+**Important**
+To run Gaussian16, users must be a member of the Gaussian user group. To be added to the group, contact [HPC-Help](mailto:hpc-help@nrel.gov). In your email message, include your username and copy the following text agreeing not to compete with Gaussian, Inc.:
+```
+I am not actively developing applications for a competing software program, or for a project
+in collaboration with someone who is actively developing for a competing software program.
+I agree that Gaussian output cannot be provided to anyone actively developing for a competing
+software program.
 
-	I agree to this statement.
+I agree to this statement.
 
-	```
+```
 
 ## Configuration and Default Settings
 
@@ -27,80 +28,81 @@ This scratch space is set automatically by the example script below. The Gaussia
 
 ### Sample Job Scripts
 
-#### Eagle
+#### Eagle and Kestrel
 
-Gaussian may be configured on Eagle to run on one or more physical nodes, with or without shared memory parallelism. Distributed memory, parallel setup is taken care of automatically based on settings in the SLURM script example below.
+Gaussian may be configured on Eagle and Kestrel to run on one or more physical nodes, with or without shared memory parallelism. Distributed memory, parallel setup is taken care of automatically based on settings in the SLURM script example below.
 
-??? example "Eagle Sample Submission Script"
+**Eagle and Kestrel Sample Submission Script**
 
-	```bash
-	#!/bin/bash
-	#SBATCH --time=48:00:00 
-	#SBATCH --nodes=3
-	#SBATCH --job-name=G16test
-	#SBATCH --output=std.out
-	#SBATCH --error=std.err
-	#SBATCH --account=hpcapps
+```bash
+#!/bin/bash
+#SBATCH --time=48:00:00 
+#SBATCH --nodes=3
+#SBATCH --job-name=G16test
+#SBATCH --output=std.out
+#SBATCH --error=std.err
+#SBATCH --account=<your-allocation-id>
+
 	
-	# Load Gaussian module to set environment
-	module load gaussian
-	cd $SLURM_SUBMIT_DIR
+# Load Gaussian module to set environment
+module load gaussian
+cd $SLURM_SUBMIT_DIR
 	
-	# Set script variables
-	INPUT_BASENAME=G16_test
-	INPUT_FILE=$INPUT_BASENAME.com
-	GAUSSIAN_EXEC=g16
-	MEMSIZE=5GB 
-	SCRATCH=/tmp/scratch/$SLURM_JOB_ID
-	SCRATCH2=/dev/shm 
-	# 
-	# Check on editing input file. If scratch directories 
-	# are listed then file is used un-changed, if 3-line 
-	# header not present, then script prepends these lines 
-	# to the input file to be used in execution line 
-	# 
-	NUMRWFLINES=`grep "RWF" $INPUT_FILE | wc -l` 
-	if [ $NUMRWFLINES -eq 1 ]; then 
-	 echo "standard file found" 
-	 cp $INPUT_FILE infile 
-	else 
-	 echo "prepending lines to input file" 
-	 echo "%RWF=$SCRATCH2/,$MEMSIZE,$SCRATCH/,-1" > infile 
-	 echo "%NoSave" >> infile 
-	 echo " " >> infile 
-	 cat $INPUT_FILE >> infile 
-	fi 
+# Set script variables
+INPUT_BASENAME=G16_test
+INPUT_FILE=$INPUT_BASENAME.com
+GAUSSIAN_EXEC=g16
+MEMSIZE=5GB 
+SCRATCH=/tmp/scratch/$SLURM_JOB_ID
+SCRATCH2=/dev/shm 
+# 
+# Check on editing input file. If scratch directories 
+# are listed then file is used un-changed, if 3-line 
+# header not present, then script prepends these lines 
+# to the input file to be used in execution line 
+# 
+NUMRWFLINES=`grep "RWF" $INPUT_FILE | wc -l` 
+if [ $NUMRWFLINES -eq 1 ]; then 
+ echo "standard file found" 
+ cp $INPUT_FILE infile 
+else 
+ echo "prepending lines to input file" 
+ echo "%RWF=$SCRATCH2/,$MEMSIZE,$SCRATCH/,-1" > infile 
+ echo "%NoSave" >> infile 
+ echo " " >> infile 
+ cat $INPUT_FILE >> infile 
+fi 
 	
-	# 
-	# Run gaussian NREL script (performs much of the Gaussian setup) 
-	g16_nrel 
+# 
+# Run gaussian NREL script (performs much of the Gaussian setup) 
+g16_nrel 
 	
-	# 
-	# Set required Gaussian environment variables 
-	# 
-	if [ $SLURM_JOB_NUM_NODES -gt 1 ]; then 
-	 export GAUSS_LFLAGS='-vv -opt "Tsnet.Node.lindarsharg: ssh"' 
-	 export GAUSS_EXEDIR=$g16root/g16/linda-exe:$GAUSS_EXEDIR 
-	fi 
-	export GAUSS_SCRDIR=$SCRATCH2 
-	# 
-	# Gaussian needs scratch directories 
-	# Note: sometimes files may have been left behind in 
-	# on-node memory by other jobs that terminated incorrectly 
-	# so clean these to make sure there is enough space. 
-	# 
+# 
+# Set required Gaussian environment variables 
+# 
+if [ $SLURM_JOB_NUM_NODES -gt 1 ]; then 
+ export GAUSS_LFLAGS='-vv -opt "Tsnet.Node.lindarsharg: ssh"' 
+ export GAUSS_EXEDIR=$g16root/g16/linda-exe:$GAUSS_EXEDIR 
+fi 
+export GAUSS_SCRDIR=$SCRATCH2 
+# 
+# Gaussian needs scratch directories 
+# Note: sometimes files may have been left behind in 
+# on-node memory by other jobs that terminated incorrectly 
+# so clean these to make sure there is enough space. 
+# 
 	 
-	mkdir -p $SCRATCH 
-	rm $SCRATCH2/* 
+mkdir -p $SCRATCH 
+rm $SCRATCH2/* 
 	
-	# Run Gaussian job 
-	$GAUSSIAN_EXEC < infile >& $INPUT_BASENAME.log 
-	rm infile
+# Run Gaussian job 
+$GAUSSIAN_EXEC < infile >& $INPUT_BASENAME.log 
+rm infile
 	
-	rm $SCRATCH/*
-	rmdir $SCRATCH
+rm $SCRATCH/*
+rmdir $SCRATCH
 
-	```	
+```	
 
 This script and sample Gaussian input are located at */nopt/nrel/apps/gaussian/examples*. The gaussian module is loaded by the script automatically, so the user does not need to have loaded the module before submitting the job. The g16_eagle python script edits the Default.Route file based on the SLURM environment set when the script is submitted to the queue. The user also must supply the name of the input file (`INPUT_BASENAME`). 
 
