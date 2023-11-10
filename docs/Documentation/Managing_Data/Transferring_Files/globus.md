@@ -37,7 +37,8 @@ The current NREL Globus Endpoints are:
 (e.g., /projects, /scratch, /home, /datasets, /campaign, and /shared-projects)
 - **nrel#globus-hpc1** and **nrel#globus-hpc2** - these endpoints allows access to *some* files
 on Eagle (e.g., /campaign, /datasets, /shared-projects, /mss) and can be mounted
-to other systems within the ESIF Data Center upon request
+to other systems within the ESIF Data Center upon request  
+- **nrel#kglobus_projects** - this endpoint allows access to Kestrel, and points to /projects.
 
 ## Globus Personal Endpoints
 
@@ -105,5 +106,5 @@ Online](https://www.globus.org) website or via the [CLI](https://docs.globus.org
 
     For installing **globus-cli**, the recommendation is to use a Conda environment.  In this 
     case, it is advised to follow the instructions about mixing Conda and Pip, 
-    and only use Pip after establishing a base environment using Conda.  For more information about mixing Conda and Pip, refer to our internal documentation at: [Conda](https://nrel.github.io/HPC/Documentation/Software_Tools/conda/)
+    and only use Pip after establishing a base environment using Conda.  For more information about mixing Conda and Pip, refer to our internal documentation at: [Conda](../../Environment/Customization/conda.md)
     

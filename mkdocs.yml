@@ -4,8 +4,11 @@ nav:
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
       - blog/2021-06-18-srun.md
+      - blog/2022-02-02-Changes_to_Slurm_srun_for_interactive_jobs.md
       - blog/2022-10-04-python2to3.md
+      - blog/2022-03-05-local-io-performance.md
       - blog/2022-12-19-windows_ssh.md
+      - blog/2023-01-10-using_specific_module_versions_on_hpc.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
@@ -15,20 +18,20 @@ nav:
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
-          - Documentation/Systems/Kestrel/modules.md
-          - Documentation/Systems/Kestrel/filesystems.md
+          - Documentation/Systems/Kestrel/filesystems.md 
+          - Environments: 
+            - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
+            - Toolchains:
+              - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+            - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 
             - Documentation/Systems/Eagle/Running/index.md
             - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
             - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
-            - Batch Jobs: Documentation/Systems/Eagle/Running/batch_jobs.md
-            - Interactive Jobs: Documentation/Systems/Eagle/Running/interactive_jobs.md
-            - Multiple Sub-Jobs: Documentation/Systems/Eagle/Running/multiple_sub_jobs.md
-            - Sample Batch Scripts: Documentation/Systems/Eagle/Running/sample_sbatch.md
+            - Example Sbatch Scripts: Documentation/Systems/Eagle/Running/example_sbatch.md
             - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
-            - Monitor and Control Commands: Documentation/Systems/Eagle/Running/monitor_and_control.md
           - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
@@ -39,8 +42,12 @@ nav:
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
           - Documentation/Systems/Vermilion/running.md
-          - Documentation/Systems/Vermilion/modules.md
-          - Documentation/Systems/Vermilion/filesystems.md
+      - Slurm Job Scheduling:
+        - Documentation/Slurm/index.md
+        - Monitor and Control Commands: Documentation/Slurm/monitor_and_control.md
+        - Submitting Batch Jobs: Documentation/Slurm/batch_jobs.md
+        - Running Interactive Jobs: Documentation/Slurm/interactive_jobs.md
+        - Multiple Sub-Jobs: Documentation/Slurm/multiple_sub_jobs.md
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
@@ -78,6 +85,10 @@ nav:
             - Interactive Mode: Documentation/Applications/Matlab/interactive.md
             - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
             - Versions and Licenses: Documentation/Applications/Matlab/versions.md
+          - PLEXOS:
+            - Documentation/Applications/Plexos/index.md
+            - Setting Up: Documentation/Applications/Plexos/setup_plexos.md
+            - Running Models: Documentation/Applications/Plexos/run_plexos.md
           - Q-Chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
@@ -129,13 +140,13 @@ nav:
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
+              - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
-              # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
-            #  - ARM Performance Reports:
-            #    - Documentation/Development/Performance_Tools/ARM/index.md
-            #    - MAP : Documentation/Development/Performance_Tools/ARM/map.md
-            #    - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
+             - Linaro-Forge:
+               - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
+               - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
+               - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
@@ -151,8 +162,9 @@ nav:
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
          - Containers:
             - Documentation/Development/Containers/index.md
-            - Documentation/Development/Containers/registres.md
+            - Documentation/Development/Containers/registries.md
             - Documentation/Development/Containers/singularity.md
+            - Documentation/Development/Containers/apptainer.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
@@ -170,6 +182,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.indexes
+    - announce.dismiss
 markdown_extensions:
   - toc:
       permalink: "#"

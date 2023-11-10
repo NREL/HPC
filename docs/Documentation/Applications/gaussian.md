@@ -10,9 +10,9 @@
 	collaboration with someone who is actively developing for a competing software program. I agree 
 	that Gaussian output cannot be provided to anyone actively developing for a competing software program.
 
-	I agree to this statement.
+  I agree to this statement.
 
-	```
+  ```
 
 ## Configuration and Default Settings
 

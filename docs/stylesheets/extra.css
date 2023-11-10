@@ -19,9 +19,6 @@
 
 
   /* Code block color shades */
-  --md-code-bg-color: #212121;
-  --md-code-fg-color: #F7A11A;
-
   --md-code-bg-color: #f0f0f0;
   --md-code-fg-color: #36454e;
   --md-code-hl-number-color: #e6695b;
