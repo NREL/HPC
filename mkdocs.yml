@@ -42,8 +42,6 @@ nav:
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
           - Documentation/Systems/Vermilion/running.md
-          - Documentation/Systems/Vermilion/modules.md
-          - Documentation/Systems/Vermilion/filesystems.md
       - Slurm Job Scheduling:
         - Documentation/Slurm/index.md
         - Monitor and Control Commands: Documentation/Slurm/monitor_and_control.md
