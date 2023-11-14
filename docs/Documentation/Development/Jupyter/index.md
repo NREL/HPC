@@ -158,6 +158,10 @@ copy full url from jupyter startup into your web browser. e.g.:
 
 Automation makes life better!
 
+### Using pyeagle
+
+You can use the internal [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package to handle launching and monitoring a jupyter server on a compute node. 
+
 ###  Auto-launching with an sbatch script
 
 Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
