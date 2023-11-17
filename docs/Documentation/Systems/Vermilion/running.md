@@ -18,7 +18,7 @@ Vermilion is a collection of physical nodes with each regular node containing Du
 
 ### Shared file systems
 
-Vermilion's home directories are shared across all nodes.  There is also /scratch/$USER and /projects spaces seen across all nodes.
+Vermilion's home directories are shared across all nodes. Each user has a quota of 5 GB. There is also /scratch/$USER and /projects spaces seen across all nodes.
 
 ### Partitions
 
