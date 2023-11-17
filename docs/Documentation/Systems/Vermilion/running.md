@@ -26,7 +26,7 @@ Partitions are flexible and fluid on Vermilion.  A list of partitions can be fou
 
 | Partition Name                          | Qty | RAM    | Cores/node | /var/scratch <br>1K-blocks | AU Charge Factor | 
 | :--:                               | :--: | :--:    | :--:             | :--:   | :--: |                         
-| gpu<br>*1 x NVIDIA Tesla A100*      |  17  | 114 GB |   30            |  6,240,805,336| 12 |       
+| gpu<br>*1 x NVIDIA Tesla A100*      |  16  | 114 GB |   30            |  6,240,805,336| 12 |       
 | lg                                 | 39  | 229 GB |   60            |   1,031,070,000| 7 |
 | std                                | 60  | 114 GB |   30            |     515,010,816| 3.5 |
 | sm                                 | 28  |  61 GB |   16            |     256,981,000| 0.875 |
