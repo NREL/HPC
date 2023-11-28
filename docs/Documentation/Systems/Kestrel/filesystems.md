@@ -71,6 +71,22 @@ To request a /shared-projects directory, please contact [hpc-help@nrel.gov](mail
 !!! info 
     Shared project directories are not automatically synced between Eagle and Kestrel. 
 
+**/kfs2/pdatasets**
+
+The /pdatasets directory on Kestrel hosts widely used data sets.
+
+There are multiple big data sets that are commonly used across various projects for computation and analysis on NREL's HPC Systems. We provide a common location on Kestrel's filesystem at /kfs2/pdatasets, where these data sets are available for global reading by all compute nodes. Each data set contains a readme file that covers background, references, explanation of the data structure, and Python examples.
+
+These datasets include: 
+
+**/kfs2/pdatasets/NSRDB**
+
+The National Solar Radiation Database (NSRDB) is a serially complete collection of meteorological and solar irradiance data sets for the United States and a growing list of international locations for 1998-2017. The NSRDB provides foundational information to support U.S. Department of Energy programs, research, and the general public.
+
+**/kfs2/pdatasets/WIND**
+
+The Wind Integration National Data Set (WIND) Toolkit consists of wind resource data for North America and was produced using the Weather Research and Forecasting Model (WRF).
+
 ### ScratchFS
 
 ScratchFS is a Lustre file system in a hybrid flash-disk configuration providing a total of 27 petabytes (PB) of capacity with 354 gigabytes (GB)/s of IOR bandwidth. It is intended to support intensive I/O and we recommend running jobs out of ScratchFS for the best performance. 
@@ -81,11 +97,6 @@ Each user has their own directory in /scratch.
 
 !!! warning 
     Data in /scratch is subject to deletion after 28 days of inactivity. It is recommended to store your important data, libraries, and programs on ProjectFS. 
-
-### Datasets
-
-We plan to have the datasets hosted on Eagle available on Kestrel in the near future. Please contact [hpc-help@nrel.gov](mailto:HPC-Help@nrel.gov) for current information about availability. 
-
 
 ## Node File System
 
