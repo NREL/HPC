@@ -73,7 +73,7 @@ To request a /shared-projects directory, please contact [hpc-help@nrel.gov](mail
 
 **/kfs2/pdatasets**
 
-The /pdatasets directory on Kestrel hosts widely used data sets.
+The /kfs2/pdatasets directory on Kestrel hosts widely used data sets.
 
 There are multiple big data sets that are commonly used across various projects for computation and analysis on NREL's HPC Systems. We provide a common location on Kestrel's filesystem at /kfs2/pdatasets, where these data sets are available for global reading by all compute nodes. Each data set contains a readme file that covers background, references, explanation of the data structure, and Python examples.
 
