@@ -15,6 +15,7 @@ NREL operates three on-premises systems for computational work.
 | OS          | RedHat Enterprise Linux | CentOS    | Rocky Linux    | RedHat       |
 | Login       | kestrel.hpc.nrel.gov | eagle.hpc.nrel.gov | swift.hpc.nrel.gov | vs.hpc.nrel.gov |
 | CPU         | Dual socket Intel Xeon Sapphire Rapids | Dual Intel Xeon Gold Skylake 6154 | Dual AMD EPYC 7532 Rome CPU | Dual AMD EPYC 7532 Rome CPU |
+| Cores per Node | 104 cores | 36 cores | 128 cores | Varies by partition | 
 | Interconnect | HPE Slingshot 11 | InfiniBand EDR | InfiniBand HDR| 25GbE |
 | HPC scheduler | Slurm | Slurm | Slurm | Slurm |
 | Network Storage | 95PB Lustre | 17PB Lustre FS | 3PB NFS | 440 TB

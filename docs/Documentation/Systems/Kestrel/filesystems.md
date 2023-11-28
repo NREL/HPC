@@ -54,7 +54,7 @@ Directories in /projects have a quota assigned based on the project resource all
     # An asterisk(*) by the used value indicates the project has exceeded its quota of storage, and writes to the directory are not allowed.
     ```
 
-**/shared-projects**
+**/kfs2/shared-projects**
 
 Projects may request a shared project directory to host data, configuration, and applications shared by multiple projects/allocations. 
 
@@ -67,8 +67,9 @@ To request a /shared-projects directory, please contact [hpc-help@nrel.gov](mail
 5. What you would like to call the directory. For example, "/shared-projects/myproject-shared" or other similar descriptive name, ideally between about 4-15 characters in length. 
 6. A group name for the UNIX group ownership of the directory, the same or similar to the directory name provided in Step 5. 
 ```
-!!! info
-    If you currently have a shared project directory on Eagle that you need copied over to Kestrel, please contact [hpc-help@nrel.gov](mailto:HPC-Help@nrel.gov). 
+
+!!! info 
+    Shared project directories are not automatically synced between Eagle and Kestrel. 
 
 ### ScratchFS
 
