@@ -9,6 +9,7 @@ nav:
       - blog/2022-03-05-local-io-performance.md
       - blog/2022-12-19-windows_ssh.md
       - blog/2023-01-10-using_specific_module_versions_on_hpc.md
+      - blog/2023-11-28_module_updates.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
