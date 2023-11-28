@@ -11,7 +11,7 @@ Kestrel nodes are associated with one or more partitions.  Each partition is ass
 
 Excluding the shared and debug partitions, jobs will be automatically routed to the appropriate partitions by Slurm based on node quantity, walltime, hardware features, and other aspects specified in the submission. Jobs will have access to the largest number of nodes, thus shortest wait, **if the partition is not specified during job submission.**.
 
-The [Kestrel system configuration page](https://www.nrel.gov/hpc/kestrel-system-configuration.html) lists the four categories that Kestrel nodes exhibit based on their hardware features. 
+The [Kestrel system configuration page](https://www.nrel.gov/hpc/kestrel-system-configuration.html) lists the four categories that Kestrel nodes exhibit based on their hardware features. In summary, standard compute nodes on Kestrel have 104 cores and 256 GB of RAM. 256 of those nodes have a 1.7 TB NVMe local disk. There are also 10 bigmem nodes with 2 TB of RAM and 5.8 TB NVMe local disk. 
 
 The following table summarizes the partitions on Kestrel:
 
