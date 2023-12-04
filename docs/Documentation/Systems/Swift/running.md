@@ -388,11 +388,11 @@ This will give you:
 ```bash
 
 [nrmc2l@swift-login-1 ~ example]$ which vasp_gam
-/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
+/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
 [nrmc2l@swift-login-1 ~ example]$ which vasp_ncl
-/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
+/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
 [nrmc2l@swift-login-1 ~ example]$ which vasp_std
-/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
+/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
 [nrmc2l@swift-login-1 ~ example]$ 
 ```
 
