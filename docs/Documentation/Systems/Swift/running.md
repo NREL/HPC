@@ -438,7 +438,7 @@ This will run a version of Vasp built with openmpi and gfortran/gcc. You can run
 
 ## Running Jupyter / Jupyter-lab
 
-Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n"
+Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n" or "python/3.9.6-mydisst". If load "python/3.10.0-wwsaj4n":
 
 ```bash
 
