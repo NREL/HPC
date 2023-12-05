@@ -322,12 +322,6 @@ module load intel-oneapi-mpi intel-oneapi-compilers gcc
 
 ```
 
-Launch with the srun command:
-
-```bash
-srun   ./a.out -F
-```
-
 Our IntelMPI batch script, *runintel* under */example*, is (remember to replace `<myaccount>` with the appropriate account):
 
 
