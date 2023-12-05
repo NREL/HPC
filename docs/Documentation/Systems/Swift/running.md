@@ -260,7 +260,7 @@ Note the size of the executable files.
 If you want to use the Intel compilers, first load the appropriate modules:
 
 ```bash
-module load intel-oneapi-mpi intel-oneapi-compilers gcc
+module load openmpi intel-oneapi-compilers gcc
 ```
 
 Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*, and recompile:
