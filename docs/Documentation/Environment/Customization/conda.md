@@ -11,6 +11,8 @@ Conda is a **package manager** which allows you to easily create and switch betw
 
 * Share your specific programming environment with others for reproducible results 
 
+## Conda Module
+To use Conda on an NREL HPC cluster, you will need to load the appropriate module. To find the Conda module name on the system you are using, run `module spider conda`. Then, `module load <module name>`. 
 
 ## Creating Environments by Name
 
