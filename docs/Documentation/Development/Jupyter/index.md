@@ -155,14 +155,13 @@ copy full url from jupyter startup into your web browser. e.g.:
 
 ## Using a Compute Node - Easy Way
 
-
 Automation makes life better!
 
-### Using pyeagle
+### pyeagle - NREL Users
 
-You can use the internal [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package to handle launching and monitoring a jupyter server on a compute node. 
+The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group, and provides utilities for working on Eagle and Kestrel.
 
-###  Auto-launching with an sbatch script
+###  Auto-launching with an sbatch script - All Users
 
 Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
 
