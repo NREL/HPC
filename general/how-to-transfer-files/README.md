@@ -51,4 +51,5 @@ $ wget https://URL
 Globus is optimized for file transfers between data centers and anything outside of the NREL network. It will be several times faster than any other tools you will have available. Documentation about requesting a HPC Globus account is available on the [Globus Services page on the HPC website](https://www.nrel.gov/hpc/globus-file-transfer.html).  See [Transfering files using Globus](globus.md) for instructions on transfering files with Globus.
 
 #### Transfering files using Windows
-For Windows you will need to download WinSCP to transfer files to and from HPC systems over SCP. See [Transfering using WinSCP](winscp.md).
+For Windows you will need to download WinSCP to transfer files to and from HPC systems over SCP. See [Transferring using WinSCP](winscp.md).
+FileZilla is another option for transferring files to and from HPC systems over SFTP. See [Transferring using FileZilla](FileZilla.md).
