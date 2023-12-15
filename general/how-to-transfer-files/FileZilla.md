@@ -1,6 +1,6 @@
 # Transferring files using FileZilla
 
-*FileZilla can be used to securely transfer files between your local computer running Windows, Linux or MacOS to a remote computer running Linux.*
+*FileZilla can be used to securely transfer files via sftp between your local computer running Windows, Linux or MacOS to a remote computer running Linux.*
 
 ### Setting Up FileZilla
 
@@ -8,7 +8,7 @@
 
 ### Connecting to a Host
 
-- Decide which host you wish to connect to such as, eagle.hpc.nrel.gov
+- Decide which host you wish to connect to such as sftp://eagle.hpc.nrel.gov
 - Enter your username in the Username field.
 - Enter your password or Password+OTP Token in the Password field.
 - Use 22 as the Port.
