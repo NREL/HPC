@@ -161,7 +161,7 @@ to run Ansys on the first GPU:
 
 |Operating System |	Installer|
 |-----------------|----------|
-|Mac	          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe)|
+|Mac	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.3.18.dmg) |
 |Linux	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.2.32.rhel7.x86_64.tar.gz) |
 |Windows          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe) |
 
