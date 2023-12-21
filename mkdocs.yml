@@ -73,6 +73,7 @@ nav:
           # - Templates:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
+          - Documentation/Applications/index.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
