@@ -322,7 +322,7 @@ module load intel-oneapi-mpi intel-oneapi-compilers gcc
 
 ```
 
-Our IntelMPI batch script, *runintel* under */example*, is (remember to replace `<myaccount>` with the appropriate account):
+Our IntelMPI batch script, *runintel* under */example*, is:
 
 
 ```bash
