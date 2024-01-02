@@ -119,7 +119,7 @@ srun  -n 4 ./fhostone -F
 srun  -n 4 ./phostone -F
 ```
 
-To run this you need replace `<myaccount>` with the appropriate account and ensure that slurm is in your path by running:
+To run this you need to replace `<myaccount>` with the appropriate account and ensure that slurm is in your path by running:
 
 ```
 module load slurm
@@ -392,7 +392,7 @@ This will give you:
 
 Note the directory might be different.
 
-Then you need to add calls in your script to set up / point do your data files. So your final script will look something like the following. Here we use data downloaded from NREL's benchmark repository and it is also included in the copied subdirectory *\example* named with *runvasp*:
+Then you need to add calls in your script to set up / point do your data files. So your final script will look something like the following. Here we use data downloaded from NREL's benchmark repository and it is also included in the copied subdirectory */example* named with *runvasp*:
 
 ```bash
 #!/bin/bash
@@ -432,7 +432,7 @@ This will run a version of Vasp built with openmpi and gfortran/gcc. You can run
 
 ## Running Jupyter / Jupyter-lab
 
-Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n" or "python/3.9.6-mydisst". If load "python/3.10.0-wwsaj4n":
+Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n" or "python/3.9.6-mydisst". If loading "python/3.10.0-wwsaj4n":
 
 ```bash
 
