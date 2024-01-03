@@ -378,6 +378,34 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 
     Unlike on Eagle, multiple jobs can run on the same nodes on Swift. If you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which might deteriorate the performance. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. 
 
+#### GPU
+
+??? example "Sample job script: Swift - VASP 6 GPU (OpenACC)"
+    ```
+    #!/bin/bash
+    #SBATCH --nodes=1
+    #SBATCH --partition=gpu
+    #SBATCH --gres=gpu:4
+    #SBATCH --gpu-bind=map_gpu:0,1,2,3
+    #SBATCH --exclusive
+    #SBATCH --time=1:00:00
+    #SBATCH --account=<your-account-name>
+    #SBATCH --job-name=<your-job-name>
+
+    #Load environment and openACC VASP module:
+    module purge
+    . /nopt/nrel/apps/env.sh
+    module use /nopt/nrel/apps/modules
+    module load vasp/openacc
+
+    # Note: environment will soon become default and the module will be able to be loaded with
+    # module purge
+    # module load vasp/openacc
+
+    #Launch vasp using mpirun
+    mpirun -npernode 4 vasp_std &> out
+    ```
+
 ## VASP on Vermilion
 
 #### CPU
