@@ -28,7 +28,7 @@ The most up to date list of partitions can always be found by running the `sinfo
 |-----------|-------------|
 | long      | jobs up to ten days of walltime |
 | standard  | jobs up to two days of walltime | 
-| gpu (Nodes with four NVIDIA A100 40 GB Computational Accelerators for GPU-based software)       | jobs up to two days of walltime |
+| gpu  |  Nodes with four NVIDIA A100 40 GB Computational Accelerators, up to two days of walltime |
 | parallel  | optimized for large parallel jobs, up to two days of walltime |
 | debug     | two nodes reserved for short tests, up to four hours of walltime |
 
