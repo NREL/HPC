@@ -15,6 +15,14 @@ This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `p
 This image includes the packages `tidyverse`, `sparklyr`, `data.table`, `here`, `janitor`, and
 `skimr`.
 
+Existing Singularity containers on Kestrel:
+/kfs2/pdatasets/images/apache_spark/
+- spark341_py311.sif  
+- spark350_py311.sif  
+- spark_py310.sif  
+- spark_py39.sif  
+- spark_r.sif
+
 ## Setup
 
 1. Clone the repository:
