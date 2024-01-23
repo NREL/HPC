@@ -8,18 +8,18 @@ The following are packages that the NREL Computational Science Center supports:
 
 | Name        | Description| 
 | :---------- | :--------- | 
-| Ansys       | Enables modeling, simulation, and visualization of flow, turbulence, heat transfer and reactions for industrial applications | 
-| COMSOL      | Multiphysics simulation environment | 
+| [Ansys](./ansys.md)       | Enables modeling, simulation, and visualization of flow, turbulence, heat transfer and reactions for industrial applications | 
+| [COMSOL](./comsol.md)      | Multiphysics simulation environment | 
 | Converge | HPC CFD+, focused on engine modeling and simulation | 
-| FEniCS | Solving partial differential equations by the finite element method | 
-| GAMS | High-level modeling system for mathematical programming and optimization | 
-| Gaussian | Program for calculating molecular electronic structure and reactivity | 
-| Gurobi | Solver for mathematical programming | 
-| LAMMPS | Open-source classical molecular dynamics program designed for massively parallel systems | 
-| MATLAB | General technical computing framework | 
-| PLEXOS | Simulation software for modeling electric, gas, and water systems for optimizing energy markets | 
-| Q-Chem    |  *ab initio* quantum chemistry package for predicting molecular structures, reactivities, and vibrational, electronic and NMR spectra | 
-| <nobr>STAR-CCM+</nobr> | Engineering simulation package from CD-adapco for solving problems involving flow of fluids or solids, heat transfer, and stress | 
-| VASP | Atomic scale materials modeling, e.g., electronic structure calculations and quantum-mechanical molecular dynamics, from first principles | 
-| WRF | Mesoscale numerical weather prediction system designed for both atmospheric research and operational forecasting applications | 
+| [FEniCS](./fenics.md) | Solving partial differential equations by the finite element method | 
+| [GAMS](./gams.md) | High-level modeling system for mathematical programming and optimization | 
+| [Gaussian](./gaussian.md) | Program for calculating molecular electronic structure and reactivity | 
+| [Gurobi](./gurobi.md) | Solver for mathematical programming | 
+| [LAMMPS](./lammps.md) | Open-source classical molecular dynamics program designed for massively parallel systems | 
+| [MATLAB](./Matlab/index.md) | General technical computing framework | 
+| [PLEXOS](./Plexos/index.md) | Simulation software for modeling electric, gas, and water systems for optimizing energy markets | 
+| [Q-Chem](./qchem.md)    |  *ab initio* quantum chemistry package for predicting molecular structures, reactivities, and vibrational, electronic and NMR spectra | 
+| [<nobr>STAR-CCM+</nobr>](./starccm.md) | Engineering simulation package from CD-adapco for solving problems involving flow of fluids or solids, heat transfer, and stress | 
+| [VASP](./vasp.md) | Atomic scale materials modeling, e.g., electronic structure calculations and quantum-mechanical molecular dynamics, from first principles | 
+| [WRF](./wrf.md) | Mesoscale numerical weather prediction system designed for both atmospheric research and operational forecasting applications | 
 
