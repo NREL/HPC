@@ -6,7 +6,7 @@ title: Transitioning from Eagle to Kestrel
 
 Eagle is set to be decommissioned at the end of March, 2024. This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into [NUMBER] steps:
 
-1. Getting access to Kestrel
+1. Accessing Kestrel
 2. Moving your files from Eagle to Kestrel
 3. Understanding the options for running your software on Kestrel
 
@@ -20,17 +20,15 @@ Eagle is set to be decommissioned at the end of March, 2024. This page is meant 
 
 If you find yourself stuck on any of the above steps, please reach out to hpc-help@nrel.gov as soon as possible.
 
-## 1. Getting access to Kestrel
+## 1. Accessing Kestrel
 
 Access to Kestrel is nearly identical to access to Eagle. For example, you can log into Kestrel by opening a terminal and ssh'ing to the machine:
 
 `ssh [your username]@kestrel.hpc.nrel.gov`
 
-The exact process for accessing the machine is different for NREL employees than non-NREL employees. If you are having difficulty logging on, please see [this page](/Documentation/Systems/Kestrel/#accessing-kestrel) for more detailed information on logging onto Kestrel.
+The exact process for accessing the machine is different for NREL employees than non-NREL employees. If you are having difficulty logging on, please see [this page](/Documentation/Systems/Kestrel/#accessing-kestrel) for more detailed information on logging onto Kestrel. If you are still unable to log in, check that you have an active Kestrel allocation in Lex.
 
-Once you've successfully logged onto Kestrel, you should next check that your project directory exists and that you have access to the project directory. 
-
-To do this, try `cd /projects/[your allocation name]`. If this directory does not exist, then check that you have been given a Kestrel allocation in Lex. If yes, then reach out to hpc-help@nrel.gov for assistance.
+The filesystem structure of Kestrel is similar to Eagle. When you first log on, you will be in `/home/[your username]`. Your project directory can be found at `/projects/[allocation name]`.
 
 ## 2. Moving your files from Eagle to Kestrel
 
@@ -68,9 +66,11 @@ See our page on submitting jobs on Kestrel [here](/Documentation/Systems/Kestrel
 
 Submitting a job on Kestrel works much the same as submitting a job on Eagle. Both systems use the Slurm scheduler. If the application you wish to run can be found under our [Applications tab](/Documentation/Applications/), then there may be example Kestrel submit scripts on the application page. Otherwise, our [VASP documentation page](/Documentation/Applications/vasp/#vasp-on-kestrel) contains a variety of sample submit scripts that you can modify to fit your own purposes.
 
+For information on the Kestrel hardware configuration, see our [Kestrel system configuration](https://www.nrel.gov/hpc/kestrel-system-configuration.html) page.
+
 ### Shared Partition
 
-Note that each Kestrel CPU node contains 104 CPU cores (and 256 GB memory). Some applications or application use-cases may not scale well to this many CPU cores. In these cases, it is recommended to submit your jobs to the shared partition. A job submitted to the shared partition  will be charged AUs proportionate to whichever resource you require more of, between CPUs and memory.
+Note that each Kestrel standard CPU node contains 104 CPU cores (and 256 GB memory). Some applications or application use-cases may not scale well to this many CPU cores. In these cases, it is recommended to submit your jobs to the shared partition. A job submitted to the shared partition  will be charged AUs proportionate to whichever resource you require more of, between CPUs and memory.
 
 The following is an example shared-partition submit script using VASP:
 
@@ -89,15 +89,7 @@ module load vasp/<version>
 srun vasp_std |& tee out
 ```
 
-For example, if you request 52 CPU cores (half of the available CPU cores), but 256 GB memory (all of the memory), you will be charged the AU-equivalent of a full node. If you request 26 cores and 2gb per core, you will be charged 0.25*10 AUs = 2.5 AUs per hour, because:
-
-2 gb mem per cpu\*26 cpus = 52 gb memory, and 52/256 = 0.2, or 20% of the memory of the node.
-
-26 CPU cores / 104 CPU cores = 0.25, or 25% the CPU cores of the node.
-
-In this example, you are requesting 20% of the memory of a node, but 25% the available CPUS of the node, and are therefore charged 25% of a regular AU.
-
-For more information on the shared partitions, see [here](/Documentation/Systems/Kestrel/running/#shared-node-partition).
+For more information on the shared partitions and an example AU-accounting calculation, see [here](/Documentation/Systems/Kestrel/running/#shared-node-partition).
 
 For more information on Kestrel's overall configuration, see [here](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/running/#partitions).
 
