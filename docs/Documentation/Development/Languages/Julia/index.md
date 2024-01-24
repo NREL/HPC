@@ -16,10 +16,11 @@ This section contains demos (in the form of scripts and notebooks) and how-to gu
 | Eagle          | Swift              | Vermilion  | Kestrel |
 |:--------------:|:------------------:|:----------:|:----------:|
 |                |julia/1.6.2-ocsfign |||  
-julia/1.7.2      |julia/1.7.2-gdp7a25 |julia/1.7.2 | julia/1.7.2 |
+| julia/1.7.2    |julia/1.7.2-gdp7a25 |julia/1.7.2 | julia/1.7.2 |
 |                |                    |            | julia/1.8.5-generic-linux |
-julia/1.9.0      |                    |            ||
-
+| julia/1.9.0    |                    |            ||
+| julia/1.9.3    |                    |            ||
+|                |                    |            | julia/1.10.0-gcc |
 
 
 !!! Bug "Julia 1.9.x does not work well on Sapphire Rapids"
