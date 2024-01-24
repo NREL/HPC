@@ -10,7 +10,7 @@ Gurobi includes a linear programming solver (LP), quadratic programming solver
 programming solver (MILP), mixed-integer quadratic programming solver (MIQP),
 and a mixed-integer quadratically constrained programming solver (MIQCP).
 
-Gurobi is available on multiple systems, which hosts 6 general use (including
+Gurobi is available on multiple systems, which host 6 general use (including
 commercial) and 18 academic/government standalone Gurobi licenses. After logging
 onto the appropriate cluster, load the default Gurobi module using 
 `module load gurobi`.  The Gurobi interactive shell is run by typing 
