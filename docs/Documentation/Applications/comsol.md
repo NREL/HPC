@@ -15,18 +15,26 @@ Extensive documentation is available in the menu: **Help > Documentation**. For 
 For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
 ## Building Models in the COMSOL GUI
-Before beginning, it is good practice to check the license status with:
+Before beginning, it is good practice to check the license status. To do so create a bash script named lmstat.comsol in your working directory and excute it:
+
+???+ example "License Checker Script"
+
+     ```bash
+     #!/bin/bash
+     COMSOL_LIC_DIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license/glnxa64
+     cd $COMSOL_LIC_DIR
+     ./lmstat -a --no-user-info -c ../license.dat
+     ```
+     
+```
+[user@kl3 ~]$ ./lmstat.comsol
+```
+
+When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/auth/ssh/) by opening a terminal and running the following commands:
 
 ```
-[user@el3 ~]$ lmstat.comsol
-```
-
-When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://eagle-dav.hpc.nrel.gov/session/) by opening a terminal and running the following commands:
-
-```
-[user@ed3 ~]$ module purge
-[user@ed3 ~]$ module load comsol/6.0
-[user@ed3 ~]$ vglrun comsol
+[user@kl3 ~]$ module load comsol/6.1
+[user@kl3 ~]$ vglrun comsol &
 ```
 
 Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell (ssh -Y ...) on a compute node by replacing the `vglrun comosl` command with:
@@ -37,27 +45,31 @@ Because FastX desktop sessions are supported from DAV nodes shared between multi
 
 However, the performance may be slow and certain display features may behave unexpectedly.
 
-## Running a COMSOL Model in Batch Mode
+## Running a Single-node COMSOL Model in Batch Mode
 You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
 
 ???+ example "Example Submission Script"
 
     ```bash
-    #!/bin/bash
-    #SBATCH --job-name=comsol-batch-1proc
-    #SBATCH --time=00:20:00
-    #SBATCH --nodes=1
-    #SBATCH --account=<your-allocation-id>
-    #SBATCH --output=comsol-%j.out
-    #SBATCH --error=comsol-%j.err
+    #!/bin/bash                                                                                                                                                                                     
+    #SBATCH --job-name="comsol-batch-single-node"                                                                                                                                                   
+    #SBATCH --nodes=1                                                                                                                                                                               
+    #SBATCH --ntasks-per-node=104                                                                                                                                                                   
+    #SBATCH --cpus-per-task=1                                                                                                                                                                       
+    #SBATCH --time=00:10:0        
+    #SBATCH --partition=debug
+    #SBATCH --exclusive
+    #SBATCH --account=hpcapps
+    #SBATCH --output="comsol-%j.out"
+    #SBATCH --error="comsol-%j.err"
 
     # This helps ensure your job runs from the directory
     # from which you ran the sbatch command
+    SLURM_SUBMIT_DIR=<your working directory>
     cd $SLURM_SUBMIT_DIR
 
     # Set up environment, and list to stdout for verification
-    module purge
-    module load comsol/6.0
+    module load comsol/6.1
     echo " "
     module list
     echo " "
@@ -66,53 +78,57 @@ You can save your model built in FastX+GUI mode into a file such as `myinputfile
     outputfile=$SLURM_SUBMIT_DIR/myoutputfilename
     logfile=$SLURM_SUBMIT_DIR/mylogfilename
 
-    # Run a COMSOL job with 36 threads.
-    # -np = number of threads per rank
+    # Run a COMSOL job with 104 tasks (ranks).
+    # -nn = total number of tasks
+    # -nnhost = number of tasks per host
+    # -np = number of threads per task
 
-    comsol batch -np 36 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
+    comsol batch -nn 104 -nnhost 104 -np 1 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
 
-Once this script file (assumed to be named `comsol-job.slurm`) is saved, it can be submitted to the job scheduler with
+Once this script file (e.g., `submit_single_node_job.sh`) is saved, it can be submitted to the job scheduler with
 
 ```
-[user@el3 ~]$ sbatch comsol-job.slurm
+[user@kl3 ~]$ sbatch ./submit_single_node_job.sh
 ```
 
-## Running a COMSOL Model in Batch Mode (with MPI)
+## Running a Multi-node COMSOL Model in Batch Mode
 To configure a COMSOL job with multiple MPI ranks, required for any job where the number of nodes >1, you can build on the following template:
 
 ???+ example "Example Multiprocess Submission Script"
     ```bash
-    #!/bin/bash
-    #SBATCH --job-name=comsol-batch-4proc
-    #SBATCH --time=00:20:00
-    #SBATCH --nodes=2
-    #SBATCH --ntasks-per-node=2
-    #SBATCH --account=<your-allocation-id>
-    #SBATCH --output=comsol-%j.out
-    #SBATCH --error=comsol-%j.err
+    #!/bin/bash                                                                                                                                                                                     
+    #SBATCH --job-name="comsol-batch-multinode-hybrid"                                                                                                                                                  
+    #SBATCH --nodes=4                                                                                                                                                                               
+    #SBATCH --ntasks-per-node=8                                                                                                                                                                     
+    #SBATCH --cpus-per-task=13                                                                                                                                                                      
+    #SBATCH --time=00:10:0                                                                                                                                                                          
+    #SBATCH --partition=debug                                                                                                                                                                       
+    #SBATCH --exclusive                                                                                                                                                                             
+    #SBATCH --account=hpcapps                                                                                                                                                                       
+    #SBATCH --output="comsol-%j.out"                                                                                                                                                                
+    #SBATCH --error="comsol-%j.err"                                                                                                                                                                 
 
-    # This helps ensure your job runs from the directory
-    # from which you ran the sbatch command
+    # This helps ensure your job runs from the directory                                                                                                                                            
+    # from which you ran the sbatch command                                                                                                                                                         
+    SLURM_SUBMIT_DIR= <your working directory>
     cd $SLURM_SUBMIT_DIR
 
-    # Set up environment, and list to stdout for verification
-    module purge
-    module load comsol/6.0
+    # Set up environment, and list to stdout for verification                                                                                                                                       
+    module load comsol/6.1
     echo " "
     module list
     echo " "
+
+    export SLURM_MPI_TYPE=pmi2
+    export OMP_NUM_THREADS=13
 
     inputfile=$SLURM_SUBMIT_DIR/myinputfile.mph
     outputfile=$SLURM_SUBMIT_DIR/myoutputfilename
     logfile=$SLURM_SUBMIT_DIR/mylogfilename
 
-    # Run a 2-node, 4-rank parallel COMSOL job with 18 threads for each rank.
-    # -nn = total number of MPI ranks
-    # -nnhost = number of MPI ranks per "host", here equivalent to node
-    # -np = number of threads per rank
-
-    comsol –nn 4 -nnhost 2 batch -np 18 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
+    # Run a 4-node job with 32 MPI ranks and 13 OpenMP threads per each rank.                                                                                                                        
+    comsol batch -mpibootstrap slurm -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
 
-The job script is submitted to the scheduler just the same as above for the single-process example. For jobs that require >1 node, this approach, which uses multiple MPI ranks, must be used. Note that in this case, we choose 4 MPI ranks, 2 per node, each using 18 threads to demonstrate the available submission options *not* any optimal performance recommendation. A different arrangement, e.g., `-nn 2 --nnhost 1 batch -np 36`, which translates to 2 MPI ranks, 1 per node, each using 36 threads may perform better for your application. The optimal configuration depends on your particular problem and choice of solver, so some experimentation may be required.
+The job script can be submitted to SLURM just the same as above for the single-node example. The option `-mpibootstrap slurm` helps COMSOL to deduce runtime parameters such as `-nn`, `-nnhost` and `-np`. For large jobs that require more than one node, this approach, which uses MPI or/and OpenMP, can be used to efficiently utilize the available resources. Note that in this case, we choose 32 MPI ranks, 8 per node, and each rank using 13 threads for demonstration purpose, but *not* as an optimal performance recommendation. The optimal configuration depends on your particular problem, workload, and choice of solver, so some experimentation may be required.
