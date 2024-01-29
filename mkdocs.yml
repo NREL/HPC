@@ -13,10 +13,10 @@ nav:
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
-      - Transitioning from Eagle to Kestrel: Documentation/eagle_to_kestrel_transition.md
       - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
+        - Transitioning from Eagle to Kestrel: Documentation/eagle_to_kestrel_transition.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
