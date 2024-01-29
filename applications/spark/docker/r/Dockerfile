@@ -25,6 +25,13 @@ RUN apt-get update \
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN apt-get update
+RUN R -e 'install.packages("dplyr")'
+RUN R -e 'install.packages("tidyr")'
+RUN R -e 'install.packages("ggplot2")'
+RUN R -e 'install.packages("purrr")'
+RUN R -e 'install.packages("dbplyr")'
+RUN R -e 'install.packages("dtplyr")'
+RUN R -e 'install.packages("arrow")'
 RUN R -e 'install.packages("tidyverse")'
 RUN R -e 'install.packages("sparklyr")'
 RUN R -e 'install.packages("data.table")'
