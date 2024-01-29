@@ -4,7 +4,7 @@ title: Transitioning from Eagle to Kestrel
 
 ## Overview of steps
 
-Eagle is set to be decommissioned at the end of March, 2024. This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into [NUMBER] steps:
+This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into [NUMBER] steps:
 
 1. Accessing Kestrel
 2. Moving your files from Eagle to Kestrel
@@ -22,11 +22,19 @@ If you find yourself stuck on any of the above steps, please reach out to hpc-he
 
 ## 1. Accessing Kestrel
 
-Access to Kestrel is nearly identical to access to Eagle. For example, you can log into Kestrel by opening a terminal and ssh'ing to the machine:
+Access to Kestrel requires an NREL HPC account and access to an active project allocation on Kestrel. You can use [Lex](https://hpcprojects.nrel.gov/login/?next=/) to check your allocations. 
 
-`ssh [your username]@kestrel.hpc.nrel.gov`
+The steps to login to Kestrel are very similar to Eagle. For example, you can log into Kestrel by opening a terminal and ssh'ing to the machine:
 
-The exact process for accessing the machine is different for NREL employees than non-NREL employees. If you are having difficulty logging on, please see [this page](/Documentation/Systems/Kestrel/#accessing-kestrel) for more detailed information on logging onto Kestrel. If you are still unable to log in, check that you have an active Kestrel allocation in Lex.
+```bash
+# NREL Employees 
+ssh <your username>@kestrel.hpc.nrel.gov
+
+# External Collaborators 
+ssh <your username>@kestrel.nrel.gov
+
+```
+For more detailed information on accessing Kestrel, please see [this page](/Documentation/Systems/Kestrel/#accessing-kestrel). 
 
 The filesystem structure of Kestrel is similar to Eagle. When you first log on, you will be in `/home/[your username]`. Your project directory can be found at `/projects/[allocation name]`.
 
@@ -91,10 +99,7 @@ srun vasp_std |& tee out
 
 For more information on the shared partitions and an example AU-accounting calculation, see [here](/Documentation/Systems/Kestrel/running/#shared-node-partition).
 
-For more information on Kestrel's overall configuration, see [here](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/running/#partitions).
-
 ## 5. Performance Recommendations
-
 
 ### OpenMP
 
