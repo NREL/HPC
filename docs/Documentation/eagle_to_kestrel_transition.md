@@ -20,8 +20,6 @@ This page is meant to provide all necessary information to transition a project 
 
 If you find yourself stuck on any of the above steps, please reach out to hpc-help@nrel.gov as soon as possible.
 
-**NOTE**: OpenMPI currently does not work well on Kestrel, and thus it is **strongly** recommended to NOT use OpenMPI. If you require assistance in building your code with an MPI other than OpenMPI, please reach out to hpc-help@nrel.gov. The issue with OpenMPI is at the networking layer, and building your own OpenMPI will not fix the issue.
-
 ## 1. Accessing Kestrel
 
 Access to Kestrel requires an NREL HPC account and access to an active project allocation on Kestrel. You can use [Lex](https://hpcprojects.nrel.gov/login/?next=/) to check your allocations. 
@@ -65,6 +63,9 @@ If the module exists, then you simply need to `module load [your software name]`
 If you need to build your own software on Kestrel, and NOT use an already-existing module, then the steps can be a bit different than Eagle. For a general software-building procedure, please see our [Libraries How-To](/Documentation/Development/Libraries/howto) tutorial.
 
 In general, on Kestrel we recommend using the `PrgEnv-cray` or `PrgEnv-intel` environments to build your code. For detailed descriptions on these environments, see our [environments](/Documentation/Systems/Kestrel/Environments/index) page. For a tutorial walkthrough of building a simple code (IMB) within these environments, see our [environments tutorial](/Documentation/Systems/Kestrel/Environments/tutorial) page. Note that `PrgEnv-` environments on Kestrel are different than environments on Eagle. Loading a `PrgEnv` loads a number of modules at once that together constitute a consistent environment. 
+
+!!! danger
+	OpenMPI currently does not work well on Kestrel, and thus it is **strongly** recommended to NOT use OpenMPI. If you require assistance in building your code with an MPI other than OpenMPI, please reach out to hpc-help@nrel.gov. The issue with OpenMPI is at the networking layer, and building your own OpenMPI will not fix the issue.
 
 **NOTE**: Some MPI codes, especially old legacy scientific software, may be difficult to build with Cray MPICH. In these cases, if it is possible to build the code with Intel MPI or a different MPICH implementation, then Cray MPICH can be utilized at run-time via use of the `cray-mpich-abi` module (note that OpenMPI is *NOT* an implementation of MPICH, and you cannot use the `cray-mpich-abi` if you built with OpenMPI). A detailed example of building with Intel MPI but running with Cray MPICH can be found on our [VASP application page](/Documentation/Applications/vasp). 
 
