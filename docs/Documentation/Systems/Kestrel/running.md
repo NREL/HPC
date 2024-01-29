@@ -97,11 +97,17 @@ You may need to export these variables even if you are not running your job with
 
 #### Scaling
 
-Currently, some applications on Kestrel are not scaling with the expected performance. For these applications, we recommend:
+Currently, some applications on Kestrel are not scaling with the expected performance. We are actively working with the vendor's engineers to resolve these issues. For now, for these applications, we recommend:
 
-1. Submitting jobs with the fewest number of nodes possible.
+1. Setting the following envrionment variables:
+```
+export MPICH_SHARED_MEM_COLL_OPT=mpi_bcast,mpi_barrier 
+export MPICH_COLL_OPT_OFF=mpi_allreduce 
+```
 
-1. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
-1. Building and running with Intel MPI or Cray MPICH, rather than OpenMPI.
+2. Submitting jobs with the fewest number of nodes possible.
 
+3. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
+
+4. Building and running with Cray MPICH (or Intel MPI/cray-mpich-abi), rather than OpenMPI.
 
