@@ -99,7 +99,7 @@ You may need to export these variables even if you are not running your job with
 
 Currently, some applications on Kestrel are not scaling with the expected performance. We are actively working with the vendor's engineers to resolve these issues. For now, for these applications, we recommend:
 
-1. Setting the following envrionment variables:
+1. Setting the following environment variables:
 ```
 export MPICH_SHARED_MEM_COLL_OPT=mpi_bcast,mpi_barrier 
 export MPICH_COLL_OPT_OFF=mpi_allreduce 
