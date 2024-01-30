@@ -4,7 +4,7 @@ title: Transitioning from Eagle to Kestrel
 
 ## Overview of steps
 
-This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into [NUMBER] steps:
+This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into four steps:
 
 1. Accessing Kestrel
 2. Moving your files from Eagle to Kestrel
@@ -34,15 +34,15 @@ ssh <your username>@kestrel.hpc.nrel.gov
 ssh <your username>@kestrel.nrel.gov
 
 ```
-For more detailed information on accessing Kestrel, please see [this page](/Documentation/Systems/Kestrel/#accessing-kestrel). 
+For more detailed information on accessing Kestrel, please see [this page](./Kestrel/index.md). 
 
 The filesystem structure of Kestrel is similar to Eagle. When you first log on, you will be in `/home/[your username]`. Your project directory can be found at `/projects/[allocation name]`.
 
 ## 2. Moving your files from Eagle to Kestrel
 
-Please see our page on [transferring files](/Documentation/Managing_Data/Transferring_Files/) for detailed information. Essentially, you should use the command-line `rsync` tool for small transfers (<100 GB), and Globus for large transfers. 
+Please see our page on [transferring files](../Managing_Data/Transferring_Files/index.md) for detailed information. Essentially, you should use the command-line `rsync` tool for small transfers (<100 GB), and Globus for large transfers. 
 
-See our [Globus page](/Documentation/Managing_Data/Transferring_Files/globus/) for instructions on how to use Globus to transfer files between Eagle and Kestrel.
+See our [Globus page](../Managing_Data/Transferring_Files/globus.md) for instructions on how to use Globus to transfer files between Eagle and Kestrel.
 
 Reach out to hpc-help@nrel.gov if you run into issues while transferring files.
 
@@ -60,21 +60,24 @@ If the module exists, then you simply need to `module load [your software name]`
 
 ### How to build your own software on Kestrel
 
-If you need to build your own software on Kestrel, and NOT use an already-existing module, then the steps can be a bit different than Eagle. For a general software-building procedure, please see our [Libraries How-To](/Documentation/Development/Libraries/howto/#summary-of-steps) tutorial.
+If you need to build your own software on Kestrel, and NOT use an already-existing module, then the steps can be a bit different than Eagle. For a general software-building procedure, please see our [Libraries How-To](../Development/Libraries/howto.md#summary-of-steps) tutorial.
 
-In general, on Kestrel we recommend using the `PrgEnv-cray` or `PrgEnv-intel` environments to build your code. For detailed descriptions on these environments, see our [environments](/Documentation/Systems/Kestrel/Environments/) page. For a tutorial walkthrough of building a simple code (IMB) within these environments, see our [environments tutorial](/Documentation/Systems/Kestrel/Environments/tutorial/) page. Note that `PrgEnv-` environments on Kestrel are different than environments on Eagle. Loading a `PrgEnv` loads a number of modules at once that together constitute a consistent environment. 
+In general, on Kestrel we recommend using the `PrgEnv-cray` or `PrgEnv-intel` environments to build your code. For detailed descriptions on these environments, see our [environments](./Kestrel/Environments/index.md) page. For a tutorial walkthrough of building a simple code (IMB) within these environments, see our [environments tutorial](./Kestrel/Environments/tutorial.md) page. Note that `PrgEnv-` environments on Kestrel are different than environments on Eagle. Loading a `PrgEnv` loads a number of modules at once that together constitute a consistent environment. 
 
-**NOTE**: OpenMPI currently does not work well on Kestrel, and thus it is **strongly** recommended to NOT use OpenMPI. If you require assistance in building your code with an MPI other than OpenMPI, please reach out to hpc-help@nrel.gov. The issue with OpenMPI is at the networking layer, and building your own OpenMPI will not fix the issue.
+!!! danger
+	OpenMPI currently does not work well on Kestrel, and thus it is **strongly** recommended to NOT use OpenMPI. If you require assistance in building your code with an MPI other than 		
+    OpenMPI, please reach out to hpc-help@nrel.gov. The issue with OpenMPI is at the networking layer, and building your own OpenMPI will not fix the issue.
 
-**NOTE**: Some MPI codes, especially old legacy scientific software, may be difficult to build with Cray MPICH. In these cases, if it is possible to build the code with Intel MPI or a different MPICH implementation, then Cray MPICH can be utilized at run-time via use of the `cray-mpich-abi` module (note that OpenMPI is *NOT* an implementation of MPICH, and you cannot use the `cray-mpich-abi` if you built with OpenMPI). A detailed example of building with Intel MPI but running with Cray MPICH can be found on our [VASP application page](/Documentation/Applications/vasp/). 
+!!! tip
+    Some MPI codes, especially old legacy scientific software, may be difficult to build with Cray MPICH. In these cases, if it is possible to build the code with Intel MPI or a different MPICH implementation, then Cray MPICH can be utilized at run-time via use of the `cray-mpich-abi` module (note that OpenMPI is *NOT* an implementation of MPICH, and you cannot use the `cray-mpich-abi` if you built with OpenMPI). A detailed example of building with Intel MPI but running with Cray MPICH can be found on our [VASP application page](../Applications/vasp.md). 
 
 ## 4. Running your jobs on Kestrel
 
-See our page on submitting jobs on Kestrel [here](/Documentation/Systems/Kestrel/running/).
+See our page on submitting jobs on Kestrel [here](./Kestrel/running.md).
 
-Submitting a job on Kestrel works much the same as submitting a job on Eagle. Both systems use the Slurm scheduler. If the application you wish to run can be found under our [Applications tab](/Documentation/Applications/), then there may be example Kestrel submit scripts on the application page. Otherwise, our [VASP documentation page](/Documentation/Applications/vasp/#vasp-on-kestrel) contains a variety of sample submit scripts that you can modify to fit your own purposes.
+Submitting a job on Kestrel works much the same as submitting a job on Eagle. Both systems use the Slurm scheduler. If the application you wish to run can be found under our [Applications tab](../Applications/index.md), then there may be example Kestrel submit scripts on the application page. Otherwise, our [VASP documentation page](../Applications/vasp.md#vasp-on-kestrel) contains a variety of sample submit scripts that you can modify to fit your own purposes.
 
-For information on the Kestrel hardware configuration, see our [Kestrel system configuration](https://www.nrel.gov/hpc/kestrel-system-configuration.html) page.
+For information on the Kestrel hardware configuration, see our [Kestrel System Configuration](https://www.nrel.gov/hpc/kestrel-system-configuration.html) page.
 
 ### Shared Partition
 
@@ -97,7 +100,7 @@ module load vasp/<version>
 srun vasp_std |& tee out
 ```
 
-For more information on the shared partitions and an example AU-accounting calculation, see [here](/Documentation/Systems/Kestrel/running/#shared-node-partition).
+For more information on the shared partitions and an example AU-accounting calculation, see [here](./Kestrel/running.md#shared-node-partition).
 
 ## 5. Performance Recommendations
 
@@ -131,11 +134,11 @@ export MPICH_COLL_OPT_OFF=mpi_allreduce
 
 ## 6. Resources
 
-1. [Accessing Kestrel](/Documentation/Systems/Kestrel/#accessing-kestrel)
-2. [Transferring Files between Filesystems on the NREL Network](/Documentation/Managing_Data/Transferring_Files/)
-3. [Using Globus to move data from Eagle to Kestrel](/Documentation/Managing_Data/Transferring_Files/globus/)
-4. [General software building tutorial](/Documentation/Development/Libraries/howto/)
-5. [Environments Overview](/Documentation/Systems/Kestrel/Environments/)
-6. [Environments tutorial](/Documentation/Systems/Kestrel/Environments/tutorial/)
+1. [Accessing Kestrel](./Kestrel/index.md)
+2. [Transferring Files between Filesystems on the NREL Network](../Managing_Data/Transferring_Files/index.md)
+3. [Using Globus to move data from Eagle to Kestrel](../Managing_Data/Transferring_Files/globus.md)
+4. [General software building tutorial](../Development/Libraries/howto.md)
+5. [Environments Overview](./Kestrel/Environments/index.md)
+6. [Environments tutorial](./Kestrel/Environments/tutorial.md)
 
 Please reach out to hpc-help@nrel.gov for assistance with any topic on this page.
