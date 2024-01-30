@@ -16,7 +16,7 @@ nav:
       - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
-        - Transitioning from Eagle to Kestrel: Documentation/eagle_to_kestrel_transition.md
+        - Transitioning from Eagle to Kestrel: Documentation/Systems/eagle_to_kestrel_transition.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
