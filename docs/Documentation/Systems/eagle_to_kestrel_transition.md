@@ -60,7 +60,7 @@ If the module exists, then you simply need to `module load [your software name]`
 
 ### How to build your own software on Kestrel
 
-If you need to build your own software on Kestrel, and NOT use an already-existing module, then the steps can be a bit different than Eagle. For a general software-building procedure, please see our [Libraries How-To](../Development/Libraries/howto.md) tutorial.
+If you need to build your own software on Kestrel, and NOT use an already-existing module, then the steps can be a bit different than Eagle. For a general software-building procedure, please see our [Libraries How-To](../Development/Libraries/howto.md#summary-of-steps) tutorial.
 
 In general, on Kestrel we recommend using the `PrgEnv-cray` or `PrgEnv-intel` environments to build your code. For detailed descriptions on these environments, see our [environments](./Kestrel/Environments/index.md) page. For a tutorial walkthrough of building a simple code (IMB) within these environments, see our [environments tutorial](./Kestrel/Environments/tutorial.md) page. Note that `PrgEnv-` environments on Kestrel are different than environments on Eagle. Loading a `PrgEnv` loads a number of modules at once that together constitute a consistent environment. 
 
@@ -75,7 +75,7 @@ In general, on Kestrel we recommend using the `PrgEnv-cray` or `PrgEnv-intel` en
 
 See our page on submitting jobs on Kestrel [here](./Kestrel/running.md).
 
-Submitting a job on Kestrel works much the same as submitting a job on Eagle. Both systems use the Slurm scheduler. If the application you wish to run can be found under our [Applications tab](../Applications/index.md), then there may be example Kestrel submit scripts on the application page. Otherwise, our [VASP documentation page](../Applications/vasp.md) contains a variety of sample submit scripts that you can modify to fit your own purposes.
+Submitting a job on Kestrel works much the same as submitting a job on Eagle. Both systems use the Slurm scheduler. If the application you wish to run can be found under our [Applications tab](../Applications/index.md), then there may be example Kestrel submit scripts on the application page. Otherwise, our [VASP documentation page](../Applications/vasp.md#vasp-on-kestrel) contains a variety of sample submit scripts that you can modify to fit your own purposes.
 
 For information on the Kestrel hardware configuration, see our [Kestrel System Configuration](https://www.nrel.gov/hpc/kestrel-system-configuration.html) page.
 
