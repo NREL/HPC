@@ -134,7 +134,7 @@ export MPICH_COLL_OPT_OFF=mpi_allreduce
 
 5. Half-packing the nodes you request, i.e., requesting 52 cores per node instead of 104 cores per node, then spreading these cores evenly across the two sockets. This can be accomplished by including the following flags in your srun command:
    
---ntasks-per-node=52 --distribution=cyclic:cyclic --cpu_bind=cores 
+`--ntasks-per-node=52 --distribution=cyclic:cyclic --cpu_bind=cores `
 
 ## 6. Resources
 
