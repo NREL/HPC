@@ -99,7 +99,7 @@ You may need to export these variables even if you are not running your job with
 
 Currently, some applications on Kestrel are not scaling with the expected performance. We are actively working with the vendor's engineers to resolve these issues. For now, for these applications, we recommend:
 
-1. Setting the following environment variables:
+1. Setting the following envrionment variables (for Cray MPICH):
 ```
 export MPICH_SHARED_MEM_COLL_OPT=mpi_bcast,mpi_barrier 
 export MPICH_COLL_OPT_OFF=mpi_allreduce 
@@ -110,4 +110,9 @@ export MPICH_COLL_OPT_OFF=mpi_allreduce
 3. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
 
 4. Building and running with Cray MPICH (or Intel MPI/cray-mpich-abi), rather than OpenMPI.
+
+5. Half-packing the nodes you request, i.e., requesting 52 cores per node instead of 104 cores per node, then spreading these cores evenly across the two sockets. This can be accomplished by including the following flags in your srun command:
+   
+`--ntasks-per-node=52 --distribution=cyclic:cyclic --cpu_bind=cores `
+
 
