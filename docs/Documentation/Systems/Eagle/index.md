@@ -26,7 +26,10 @@ Users on an NREL device may connect via ssh to **eagle.hpc.nrel.gov** from the N
 #### For External Collaborators:
 If you are an external HPC user, you will need a [One-Time Password Multifactor token (OTP)](https://www.nrel.gov/hpc/multifactor-tokens.html) for two-factor authentication.
 
-For command line access, you may login directly to **eagle.nrel.gov**. Alternatively, you can connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html).  If you need to use web-based applications, X11 applications, or perform file transfers on non-Eagle systems, connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html). 
+There are no external-facing login nodes for Eagle. There are two options to connect:
+
+1. Connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html) and login with your username, password, and OTP code. Once connected, ssh to the login nodes as above.  
+2. If you need to use web-based applications, X11 applications, or perform file transfers on non-Eagle systems, connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html). 
 
 ## Get Help With Eagle
 Please see the [Help and Support Page](../../help.md) for further information on how to seek assistance with Eagle or your NREL HPC account. 
