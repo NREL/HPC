@@ -80,40 +80,8 @@ In the shared node partition, the value for `Number of Nodes` can be a fraction 
     1 hour walltime * 0.5 nodes * 1 QoS Factor * 10 Charge Factor = 5 AUs
     ```
     
-## Job Submission Recommendations
+## Performance Recommendations
 
-#### OpenMP
-
-When running codes with OpenMP enabled, we recommend manually setting one of the following environment variables:
-
-```
-
-export OMP_PROC_BIND=spread # for non-intel built codes
-
-export KMP_AFFINITY=balanced # for codes built with intel compilers
-
-```
-You may need to export these variables even if you are not running your job with threading, i.e., with `OMP_NUM_THREADS=1`
-
-#### Scaling
-
-Currently, some applications on Kestrel are not scaling with the expected performance. We are actively working with the vendor's engineers to resolve these issues. For now, for these applications, we recommend:
-
-1. Setting the following envrionment variables (for Cray MPICH):
-```
-export MPICH_SHARED_MEM_COLL_OPT=mpi_bcast,mpi_barrier 
-export MPICH_COLL_OPT_OFF=mpi_allreduce 
-```
-
-2. Submitting jobs with the fewest number of nodes possible.
-
-3. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
-
-4. Building and running with Cray MPICH (or Intel MPI/cray-mpich-abi), rather than OpenMPI.
-
-5. Half-packing the nodes you request, i.e., requesting 52 cores per node instead of 104 cores per node, then spreading these cores evenly across the two sockets. This can be accomplished by including the following flags in your srun command:
-   ```
-   --ntasks-per-node=52 --distribution=cyclic:cyclic --cpu_bind=cores
-   ```
+Please see [this page](../eagle_to_kestrel_transition.md#5-performance-recommendations) for our most up-to-date performance recommendations on Kestrel.
 
 
