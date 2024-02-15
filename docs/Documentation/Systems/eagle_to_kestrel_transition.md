@@ -139,7 +139,11 @@ These environment variables turn off some collective optimizations that we have 
 
 Please note that all of these recommendations are subject to change as we continue to improve the system.
 
-## 6. Resources
+## 6. Kestrel release notes
+
+Release notes for Kestrel after major upgrades can be found [here](./Kestrel/kestrel_release_notes.md).
+
+## 7. Resources
 
 1. [Accessing Kestrel](./Kestrel/index.md)
 2. [Transferring Files between Filesystems on the NREL Network](../Managing_Data/Transferring_Files/index.md)
