@@ -4,7 +4,7 @@ title: Transitioning from Eagle to Kestrel
 
 ## Overview of steps
 
-This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into four steps:
+This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Eagle is available through the end of March. After that, we no longer have a maintenance contract and parts availability/supply becomes an issue. Transitioning a project can be broken down into four steps:
 
 1. Accessing Kestrel
 2. Moving your files from Eagle to Kestrel
@@ -139,7 +139,11 @@ These environment variables turn off some collective optimizations that we have 
 
 Please note that all of these recommendations are subject to change as we continue to improve the system.
 
-## 6. Resources
+## 6. Kestrel release notes
+
+Release notes for Kestrel after major upgrades can be found [here](./Kestrel/kestrel_release_notes.md).
+
+## 7. Resources
 
 1. [Accessing Kestrel](./Kestrel/index.md)
 2. [Transferring Files between Filesystems on the NREL Network](../Managing_Data/Transferring_Files/index.md)
