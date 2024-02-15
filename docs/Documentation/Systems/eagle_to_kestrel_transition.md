@@ -4,7 +4,7 @@ title: Transitioning from Eagle to Kestrel
 
 ## Overview of steps
 
-This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Eagle is available through the end of March. After that, we no longer have a maintenance contract and parts availability/supply becomes an issue. Transitioning a project can be broken down into four steps:
+This page is meant to provide all necessary information to transition a project from Eagle to Kestrel. Transitioning a project can be broken down into four steps:
 
 1. Accessing Kestrel
 2. Moving your files from Eagle to Kestrel
