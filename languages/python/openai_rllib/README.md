@@ -1,51 +1,63 @@
 ## Create Anaconda environment
 
-At first, create an Anaconda environment that you will use for all your experiments. For your convenience, simply follow the next steps:
+Follow the following steps to create an Anaconda environment for this experiment:
 
-### 1<sup>st</sup> step: Log in on Eagle
+### 1st step: Log in on Kestrel (Can be skipped if work on local computer)
 
-Login on Eagle with:
+Login on Kestrel with:
 ```
-ssh eagle
+ssh kestrel
 ```
-or
+if you have hostname configured, or
 ```
-ssh <username>@eagle.hpc.nrel.gov
+ssh <username>@kestrel.hpc.nrel.gov
 ```
 
-### 2<sup>nd</sup> step: Set up Anaconda environment
+### 2nd step: Set up Anaconda environment
 
-The repo [provides](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/env_example.yml) the `env_example.yml` file. Use it to create a new Anaconda environment at a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Please go to [NREL HPC resources page](https://nrel.github.io/HPC/) to find more information about [the various Eagle directories](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [how to create new Anaconda environments](https://nrel.github.io/HPC/languages/python/conda.html).
+To use `conda` on Kestrel (different from Eagle), the Anaconda module needs to be loaded.
+```
+module purge
+module load anaconda3
+```
+
+We suggest creating a conda environment on your `\projects` rather than `\home` or `\scratch`. (#TODO: Check this with HPC team.)
 
 ***Example:***
 
-Begin by createing a subdirectory `/scratch/$USER/github-repos/`, `cd` there and clone the repo. Assuming you want to install your new environment in your `scratch` directory, you may want to create a directory that will contain all your Anaconda environments, e.g. `/scratch/$USER/conda-envs/`:
+Use the following script to create a conda environment:
 ```
-conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
+conda create --prefix=/projects/$HPC_HANDLE/$USER/conda_envs/rl_hpc python=3.10
 ```
 
-### 3<sup>rd</sup> step: Run OpenAI Gym on a single node/single core
+Here, `$HPC_HANDLE` is the project handle and `$USER` is your HPC user name.
 
-After installation is complete, make sure everything is working correctly. You can test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
+#TODO: adding the script installing necessary packages.
+
+### 3rd step: Test OpenAI Gym API
+
+After installation is complete, make sure everything is working correctly. You can test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v1`).
 
 Activate the enironment and start a Python session
 ```
 module purge
-conda activate /scratch/$USER/conda-envs/myenv
+module load anaconda3
+conda activate /projects/$HPC_HANDLE/$USER/conda_envs/rl_hpc
 python
 ```
-Request an interactive session on Eagle, and then, run the following:
+Request an interactive session on Kestrel, and then, run the following:
 ```python
-import gym
+import gymnasium as gym
 
-env = gym.make("CartPole-v0")
-env.reset()
+env = gym.make("CartPole-v1")
+obs, info = env.reset()
 
 done = False
 
 while not done:
     action = env.action_space.sample()
-    obs, rew, done, _ = env.step(action)
+    obs, rew, terminated, truncated, info = env.step(action)
+    done = (terminated or truncated)
     print(action, obs, rew, done)
 ```
 If everything works correctly, you will see an output similar to:
@@ -66,13 +78,11 @@ If everything works correctly, you will see an output similar to:
 0 [-0.18972559 -0.81966549  0.1994578   1.38158021] 1.0 False
 0 [-0.2061189  -1.0166379   0.22708941  1.72943365] 1.0 True
 ```
-*Note that the above process does not involve any training.*
 
-### Install more packages
-
-Later, when you will start running reinforcement learning examples on Eagle, you will need to install other packages, most important of which the `Ray RLlib` library. This will enable you to run multiple instances of Gym in parallel over multiple cores per node, or even multiple nodes. You can always install new packages via:
+### 4th step: Test other libraries
+The following libraries should also be imported without an error.
 
 ```
-conda install -c conda-forge <package_name>
-pip install <package_name>
+import ray
+import torch
 ```
