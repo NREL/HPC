@@ -24,9 +24,7 @@ torch, nn = try_import_torch()
 if __name__ == "__main__":
 
     from config_parser import create_parser
-
     parser = create_parser()
-
     args = parser.parse_args()
     print(f"Running with following CLI options: {args}")
 
@@ -39,7 +37,6 @@ if __name__ == "__main__":
         ray.init(local_mode=args.local_mode)
 
     env_name = 'CarPass-v0'
-
     def env_creator(config):
 
         custom_env_dir = CURRENT_FILE_PATH.replace('train', 'custom_gym_env')
@@ -48,7 +45,6 @@ if __name__ == "__main__":
         from custom_gym_env.custom_env import CarPassEnv
         env = CarPassEnv()
         return env
-    
     register_env(env_name, env_creator)
 
     config = (
