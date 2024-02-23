@@ -69,12 +69,9 @@ you must get nodes with fast local storage. A minimum requirement is approximate
 on NREL compute nodes.
 
 ### Kestrel
-Standard nodes do not have local storage and are unsuitable if you will shuffle data. By default,
-Spark will write to its tmp filesystem and that will quickly run out of space.
-
-Kestrel has 256 nodes with local SSDs. Pick those if you can. For example, `salloc --tmp=1600G`.
-Refer to the [Kestrel documentation](https://www.nrel.gov/hpc/kestrel-system-configuration.html) for
-more information.
+Only 256 out of the 2144 CPU-only Kestrel compute nodes have local SSDs. Pick those if you can. For
+example, `salloc --tmp=1600G`. Refer to the [Kestrel
+documentation](https://www.nrel.gov/hpc/kestrel-system-configuration.html) for more information.
 
 ### Eagle
 Standard nodes have spinning disks and are unsuitable if you will shuffle data. `bigmem` and `gpu`
