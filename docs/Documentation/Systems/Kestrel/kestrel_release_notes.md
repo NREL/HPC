@@ -34,11 +34,13 @@
 
     ```
     module restore system 
-    module purge 
-    module use /opt/cray/pe/modulefiles/ 
-    module load cpe/23.12 
-    module load craype-x86-spr 
-    module load PrgEnv-intel 
+    source /nopt/nrel/apps/cpu_stack/env_cpe23.sh
+    module purge
+    module use /opt/cray/pe/modulefiles/
+    module load cpe/23.12
+    module load craype-x86-spr
+    module load intel-oneapi/2023.0.0
+    module load PrgEnv-intel
     ```
 
     To load our modules built with CPE 23.12, you need to source the following environment. (Note that we are still building/updating these) 
