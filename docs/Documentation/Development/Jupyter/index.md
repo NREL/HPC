@@ -12,7 +12,9 @@
 - Customizable
 - Now supports other languages besides Python (R, Julia..)   
     - https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
-    - these slides were created using Markdown in Jupyter!
+
+
+## Example Notebook Code
 
 ```python
 import chart_studio.plotly as py
@@ -46,14 +48,13 @@ axes[3].set_title("fill_between");
 ![png](../../../../assets/images/output_4_0.png)
 
 
-## Terminology - a Confusion of Words
-
+## Jupyter Terminology
 
 
 ### **Jupyterhub**
     * Multi-user "backend" server
     * Controls launching the single-user Jupyter server
-    * NREL's "Europa" runs Jupyterhub
+    * NREL's "Europa" (Eagle-only) runs Jupyterhub
  
 (In general, don't worry about JupyterHub--unless you're a sysadmin)
 
@@ -78,7 +79,11 @@ axes[3].set_title("fill_between");
 
 ## Using Europa
 
-We run a Jupyterhub server that is available. 
+The NREL HPC team runs a Jupyterhub server, called Europa, that is available for internal (NREL) Eagle users only. 
+
+Europa is connected to Eagle's Lustre storage system for access to /projects data.
+
+A replacement for Europa on Kestrel is in the planning stage.
 
 ### Europa's Advantages:
     * Fast and easy access
@@ -88,8 +93,7 @@ We run a Jupyterhub server that is available.
 ### Europa's Disadvantages:
     * Limited resource: 8 cores/128GB RAM per user beefore automatic throttling
     * Compete with other users for CPU/RAM on a single machine
-    * No custom environments (for now)
-
+    * Not available for Kestrel (yet)
 
 ### Simple Instructions:
     
@@ -113,55 +117,99 @@ We run a Jupyterhub server that is available.
     * Compete with other users for nodes
     * Costs AU
     
-    
+## Launching Your Own Jupyter Server on an HPC System
+
+Both Kestrel and Eagle support running your own Jupyter Notebook server.
+
+External (non-NREL) **Kestrel** users may follow the directions below for Kestrel, but please use `kestrel.nrel.gov` instead of `kestrel.hpc.nrel.gov`. 
+
+External (non-NREL) **Eagle** users will no longer be able to use Jupyter in this fashion as of February 2024. If you require Jupyter, please consider transitioning to Kestrel as soon as possible.
+
+## Using a Compute Node to run Jupyter Notebooks
+
+Connect to a login node and request an interactive job using the `salloc` command.
+
+The examples below will start a 2-hour job. Edit the `<account>` to the name of your allocation, and adjust the time accordingly. Since these are interactive jobs, they will get some priority, especially if they're shorter, so only book as much time as you will be actively working on the notebook.
+
+Before you get started, we recommend installing your own Jupyter inside of a conda environment. The default conda/anaconda3 modules contain basic Jupyter Notebook servers, but you will likely want your own Python libraries, notebook extensions, and other features. Basic directions are included later in this document.
+
+### Kestrel:
+
+`[user@laptop:~]$ ssh kestrel.hpc.nrel.gov`
+
+`[user@kl1:~]$ salloc -A <account> -t 02:00:00`
+
+### Eagle:
+
+`[user@laptop:~]$ ssh eagle.hpc.nrel.gov`
+
+`[user@el1:~]$ salloc -A <account> -t 02:00:00`
 
 
-#### ...Is more than one node possible?
+## Starting Jupyter Inside the Job
 
-Yes... please see our advanced Jupyter documentation. 
+Once the job starts and you are allocated a compute node, load the appropriate modules, activate your Jupyter environment, and launch the Jupyter server.
 
-## Using a Compute Node - Hard Way
+#### Kestrel:
 
-### Start on a login node:
+`[user@x1000c0s0b0n1:~]$ module load anaconda3`
 
-`ssh eagle.hpc.nrel.gov`
+`[user@x1000c0s0b0n1:~]$ source activate myjupenv`
 
-`[user@el1:]$ srun -A <account> -t 02:00:00 --pty /bin/bash`
+`[user@x1000c0s0b0n1:~]$ jupyter-notebook --no-browser --ip=$(hostname -s)`
 
+Take note of the node name that your job is assigned. (x1000c0s0b0n1 in the above example.)
 
+Also note the url that Jupyter displays when starting up, e.g. `http://127.0.0.1:8888/?token=<alphabet soup>`.
 
+The `<alphabet soup>` is a long string of letters and numbers. This is a unique authorization token for your Jupyter session. you will need it, along with the full URL, for a later step.
 
+#### Eagle:
 
-### When the job starts on the compute node:
-
-`[user@r2i7n35]$ module load conda`
+`[user@r2i7n35:~]$ module load conda`
 
 `source activate myjupenv`
 
 `jupyter-notebook --no-browser --ip=$(hostname -s)`
 
-note the node name (r2i7n35 in this example)
+Take note of the node name that your job is assigned. (r2i7n35 in this example.)
 
-and the url, e.g. `http://127.0.0.1:8888/?token=<alphabet soup>`
+Also note the url that Jupyter displays when starting up, e.g. `http://127.0.0.1:8888/?token=<alphabet soup>`.
 
-### In a terminal on your computer:
+The `<alphabet soup>` is a long string of letters and numbers. This is a unique authorization token for your Jupyter session. you will need it, along with the full URL, for a later step.
 
-`[user@laptop]$ ssh -N -L 8888:<nodename>:8888 username@eagle.hpc.nrel.gov`
-    
-copy full url from jupyter startup into your web browser. e.g.: 
+### On Your Own Computer
+
+Next, open an SSH tunnel through a login node to the compute node. Log in when prompted using your regular HPC credentials, and put this terminal to the side or minimize it, but leave it open until you are done working with Jupyter for this session.
+
+#### Kestrel: 
+
+`[user@laptop:~]$ ssh -N -L 8888:<nodename>:8888 username@eagle.hpc.nrel.gov`
+
+
+#### Eagle:
+
+`[user@laptop:~]$ ssh -N -L 8888:<nodename>:8888 username@eagle.hpc.nrel.gov`
+
+
+### Open a Web Browser
+
+Copy the full url and token from Jupyter startup into your web browser. For example:
 
 `http://127.0.0.1:8888/?token=<alphabet soup>`
 
 
-## Using a Compute Node - Easy Way
+## Using a Compute Node on Eagle - Easy Way
 
-Automation makes life better!
+Scripted assistance with launching a Jupyter session on Eagle is available.
+
+These scripts are designed for Eagle and have not yet been adapted for Kestrel, but may be downloaded and adapted manually.
 
 ### pyeagle - NREL Users
 
 The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group, and provides utilities for working on Eagle and Kestrel.
 
-###  Auto-launching with an sbatch script - All Users
+###  Auto-launching on Eagle With an sbatch Script
 
 Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
 
@@ -179,16 +227,10 @@ That's it!
 
 ## Using a Login Node
 
-
-Yes, you can run jupyter directly on a login node.
-
-
-
-Should you run jupyter directly on a login node?
-
-
+Please avoid running Jupyter on a login node on either Kestrel or Eagle. 
 
 ### Reasons to Not Run Jupyter Directly on a Login Node
+
     * Heavy lifting should be done via Europa or compute nodes
     * Using a highly shared resource (login nodes)
         * Competition for cycles
@@ -196,7 +238,13 @@ Should you run jupyter directly on a login node?
 
 ## Custom Conda Environments and Jupyter Kernels
 
-### Creating a conda environment:
+On Kestrel, the module 'anaconda3' is available for the conda environment manager. As an alternative, the module 'mamba' is available as well. Mamba is conda-compatible and has a faster solver.
+
+On Eagle, the module 'conda' contains the conda environment manager. The Eagle conda module also contains mamba installed as a conda package.
+
+### Creating a Conda Environment
+
+Create an environment and install the base jupyter packages, then activate the environment and install other libraries, e.g. scipy, numpy, and so on.
 
 `conda create -n myjupyter -c conda-forge jupyter ipykernel`
 
@@ -204,25 +252,22 @@ Should you run jupyter directly on a login node?
 
 `conda install -c conda-forge scipy numpy matplotlib`
 
-
-
-### Add custom ipykernel
+### Add Custom iPykernel
 
 `python -m ipykernel install --user --name=myjupyter`
 
-Restart your jupyter server
+If you already have a Jupyter server running, restart it to load the new kernel.
 
-New kernel will appear in drop-down as an option
+The new kernel will appear in the drop-down as an option to open a new notebook.
 
-### Remove custom ipykernel
+### Remove Custom iPykernel
 
 `jupyter kernelspec list`
 
 `jupyter kernelspec remove myoldjupyter`
 
 
-## Magic commands
-
+## Magic Commands
 
 Magic commands are "meta commands" that add extra functionality.
 
@@ -235,16 +280,10 @@ Magic commands begin with % or %%.
     * %%time - placed at top of cell, prints execution time
     * %who - list all defined variables in notebook
     
-
-
-
 ```
 %lsmagic
 
 ```
-
-
-
 
     Available line magics:
     %alias  %alias_magic  %autoawait  %autocall  %automagic  %autosave  %bookmark  %cat  %cd  %clear  %colors  %conda  %config  %connect_info  %cp  %debug  %dhist  %dirs  %doctest_mode  %ed  %edit  %env  %gui  %hist  %history  %killbgscripts  %ldir  %less  %lf  %lk  %ll  %load  %load_ext  %loadpy  %logoff  %logon  %logstart  %logstate  %logstop  %ls  %lsmagic  %lx  %macro  %magic  %man  %matplotlib  %mkdir  %more  %mv  %notebook  %page  %pastebin  %pdb  %pdef  %pdoc  %pfile  %pinfo  %pinfo2  %pip  %popd  %pprint  %precision  %prun  %psearch  %psource  %pushd  %pwd  %pycat  %pylab  %qtconsole  %quickref  %recall  %rehashx  %reload_ext  %rep  %rerun  %reset  %reset_selective  %rm  %rmdir  %run  %save  %sc  %set_env  %store  %sx  %system  %tb  %time  %timeit  %unalias  %unload_ext  %who  %who_ls  %whos  %xdel  %xmode
@@ -253,8 +292,6 @@ Magic commands begin with % or %%.
     %%!  %%HTML  %%SVG  %%bash  %%capture  %%debug  %%file  %%html  %%javascript  %%js  %%latex  %%markdown  %%perl  %%prun  %%pypy  %%python  %%python2  %%python3  %%ruby  %%script  %%sh  %%svg  %%sx  %%system  %%time  %%timeit  %%writefile
     
     Automagic is ON, % prefix IS NOT needed for line magics.
-
-
 
 ## Shell Commands
 
