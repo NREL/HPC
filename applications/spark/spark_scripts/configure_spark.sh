@@ -9,20 +9,6 @@ EXECUTOR_CORES=5
 PARTITION_MULTIPLIER=1
 SLURM_JOB_IDS=()
 
-# Check for errors in user input. Exit on error.
-function check_errors()
-{
-    master_memory_gb=$(( 1 + ${DRIVER_MEMORY_GB} ))
-    if [ ${ENABLE_HISTORY_SERVER} = true ]; then
-        (( master_memory_gb += 1 ))
-    fi
-
-    if [ ${master_memory_gb} -gt ${MASTER_NODE_MEMORY_OVERHEAD_GB} ]; then
-        error "master_node_memory_overhead_gb=${MASTER_NODE_MEMORY_OVERHEAD_GB} is too small." \
-              "Increase it or reduce driver_memory_gb=${DRIVER_MEMORY_GB}"
-    fi
-}
-
 # Configure executor settings in spark-defaults.conf.
 function config_executors()
 {
@@ -37,10 +23,11 @@ function config_executors()
         (( num_workers += 1 ))
     done
 
+    driver_mem=$(get_spark_driver_memory_gb)
     memory_gb_by_node=()
     lowest_memory_gb=0
     for node_mem in $(cat ${CONFIG_DIR}/conf/worker_memory); do
-        mem=$(( ${node_mem} - ${MASTER_NODE_MEMORY_OVERHEAD_GB} ))
+        mem=$(( ${node_mem} - ${driver_mem} - ${NODE_MEMORY_OVERHEAD_GB} ))
         if [ ${lowest_memory_gb} -eq 0 ] || [ ${node_mem} -lt ${lowest_memory_gb} ]; then
             lowest_memory_gb=${mem}
         fi
@@ -148,18 +135,19 @@ EOF
 # Main
 
 read -r -d "" USAGE << EOM
-Usage: $(basename $0) [OPTION]... [SLURM_JOB_ID]...
-Configure settings in spark-defaults.conf based on hardware resources in one or more SLURM job IDs.
-Reads SLURM_JOB_ID from the environment.
+Usage: $(basename $0) [OPTIONS]... [SLURM_JOB_ID]...
+
+  Configure settings in spark-defaults.conf based on hardware resources in one or more SLURM job IDs.
+  Reads SLURM_JOB_ID from the environment.
 
 Options:
-  -D|--dynamic-allocation        Defaults to false.
-  -H|--history-server            Defaults to false.
-  -M|--driver-memory-gb VAL      Defaults to ${DRIVER_MEMORY_GB} (GB).
-  -c|--executor-cores VAL        Defaults to ${EXECUTOR_CORES}.
-  -d|--directory VAL             Defaults to current directory.
-  -m|--partition-multiplier VAL  Set spark.sql.shuffle.partitions to number of
-                                 cores multiplied by this value. Defaults to ${PARTITION_MULTIPLIER}.
+  -D, --dynamic-allocation            Enable dynamic resource allocation. [Default: false]
+  -H, --history-server                Enable the history server. [Default: false]
+  -M, --driver-memory-gb INTEGER      Driver memory in GB. [Default: ${DRIVER_MEMORY_GB}]
+  -e, --executor-cores INTEGER        Number of cores per executor. [Default: ${EXECUTOR_CORES}]
+  -d, --directory TEXT                Base directory with configuration files. [Default: current]
+  -m, --partition-multiplier INTEGER  Set spark.sql.shuffle.partitions to number of
+                                      cores multiplied by this value. [Default: ${PARTITION_MULTIPLIER}]
 
 Example:
   $(basename $0) --history-server --driver-memory-gb 2
@@ -180,7 +168,7 @@ while [[ $# -gt 0 ]]; do
       shift
       shift
       ;;
-    -c|--executor-cores)
+    -e|--executor-cores)
       EXECUTOR_CORES=${2}
       shift
       shift
@@ -232,11 +220,10 @@ if ! [ -f ${DEFAULTS_TEMPLATE_FILE} ]; then
     error "${DEFAULTS_TEMPLATE_FILE} does not exist"
 fi
 
-module load singularity-container
-check_errors
+module load ${CONTAINER_MODULE}
 copy_defaults_template_file
-config_executors
 config_driver
+config_executors
 if [ ${ENABLE_HISTORY_SERVER} = true ]; then
     enable_history_server
 fi

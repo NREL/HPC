@@ -3,7 +3,7 @@
 function setup()
 {
     if ! [ -d dropbear ]; then
-        singularity exec ${LUSTRE_BIND_MOUNTS} ${CONTAINER} ${SCRIPT_DIR}/make_dropbear.sh
+        ${CONTAINER_EXEC} exec ${LUSTRE_BIND_MOUNTS} ${CONTAINER_PATH} ${SCRIPT_DIR}/make_dropbear.sh
     fi
     rm -rf ${CONFIG_DIR}/events && mkdir ${CONFIG_DIR}/events
     rm -rf ${CONFIG_DIR}/logs && mkdir ${CONFIG_DIR}/logs
@@ -42,7 +42,7 @@ function start_spark_processes()
     if [ $? -eq 0 ]; then
         exec_spark_process start-history-server.sh
     fi
-    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${MASTER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
+    ${SCRIPT_DIR}/start_spark_worker.sh ${CONFIG_DIR} ${NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
     ret=$?
     if [[ $ret -ne 0 ]]; then
         echo "Error: Failed to start Spark worker on the master node: ${ret}"
@@ -55,7 +55,7 @@ function start_spark_processes()
     for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
         if [[ $node_name != ${master_node} ]]; then
             ssh ${USER}@${node_name} ${SCRIPT_DIR}/start_spark_worker.sh \
-                ${CONFIG_DIR} ${WORKER_NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
+                ${CONFIG_DIR} ${NODE_MEMORY_OVERHEAD_GB} ${spark_cluster}
             ret=$?
             if [[ $ret -ne 0 ]]; then
                 echo "Error: Failed to start the container on the worker node ${node_name}: ${ret}"
@@ -114,8 +114,20 @@ fi
 export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . ${SCRIPT_DIR}/common.sh
 
-module load singularity-container
+module load ${CONTAINER_MODULE}
 setup
 write_worker_nodes
 start_containers
 start_spark_processes
+
+read -r -d "" USAGE << EOM
+###############################################################################
+
+Run this command to use the Spark configuration:
+
+  export SPARK_CONF_DIR=${CONFIG_DIR}/conf
+
+###############################################################################
+EOM
+
+echo "${USAGE}"

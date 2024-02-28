@@ -1,11 +1,20 @@
 ## Interactive Python interpreter
-This uses ipython, which is optional. Remove the `--env` line to use the regular interpreter.
+The first example below uses ipython, which is optional.
+You can leave the driver unset to use the default Python or set it explicitly based on what is in
+your container.
 ```
-$ singularity run \
+$ apptainer run \
 	--env PYSPARK_DRIVER_PYTHON=ipython \
 	instance://spark \
 	pyspark --master spark://$(hostname):7077
 ```
+```
+$ apptainer run \
+	--env PYSPARK_DRIVER_PYTHON=python3.11 \
+	instance://spark \
+	pyspark --master spark://$(hostname):7077
+```
+
 Optional: check your environment to ensure that all configuration settings are correct.
 Most importantly, ensure that you connected to the Spark cluster master and are not in local mode.
 pyspark prints the connection information during startup. For example:
@@ -26,7 +35,7 @@ In [2]: spark.read.parquet("my_data.parquet")
 
 ## Jupyter notebook
 ```
-$ singularity run \
+$ apptainer run \
 	--net \
 	--network-args "portmap=8889:8889" \
 	--env PYSPARK_DRIVER_PYTHON=jupyter \
@@ -41,7 +50,7 @@ This is a Mac/Linux example. On Windows adjust the environment variable syntax a
 or PowerShell.
 ```
 $ export COMPUTE_NODE=<your-compute-node-name>
-$ ssh -L 4040:$COMPUTE_NODE:4040 -L 8080:$COMPUTE_NODE:8080 -L 8889:$COMPUTE_NODE:8889 $USER@eagle.hpc.nrel.gov
+$ ssh -L 4040:$COMPUTE_NODE:4040 -L 8080:$COMPUTE_NODE:8080 -L 8889:$COMPUTE_NODE:8889 $USER@kestrel.hpc.nrel.gov
 ```
 Open the link in your browser and start a new notebook.
 Connect to the Spark session by entering this text into a cell.
@@ -52,7 +61,7 @@ spark = SparkSession.builder.appName("my_app").getOrCreate()
 
 ## Run a script
 ```
-$ singularity run \
+$ apptainer run \
 	instance://spark \
 	spark-submit --master spark://$(hostname):7077 <your-script>
 ```
@@ -68,13 +77,11 @@ spark = SparkSession.builder.appName("my_app").getOrCreate()
 Apache provides several example scripts. Start a shell inside the container if you'd like to view
 or copy them.
 ```
-$ singularity shell instance://spark
-Singularity> ls /opt/spark/examples/src/main/python/
-Singularity> cat /opt/spark/examples/src/main/python/pi.py
+$ apptainer shell instance://spark
+apptainer> ls /opt/spark/examples/src/main/python/
+apptainer> cat /opt/spark/examples/src/main/python/pi.py
 ```
 
 ## Python performance considerations
 Refer to this Spark documentation if you will convert Spark DataFrames to Pandas DataFrames.
 https://spark.apache.org/docs/latest/api/python/user_guide/sql/arrow_pandas.html
-
-

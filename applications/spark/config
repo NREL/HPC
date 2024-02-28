@@ -1,4 +1,0 @@
-container = /datasets/images/apache_spark/spark_py39.sif
-container_instance_name = spark
-master_node_memory_overhead_gb = 10
-worker_node_memory_overhead_gb = 5

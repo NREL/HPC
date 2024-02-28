@@ -2,14 +2,14 @@
 # Do not run this while connected to the VPN.
 # docker build --tag spark .
 
-# This container can be converted to a Singularity container on Eagle with these commands:
+# This container can be converted to an Apptainer container on Eagle with these commands:
 # Save and upload the docker image to Eagle.
 # $ docker save -o spark.tar spark
 # $ scp spark_container.tar <username>@eagle.hpc.nrel.gov:/scratch/<username>
 # Acquire a compute node.
-# $ export SINGULARITY_TMPDIR=/dev/shm
-# $ module load singularity-container
-# $ singularity build spark.sif docker-archive://spark.tar
+# $ export APPTAINER_CACHEDIR=/dev/shm
+# $ module load apptainer
+# $ apptainer build spark.sif docker-archive://spark.tar
 
 # Methodology for operation of this container is based on https://sylabs.io/2018/10/spark-on-singularity/
 
@@ -25,6 +25,13 @@ RUN apt-get update \
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 RUN apt-get update
+RUN R -e 'install.packages("dplyr")'
+RUN R -e 'install.packages("tidyr")'
+RUN R -e 'install.packages("ggplot2")'
+RUN R -e 'install.packages("purrr")'
+RUN R -e 'install.packages("dbplyr")'
+RUN R -e 'install.packages("dtplyr")'
+RUN R -e 'install.packages("arrow")'
 RUN R -e 'install.packages("tidyverse")'
 RUN R -e 'install.packages("sparklyr")'
 RUN R -e 'install.packages("data.table")'

@@ -5,18 +5,18 @@
 #SBATCH --output=output_%j.o
 #SBATCH --error=output_%j.e
 #SBATCH --nodes=2
+#SBATCH --tmp=1600G
 #SBATCH --partition=debug
 
-module load singularity-container
+module load apptainer
 SCRIPT_DIR=~/repos/HPC/applications/spark/spark_scripts
 
 rm -f shutdown
 srun collect_stats.sh . &
 
-${SCRIPT_DIR}/configure_spark.sh
-${SCRIPT_DIR}/start_spark_cluster.sh
+${SCRIPT_DIR}/configure_and_start_spark.sh
 # This runs an example script inside the container.
-singularity run instance://spark spark-submit --master spark://$(hostname):7077 /opt/spark/examples/src/main/python/pi.py 500
+apptainer run instance://spark spark-submit --master spark://$(hostname):7077 /opt/spark/examples/src/main/python/pi.py 500
 ${SCRIPT_DIR}/stop_spark_cluster.sh
 
 touch shutdown
