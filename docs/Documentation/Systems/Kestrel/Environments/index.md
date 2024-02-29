@@ -16,7 +16,7 @@ There are three types of module-based Toolchains available on Kestrel:
 
 The "PrgEnv-" environments are new on Kestrel. PrgEnv stands for "programming environment," and Kestrel ships with several of these. There are advantages to using a PrgEnv environment, as these environments are tailored for some of the Cray-specific features of Kestrel. For example, Cray MPICH utilizes Kestrel's Cray Slingshot network more effectively than OpenMPI or Intel MPI, so it runs noticeably faster than the other two for jobs that require two or more nodes. All `PrgEnv-` environments utilize Cray MPICH by default.
 
-The NREL-built environments function similarly to those on Eagle, and it is up to the user to load all necessary modules to build and run their applications. These modules can be accessed by running `source /nopt/nrel/apps/env.sh`.
+The NREL-built environments function similarly to those on Eagle, and it is up to the user to load all necessary modules to build and run their applications.
 
 NREL-built environments can make use of Cray MPICH via the `cray-mpich-abi`. As long as program is compiled with an MPICH-based MPI (e.g., Intel MPI but *not* Open MPI), the `cray-mpich-abi` can be loaded at runtime, which causes the program to use Cray MPICH for dynamically built binaries.
 
@@ -26,8 +26,6 @@ NREL-built environments can make use of Cray MPICH via the `cray-mpich-abi`. As 
 Currently, OpenMPI does not run performantly or stably on Kestrel. You should do your best to avoid using OpenMPI. Please reach out to hpc-help@nrel.gov if you need help working around OpenMPI.
 
 ## Summary of available compiler environments
-
-Note: to access compilers not included in the default Cray modules (i.e., compilers within the NREL-built environment), you must run the command `source /nopt/nrel/apps/env.sh`.
 
 * (Cray) denotes that the module belongs to the default Cray module set.
 * (NREL) denotes that the module belongs to the NREL-built module set. If a compiler module is denoted (NREL), then the corresponding MPI module is also (NREL).
