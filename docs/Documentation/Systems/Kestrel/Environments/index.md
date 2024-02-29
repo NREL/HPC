@@ -81,10 +81,6 @@ Upon logging into the machine, the `PrgEnv-cray` is loaded by default. If we `mo
 
 We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-cray` is loaded but we want to use the GNU programming environment instead, we can `module swap PrgEnv-cray PrgEnv-gnu`.
 
-Alternatively, we can
-`module purge` # unload all modules, including the PrgEnv-cray-associated modules.
-`module load PrgEnv-gnu` # load the modules needed for PrgEnv-gnu
-
 ### What is a PrgEnv module doing?
 
 PrgEnv modules can seem a bit mysterious. We can check out the inner workings of a PrgEnv module with the `module show` command. For example, for `PrgEnv-gnu` we can:
@@ -144,8 +140,7 @@ We mentioned previously that the different PrgEnvs use different locations for C
 `ftn`, `cc`, and `CC` are the Cray compiler wrappers for Fortran, C, and C++, respectively, which are part of the `craype` module. When a particular `PrgEnv-` programming environment is loaded, these wrappers will make use of the corresponding compiler. For example, if we load PrgEnv-gnu with:
 
 ```
-module purge
-module load PrgEnv-gnu
+module swap PrgEnv-cray PrgEnv-gnu
 ```
 
 we would expect `ftn` to wrap around gfortran, the GNU fortran compiler. We can test this with:
@@ -169,6 +164,7 @@ Note1: In contrast with mpich, the location of the wrappers `cc`, `CC` and `ftn`
 
 Note2: `cc`, `CC` and `ftn` are also wrappers around their mpi couterparts. For mpi codes, the wrappers call the necessary mpi compilers depending on which PrgEnv is loaded. 
 
+Note3: When changing between PrgEnvs, it is better to use `module swap [current prgenv] [new prgenv]` instead of `module purge; module load [new prgenv]` due to the way the environments set some environment variables.
 
 `ftn` is part of the `craype` module. If we `module unload craype` and then type `which ftn` we find:
 ```
@@ -195,11 +191,12 @@ In fact, the use of `mpifort` can be quite confusing. Inside the PrgEnv-gnu envi
 Submitting a Slurm job using a PrgEnv environment is no different than how you would normally submit a job. In your slurm script, below the #SBATCH directives, include:
 
 ```
-module purge
-module load PrgEnv-[environment]
+module swap PrgEnv-cray [new PrgEnv]
 ```
 
-Where `[environment]` can be `cray`, `gnu`, `intel`, or `nvidia`.
+We swap from `PrgEnv-cray` because this is the default PrgEnv that is loaded when logging onto Kestrel.
+
+`[new PrgEnv]` can be `PrgEnv-gnu` or `PrgEnv-intel`.
 
 Depending on the software you're trying to run, you may need to load additional modules like `cray-hdf5` or `cray-fftw`.
 
@@ -208,14 +205,9 @@ Depending on the software you're trying to run, you may need to load additional 
 
 The NREL build modules are similar to Eagle, where the module are separate and no dependecy is created between modules. 
 
-To access the NREL modules, you must run the command:
-`source /nopt/nrel/apps/env.sh`
-
-Otherwise, the NREL modules will not appear when you try to `module avail` or `module load` them.
-
 The modules are grouped by type `compilers_mpis` `utilities_libraries` and `applications`, and a module can be loaded using `module load $module_name`.
 
-The modules are optimized for Kestrel architecture and will be updated/upgraded every 6/12months or upon request. 
+The modules are optimized for Kestrel architecture and will be updated/upgraded every 6/12months or upon request. If there is a module you need but is not available, email hpc-help@nrel.gov
 
 
 ## NREL-built environments with cray-mpich-abi
