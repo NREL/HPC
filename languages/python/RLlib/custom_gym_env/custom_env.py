@@ -49,7 +49,7 @@ class CarPassEnv(gym.Env):
 
     metadata = {
         'render.modes': ['human', 'rgb_array'],
-        'video.frames_per_second': 50
+        'render_fps': 4
     }
 
     def __init__(self):
@@ -73,7 +73,9 @@ class CarPassEnv(gym.Env):
                                             dtype=np.float32)
 
         self.state = None
-        self.viewer = None
+        self.screen = None
+        self.clock = None
+        self.render_mode = 'human'
         self.step_count = 0
 
     def step(self, action):
@@ -211,6 +213,8 @@ class CarPassEnv(gym.Env):
 
         This function is totally optional. No need to render if your 
         environment has nothing to show visually.
+
+        Modified from gymnasium cartpole example.
         """
 
         screen_width = 240
@@ -223,40 +227,75 @@ class CarPassEnv(gym.Env):
             x = (position[0] + 4.0) * scale
             y = (position[1] + 14.0) * scale
             return [x, y]
+        
+        def draw_circle(x, y, radius, color):
+            gfxdraw.aacircle(self.surf, x, y, radius, color)
+            gfxdraw.filled_circle(self.surf, x, y, radius, color)
+        
+        try:
+            import pygame
+            from pygame import gfxdraw
+        except ImportError as e:
+            print("pygame is not installed")
+            print("run `pip install pygame==2.5.2`")
+            raise ImportError
 
-        if self.viewer is None:
-            from gymnasium.envs.classic_control import rendering
-            self.viewer = rendering.Viewer(screen_width, screen_height)
-
-            self.moving_car = rendering.make_circle(1.5 * scale)
-            self.cartrans = rendering.Transform()
-            self.moving_car.add_attr(self.cartrans)
-            self.moving_car.set_color(0.0, 0.0, 0.0)
-            self.cartrans.set_translation(*cord_transform(self.state, scale))
-            self.viewer.add_geom(self.moving_car)
-
-            self.stationary_car = rendering.make_circle(
-                self.stationary_car_size * scale)
-            self.stationary_car.set_color(.8, .6, .4)
-            self.stationary_car.add_attr(
-                rendering.Transform(
-                    translation=tuple(
-                        cord_transform(self.stationary_car_poistion, scale))))
-            self.viewer.add_geom(self.stationary_car)
-
-            self.target_spot = rendering.make_circle(0.5 * scale)
-            self.target_spot.set_color(1.0, 0.0, 0.0)
-            self.target_spot.add_attr(
-                rendering.Transform(translation=tuple(
-                    cord_transform(self.target_position, scale))))
-            self.viewer.add_geom(self.target_spot)
+        if self.screen is None:
+            pygame.init()
+            if self.render_mode == "human":
+                pygame.display.init()
+                self.screen = pygame.display.set_mode(
+                    (screen_width, screen_height)
+                )
+            else:  # mode == "rgb_array"
+                self.screen = pygame.Surface((screen_width, 
+                                              screen_height))
+        if self.clock is None:
+            self.clock = pygame.time.Clock()
 
         if self.state is None:
             return None
 
-        self.cartrans.set_translation(*cord_transform(self.state, scale))
+        # Set background
+        self.surf = pygame.Surface((screen_width, screen_height))
+        self.surf.fill((255, 255, 255))
 
-        return self.viewer.render(return_rgb_array=mode == 'rgb_array')
+        # Draw target
+        x, y = [int(i) for i in cord_transform(self.target_position, scale)]
+        draw_circle(x, y, int(0.5 * scale), (129, 132, 203))
+        
+        # Draw moving vehicle
+        x, y = [int(i) for i in cord_transform(self.state, scale)]
+        draw_circle(x, y, int(1.5 * scale), (0, 0, 0))
+        
+        # Draw stationary vehicle
+        x, y = [int(i) 
+                for i in cord_transform(self.stationary_car_poistion, scale)]
+        draw_circle(x, y, int(self.stationary_car_size * scale),
+                    (202, 152, 101))
+
+        self.surf = pygame.transform.flip(self.surf, False, True)
+        self.screen.blit(self.surf, (0, 0))
+
+        if self.render_mode == "human":
+            pygame.event.pump()
+            self.clock.tick(self.metadata["render_fps"])
+            pygame.display.flip()
+
+        elif self.render_mode == "rgb_array":
+            return np.transpose(
+                np.array(pygame.surfarray.pixels3d(self.screen)), 
+                axes=(1, 0, 2)
+            )
+
+    def close(self):
+        
+        if self.screen is not None:
+            import pygame
+            pygame.display.quit()
+            pygame.quit()
+
+        return super().close()
 
 
 if __name__ == "__main__":
@@ -268,10 +307,13 @@ if __name__ == "__main__":
     episodic_reward = 0.0
 
     while not done:
+        env.render()
         act = env.action_space.sample()
         obs, reward, terminated, truncated, info = env.step(act)
         done = (terminated or truncated)
         episodic_reward += reward
+    
+    env.render()
 
     print("Reward this episode is %f" % episodic_reward)
     print("Steps this episode is %d" % env.step_count)
