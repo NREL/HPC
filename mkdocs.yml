@@ -162,6 +162,8 @@ nav:
              - GDB: Documentation/Development/Debug_Tools/gdb.md
                #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
+         - Visual Studio Code:
+            - Documentation/Development/VSCode/vscode.md
          - Containers:
             - Documentation/Development/Containers/index.md
             - Documentation/Development/Containers/registries.md
