@@ -59,8 +59,10 @@ class CarPassEnv(gym.Env):
         self.moving_car_size = 1.5
         self.stationary_car_size = None  # will be initialized in environment.
 
-        self.state_upper_limit = np.array([4.0, 6.0])
-        self.state_lower_limit = np.array([-4.0, -14.0])
+        self.space_upper_limit = np.array([4.0, 6.0])
+        self.space_lower_limit = np.array([-4.0, -14.0])
+        self.state_upper_limit = np.array([1.0, 1.0])
+        self.state_lower_limit = np.array([-1.0, -1.0])
 
         self.action_upper_limit = np.array([1.0, 1.0])
         self.action_lower_limit = np.array([-1.0, -1.0])
@@ -73,6 +75,7 @@ class CarPassEnv(gym.Env):
                                             dtype=np.float32)
 
         self.state = None
+        self.moving_car_position = None
         self.screen = None
         self.clock = None
         self.render_mode = 'human'
@@ -115,16 +118,16 @@ class CarPassEnv(gym.Env):
 
         speed = norm_speed * 1.5 + 1.5  # recover speed from normalized value.
         direction = (action[1] * 180.0 + 180.0) * DEG2RAD
-        next_position = (self.state 
+        next_position = (self.moving_car_position 
                          + np.array([speed * np.sin(direction),
                                      speed * np.cos(direction)]))
 
-        forward_move = (self.get_distance(self.state, 
+        forward_move = (self.get_distance(self.moving_car_position, 
                                           self.target_position) 
                         - self.get_distance(next_position, 
                                             self.target_position))
 
-        self.state = next_position
+        self.moving_car_position = next_position
 
         two_cars_dist = self.get_distance(next_position,
                                           self.stationary_car_poistion)
@@ -153,7 +156,7 @@ class CarPassEnv(gym.Env):
 
         # Need to clip it, otherwise, the observation is out of the legal
         # bound, and RLLIB will complain.
-        self.state = np.clip(next_position, 
+        self.state = np.clip(self.pos2state(), 
                              self.state_lower_limit, 
                              self.state_upper_limit)
 
@@ -169,10 +172,10 @@ class CarPassEnv(gym.Env):
     def oob_detect(self, position):
         """ Vehicle out of bound detection.
         """
-        oob_flag = (position[0] > self.state_upper_limit[0] 
-                    or position[1] > self.state_upper_limit[1] 
-                    or position[0] < self.state_lower_limit[0] 
-                    or position[1] < self.state_lower_limit[1])
+        oob_flag = (position[0] > self.space_upper_limit[0] 
+                    or position[1] > self.space_upper_limit[1] 
+                    or position[0] < self.space_lower_limit[0] 
+                    or position[1] < self.space_lower_limit[1])
         
         return oob_flag
 
@@ -199,14 +202,30 @@ class CarPassEnv(gym.Env):
         if options is None:
             options = {}
 
-        self.state = np.array([2.0, np.random.uniform(-12.0, -8.0)])
+        self.moving_car_position = np.array(
+            [2.0, np.random.uniform(-12.0, -8.0)])
         # Choose the size of the car parked ahead.
         self.stationary_car_size = np.random.uniform(0.8, 1.8)
         self.step_count = 0
 
+        self.state = self.pos2state()
+
         info = {}
         
         return self.state, info
+    
+    def pos2state(self):
+        """ Normalize the position to the range of [-1, 1] for better training.
+        """
+        x, y = self.moving_car_position
+        x_norm = x / self.space_upper_limit[0]
+
+        y_half_range = (self.space_upper_limit[1] 
+                        - self.space_lower_limit[1]) / 2
+        y_mean = (self.space_upper_limit[1] + self.space_lower_limit[1]) / 2
+        y_norm = (y - y_mean) / y_half_range
+
+        return x_norm, y_norm
 
     def render(self, mode='human'):
         """ Rendering visually.
@@ -253,7 +272,7 @@ class CarPassEnv(gym.Env):
         if self.clock is None:
             self.clock = pygame.time.Clock()
 
-        if self.state is None:
+        if self.moving_car_position is None:
             return None
 
         # Set background
@@ -265,7 +284,8 @@ class CarPassEnv(gym.Env):
         draw_circle(x, y, int(0.5 * scale), (129, 132, 203))
         
         # Draw moving vehicle
-        x, y = [int(i) for i in cord_transform(self.state, scale)]
+        x, y = [int(i) for i in cord_transform(self.moving_car_position,
+                                               scale)]
         draw_circle(x, y, int(1.5 * scale), (0, 0, 0))
         
         # Draw stationary vehicle
@@ -307,14 +327,14 @@ if __name__ == "__main__":
     episodic_reward = 0.0
 
     while not done:
-        env.render()
+        # env.render()
         act = env.action_space.sample()
         obs, reward, terminated, truncated, info = env.step(act)
+        print(obs)
         done = (terminated or truncated)
         episodic_reward += reward
     
-    env.render()
+    # env.render()
 
     print("Reward this episode is %f" % episodic_reward)
     print("Steps this episode is %d" % env.step_count)
-
