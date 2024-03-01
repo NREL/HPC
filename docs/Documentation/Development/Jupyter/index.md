@@ -5,16 +5,20 @@
 
 **A web app for interactive Python in a browser** 
 
-- "Live coding"
-- Instant visualization
-- Sharable
-- Reproducible
-- Customizable
-- Now supports other languages besides Python (R, Julia..)   
-    - https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
+Jupyter offers a number of benefits for researchers in many fields, including:
+
+- Live coding: Make changes and see the effects in real-time.
+- Instant visualization: Charts and graphics render quickly in a browser window.
+- Sharable: Notebooks can be copied and sent to others, or multiple users can edit a single shared notebook.
+- Reproducible: Create a shareable environment with pinned Python and scientific library versions.
+- Customizable: Many configuration options, extensions, and libraries are available.
+- Not just for Python: Supports many other languages (including R, Julia, and many others.)   
+    - See [https://github.com/jupyter/jupyter/wiki/Jupyter-kernels](https://github.com/jupyter/jupyter/wiki/Jupyter-kernels) for examples.
 
 
 ## Example Notebook Code
+
+With the appropriate libraries installed into the Jupyet environment, the following code can be placed in one cell in a notebook, or split across multiple cells, and executed to produce quick graphs:
 
 ```python
 import chart_studio.plotly as py
@@ -52,74 +56,77 @@ axes[3].set_title("fill_between");
 
 
 ### **Jupyterhub**
-    * Multi-user "backend" server
-    * Controls launching the single-user Jupyter server
-    * NREL's "Europa" (Eagle-only) runs Jupyterhub
- 
-(In general, don't worry about JupyterHub--unless you're a sysadmin)
+    
+This is the multi-user "backend" server. The "Hub" allows users to login, then launches the single-user Jupyter server for them. Hubs are usually installed and managed by system administrators, not Jupyter users.
+    
+NREL's "Europa" (Eagle-only) runs Jupyterhub. More on Europa later in this document.
 
 ### **Jupyter/Jupyter Server/Notebook server**
-    * The single-user server/web interface
-    * Create/save/load .ipynb notebook files
-    * What users generally interact with
+
+The single-user server/web interface. Use to create, save, or load .ipynb notebook files. This is what users generally interact with.
 
 ### **Jupyter Notebook**
-    * An individual .pynb file
-    * Contains your Python code and visualizations
-    * Sharable/downloadable
+
+A Notebook is an individual .pynb file. It contains your Python code and visualizations, and is sharable/downloadable.
 
 ###  **Jupyter lab**
-    * A "nicer" web interface for Jupyter - "notebooks 2.0"
-    * Preferred by some
-    * Lacking some features of "classic" notebooks
+
+A "nicer" redesigned web interface for your Jupyter Server - "Notebooks 2.0". Preferred by some, and promoted as the next evolution of Notebooks.
+Lab has many new and different extensions, but many are also not compatible between Notebook and Lab. Lab is still under development, so is lacking some features of "classic" notebooks.
 
 ### **Kernel**
-    * The Python environment used by a notebook
-    * More on kernels later
 
-## Using Europa
+Kernels define the Python environments used by your notebooks. Derived from ipykernel, a predecessor project to Jupyter: you may see Jupyter kernels referred to as "ipykernels". Custom kernels require the "ipykernel" package installed in your Jupyter conda environment.
 
-The NREL HPC team runs a Jupyterhub server, called Europa, that is available for internal (NREL) Eagle users only. 
+More on kernels later.
+
+## Eagle's "Europa" Jupyterhub Server
+
+The NREL HPC team runs a Jupyterhub server called Europa that is available for internal (NREL) Eagle users only. 
 
 Europa is connected to Eagle's Lustre storage system for access to /projects data.
 
 A replacement for Europa on Kestrel is in the planning stage.
 
 ### Europa's Advantages:
-    * Fast and easy access
-    * Use regular Eagle credentials
-    * Great for light to moderate processing/debugging/testing
+
+* Fast and easy access to notebooks with no setup.
+* Use regular Eagle credentials to log in.
+* Great for simple tasks, including light to moderate data processing, code debugging/testing, and light to moderate visualization using standard/basic scientific and visualization libraries.
 
 ### Europa's Disadvantages:
-    * Limited resource: 8 cores/128GB RAM per user beefore automatic throttling
-    * Compete with other users for CPU/RAM on a single machine
-    * Not available for Kestrel (yet)
 
-### Simple Instructions:
+* Limited resources: Only 48 CPU cores and 190GB RAM total.
+* Managed usage: Up to 8 cores/128GB RAM per user before automatic throttling will greatly slow down processing.
+* Must compete with other users for CPU and RAM on a single machine.
+* Limited list of scientific libraries and visualization tools are available, and may not be latest versions.
+* Custom environments are difficult to configure.
+* No access for external (non-NREL) users.
+* Not available for Kestrel (yet).
+   
+### Simple Instructions to access Europa:
     
-    - Visit Europa at (https://europa.hpc.nrel.gov/)
-    
-    - Log in using your HPC credentials
-     
-    - Opens a standard "notebooks" interface
-     
-    - Change url end /tree to /lab for Lab interface
+* Visit Europa at (https://europa.hpc.nrel.gov/) in a web browser and log in using your HPC credentials.
+   
+Europa opens a standard "notebooks" interface by default. Change the url ending from "/tree" to "/lab" in your web browser to use the Jupyter Lab interface, if preferred.
 
 
-## Using a Compute Node
+## Using a Compute Node to Run Your Own Jupyter Notebooks
 
 ### Advantages:
-    * Custom environments
-    * 36 cores and up to ~750GB RAM
-    * No competing with other users for cores
+
+* Custom conda environments to load preferred libraries.
+* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 36 CPU cores and up to ~750GB RAM on Eagle bigmem nodes, and up to 104 CPU cores and up to ~2TB RAM on Kestrel bigmem nodes. See the system specifications page for the cluster you are working on.
+* No competing with other users for CPU cores and RAM, and no Arbiter2 process throttling.
 
 ### Disadvantages:
-    * Compete with other users for nodes
-    * Costs AU
+
+* Must compete with other users for a node via the job queue.
+* Costs your allocation AU.
     
 ## Launching Your Own Jupyter Server on an HPC System
 
-Both Kestrel and Eagle support running your own Jupyter Notebook server.
+Both Kestrel and Eagle support running your own Jupyter Notebook server. This is highly recommended over Europa for advanced Jupyter use and heavy computational processing.
 
 External (non-NREL) **Kestrel** users may follow the directions below for Kestrel, but please use `kestrel.nrel.gov` instead of `kestrel.hpc.nrel.gov`. 
 
@@ -205,7 +212,7 @@ Scripted assistance with launching a Jupyter session on Eagle is available.
 
 These scripts are designed for Eagle and have not yet been adapted for Kestrel, but may be downloaded and adapted manually.
 
-### pyeagle - NREL Users
+### Internal NREL Users only: pyeagle
 
 The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group, and provides utilities for working on Eagle and Kestrel.
 
@@ -225,26 +232,24 @@ Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jup
 
 That's it!
 
-## Using a Login Node
+## Reasons to Not Run Jupyter Directly on a Login Node
 
-Please avoid running Jupyter on a login node on either Kestrel or Eagle. 
-
-### Reasons to Not Run Jupyter Directly on a Login Node
-
-    * Heavy lifting should be done via Europa or compute nodes
-    * Using a highly shared resource (login nodes)
-        * Competition for cycles
-        * arbiter2 will throttle moderate to heavy usage
+* Data processing and visualization should be done via Europa or compute nodes.
+* Uses a highly shared resource (login nodes): there will be competition for CPU, RAM, and network I/O for storage. Arbiter2 software will automatically throttle moderate to heavy usage on login nodes, greatly slowing down processing.
 
 ## Custom Conda Environments and Jupyter Kernels
 
-On Kestrel, the module 'anaconda3' is available for the conda environment manager. As an alternative, the module 'mamba' is available as well. Mamba is conda-compatible and has a faster solver.
+On Kestrel, the module 'anaconda3' is available to run the conda command and manage your environments. 
 
-On Eagle, the module 'conda' contains the conda environment manager. The Eagle conda module also contains mamba installed as a conda package.
+As an alternative, the module 'mamba' is available instead. Mamba is a conda-compatible environment manager with very similar usage. Most conda command in this documentation may be used with mamba instead and they may generally be considered interchangeable.
+
+On Eagle, the module 'conda' contains the conda command. The Eagle conda module also contains mamba installed as a conda package. 
 
 ### Creating a Conda Environment
 
-Create an environment and install the base jupyter packages, then activate the environment and install other libraries, e.g. scipy, numpy, and so on.
+To add your own packages to conda on Kestrel or Eagle:
+
+Create an environment and install the base jupyter packages. Then activate the environment and install other libraries that you want to use, e.g. scipy, numpy, and so on.
 
 `conda create -n myjupyter -c conda-forge jupyter ipykernel`
 
@@ -254,26 +259,34 @@ Create an environment and install the base jupyter packages, then activate the e
 
 ### Add Custom iPykernel
 
+A kernel is what allows Jupyter to use your customized conda environment inside Jupyter, in a notebook. Use ipykernel to build your kernel. Inside your custom conda environment, run:
+
 `python -m ipykernel install --user --name=myjupyter`
 
 If you already have a Jupyter server running, restart it to load the new kernel.
 
 The new kernel will appear in the drop-down as an option to open a new notebook.
 
-### Remove Custom iPykernel
+You can have multiple kernels, allowing you to load different conda environments for your different projects into Notebooks.
+
+### Jupyter Kernel Management
+
+Use the kernelspec list command inside your Jupyter conda environment to see what ipykernels you have installed:
 
 `jupyter kernelspec list`
+
+To remove an old kernel, use the kernelspec remove command:
 
 `jupyter kernelspec remove myoldjupyter`
 
 
 ## Magic Commands
 
-Magic commands are "meta commands" that add extra functionality.
+Magic commands are "meta commands" that add extra functionality to Jupyter.
 
 Magic commands begin with % or %%.
 
-### A Few Useful Examples
+### Example Magic Commands
  
     * %lsmagic - list all magic commands
     * %run _file.py_ - run an external python script
@@ -305,14 +318,14 @@ You can also run shell commands inside a cell. For example:
 !ls
 ```
 
-    /home/tthatche/jup
+    /home/username/jup
     auto_launch_jupyter.sh	  Jupyter Presentation.ipynb  slurm-6445885.out
     geojsondemo.ipynb	      old			              sshot1.png
     Interesting Graphs.ipynb  sbatch_jupyter.sh	          sshot2.png
     jup-logo.png		      slurm
 
 
-## Interesting/Useful Notebooks
+## Interesting/Useful Notebooks, Extensions, and Learning Resources
 
 [Awesome Jupyter](https://github.com/markusschanta/awesome-jupyter)
 
