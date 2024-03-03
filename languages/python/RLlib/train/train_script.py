@@ -34,7 +34,7 @@ if __name__ == "__main__":
                  _redis_password=args.redis_password,
                  local_mode=False)
     else:
-        ray.init(local_mode=args.local_mode)
+        ray.init()
 
     env_name = 'CarPass-v0'
     def env_creator(config):
@@ -47,15 +47,21 @@ if __name__ == "__main__":
         return env
     register_env(env_name, env_creator)
 
+    network_structure = (
+        args.policy_layers if args.policy_layers is not None
+        else [256, 256])
+
     config = (
         get_trainable_cls(args.run)
         .get_default_config()
         .environment(env_name, env_config={})
         .framework(args.framework)
         .rollouts(num_rollout_workers=args.worker_num)
-        .training(train_batch_size=args.train_batch_size, 
-                  lr=args.lr,
-                  model={"fcnet_hiddens": [256, 256]})
+        .training(train_batch_size=args.train_batch_size, lr=args.lr,
+                  vf_loss_coeff=1.,
+                #   entropy_coeff_schedule=[[0, 0.05], [4e5, 0.025], 
+                #                           [8e5, 0.001], [1.2e6, 0.0]],
+                  model={"fcnet_hiddens": network_structure})
         # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
         .resources(num_gpus=int(os.environ.get("RLLIB_NUM_GPUS", "0")))
     )
@@ -72,7 +78,8 @@ if __name__ == "__main__":
         args.run,
         param_space=config.to_dict(),
         run_config=air.RunConfig(
-            stop=stop, local_dir=LOG_PATH,
+            stop=stop, 
+            local_dir=os.path.join(LOG_PATH, args.run),
             checkpoint_config=air.CheckpointConfig(
                 checkpoint_frequency=args.checkpoint_frequency,
                 num_to_keep=args.checkpoint_to_save,

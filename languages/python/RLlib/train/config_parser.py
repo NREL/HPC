@@ -69,7 +69,7 @@ def create_parser():
         help="Number of timesteps to train."
     )
     parser.add_argument(
-        "--stop-reward", type=float, default=190,
+        "--stop-reward", type=float, default=210,
         help="Reward at which we stop training."
     )
     parser.add_argument(
@@ -79,13 +79,16 @@ def create_parser():
 
     # Algorithm hyperparameters (PPO)
     parser.add_argument(
-        '--lr', type=float, default=1e-5
+        '--lr', type=float, default=5e-5
     )
     parser.add_argument(
-        '--train-batch-size', type=int, default=20000
+        '--train-batch-size', type=int, default=30000
     )
     parser.add_argument(
         '--entropy-coeff', type=float, default=0.0
+    )
+    parser.add_argument(
+        '--policy-layers', nargs="+", type=int, default=None
     )
 
     return parser

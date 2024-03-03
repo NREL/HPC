@@ -7,10 +7,10 @@ import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
 
-TIME_LAPSE_REWARD = -1.0
+TIME_LAPSE_REWARD = -10.0
 COLLISION_OOB_REWARD = -100.0
 TARGET_REACHED_REWARD = 200.0
-MAX_STEP_CNT = 50
+MAX_STEP_CNT = 25
 DEG2RAD = np.pi / 180
 
 
@@ -140,7 +140,7 @@ class CarPassEnv(gym.Env):
             # out of bound
             reward = COLLISION_OOB_REWARD
             terminated = True
-        elif self.get_distance(next_position, self.target_position) < 0.05:
+        elif self.get_distance(next_position, self.target_position) < 1.0:
             # Reached target
             reward = TARGET_REACHED_REWARD
             terminated = True
@@ -202,10 +202,9 @@ class CarPassEnv(gym.Env):
         if options is None:
             options = {}
 
-        self.moving_car_position = np.array(
-            [2.0, np.random.uniform(-12.0, -8.0)])
+        self.moving_car_position = np.array([2.0, -12.0])
         # Choose the size of the car parked ahead.
-        self.stationary_car_size = np.random.uniform(0.8, 1.8)
+        self.stationary_car_size = 1.0
         self.step_count = 0
 
         self.state = self.pos2state()
@@ -225,7 +224,7 @@ class CarPassEnv(gym.Env):
         y_mean = (self.space_upper_limit[1] + self.space_lower_limit[1]) / 2
         y_norm = (y - y_mean) / y_half_range
 
-        return x_norm, y_norm
+        return np.array([x_norm, y_norm])
 
     def render(self, mode='human'):
         """ Rendering visually.
