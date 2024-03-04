@@ -49,7 +49,7 @@ class CarPassEnv(gym.Env):
 
     metadata = {
         'render.modes': ['human', 'rgb_array'],
-        'render_fps': 4
+        'render_fps': 2
     }
 
     def __init__(self):
