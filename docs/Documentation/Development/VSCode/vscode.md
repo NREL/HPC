@@ -1,10 +1,10 @@
 # Connecting With VS Code 
 
-Microsoft Visual Studio Code (VSCode) is a popular tool for development in many programming languages, and may be used on HPC systems. However, there are some caveats to be aware of when running it remotely.
+[Microsoft Visual Studio Code (VS Code)](https://code.visualstudio.com/) is a popular tool for development in many programming languages, and may be used on HPC systems. However, there are some caveats to be aware of when running it remotely.
 
-## Connecting with VSCode
+## Connecting with VS Code
 
-To connect to an HPC system with VSCode, install the "[Remote - SSH](https://code.visualstudio.com/docs/remote/ssh)" extension from the Extensions menu. 
+To connect to an HPC system with VS Code, install the "[Remote - SSH](https://code.visualstudio.com/docs/remote/ssh)" extension from the Extensions menu. 
 
 Press "F1" to open the command bar, and type or search for `Remote-SSH: Connect to Host...`
 
@@ -24,7 +24,7 @@ This problem can be circumvented by using a compute node to run VS Code. This wi
 
 ### Kestrel
 
-Using VSCode on a compute node will require adding an ssh key.
+Using VS Code on a compute node will require adding an ssh key.
 
 #### SSH Key Setup
 
@@ -40,11 +40,11 @@ We recommend choosing a strong passphrase and storing it in a password manager. 
 
 Once you have a key pair on your local computer, use the `ssh-copy-id <username>@kestrel.hpc.nrel.gov` command to copy the public portion to Kestrel. This will add your public key to the ~/.ssh/authorized_keys file in your Kestrel home directory. Alternatively, you may manually add the contents of your PUBLIC key file (for example, the contents of ~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub) onto the end of this file. **Do not delete the existing entries in these files on Kestrel or on Eagle.**
 
-#### Editing the VSCode SSH Config File
+#### Editing the VS Code SSH Config File
 
 We will now create a host entry in your local ssh config file to make connecting to Kestrel compute nodes easier. 
 
-Use the remote-ssh command to edit your VSCode ssh config file (~/.ssh/config). Add the following:
+Use the remote-ssh command to edit your VS Code ssh config file (~/.ssh/config). Add the following:
 
 ```
 Host x?00?c*
@@ -55,15 +55,15 @@ This create a "wildcard" entry that should match Kestrel compute node names. Any
 
 If your allocation is finished on Kestrel (e.g. at the end of the FY and your allocation will not be continuing to the next) or you otherwise anticipate no further need to use VS Code with Kestrel in this fashion, you may delete this entry from your SSH config file.
 
-#### Start a Job and Connect VSCode
+#### Start a Job and Connect VS Code
 
-SSH to Kestrel as usual (outside of VSCode) and use [sbatch](/Documentation/Slurm/batch_jobs/) or [salloc](/Documentation/Slurm/interactive_jobs) to start a job. (An interactive job with `salloc` is suggested, using a `--time` limited to only the expected duration of your working session with VS Code.)
+SSH to Kestrel as usual (outside of VS Code) and use [sbatch](/Documentation/Slurm/batch_jobs/) or [salloc](/Documentation/Slurm/interactive_jobs) to start a job. (An interactive job with `salloc` is suggested, using a `--time` limited to only the expected duration of your working session with VS Code.)
 
 Wait until the job has started running, and take note of the node assigned to the job. Put the terminal aside, but leave the job running.
 
-Now use the Remote-SSH extension in VSCode to `Connect to Host...` and use the hostname of the node that your job was assigned. For example, `<username>@x1000c0s0b0n1`. 
+Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the hostname of the node that your job was assigned. For example, `<username>@x1000c0s0b0n1`. 
 
-This should open a new VSCode window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VSCode window.
+This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
 
 ### VS Code on Eagle
 
