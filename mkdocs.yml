@@ -116,7 +116,6 @@ nav:
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
-             - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
               # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
