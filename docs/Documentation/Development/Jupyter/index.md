@@ -208,15 +208,16 @@ Copy the full url and token from Jupyter startup into your web browser. For exam
 
 ## Using a Compute Node on Eagle - Easy Way
 
-Scripted assistance with launching a Jupyter session on Eagle is available.
+Scripted assistance with launching a Jupyter session on Eagle or Kestrel is available.
 
-These scripts are designed for Eagle and have not yet been adapted for Kestrel, but may be downloaded and adapted manually.
 
 ### Internal NREL Users only: pyeagle
 
 The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group, and provides utilities for working on Eagle and Kestrel.
 
 ###  Auto-launching on Eagle With an sbatch Script
+
+These scripts are designed for Eagle and may not yet be  adapted for Kestrel, but may be downloaded and adapted manually.
 
 Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
 
