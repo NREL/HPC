@@ -206,12 +206,12 @@ Copy the full url and token from Jupyter startup into your web browser. For exam
 `http://127.0.0.1:8888/?token=<alphabet soup>`
 
 
-## Using a Compute Node on Eagle - Easy Way
+## Using a Compute Node - The Easy Way
 
 Scripted assistance with launching a Jupyter session on Eagle or Kestrel is available.
 
 
-### Internal NREL Users only: pyeagle
+### Internal NREL Users Only: pyeagle
 
 The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group, and provides utilities for working on Eagle and Kestrel.
 
