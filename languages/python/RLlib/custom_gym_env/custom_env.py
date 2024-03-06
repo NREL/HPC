@@ -20,10 +20,9 @@ class CarPassEnv(gym.Env):
         and eventually reach to a point directly in front of the stationary
         car. No physics such as inertia is considered (but can be easily
         added). A car is represented using a circle, the moving car has radius 
-        of 1.5 and the stationary car has radius between 0.8 and 1.8 (the size 
-        of the car changes). Two car collide into each other when the circle 
-        overlaps. The coordinate of the destination is fixed at (2, 5) while 
-        the center of the stationary car is at (2, 0).
+        of 1.5 and the stationary car has radius of 1.0. Two car collide into 
+        each other when the circle overlaps. The coordinate of the destination
+        is fixed at (2, 5) while the center of the stationary car is at (2, 0).
 
         Observation:
         Type: Box(2)
@@ -39,7 +38,7 @@ class CarPassEnv(gym.Env):
 
         Rewards:
         Type                  Value       Description
-        Time lapse            -1          Represent the elapse of time, so the 
+        Time lapse            -10         Represent the elapse of time, so the 
                                           task will be finished asap.
         Collision/OOB         -100        Two cars collide or the moving car is
                                           out of boundary, both end the game.
@@ -203,7 +202,6 @@ class CarPassEnv(gym.Env):
             options = {}
 
         self.moving_car_position = np.array([2.0, -12.0])
-        # Choose the size of the car parked ahead.
         self.stationary_car_size = 1.0
         self.step_count = 0
 
@@ -326,14 +324,14 @@ if __name__ == "__main__":
     episodic_reward = 0.0
 
     while not done:
-        # env.render()
+        env.render()
         act = env.action_space.sample()
         obs, reward, terminated, truncated, info = env.step(act)
         print(obs)
         done = (terminated or truncated)
         episodic_reward += reward
     
-    # env.render()
+    env.render()
 
     print("Reward this episode is %f" % episodic_reward)
     print("Steps this episode is %d" % env.step_count)
