@@ -241,7 +241,7 @@ That's it!
 
 On Kestrel, the module 'anaconda3' is available to run the conda command and manage your environments. 
 
-As an alternative, the module 'mamba' is available instead. Mamba is a conda-compatible environment manager with very similar usage. Most conda command in this documentation may be used with mamba instead and they may generally be considered interchangeable.
+As an alternative, the module 'mamba' is available instead. Mamba is a conda-compatible environment manager with very similar usage. Most conda commands in this documentation may be used with mamba instead and they may generally be considered interchangeable.
 
 On Eagle, the module 'conda' contains the conda command. The Eagle conda module also contains mamba installed as a conda package. 
 
