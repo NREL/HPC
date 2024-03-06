@@ -32,7 +32,13 @@ conda create --prefix=/projects/$HPC_HANDLE/$USER/conda_envs/rl_hpc python=3.10
 
 Here, `$HPC_HANDLE` is the project handle and `$USER` is your HPC user name.
 
-#TODO: adding the script installing necessary packages.
+Activate the conda environment and install packages:
+
+```
+conda activate /projects/$HPC_HANDLE/$USER/conda_envs/rl_hpc
+
+pip install -r requirements.txt
+```
 
 ### 3rd step: Test OpenAI Gym API
 
