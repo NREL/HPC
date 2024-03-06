@@ -92,3 +92,14 @@ The following libraries should also be imported without an error.
 import ray
 import torch
 ```
+
+## Use this tutorial
+
+We suggest follow this tutorial with the following order:
+
+1. Understand how to build a custom environment for your problem. Detailed guidelines are provided [here](custom_gym_env/README.md).
+
+2. Train the RL agent/policy/controller by following [this guideline](train/README.md).
+
+3. Test the trained RL agent as explained [here](test/README.md).
+

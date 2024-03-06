@@ -162,3 +162,12 @@ Remember to replace `dummynodeid` above with your actual computing node's ID. Th
     <em>You can visit Tensorboard from `localhost:16006` while the server runs on a computing node.</em>
 </p>
 
+### 5. Local computer training
+
+To train on local computer, the following command can be used:
+
+```
+python train_script.py --worker-num 5
+```
+
+The worker number needs to be specified here because otherwise the default value (102) will be used, see the [default configuration](config_parser.py). Since local computer usually don't have this many CPU cores, the training will hang in there (waiting for resources that will never come). So, using a smaller number (less than the CPU cores number) is needed for local training.

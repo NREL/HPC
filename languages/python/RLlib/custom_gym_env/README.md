@@ -90,3 +90,11 @@ This tutorial provides an example of customized environment called "CarPass", le
 See the [full implementation](custom_env.py) for details, and the comments and docstrings should provide some explanations. 
 
 One thing to notice is that there is a `render()` function in the customized environment, which is used to render the 2D image as shown above for visualization purpose. It is optional, so no need to implement `render()` if not necessary.
+
+## More examples
+
+Grid:
+- Distribution System critical load restoration environment, see [this repo](https://github.com/NREL/rlc4clr/tree/main/rlc4clr/clr_envs/envs).
+
+Building Control:
+- Five-zone building HVAC Control, see [this file](https://github.com/NREL/learning-building-control/blob/main/lbc/building_env.py). This example still uses OpenAI Gym API instead of Gymnasium API though.
