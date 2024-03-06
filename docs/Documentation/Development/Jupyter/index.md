@@ -191,7 +191,7 @@ Next, open an SSH tunnel through a login node to the compute node. Log in when p
 
 #### Kestrel: 
 
-`[user@laptop:~]$ ssh -N -L 8888:<nodename>:8888 username@eagle.hpc.nrel.gov`
+`[user@laptop:~]$ ssh -N -L 8888:<nodename>:8888 username@kestrel.hpc.nrel.gov`
 
 
 #### Eagle:
