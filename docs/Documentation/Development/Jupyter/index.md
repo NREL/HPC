@@ -18,7 +18,7 @@ Jupyter offers a number of benefits for researchers in many fields, including:
 
 ## Example Notebook Code
 
-With the appropriate libraries installed into the Jupyet environment, the following code can be placed in one cell in a notebook, or split across multiple cells, and executed to produce quick graphs:
+With the appropriate libraries installed into the Jupyter environment, the following code can be placed in one cell in a notebook, or split across multiple cells, and executed to produce quick graphs:
 
 ```python
 import chart_studio.plotly as py
