@@ -49,7 +49,7 @@ axes[3].set_title("fill_between");
 ```
 
 
-![png](/assets/images/output_4_0.png)
+![](../../../../assets/images/output_4_0.png)
 
 
 ## Jupyter Terminology
