@@ -7,7 +7,7 @@ parent: Applications
 
 *COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies.*
 
-Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules available.
+Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules availability.
 
 ## Building a COMSOL Model
 Extensive documentation is available in the menu: **Help > Documentation**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
@@ -15,29 +15,33 @@ Extensive documentation is available in the menu: **Help > Documentation**. For 
 For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
 ## Building Models in the COMSOL GUI
-Before beginning, it is good practice to check the license status. To do so create a bash script named lmstat.comsol in your working directory and excute it:
+Before beginning, it is a good practice to check the license status. To do so you need create a bash script file named lmstat.comsol in your working directory, add ecutable permition to lmstat.comsol file, and excute it:
 
-???+ example "License Checker Script"
-
-     ```bash
-     #!/bin/bash
-     COMSOL_LIC_DIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license/glnxa64
-     cd $COMSOL_LIC_DIR
-     ./lmstat -a --no-user-info -c ../license.dat
-     ```
+Copy and paste the following script to the created file named lmstat.comsol:
      
+ ```
+#!/bin/bash
+COMSOL_LIC_DIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license/glnxa64
+cd $COMSOL_LIC_DIR
+./lmstat -a --no-user-info -c ../license.dat
+```
+Add excutable permission:
+```
+[user@kl3 ~]$ chmod +x ./lmstat.comsol
+```
+Excute it:
 ```
 [user@kl3 ~]$ ./lmstat.comsol
 ```
 
-When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/auth/ssh/) by opening a terminal and running the following commands:
+When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/auth/ssh/) by opening a terminal in FastX window and running the following commands:
 
 ```
 [user@kl3 ~]$ module load comsol/6.1
 [user@kl3 ~]$ vglrun comsol &
 ```
 
-Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell (ssh -Y ...) on a compute node by replacing the `vglrun comosl` command with:
+Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell on a compute node by replacing the `vglrun comosl` command with:
 
 ```
 [user@r1i7n24 ~]$ comsol -3drend sw
@@ -48,9 +52,9 @@ However, the performance may be slow and certain display features may behave une
 ## Running a Single-node COMSOL Model in Batch Mode
 You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
 
-???+ example "Example Submission Script"
+example "Example Submission Script"
 
-    ```bash
+    ```
     #!/bin/bash                                                                                                                                                                                     
     #SBATCH --job-name="comsol-batch-single-node"                                                                                                                                                   
     #SBATCH --nodes=1                                                                                                                                                                               
@@ -78,12 +82,9 @@ You can save your model built in FastX+GUI mode into a file such as `myinputfile
     outputfile=$SLURM_SUBMIT_DIR/myoutputfilename
     logfile=$SLURM_SUBMIT_DIR/mylogfilename
 
-    # Run a COMSOL job with 104 tasks (ranks).
-    # -nn = total number of tasks
-    # -nnhost = number of tasks per host
-    # -np = number of threads per task
+    # Run a COMSOL job with 104 threads.
 
-    comsol batch -nn 104 -nnhost 104 -np 1 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
+    comsol batch -np 104 -inputfile $inputfile -outputfile $outputfile –batchlog $logfile
     ```
 
 Once this script file (e.g., `submit_single_node_job.sh`) is saved, it can be submitted to the job scheduler with
@@ -95,8 +96,9 @@ Once this script file (e.g., `submit_single_node_job.sh`) is saved, it can be su
 ## Running a Multi-node COMSOL Model in Batch Mode
 To configure a COMSOL job with multiple MPI ranks, required for any job where the number of nodes >1, you can build on the following template:
 
-???+ example "Example Multiprocess Submission Script"
-    ```bash
+example "Example Multiprocess Submission Script"
+    
+    ```
     #!/bin/bash                                                                                                                                                                                     
     #SBATCH --job-name="comsol-batch-multinode-hybrid"                                                                                                                                                  
     #SBATCH --nodes=4                                                                                                                                                                               
