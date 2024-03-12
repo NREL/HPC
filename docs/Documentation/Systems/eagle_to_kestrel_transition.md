@@ -46,7 +46,7 @@ Please see our page on [transferring files](../Managing_Data/Transferring_Files/
 
 Data storage polices and the filesystems layout on Kestrel is similar to Eagle. Kestrel has a **95 PB** ClusterStor Lustre file system. Unlike on Eagle, the Parallel Filesystem (PFS) consists of a ProjectFS and a ScratchFS which have different configurations. ScratchFS uses a Lustre file system in a hybrid flash-disk configuration providing a total of **27 petabytes** (PB) of capacity with **354 gigabytes (GB)/s** of IOR bandwidth. ProjectFS has **68 PB** of capacity with **200 GB/s** of IOR bandwidth. We advise running jobs out of `/scratch` and moving data to `/projects` for long term storage. Like on Eagle, `/scratch` will have a 28 day purge policy with no exceptions.
 
-The Home File System (HFS) on Kestrel is part of the ClusterStor used for PFS, providing highly reliable storage for user home directories and NREL-specific software. HFS will provide 1.2 PB of capacity. Snapshots of files on the HFS will be available up to 30 days after change/deletion. `/home` directories have a quota of 50 GB. 
+The Home File System (HFS) on Kestrel is part of the ClusterStor used for PFS, providing highly reliable storage for user home directories and NREL-specific software. HFS provides 1.2 PB of capacity. Snapshots of files on the HFS are available up to 30 days after change/deletion. `/home` directories have a quota of 50 GB. 
 
 
 Please see the [Kestrel Filesystem page](./Kestrel/filesystems.md) for more information. 
