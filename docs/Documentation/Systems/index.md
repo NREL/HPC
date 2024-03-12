@@ -6,7 +6,7 @@ order: 4
 ---
 
 # NREL Systems
-NREL operates three on-premises systems for computational work. 
+NREL operates four on-premises systems for computational work. 
 
 ## System configurations
 
