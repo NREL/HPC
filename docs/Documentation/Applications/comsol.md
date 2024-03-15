@@ -62,7 +62,6 @@ example "Example Submission Script"
     #SBATCH --cpus-per-task=1                                                                                                                                                                       
     #SBATCH --time=00:10:0        
     #SBATCH --partition=debug
-    #SBATCH --exclusive
     #SBATCH --account=<allocation handle>
     #SBATCH --output="comsol-%j.out"
     #SBATCH --error="comsol-%j.err"
