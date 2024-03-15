@@ -107,7 +107,7 @@ example "Example Multiprocess Submission Script"
     #SBATCH --time=00:10:0                                                                                                                                                                          
     #SBATCH --partition=debug                                                                                                                                                                       
     #SBATCH --exclusive                                                                                                                                                                             
-    #SBATCH --account=hpcapps                                                                                                                                                                       
+    #SBATCH --account=<allocation handle>                                                                                                                                                                  
     #SBATCH --output="comsol-%j.out"                                                                                                                                                                
     #SBATCH --error="comsol-%j.err"                                                                                                                                                                 
 
