@@ -1,3 +1,17 @@
+## Use this tutorial
+
+This tutorial provides examples on how to use [RLlib](https://docs.ray.io/en/master/rllib/) for reinforcement learning, with an emphasis on building customized environments for your own optimal control problems. The tutorial is developed assuming using NREL HPC system Kestrel, but it can be easily modified to be able to run on a local computer.
+
+We suggest follow this tutorial with the following order:
+
+1. Understand how to build a custom environment for your problem. Detailed guidelines are provided [here](custom_gym_env/README.md).
+
+2. Train the RL agent/policy/controller by following [this guideline](train/README.md).
+
+3. Test the trained RL agent as explained [here](test/README.md).
+
+But before that, please follow the instructions below to set up a Python Conda environment.
+
 ## Create Anaconda environment
 
 Follow the following steps to create an Anaconda environment for this experiment:
@@ -21,7 +35,7 @@ module purge
 module load anaconda3
 ```
 
-We suggest creating a conda environment on your `\projects` rather than `\home` or `\scratch`. (#TODO: Check this with HPC team.)
+We suggest creating a conda environment on your `\projects` rather than `\home` or `\scratch`.
 
 ***Example:***
 
@@ -92,14 +106,4 @@ The following libraries should also be imported without an error.
 import ray
 import torch
 ```
-
-## Use this tutorial
-
-We suggest follow this tutorial with the following order:
-
-1. Understand how to build a custom environment for your problem. Detailed guidelines are provided [here](custom_gym_env/README.md).
-
-2. Train the RL agent/policy/controller by following [this guideline](train/README.md).
-
-3. Test the trained RL agent as explained [here](test/README.md).
 
