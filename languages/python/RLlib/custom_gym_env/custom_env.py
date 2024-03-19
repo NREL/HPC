@@ -323,15 +323,22 @@ if __name__ == "__main__":
     done = False
     episodic_reward = 0.0
 
+    # Set the rendering flag to True if you are on local computer and would
+    # love to see the rendered animation. Default is False, assuming you are
+    # on Kestrel.
+    RENDER = False
+
     while not done:
-        env.render()
+        if RENDER:
+            env.render()
         act = env.action_space.sample()
         obs, reward, terminated, truncated, info = env.step(act)
         print(obs)
         done = (terminated or truncated)
         episodic_reward += reward
     
-    env.render()
+    if RENDER:
+        env.render()
 
     print("Reward this episode is %f" % episodic_reward)
     print("Steps this episode is %d" % env.step_count)

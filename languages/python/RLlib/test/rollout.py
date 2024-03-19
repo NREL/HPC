@@ -10,14 +10,15 @@ from ray.tune.registry import get_trainable_cls, register_env
 CURRENT_FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 env_name = 'CarPass-v0'
-def env_creator(config):
 
+def env_creator(config):
     custom_env_dir = CURRENT_FILE_DIR.replace('test', 'custom_gym_env')
     sys.path.append(os.path.dirname(custom_env_dir))
 
     from custom_gym_env.custom_env import CarPassEnv
     env = CarPassEnv()
     return env
+
 register_env(env_name, env_creator)
 
 # Use the same configuration as the one for training except the rollout worker
@@ -45,12 +46,18 @@ terminated = False
 truncated = False
 total_rew = 0.0
 
+# Set the rendering flag to True if you are on local computer and would
+# love to see the rendered animation. Default is False, assuming you are
+# on Kestrel.
+RENDER = False
+
 while not (terminated or truncated):
     
     act = agent.compute_single_action(state)
     # print(act)
-    state, reward, terminated, truncated, info = env.step(act)
-    env.render()
+    state, reward, terminated, truncated, info = env.step(act)   
     total_rew += reward
+    if RENDER:
+        env.render()
 
 print(total_rew)
