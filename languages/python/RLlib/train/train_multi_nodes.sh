@@ -2,8 +2,9 @@
 #SBATCH --account=$HPC_HANDLE
 #SBATCH --time=1:00:00
 #SBATCH --job-name=rl_train
-#SBATCH --nodes=10
-#SBATCH --partition=short
+#SBATCH --nodes=2
+#SBATCH --partition=debug
+#SBATCH --tmp=160000
 #SBATCH --tasks-per-node=1
 
 # Step 1. Loading conda env
@@ -58,4 +59,4 @@ echo "Start training"
 
 TIME=$(squeue -j $SLURM_JOB_ID -h --Format TimeLimit)
 
-python -u train_script.py --run PPO --redis-password $redis_password --worker-num $worker_num --ip-head $ip_head
+python -u train_script.py --redis-password $redis_password --worker-num $worker_num --ip-head $ip_head
