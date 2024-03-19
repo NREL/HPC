@@ -41,6 +41,7 @@ We suggest creating a conda environment on your `\projects` rather than `\home` 
 
 Use the following script to create a conda environment:
 ```
+mkdir -p /projects/$HPC_HANDLE/$USER/conda_envs
 conda create --prefix=/projects/$HPC_HANDLE/$USER/conda_envs/rl_hpc python=3.10
 ```
 
