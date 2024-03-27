@@ -1,0 +1,118 @@
+# Default precompiler options
+CPP_OPTIONS = -DHOST=\"LinuxNV\" \
+              -DMPI -DMPI_BLOCK=8000 -Duse_collective \
+              -DscaLAPACK \
+              -DCACHE_SIZE=4000 \
+              -Davoidalloc \
+              -Dvasp6 \
+              -Duse_bse_te \
+              -Dtbdyn \
+              -Dqd_emulate \
+              -Dfock_dblbuf \
+              -D_OPENACC \
+              -DUSENCCL -DUSENCCLP2P
+
+CPP         = nvfortran -Mpreprocess -Mfree -Mextend -E $(CPP_OPTIONS) $*$(FUFFIX)  > $*$(SUFFIX)
+
+# N.B.: you might need to change the cuda-version here
+#       to one that comes with your NVIDIA-HPC SDK
+#FC          = mpif90 -acc -gpu=cc60,cc70,cc80,cuda11.0
+#FCL         = mpif90 -acc -gpu=cc60,cc70,cc80,cuda11.0 -c++libs
+
+FC          = ftn -acc -I"${MKLROOT}/include"
+FCL         = ftn -acc -c++libs
+
+FREE        = -Mfree
+
+FFLAGS      = -Mbackslash -Mlarge_arrays
+
+OFLAG       = -fast
+
+DEBUG       = -Mfree -O0 -traceback
+
+OBJECTS     = fftmpiw.o fftmpi_map.o fftw3d.o fft3dlib.o
+
+LLIBS       = -cudalib=cublas,cusolver,cufft,nccl -cuda -L/opt/cray/pe/mpich/8.1.28/gtl/lib/ -lmpi_gtl_cuda
+
+# Redefine the standard list of O1 and O2 objects
+SOURCE_O1  := pade_fit.o
+SOURCE_O2  := pead.o
+
+# For what used to be vasp.5.lib
+CPP_LIB     = $(CPP)
+FC_LIB      = nvfortran
+CC_LIB      = nvc -w
+CFLAGS_LIB  = -O
+FFLAGS_LIB  = -O1 -Mfixed
+FREE_LIB    = $(FREE)
+
+OBJECTS_LIB = linpack_double.o
+
+# For the parser library
+CXX_PARS    = nvc++ --no_warnings
+
+##
+## Customize as of this point! Of course you may change the preceding
+## part of this file as well if you like, but it should rarely be
+## necessary ...
+##
+# When compiling on the target machine itself , change this to the
+# relevant target when cross-compiling for another architecture
+VASP_TARGET_CPU ?= -tp host
+FFLAGS     += $(VASP_TARGET_CPU)
+
+# Specify your NV HPC-SDK installation (mandatory)
+#... first try to set it automatically
+NVROOT      =$(shell which nvfortran | awk -F /compilers/bin/nvfortran '{ print $$1 }')
+
+# If the above fails, then NVROOT needs to be set manually
+#NVHPC      ?= /opt/nvidia/hpc_sdk
+#NVVERSION   = 21.11
+#NVROOT      = $(NVHPC)/Linux_x86_64/$(NVVERSION)
+
+## Improves performance when using NV HPC-SDK >=21.11 and CUDA >11.2
+#OFLAG_IN   = -fast -Mwarperf
+#SOURCE_IN  := nonlr.o
+
+# Software emulation of quadruple precsion (mandatory)
+QD         ?= $(NVROOT)/compilers/extras/qd
+LLIBS      += -L$(QD)/lib -lqdmod -lqd
+INCS       += -I$(QD)/include/qd
+
+# BLAS (mandatory)
+#BLAS        = -lblas
+BLAS        = #-Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_sequential.a ${MKLROOT}/lib/intel64/libmkl_core.a -Wl,--end-group -lpthread -lm -ldl
+#BLAS        = /opt/nvidia/hpc_sdk/Linux_x86_64/23.3/compilers/lib/libblas_lp64.a
+
+# LAPACK (mandatory)
+#LAPACK      = -llapack
+LAPACK      = #-Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_sequential.a ${MKLROOT}/lib/intel64/libmkl_core.a -Wl,--end-group -lpthread -lm -ldl
+#LAPACK      = /opt/nvidia/hpc_sdk/Linux_x86_64/23.3/compilers/lib/liblapack_lp64.a
+
+# scaLAPACK (mandatory)
+#SCALAPACK   = -Mscalapack
+SCALAPACK   = #${MKLROOT}/lib/intel64/libmkl_scalapack_lp64.a -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_sequential.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_blacs_openmpi_lp64.a -Wl,--end-group -lpthread -lm -ldl
+#SCALAPACK   = /opt/nvidia/hpc_sdk/Linux_x86_64/23.3/comm_libs/openmpi4/openmpi-4.0.5/lib/libscalapack_lp64.a
+SCALAPACK = -L/opt/cray/pe/libsci/23.12.5/NVIDIA/23.3/x86_64/lib  -lsci_nvidia_mpi -lsci_nvidia
+
+LLIBS      += $(SCALAPACK) $(LAPACK) $(BLAS)
+
+# FFTW (mandatory)
+FFTW_ROOT  ?= /opt/cray/pe/fftw/3.3.10.6/x86_genoa
+LLIBS      += -L$(FFTW_ROOT)/lib -lfftw3
+INCS       += -I$(FFTW_ROOT)/include
+
+#FFTW_ROOT  ?= /path/to/your/fftw/installation
+#LLIBS      += /hpelustre/sangameshc/sw/libs/ifft/2023.2.0/libfftw3xc_p23.3-0_d.a
+#INCS       += -I/sw/sdev/intel/oneapi/2023/v2/mkl/2023.2.0/include -I/sw/sdev/intel/oneapi/2023/v2/mkl/2023.2.0/include/fftw
+
+# HDF5-support (optional but strongly recommended)
+#CPP_OPTIONS+= -DVASP_HDF5
+#HDF5_ROOT  ?= /path/to/your/hdf5/installation
+#LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
+#INCS       += -I$(HDF5_ROOT)/include
+
+# For the VASP-2-Wannier90 interface (optional)
+#CPP_OPTIONS    += -DVASP2WANNIER90
+#WANNIER90_ROOT ?= /path/to/your/wannier90/installation
+#LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
