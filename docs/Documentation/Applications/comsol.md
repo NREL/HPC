@@ -19,7 +19,7 @@ Before beginning, it is a good practice to check the license status. To do so yo
 
 Copy and paste the following script to the created file named `lmstat.comsol`:
      
- ```
+```bash
 #!/bin/bash
 COMSOL_LIC_DIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license/glnxa64
 cd $COMSOL_LIC_DIR
