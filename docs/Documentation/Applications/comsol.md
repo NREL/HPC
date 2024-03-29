@@ -34,7 +34,7 @@ Execute it:
 [user@kl3 ~]$ ./lmstat.comsol
 ```
 
-When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/auth/ssh/) by opening a terminal in FastX window and running the following commands:
+When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/auth/ssh/) by opening a terminal in a FastX window and running the following commands:
 
 ```
 [user@kl3 ~]$ module load comsol/6.1
