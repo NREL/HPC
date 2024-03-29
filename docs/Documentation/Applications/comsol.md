@@ -95,7 +95,7 @@ Once this script file (e.g., `submit_single_node_job.sh`) is saved, it can be su
 ## Running a Multi-Node COMSOL Model in Batch Mode
 To configure a COMSOL job with multiple MPI ranks, required for any job where the number of nodes >1, you can build on the following template:
 
-example "Example Multiprocess Submission Script"
+???+ example "Example Multiprocess Submission Script"
     
     ```
     #!/bin/bash                                                                                                                                                                                     
