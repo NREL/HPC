@@ -25,7 +25,7 @@ COMSOL_LIC_DIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license
 cd $COMSOL_LIC_DIR
 ./lmstat -a --no-user-info -c ../license.dat
 ```
-Add excutable permission:
+Add executable permission:
 ```
 [user@kl3 ~]$ chmod +x ./lmstat.comsol
 ```
