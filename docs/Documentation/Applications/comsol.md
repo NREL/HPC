@@ -15,7 +15,7 @@ Extensive documentation is available in the menu: **Help > Documentation**. For 
 For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
 ## Building Models in the COMSOL GUI
-Before beginning, it is a good practice to check the license status. To do so you need create a bash script file named lmstat.comsol in your working directory, add ecutable permition to lmstat.comsol file, and execute it:
+Before beginning, it is a good practice to check the license status. To do so you need create a bash script file named `lmstat.comsol` in your working directory, add executable permission to the `lmstat.comsol` file, and execute it:
 
 Copy and paste the following script to the created file named lmstat.comsol:
      
