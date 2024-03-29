@@ -52,7 +52,7 @@ However, the performance may be slow and certain display features may behave une
 ## Running a Single-Node COMSOL Model in Batch Mode
 You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
 
-example "Example Submission Script"
+???+ example "Example Submission Script"
 
     ```
     #!/bin/bash                                                                                                                                                                                     
