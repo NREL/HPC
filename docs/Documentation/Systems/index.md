@@ -6,7 +6,7 @@ order: 4
 ---
 
 # NREL Systems
-NREL operates three on-premises systems for computational work. 
+NREL operates four on-premises systems for computational work. 
 
 ## System configurations
 
@@ -24,5 +24,5 @@ NREL operates three on-premises systems for computational work.
 | Number of Nodes| 2454 | 2618 | 484 | 133 virtual |
 
 !!! note
-    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2 (January, 2024). 
+    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2. 
 
