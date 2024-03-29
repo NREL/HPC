@@ -29,7 +29,7 @@ Add excutable permission:
 ```
 [user@kl3 ~]$ chmod +x ./lmstat.comsol
 ```
-Excute it:
+Execute it:
 ```
 [user@kl3 ~]$ ./lmstat.comsol
 ```
