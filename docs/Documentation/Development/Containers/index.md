@@ -5,7 +5,7 @@ parent: Containers
 order: 1
 ---
 
-# Introduction to software containerization
+# Introduction to Software Containerization
 
 ## What are software images/containers?
 Software *images* provide a method of packaging your code so that its *container* can be run anywhere you have a *container runtime environment*. This enables you to create an image on your local laptop and then run it on an HPC system or other computing resource. Software containerization provides an alternative, more robust method of isolating and packaging your code compared to solutions such as Conda virtual environments. 
