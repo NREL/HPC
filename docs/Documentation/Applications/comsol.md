@@ -5,9 +5,7 @@ parent: Applications
 
 # COMSOL Multiphysics 
 
-*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies.*
-
-Currently, we host three floating network licenses and a number of additional modules. Issue the command `lmstat.comsol` to see current license status and COMSOL modules availability.
+*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies. Currently, we host three floating network licenses and a number of additional modules.*
 
 ## Building a COMSOL Model
 Extensive documentation is available in the menu: **Help > Documentation**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
@@ -44,7 +42,7 @@ When licenses are available, COMSOL can be used by starting the COMSOL GUI which
 Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell on a compute node by replacing the `vglrun comosl` command with:
 
 ```
-[user@r1i7n24 ~]$ comsol -3drend sw
+[user@kl3 ~]$ comsol -3drend sw
 ```
 
 However, the performance may be slow and certain display features may behave unexpectedly.
@@ -134,4 +132,4 @@ To configure a COMSOL job with multiple MPI ranks, required for any job where th
 
 The job script can be submitted to SLURM just the same as above for the single-node example. The option `-mpibootstrap slurm` helps COMSOL to deduce runtime parameters such as `-nn`, `-nnhost` and `-np`. For large jobs that require more than one node, this approach, which uses MPI and/or OpenMP, can be used to efficiently utilize the available resources. Note that in this case, we choose 32 MPI ranks, 8 per node, and each rank using 13 threads for demonstration purpose, but *not* as an optimal performance recommendation. The optimal configuration depends on your particular problem, workload, and choice of solver, so some experimentation may be required.
 
-The Complex Systems Simulation and Optimization group has hosted introductory and advanced COMSOL trainings. The introductory training covered how to use the COMSOL GUI and run COMSOL in batch mode on Kestrel. The advanced training showed how to do a parametric study using different sweeps (running an interactive session is also included) and introduced equation-based simulation and parameter estimation. To learn more about using COMSOL on Kestrel, please refer to the training. The recording can be accessed at https://nrel.sharepoint.com/sites/ComputationalSciencesTutorials/Lists/Computational%20Sciences%20Tutorial%20Recordings/AllItems.aspx?viewid=7b97e3fa%2Dedf6%2D48cd%2D91d6%2Df69848525ba4&playlistLayout=playback&itemId=75 and the slides and models used in the training can be downloaded from https://github.nrel.gov/hpc-apps/COMSOL-Training.
+The Complex Systems Simulation and Optimization group has hosted introductory and advanced COMSOL trainings. The introductory training covered how to use the COMSOL GUI and run COMSOL in batch mode on Kestrel. The advanced training showed how to do a parametric study using different sweeps (running an interactive session is also included) and introduced equation-based simulation and parameter estimation. To learn more about using COMSOL on Kestrel, please refer to the training. The recording can be accessed at [Computational Sciences Tutorials](https://nrel.sharepoint.com/sites/ComputationalSciencesTutorials/Lists/Computational%20Sciences%20Tutorial%20Recordings/AllItems.aspx?viewid=7b97e3fa%2Dedf6%2D48cd%2D91d6%2Df69848525ba4&playlistLayout=playback&itemId=75) and the slides and models used in the training can be downloaded from [Github](https://github.nrel.gov/hpc-apps/COMSOL-Training).
