@@ -4,7 +4,7 @@ Singularity has been deprecated in favor of a new container runtime environment 
 
 More information about Apptainer can be found at [https://apptainer.org](https://apptainer.org). 
 
-On Kestrel, Apptainer is installed on compute nodes and is accessed via a module named `apptainer` (you can check the current default module via `ml -d av apptainer`). The directory `/nopt/nrel/apps/software/apptainer/1.1.9/examples` holds a number of images (`*.sif`) and an example script (`script`) that shows how to run containers hosting MPI programs across multiple nodes.  
+On Kestrel, Apptainer is installed on compute nodes and is accessed via a module named `apptainer` (you can check the current default module via `ml -d av apptainer`). The directory `/nopt/nrel/apps/software/apptainer/1.1.9/examples` holds a number of images (`*.sif`) and an example script (`script`) that shows how to run containers hosting MPI programs across multiple nodes. The `script` can also be accessed from [our GitHub repository](https://github.com/NREL/HPC/blob/master/kestrel/apptainer/script).
 
 Before we get to the more complicated example from `script`, we'll first look at downloading (or *pulling*) and working with a simple image.
 
