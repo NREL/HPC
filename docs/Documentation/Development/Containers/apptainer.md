@@ -328,7 +328,7 @@ This section describes general recommendations and best practices for Apptainer 
 
 ### Change Apptainer cache location to `$LOCAL_SCRATCH`
 
-By default, Apptainer will cache image layers to your `$HOME` folder when you pull or build `.sif` images, which is not ideal as users have a limited storage quota in /home. As you continue to use Apptainer, this cache folder can become quite large and can easily fill your `$HOME`. Fortunately, the location of this cache folder can be controlled through the `APPTAINER_CACHEDIR` environmental variable. To avoid overfilling your $HOME with unnecessary cached data, it is recommended to add an `APPTAINER_CACHEDIR` location to your `~/.bashrc` file. You can accomplish this with the following command, which will direct these layers to save to a given system's scratch space:
+By default, Apptainer will cache image layers to your `$HOME` folder when you pull or build `.sif` images, which is not ideal as users have a limited storage quota in `/home`. As you continue to use Apptainer, this cache folder can become quite large and can easily fill your `$HOME`. Fortunately, the location of this cache folder can be controlled through the `APPTAINER_CACHEDIR` environmental variable. To avoid overfilling your `$HOME` with unnecessary cached data, it is recommended to add an `APPTAINER_CACHEDIR` location to your `~/.bashrc` file. You can accomplish this with the following command, which will direct these layers to save to a given system's scratch space:
 
 `echo "export APPTAINER_CACHEDIR=$LOCAL_SCRATCH/.apptainer" >> ~/.bashrc`
 
