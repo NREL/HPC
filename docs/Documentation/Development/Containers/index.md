@@ -111,7 +111,7 @@ You can now convert the Docker image archive to an Apptainer `.sif` image on Kes
 ```
 cd ${LOCAL_SCRATCH}
 module load apptainer/1.1.9
-gunzip simple_python3.tar
+gunzip simple_python3.tar.gz
 apptainer build simple_python3.sif simple_python3.tar
 ```
 
