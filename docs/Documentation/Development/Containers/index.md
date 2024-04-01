@@ -106,13 +106,13 @@ The next step is to convert this "Docker archive" to an Apptainer-compatible ima
 salloc -A <account> -p <partition> -t <time> ...
 ```
 
-You can now convert the Docker image archive to an Apptainer `.sif` image on Kestrel with the following `build` command. Be sure to unzip the `.tar.gz` archive first:
+You can now convert the Docker image archive to an Apptainer `.sif` image on Kestrel with the following `build` command. Be sure to first unzip the `.tar.gz` archive, and prefix the resulting `.tar` with `docker-archive://`:
 
 ```
 cd ${LOCAL_SCRATCH}
 module load apptainer/1.1.9
 gunzip simple_python3.tar.gz
-apptainer build simple_python3.sif simple_python3.tar
+apptainer build simple_python3.sif docker-archive://simple_python3.tar
 ```
 
 Once this finishes, you can invoke the container with `apptainer exec simple_python3.sif <command>`. Anything that follows the name of the image will be executed *from the container*, even if the same command is found on the host system. To illustrate, if we examine the location of the `python3` binary within the `simple_python3.sif` image and the host system (Kestrel), we see they are both called from the location `/usr/bin/python3`:
