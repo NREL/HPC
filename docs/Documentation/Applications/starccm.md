@@ -24,31 +24,32 @@ your_simulation.sim
 
 Then you need to create a Slurm script `<your_scriptfile>` as shown below to submit the job:
 
-    ``` bash
-    #!/bin/bash -l
-    #SBATCH --time=2:00:00             # walltime limit of 2 hours
-    #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
-    #SBATCH --ntasks=72                # total number of tasks
-    #SBATCH --job-name=your_simulation # name of job
-    #SBATCH --account=<allocation-id>  # name of project allocation
-    #SBATCH --partition=standard       # partition
+``` 
+#!/bin/bash -l
+#SBATCH --time=2:00:00             # walltime limit of 2 hours
+#SBATCH --nodes=2                  # number of nodes
+#SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
+#SBATCH --ntasks=72                # total number of tasks
+#SBATCH --job-name=your_simulation # name of job
+#SBATCH --account=<allocation-id>  # name of project allocation
+#SBATCH --partition=standard       # partition
 
-    module load starccm                # load starccm module
+module load starccm                # load starccm module
 
-    rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last runi
-i
-    # Run Job
+rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
+# Run Job
 
-    echo "------ Running Starccm+ ------"
+echo "------ Running Starccm+ ------"
     
-    starccm+ -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
+starccm+ -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
 
-    echo "------ End of the job ------"
-    ```
+echo "------ End of the job ------"
+```
 
 Note that you must give the full path of your input file in the script.
-By default, STAR-CCM+ use openMPI
+
+By default, STAR-CCM+ uses open-MPI; However, the performance of open-MPI on Kestrel is poor wheen running on multiple nodes. IntelMPI and cray-MPI
+
 The simulation may be tested in an [interactive job](../Systems/Eagle/Running/interactive_jobs.md) before being submitted to the
 batch queue.
 After the interactive job is allocated, type the commands from the Slurm script
