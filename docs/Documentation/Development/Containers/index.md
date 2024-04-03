@@ -29,7 +29,7 @@ Apptainer is able to run most Docker images, but Docker is unable to run Apptain
 * **Workflow integration**: Workflow management systems such as Airflow, Nextflow, Luigi, and others provide built-in integration with container engines. 
 
 ## Accessing HPC hardware from software containers
-Both Apptainer and Docker provide the ability to use hardware based features on the HPC systems such as GPUs. A common usage of containers is packaging GPU-enabled tools such as TensorFlow. Apptainer natively provides access to the GPU and driver on the host. Please visit [our documentation page on accessing GPUs from Apptainer images](./apptainer.md#utilizing-gpu-resources-with-apptainer-images) for more information. In principle, the MPI installations can be also be accessed from correctly configured containers, but care is also needed to ensure compatibility between the libraries on the host and container.
+Both Apptainer and Docker provide the ability to use hardware based features on the HPC systems such as GPUs. A common usage of containers is packaging GPU-enabled tools such as TensorFlow. Apptainer natively provides access to the GPU and driver on the host. Please visit [our documentation page on accessing GPUs from Apptainer images](../../../Friendly_User/gpu_containers.md) for more information. In principle, the MPI installations can be also be accessed from correctly configured containers, but care is also needed to ensure compatibility between the libraries on the host and container.
 
 
 ## Building software images
