@@ -16,7 +16,8 @@ module load starccm
 starccm+
 ```
 
-## Running STAR-CCM+ in batch mode
+## Running STAR-CCM+ in Batch Mode
+
 To run STAR-CCM+ in batch mode, first, you need to build your simulation `<your_simulation.sim>` and
 put it to your project directory:
 
@@ -52,6 +53,38 @@ echo "------ End of the job ------"
 Note that you must give the full path of your input file in the script.
 
 By default, STAR-CCM+ uses open-MPI; However, the performance of open-MPI on Kestrel is poor wheen running on multiple nodes. Intel-MPI and cray-MPI are recommended for STAR-CCM+ on Kestrel, while Cray-MPI is expected to have a better performance than Intel-MPI. 
+
+### Running STAR-CCM+ with Intel-MPI
+
+STAR-CCM+ comes with its own Intel-MPI. To use the Intel-MPI, the Slurm script should be modified to be:
+
+``` 
+#!/bin/bash -l
+#SBATCH --time=2:00:00             # walltime limit of 2 hours
+#SBATCH --nodes=2                  # number of nodes
+#SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
+#SBATCH --ntasks=72                # total number of tasks
+#SBATCH --job-name=your_simulation # name of job
+#SBATCH --account=<allocation-id>  # name of project allocation
+#SBATCH --partition=standard       # partition
+
+module load starccm                # load starccm module
+
+export UCX_TLS=tcp                 # telling IntelMPI to treat the network as ethernet (Kestrel Slingshot can be thoughted as ethernet) 
+                                   # by using the tcp protocol
+
+rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
+# Run Job
+
+echo "------ Running Starccm+ ------"
+    
+starccm+ -mpi intel -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
+
+echo "------ End of the job ------"
+```
+
+You can tell that we are specifying the MPI to be Intel-MPI in the launch command. By default, Intel-MPI thinks the network on which it is running is Infiiband. Kestrel’s is Slingshot, which you can think of as ethernet on steroids. The command  is telling Intel-MPI to treat the network as ethernet by using the tcp protocol.
+
 
 The simulation may be tested in an [interactive job](../Systems/Eagle/Running/interactive_jobs.md) before being submitted to the
 batch queue.
