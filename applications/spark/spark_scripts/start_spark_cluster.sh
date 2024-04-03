@@ -120,7 +120,7 @@ write_worker_nodes
 start_containers
 start_spark_processes
 
-read -r -d "" USAGE << EOM
+cat << EOM
 ###############################################################################
 
 Run this command to use the Spark configuration:
@@ -129,5 +129,3 @@ Run this command to use the Spark configuration:
 
 ###############################################################################
 EOM
-
-echo "${USAGE}"

@@ -83,10 +83,9 @@ if [ -z ${CONF_DIR} ]; then
     echo "Error: the directory ${CONF_DIR} does not exist"
     exit 1
 fi
+set -e
 cp -r ${CONF_DIR} ${DIRECTORY}
 CONFIG_FILE="${DIRECTORY}/config"
-
-echo "" >> ${CONFIG_FILE}
 
 echo "container = ${CONTAINER_PATH}" > ${CONFIG_FILE}
 echo "container_instance_name = ${CONTAINER_NAME}" >> ${CONFIG_FILE}

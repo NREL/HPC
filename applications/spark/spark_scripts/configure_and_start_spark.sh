@@ -102,16 +102,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+set -e
 bash ${script_dir}/create_config.sh \
     -C ${CONTAINER_NAME} \
     -c ${CONTAINER_PATH} \
     -d ${CONFIG_DIR} \
     -o ${NODE_MEMORY_OVERHEAD_GB}
-ret=$?
-
-if [[ ${ret} -ne 0 ]]; then
-    exit ${ret}
-fi
 
 . ${script_dir}/common.sh
 if [ ${ENABLE_DYNAMIC_ALLOCATION} = true ]; then
@@ -130,13 +126,5 @@ bash ${script_dir}/configure_spark.sh \
     -e ${EXECUTOR_CORES} \
     -m ${PARTITION_MULTIPLIER} \
     ${SLURM_JOB_IDS[*]}
-ret=$?
-
-if [[ ${ret} -ne 0 ]]; then
-    exit ${ret}
-fi
 
 bash ${script_dir}/start_spark_cluster.sh -d ${CONFIG_DIR} ${SLURM_JOB_IDS[*]}
-ret=$?
-
-exit ${ret}
