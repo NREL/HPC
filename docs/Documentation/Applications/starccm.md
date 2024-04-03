@@ -87,30 +87,28 @@ You can tell that we are specifying the MPI to be Intel-MPI in the launch comman
 
 To modify the settings for built-in Intel-MPI, users can refer to the documentation of STAR-CCM by running `starccm+ --help`.
 
-The simulation may be tested in an [interactive job](../Systems/Eagle/Running/interactive_jobs.md) before being submitted to the
-batch queue.
-After the interactive job is allocated, type the commands from the Slurm script
-and make sure the job runs:
+### Running STAR-CCM+ with Cray-MPI
 
-``` bash
-module load starccm
-export TMPDIR="/scratch/$USER/<sim_dir>"
-...
-echo $SLURM_JOB_NODELIST > nodelist
-...
-starccm+ -power -rsh "ssh -oStrictHostKeyChecking=no" -machinefile nodelist -np $SLURM_NTASKS -batch /scratch/$USER/<sim_dir>/your_simulation.sim >> simulation.log
-```
+STAR-CCM+ can run with Cray-MPI. The following Slurm script submit STAR-CCM+ job to run with Cray-MPI.
 
-If this succeeds, submit your job with:
+``` 
+#!/bin/bash -l
+#SBATCH --time=2:00:00             # walltime limit of 2 hours
+#SBATCH --nodes=2                  # number of nodes
+#SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
+#SBATCH --ntasks=72                # total number of tasks
+#SBATCH --job-name=your_simulation # name of job
+#SBATCH --account=<allocation-id>  # name of project allocation
+#SBATCH --partition=standard       # partition
 
-```
-sbatch <your_scriptfile>
-```
+module load starccm                # load starccm module
 
-When the job completes, the output files are stored in the `<sim_dir>` directory
-with your_simulation.sim file:
+rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
+# Run Job
 
-```
-ls /scratch/$USER/<sim_dir>
-your_simulation.sim     simulation.log     slurm-12345.out
+echo "------ Running Starccm+ ------"
+    
+starccm+ -mpi crayex -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
+
+echo "------ End of the job ------"
 ```
