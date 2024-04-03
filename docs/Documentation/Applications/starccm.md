@@ -7,6 +7,8 @@ website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
 STAR-CCM+ are installed on both Eagle and Kestrel but it is not supported on Vermillion and Swift. The network
 licenses are checked out from the license server running on 1wv11lic02.nrel.gov. 
 
+## Running STAR-CCM+ in GUI
+
 STAR-CCM+ can be run interactively on both Eagle and Kestrel using X windows by running the following command in the terminal of a X window.
 
 ```
@@ -14,6 +16,7 @@ module load starccm
 starccm+
 ```
 
+## Running STAR-CCM+ in batch mode
 To run STAR-CCM+ in batch mode, first, you need to build your simulation `<your_simulation.sim>` and
 put it to your project directory:
 
