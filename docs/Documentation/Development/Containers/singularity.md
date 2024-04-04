@@ -4,9 +4,9 @@ title: Singularity
 parent: Containers
 ---
 
-As discussed in [Intro to Containers](index.md), Singularity is a platform designed specifically for running containers on HPC systems. Images can be built locally and copied to the HPC system or pulled from an online registry.  For more information about building containers, see [here](index.md#building).
+As discussed in [Introduction to software containerization](index.md), Singularity is a platform designed specifically for running containers on HPC systems. Images can be built locally and copied to the HPC system or pulled from an online registry.  For more information about building containers, see [here](index.md#building).
 
-The table below shows the appropriate commands for loading Singularity on each system:
+The table below shows the appropriate commands for loading Singularity (or Apptainer) on each system:
 
 | System     | Module command                      |
 |------------|-------------------------------------|
