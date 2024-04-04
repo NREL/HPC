@@ -6,7 +6,7 @@ In the parlance of software containers, the *host* is the computer/node on which
 
 ## Allocate a GPU Job
 
-As with any GPU-accelerated software, you first need to ensure you have the right hardward accessible. On Kestrel, this means you need to start with [allocating a job that provides at least one GPU card](running_gpu.md) to the compute node host's computing environment before continuing.
+As with any GPU-accelerated software, you first need to ensure you have the right hardware accessible. On Kestrel, this means you need to start with [allocating a job that provides at least one GPU card](running_gpu.md) to the compute node host's computing environment before continuing.
 
 Once you have such a job allocated, we will illustrate key considerations for a typical GPU container use case by describing the steps required to run a Tensorflow software image that is compatible with the GPU drivers available on Kestrel. The example we will use will run on a single GPU card, so your (interactive) Slurm job allocation command may look something like:
 
