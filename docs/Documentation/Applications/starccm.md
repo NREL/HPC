@@ -39,12 +39,12 @@ Then you need to create a Slurm script `<your_scriptfile>` as shown below to sub
 
 module load starccm                # load starccm module
 
-rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
+rm -rf /projects/<your_project>/sim_dir/simulation.log   # remove the log file from last run
 # Run Job
 
 echo "------ Running Starccm+ ------"
     
-starccm+ -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
+starccm+ -np $SLURM_NTASKS -batch /projects/<your_project>/sim_dir/your_simulation.sim >> simulation.log
 
 echo "------ End of the job ------"
 ```
@@ -71,7 +71,7 @@ module load starccm                # load starccm module
 export UCX_TLS=tcp                 # telling IntelMPI to treat the network as ethernet (Kestrel Slingshot can be thought of as ethernet) 
                                    # by using the tcp protocol
 
-rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
+rm -rf /projects/<your_project>/sim_dir/simulation.log   # remove the log file from last run
 # Run Job
 
 echo "------ Running Starccm+ ------"
@@ -100,7 +100,7 @@ STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ jo
 
 module load starccm                # load starccm module
 
-rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
+rm -rf /projects/<your_project>/sim_dir/simulation.log   # remove the log file from last run
 # Run Job
 
 echo "------ Running Starccm+ ------"
