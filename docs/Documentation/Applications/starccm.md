@@ -19,7 +19,7 @@ starccm+
 ## Running STAR-CCM+ in Batch Mode
 
 To run STAR-CCM+ in batch mode, first, you need to build your simulation `<your_simulation.sim>` and
-put it to your project directory:
+put it in your project directory:
 
 ```
 ls /projects/your_project/sim_dir
