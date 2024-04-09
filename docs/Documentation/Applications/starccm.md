@@ -4,7 +4,7 @@
 Simcenter STAR-CCM+ is a multiphysics CFD software that enables CFD engineers to model the complexity and explore the possibilities of products operating under real-world conditions. For information about the software's features, see the [STAR-CCM+
 website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
 
-STAR-CCM+ are installed on both Eagle and Kestrel but it is not supported on Vermillion and Swift. The network
+STAR-CCM+ is installed on both Eagle and Kestrel but it is not supported on Vermilion and Swift. The network
 licenses are checked out from the license server running on 1wv11lic02.nrel.gov. 
 
 ## Running STAR-CCM+ in GUI
