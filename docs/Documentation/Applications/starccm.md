@@ -4,7 +4,7 @@
 Simcenter STAR-CCM+ is a multiphysics CFD software that enables CFD engineers to model the complexity and explore the possibilities of products operating under real-world conditions. For information about the software's features, see the [STAR-CCM+
 website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
 
-STAR-CCM+ is installed on both Eagle and Kestrel but it is not supported on Vermilion and Swift. The network
+STAR-CCM+ is installed on both Eagle and Kestrel but it is not supported on Vermilion or Swift. The network
 licenses are checked out from the license server running on 1wv11lic02.nrel.gov. 
 
 ## Running STAR-CCM+ in GUI
@@ -53,7 +53,7 @@ Note that you must give the full path of your input file in the script.
 
 By default, STAR-CCM+ uses OpenMPI. However, the performance of OpenMPI on Kestrel is poor when running on multiple nodes. Intel MPI and Cray MPI are recommended for STAR-CCM+ on Kestrel.  Cray MPI is expected to have a better performance than Intel MPI. 
 
-### Running STAR-CCM+ with Intel-MPI
+### Running STAR-CCM+ with Intel MPI
 
 STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script should be modified to be:
 
@@ -81,7 +81,7 @@ starccm+ -mpi intel -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your
 echo "------ End of the job ------"
 ```
 
-You can tell that we are specifying the MPI to be Intel MPI in the launch command. By default, Intel MPI thinks the network on which it is running is Infiniband. Kestrel’s is Slingshot, which you can think of as ethernet on steroids. The command `export UCX_TLS=tcp` is telling Intel MPI to treat the network as ethernet by using the tcp protocol.
+We are specifying the MPI to be Intel MPI in the launch command. By default, Intel MPI thinks the network on which it is running is Infiniband. Kestrel’s is Slingshot, which you can think of as ethernet on steroids. The command `export UCX_TLS=tcp` is telling Intel MPI to treat the network as ethernet by using the tcp protocol.
 
 To modify the settings for built-in Intel MPI, users can refer to the documentation of STAR-CCM by running `starccm+ --help`.
 
@@ -97,7 +97,6 @@ STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ jo
 #SBATCH --ntasks=72                # total number of tasks
 #SBATCH --job-name=your_simulation # name of job
 #SBATCH --account=<allocation-id>  # name of project allocation
-#SBATCH --partition=standard       # partition
 
 module load starccm                # load starccm module
 
