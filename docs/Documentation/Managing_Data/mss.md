@@ -21,7 +21,7 @@ individual tarballs need to be under this limit (although multiple tarballs that
 
 ```$ tar czvf /destination/descriptor-YYYMMDD.tgz <source-files-directories\>```
 
-**Example, from Kestrel’s /projects/csc000/data-to-be-copied from an Kestrel Login
+**Example, from Kestrel’s /projects/csc000/data-to-be-copied from a Kestrel Login
 node:**
 
 ```
