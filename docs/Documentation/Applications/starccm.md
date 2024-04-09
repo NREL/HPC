@@ -68,7 +68,7 @@ STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script s
 
 module load starccm                # load starccm module
 
-export UCX_TLS=tcp                 # telling IntelMPI to treat the network as ethernet (Kestrel Slingshot can be thoughted as ethernet) 
+export UCX_TLS=tcp                 # telling IntelMPI to treat the network as ethernet (Kestrel Slingshot can be thought of as ethernet) 
                                    # by using the tcp protocol
 
 rm -rf /projects/your_project/sim_dir/simulation.log   # remove the log file from last run
