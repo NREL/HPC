@@ -56,7 +56,7 @@ By default, STAR-CCM+ uses open-MPI; However, the performance of open-MPI on Kes
 
 ### Running STAR-CCM+ with Intel-MPI
 
-STAR-CCM+ comes with its own Intel-MPI. To use the Intel-MPI, the Slurm script should be modified to be:
+STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script should be modified to be:
 
 ``` 
 #!/bin/bash -l
