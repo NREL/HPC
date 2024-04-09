@@ -9,7 +9,7 @@ licenses are checked out from the license server running on 1wv11lic02.nrel.gov.
 
 ## Running STAR-CCM+ in GUI
 
-STAR-CCM+ can be run interactively on both Eagle and Kestrel using X windows by running the following command in the terminal of a X window.
+STAR-CCM+ can be run interactively on both Eagle and Kestrel using X windows by running the following commands in the terminal of an X window.
 
 ```
 module load starccm
