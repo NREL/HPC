@@ -1,0 +1,121 @@
+AMR-Wind
+========
+
+Installation of AMR-Wind on GPU nodes
+-------------------------------------
+
+
+AMR-wind can be installed by following the instructions [Here](https://exawind.github.io/amr-wind/user/build.html#building-from-source) .
+ON Kestrel GPU nodes, this can be achieved by first loading the following modules:
+
+```
+module restore 
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+ml gcc
+ml PrgEnv-nvhpc
+ml nvhpc/24.1
+ml cray-libsci/22.12.1.1
+ml cmake/3.27.9
+ml python/3.9.13
+```
+
+Make sure the following modules are loaded using module list.
+
+
+  1) libfabric/1.15.2.0
+
+  2) craype-x86-genoa 
+
+  3) curl/8.6.0   
+
+  4) bzip2/1.0.8  
+
+  5) tar/1.34  
+
+  6) python/3.9.13
+
+  7) cray-dsmml/0.2.2 
+
+  8) cray-libsci/22.10.1.2 
+
+  9) gcc/10.1.0
+
+  10) craype-network-ofi  
+
+  11) nvhpc/24.1
+
+  12) cmake/3.27.9 
+
+  13) libxml2/2.10.3 
+
+  14) gettext/0.22.4 
+
+  15) craype/2.7.30 
+
+  16) cray-mpich/8.1.28 
+
+  17) PrgEnv-nvhpc/8.5.0
+
+
+you can clone the latest version of AMR-wind from [here](https://github.com/Exawind/amr-wind?tab=readme-ov-file).
+Once cloned, `cd` into the AMR directory and create a build folder.
+
+you can create a file with the cmake instructions, 
+
+```
+vim conf_instructions
+```
+
+and copy the content below.
+
+```
+cmake .. -DAMR_WIND_ENABLE_CUDA=ON \
+    -DAMReX_CUDA_ERROR_CAPTURE_THIS:BOOL=ON \
+    -DCMAKE_CUDA_COMPILE_SEPARABLE_COMPILATION:BOOL=ON \
+    -DMPI_CXX_COMPILER=/opt/cray/pe/mpich/8.1.28/ofi/nvidia/23.3/bin/mpicxx \
+    -DMPI_C_COMPILER=/opt/cray/pe/mpich/8.1.28/ofi/nvidia/23.3/bin/mpicc \
+    -DMPI_Fortran_COMPILER=/opt/cray/pe/mpich/8.1.28/ofi/nvidia/23.3/bin/mpifort \
+    -DAMReX_DIFFERENT_COMPILER=ON \
+    -DCMAKE_CUDA_ARCHITECTURES=90 \
+    -DAMR_WIND_ENABLE_CUDA=ON \
+    -DAMR_WIND_ENABLE_CUDA:BOOL=ON \
+    -DAMR_WIND_ENABLE_OPENFAST:BOOL=OFF \
+    -DAMR_WIND_ENABLE_NETCDF:BOOL=OFF \
+    -DAMR_WIND_ENABLE_MPI:BOOL=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DAMR_WIND_ENABLE_HYPRE:BOOL=OFF \
+    -DAMR_WIND_ENABLE_MASA:BOOL=OFF \
+    -DAMR_WIND_ENABLE_TESTS:BOOL=ON \
+    -DCMAKE_INSTALL_PREFIX:PATH=./install
+```
+
+you can execute the file using 
+
+```
+bash conf_instructions
+```
+
+once the cmake step is done, you can
+
+```
+make -j 
+```
+
+then 
+
+```
+make install -j 
+```
+
+You should now have a successful installation of AMR-Wind. 
+
+At runtime, make sure to follow this sequence of module loads.
+
+```
+module restore 
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+ml PrgEnv-nvhpc
+ml cray-libsci/22.12.1.1
+```
+
+
