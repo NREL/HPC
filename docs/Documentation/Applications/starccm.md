@@ -51,7 +51,7 @@ echo "------ End of the job ------"
 
 Note that you must give the full path of your input file in the script.
 
-By default, STAR-CCM+ uses open-MPI; However, the performance of open-MPI on Kestrel is poor wheen running on multiple nodes. Intel-MPI and cray-MPI are recommended for STAR-CCM+ on Kestrel, while Cray-MPI is expected to have a better performance than Intel-MPI. 
+By default, STAR-CCM+ uses OpenMPI. However, the performance of OpenMPI on Kestrel is poor when running on multiple nodes. Intel MPI and Cray MPI are recommended for STAR-CCM+ on Kestrel.  Cray MPI is expected to have a better performance than Intel MPI. 
 
 ### Running STAR-CCM+ with Intel-MPI
 
