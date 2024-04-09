@@ -85,7 +85,7 @@ echo "------ End of the job ------"
 
 You can tell that we are specifying the MPI to be Intel MPI in the launch command. By default, Intel MPI thinks the network on which it is running is Infiniband. Kestrel’s is Slingshot, which you can think of as ethernet on steroids. The command `export UCX_TLS=tcp` is telling Intel MPI to treat the network as ethernet by using the tcp protocol.
 
-To modify the settings for built-in Intel-MPI, users can refer to the documentation of STAR-CCM by running `starccm+ --help`.
+To modify the settings for built-in Intel MPI, users can refer to the documentation of STAR-CCM by running `starccm+ --help`.
 
 ### Running STAR-CCM+ with Cray MPI
 
