@@ -36,7 +36,6 @@ Then you need to create a Slurm script `<your_scriptfile>` as shown below to sub
 #SBATCH --ntasks=72                # total number of tasks
 #SBATCH --job-name=your_simulation # name of job
 #SBATCH --account=<allocation-id>  # name of project allocation
-#SBATCH --partition=standard       # partition
 
 module load starccm                # load starccm module
 
