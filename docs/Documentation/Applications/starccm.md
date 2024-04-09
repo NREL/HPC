@@ -87,7 +87,7 @@ You can tell that we are specifying the MPI to be Intel MPI in the launch comman
 
 To modify the settings for built-in Intel-MPI, users can refer to the documentation of STAR-CCM by running `starccm+ --help`.
 
-### Running STAR-CCM+ with Cray-MPI
+### Running STAR-CCM+ with Cray MPI
 
 STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ job to run with Cray MPI.
 
