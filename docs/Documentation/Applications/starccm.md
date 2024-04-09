@@ -65,7 +65,6 @@ STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script s
 #SBATCH --ntasks=72                # total number of tasks
 #SBATCH --job-name=your_simulation # name of job
 #SBATCH --account=<allocation-id>  # name of project allocation
-#SBATCH --partition=standard       # partition
 
 module load starccm                # load starccm module
 
