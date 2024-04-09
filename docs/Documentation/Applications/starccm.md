@@ -89,7 +89,7 @@ To modify the settings for built-in Intel-MPI, users can refer to the documentat
 
 ### Running STAR-CCM+ with Cray-MPI
 
-STAR-CCM+ can run with Cray-MPI. The following Slurm script submits STAR-CCM+ job to run with Cray-MPI.
+STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ job to run with Cray MPI.
 
 ``` 
 #!/bin/bash -l
