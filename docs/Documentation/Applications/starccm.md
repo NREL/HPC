@@ -80,7 +80,7 @@ STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script s
     
     echo "------ Running Starccm+ ------"
         
-    starccm+ -mpi intel -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
+    starccm+ -mpi intel -np $SLURM_NTASKS -batch /projects/<your_project>/sim_dir/your_simulation.sim >> simulation.log
     
     echo "------ End of the job ------"
     ```
@@ -111,7 +111,7 @@ STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ jo
     
     echo "------ Running Starccm+ ------"
         
-    starccm+ -mpi crayex -np $SLURM_NTASKS -batch /projects/your_project/sim_dir/your_simulation.sim >> simulation.log
+    starccm+ -mpi crayex -np $SLURM_NTASKS -batch /projects/<your_project>/sim_dir/your_simulation.sim >> simulation.log
     
     echo "------ End of the job ------"
     ```
