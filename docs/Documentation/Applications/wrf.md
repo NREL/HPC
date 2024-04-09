@@ -6,22 +6,25 @@
 
 ## Getting Started
 
-This section provides the minimum amount of information necessary to successfully run a WRF job on an NREL Cluster. First, we show how to use WRF given that we have different versions of WRF already built and available as modules.
+This section provides the minimum amount of information necessary to
+successfully run a WRF job on the NREL Kestrel cluster. First, we show
+how to use WRF given that we may have different versions of WRF
+in different toolchains already built and available as modules.
 
 
 ```
 % module avail wrf
-     wrf/4.1.3/intel-20.1.217-mpi (D)    wrf/4.2.1/intel-20.1.217-mpi
+     wrf/4.2.2-cray (D)    
      
 ```
 
-The `module avail wrf` command shows that two WRF modules are
-available for two different versions of WRF and built with the intel
-compiler v20.1 toolchain. This command also shows that the version
-4.1.3 is the default build which is automatically loaded with `module
-load wrf`. Users are free to choose any of the module versions
-available for use. Currently there are no modules to run WRF on GPUs, but
-there is current effort underway to make that available on future systems.
+The `module avail wrf` command shows which WRF module(s) are available
+for different versions of WRF built with different toolchains, at a given time. At this time, the
+version 4.2.2 is built with the Cray toolchain as currently available. In the future, multiple
+versions built with different toolchains will be available. Users are
+then free to choose any of the module versions available for
+use. Currently there are no modules to run WRF on GPUs, but there is
+current effort underway to make that available on future systems.
 
 Next, we look at how to use the WRF module. Below is an example job script:
 
@@ -34,24 +37,17 @@ Next, we look at how to use the WRF module. Below is an example job script:
 
 	# This job requests 102 tasks per node. This may need to be adjusted based on system hardware. 
 
-	#SBATCH --time=
+	#SBATCH --time=12:00:00
 	#SBATCH --nodes=4
-	#SBATCH --ntasks-per-node=102
-	#SBATCH --partition=
+	#SBATCH --ntasks-per-node=96
+	#SBATCH --partition=<partition-name>
 	#SBATCH --exclusive=user
-	#SBATCH --account=
+	#SBATCH --account=<account-name>
 	#SBATCH --export=ALL
 	#SBATCH --job-name
 	#SBATCH --output=out_%j
 
-	module load cray-hdf5
-	module load cray-netcdf
-
-
-	export LD_LIBRARY_PATH=/opt/cray/pe/netcdf/default/CRAYCLANG/14.0/lib:/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0/lib:/sfs/nopt/nrel/apps/testing/apurkaya/wrf/cray/installs/pnetcdf/lib:$LD_LIBRARY_PATH
-	export HDF5=/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0
-	export NETCDF=/opt/cray/pe/netcdf/default/CRAYCLANG/14.0
-	export PNETCDF=/sfs/nopt/nrel/apps/testing/apurkaya/wrf/cray/installs/pnetcdf
+	module load 4.2.2-cray
 
 	# Note that builds with different toolchains may require different modules and environments to be loaded
 
@@ -198,9 +194,7 @@ Any WRF version can be downloaded [here](https://github.com/wrf-model/WRF/releas
 			      $(WRF_SRC_ROOT_DIR)/frame/pack_utils.o
 
 	 LIB_EXTERNAL    = \
-			      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/opt/cray/pe/netcdf/default/CRAYCLANG/14.0/lib -lnet
-	cdff -lnetcdf  -L$(WRF_SRC_ROOT_DIR)/external/io_pnetcdf -lwrfio_pnf -L/sfs/nopt/nrel/apps/testing/$USER/wrf/cray/installs/pn
-	etcdf/lib -lpnetcdf   -L/opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0/lib -lhdf5hl_fortran -lhdf5_hl -lhdf5_fortran -lhdf5 -lm -lz
+			      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L$(NETCDFPATH)/lib -lnetcdff -lnetcdf  -L$(WRF_SRC_ROOT_DIR)/external/io_pnetcdf -lwrfio_pnf -L$(PNETCDFPATH)/lib -lpnetcdf   -L$(HDF5PATH)/lib -lhdf5hl_fortran -lhdf5_hl -lhdf5_fortran -lhdf5 -lm -lz
 
 
 	#### Architecture specific settings ####
@@ -323,7 +317,7 @@ Any WRF version can be downloaded [here](https://github.com/wrf-model/WRF/releas
 	HDF5PATH        =    /opt/cray/pe/hdf5/1.12.2.1/CRAYCLANG/14.0
 	WRFPLUSPATH     =    
 	RTTOVPATH       =    
-	PNETCDFPATH     =    /sfs/nopt/nrel/apps/testing/$USER/wrf/cray/installs/pnetcdf
+	PNETCDFPATH     =    /nopt/nrel/apps/software/wrf/cray/installs/pnetcdf
 
 	bundled:  io_only 
 	external: io_only $(WRF_SRC_ROOT_DIR)/external/RSL_LITE/librsl_lite.a gen_comms_rsllite module_dm_rsllite $(ESMF_TARGET)

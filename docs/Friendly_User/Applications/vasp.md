@@ -1,82 +1,98 @@
-## VASP modules on Kestrel
+## VASP on Kestrel
 
-There are modules for CPU builds of VASP 5.4.4 and VASP 6.3.2 each with solvation, transition state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/5.4.4``` or ```module load vasp/6.3.2```. A sample job script is shown below.
+### Running using modules
 
-!!! Note
-    It is necessary to specify the launcher using srun --mpi=pmi2 
-
-??? example "Sample job script: using modules"
+??? example "Sample job script: Kestrel - Full GPU node"
 
     ```
     #!/bin/bash
-    #SBATCH --nodes=2
-    #SBATCH --tasks-per-node=104
-    #SBATCH --time=2:00:00
-    #SBATCH --account=<your-account-name>
+    #SBATCH --account=<your-account-name> 
+    #SBATCH --reservation=<friendly-users-reservation>
+    #SBATCH --partition=gpu-h100
+    #SBATCH --nodes=1
+    #SBATCH --gres=gpu:h100:4 
+    #SBATCH --ntasks-per-node=4
+    #SBATCH --cpus-per-task=1
+    #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
 
-    source /nopt/nrel/apps/env.sh  #the need for this will eventually be removed
-    module load vasp/6.3.2
+    export MPICH_GPU_SUPPORT_ENABLED=1
+    export CUDA_VISIBLE_DEVICES=0,1,2,3
+    
+    module use /nopt/nrel/apps/software/vasp/modules/test #will be unecessary when the modules are made available by default
+    module load vasp/6.3.2-gpu
 
-    srun --mpi=pmi2 vasp_std |& tee out
+    srun vasp_std |& tee out
 
     ```
 
-## Compiling VASP yourself
-
-This section has recommendations for toolchains to use for building and running VASP. Please read carefully before compiling on Kestrel's cray architecture.
-
-### Building VASP
-
-We recommend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
-```
-salloc -N 1 -p standard -t TIME -A ACCOUNT
-```
-Then, load appropriate modules for your mpi, compilers, and math packages:
-```
-module purge
-source /nopt/nrel/apps/env.sh  #to access all modules
-module load craype-x86-spr #specifies sapphire rapids architecture
-module load intel-oneapi-compilers
-module load intel-oneapi-mpi
-module load intel-oneapi-mkl
-```
-!!! Note
-    On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. 
-
-Sample makefiles for vasp5 and vasp6 on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel) under the vasp folder.
-
-### Running your build
-
-We have found that it is optimal to run an intel toolchain build of VASP using cray-mpich-abi at runtime. Cray-mpich-abi has several dependencies on cray network modules, so the easiest way to load it is to first load ```PrgEnv-intel``` and then swap the default cray-mpich module for the cray-mpich-abi ```module swap cray-mpich cray-mpich-abi```. You must then load your intel compilers and math libraries, and unload cray's libsci. A sample script showing all of this is in the dropdown below.
-
-!!! Note
-    It is necessary to specify the launcher using srun --mpi=pmi2 
-
-??? example "Sample job script: using your own build"
+??? example "Sample job script: Kestrel - Shared (partial) GPU node"
 
     ```
     #!/bin/bash
-    #SBATCH --nodes=2
-    #SBATCH --tasks-per-node=104
-    #SBATCH --time=2:00:00
-    #SBATCH --account=<your-account-name>
+    #SBATCH --account=<your-account-name> 
+    #SBATCH --reservation=<friendly-users-reservation>
+    #SBATCH --partition=gpu-h100
+    #SBATCH --nodes=1
+    #SBATCH --gres=gpu:h100:2 
+    #SBATCH --ntasks-per-node=2
+    #SBATCH --cpus-per-task=1
+    #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
 
-    # Load cray-mpich-abi and its dependencies within PrgEnv-intel, intel compilers, mkl, and unload cray's libsci
-    source /nopt/nrel/apps/env.sh
-    module purge
-    module load PrgEnv-intel
-    module swap cray-mpich cray-mpich-abi
-    module unload cray-libsci
-    module load intel-oneapi-compilers
-    module load intel-oneapi-mkl
+    export MPICH_GPU_SUPPORT_ENABLED=1
+    export CUDA_VISIBLE_DEVICES=0,1,2,3
 
-    export VASP_PATH=/PATH/TO/YOUR/vasp_exe
+    module use /nopt/nrel/apps/software/vasp/modules/test #will be unecessary when the modules are made available by default
+    module load vasp/6.3.2-gpu
 
-    srun --mpi=pmi2 ${VASP_PATH}/vasp_std |& tee out
-
+    srun vasp_std |& tee out
     ```
 
+### Building VASP on Kestrel
+
+Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel) under the vasp folder.
+
+#### GPU
+
+##### Compiling your build
+
+??? example "Build recommendations for VASP"
+
+    ```
+    #Make sure to salloc to a gpu node
+    salloc -N 1 --time=01:00:00 --account=hpcapps --reservation=<friendly-users-reservation> --gres=gpu:h100:4 --partition=gpu-h100
+
+    # Load appropriate modules for your build. For our example these are:
+    module restore
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+    ml gcc
+    ml PrgEnv-nvhpc
+    ml cray-libsci/23.05.1.4
+    ml craype-x86-genoa
+
+    make DEPS=1 -j8 all
+    ```
+
+##### Running your build
+
+??? example "Sample job script: How to run your own build"
+
+    See sample jobs scripts above for sbatch and export directives to request full or shared gpu nodes.
+
+    ```
+    # Load modules appropriate for your build. For ours these are:
+    module restore
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+    ml gcc
+    ml PrgEnv-nvhpc
+    ml cray-libsci/23.05.1.4
+    ml craype-x86-genoa
+
+    # Export path to your buid
+    export VASP_PATH=/PATH/TO/YOUR/BUILD/bin
+
+    srun ${VASP_PATH}/vasp_std |& tee out
+    ```
 
 

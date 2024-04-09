@@ -9,29 +9,32 @@ nav:
       - blog/2022-03-05-local-io-performance.md
       - blog/2022-12-19-windows_ssh.md
       - blog/2023-01-10-using_specific_module_versions_on_hpc.md
+      - blog/2023-11-28_module_updates.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
       - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
+        - Transitioning from Eagle to Kestrel: Documentation/Systems/eagle_to_kestrel_transition.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
-          - Documentation/Systems/Kestrel/modules.md
-          - Documentation/Systems/Kestrel/filesystems.md
+          - Documentation/Systems/Kestrel/filesystems.md 
+          - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
+          - Environments: 
+            - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
+            - Toolchains:
+              - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+            - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 
             - Documentation/Systems/Eagle/Running/index.md
             - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
             - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
-            - Batch Jobs: Documentation/Systems/Eagle/Running/batch_jobs.md
-            - Interactive Jobs: Documentation/Systems/Eagle/Running/interactive_jobs.md
-            - Multiple Sub-Jobs: Documentation/Systems/Eagle/Running/multiple_sub_jobs.md
-            - Sample Batch Scripts: Documentation/Systems/Eagle/Running/sample_sbatch.md
+            - Example Sbatch Scripts: Documentation/Systems/Eagle/Running/example_sbatch.md
             - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
-            - Monitor and Control Commands: Documentation/Systems/Eagle/Running/monitor_and_control.md
           - Modules: Documentation/Systems/Eagle/modules.md
           - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
@@ -42,8 +45,12 @@ nav:
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
           - Documentation/Systems/Vermilion/running.md
-          - Documentation/Systems/Vermilion/modules.md
-          - Documentation/Systems/Vermilion/filesystems.md
+      - Slurm Job Scheduling:
+        - Documentation/Slurm/index.md
+        - Monitor and Control Commands: Documentation/Slurm/monitor_and_control.md
+        - Submitting Batch Jobs: Documentation/Slurm/batch_jobs.md
+        - Running Interactive Jobs: Documentation/Slurm/interactive_jobs.md
+        - Multiple Sub-Jobs: Documentation/Slurm/multiple_sub_jobs.md
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
@@ -68,6 +75,7 @@ nav:
           # - Templates:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
+          - Documentation/Applications/index.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
@@ -81,6 +89,10 @@ nav:
             - Interactive Mode: Documentation/Applications/Matlab/interactive.md
             - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
             - Versions and Licenses: Documentation/Applications/Matlab/versions.md
+          - PLEXOS:
+            - Documentation/Applications/Plexos/index.md
+            - Setting Up: Documentation/Applications/Plexos/setup_plexos.md
+            - Running Models: Documentation/Applications/Plexos/run_plexos.md
           - Q-Chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
@@ -104,7 +116,6 @@ nav:
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
-             - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
               # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
@@ -132,13 +143,13 @@ nav:
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
+              - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
-              # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
-            #  - ARM Performance Reports:
-            #    - Documentation/Development/Performance_Tools/ARM/index.md
-            #    - MAP : Documentation/Development/Performance_Tools/ARM/map.md
-            #    - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
+             - Linaro-Forge:
+               - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
+               - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
+               - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
@@ -152,10 +163,13 @@ nav:
              - GDB: Documentation/Development/Debug_Tools/gdb.md
                #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
+         - Visual Studio Code:
+            - Documentation/Development/VSCode/vscode.md
          - Containers:
             - Documentation/Development/Containers/index.md
-            - Documentation/Development/Containers/registres.md
+            - Documentation/Development/Containers/registries.md
             - Documentation/Development/Containers/singularity.md
+            - Documentation/Development/Containers/apptainer.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
@@ -167,23 +181,22 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
-  - Kestrel Friendly Users:
-      - Getting Started:
-        - Friendly_User/Getting_Started/index.md
-        - Known Issues: Friendly_User/Getting_Started/known_issues.md
-      - Environments:
-        - Kestrel Environments Overview: Friendly_User/Environments/index.md
-        - Toolchains:
-          - Intel: Friendly_User/Environments/Toolchains/intel.md
-        - Environments Tutorial: Friendly_User/Environments/tutorial.md
-      - Applications:
-        - VASP: Friendly_User/Applications/vasp.md
+  - Kestrel GPU Friendly Users:
+    - Kestrel GPU Friendly Users: Friendly_User/index.md
+    - Running on a GPU Node: Friendly_User/running_gpu.md
+    - Building Applications: Friendly_User/buildapp.md
+    - Using GPUs with Software Containers: Friendly_User/gpu_containers.md
+    - Applications:
+      - VASP: Friendly_User/Applications/vasp.md
+      - AMR-Wind: Friendly_User/Applications/amrwind.md
+      - PyTorch: Friendly_User/Applications/pytorch.md
 theme:
   name: material
   custom_dir: overrides
   features:
     - navigation.tabs
     - navigation.indexes
+    - announce.dismiss
 markdown_extensions:
   - toc:
       permalink: "#"

@@ -1,27 +1,49 @@
 ---
 layout: default
-title: Singularity on Eagle
+title: Singularity
 parent: Containers
 ---
-Singularity is installed on Eagle's compute nodes as a module named singularity-container.  Images can be copied to eagle and run, or can be generated from a [recipe (definition file)](https://sylabs.io/guides/3.6/user-guide/definition_files.html). 
 
-Note: Input commands in the following examples are preceded by a `$`.
+As discussed in [Introduction to software containerization](index.md), Singularity is a platform designed specifically for running containers on HPC systems. Images can be built locally and copied to the HPC system or pulled from an online registry.  For more information about building containers, see [here](index.md#building).
 
-### Run hello-world ubuntu image
+The table below shows the appropriate commands for loading Singularity (or Apptainer) on each system:
+
+| System     | Module command                      |
+|------------|-------------------------------------|
+| Eagle      | `module load singularity-container` |
+| Swift      | `module load singularity`           |
+| Vermilion  | `module load singularity`           |
+| Kestrel    | `module load apptainer`             | 
+
+!!! note
+    Singularity has been deprecated in favor of a new container application called Apptainer. For more information about Apptainer and using it on Kestrel, see [Apptainer](./apptainer.md).
+
+### Run hello-world ubuntu image on Eagle
+
+The following example shows how to download and run a simple "hello-world" container based on Ubuntu.  The example is written for Eagle but can be adapated to other systems by using the appropriate module command.
+
+!!! note
+
+    Input commands in the following examples are preceded by a `$`.
 
 **Step 1**: Log into compute node, checking it is running CentOS 7 
+
 ```bash
 $ ssh eagle.hpc.nrel.gov
 [$USER@el1 ~]$ srun -A MYALLOCATION -t 60 -N 1 --pty $SHELL
 [$USER@r1i3n18 ~]$ cat /etc/redhat-release 
 CentOS Linux release 7.7.1908 (Core) 
 ```
-**Step 2**: Load the singularity-container module
+
+**Step 2**: Load the `singularity-container` module
+
 ```bash
 [$USER@r1i3n18 ~]$ module purge
 [$USER@r1i3n18 ~]$ module load singularity-container
 ```
-**Step 3**: Retrieve hello-world image.  Be sure to use /scratch as images are typically large
+
+**Step 3**: Retrieve `hello-world` image.  Be sure to use `/scratch`, as images are typically large
+
 ```bash
 [$USER@r1i3n18 ~]$ cd /scratch/$USER
 [$USER@r1i3n18 $USER]$ mkdir -p singularity-images
@@ -30,36 +52,36 @@ CentOS Linux release 7.7.1908 (Core)
 Progress |===================================| 100.0% 
 Done. Container is at: /lustre/eaglefs/scratch/$USER/singularity-images/hello-world.simg
 ```
-**Step 4**: Explore image details
-```bash
-[$USER@r1i3n18 singularity-images]$ singularity inspect hello-world.simg # Shows labels
-{
-    "org.label-schema.usage.singularity.deffile.bootstrap": "docker",
-    "MAINTAINER": "vanessasaur",
-    "org.label-schema.usage.singularity.deffile": "Singularity",
-    "org.label-schema.schema-version": "1.0",
-    "WHATAMI": "dinosaur",
-    "org.label-schema.usage.singularity.deffile.from": "ubuntu:14.04",
-    "org.label-schema.build-date": "2017-10-15T12:52:56+00:00",
-    "org.label-schema.usage.singularity.version": "2.4-feature-squashbuild-secbuild.g780c84d",
-    "org.label-schema.build-size": "333MB"
-}
-[$USER@r1i3n18 singularity-images]$ singularity inspect -r hello-world.simg # Shows the script run
-#!/bin/sh 
 
-exec /bin/bash /rawr.sh
-```
-**Step 5**: Run image default script
+**Step 4**: Run image default script
+
 ```bash
 [$USER@r1i3n18 singularity-images]$ singularity run hello-world.simg
 RaawwWWWWWRRRR!! Avocado.
 ```
-**Step 6**: Run in singularity bash shell
+
+!!! note
+
+    Running the image may produces errors such as:
+    
+    ```
+    ERROR: ld.so: object '/nopt/xalt/xalt/lib64/libxalt_init.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+    ```
+    
+    This can be resolved by unsetting `LD_PRELOAD`:
+    
+    ```bash
+    $ unset LD_PRELOAD
+    ```
+
+**Step 5**: Run in singularity bash shell
+
 ```bash
 [$USER@r1i3n18 singularity-images]$ cat /etc/redhat-release 
 CentOS Linux release 7.7.1908 (Core)
 [$USER@r1i3n18 singularity-images]$ cat /etc/lsb-release 
 cat: /etc/lsb-release: No such file or directory
+
 [$USER@r1i3n18 singularity-images]$ singularity shell hello-world.simg
 Singularity: Invoking an interactive shell within container...
 
@@ -70,72 +92,4 @@ DISTRIB_CODENAME=trusty
 DISTRIB_DESCRIPTION="Ubuntu 14.04.5 LTS"
 Singularity hello-world.simg:~> cat /etc/redhat-release 
 cat: /etc/redhat-release: No such file or directory
-```
-### Create a CentOS 7 EPEL image with MPI support
-
-This example shows how to create a CentOS 7 singularity image with openmpi installed.  It requires root/admin privileges to create the image so must be run on a user's computer with singularity installed.  After creation, the image can be copied to Eagle and run.
-
-**Step 1**: Create a new recipe based on singularityhub/centos:latest
-```bash
-echo "Bootstrap: shub
-From: singularityhub/centos:latest
-" > centos-mpi.recipe
-```
-**Step 2**: Install development tools and enable epel repository after bootstrap is created
-```bash
-echo "%post
-  yum -y groupinstall "Development Tools"
-  yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-" >> centos-mpi.recipe
-```
-**Step 3**: Download, compile and install openmpi 2.1
-```bash
-echo "
-curl -O https://download.open-mpi.org/release/open-mpi/v2.1/openmpi-2.1.2.tar.bz2
-tar jxf openmpi-2.1.2.tar.bz2
-cd openmpi-2.1.2
-./configure --prefix=/usr/local
-make
-make install
-" >> centos-mpi.recipe
-```
-**Step 4**: Compile and install example mpi application
-```bash
-echo "
-mpicc examples/ring_c.c -o ring
-cp ring /usr/bin/
-" >> centos-mpi.recipe
-
-```
-**Step 5**: Install a package found in EPEL, in this example R
-```bash
-echo "  yum -y install R
-" >> centos-mpi.recipe
-```
-**Step 6**: Set default script to run ring
-```bash
-echo "%runscript
-  /usr/bin/ring
-" >> centos-mpi.recipe
-```
-**Step 7**: Build image
-```bash
-sudo $(type -p singularity) build centos-mpi.simg centos-mpi.recipe
-```
-**Step 8**: Test image
-```bash
-$ mpirun -np 20 singularity exec centos-mpi.simg /usr/bin/ring
-$ singularity run centos-epel-r.simg --version
-R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-redhat-linux-gnu (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under the terms of the
-GNU General Public License versions 2 or 3.
-For more information about these matters see
-http://www.gnu.org/licenses/.
-
-$ singularity exec centos-mpi.simg Rscript -e "a <- 42; A <- a*2; print(A)"
-[1] 84
 ```
