@@ -6,7 +6,7 @@ order: 4
 ---
 
 # NREL Systems
-NREL operates three on-premises systems for computational work. 
+NREL operates four on-premises systems for computational work. 
 
 ## System configurations
 
@@ -15,6 +15,7 @@ NREL operates three on-premises systems for computational work.
 | OS          | RedHat Enterprise Linux | CentOS    | Rocky Linux    | RedHat       |
 | Login       | kestrel.hpc.nrel.gov | eagle.hpc.nrel.gov | swift.hpc.nrel.gov | vs.hpc.nrel.gov |
 | CPU         | Dual socket Intel Xeon Sapphire Rapids | Dual Intel Xeon Gold Skylake 6154 | Dual AMD EPYC 7532 Rome CPU | Dual AMD EPYC 7532 Rome CPU |
+| Cores per CPU Node | 104 cores | 36 cores | 128 cores | Varies by partition | 
 | Interconnect | HPE Slingshot 11 | InfiniBand EDR | InfiniBand HDR| 25GbE |
 | HPC scheduler | Slurm | Slurm | Slurm | Slurm |
 | Network Storage | 95PB Lustre | 17PB Lustre FS | 3PB NFS | 440 TB
@@ -23,5 +24,5 @@ NREL operates three on-premises systems for computational work.
 | Number of Nodes| 2454 | 2618 | 484 | 133 virtual |
 
 !!! note
-    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2 (January, 2024). 
+    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2. 
 

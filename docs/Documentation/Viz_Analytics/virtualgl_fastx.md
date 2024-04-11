@@ -20,11 +20,11 @@ DAV nodes are shared resources that support multiple simultaneous users. CPU and
 
 Eagle DAV nodes will remain available through the end of the system's lifetime. 
 
-There are five Eagle DAV nodes for internal/NREL users, and one node for external/non-NREL users.
+There are five Eagle DAV nodes available to NREL users on the NREL VPN, on campus, or via the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) for external users. There are no external facing DAV nodes on Eagle. 
 
 All Eagle DAV nodes have 36 CPU cores (Intel Xeon Gold 6150), 768GB RAM, one 32GB NVIDIA Quadro GV100 GPU, and offer a Linux desktop (via FastX) with visualization capabilities, optional VirtualGL, and standard Linux terminal applications.
 
-Eagle DAV nodes may be accessed using the same instructions as the Kestrel DAV nodes, but the address for internal/NREL users is **eagle-dav.hpc.nrel.gov**. External/non-NREL users may access the external Eagle DAV node at **eagle-dav.nrel.gov**.
+Eagle DAV nodes may be accessed using the same instructions as the Kestrel DAV nodes, but the address is **eagle-dav.hpc.nrel.gov**. Unlike on Kestrel, external users must be connected to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) to access the Eagle DAV nodes. 
 
 ## VirtualGL
 VirtualGL is an open-source package that gives any Linux remote display software the ability to run OpenGL applications with full 3D hardware acceleration. 
@@ -161,7 +161,7 @@ to run Ansys on the first GPU:
 
 |Operating System |	Installer|
 |-----------------|----------|
-|Mac	          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe)|
+|Mac	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.3.18.dmg) |
 |Linux	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.2.32.rhel7.x86_64.tar.gz) |
 |Windows          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe) |
 

@@ -9,16 +9,19 @@ nav:
       - blog/2022-03-05-local-io-performance.md
       - blog/2022-12-19-windows_ssh.md
       - blog/2023-01-10-using_specific_module_versions_on_hpc.md
+      - blog/2023-11-28_module_updates.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
       - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
+        - Transitioning from Eagle to Kestrel: Documentation/Systems/eagle_to_kestrel_transition.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
           - Documentation/Systems/Kestrel/filesystems.md 
+          - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
           - Environments: 
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
@@ -72,6 +75,7 @@ nav:
           # - Templates:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
+          - Documentation/Applications/index.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
@@ -112,7 +116,6 @@ nav:
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
-             - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
               # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
@@ -160,6 +163,8 @@ nav:
              - GDB: Documentation/Development/Debug_Tools/gdb.md
                #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
+         - Visual Studio Code:
+            - Documentation/Development/VSCode/vscode.md
          - Containers:
             - Documentation/Development/Containers/index.md
             - Documentation/Development/Containers/registries.md
@@ -176,6 +181,15 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
+  - Kestrel GPU Friendly Users:
+    - Kestrel GPU Friendly Users: Friendly_User/index.md
+    - Running on a GPU Node: Friendly_User/running_gpu.md
+    - Building Applications: Friendly_User/buildapp.md
+    - Using GPUs with Software Containers: Friendly_User/gpu_containers.md
+    - Applications:
+      - VASP: Friendly_User/Applications/vasp.md
+      - AMR-Wind: Friendly_User/Applications/amrwind.md
+      - PyTorch: Friendly_User/Applications/pytorch.md
 theme:
   name: material
   custom_dir: overrides

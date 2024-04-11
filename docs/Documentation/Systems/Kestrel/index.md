@@ -14,7 +14,7 @@ Kestrel is configured to run compute-intensive and parallel computing jobs. It i
 Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
 
 !!! note
-    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2 (January, 2024).   
+    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2.   
 
 ## Accessing Kestrel
 Access to Kestrel requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
@@ -34,8 +34,10 @@ Users on an NREL device may connect via ssh to Kestrel from the NREL network usi
 #### For External Collaborators:
 If you are an external HPC user, you will need a [One-Time Password Multifactor token (OTP)](https://www.nrel.gov/hpc/multifactor-tokens.html) for two-factor authentication.
 
-For command line access, you may login directly to **kestrel.nrel.gov**.  Alternatively, you can connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html). If you need to use web-based applications, X11 applications, or perform file transfers on non-Kestrel systems, connect to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html). 
+For command line access, you may login directly to **kestrel.nrel.gov**.  Alternatively, you can connect to the [SSH gateway host](https://www.nrel.gov/hpc/ssh-gateway-connection.html).
 
+!!! warning "Login Node Policies"
+    Kestrel login nodes are shared resources, and because of that are subject to process limiting based on usage to ensure that these resources aren't being [used inappropriately](https://www.nrel.gov/hpc/inappropriate-use-policy.html). Each user is permitted up to 8 cores and 100GB of RAM at a time, after which the Arbiter monitoring software will begin moderating resource consumption, restricting further processes by the user until usage is reduced to acceptable limits.
 
 ## Data Analytics and Visualization (DAV) Nodes
 

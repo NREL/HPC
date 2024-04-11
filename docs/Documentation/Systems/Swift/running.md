@@ -28,6 +28,7 @@ The most up to date list of partitions can always be found by running the `sinfo
 |-----------|-------------|
 | long      | jobs up to ten days of walltime |
 | standard  | jobs up to two days of walltime | 
+| gpu  |  Nodes with four NVIDIA A100 40 GB Computational Accelerators, up to two days of walltime |
 | parallel  | optimized for large parallel jobs, up to two days of walltime |
 | debug     | two nodes reserved for short tests, up to four hours of walltime |
 
@@ -103,6 +104,7 @@ Here is a sample batch script for running the 'hello world' example program, *ru
 #SBATCH --nodes=2
 #SBATCH --tasks-per-node=2
 #SBATCH --exclusive
+#SBATCH --account=<myaccount>
 #SBATCH --partition=debug
 #SBATCH --time=00:01:00
 
@@ -117,7 +119,7 @@ srun  -n 4 ./fhostone -F
 srun  -n 4 ./phostone -F
 ```
 
-To run this you must first ensure that slurm is in your path by running:
+To run this you need to replace `<myaccount>` with the appropriate account and ensure that slurm is in your path by running:
 
 ```
 module load slurm
@@ -163,6 +165,7 @@ make
 #SBATCH --nodes=2
 #SBATCH --tasks-per-node=2
 #SBATCH --exclusive
+#SBATCH --account=<myaccount>
 #SBATCH --partition=debug
 #SBATCH --time=00:01:00
 
@@ -247,9 +250,9 @@ This gives us:
 
 ```bash
 [nrmc2l@swift-login-1 ~ example]$ ls -l fhostone
--rwxrwxr-x. 1 nrmc2l nrmc2l 36880 Jul 30 13:36 fhostone
+-rwxrwxr-x. 1 nrmc2l nrmc2l 42128 Jul 30 13:36 fhostone
 [nrmc2l@swift-login-1 ~ example]$ ls -l phostone
--rwxrwxr-x. 1 nrmc2l nrmc2l 27536 Jul 30 13:36 phostone
+-rwxrwxr-x. 1 nrmc2l nrmc2l 32784 Jul 30 13:36 phostone
 
 ```
 Note the size of the executable files.  
@@ -257,7 +260,7 @@ Note the size of the executable files.
 If you want to use the Intel compilers, first load the appropriate modules:
 
 ```bash
-module load intel-oneapi-mpi intel-oneapi-compilers gcc
+module load openmpi intel-oneapi-compilers gcc
 ```
 
 Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*, and recompile:
@@ -270,9 +273,9 @@ Then we can set the variables *OMPI_FC=ifort* and *OMPI_CC=icc*, and recompile:
 
 
 [nrmc2l@swift-login-1 ~ example]$ ls -lt fhostone
--rwxrwxr-x. 1 nrmc2l nrmc2l 951448 Jul 30 13:37 fhostone
+-rwxrwxr-x. 1 nrmc2l nrmc2l 41376 Jul 30 13:37 fhostone
 [nrmc2l@swift-login-1 ~ example]$ ls -lt phostone
--rwxrwxr-x. 1 nrmc2l nrmc2l 155856 Jul 30 13:37 phostone
+-rwxrwxr-x. 1 nrmc2l nrmc2l 32200 Jul 30 13:37 phostone
 [nrmc2l@swift-login-1 ~ example]$ 
 ```
 
@@ -307,8 +310,8 @@ Giving us:
 
 ```bash
 [nrmc2l@swift-login-1 example]$ ls -lt fhostone phostone
--rwxrwxr-x. 1 nrmc2l hpcapps 155696 Aug  5 16:14 phostone
--rwxrwxr-x. 1 nrmc2l hpcapps 947112 Aug  5 16:14 fhostone
+-rwxrwxr-x. 1 nrmc2l hpcapps 160944 Aug  5 16:14 phostone
+-rwxrwxr-x. 1 nrmc2l hpcapps 952352 Aug  5 16:14 fhostone
 [nrmc2l@swift-login-1 example]$ 
 ```
 
@@ -319,13 +322,7 @@ module load intel-oneapi-mpi intel-oneapi-compilers gcc
 
 ```
 
-Launch with the srun command:
-
-```bash
-srun   ./a.out -F
-```
-
-Our IntelMPI batch script is:
+Our IntelMPI batch script, *runintel* under */example*, is:
 
 
 ```bash
@@ -334,6 +331,7 @@ Our IntelMPI batch script is:
 #SBATCH --nodes=2
 #SBATCH --tasks-per-node=2
 #SBATCH --exclusive
+#SBATCH --account=<myaccount>
 #SBATCH --partition=debug
 #SBATCH --time=00:01:00
 
@@ -384,17 +382,17 @@ This will give you:
 ```bash
 
 [nrmc2l@swift-login-1 ~ example]$ which vasp_gam
-/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
+/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
 [nrmc2l@swift-login-1 ~ example]$ which vasp_ncl
-/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
+/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
 [nrmc2l@swift-login-1 ~ example]$ which vasp_std
-/nopt/nrel/apps/210728a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
+/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
 [nrmc2l@swift-login-1 ~ example]$ 
 ```
 
 Note the directory might be different.
 
-Then you need to add calls in your script to set up / point do your data files. So your final script will look something like the following. Here we use data downloaded from NREL's benchmark repository:
+Then you need to add calls in your script to set up / point do your data files. So your final script will look something like the following. Here we use data downloaded from NREL's benchmark repository and it is also included in the copied subdirectory */example* named with *runvasp*:
 
 ```bash
 #!/bin/bash
@@ -403,6 +401,7 @@ Then you need to add calls in your script to set up / point do your data files. 
 #SBATCH --time=4:00:00
 ##SBATCH --error=std.err
 ##SBATCH --output=std.out
+#SBATCH --account=<myaccount>
 #SBATCH --partition=debug
 #SBATCH --exclusive
 
@@ -411,7 +410,7 @@ cat $0
 hostname
 
 module purge
-ml openmpi gcc vasp 
+ml slurm openmpi gcc vasp 
 
 #### get input and set it up
 #### This is from an old benchmark test
@@ -426,18 +425,18 @@ cd $SLURM_JOB_ID
 srun   -n 16 vasp_std > vasp.$SLURM_JOB_ID
 
 ```
-This will run a version of Vasp built with openmpi and gfortran/gcc. You can run a version of Vasp built with the Intel toolchain replacing the *ml* line with the following module load:
+This will run a version of Vasp built with openmpi and gfortran/gcc. You can run a version of Vasp built with the Intel toolchain replacing the *ml* line with the following module load as shown in *runvaspintel* under */example*:
 
  ```ml vaspintel intel-oneapi-mpi intel-oneapi-compilers intel-oneapi-mkl```
 
 
 ## Running Jupyter / Jupyter-lab
 
-Jupyter and Jupyter-lab are available by loading the module "python"
+Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n" or "python/3.9.6-mydisst". If loading "python/3.10.0-wwsaj4n":
 
 ```bash
 
-[nrmc2l@swift-login-1 ~]$ ml python
+[nrmc2l@swift-login-1 ~]$ ml python/3.10.0-wwsaj4n
 [nrmc2l@swift-login-1 ~]$ which python
 /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/python
 [nrmc2l@swift-login-1 ~]$ which jupyter
