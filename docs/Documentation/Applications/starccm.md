@@ -55,7 +55,7 @@ Note that you must give the full path of your input file in the script.
 
 By default, STAR-CCM+ uses OpenMPI. However, the performance of OpenMPI on Kestrel is poor when running on multiple nodes. Intel MPI and Cray MPI are recommended for STAR-CCM+ on Kestrel.  Cray MPI is expected to have a better performance than Intel MPI. 
 
-### Running STAR-CCM+ with Intel MPI
+### Running starccm/18.04.009 with Intel MPI
 
 STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI with STAR-CCM+ version of 18.04.009, the Slurm script should be modified to be:
 
@@ -86,6 +86,8 @@ STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI with STAR-CCM+ vers
     ```
 
 We are specifying the MPI to be Intel MPI in the launch command. By default, Intel MPI thinks the network on which it is running is Infiniband. Kestrel’s is Slingshot, which you can think of as ethernet on steroids. The command `export UCX_TLS=tcp` is telling Intel MPI to treat the network as ethernet by using the tcp protocol.
+
+### Running starccm/17.02.008 with Intel MPI
 
 For STAR-CCM+ version of 17.02.008, its Intel MPI version is 2021.2 and ssh bootstrap should be used to launch process on remote nodes. The slurm file using Intel MPI in STAR-CCM+/17.02.008 should be:
 
