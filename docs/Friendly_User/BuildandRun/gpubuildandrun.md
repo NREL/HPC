@@ -142,7 +142,7 @@ ml nvhpc-hpcx-cuda12/24.1
 
 
 
-# MPI
+## MPI
 
 Each example uses a different source code.
 
