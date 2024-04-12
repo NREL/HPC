@@ -1,4 +1,4 @@
-## Building and Running on Kestrel's H100 GPU nodes.
+# Building and Running on Kestrel's H100 GPU nodes.
 This page describes how to build and run on Kestrel's GPU nodes using several programming paradigms.  There are pure Cuda programs, Cuda aware MPI programs, MPI programs without Cuda, MPI programs with Cuda, MPI programs with Openacc, and pure Openacc programs. 
 
 Please clone the repo with the run scripts and examples:
