@@ -184,7 +184,7 @@ nav:
   - Kestrel GPU Friendly Users:
     - Kestrel GPU Friendly Users: Friendly_User/index.md
     - Running on a GPU Node: Friendly_User/running_gpu.md
-    - Building Applications: Friendly_User/buildapp.md
+    - Building Applications: Friendly_User/BuildandRun/gpubuildandrun.md
     - Using GPUs with Software Containers: Friendly_User/gpu_containers.md
     - Applications:
       - VASP: Friendly_User/Applications/vasp.md
