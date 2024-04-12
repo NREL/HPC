@@ -40,7 +40,7 @@ Once the environment has been activated, you can install PyTorch using the stand
     ```
 
 ## PyTorch Example
-Below we present a simple convolutional neual network example for getting started using PyTorch with Kestrel GPUs. The original, more detailed version of this example can be found in the pytorch tutorials repo [here](https://github.com/pytorch/tutorials/blob/main/beginner_source/blitz/cifar10_tutorial.py).
+Below we present a simple convolutional neural network example for getting started using PyTorch with Kestrel GPUs. The original, more detailed version of this example can be found in the pytorch tutorials repo [here](https://github.com/pytorch/tutorials/blob/main/beginner_source/blitz/cifar10_tutorial.py).
 
 ??? example "CIFAR10 example"
     ```
