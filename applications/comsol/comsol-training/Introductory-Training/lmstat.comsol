@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BASEDIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license/
+
+$BASEDIR/glnxa64/lmstat -c $BASEDIR/license.dat -a
