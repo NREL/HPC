@@ -5,13 +5,22 @@ title: Running on Kestrel
 
 *Learn about job partitions and policies for scheduling jobs on Kestrel.*
 
+## Kestrel Compute Nodes
+
+The [Kestrel system configuration page](https://www.nrel.gov/hpc/kestrel-system-configuration.html) lists the four categories that Kestrel nodes exhibit based on their hardware features. In summary, standard compute nodes on Kestrel have 104 cores and 256 GB of RAM. 256 of those nodes have a 1.7 TB NVMe local disk. There are also 10 bigmem nodes with 2 TB of RAM and 5.8 TB NVMe local disk. 
+
+
+### Using Node Local Storage
+
+To use local disk on the nodes that have it available, use the `$TMPDIR` environment variable. On nodes without local disk, writing here will consume RAM. To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). 
+
+
 ## Partitions
 
 Kestrel nodes are associated with one or more partitions.  Each partition is associated with one or more job characteristics, which include run time, per-node memory requirements, and per-node local scratch disk requirements.
 
 Excluding the shared and debug partitions, jobs will be automatically routed to the appropriate partitions by Slurm based on node quantity, walltime, hardware features, and other aspects specified in the submission. Jobs will have access to the largest number of nodes, thus shortest wait, **if the partition is not specified during job submission.**.
 
-The [Kestrel system configuration page](https://www.nrel.gov/hpc/kestrel-system-configuration.html) lists the four categories that Kestrel nodes exhibit based on their hardware features. In summary, standard compute nodes on Kestrel have 104 cores and 256 GB of RAM. 256 of those nodes have a 1.7 TB NVMe local disk. There are also 10 bigmem nodes with 2 TB of RAM and 5.8 TB NVMe local disk. 
 
 The following table summarizes the partitions on Kestrel:
 
@@ -24,7 +33,7 @@ The following table summarizes the partitions on Kestrel:
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 248000```<br>```--tmp <= 1700000  (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.8 TB NVMe local disk. | 8 nodes total.<br> 4 nodes per user. | ```--mem > 248000```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 3 nodes per user. | ```--mem > 248000```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
-| ```shared```|  Nodes that can be shared by multiple users and jobs. | 32 nodes total. <br> No limit per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
+| ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> No limit per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
@@ -40,7 +49,7 @@ Unlike the other partitions, nodes in the shared partition can be shared by mult
 
 #### Usage
 
-Currently, there are 32 standard compute nodes available in the shared partition. These nodes have 250GB of usable RAM and 104 cores. By default, your job will be allocated 1.024GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
+Currently, there are 64 standard compute nodes available in the shared partition. These nodes have 250GB of usable RAM and 104 cores. By default, your job will be allocated 1.024GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
