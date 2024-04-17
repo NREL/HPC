@@ -1,20 +1,20 @@
-OpenFoam installation 
+OpenFoam Installation 
 =====================
 
 
 Building openfoam with cray-mpich and gcc 
 ---------------------------------
 
-Instruction for the installing OpenFoam are available [here](https://openfoam.org/download/source/).
+Instructions for installing OpenFoam are available [here](https://openfoam.org/download/source/).
 
-In the instruction, you will be cloning the OpenFoam folder which we will refere to as `$OPENFOAM`.
+In the instructions, you will be cloning the OpenFoam folder which we will refer to as `$OPENFOAM`.
 
 In order to build Openfoam with cray-mpich, 2 files need to be edited.
 
 1- `$OPENFOAM/etc/bashrc`
 
 In this file, the variable `WM_MPLIB` will be defined as `MPICH`. 
-Searhc for the line where the varibale is exported and replace it with 
+Search for the line where the variable is exported and replace it with 
 
 ```
 export WM_MPLIB=MPICH
