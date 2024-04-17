@@ -8,7 +8,7 @@
 
 2. Cray programming environment (CPE) 23.12 is now the default on the system. 
 
-3. To use node local storage, you will now need to use the `$TMPDIR` environment variable. `$TMPDIR` will now be set to `/tmp/scratch/$JOBID`. Hard-coding `/tmp/scratch` won't work. Writing to `$TMPDIR` will use local disk on the nodes that have one, and RAM on nodes without. This change was made to prevent conflicts between multiple users/jobs writing to local disk on shared nodes. 
+3. To use node local storage, you will now need to use the `$TMPDIR` environment variable. `$TMPDIR` will now be set to `/tmp/scratch/$JOBID`. Hard-coding `/tmp/scratch` won't work. This change was made to prevent conflicts between multiple users/jobs writing to local disk on shared nodes. As a reminder, writing to `$TMPDIR` will use local disk on the nodes that have one, and RAM (up to 128Gb) on nodes without.
 
 4. `/kfs2/pdatasets` was renamed to `/kfs2/datasets` and a symlink `/datasets` was added. 
 
