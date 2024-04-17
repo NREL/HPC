@@ -11,15 +11,15 @@ flows, simulating wind farm turbine-wake interactions using actuator
 disk or actuator line models for turbines, and as a background solver
 when coupled with a near-body solver (e.g., Nalu-Wind) with overset
 methodology to perform blade-resolved simulations of multiple wind
-turbines within a wind farm. For more information see
-https://github.com/Exawind/amr-wind
+turbines within a wind farm. For more information see [the AMR-Wind documentation](https://github.com/Exawind/amr-wind).
+
 
 Installation of AMR-Wind on GPU nodes
 -------------------------------------
 
 
-AMR-wind can be installed by following the instructions [Here](https://exawind.github.io/amr-wind/user/build.html#building-from-source) .
-ON Kestrel GPU nodes, this can be achieved by first loading the following modules:
+AMR-wind can be installed by following the instructions [here](https://exawind.github.io/amr-wind/user/build.html#building-from-source) .
+On Kestrel GPU nodes, this can be achieved by first loading the following modules:
 
 ```
 module restore 
@@ -32,48 +32,31 @@ ml cmake/3.27.9
 ml python/3.9.13
 ```
 
-Make sure the following modules are loaded using module list.
+Make sure the following modules are loaded using `module list`.
+
+1.libfabric/1.15.2.0
+2.craype-x86-genoa 
+3.curl/8.6.0   
+4.bzip2/1.0.8  
+5.tar/1.34  
+6.python/3.9.13
+7.cray-dsmml/0.2.2 
+8.cray-libsci/22.10.1.2 
+9.gcc/10.1.0
+10.craype-network-ofi  
+11.nvhpc/24.1
+12.cmake/3.27.9 
+13.libxml2/2.10.3 
+14.gettext/0.22.4 
+15.craype/2.7.30 
+16.cray-mpich/8.1.28 
+17.PrgEnv-nvhpc/8.5.0
 
 
-  1) libfabric/1.15.2.0
-
-  2) craype-x86-genoa 
-
-  3) curl/8.6.0   
-
-  4) bzip2/1.0.8  
-
-  5) tar/1.34  
-
-  6) python/3.9.13
-
-  7) cray-dsmml/0.2.2 
-
-  8) cray-libsci/22.10.1.2 
-
-  9) gcc/10.1.0
-
-  10) craype-network-ofi  
-
-  11) nvhpc/24.1
-
-  12) cmake/3.27.9 
-
-  13) libxml2/2.10.3 
-
-  14) gettext/0.22.4 
-
-  15) craype/2.7.30 
-
-  16) cray-mpich/8.1.28 
-
-  17) PrgEnv-nvhpc/8.5.0
-
-
-you can clone the latest version of AMR-wind from [here](https://github.com/Exawind/amr-wind?tab=readme-ov-file).
+You can clone the latest version of AMR-wind from [here](https://github.com/Exawind/amr-wind?tab=readme-ov-file).
 Once cloned, `cd` into the AMR directory and create a build folder.
 
-you can create a file with the cmake instructions, 
+You can create a file with the cmake instructions, 
 
 ```
 vim conf_instructions
@@ -102,7 +85,7 @@ cmake .. -DAMR_WIND_ENABLE_CUDA=ON \
     -DCMAKE_INSTALL_PREFIX:PATH=./install
 ```
 
-you can execute the file using 
+You can execute the file using 
 
 ```
 bash conf_instructions
@@ -134,12 +117,12 @@ ml cray-libsci/22.12.1.1
 
 ## Running on the GPUs using modules
 
-NREL makes available different modules for using Amr-Wind for CPUs and GPUs for
-different toolchains. The build instructions are given below for users wanting to build there own version. It is recommended that
+NREL makes available different modules for using AMR-Wind for CPUs and GPUs for
+different toolchains. The build instructions are given below for users wanting to build their own version. It is recommended that
 AMR-Wind be run on GPU nodes for obtaining the most optimal
 performance.
 
-Here is a sample script for submitting an AMR-Wind application run on multiple GPU nodes, with the users input file, mesh grid in the current working directory.
+Here is a sample script for submitting an AMR-Wind application run on multiple GPU nodes, with the user's input file and mesh grid in the current working directory.
 
 ??? example "Sample job script: Kestrel - Full GPU node"
 
