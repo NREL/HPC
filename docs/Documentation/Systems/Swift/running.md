@@ -83,6 +83,8 @@ When a job only requests part of a node, usage is tracked on the basis of:
 
 Using all resources on a single node, whether CPU, RAM, or both, will max out at 128/128 per node = 1.
 
+**The highest quantity of resource requested will determine the total AU charge.**
+
 For example, a job that requests 64 cores and 128GB RAM (one half of a node) would be: 
 
 1 hour walltime * 0.5 nodes * 1 QoS Factor * 5 Charge Factor = **2.5** AU per node-hour.
@@ -93,7 +95,7 @@ Jobs on Swift may also share GPU nodes.
 
 Standard GPU nodes have 96 CPU cores, four NVIDIA A100 40GB GPUs, and 1TB RAM.
 
-You may request 1, 2, 3, or 4 GPUs per GPU node, as well as any additional CPU and RAM required. A
+You may request 1, 2, 3, or 4 GPUs per GPU node, as well as any additional CPU and RAM required. 
 
 Usage is tracked on the basis of: 
 
