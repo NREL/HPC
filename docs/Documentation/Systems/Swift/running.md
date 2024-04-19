@@ -43,6 +43,17 @@ By default, nodes can be shared between users.  To get exclusive access to a nod
 !!! tip "Important"
     Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core. This behavior differs from Eagle.
 
+### GPU Nodes
+
+Swift now has ten GPU nodes, each with four NVIDIA A100 40GB GPUs, 96 CPU cores, and 1TB RAM.
+
+To request use of a GPU node, use `--gres=gpu:<quantity>`. <quantity> may be from 1-4.
+
+GPUs can be requested either at the command line when submitting your job with sbatch or srun/salloc, or add it as an `#SBATCH` directive in your sbatch script.
+
+Be sure to specify `--mem=` if more than the default RAM per core is required, and/or the number of CPU cores (e.g. `--ntasks=`, `--cpus-per-task=`). See the section below on Shared/Fractional node usage for more information on partial node requests and AU calculations.
+
+
 ## Allocation Unit (AU) Charges
 
 The equation for calculating the AU cost of a job on Swift is:
