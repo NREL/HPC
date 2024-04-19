@@ -6,6 +6,7 @@ grand_parent: Systems
 ---
 
 # Running on Swift
+
 Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. 
 
 ## Login nodes
@@ -18,6 +19,7 @@ swift-login-1.hpc.nrel.gov
 `swift.hpc.nrel.gov` is a round-robin alias that will connect you to any available login node.
 
 ## SSH Keys
+
 User accounts have a default set of keys `cluster` and `cluster.pub`. The `config` file will use these even if you generate a new keypair using `ssh-keygen`. If you are adding your keys to Github or elsewhere you should either use `cluster.pub` or will have to modify the `config` file.
 
 ## Slurm and Partitions
@@ -406,198 +408,7 @@ task    thread             node name  first task    # on node  core
 0001      0001                 c1-32        0000         0001  0099
 ```
 
+## VASP, Jupyter, Julia, and Other Applications on Swift
 
-## Running VASP
-
-The batch script given above can be modified to run VASP. To do so, load the VASP module, as well:
-
-```bash
-ml vasp
-```
-
-This will give you:
-
-```bash
-
-[nrmc2l@swift-login-1 ~ example]$ which vasp_gam
-/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
-[nrmc2l@swift-login-1 ~ example]$ which vasp_ncl
-/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
-[nrmc2l@swift-login-1 ~ example]$ which vasp_std
-/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
-[nrmc2l@swift-login-1 ~ example]$ 
-```
-
-Note the directory might be different.
-
-Then you need to add calls in your script to set up / point do your data files. So your final script will look something like the following. Here we use data downloaded from NREL's benchmark repository and it is also included in the copied subdirectory */example* named with *runvasp*:
-
-```bash
-#!/bin/bash
-#SBATCH --job-name=b2_4
-#SBATCH --nodes=1
-#SBATCH --time=4:00:00
-##SBATCH --error=std.err
-##SBATCH --output=std.out
-#SBATCH --account=<myaccount>
-#SBATCH --partition=debug
-#SBATCH --exclusive
-
-cat $0
-
-hostname
-
-module purge
-ml slurm openmpi gcc vasp 
-
-#### get input and set it up
-#### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
-
-mkdir $SLURM_JOB_ID
-cp input/* $SLURM_JOB_ID
-cd $SLURM_JOB_ID
-
-
-
-srun   -n 16 vasp_std > vasp.$SLURM_JOB_ID
-
-```
-This will run a version of Vasp built with openmpi and gfortran/gcc. You can run a version of Vasp built with the Intel toolchain replacing the *ml* line with the following module load as shown in *runvaspintel* under */example*:
-
- ```ml vaspintel intel-oneapi-mpi intel-oneapi-compilers intel-oneapi-mkl```
-
-
-## Running Jupyter / Jupyter-lab
-
-Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n" or "python/3.9.6-mydisst". If loading "python/3.10.0-wwsaj4n":
-
-```bash
-
-[nrmc2l@swift-login-1 ~]$ ml python/3.10.0-wwsaj4n
-[nrmc2l@swift-login-1 ~]$ which python
-/nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/python
-[nrmc2l@swift-login-1 ~]$ which jupyter
-/nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/jupyter
-[nrmc2l@swift-login-1 ~]$ which jupyter-lab
-/nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/jupyter-lab
-[nrmc2l@swift-login-1 ~]$ 
-```
-
-It is recommended that you use the --no-browser option and connect to your notebook from your desktop using a ssh tunnel and web browser.
-
-On Swift enter the command below, and note the URLs in the output:  
-
-```bash
-[nrmc2l@swift-login-1 ~]$ jupyter-lab --no-browser
-[I 2022-03-30 07:54:25.937 ServerApp] jupyterlab | extension was successfully linked.
-[I 2022-03-30 07:54:26.224 ServerApp] nbclassic | extension was successfully linked.
-[I 2022-03-30 07:54:26.255 ServerApp] nbclassic | extension was successfully loaded.
-[I 2022-03-30 07:54:26.257 LabApp] JupyterLab extension loaded from /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/lib/python3.10/site-packages/jupyterlab
-[I 2022-03-30 07:54:26.257 LabApp] JupyterLab application directory is /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/share/jupyter/lab
-[I 2022-03-30 07:54:26.260 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2022-03-30 07:54:26.261 ServerApp] Serving notebooks from local directory: /home/nrmc2l
-[I 2022-03-30 07:54:26.261 ServerApp] Jupyter Server 1.11.1 is running at:
-[I 2022-03-30 07:54:26.261 ServerApp] http://localhost:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-[I 2022-03-30 07:54:26.261 ServerApp]  or http://127.0.0.1:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-[I 2022-03-30 07:54:26.261 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2022-03-30 07:54:26.266 ServerApp] 
-    
-    To access the server, open this file in a browser:
-        file:///home/nrmc2l/.local/share/jupyter/runtime/jpserver-2056000-open.html
-    Or copy and paste one of these URLs:
-        http://localhost:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-     or http://127.0.0.1:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-```
-Note the *8888* in the URL it might be different. On your desktop in a new terminal window enter the command:
-
-```bash
-ssh -t -L 8888:localhost:8888 swift-login-1.hpc.nrel.gov
-```
-
-replacing 8888 with the number in the URL if it is different.
-
-Then in a web browser window, paste the URL to bring up a new notebook.
-
-## Running Jupyter / Jupyter-lab on a compute node
-
-You can get an interactive session on a compute node with the salloc command, as in the following example:
-
-```bash
-[nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
-```
-
-but replacing *hpcapps* with your account. After you get a session on a node, `module load python` and run as shown above.
-
-```bash
-[nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
-salloc: Pending job allocation 313001
-salloc: job 313001 queued and waiting for resources
-salloc: job 313001 has been allocated resources
-salloc: Granted job allocation 313001
-[nrmc2l@c1-28 ~]$ 
-[nrmc2l@c1-28 ~]$ module load python
-[nrmc2l@c1-28 ~]$ 
-
-[nrmc2l@c1-28 ~]$ jupyter-lab --no-browser
-[I 2022-03-30 08:04:28.063 ServerApp] jupyterlab | extension was successfully linked.
-[I 2022-03-30 08:04:28.468 ServerApp] nbclassic | extension was successfully linked.
-[I 2022-03-30 08:04:28.508 ServerApp] nbclassic | extension was successfully loaded.
-[I 2022-03-30 08:04:28.509 LabApp] JupyterLab extension loaded from /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/lib/python3.10/site-packages/jupyterlab
-[I 2022-03-30 08:04:28.509 LabApp] JupyterLab application directory is /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/share/jupyter/lab
-[I 2022-03-30 08:04:28.513 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2022-03-30 08:04:28.513 ServerApp] Serving notebooks from local directory: /home/nrmc2l
-[I 2022-03-30 08:04:28.514 ServerApp] Jupyter Server 1.11.1 is running at:
-[I 2022-03-30 08:04:28.514 ServerApp] http://localhost:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-[I 2022-03-30 08:04:28.514 ServerApp]  or http://127.0.0.1:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-[I 2022-03-30 08:04:28.514 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2022-03-30 08:04:28.519 ServerApp] 
-    
-    To access the server, open this file in a browser:
-        file:///home/nrmc2l/.local/share/jupyter/runtime/jpserver-3375148-open.html
-    Or copy and paste one of these URLs:
-        http://localhost:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-     or http://127.0.0.1:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-```
-
-
-On your desktop run the command:
-
-```bash
-ssh -t -L 8888:localhost:8475 swift-login-1 ssh -L 8475:localhost:8888 c1-28
-```
-
-replacing *8888* with the value in the URL if needed and c1-28 with the name of the compute node on which you are running. Then again paste the URL in a web browser. You should get a notebook running on the compute node.
-
-
-## Running Julia 
-
-Julia is also available via a module.  
-
-```bash
-[nrmc2l@swift-login-1:~ ] $ module spider julia
-...
-     Versions:
-        julia/1.6.2-ocsfign
-        julia/1.7.2-gdp7a25
-...
-[nrmc2l@swift-login-1:~ ] $ 
-
-[nrmc2l@swift-login-1:~/examples/spack ] $ module load julia/1.7.2-gdp7a25 
-[nrmc2l@swift-login-1:~/examples/spack ] $ which julia
-/nopt/nrel/apps/210928a/level03/install/linux-rocky8-zen2/gcc-9.4.0/julia-1.7.2-gdp7a253nsglyzssybqknos2n5amkvqm/bin/julia
-[nrmc2l@swift-login-1:~/examples/spack ] $ 
-
-```
-Julia can be run in a Jupyter notebook as discussed above. However, before doing so you will need to run the following commands in each Julia version you are using:  
-
-```bash
-julia> using Pkg
-julia> Pkg.add("IJulia")
-
-```
-
-Please see [https://datatofish.com/add-julia-to-jupyter/](https://datatofish.com/add-julia-to-jupyter/) for more information.
-
-If you would like to install your own copy of Julia complete with Jupyter-lab, contact Tim Kaiser **tkaiser2@nrel.gov** for a script to do so.
+Please see the relevant page in the [Applications](https://nrel.github.io/HPC/Documentation/Applications/) section for more information on using applications on Swift and other NREL clusters.
 
