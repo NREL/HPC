@@ -51,7 +51,9 @@ The **Walltime** is the actual length of time that the job runs, in hours or fra
 
 The **Number of nodes** can be whole nodes or fractions of a node. See below for more information.
 
-The **Charge Factor** for Swift is **5**. 
+The **Charge Factor** for Swift CPU nodes is **5**. 
+
+The **Charge Factor** for Swift GPU nodes is **50**, or **12.5 per GPU**.
 
 The **QoS Factor** for *normal priority* jobs is **1**. 
 
@@ -59,15 +61,19 @@ The **QoS Factor** for *high-priority* jobs is **2**.
 
 The **QoS Factor** for *standby priority* jobs is **0**. There is no AU cost for standby jobs.
 
-One node for one hour of walltime at *normal priority* costs **5 AU** total.
+One CPU node for one hour of walltime at *normal priority* costs **5 AU** total.
 
-One node for one hour of walltime at *high priority* costs **10 AU** total.
+One CPU node for one hour of walltime at *high priority* costs **10 AU** total.
 
-### Fractional Nodes
+One GPU for one hour of walltime at *normal priority* costs **12.5 AU** total.
+
+Four GPUs for one hour of walltime at *normal priority* costs **50 AU** total.
+
+### Shared/Fractional CPU Nodes
 
 Swift allows jobs to share nodes, meaning fractional allocations are possible. 
 
-Standard compute nodes have 128 CPU cores and 256GB RAM.
+Standard (CPU) compute nodes have 128 CPU cores and 256GB RAM.
 
 When a job only requests part of a node, usage is tracked on the basis of: 
 
@@ -79,7 +85,39 @@ For example, a job that requests 64 cores and 128GB RAM (one half of a node) wou
 
 1 hour walltime * 0.5 nodes * 1 QoS Factor * 5 Charge Factor = **2.5** AU per node-hour.
 
+### Shared/Fractional GPU Nodes
+
+Jobs on Swift may also share GPU nodes.
+
+Standard GPU nodes have 96 CPU cores, four NVIDIA A100 40GB GPUs, and 1TB RAM.
+
+You may request 1, 2, 3, or 4 GPUs per GPU node, as well as any additional CPU and RAM required. A
+
+Usage is tracked on the basis of: 
+
+1 GPU = 25% of total cores (24/96) = 25% of total RAM (256GB/1TB) = 25% of a node 
+
+**The highest quantity of resource requested will determine the total AU charge.**
+
+For example, a request of 1 GPU, up to 24 CPU cores, and up to 256GB RAM will be charged at 12.5 AU/hr.
+
+A request of 1 GPU, 48 CPU cores, and 100GB RAM will be charged at 25 AU/hr:
+
+* 1/4 GPUs = 25% total GPUs = 50 AU * 0.25 = 12.5 AU (ignored)
+* 48/96 cores = 50% total cores = 50 AU * 0.5 = **25 AU** (this is what will be charged)
+* 100GB/1TB = 10% total RAM = 50 AU * 0.10 = 5 AU (ignored)
+
+A request of 2 GPUs, 55 CPU cores, and 200GB RAM will be charged at approximately 28.7 AU/hr:
+
+* 2/4 GPUs = 0.5 * 50 = 25 AU (ignored)
+* 55/96 cores ~= 57.3% of total cores, 50 * .573 = **28.65 AU** (this is what will be charged)
+* 200GB/1TB = 0.2 * 50 = 10 AU (ignored)
+
+RAM usage may be calculated in a similar fashion.
+
+
 ## Software Environments and Example Files
+
 Multiple software environments are available on Swift, with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectories, in the directory /nopt/nrel/apps. Each environment directory has a file myenv.\*.  Sourcing that file will enable the environment.
 
 When you login you will have access to the default environments and the *myenv* file will have been sourced for you. You can see the directory containing the environment by running the `module avail` command.  
