@@ -47,7 +47,7 @@ By default, nodes can be shared between users.  To get exclusive access to a nod
 
 Swift now has ten GPU nodes, each with four NVIDIA A100 40GB GPUs, 96 CPU cores, and 1TB RAM.
 
-To request use of a GPU node, use `--gres=gpu:<quantity>`. <quantity> may be from 1-4.
+To request use of a GPU node, use `--gres=gpu:<quantity>`, where quantity may be from 1-4.
 
 GPUs can be requested either at the command line when submitting your job with sbatch or srun/salloc, or add it as an `#SBATCH` directive in your sbatch script.
 
