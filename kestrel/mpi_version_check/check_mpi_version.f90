@@ -5,7 +5,7 @@ program check_mpi_version
 
   implicit none
   integer :: ierr, resultlen
-  character(len=MPI_MAX_LIBRARY_VERSION_STRING) :: version
+  character(len=200) :: version
 
   call MPI_Init(ierr)
   call MPI_Get_library_version(version, resultlen, ierr)
