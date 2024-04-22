@@ -7,5 +7,5 @@ source /nopt/nrel/apps/env.sh
 module purge
 
 # load the modules necessary to set up the standalone GNU GCC Compilers/OpenMPI environment
-module load openmpi/4.1.5-gcc
+module load openmpi
 module load gcc
