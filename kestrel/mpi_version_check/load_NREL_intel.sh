@@ -9,3 +9,4 @@ module purge
 # load the modules necessary to set up the standalone Intel Compilers/Intel MPI environment
 module load intel-oneapi-mpi
 module load intel-oneapi
+module unload cray-libsci
