@@ -251,7 +251,7 @@ module load intel-oneapi-compilers
 module load intel-oneapi-mpi
 ```
 
-Note that if we look back at `module avail intel` and look at the header above, e.g., `intel-oneapi`, we can see that these intel modules live in `/nopt/nrel/apps/cpu_stack/modules/default/compilers_mpi` -- this is different than the PrgEnvs, who can be found in `/opt/cray/pe/lmod/modulefiles/core`. This is one way to tell that you are using NREL's set of modules and not Cray's set of modules.
+Note that if we look back at `module avail intel` and look at the header above, e.g., `intel-oneapi`, we can see that these intel modules live in `/nopt/nrel/apps/cpu_stack/modules/default/compilers_mpi` -- this is different than the PrgEnvs, which can be found in `/opt/cray/pe/lmod/modulefiles/core`. This is one way to tell that you are using NREL's set of modules and not Cray's set of modules.
 
  Now, we can build IMB with the intel compilers and Intel MPI:
 
