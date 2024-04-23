@@ -201,7 +201,7 @@ You can also submit this inside a Slurm submit script:
 #SBATCH --time=00:40:00
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=104
-#SBATCH --account=[your account name]
+#SBATCH --account=<your allocation handle>
 
 #!/bin/bash
 
