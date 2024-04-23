@@ -190,6 +190,7 @@ nav:
       - VASP: Friendly_User/Applications/vasp.md
       - AMR-Wind: Friendly_User/Applications/amrwind.md
       - PyTorch: Friendly_User/Applications/pytorch.md
+      - OpenFOAM: Friendly_User/Applications/openfoam.md
 theme:
   name: material
   custom_dir: overrides
