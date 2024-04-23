@@ -192,7 +192,7 @@ Or, for MPI specifically:
 	libmpi_intel.so.12 => /opt/cray/pe/lib64/libmpi_intel.so.12 (0x00007f13f8f8f000)
 ```
 
-Note that this MPI library is indeed still Cray MPICH, the name is different than in the PrgEnv-cray section because iti is specifically Cray MPICH built to be compatible with intel compilers, not cray compilers, as in the last example.
+Note that this MPI library is indeed still Cray MPICH, the name is different than in the PrgEnv-cray section because it is specifically Cray MPICH built to be compatible with intel compilers, not cray compilers, as in the last example.
 
 You can also submit this inside a Slurm submit script:
 
