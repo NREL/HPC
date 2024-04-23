@@ -37,7 +37,7 @@ First, log onto Kestrel with
 
 Let's grab an interactive node session:
 
-`salloc -N 1 -n 104 --time=01:00:00 --account=[your account name]`
+`salloc -N 1 -n 104 --time=01:00:00 --account=<your allocation handle>`
 
 
 ### Environment 1: PrgEnv-cray 
