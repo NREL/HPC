@@ -6,6 +6,7 @@ grand_parent: Systems
 ---
 
 # Running on Swift
+
 Please see the [Modules](./modules.md) page for information about setting up your environment and loading modules. 
 
 ## Login nodes
@@ -18,6 +19,7 @@ swift-login-1.hpc.nrel.gov
 `swift.hpc.nrel.gov` is a round-robin alias that will connect you to any available login node.
 
 ## SSH Keys
+
 User accounts have a default set of keys `cluster` and `cluster.pub`. The `config` file will use these even if you generate a new keypair using `ssh-keygen`. If you are adding your keys to Github or elsewhere you should either use `cluster.pub` or will have to modify the `config` file.
 
 ## Slurm and Partitions
@@ -32,7 +34,7 @@ The most up to date list of partitions can always be found by running the `sinfo
 | parallel  | optimized for large parallel jobs, up to two days of walltime |
 | debug     | two nodes reserved for short tests, up to four hours of walltime |
 
-Each partition also has a matching `-standby` partition. Allocations which have consumed all awarded AUs for the year may only submit jobs to these partitions, and their default QoS will be set to `standby`. Jobs in standby partitions will be scheduled when there are otherwise idle cycles and no other non-standby jobs are available. 
+Each partition also has a matching `-standby` partition. Allocations which have consumed all awarded AUs for the year may only submit jobs to these partitions, and their default QoS will be set to `standby`. Jobs in standby partitions will be scheduled when there are otherwise idle cycles and no other non-standby jobs are available. Jobs that run in the standby queue will not be charged any AUs. 
 
 Any allocation may submit a job to a standby QoS, even if there are unspent AUs.
 
@@ -40,6 +42,19 @@ By default, nodes can be shared between users.  To get exclusive access to a nod
 
 !!! tip "Important"
     Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core. This behavior differs from Eagle.
+
+### GPU Nodes
+
+Swift now has ten GPU nodes. Each GPU node has 4 NVIDIA A100 40GB GPUs, 96 CPU cores, and 1TB RAM. 
+
+GPU nodes are also shared, meaning that less than a full node may be requested for a job, leaving the remainder of the node for use by other jobs concurrently. (See the section below on AU Charges for how this affects the AU usage rate.) 
+
+To request use of a GPU, use the flag `--gres=gpu:<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. 
+
+#### CPU Core and RAM Defaults on GPU Nodes
+
+If your job will require more than the default 1 CPU core and 1.5GB RAM you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`. See the [Slurm Job Scheduling](https://nrel.github.io/HPC/Documentation/Slurm/) section for details on requesting additional resources.
+
 
 ## Allocation Unit (AU) Charges
 
@@ -51,7 +66,9 @@ The **Walltime** is the actual length of time that the job runs, in hours or fra
 
 The **Number of nodes** can be whole nodes or fractions of a node. See below for more information.
 
-The **Charge Factor** for Swift is **5**. 
+The **Charge Factor** for Swift CPU nodes is **5**. 
+
+The **Charge Factor** for Swift GPU nodes is **50**, or **12.5 per GPU**.
 
 The **QoS Factor** for *normal priority* jobs is **1**. 
 
@@ -59,15 +76,19 @@ The **QoS Factor** for *high-priority* jobs is **2**.
 
 The **QoS Factor** for *standby priority* jobs is **0**. There is no AU cost for standby jobs.
 
-One node for one hour of walltime at *normal priority* costs **5 AU** total.
+One CPU node for one hour of walltime at *normal priority* costs **5 AU** total.
 
-One node for one hour of walltime at *high priority* costs **10 AU** total.
+One CPU node for one hour of walltime at *high priority* costs **10 AU** total.
 
-### Fractional Nodes
+One GPU for one hour of walltime at *normal priority* costs **12.5 AU** total.
+
+Four GPUs for one hour of walltime at *normal priority* costs **50 AU** total.
+
+### Shared/Fractional CPU Nodes
 
 Swift allows jobs to share nodes, meaning fractional allocations are possible. 
 
-Standard compute nodes have 128 CPU cores and 256GB RAM.
+Standard (CPU) compute nodes have 128 CPU cores and 256GB RAM.
 
 When a job only requests part of a node, usage is tracked on the basis of: 
 
@@ -75,11 +96,57 @@ When a job only requests part of a node, usage is tracked on the basis of:
 
 Using all resources on a single node, whether CPU, RAM, or both, will max out at 128/128 per node = 1.
 
+**The highest quantity of resource requested will determine the total AU charge.**
+
 For example, a job that requests 64 cores and 128GB RAM (one half of a node) would be: 
 
 1 hour walltime * 0.5 nodes * 1 QoS Factor * 5 Charge Factor = **2.5** AU per node-hour.
 
+### Shared/Fractional GPU Nodes
+
+Jobs on Swift may also share GPU nodes.
+
+Standard GPU nodes have 96 CPU cores, four NVIDIA A100 40GB GPUs, and 1TB RAM.
+
+You may request 1, 2, 3, or 4 GPUs per GPU node, as well as any additional CPU and RAM required. 
+
+Usage is tracked on the basis of: 
+
+1 GPU = 25% of total cores (24/96) = 25% of total RAM (256GB/1TB) = 25% of a node 
+
+**The highest quantity of resource requested will determine the total AU charge.**
+
+### AU Calculation Examples
+
+AU calculations are performed automatically between the Slurm scheduler and [Lex](https://hpcprojects.nrel.gov)(NREL's web-based allocation tracking/management software). The following calculations are approximations to help illustrate how your AU will be consumed based on your job resource requests and are approximations only:
+
+A request of 1 GPU, up to 24 CPU cores, and up to 256GB RAM will be charged at 12.5 AU/hr:
+
+* 1/4 GPUs = 25% total GPUs = 50 AU * 0.25 = **12.5 AU** (this is what will be charged)
+* 1 core = 1% total cores = 50 AU * 0.01 = 0.50 AU   (ignored) 
+* 1GB/1TB = 0.1% total RAM = 50 AU * 0.001 = 0.05 AU (ignored)
+
+A request of 1 GPU, 48 CPU cores, and 100GB RAM will be charged at 25 AU/hr:
+
+* 1/4 GPUs = 25% total GPUs = 50 AU * 0.25 = 12.5 AU (ignored)
+* 48/96 cores = 50% total cores = 50 AU * 0.5 = **25 AU** (this is what will be charged)
+* 100GB/1TB = 10% total RAM = 50 AU * 0.10 = 5 AU (ignored)
+
+A request of 2 GPUs, 55 CPU cores, and 200GB RAM will be charged at approximately 28.7 AU/hr:
+
+* 2/4 GPUs = 50% total GPUS = 50 AU * 0.5 = 25 AU (ignored)
+* 55/96 cores = 57.3% of total cores = 50 AU * .573 = **28.65 AU** (this is what will be charged)
+* 200GB/1TB = 20% total RAM = 50 AU * 0.2 = 10 AU (ignored)
+
+A request of 1 GPU, 1 CPU core, and 1TB RAM will be charged at 50 AU/hr:
+
+* 1/4 GPUs = 25% total GPUS = 50 AU * 0.25 = 12.5 AU (ignored)
+* 1/96 cores = 1% total cores = 50 AU * 0.01 = 0.50 AU (ignored)
+* 1TB/1TB = 100% total RAM = 50 AU * 1 = **50 AU** (this is what will be charged)
+
+
 ## Software Environments and Example Files
+
 Multiple software environments are available on Swift, with a number of commonly used modules including compilers, common build tools, specific AMD optimized libraries, and some analysis tools. The environments are in date stamped subdirectories, in the directory /nopt/nrel/apps. Each environment directory has a file myenv.\*.  Sourcing that file will enable the environment.
 
 When you login you will have access to the default environments and the *myenv* file will have been sourced for you. You can see the directory containing the environment by running the `module avail` command.  
@@ -368,198 +435,7 @@ task    thread             node name  first task    # on node  core
 0001      0001                 c1-32        0000         0001  0099
 ```
 
+## VASP, Jupyter, Julia, and Other Applications on Swift
 
-## Running VASP
-
-The batch script given above can be modified to run VASP. To do so, load the VASP module, as well:
-
-```bash
-ml vasp
-```
-
-This will give you:
-
-```bash
-
-[nrmc2l@swift-login-1 ~ example]$ which vasp_gam
-/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_gam
-[nrmc2l@swift-login-1 ~ example]$ which vasp_ncl
-/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_ncl
-[nrmc2l@swift-login-1 ~ example]$ which vasp_std
-/nopt/nrel/apps/210928a/level02/gcc-9.4.0/vasp-6.1.1/bin/vasp_std
-[nrmc2l@swift-login-1 ~ example]$ 
-```
-
-Note the directory might be different.
-
-Then you need to add calls in your script to set up / point do your data files. So your final script will look something like the following. Here we use data downloaded from NREL's benchmark repository and it is also included in the copied subdirectory */example* named with *runvasp*:
-
-```bash
-#!/bin/bash
-#SBATCH --job-name=b2_4
-#SBATCH --nodes=1
-#SBATCH --time=4:00:00
-##SBATCH --error=std.err
-##SBATCH --output=std.out
-#SBATCH --account=<myaccount>
-#SBATCH --partition=debug
-#SBATCH --exclusive
-
-cat $0
-
-hostname
-
-module purge
-ml slurm openmpi gcc vasp 
-
-#### get input and set it up
-#### This is from an old benchmark test
-#### see https://github.nrel.gov/ESIF-Benchmarks/VASP/tree/master/bench2
-
-mkdir $SLURM_JOB_ID
-cp input/* $SLURM_JOB_ID
-cd $SLURM_JOB_ID
-
-
-
-srun   -n 16 vasp_std > vasp.$SLURM_JOB_ID
-
-```
-This will run a version of Vasp built with openmpi and gfortran/gcc. You can run a version of Vasp built with the Intel toolchain replacing the *ml* line with the following module load as shown in *runvaspintel* under */example*:
-
- ```ml vaspintel intel-oneapi-mpi intel-oneapi-compilers intel-oneapi-mkl```
-
-
-## Running Jupyter / Jupyter-lab
-
-Jupyter and Jupyter-lab are available by loading the module "python/3.10.0-wwsaj4n" or "python/3.9.6-mydisst". If loading "python/3.10.0-wwsaj4n":
-
-```bash
-
-[nrmc2l@swift-login-1 ~]$ ml python/3.10.0-wwsaj4n
-[nrmc2l@swift-login-1 ~]$ which python
-/nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/python
-[nrmc2l@swift-login-1 ~]$ which jupyter
-/nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/jupyter
-[nrmc2l@swift-login-1 ~]$ which jupyter-lab
-/nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/bin/jupyter-lab
-[nrmc2l@swift-login-1 ~]$ 
-```
-
-It is recommended that you use the --no-browser option and connect to your notebook from your desktop using a ssh tunnel and web browser.
-
-On Swift enter the command below, and note the URLs in the output:  
-
-```bash
-[nrmc2l@swift-login-1 ~]$ jupyter-lab --no-browser
-[I 2022-03-30 07:54:25.937 ServerApp] jupyterlab | extension was successfully linked.
-[I 2022-03-30 07:54:26.224 ServerApp] nbclassic | extension was successfully linked.
-[I 2022-03-30 07:54:26.255 ServerApp] nbclassic | extension was successfully loaded.
-[I 2022-03-30 07:54:26.257 LabApp] JupyterLab extension loaded from /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/lib/python3.10/site-packages/jupyterlab
-[I 2022-03-30 07:54:26.257 LabApp] JupyterLab application directory is /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/share/jupyter/lab
-[I 2022-03-30 07:54:26.260 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2022-03-30 07:54:26.261 ServerApp] Serving notebooks from local directory: /home/nrmc2l
-[I 2022-03-30 07:54:26.261 ServerApp] Jupyter Server 1.11.1 is running at:
-[I 2022-03-30 07:54:26.261 ServerApp] http://localhost:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-[I 2022-03-30 07:54:26.261 ServerApp]  or http://127.0.0.1:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-[I 2022-03-30 07:54:26.261 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2022-03-30 07:54:26.266 ServerApp] 
-    
-    To access the server, open this file in a browser:
-        file:///home/nrmc2l/.local/share/jupyter/runtime/jpserver-2056000-open.html
-    Or copy and paste one of these URLs:
-        http://localhost:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-     or http://127.0.0.1:8888/lab?token=183d33c61bb136f8d04b83c70c4257a976060dd84afc9156
-```
-Note the *8888* in the URL it might be different. On your desktop in a new terminal window enter the command:
-
-```bash
-ssh -t -L 8888:localhost:8888 swift-login-1.hpc.nrel.gov
-```
-
-replacing 8888 with the number in the URL if it is different.
-
-Then in a web browser window, paste the URL to bring up a new notebook.
-
-## Running Jupyter / Jupyter-lab on a compute node
-
-You can get an interactive session on a compute node with the salloc command, as in the following example:
-
-```bash
-[nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
-```
-
-but replacing *hpcapps* with your account. After you get a session on a node, `module load python` and run as shown above.
-
-```bash
-[nrmc2l@swift-login-1 ~]$ salloc  --account=hpcapps   --exclusive    --time=01:00:00   --ntasks=16           --nodes=1 --partition=debug
-salloc: Pending job allocation 313001
-salloc: job 313001 queued and waiting for resources
-salloc: job 313001 has been allocated resources
-salloc: Granted job allocation 313001
-[nrmc2l@c1-28 ~]$ 
-[nrmc2l@c1-28 ~]$ module load python
-[nrmc2l@c1-28 ~]$ 
-
-[nrmc2l@c1-28 ~]$ jupyter-lab --no-browser
-[I 2022-03-30 08:04:28.063 ServerApp] jupyterlab | extension was successfully linked.
-[I 2022-03-30 08:04:28.468 ServerApp] nbclassic | extension was successfully linked.
-[I 2022-03-30 08:04:28.508 ServerApp] nbclassic | extension was successfully loaded.
-[I 2022-03-30 08:04:28.509 LabApp] JupyterLab extension loaded from /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/lib/python3.10/site-packages/jupyterlab
-[I 2022-03-30 08:04:28.509 LabApp] JupyterLab application directory is /nopt/nrel/apps/210928a/level00/gcc-9.4.0/python-3.10.0/share/jupyter/lab
-[I 2022-03-30 08:04:28.513 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2022-03-30 08:04:28.513 ServerApp] Serving notebooks from local directory: /home/nrmc2l
-[I 2022-03-30 08:04:28.514 ServerApp] Jupyter Server 1.11.1 is running at:
-[I 2022-03-30 08:04:28.514 ServerApp] http://localhost:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-[I 2022-03-30 08:04:28.514 ServerApp]  or http://127.0.0.1:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-[I 2022-03-30 08:04:28.514 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2022-03-30 08:04:28.519 ServerApp] 
-    
-    To access the server, open this file in a browser:
-        file:///home/nrmc2l/.local/share/jupyter/runtime/jpserver-3375148-open.html
-    Or copy and paste one of these URLs:
-        http://localhost:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-     or http://127.0.0.1:8888/lab?token=cd101872959be54aea33082a8af350fc7e1484e47a9fdfbf
-```
-
-
-On your desktop run the command:
-
-```bash
-ssh -t -L 8888:localhost:8475 swift-login-1 ssh -L 8475:localhost:8888 c1-28
-```
-
-replacing *8888* with the value in the URL if needed and c1-28 with the name of the compute node on which you are running. Then again paste the URL in a web browser. You should get a notebook running on the compute node.
-
-
-## Running Julia 
-
-Julia is also available via a module.  
-
-```bash
-[nrmc2l@swift-login-1:~ ] $ module spider julia
-...
-     Versions:
-        julia/1.6.2-ocsfign
-        julia/1.7.2-gdp7a25
-...
-[nrmc2l@swift-login-1:~ ] $ 
-
-[nrmc2l@swift-login-1:~/examples/spack ] $ module load julia/1.7.2-gdp7a25 
-[nrmc2l@swift-login-1:~/examples/spack ] $ which julia
-/nopt/nrel/apps/210928a/level03/install/linux-rocky8-zen2/gcc-9.4.0/julia-1.7.2-gdp7a253nsglyzssybqknos2n5amkvqm/bin/julia
-[nrmc2l@swift-login-1:~/examples/spack ] $ 
-
-```
-Julia can be run in a Jupyter notebook as discussed above. However, before doing so you will need to run the following commands in each Julia version you are using:  
-
-```bash
-julia> using Pkg
-julia> Pkg.add("IJulia")
-
-```
-
-Please see [https://datatofish.com/add-julia-to-jupyter/](https://datatofish.com/add-julia-to-jupyter/) for more information.
-
-If you would like to install your own copy of Julia complete with Jupyter-lab, contact Tim Kaiser **tkaiser2@nrel.gov** for a script to do so.
+Please see the relevant page in the [Applications](https://nrel.github.io/HPC/Documentation/Applications/) section for more information on using applications on Swift and other NREL clusters.
 
