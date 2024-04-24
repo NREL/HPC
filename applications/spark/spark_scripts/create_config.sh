@@ -2,11 +2,7 @@
 
 # Creates the base config file and copies the Spark configuration files to the user's directory.
 
-if [ ! -z ${NREL_CLUSTER} ] && [ ${NREL_CLUSTER} == "kestrel" ]; then
-    CONTAINER_PATH="/kfs2/pdatasets/images/apache_spark/spark350_py311.sif"
-else
-    CONTAINER_PATH="/datasets/images/apache_spark/spark350_py311.sif"
-fi
+CONTAINER_PATH="/datasets/images/apache_spark/spark350_py311.sif"
 CONTAINER_NAME="spark"
 DIRECTORY=$(pwd)
 NODE_MEMORY_OVERHEAD_GB="5"
