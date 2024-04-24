@@ -34,7 +34,7 @@ The most up to date list of partitions can always be found by running the `sinfo
 | parallel  | optimized for large parallel jobs, up to two days of walltime |
 | debug     | two nodes reserved for short tests, up to four hours of walltime |
 
-Each partition also has a matching `-standby` partition. Allocations which have consumed all awarded AUs for the year may only submit jobs to these partitions, and their default QoS will be set to `standby`. Jobs in standby partitions will be scheduled when there are otherwise idle cycles and no other non-standby jobs are available. 
+Each partition also has a matching `-standby` partition. Allocations which have consumed all awarded AUs for the year may only submit jobs to these partitions, and their default QoS will be set to `standby`. Jobs in standby partitions will be scheduled when there are otherwise idle cycles and no other non-standby jobs are available. Jobs that run in the standby queue will not be charged any AUs. 
 
 Any allocation may submit a job to a standby QoS, even if there are unspent AUs.
 
@@ -45,13 +45,15 @@ By default, nodes can be shared between users.  To get exclusive access to a nod
 
 ### GPU Nodes
 
-Swift now has ten GPU nodes, each with four NVIDIA A100 40GB GPUs, 96 CPU cores, and 1TB RAM.
+Swift now has ten GPU nodes. Each GPU node has 4 NVIDIA A100 40GB GPUs, 96 CPU cores, and 1TB RAM. 
 
-To request use of a GPU node, use `--gres=gpu:<quantity>`, where quantity may be from 1-4.
+GPU nodes are also shared, meaning that less than a full node may be requested for a job, leaving the remainder of the node for use by other jobs concurrently. (See the section below on AU Charges for how this affects the AU usage rate.) 
 
-GPUs can be requested either at the command line when submitting your job with sbatch or srun/salloc, or add it as an `#SBATCH` directive in your sbatch script.
+To request use of a GPU, use the flag `--gres=gpu:<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. 
 
-Be sure to specify `--mem=` if more than the default RAM per core is required, and/or the number of CPU cores (e.g. `--ntasks=`, `--cpus-per-task=`). See the section below on Shared/Fractional node usage for more information on partial node requests and AU calculations.
+#### CPU Core and RAM Defaults on GPU Nodes
+
+If your job will require more than the default 1 CPU core and 1.5GB RAM you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`. See the [Slurm Job Scheduling](https://nrel.github.io/HPC/Documentation/Slurm/) section for details on requesting additional resources.
 
 
 ## Allocation Unit (AU) Charges
@@ -114,7 +116,15 @@ Usage is tracked on the basis of:
 
 **The highest quantity of resource requested will determine the total AU charge.**
 
-For example, a request of 1 GPU, up to 24 CPU cores, and up to 256GB RAM will be charged at 12.5 AU/hr.
+### AU Calculation Examples
+
+AU calculations are performed automatically between the Slurm scheduler and [Lex](https://hpcprojects.nrel.gov)(NREL's web-based allocation tracking/management software). The following calculations are approximations to help illustrate how your AU will be consumed based on your job resource requests and are approximations only:
+
+A request of 1 GPU, up to 24 CPU cores, and up to 256GB RAM will be charged at 12.5 AU/hr:
+
+* 1/4 GPUs = 25% total GPUs = 50 AU * 0.25 = **12.5 AU** (this is what will be charged)
+* 1 core = 1% total cores = 50 AU * 0.01 = 0.50 AU   (ignored) 
+* 1GB/1TB = 0.1% total RAM = 50 AU * 0.001 = 0.05 AU (ignored)
 
 A request of 1 GPU, 48 CPU cores, and 100GB RAM will be charged at 25 AU/hr:
 
@@ -124,11 +134,15 @@ A request of 1 GPU, 48 CPU cores, and 100GB RAM will be charged at 25 AU/hr:
 
 A request of 2 GPUs, 55 CPU cores, and 200GB RAM will be charged at approximately 28.7 AU/hr:
 
-* 2/4 GPUs = 0.5 * 50 = 25 AU (ignored)
-* 55/96 cores ~= 57.3% of total cores, 50 * .573 = **28.65 AU** (this is what will be charged)
-* 200GB/1TB = 0.2 * 50 = 10 AU (ignored)
+* 2/4 GPUs = 50% total GPUS = 50 AU * 0.5 = 25 AU (ignored)
+* 55/96 cores = 57.3% of total cores = 50 AU * .573 = **28.65 AU** (this is what will be charged)
+* 200GB/1TB = 20% total RAM = 50 AU * 0.2 = 10 AU (ignored)
 
-RAM usage may be calculated in a similar fashion.
+A request of 1 GPU, 1 CPU core, and 1TB RAM will be charged at 50 AU/hr:
+
+* 1/4 GPUs = 25% total GPUS = 50 AU * 0.25 = 12.5 AU (ignored)
+* 1/96 cores = 1% total cores = 50 AU * 0.01 = 0.50 AU (ignored)
+* 1TB/1TB = 100% total RAM = 50 AU * 1 = **50 AU** (this is what will be charged)
 
 
 ## Software Environments and Example Files
