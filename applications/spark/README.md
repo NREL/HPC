@@ -32,16 +32,22 @@ $ singularity --help
 
 Existing containers on Kestrel and Eagle:
 
-- Spark 3.5.0 and Python 3.11, 3.12 (default = 3.12):
-  - This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `pyarrow`.
-  - Kestrel: `/kfs2/pdatasets/images/apache_spark/spark350_py311.sif`
-  - Eagle: `/datasets/images/apache_spark/spark350_py311.sif`
+- Spark 3.5.0 and Python 3.11, 3.12 (default = 3.12)
+
+  This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `pyarrow`.
+
+  ```
+  /datasets/images/apache_spark/spark350_py311.sif
+  ```
 
 - Spark 3.3.1 and R 4.0.4:
-  - This image includes the packages `tidyverse`, `sparklyr`, `data.table`, `here`, `janitor`, and
-    `skimr`.
-  - Kestrel: `/kfs2/pdatasets/images/apache_spark/spark_r.sif`
-  - Eagle: `/datasets/images/apache_spark/spark_r.sif`
+
+  This image includes the packages `tidyverse`, `sparklyr`, `data.table`, `here`, `janitor`, and
+  `skimr`.
+
+  ```
+  /datasets/images/apache_spark/spark350_py311.sif
+  ```
 
 ## Setup
 
@@ -177,7 +183,7 @@ Here are some parameters in the `conf` files to consider editing:
    memory. Adjust other parameters accordingly. If on Kestrel, you may be able to set it to a
    directory on the Lustre filesystem.
    - `SPARK_WORKER_DIR`: The Spark worker processes will log to this directory
-     and use it for scratch space. It is configured to go to `/tmp/scratch` by default. Change it
+     and use it for scratch space. It is configured to go to `$TMPDIR` by default. Change it
      or copy the files before relinquishing the nodes if you want to preserve the files. They can
      be useful for debugging errors.
 
