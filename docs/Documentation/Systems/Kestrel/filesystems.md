@@ -102,9 +102,10 @@ Each user has their own directory in /scratch.
 
 Some Kestrel compute nodes have an NVMe local solid-state drive (SSD) for use by compute jobs. They vary in size; 1.7TB on 256 of the standard compute nodes and 5.8TB on the bigmem nodes. There are several possible scenarios in which a local disk may make your job run faster. For instance, you may have a job accessing or creating many small (temporary) files, you may have many parallel tasks accessing the same file, or your job may do many random reads/writes or memory mapping.
 
+
 **/tmp/scratch**
 
-The local disk is mounted at /tmp/scratch. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. 
+The local disk on nodes that have one is mounted at `/tmp/scratch`. To write to the local disk, use the `$TMPDIR` environment variable, which is set to `/tmp/scratch/<JOBID>`. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. Note that writing to `$TMPDIR` on a node without a real local disk will use RAM. 
 
 To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). For more information about requesting this feature, please see the [Running on Kestrel page](./running.md).
 
