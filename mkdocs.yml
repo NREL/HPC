@@ -54,6 +54,7 @@ nav:
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
+        - Node Local Storage: Documentation/Managing_Data/localstorage.md
         - Transferring Files:
           - Documentation/Managing_Data/Transferring_Files/index.md
           - Documentation/Managing_Data/Transferring_Files/FileZilla.md
