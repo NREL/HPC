@@ -33,12 +33,9 @@ To get a Globus account, sign up on the [Globus account website](https://www.glo
 
 The current NREL Globus Endpoints are:
 
-- **nrel#eglobus** - this endpoint allows access to any files on Eagle 
-(e.g., /projects, /scratch, /home, /datasets, /campaign, and /shared-projects)
-- **nrel#globus-hpc1** and **nrel#globus-hpc2** - these endpoints allows access to *some* files
-on Eagle (e.g., /campaign, /datasets, /shared-projects, /mss) and can be mounted
-to other systems within the ESIF Data Center upon request  
-- **nrel#kglobus_projects** - this endpoint allows access to Kestrel, and points to /projects.
+- **nrel#eglobus** - This endpoint allows access to any files on Eagle's Lustre file system: /scratch and /projects. 
+- **nrel#kglobus_projects** - This endpoint will give you access to any files you have on the Kestrel Project File System: /datasets, /projects, and /shared-projects.
+- **nrel#vast** - This endpoint will give you access to any files you have on our VAST file system: /campaign, /datasets (Eagle), /MSS and /shared-projects (Eagle).
 
 ## Globus Personal Endpoints
 
