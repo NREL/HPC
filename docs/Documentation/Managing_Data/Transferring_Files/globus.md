@@ -35,7 +35,7 @@ The current NREL Globus Endpoints are:
 
 - **nrel#eglobus** - This endpoint allows access to any files on Eagle's Lustre file system: /scratch and /projects. 
 - **nrel#kglobus_projects** - This endpoint will give you access to any files you have on the Kestrel Project File System: /datasets, /projects, and /shared-projects.
-- - **nrel#kglobus_scratch** - This endpoint will give you access to any files you have on the Kestrel Scratch File System: /scratch.
+- **nrel#kglobus_scratch** - This endpoint will give you access to any files you have on the Kestrel Scratch File System: /scratch.
 - **nrel#vast** - This endpoint will give you access to any files you have on our VAST file system: /campaign, /datasets (Eagle), /MSS and /shared-projects (Eagle).
 
 ## Globus Personal Endpoints
