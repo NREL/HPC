@@ -71,19 +71,19 @@ To request a /shared-projects directory, please contact [hpc-help@nrel.gov](mail
 !!! info 
     Shared project directories are not automatically synced between Eagle and Kestrel. 
 
-**/kfs2/pdatasets**
+**/kfs2/datasets**
 
-The /kfs2/pdatasets directory on Kestrel hosts widely used data sets.
+The /kfs2/datasets directory on Kestrel hosts widely used data sets.
 
-There are multiple big data sets that are commonly used across various projects for computation and analysis on NREL's HPC Systems. We provide a common location on Kestrel's filesystem at /kfs2/pdatasets, where these data sets are available for global reading by all compute nodes. Each data set contains a readme file that covers background, references, explanation of the data structure, and Python examples.
+There are multiple big data sets that are commonly used across various projects for computation and analysis on NREL's HPC Systems. We provide a common location on Kestrel's filesystem at /kfs2/datasets, where these data sets are available for global reading by all compute nodes. Each data set contains a readme file that covers background, references, explanation of the data structure, and Python examples.
 
 These datasets include: 
 
-**/kfs2/pdatasets/NSRDB**
+**/kfs2/datasets/NSRDB**
 
 The National Solar Radiation Database (NSRDB) is a serially complete collection of meteorological and solar irradiance data sets for the United States and a growing list of international locations for 1998-2017. The NSRDB provides foundational information to support U.S. Department of Energy programs, research, and the general public.
 
-**/kfs2/pdatasets/WIND**
+**/kfs2/datasets/WIND**
 
 The Wind Integration National Data Set (WIND) Toolkit consists of wind resource data for North America and was produced using the Weather Research and Forecasting Model (WRF).
 
@@ -102,9 +102,10 @@ Each user has their own directory in /scratch.
 
 Some Kestrel compute nodes have an NVMe local solid-state drive (SSD) for use by compute jobs. They vary in size; 1.7TB on 256 of the standard compute nodes and 5.8TB on the bigmem nodes. There are several possible scenarios in which a local disk may make your job run faster. For instance, you may have a job accessing or creating many small (temporary) files, you may have many parallel tasks accessing the same file, or your job may do many random reads/writes or memory mapping.
 
+
 **/tmp/scratch**
 
-The local disk is mounted at /tmp/scratch. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. 
+The local disk on nodes that have one is mounted at `/tmp/scratch`. To write to the local disk, use the `$TMPDIR` environment variable, which is set to `/tmp/scratch/<JOBID>`. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. Note that writing to `$TMPDIR` on a node without a real local disk will use RAM. 
 
 To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). For more information about requesting this feature, please see the [Running on Kestrel page](./running.md).
 

@@ -2,6 +2,17 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
+## April 12 - April 17
+
+1. The size of the [shared node partition](./running.md#shared-node-partition) was doubled from 32 nodes to 64 nodes. 
+
+2. Cray programming environment (CPE) 23.12 is now the default on the system. 
+
+3. To use node local storage, you will now need to use the `$TMPDIR` environment variable. `$TMPDIR` will now be set to `/tmp/scratch/$JOBID`. Hard-coding `/tmp/scratch` won't work. This change was made to prevent conflicts between multiple users/jobs writing to local disk on shared nodes. As a reminder, writing to `$TMPDIR` will use local disk on the nodes that have one, and RAM (up to 128Gb) on nodes without.
+
+4. `/kfs2/pdatasets` was renamed to `/kfs2/datasets` and a symlink `/datasets` was added. 
+
+
 ## Jan. 29 - Feb. 14 Upgrades
 
 1. We have experienced that most previously built software runs without modification (this includes NREL provided modules) and performs at the same level. 

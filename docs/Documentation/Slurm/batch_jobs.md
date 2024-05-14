@@ -62,7 +62,8 @@ You may use these environment variables in your sbatch scripts to help control o
 
 | Parameter        | Semantic Value    | Sample Value             |
 | ---------------- | ----------------- | ------------------------ |
-| `$LOCAL_SCRATCH` | Absolute directory path for local-only disk space per node. This should always be /tmp/scratch for compute nodes.| `/tmp/scratch`|
+| `$LOCAL_SCRATCH` | Absolute directory path for local-only disk space per node. This should always be /tmp/scratch for compute nodes with local disk.| `/tmp/scratch`|
+| `$TMPDIR` | Path for temporary directory for scratch space. Uses local storage on compute nodes with local disk, and RAM on those without. | `/tmp/scratch/<JOBID>` (default value on Kestrel)|
 | `$SLURM_CLUSTER_NAME` | The cluster name as per the master configuration in Slurm. Identical to `$NREL_CLUSTER`. | `kestrel`, `eagle`,`swift`|
 | `$SLURM_CPUS_ON_NODE` | Quantity of CPUs per compute node. | `104` |
 | `$SLURMD_NODENAME` | Slurm name of the node on which the variable is evaluated. Matches hostname. | `r4i2n3`|
