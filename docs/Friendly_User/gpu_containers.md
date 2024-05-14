@@ -152,8 +152,8 @@ Now we are ready to run the Tensorflow container. We will run the script below, 
         gradients = tape.gradient(loss, model.trainable_variables)
         optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
-    train_loss(loss)
-    train_accuracy(labels, predictions)
+        train_loss(loss)
+        train_accuracy(labels, predictions)
 
     # test the model
     @tf.function
@@ -163,8 +163,8 @@ Now we are ready to run the Tensorflow container. We will run the script below, 
         predictions = model(images, training=False)
         t_loss = loss_object(labels, predictions)
 
-    test_loss(t_loss)
-    test_accuracy(labels, predictions)
+        test_loss(t_loss)
+        test_accuracy(labels, predictions)
 
 
     t0 = time.time()
