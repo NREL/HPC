@@ -1,0 +1,30 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+ml craype-x86-genoa 
+ml gcc-native
+ml PrgEnv-nvhpc
+ml cray-libsci/23.05.1.4
+
+: << ++++ 
+ Compile our program.
+ 
+ Here we use CC. If we were compiling Fortran
+ then ftn instead of CC.  These are wrappers
+ that point to Cray MPI and with PrgEnv-nvhpc
+ we get Nvidia's back end compilers.  
+++++
+
+CC -gpu=cc90   ping_pong_cuda_staged.cu -o staged
+
+
+: We run with 2 tasks total. One 1 and two nodes
+echo running staged on node
+srun  --nodes=1 --tasks-per-node=2 ./staged
+
+echo running staged off node
+srun  --nodes=2 --tasks-per-node=1 ./staged
+

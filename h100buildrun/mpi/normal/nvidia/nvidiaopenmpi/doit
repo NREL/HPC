@@ -1,0 +1,31 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa 
+ml gcc-native 
+ml nvhpc-hpcx-cuda12/24.1
+
+: << ++++ 
+ Compile our program
+ Here we use mpicc and mpif90.  There is support for Cuda
+ but we are not using it in this case.
+++++
+
+mpicc helloc.c -o helloc
+mpif90 hellof.f90 -o hellof
+
+: This version of MPI does not support srun so we use mpirun
+: We run with two tasks per nodes an two tasks on one node.
+for arg in "-N 2" "-n 2" ; do 
+   echo runnning Fortran version
+   mpirun $arg hellof
+   echo
+   echo runnning C version
+   mpirun $arg helloc
+   echo
+done
+

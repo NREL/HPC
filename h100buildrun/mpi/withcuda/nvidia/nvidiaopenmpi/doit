@@ -1,0 +1,29 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa 
+ml gcc-native 
+ml nvhpc-hpcx-cuda12/24.1
+#ml nvhpc-native/24.1
+
+: << ++++ 
+ Compile our program
+ Here we use mpiCC which uses Nvidia's version of MPI and
+ their backend compiler. The "hpcx" has a few more optimizations.
+++++
+
+mpiCC ping_pong_cuda_staged.cu -o staged
+
+: We run with 2 tasks total.
+: This version of MPI does not support srun so we use mpirun
+
+echo Run on a single node
+mpirun -n 2 -N 2 ./staged
+
+echo Run on two nodes 
+mpirun -n 2 -N 1 ./staged
+

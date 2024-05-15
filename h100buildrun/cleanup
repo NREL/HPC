@@ -1,0 +1,12 @@
+# run this to remove all files not part of the repo
+cleandoit ()
+{
+  newf=`git ls-files --others --exclude-standard`
+  for x in $newf ; do
+    echo $x
+    rm $x
+  done
+}
+
+cleandoit
+

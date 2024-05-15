@@ -1,0 +1,23 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa 
+ml gcc-native 
+ml openmpi/4.1.6-nvhpc
+ml nvhpc-nompi/24.1
+
+: << ++++ 
+ Compile our program
+ Here we use mpicc and mpif90.  There is support for Cuda
+ but we are not directly using it in this case, just openacc.
+++++
+
+mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
+
+: We run with 4 tasks per nodes.
+srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
+

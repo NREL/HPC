@@ -1,0 +1,27 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+ml craype-x86-genoa 
+ml gcc-native
+ml PrgEnv-nvhpc
+ml cray-libsci/23.05.1.4  
+
+: << ++++ 
+ Compile our program.
+ 
+ Here we use cc and CC.  These are wrappers
+ that point to Cray MPI but use Nvidia backend 
+ comilers.
+++++
+
+CC -gpu=cc90  -cuda -target-accel=nvidia90  -c ping_pong_cuda_aware.cu
+cc -gpu=cc90  -cuda -target-accel=nvidia90 -lcudart -lcuda ping_pong_cuda_aware.o -o pp_cuda_aware
+
+export MPICH_GPU_SUPPORT_ENABLED=1
+srun -n 2 --nodes=1 ./pp_cuda_aware
+srun --tasks-per-node=1 --nodes=2 ./pp_cuda_aware
+unset MPICH_GPU_SUPPORT_ENABLED
+

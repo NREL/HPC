@@ -1,0 +1,50 @@
+: Start from a known module state, the default
+module restore
+: Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa
+ml gcc-native/12.1
+ml nvhpc-native
+
+
+: << ++++ 
+ Compile our GPU programs.
+ The module nvhpc-native gives us access to Nvidia's compilers
+ nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+ compilers which are actually links to these.
+++++
+
+nvcc -O3 -forward-unknown-to-host-compiler  --generate-code=arch=compute_90,code=[compute_90,sm_90] -std=c++11 -x cu 3d_mgpu_c2c_example.cpp -c
+export L1=$NVHPC_ROOT/REDIST/math_libs/12.3/targets/x86_64-linux/lib
+nvcc  -o 3dfft 3d_mgpu_c2c_example.o -L$L1 -lcufft
+
+: Run our program on a cube. The first parameter gives our cube size.
+: 2048 should work on the H100s.
+: Second parameter determines which algorithm runs first 1 GPU version or 4 GPU version
+echo
+echo
+echo ++++++++++++++
+echo run 1 GPU version first
+./3dfft 512 1
+echo
+echo
+echo ++++++++++++++
+echo run 4 gpu version first
+./3dfft 512 2
+
+
+: Build and run a fftw version
+module restore
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+ml cray-fftw
+cc -O3 fftw3d.c -o fftw3.exe
+
+
+echo
+echo
+echo ++++++++++++++
+echo run fftw libsic version
+./fftw3.exe 512
+

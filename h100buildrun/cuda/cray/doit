@@ -1,0 +1,34 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+ml craype-x86-genoa
+ml gcc-native
+#ml PrgEnv-nvidia
+ml PrgEnv-nvhpc
+ml cray-libsci/23.05.1.4 
+
+: << ++++ 
+ Compile our program
+ CC as well as cc, and ftn are wrapper compilers. Because
+ we have PrgEnv-nvidia loaded they map to Nvidia's compilers
+ but use would use Cray MPI if this was an MPI program.
+ Note we can also use nvcc since this is not an MPI program.
+++++
+
+
+CC -gpu=cc90  -cuda -target-accel=nvidia90  stream.cu  -o stream.sm_90
+# nvcc -std=c++11 -ccbin=g++ stream.cu -arch=sm_90 -o stream.sm_90
+
+: Run on all of our nodes
+nlist=`scontrol show hostnames | sort -u`
+for l in $nlist ; do   
+  echo $l
+  for GPU in 0 1 2 3 ; do
+: stream.cu will read the GPU on which to run from the command line
+      srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
+  done
+  echo
+done

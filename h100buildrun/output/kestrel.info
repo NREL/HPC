@@ -1,0 +1,724 @@
+++++++++ ./cuda/gccalso
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.3
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.7
+++++++++ ./cuda/cray
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+
+Lmod is automatically replacing "PrgEnv-cray/8.5.0" with "PrgEnv-gnu/8.5.0".
+
+
+Lmod is automatically replacing "cce/17.0.0" with "gcc-native/12.1".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5     2) cray-mpich/8.1.28
+
+
+Lmod is automatically replacing "gcc-native/12.1" with "nvidia/23.9".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.5.0" with "PrgEnv-nvidia/8.5.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.12.5 => cray-libsci/23.05.1.4
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.9
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.10
+++++++++ ./cuda/nvidia
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /opt/cray/pe/lmod/modulefiles/mix_compilers /opt/cray/pe/lmod/modulefiles/compiler/gnu/10.0 /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.05.1.4 => cray-libsci/23.12.5
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.17
+++++++++ ./openacc/cray
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Lmod is automatically replacing "gcc-native/12.1" with "nvhpc/23.9".
+
+"nbodyacc2.c", line 361: warning: incompatible redefinition of macro "FP64" [bad_macro_redef]
+  #define FP64
+          ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"nbodyacc2.c", line 588: warning: variable "p" was declared but never referenced [declared_but_not_referenced]
+      int p = 0, v=0;
+          ^
+
+"nbodyacc2.c", line 588: warning: variable "v" was declared but never referenced [declared_but_not_referenced]
+      int p = 0, v=0;
+                 ^
+
+"nbodyacc2.c", line 688: warning: argument of type "real4 *" is incompatible with parameter of type "double *" [incompatible_param]
+      checkdtol( pout, pout_ref, 4*n );
+                 ^
+
+"nbodyacc2.c", line 688: warning: argument of type "real4 *" is incompatible with parameter of type "double *" [incompatible_param]
+      checkdtol( pout, pout_ref, 4*n );
+                       ^
+
+check:
+     28, Loop not vectorized/parallelized: contains call
+check_:
+     51, check inlined, size=18 (inline) file nbodyacc2.c (23)
+          28, Loop not vectorized/parallelized: contains call
+checkf:
+     61, Loop not vectorized/parallelized: contains call
+checkf_:
+     84, checkf inlined, size=16 (inline) file nbodyacc2.c (56)
+          61, Loop not vectorized/parallelized: contains call
+checkftol:
+     95, Loop not vectorized/parallelized: contains call
+checkftol_:
+    122, checkftol inlined, size=27 (inline) file nbodyacc2.c (89)
+          95, Loop not vectorized/parallelized: contains call
+checkftol5:
+    133, Loop not vectorized/parallelized: contains call
+checkll:
+    165, Loop not vectorized/parallelized: contains call
+checkll_:
+    187, checkll inlined, size=18 (inline) file nbodyacc2.c (160)
+         165, Loop not vectorized/parallelized: contains call
+checkd:
+    197, Loop not vectorized/parallelized: contains call
+checkd_:
+    219, checkd inlined, size=16 (inline) file nbodyacc2.c (192)
+         197, Loop not vectorized/parallelized: contains call
+checkdtol:
+    230, Loop not vectorized/parallelized: contains call
+checkdtol_:
+    257, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         230, Loop not vectorized/parallelized: contains call
+fcpyf:
+    269, fcpyf_ inlined, size=2 (inline) file nbodyacc2.c (262)
+fcpyi:
+    281, fcpyi_ inlined, size=2 (inline) file nbodyacc2.c (274)
+bodyBodyInteraction:
+    381, Generating implicit acc routine seq
+         Generating acc routine seq
+         Generating NVIDIA GPU code
+seqintegrate:
+    387, FMA (fused multiply-add) instruction(s) generated
+    417, Loop not fused: different loop trip count
+    426, Zero trip check eliminated
+         Generated vector simd code for the loop containing reductions
+    428, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (381)
+    440, Generated vector simd code for the loop
+    457, FMA (fused multiply-add) instruction(s) generated
+    458, FMA (fused multiply-add) instruction(s) generated
+    459, FMA (fused multiply-add) instruction(s) generated
+    462, FMA (fused multiply-add) instruction(s) generated
+    463, FMA (fused multiply-add) instruction(s) generated
+    464, FMA (fused multiply-add) instruction(s) generated
+integrate:
+    387, FMA (fused multiply-add) instruction(s) generated
+    486, Generating copy(force[:n]) [if not already present]
+         Generating copyin(in[:n]) [if not already present]
+         Generating copyout(out[:n]) [if not already present]
+         Generating copy(vel[:n]) [if not already present]
+         Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+        488, #pragma acc loop gang /* blockIdx.x */
+        497, #pragma acc loop vector(128) /* threadIdx.x */
+             Generating implicit reduction(+:fz,fy,fx)
+    486, Local memory used for ff,.inl_f_623,.inl_.X1240_624
+    488, Loop not fused: no successor loop
+    497, Loop is parallelizable
+         Generated vector simd code for the loop containing reductions
+    499, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (381)
+    509, Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+        512, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+    512, Generating implicit firstprivate(dt)
+         Loop not fused: no successor loop
+         Generated vector simd code for the loop
+    529, FMA (fused multiply-add) instruction(s) generated
+    530, FMA (fused multiply-add) instruction(s) generated
+    531, FMA (fused multiply-add) instruction(s) generated
+    534, FMA (fused multiply-add) instruction(s) generated
+    535, FMA (fused multiply-add) instruction(s) generated
+    536, FMA (fused multiply-add) instruction(s) generated
+dot:
+    553, FMA (fused multiply-add) instruction(s) generated
+normalize:
+    559, dot inlined, size=6 (inline) file nbodyacc2.c (552)
+    559, FMA (fused multiply-add) instruction(s) generated
+cross:
+    571, FMA (fused multiply-add) instruction(s) generated
+    572, FMA (fused multiply-add) instruction(s) generated
+    573, FMA (fused multiply-add) instruction(s) generated
+randomizeBodies:
+    559, FMA (fused multiply-add) instruction(s) generated
+    571, FMA (fused multiply-add) instruction(s) generated
+    572, FMA (fused multiply-add) instruction(s) generated
+    590, Loop not vectorized/parallelized: contains call
+    593, FMA (fused multiply-add) instruction(s) generated
+    594, FMA (fused multiply-add) instruction(s) generated
+    595, FMA (fused multiply-add) instruction(s) generated
+    598, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+    611, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+    613, dot inlined, size=6 (inline) file nbodyacc2.c (552)
+    613, FMA (fused multiply-add) instruction(s) generated
+    617, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+    621, cross inlined, size=14 (inline) file nbodyacc2.c (570)
+    621, FMA (fused multiply-add) instruction(s) generated
+GetTimer:
+    664, FMA (fused multiply-add) instruction(s) generated
+checkCorrectness:
+    681, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (581)
+         428, FMA (fused multiply-add) instruction(s) generated
+         453, FMA (fused multiply-add) instruction(s) generated
+         457, FMA (fused multiply-add) instruction(s) generated
+         458, FMA (fused multiply-add) instruction(s) generated
+         459, FMA (fused multiply-add) instruction(s) generated
+         462, FMA (fused multiply-add) instruction(s) generated
+         463, FMA (fused multiply-add) instruction(s) generated
+         590, Loop not vectorized/parallelized: contains call
+         593, FMA (fused multiply-add) instruction(s) generated
+         594, FMA (fused multiply-add) instruction(s) generated
+         595, FMA (fused multiply-add) instruction(s) generated
+         598, FMA (fused multiply-add) instruction(s) generated
+         611, FMA (fused multiply-add) instruction(s) generated
+         613, FMA (fused multiply-add) instruction(s) generated
+         617, FMA (fused multiply-add) instruction(s) generated
+         621, FMA (fused multiply-add) instruction(s) generated
+    684, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (415)
+         417, Loop not fused: different loop trip count
+         426, Zero trip check eliminated
+              Generated vector simd code for the loop containing reductions
+         440, Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop
+    688, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         230, Loop not vectorized/parallelized: contains call
+main:
+    726, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (581)
+         428, FMA (fused multiply-add) instruction(s) generated
+         453, FMA (fused multiply-add) instruction(s) generated
+         457, FMA (fused multiply-add) instruction(s) generated
+         458, FMA (fused multiply-add) instruction(s) generated
+         459, FMA (fused multiply-add) instruction(s) generated
+         462, FMA (fused multiply-add) instruction(s) generated
+         463, FMA (fused multiply-add) instruction(s) generated
+         590, Loop not vectorized/parallelized: contains call
+         593, FMA (fused multiply-add) instruction(s) generated
+         594, FMA (fused multiply-add) instruction(s) generated
+         595, FMA (fused multiply-add) instruction(s) generated
+         598, FMA (fused multiply-add) instruction(s) generated
+         611, FMA (fused multiply-add) instruction(s) generated
+         613, FMA (fused multiply-add) instruction(s) generated
+         617, FMA (fused multiply-add) instruction(s) generated
+         621, FMA (fused multiply-add) instruction(s) generated
+         663, FMA (fused multiply-add) instruction(s) generated
+         681, FMA (fused multiply-add) instruction(s) generated
+         684, FMA (fused multiply-add) instruction(s) generated
+    729, checkCorrectness inlined, size=287 (inline) file nbodyacc2.c (674)
+         681, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (581)
+              598, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+                   559, dot inlined, size=6 (inline) file nbodyacc2.c (552)
+              611, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+         681, Loop not vectorized/parallelized: contains call
+         684, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (415)
+              428, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (381)
+         684, Zero trip check eliminated
+              Loop not fused: different loop trip count
+              Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop containing reductions
+              Generated vector simd code for the loop
+         688, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         688, Loop not vectorized/parallelized: contains call
+    731, StartTimer inlined, size=2 (inline) file nbodyacc2.c (638)
+    731, Generating copy(f[:n],pin[:n],v[:n],pout[:n]) [if not already present]
+    733, Loop not vectorized/parallelized: contains call
+    740, GetTimer inlined, size=9 (inline) file nbodyacc2.c (655)
+    742, StartTimer inlined, size=2 (inline) file nbodyacc2.c (638)
+    743, Loop not fused: function call before adjacent loop
+    745, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (415)
+         417, Loop not fused: different loop trip count
+         426, Zero trip check eliminated
+              Generated vector simd code for the loop containing reductions
+         440, Generated vector simd code for the loop
+    750, GetTimer inlined, size=9 (inline) file nbodyacc2.c (655)
+    752, computePerfStats inlined, size=5 (inline) file nbodyacc2.c (699)
+    753, computePerfStats inlined, size=5 (inline) file nbodyacc2.c (699)
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.25
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.26
+++++++++ ./openacc/nvidia
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/22.10.1.2 => cray-libsci/23.12.5
+
+"nbodyacc2.c", line 361: warning: incompatible redefinition of macro "FP64" [bad_macro_redef]
+  #define FP64
+          ^
+
+Remark: individual warnings can be suppressed with "--diag_suppress <warning-name>"
+
+"nbodyacc2.c", line 588: warning: variable "p" was declared but never referenced [declared_but_not_referenced]
+      int p = 0, v=0;
+          ^
+
+"nbodyacc2.c", line 588: warning: variable "v" was declared but never referenced [declared_but_not_referenced]
+      int p = 0, v=0;
+                 ^
+
+"nbodyacc2.c", line 688: warning: argument of type "real4 *" is incompatible with parameter of type "double *" [incompatible_param]
+      checkdtol( pout, pout_ref, 4*n );
+                 ^
+
+"nbodyacc2.c", line 688: warning: argument of type "real4 *" is incompatible with parameter of type "double *" [incompatible_param]
+      checkdtol( pout, pout_ref, 4*n );
+                       ^
+
+check:
+     28, Loop not vectorized/parallelized: contains call
+check_:
+     51, check inlined, size=18 (inline) file nbodyacc2.c (23)
+          28, Loop not vectorized/parallelized: contains call
+checkf:
+     61, Loop not vectorized/parallelized: contains call
+checkf_:
+     84, checkf inlined, size=16 (inline) file nbodyacc2.c (56)
+          61, Loop not vectorized/parallelized: contains call
+checkftol:
+     95, Loop not vectorized/parallelized: contains call
+checkftol_:
+    122, checkftol inlined, size=27 (inline) file nbodyacc2.c (89)
+          95, Loop not vectorized/parallelized: contains call
+checkftol5:
+    133, Loop not vectorized/parallelized: contains call
+checkll:
+    165, Loop not vectorized/parallelized: contains call
+checkll_:
+    187, checkll inlined, size=18 (inline) file nbodyacc2.c (160)
+         165, Loop not vectorized/parallelized: contains call
+checkd:
+    197, Loop not vectorized/parallelized: contains call
+checkd_:
+    219, checkd inlined, size=16 (inline) file nbodyacc2.c (192)
+         197, Loop not vectorized/parallelized: contains call
+checkdtol:
+    230, Loop not vectorized/parallelized: contains call
+checkdtol_:
+    257, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         230, Loop not vectorized/parallelized: contains call
+fcpyf:
+    269, fcpyf_ inlined, size=2 (inline) file nbodyacc2.c (262)
+fcpyi:
+    281, fcpyi_ inlined, size=2 (inline) file nbodyacc2.c (274)
+bodyBodyInteraction:
+    381, Generating implicit acc routine seq
+         Generating acc routine seq
+         Generating NVIDIA GPU code
+seqintegrate:
+    387, FMA (fused multiply-add) instruction(s) generated
+    417, Loop not fused: different loop trip count
+    426, Zero trip check eliminated
+         Generated vector simd code for the loop containing reductions
+    428, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (381)
+    440, Generated vector simd code for the loop
+    457, FMA (fused multiply-add) instruction(s) generated
+    458, FMA (fused multiply-add) instruction(s) generated
+    459, FMA (fused multiply-add) instruction(s) generated
+    462, FMA (fused multiply-add) instruction(s) generated
+    463, FMA (fused multiply-add) instruction(s) generated
+    464, FMA (fused multiply-add) instruction(s) generated
+integrate:
+    387, FMA (fused multiply-add) instruction(s) generated
+    486, Generating copy(force[:n]) [if not already present]
+         Generating copyin(in[:n]) [if not already present]
+         Generating copyout(out[:n]) [if not already present]
+         Generating copy(vel[:n]) [if not already present]
+         Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+        488, #pragma acc loop gang /* blockIdx.x */
+        497, #pragma acc loop vector(128) /* threadIdx.x */
+             Generating implicit reduction(+:fz,fy,fx)
+    486, Local memory used for ff,.inl_f_623,.inl_.X1240_624
+    488, Loop not fused: no successor loop
+    497, Loop is parallelizable
+         Generated vector simd code for the loop containing reductions
+    499, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (381)
+    509, Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+        512, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+    512, Generating implicit firstprivate(dt)
+         Loop not fused: no successor loop
+         Generated vector simd code for the loop
+    529, FMA (fused multiply-add) instruction(s) generated
+    530, FMA (fused multiply-add) instruction(s) generated
+    531, FMA (fused multiply-add) instruction(s) generated
+    534, FMA (fused multiply-add) instruction(s) generated
+    535, FMA (fused multiply-add) instruction(s) generated
+    536, FMA (fused multiply-add) instruction(s) generated
+dot:
+    553, FMA (fused multiply-add) instruction(s) generated
+normalize:
+    559, dot inlined, size=6 (inline) file nbodyacc2.c (552)
+    559, FMA (fused multiply-add) instruction(s) generated
+cross:
+    571, FMA (fused multiply-add) instruction(s) generated
+    572, FMA (fused multiply-add) instruction(s) generated
+    573, FMA (fused multiply-add) instruction(s) generated
+randomizeBodies:
+    559, FMA (fused multiply-add) instruction(s) generated
+    571, FMA (fused multiply-add) instruction(s) generated
+    572, FMA (fused multiply-add) instruction(s) generated
+    590, Loop not vectorized/parallelized: contains call
+    593, FMA (fused multiply-add) instruction(s) generated
+    594, FMA (fused multiply-add) instruction(s) generated
+    595, FMA (fused multiply-add) instruction(s) generated
+    598, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+    611, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+    613, dot inlined, size=6 (inline) file nbodyacc2.c (552)
+    613, FMA (fused multiply-add) instruction(s) generated
+    617, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+    621, cross inlined, size=14 (inline) file nbodyacc2.c (570)
+    621, FMA (fused multiply-add) instruction(s) generated
+GetTimer:
+    664, FMA (fused multiply-add) instruction(s) generated
+checkCorrectness:
+    681, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (581)
+         428, FMA (fused multiply-add) instruction(s) generated
+         453, FMA (fused multiply-add) instruction(s) generated
+         457, FMA (fused multiply-add) instruction(s) generated
+         458, FMA (fused multiply-add) instruction(s) generated
+         459, FMA (fused multiply-add) instruction(s) generated
+         462, FMA (fused multiply-add) instruction(s) generated
+         463, FMA (fused multiply-add) instruction(s) generated
+         590, Loop not vectorized/parallelized: contains call
+         593, FMA (fused multiply-add) instruction(s) generated
+         594, FMA (fused multiply-add) instruction(s) generated
+         595, FMA (fused multiply-add) instruction(s) generated
+         598, FMA (fused multiply-add) instruction(s) generated
+         611, FMA (fused multiply-add) instruction(s) generated
+         613, FMA (fused multiply-add) instruction(s) generated
+         617, FMA (fused multiply-add) instruction(s) generated
+         621, FMA (fused multiply-add) instruction(s) generated
+    684, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (415)
+         417, Loop not fused: different loop trip count
+         426, Zero trip check eliminated
+              Generated vector simd code for the loop containing reductions
+         440, Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop
+    688, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         230, Loop not vectorized/parallelized: contains call
+main:
+    726, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (581)
+         428, FMA (fused multiply-add) instruction(s) generated
+         453, FMA (fused multiply-add) instruction(s) generated
+         457, FMA (fused multiply-add) instruction(s) generated
+         458, FMA (fused multiply-add) instruction(s) generated
+         459, FMA (fused multiply-add) instruction(s) generated
+         462, FMA (fused multiply-add) instruction(s) generated
+         463, FMA (fused multiply-add) instruction(s) generated
+         590, Loop not vectorized/parallelized: contains call
+         593, FMA (fused multiply-add) instruction(s) generated
+         594, FMA (fused multiply-add) instruction(s) generated
+         595, FMA (fused multiply-add) instruction(s) generated
+         598, FMA (fused multiply-add) instruction(s) generated
+         611, FMA (fused multiply-add) instruction(s) generated
+         613, FMA (fused multiply-add) instruction(s) generated
+         617, FMA (fused multiply-add) instruction(s) generated
+         621, FMA (fused multiply-add) instruction(s) generated
+         663, FMA (fused multiply-add) instruction(s) generated
+         681, FMA (fused multiply-add) instruction(s) generated
+         684, FMA (fused multiply-add) instruction(s) generated
+    729, checkCorrectness inlined, size=287 (inline) file nbodyacc2.c (674)
+         681, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (581)
+              598, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+                   559, dot inlined, size=6 (inline) file nbodyacc2.c (552)
+              611, normalize inlined, size=15 (inline) file nbodyacc2.c (558)
+         681, Loop not vectorized/parallelized: contains call
+         684, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (415)
+              428, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (381)
+         684, Zero trip check eliminated
+              Loop not fused: different loop trip count
+              Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop containing reductions
+              Generated vector simd code for the loop
+         688, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         688, Loop not vectorized/parallelized: contains call
+    731, StartTimer inlined, size=2 (inline) file nbodyacc2.c (638)
+    731, Generating copy(f[:n],pin[:n],v[:n],pout[:n]) [if not already present]
+    733, Loop not vectorized/parallelized: contains call
+    740, GetTimer inlined, size=9 (inline) file nbodyacc2.c (655)
+    742, StartTimer inlined, size=2 (inline) file nbodyacc2.c (638)
+    743, Loop not fused: function call before adjacent loop
+    745, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (415)
+         417, Loop not fused: different loop trip count
+         426, Zero trip check eliminated
+              Generated vector simd code for the loop containing reductions
+         440, Generated vector simd code for the loop
+    750, GetTimer inlined, size=9 (inline) file nbodyacc2.c (655)
+    752, computePerfStats inlined, size=5 (inline) file nbodyacc2.c (699)
+    753, computePerfStats inlined, size=5 (inline) file nbodyacc2.c (699)
+++++++++ ./cudalib/factor
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5     2) cray-mpich/8.1.28
+
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+++++++++ ./cudalib/fft
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+++++++++ ./mpi/openacc/cray
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+
+Lmod is automatically replacing "PrgEnv-cray/8.5.0" with "PrgEnv-gnu/8.5.0".
+
+
+Lmod is automatically replacing "cce/17.0.0" with "gcc-native/12.1".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5     2) cray-mpich/8.1.28
+
+
+Lmod is automatically replacing "gcc-native/12.1" with "nvhpc/23.9".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.5.0" with "PrgEnv-nvhpc/8.5.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.12.5 => cray-libsci/23.05.1.4
+
+smooth:
+     95, Generating copyin(b[:m*n]) [if not already present]
+         Generating copy(a[:m*n]) [if not already present]
+     97, Loop is parallelizable
+     98, Loop is parallelizable
+         Generating NVIDIA GPU code
+         97, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+         98,   /* blockIdx.x threadIdx.x auto-collapsed */
+++++++++ ./mpi/openacc/nvidia/nvidiaopenmpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /opt/cray/pe/lmod/modulefiles/mix_compilers /opt/cray/pe/lmod/modulefiles/compiler/gnu/10.0 /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.05.1.4 => cray-libsci/23.12.5
+
+smooth:
+     95, Generating copyin(b[:m*n]) [if not already present]
+         Generating copy(a[:m*n]) [if not already present]
+     97, Loop is parallelizable
+     98, Loop is parallelizable
+         Generating NVIDIA GPU code
+         97, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+         98,   /* blockIdx.x threadIdx.x auto-collapsed */
+++++++++ ./mpi/openacc/nvidia/nrelopenmpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/compilers/03-24/spack/opt/spack/linux-rhel8-zen3/gcc-12.3.0/nvhpc-24.1-6weqdvy6i5efh3lmum56u2oroij4osq3/Linux_x86_64/24.1/comm_libs/12.3/hpcx/latest/modulefiles /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+smooth:
+     95, Generating copyin(b[:m*n]) [if not already present]
+         Generating copy(a[:m*n]) [if not already present]
+     97, Loop is parallelizable
+     98, Loop is parallelizable
+         Generating NVIDIA GPU code
+         97, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+         98,   /* blockIdx.x threadIdx.x auto-collapsed */
+++++++++ ./mpi/cudaaware
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+
+Lmod is automatically replacing "PrgEnv-cray/8.5.0" with "PrgEnv-gnu/8.5.0".
+
+
+Lmod is automatically replacing "cce/17.0.0" with "gcc-native/12.1".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5     2) cray-mpich/8.1.28
+
+
+Lmod is automatically replacing "gcc-native/12.1" with "nvhpc/23.9".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.5.0" with "PrgEnv-nvhpc/8.5.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.12.5 => cray-libsci/23.05.1.4
+
+++++++++ ./mpi/normal/intel+abi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /opt/cray/pe/lmod/modulefiles/mix_compilers /opt/cray/pe/lmod/modulefiles/compiler/gnu/10.0 /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.05.1.4 => cray-libsci/23.12.5
+
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+
+Lmod is automatically replacing "PrgEnv-cray/8.5.0" with "PrgEnv-gnu/8.5.0".
+
+
+Lmod is automatically replacing "cce/17.0.0" with "gcc-native/12.1".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5     2) cray-mpich/8.1.28
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.46
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.47
+
+Lmod is automatically replacing "cray-mpich/8.1.28" with
+"cray-mpich-abi/8.1.28".
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.50
+++++++++ ./mpi/normal/cray
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /opt/cray/pe/lmod/modulefiles/mix_compilers /opt/cray/pe/lmod/modulefiles/compiler/gnu/10.0 /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5
+
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+
+Lmod is automatically replacing "cce/17.0.0" with "intel/2023.2.1".
+
+
+Lmod is automatically replacing "PrgEnv-cray/8.5.0" with "PrgEnv-intel/8.5.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.12.5 => cray-libsci/22.10.1.2
+
+
+The following have been reloaded with a version change:
+  1) cray-libsci/22.10.1.2 => cray-libsci/23.05.1.4
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.59
+
+Lmod is automatically replacing "intel/2023.2.1" with "gcc-native/12.1".
+
+
+Lmod is automatically replacing "PrgEnv-intel/8.5.0" with "PrgEnv-gnu/8.5.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.05.1.4 => cray-libsci/23.12.5
+
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.12.5 => cray-libsci/23.05.1.4
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.62
+++++++++ ./mpi/normal/nvidia/nvidiaopenmpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.05.1.4 => cray-libsci/23.12.5
+
+++++++++ ./mpi/normal/nvidia/nrelopenmpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/compilers/03-24/spack/opt/spack/linux-rhel8-zen3/gcc-12.3.0/nvhpc-24.1-6weqdvy6i5efh3lmum56u2oroij4osq3/Linux_x86_64/24.1/comm_libs/12.3/hpcx/latest/modulefiles /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.71
+++++++++ ./mpi/withcuda/cray
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Lmod is automatically replacing "craype-x86-spr" with "craype-x86-genoa".
+
+
+Lmod is automatically replacing "PrgEnv-cray/8.5.0" with "PrgEnv-gnu/8.5.0".
+
+
+Lmod is automatically replacing "cce/17.0.0" with "gcc-native/12.1".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-libsci/23.12.5     2) cray-mpich/8.1.28
+
+
+Lmod is automatically replacing "gcc-native/12.1" with "nvhpc/23.9".
+
+
+Lmod is automatically replacing "PrgEnv-gnu/8.5.0" with "PrgEnv-nvhpc/8.5.0".
+
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.12.5 => cray-libsci/23.05.1.4
+
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.74
+++++++++ ./mpi/withcuda/nvidia/nvidiaopenmpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /opt/cray/pe/lmod/modulefiles/mix_compilers /opt/cray/pe/lmod/modulefiles/compiler/gnu/10.0 /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+
+Due to MODULEPATH changes, the following have been reloaded:
+  1) cray-mpich/8.1.28
+
+The following have been reloaded with a version change:
+  1) cray-libsci/23.05.1.4 => cray-libsci/23.12.5
+
+++++++++ ./mpi/withcuda/nvidia/nrelopenmpi
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: /nopt/nrel/apps/gpu_stack/compilers/03-24/spack/opt/spack/linux-rhel8-zen3/gcc-12.3.0/nvhpc-24.1-6weqdvy6i5efh3lmum56u2oroij4osq3/Linux_x86_64/24.1/comm_libs/12.3/hpcx/latest/modulefiles /nopt/nrel/apps/gpu_stack/modules/default/application /nopt/nrel/apps/gpu_stack/modules/default/utilities_libraries /nopt/nrel/apps/gpu_stack/modules/default/compilers_mpi
+srun: Job 3449337 step creation temporarily disabled, retrying (Requested nodes are busy)
+srun: Step created for StepId=3449337.78
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 3449337.78 ON x3100c0s5b0n0 CANCELLED AT 2024-04-17T14:47:24 ***
+slurmstepd: error: *** JOB 3449337 ON x3100c0s5b0n0 CANCELLED AT 2024-04-17T14:47:24 ***

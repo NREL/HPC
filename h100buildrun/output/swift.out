@@ -1,0 +1,942 @@
+found example in ./openacc/nvidia
+found example in ./cudalib/fft
+found example in ./cudalib/factor
+found example in ./mpi/cudaaware
+found example in ./mpi/withcuda/nvidia/nrelopenmpi
+found example in ./mpi/withcuda/nvidia/nvidiaopenmpi
+found example in ./mpi/openacc/nvidia/nrelopenmpi
+found example in ./mpi/openacc/nvidia/nvidiaopenmpi
+found example in ./mpi/normal/nvidia/nvidiaopenmpi
+found example in ./mpi/normal/nvidia/nrelopenmpi
+found example in ./mpi/normal/intel+abi
+found example in ./cuda/nvidia
+found example in ./cuda/gccalso
+++++++++
+./openacc/nvidia
+g10-64
+running on gpu 0
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.905000 ms: 695.188530 GFLOP/s
+Sequential:    24.687000 ms: 25.484895 GFLOP/s
+running on gpu 1
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.822000 ms: 765.383917 GFLOP/s
+Sequential:    24.660000 ms: 25.512798 GFLOP/s
+running on gpu 2
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.898000 ms: 700.607571 GFLOP/s
+Sequential:    24.682000 ms: 25.490058 GFLOP/s
+running on gpu 3
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.828000 ms: 759.837673 GFLOP/s
+Sequential:    24.656000 ms: 25.516937 GFLOP/s
+
+g7-64
+running on gpu 0
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.881000 ms: 714.126689 GFLOP/s
+Sequential:    24.677000 ms: 25.495222 GFLOP/s
+running on gpu 1
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.799000 ms: 787.416246 GFLOP/s
+Sequential:    24.696000 ms: 25.475608 GFLOP/s
+running on gpu 2
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.881000 ms: 714.126689 GFLOP/s
+Sequential:    24.652000 ms: 25.521077 GFLOP/s
+running on gpu 3
+4096 tests completed. 4096 tests PASSED. 0 tests failed.
+n=1024 bodies for 20 iterations
+OpenACC:       0.881000 ms: 714.126689 GFLOP/s
+Sequential:    24.702000 ms: 25.469420 GFLOP/s
+
+Runtime 14.401 ./openacc/nvidia 14.413 total
+++++++++
+./cudalib/fft
+
+
+++++++++++++++
+run 1 GPU version first
+size 256,256,256
+134217728 bytes 
+single GPU time 0.977101 seconds
+using a total of 4 GPUs
+starting multi
+ multi GPU time 0.725051 seconds
+// skip verify results
+
+
+++++++++++++++
+run 4 gpu version first
+size 256,256,256
+using a total of 4 GPUs
+starting multi
+ multi GPU time 1.41629 seconds
+134217728 bytes 
+single GPU time 0.018523 seconds
+// skip verify results
+cube size 256 elements 16777216
+ create plan
+ stuff in data
+ do it
+ clean up
+create 3d plan        0.001307
+ stuff in data        0.233586
+        do fft        1.020008
+Runtime 10.576 ./cudalib/fft 25.004 total
+++++++++
+./cudalib/factor
+
+
+++++++++++++++++++++++
+running MKL version
+++++++++++++++++++++++
+Matrix size 4500
+threads 32
+compute the LU factorization...
+
+solving the system...
+
+print the result : {0.00111012 0.00111012 0.00111012 0.00111012 0.00111012 0.00111012 0.00111012 0.00111012 0.00111012 0.00111012 }
+
+TIMINGS (seconds)
+  CPU total 0.24628
+
+
+
+
+++++++++++++++++++++++
+running gpu version
+++++++++++++++++++++++
+On GPU NVIDIA A100-SXM4-40GB # 0
+Matrix size 4500
+Printing 10 elements
+pivot is on : compute P*A = L*U 
+top corner of A = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 
+=====
+Beginnig of B = (matlab base-1)
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+=====
+beginning of pivoting sequence, matlab base-1
+Ipiv(1) = 1
+Ipiv(2) = 2
+Ipiv(3) = 3
+Ipiv(4) = 4
+Ipiv(5) = 5
+Ipiv(6) = 6
+Ipiv(7) = 7
+Ipiv(8) = 8
+Ipiv(9) = 9
+Ipiv(10) = 10
+top corner of L and U = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.96 0.16 0.16 0.16 0.16 0.16 0.16 0.16 0.16 
+0.20 0.17 0.93 0.13 0.13 0.13 0.13 0.13 0.13 0.13 
+0.20 0.17 0.14 0.91 0.11 0.11 0.11 0.11 0.11 0.11 
+0.20 0.17 0.14 0.12 0.90 0.10 0.10 0.10 0.10 0.10 
+0.20 0.17 0.14 0.12 0.11 0.89 0.09 0.09 0.09 0.09 
+0.20 0.17 0.14 0.12 0.11 0.10 0.88 0.08 0.08 0.08 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.87 0.07 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.87 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.08 0.86 
+=====
+=====
+Beginnig of X = (matlab base-1)
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+TIMINGS (seconds)
+  to device 0.00840092
+     solve  0.034116
+from device 0.00894904
+  GPU total 0.051533
+
+
+++++++++++++++++++++++
+running gpu version
+++++++++++++++++++++++
+On GPU NVIDIA A100-SXM4-40GB # 1
+Matrix size 4500
+Printing 10 elements
+pivot is on : compute P*A = L*U 
+top corner of A = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 
+=====
+Beginnig of B = (matlab base-1)
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+=====
+beginning of pivoting sequence, matlab base-1
+Ipiv(1) = 1
+Ipiv(2) = 2
+Ipiv(3) = 3
+Ipiv(4) = 4
+Ipiv(5) = 5
+Ipiv(6) = 6
+Ipiv(7) = 7
+Ipiv(8) = 8
+Ipiv(9) = 9
+Ipiv(10) = 10
+top corner of L and U = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.96 0.16 0.16 0.16 0.16 0.16 0.16 0.16 0.16 
+0.20 0.17 0.93 0.13 0.13 0.13 0.13 0.13 0.13 0.13 
+0.20 0.17 0.14 0.91 0.11 0.11 0.11 0.11 0.11 0.11 
+0.20 0.17 0.14 0.12 0.90 0.10 0.10 0.10 0.10 0.10 
+0.20 0.17 0.14 0.12 0.11 0.89 0.09 0.09 0.09 0.09 
+0.20 0.17 0.14 0.12 0.11 0.10 0.88 0.08 0.08 0.08 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.87 0.07 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.87 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.08 0.86 
+=====
+=====
+Beginnig of X = (matlab base-1)
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+TIMINGS (seconds)
+  to device 0.00806689
+     solve  0.0343421
+from device 0.00957394
+  GPU total 0.0520329
+
+
+++++++++++++++++++++++
+running gpu version
+++++++++++++++++++++++
+On GPU NVIDIA A100-SXM4-40GB # 2
+Matrix size 4500
+Printing 10 elements
+pivot is on : compute P*A = L*U 
+top corner of A = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 
+=====
+Beginnig of B = (matlab base-1)
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+=====
+beginning of pivoting sequence, matlab base-1
+Ipiv(1) = 1
+Ipiv(2) = 2
+Ipiv(3) = 3
+Ipiv(4) = 4
+Ipiv(5) = 5
+Ipiv(6) = 6
+Ipiv(7) = 7
+Ipiv(8) = 8
+Ipiv(9) = 9
+Ipiv(10) = 10
+top corner of L and U = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.96 0.16 0.16 0.16 0.16 0.16 0.16 0.16 0.16 
+0.20 0.17 0.93 0.13 0.13 0.13 0.13 0.13 0.13 0.13 
+0.20 0.17 0.14 0.91 0.11 0.11 0.11 0.11 0.11 0.11 
+0.20 0.17 0.14 0.12 0.90 0.10 0.10 0.10 0.10 0.10 
+0.20 0.17 0.14 0.12 0.11 0.89 0.09 0.09 0.09 0.09 
+0.20 0.17 0.14 0.12 0.11 0.10 0.88 0.08 0.08 0.08 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.87 0.07 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.87 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.08 0.86 
+=====
+=====
+Beginnig of X = (matlab base-1)
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+TIMINGS (seconds)
+  to device 0.0139019
+     solve  0.0342319
+from device 0.0123861
+  GPU total 0.060554
+
+
+++++++++++++++++++++++
+running gpu version
+++++++++++++++++++++++
+On GPU NVIDIA A100-SXM4-40GB # 3
+Matrix size 4500
+Printing 10 elements
+pivot is on : compute P*A = L*U 
+top corner of A = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 0.20 
+0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 1.00 
+=====
+Beginnig of B = (matlab base-1)
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+1.00 
+=====
+beginning of pivoting sequence, matlab base-1
+Ipiv(1) = 1
+Ipiv(2) = 2
+Ipiv(3) = 3
+Ipiv(4) = 4
+Ipiv(5) = 5
+Ipiv(6) = 6
+Ipiv(7) = 7
+Ipiv(8) = 8
+Ipiv(9) = 9
+Ipiv(10) = 10
+top corner of L and U = (matlab base-1)
+1.00 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 0.20 
+0.20 0.96 0.16 0.16 0.16 0.16 0.16 0.16 0.16 0.16 
+0.20 0.17 0.93 0.13 0.13 0.13 0.13 0.13 0.13 0.13 
+0.20 0.17 0.14 0.91 0.11 0.11 0.11 0.11 0.11 0.11 
+0.20 0.17 0.14 0.12 0.90 0.10 0.10 0.10 0.10 0.10 
+0.20 0.17 0.14 0.12 0.11 0.89 0.09 0.09 0.09 0.09 
+0.20 0.17 0.14 0.12 0.11 0.10 0.88 0.08 0.08 0.08 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.87 0.07 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.87 0.07 
+0.20 0.17 0.14 0.12 0.11 0.10 0.09 0.08 0.08 0.86 
+=====
+=====
+Beginnig of X = (matlab base-1)
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+0.0011101243 
+TIMINGS (seconds)
+  to device 0.0144629
+     solve  0.034174
+from device 0.0124569
+  GPU total 0.0611119
+Runtime 10.648 ./cudalib/factor 35.667 total
+++++++++
+./mpi/cudaaware
+Transfer size (B):          8, Transfer Time (s):     0.000011788, Bandwidth (GB/s):     0.000632073
+Transfer size (B):         16, Transfer Time (s):     0.000011909, Bandwidth (GB/s):     0.001251255
+Transfer size (B):         32, Transfer Time (s):     0.000011847, Bandwidth (GB/s):     0.002515588
+Transfer size (B):         64, Transfer Time (s):     0.000011838, Bandwidth (GB/s):     0.005035052
+Transfer size (B):        128, Transfer Time (s):     0.000011920, Bandwidth (GB/s):     0.010000956
+Transfer size (B):        256, Transfer Time (s):     0.000011868, Bandwidth (GB/s):     0.020088350
+Transfer size (B):        512, Transfer Time (s):     0.000011799, Bandwidth (GB/s):     0.040411744
+Transfer size (B):       1024, Transfer Time (s):     0.000011841, Bandwidth (GB/s):     0.080539675
+Transfer size (B):       2048, Transfer Time (s):     0.000011965, Bandwidth (GB/s):     0.159413598
+Transfer size (B):       4096, Transfer Time (s):     0.000012069, Bandwidth (GB/s):     0.316069561
+Transfer size (B):       8192, Transfer Time (s):     0.000012221, Bandwidth (GB/s):     0.624293280
+Transfer size (B):      16384, Transfer Time (s):     0.000012305, Bandwidth (GB/s):     1.240088183
+Transfer size (B):      32768, Transfer Time (s):     0.000012423, Bandwidth (GB/s):     2.456532595
+Transfer size (B):      65536, Transfer Time (s):     0.000012923, Bandwidth (GB/s):     4.723004906
+Transfer size (B):     131072, Transfer Time (s):     0.000014306, Bandwidth (GB/s):     8.533091597
+Transfer size (B):     262144, Transfer Time (s):     0.000015754, Bandwidth (GB/s):    15.497449789
+Transfer size (B):     524288, Transfer Time (s):     0.000018224, Bandwidth (GB/s):    26.793205360
+Transfer size (B):    1048576, Transfer Time (s):     0.000023834, Bandwidth (GB/s):    40.974054363
+Transfer size (B):    2097152, Transfer Time (s):     0.000034905, Bandwidth (GB/s):    55.954985620
+Transfer size (B):    4194304, Transfer Time (s):     0.000057300, Bandwidth (GB/s):    68.172140217
+Transfer size (B):    8388608, Transfer Time (s):     0.000141435, Bandwidth (GB/s):    55.237372578
+Transfer size (B):   16777216, Transfer Time (s):     0.000190835, Bandwidth (GB/s):    81.877228698
+Transfer size (B):   33554432, Transfer Time (s):     0.000368215, Bandwidth (GB/s):    84.868949849
+Transfer size (B):   67108864, Transfer Time (s):     0.000727164, Bandwidth (GB/s):    85.950390947
+Transfer size (B):  134217728, Transfer Time (s):     0.001439796, Bandwidth (GB/s):    86.817869223
+Transfer size (B):  268435456, Transfer Time (s):     0.002865903, Bandwidth (GB/s):    87.232548278
+Transfer size (B):  536870912, Transfer Time (s):     0.005718440, Bandwidth (GB/s):    87.436428361
+Transfer size (B): 1073741824, Transfer Time (s):     0.011423564, Bandwidth (GB/s):    87.538357995
+Transfer size (B):          8, Transfer Time (s):     0.000037419, Bandwidth (GB/s):     0.000199110
+Transfer size (B):         16, Transfer Time (s):     0.000037246, Bandwidth (GB/s):     0.000400073
+Transfer size (B):         32, Transfer Time (s):     0.000037567, Bandwidth (GB/s):     0.000793317
+Transfer size (B):         64, Transfer Time (s):     0.000038070, Bandwidth (GB/s):     0.001565657
+Transfer size (B):        128, Transfer Time (s):     0.000038825, Bandwidth (GB/s):     0.003070437
+Transfer size (B):        256, Transfer Time (s):     0.000039041, Bandwidth (GB/s):     0.006106899
+Transfer size (B):        512, Transfer Time (s):     0.000040277, Bandwidth (GB/s):     0.011838985
+Transfer size (B):       1024, Transfer Time (s):     0.000041462, Bandwidth (GB/s):     0.023001082
+Transfer size (B):       2048, Transfer Time (s):     0.000061169, Bandwidth (GB/s):     0.031181479
+Transfer size (B):       4096, Transfer Time (s):     0.000061688, Bandwidth (GB/s):     0.061838222
+Transfer size (B):       8192, Transfer Time (s):     0.000086558, Bandwidth (GB/s):     0.088141758
+Transfer size (B):      16384, Transfer Time (s):     0.000097681, Bandwidth (GB/s):     0.156210986
+Transfer size (B):      32768, Transfer Time (s):     0.000113621, Bandwidth (GB/s):     0.268591757
+Transfer size (B):      65536, Transfer Time (s):     0.000217029, Bandwidth (GB/s):     0.281229964
+Transfer size (B):     131072, Transfer Time (s):     0.000260662, Bandwidth (GB/s):     0.468308600
+Transfer size (B):     262144, Transfer Time (s):     0.000404996, Bandwidth (GB/s):     0.602822118
+Transfer size (B):     524288, Transfer Time (s):     0.000590756, Bandwidth (GB/s):     0.826536350
+Transfer size (B):    1048576, Transfer Time (s):     0.000968918, Bandwidth (GB/s):     1.007889292
+Transfer size (B):    2097152, Transfer Time (s):     0.001662277, Bandwidth (GB/s):     1.174969692
+Transfer size (B):    4194304, Transfer Time (s):     0.003026411, Bandwidth (GB/s):     1.290720369
+Transfer size (B):    8388608, Transfer Time (s):     0.005754666, Bandwidth (GB/s):     1.357594070
+Transfer size (B):   16777216, Transfer Time (s):     0.011295885, Bandwidth (GB/s):     1.383247041
+Transfer size (B):   33554432, Transfer Time (s):     0.022276971, Bandwidth (GB/s):     1.402793940
+Transfer size (B):   67108864, Transfer Time (s):     0.044264634, Bandwidth (GB/s):     1.411962426
+Transfer size (B):  134217728, Transfer Time (s):     0.087488633, Bandwidth (GB/s):     1.428757038
+Transfer size (B):  268435456, Transfer Time (s):     0.174039404, Bandwidth (GB/s):     1.436456308
+Transfer size (B):  536870912, Transfer Time (s):     0.347656929, Bandwidth (GB/s):     1.438199436
+Transfer size (B): 1073741824, Transfer Time (s):     0.694440457, Bandwidth (GB/s):     1.440008268
+Runtime 165.836 ./mpi/cudaaware 201.518 total
+++++++++
+./mpi/withcuda/nvidia/nrelopenmpi
+Transfer size (B):          8, Transfer Time (s):     0.000014159, Bandwidth (GB/s):     0.000526203
+Transfer size (B):         16, Transfer Time (s):     0.000014635, Bandwidth (GB/s):     0.001018192
+Transfer size (B):         32, Transfer Time (s):     0.000014695, Bandwidth (GB/s):     0.002028013
+Transfer size (B):         64, Transfer Time (s):     0.000014771, Bandwidth (GB/s):     0.004035199
+Transfer size (B):        128, Transfer Time (s):     0.000014734, Bandwidth (GB/s):     0.008090866
+Transfer size (B):        256, Transfer Time (s):     0.000014775, Bandwidth (GB/s):     0.016136741
+Transfer size (B):        512, Transfer Time (s):     0.000015345, Bandwidth (GB/s):     0.031074351
+Transfer size (B):       1024, Transfer Time (s):     0.000015690, Bandwidth (GB/s):     0.060783154
+Transfer size (B):       2048, Transfer Time (s):     0.000016865, Bandwidth (GB/s):     0.113098037
+Transfer size (B):       4096, Transfer Time (s):     0.000021200, Bandwidth (GB/s):     0.179941181
+Transfer size (B):       8192, Transfer Time (s):     0.000031854, Bandwidth (GB/s):     0.239511049
+Transfer size (B):      16384, Transfer Time (s):     0.000047370, Bandwidth (GB/s):     0.322119254
+Transfer size (B):      32768, Transfer Time (s):     0.000069814, Bandwidth (GB/s):     0.437125032
+Transfer size (B):      65536, Transfer Time (s):     0.000108223, Bandwidth (GB/s):     0.563975361
+Transfer size (B):     131072, Transfer Time (s):     0.000186942, Bandwidth (GB/s):     0.652983273
+Transfer size (B):     262144, Transfer Time (s):     0.000347218, Bandwidth (GB/s):     0.703134482
+Transfer size (B):     524288, Transfer Time (s):     0.000659582, Bandwidth (GB/s):     0.740289049
+Transfer size (B):    1048576, Transfer Time (s):     0.001278115, Bandwidth (GB/s):     0.764064891
+Transfer size (B):    2097152, Transfer Time (s):     0.002484821, Bandwidth (GB/s):     0.786022430
+Transfer size (B):    4194304, Transfer Time (s):     0.001916311, Bandwidth (GB/s):     2.038422004
+Transfer size (B):    8388608, Transfer Time (s):     0.003161297, Bandwidth (GB/s):     2.471295683
+Transfer size (B):   16777216, Transfer Time (s):     0.006185295, Bandwidth (GB/s):     2.526152828
+Transfer size (B):   33554432, Transfer Time (s):     0.013309145, Bandwidth (GB/s):     2.348009548
+Transfer size (B):   67108864, Transfer Time (s):     0.026134981, Bandwidth (GB/s):     2.391430819
+Transfer size (B):  134217728, Transfer Time (s):     0.051338726, Bandwidth (GB/s):     2.434809171
+Transfer size (B):  268435456, Transfer Time (s):     0.106047556, Bandwidth (GB/s):     2.357432928
+Transfer size (B):  536870912, Transfer Time (s):     0.205249248, Bandwidth (GB/s):     2.436062517
+Transfer size (B): 1073741824, Transfer Time (s):     0.404504601, Bandwidth (GB/s):     2.472159770
+Transfer size (B):          8, Transfer Time (s):     0.000035754, Bandwidth (GB/s):     0.000208385
+Transfer size (B):         16, Transfer Time (s):     0.000034565, Bandwidth (GB/s):     0.000431111
+Transfer size (B):         32, Transfer Time (s):     0.000034914, Bandwidth (GB/s):     0.000853585
+Transfer size (B):         64, Transfer Time (s):     0.000035081, Bandwidth (GB/s):     0.001699062
+Transfer size (B):        128, Transfer Time (s):     0.000036129, Bandwidth (GB/s):     0.003299568
+Transfer size (B):        256, Transfer Time (s):     0.000036134, Bandwidth (GB/s):     0.006598219
+Transfer size (B):        512, Transfer Time (s):     0.000037672, Bandwidth (GB/s):     0.012657460
+Transfer size (B):       1024, Transfer Time (s):     0.000039698, Bandwidth (GB/s):     0.024023003
+Transfer size (B):       2048, Transfer Time (s):     0.000056828, Bandwidth (GB/s):     0.033563761
+Transfer size (B):       4096, Transfer Time (s):     0.000060093, Bandwidth (GB/s):     0.063480221
+Transfer size (B):       8192, Transfer Time (s):     0.000086043, Bandwidth (GB/s):     0.088669782
+Transfer size (B):      16384, Transfer Time (s):     0.000099250, Bandwidth (GB/s):     0.153740235
+Transfer size (B):      32768, Transfer Time (s):     0.000138364, Bandwidth (GB/s):     0.220560805
+Transfer size (B):      65536, Transfer Time (s):     0.000148017, Bandwidth (GB/s):     0.412352228
+Transfer size (B):     131072, Transfer Time (s):     0.000262433, Bandwidth (GB/s):     0.465149000
+Transfer size (B):     262144, Transfer Time (s):     0.000385743, Bandwidth (GB/s):     0.632910781
+Transfer size (B):     524288, Transfer Time (s):     0.000608607, Bandwidth (GB/s):     0.802293794
+Transfer size (B):    1048576, Transfer Time (s):     0.001065478, Bandwidth (GB/s):     0.916548620
+Transfer size (B):    2097152, Transfer Time (s):     0.002034193, Bandwidth (GB/s):     0.960147530
+Transfer size (B):    4194304, Transfer Time (s):     0.004407355, Bandwidth (GB/s):     0.886302483
+Transfer size (B):    8388608, Transfer Time (s):     0.005796855, Bandwidth (GB/s):     1.347713489
+Transfer size (B):   16777216, Transfer Time (s):     0.010562938, Bandwidth (GB/s):     1.479228658
+Transfer size (B):   33554432, Transfer Time (s):     0.018692583, Bandwidth (GB/s):     1.671786054
+Transfer size (B):   67108864, Transfer Time (s):     0.034692126, Bandwidth (GB/s):     1.801561528
+Transfer size (B):  134217728, Transfer Time (s):     0.067673220, Bandwidth (GB/s):     1.847111750
+Transfer size (B):  268435456, Transfer Time (s):     0.126964785, Bandwidth (GB/s):     1.969049920
+Transfer size (B):  536870912, Transfer Time (s):     0.239256661, Bandwidth (GB/s):     2.089805980
+Transfer size (B): 1073741824, Transfer Time (s):     0.453804371, Bandwidth (GB/s):     2.203592702
+Runtime 206.709 ./mpi/withcuda/nvidia/nrelopenmpi 408.243 total
+++++++++
+./mpi/withcuda/nvidia/nvidiaopenmpi
+Run on a single node
+Transfer size (B):          8, Transfer Time (s):     0.000011998, Bandwidth (GB/s):     0.000620988
+Transfer size (B):         16, Transfer Time (s):     0.000012372, Bandwidth (GB/s):     0.001204384
+Transfer size (B):         32, Transfer Time (s):     0.000012267, Bandwidth (GB/s):     0.002429404
+Transfer size (B):         64, Transfer Time (s):     0.000012340, Bandwidth (GB/s):     0.004830210
+Transfer size (B):        128, Transfer Time (s):     0.000012677, Bandwidth (GB/s):     0.009403299
+Transfer size (B):        256, Transfer Time (s):     0.000012433, Bandwidth (GB/s):     0.019175730
+Transfer size (B):        512, Transfer Time (s):     0.000012627, Bandwidth (GB/s):     0.037762369
+Transfer size (B):       1024, Transfer Time (s):     0.000013216, Bandwidth (GB/s):     0.072163311
+Transfer size (B):       2048, Transfer Time (s):     0.000013192, Bandwidth (GB/s):     0.144585275
+Transfer size (B):       4096, Transfer Time (s):     0.000014526, Bandwidth (GB/s):     0.262603893
+Transfer size (B):       8192, Transfer Time (s):     0.000016680, Bandwidth (GB/s):     0.457410935
+Transfer size (B):      16384, Transfer Time (s):     0.000026369, Bandwidth (GB/s):     0.578653184
+Transfer size (B):      32768, Transfer Time (s):     0.000031435, Bandwidth (GB/s):     0.970828554
+Transfer size (B):      65536, Transfer Time (s):     0.000038512, Bandwidth (GB/s):     1.584843387
+Transfer size (B):     131072, Transfer Time (s):     0.000057244, Bandwidth (GB/s):     2.132470575
+Transfer size (B):     262144, Transfer Time (s):     0.000084250, Bandwidth (GB/s):     2.897795073
+Transfer size (B):     524288, Transfer Time (s):     0.000147913, Bandwidth (GB/s):     3.301147328
+Transfer size (B):    1048576, Transfer Time (s):     0.000287585, Bandwidth (GB/s):     3.395731517
+Transfer size (B):    2097152, Transfer Time (s):     0.000433812, Bandwidth (GB/s):     4.502238496
+Transfer size (B):    4194304, Transfer Time (s):     0.000756880, Bandwidth (GB/s):     5.160987395
+Transfer size (B):    8388608, Transfer Time (s):     0.001376868, Bandwidth (GB/s):     5.674109359
+Transfer size (B):   16777216, Transfer Time (s):     0.002721957, Bandwidth (GB/s):     5.740354496
+Transfer size (B):   33554432, Transfer Time (s):     0.005553931, Bandwidth (GB/s):     5.626645151
+Transfer size (B):   67108864, Transfer Time (s):     0.011288296, Bandwidth (GB/s):     5.536708124
+Transfer size (B):  134217728, Transfer Time (s):     0.022919285, Bandwidth (GB/s):     5.453922364
+Transfer size (B):  268435456, Transfer Time (s):     0.044892907, Bandwidth (GB/s):     5.568808491
+Transfer size (B):  536870912, Transfer Time (s):     0.088568512, Bandwidth (GB/s):     5.645347163
+Transfer size (B): 1073741824, Transfer Time (s):     0.176504544, Bandwidth (GB/s):     5.665576516
+Run on two nodes
+Transfer size (B):          8, Transfer Time (s):     0.000014624, Bandwidth (GB/s):     0.000509483
+Transfer size (B):         16, Transfer Time (s):     0.000014842, Bandwidth (GB/s):     0.001003998
+Transfer size (B):         32, Transfer Time (s):     0.000015338, Bandwidth (GB/s):     0.001943046
+Transfer size (B):         64, Transfer Time (s):     0.000015191, Bandwidth (GB/s):     0.003923715
+Transfer size (B):        128, Transfer Time (s):     0.000016428, Bandwidth (GB/s):     0.007256488
+Transfer size (B):        256, Transfer Time (s):     0.000016888, Bandwidth (GB/s):     0.014117867
+Transfer size (B):        512, Transfer Time (s):     0.000017113, Bandwidth (GB/s):     0.027863314
+Transfer size (B):       1024, Transfer Time (s):     0.000017708, Bandwidth (GB/s):     0.053856963
+Transfer size (B):       2048, Transfer Time (s):     0.000020205, Bandwidth (GB/s):     0.094399038
+Transfer size (B):       4096, Transfer Time (s):     0.000022401, Bandwidth (GB/s):     0.170294051
+Transfer size (B):       8192, Transfer Time (s):     0.000028321, Bandwidth (GB/s):     0.269390773
+Transfer size (B):      16384, Transfer Time (s):     0.000040547, Bandwidth (GB/s):     0.376325359
+Transfer size (B):      32768, Transfer Time (s):     0.000052551, Bandwidth (GB/s):     0.580725609
+Transfer size (B):      65536, Transfer Time (s):     0.000076445, Bandwidth (GB/s):     0.798423596
+Transfer size (B):     131072, Transfer Time (s):     0.000114966, Bandwidth (GB/s):     1.061792868
+Transfer size (B):     262144, Transfer Time (s):     0.000188146, Bandwidth (GB/s):     1.297615109
+Transfer size (B):     524288, Transfer Time (s):     0.000356181, Bandwidth (GB/s):     1.370878013
+Transfer size (B):    1048576, Transfer Time (s):     0.000679334, Bandwidth (GB/s):     1.437529403
+Transfer size (B):    2097152, Transfer Time (s):     0.001251861, Bandwidth (GB/s):     1.560177619
+Transfer size (B):    4194304, Transfer Time (s):     0.002518136, Bandwidth (GB/s):     1.551246594
+Transfer size (B):    8388608, Transfer Time (s):     0.002995803, Bandwidth (GB/s):     2.607814844
+Transfer size (B):   16777216, Transfer Time (s):     0.005307135, Bandwidth (GB/s):     2.944149544
+Transfer size (B):   33554432, Transfer Time (s):     0.010284553, Bandwidth (GB/s):     3.038537563
+Transfer size (B):   67108864, Transfer Time (s):     0.020144532, Bandwidth (GB/s):     3.102578877
+Transfer size (B):  134217728, Transfer Time (s):     0.039787045, Bandwidth (GB/s):     3.141726185
+Transfer size (B):  268435456, Transfer Time (s):     0.080918642, Bandwidth (GB/s):     3.089522924
+Transfer size (B):  536870912, Transfer Time (s):     0.154826562, Bandwidth (GB/s):     3.229420035
+Transfer size (B): 1073741824, Transfer Time (s):     0.301973802, Bandwidth (GB/s):     3.311545553
+Runtime 118.652 ./mpi/withcuda/nvidia/nvidiaopenmpi 526.909 total
+++++++++
+./mpi/openacc/nvidia/nrelopenmpi
+Hello from g10-64 running task 5 of 8 with pid 186413
+Hello from g7-64 running task 3 of 8 with pid 2937036
+Hello from g10-64 running task 6 of 8 with pid 186414
+Hello from g10-64 running task 4 of 8 with pid 186412
+Hello from g10-64 running task 7 of 8 with pid 186415
+Hello from g7-64 running task 0 of 8 with pid 2937033
+using nvidia
+Open MPI v4.1.6, package: Open MPI warsalan@swift-login-1.hpc.nrel.gov Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+matrix 46000 x 46000, 5 iterations with memory/task 16143 MB
+     12164477 microseconds optimized (max)
+      3731604 microseconds on host   (max)
+      6666532 microseconds optimized (min)
+      2724623 microseconds on host   (min)
+Hello from g7-64 running task 2 of 8 with pid 2937035
+Hello from g7-64 running task 1 of 8 with pid 2937034
+Runtime 27.324 ./mpi/openacc/nvidia/nrelopenmpi 554.249 total
+++++++++
+./mpi/openacc/nvidia/nvidiaopenmpi
+Hello from g7-64 running task 1 of 8 with pid 2937202
+Hello from g7-64 running task 0 of 8 with pid 2937201
+using nvidia
+Hello from g7-64 running task 2 of 8 with pid 2937203
+Hello from g7-64 running task 3 of 8 with pid 2937204
+Hello from g10-64 running task 5 of 8 with pid 186495
+Hello from g10-64 running task 4 of 8 with pid 186494
+Hello from g10-64 running task 6 of 8 with pid 186496
+Hello from g10-64 running task 7 of 8 with pid 186497
+Open MPI v3.1.5, package: Open MPI qa@sky2 Distribution, ident: 3.1.5, repo rev: v3.1.5, Nov 15, 2019
+matrix 46000 x 46000, 5 iterations with memory/task 16143 MB
+     14094674 microseconds optimized (max)
+      3013027 microseconds on host   (max)
+      6606262 microseconds optimized (min)
+      2655422 microseconds on host   (min)
+Runtime 27.901 ./mpi/openacc/nvidia/nvidiaopenmpi 582.167 total
+++++++++
+./mpi/normal/nvidia/nvidiaopenmpi
+runnning Fortran version
+ Running:
+ hellof                                                                                                                          
+ Open MPI v3.1.5, package: Open MPI qa@sky2 Distribution, ident: 3.1.5, repo rev: v3.1.5, Nov 15, 2019
+ Hello from g7-64 #             0  of             4
+ Hello from g7-64 #             1  of             4
+ Hello from g10-64 #             2  of             4
+ Hello from g10-64 #             3  of             4
+
+runnning C version
+Running: helloc
+Open MPI v3.1.5, package: Open MPI qa@sky2 Distribution, ident: 3.1.5, repo rev: v3.1.5, Nov 15, 2019
+Hello from g7-64 0 4
+Hello from g7-64 1 4
+Hello from g10-64 3 4
+Hello from g10-64 2 4
+
+runnning Fortran version
+ Running:
+ hellof                                                                                                                          
+ Open MPI v3.1.5, package: Open MPI qa@sky2 Distribution, ident: 3.1.5, repo rev: v3.1.5, Nov 15, 2019
+ Hello from g7-64 #             0  of             2
+ Hello from g7-64 #             1  of             2
+
+runnning C version
+Running: helloc
+Open MPI v3.1.5, package: Open MPI qa@sky2 Distribution, ident: 3.1.5, repo rev: v3.1.5, Nov 15, 2019
+Hello from g7-64 0 2
+Hello from g7-64 1 2
+
+Runtime 2.655 ./mpi/normal/nvidia/nvidiaopenmpi 584.837 total
+++++++++
+./mpi/normal/nvidia/nrelopenmpi
+runnning Fortran version
+ Running:hellof                                                                                                                          
+ Open MPI v4.1.6, package: Open MPI warsalan@g7-64 Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+ Hello from g7-64 #            0  of            2
+ Hello from g10-64 #            1  of            2
+
+runnning C version
+Running: helloc
+Open MPI v4.1.6, package: Open MPI warsalan@g7-64 Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+Hello from g7-64 0 2
+Hello from g10-64 1 2
+
+runnning Fortran version
+ Running:hellof                                                                                                                          
+ Open MPI v4.1.6, package: Open MPI warsalan@g7-64 Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+ Hello from g7-64 #            0  of            2
+ Hello from g7-64 #            1  of            2
+
+runnning C version
+Running: helloc
+Open MPI v4.1.6, package: Open MPI warsalan@g7-64 Distribution, ident: 4.1.6, repo rev: v4.1.6, Sep 30, 2023
+Hello from g7-64 0 2
+Hello from g7-64 1 2
+
+Runtime 6.958 ./mpi/normal/nvidia/nrelopenmpi 591.809 total
+++++++++
+./mpi/normal/intel+abi
+runnning Fortran version
+ Hello from g7-64 #            1  of            4
+ Hello from g10-64 #            2  of            4
+ Running:
+ hellof                                                                         
+                                                  
+ Intel(R) MPI Library 2021.10 for Linux* OS
+
+ Hello from g7-64 #            0  of            4
+ Hello from g10-64 #            3  of            4
+
+runnning C version
+Hello from g7-64 1 4
+Hello from g10-64 3 4
+Running: helloc
+Intel(R) MPI Library 2021.10 for Linux* OS
+
+Hello from g7-64 0 4
+Hello from g10-64 2 4
+
+runnning Fortran version
+ Running:
+ hellof                                                                         
+                                                  
+ Intel(R) MPI Library 2021.10 for Linux* OS
+
+ Hello from g7-64 #            0  of            2
+ Hello from g7-64 #            1  of            2
+
+runnning C version
+Running: helloc
+Intel(R) MPI Library 2021.10 for Linux* OS
+
+Hello from g7-64 0 2
+Hello from g7-64 1 2
+
+Runtime 4.086 ./mpi/normal/intel+abi 595.910 total
+++++++++
+./cuda/nvidia
+g10-64
+ STREAM Benchmark implementation in CUDA on device 0 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.1581      0.00077757   0.00077510   0.00080180
+Scale:       1285.4134      0.00078004   0.00077796   0.00078988
+Add:         1292.1454      0.00118667   0.00116086   0.00120902
+Triad:       1296.4055      0.00118550   0.00115705   0.00124812
+ STREAM Benchmark implementation in CUDA on device 1 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077748   0.00077486   0.00080204
+Scale:       1285.4134      0.00078002   0.00077796   0.00080490
+Add:         1292.1454      0.00118661   0.00116086   0.00119901
+Triad:       1296.4055      0.00118527   0.00115705   0.00121403
+ STREAM Benchmark implementation in CUDA on device 2 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1287.3861      0.00077876   0.00077677   0.00080419
+Scale:       1283.8396      0.00078130   0.00077891   0.00078797
+Add:         1288.7046      0.00118828   0.00116396   0.00121093
+Triad:       1293.2078      0.00118699   0.00115991   0.00121498
+ STREAM Benchmark implementation in CUDA on device 3 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1288.9687      0.00077862   0.00077581   0.00079799
+Scale:       1283.8396      0.00078122   0.00077891   0.00080895
+Add:         1282.1390      0.00118860   0.00116992   0.00121188
+Triad:       1283.1850      0.00118751   0.00116897   0.00121403
+
+g7-64
+ STREAM Benchmark implementation in CUDA on device 0 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077745   0.00077486   0.00079894
+Scale:       1286.9911      0.00077993   0.00077701   0.00080490
+Add:         1292.1454      0.00118678   0.00116086   0.00119495
+Triad:       1296.4055      0.00118554   0.00115705   0.00120807
+ STREAM Benchmark implementation in CUDA on device 1 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077759   0.00077486   0.00078797
+Scale:       1285.4134      0.00078015   0.00077796   0.00088906
+Add:         1292.1454      0.00118680   0.00116086   0.00119495
+Triad:       1296.6727      0.00118548   0.00115681   0.00120807
+ STREAM Benchmark implementation in CUDA on device 2 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1288.5727      0.00077873   0.00077605   0.00078702
+Scale:       1283.8396      0.00078125   0.00077891   0.00078893
+Add:         1291.0848      0.00118832   0.00116181   0.00172997
+Triad:       1295.3379      0.00118709   0.00115800   0.00183892
+ STREAM Benchmark implementation in CUDA on device 3 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1288.9687      0.00077879   0.00077581   0.00080085
+Scale:       1283.8396      0.00078138   0.00077891   0.00078702
+Add:         1291.0848      0.00118797   0.00116181   0.00130916
+Triad:       1294.2720      0.00118666   0.00115895   0.00125003
+
+Runtime 77.539 ./cuda/nvidia 673.462 total
+++++++++
+./cuda/gccalso
+g10-64
+ STREAM Benchmark implementation in CUDA on device 0 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077760   0.00077486   0.00080299
+Scale:       1285.4134      0.00078031   0.00077796   0.00136304
+Add:         1291.0848      0.00118708   0.00116181   0.00139213
+Triad:       1294.2720      0.00118569   0.00115895   0.00119495
+ STREAM Benchmark implementation in CUDA on device 1 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077762   0.00077486   0.00124383
+Scale:       1286.9911      0.00078021   0.00077701   0.00145316
+Add:         1292.1454      0.00118656   0.00116086   0.00119591
+Triad:       1296.6727      0.00118575   0.00115681   0.00196218
+ STREAM Benchmark implementation in CUDA on device 2 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1288.9687      0.00077940   0.00077581   0.00139594
+Scale:       1283.8396      0.00078147   0.00077891   0.00124288
+Add:         1291.0848      0.00118833   0.00116181   0.00119710
+Triad:       1294.2720      0.00118706   0.00115895   0.00130296
+ STREAM Benchmark implementation in CUDA on device 3 of g10-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1288.5727      0.00077891   0.00077605   0.00120497
+Scale:       1283.8396      0.00078118   0.00077891   0.00079012
+Add:         1291.0848      0.00118848   0.00116181   0.00121212
+Triad:       1295.3379      0.00118744   0.00115800   0.00138402
+
+g7-64
+ STREAM Benchmark implementation in CUDA on device 0 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077759   0.00077486   0.00079799
+Scale:       1285.4134      0.00077994   0.00077796   0.00078702
+Add:         1293.2078      0.00118678   0.00115991   0.00128698
+Triad:       1296.6727      0.00118559   0.00115681   0.00120497
+ STREAM Benchmark implementation in CUDA on device 1 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1290.5551      0.00077750   0.00077486   0.00079703
+Scale:       1285.4134      0.00078015   0.00077796   0.00098610
+Add:         1292.1454      0.00118677   0.00116086   0.00119805
+Triad:       1296.4055      0.00118541   0.00115705   0.00129294
+ STREAM Benchmark implementation in CUDA on device 2 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1288.9687      0.00077870   0.00077581   0.00081491
+Scale:       1283.8396      0.00078116   0.00077891   0.00078917
+Add:         1290.8199      0.00118844   0.00116205   0.00119710
+Triad:       1295.3379      0.00118730   0.00115800   0.00121093
+ STREAM Benchmark implementation in CUDA on device 3 of g7-64
+ Device name: NVIDIA A100-SXM4-40GB
+ Array elements 67108864 Array size (double precision) = 536.87 MB
+ NTIMES 2000
+ using 192 threads per block, 349526 blocks
+ output in IEC units (KiB = 1024 B)
+
+Function      Rate (GiB/s)  Avg time(s)  Min time(s)  Max time(s)
+-----------------------------------------------------------------
+Copy:        1287.3861      0.00077947   0.00077677   0.00205612
+Scale:       1283.8396      0.00078199   0.00077891   0.00189281
+Add:         1290.8199      0.00118808   0.00116205   0.00119686
+Triad:       1295.3379      0.00118742   0.00115800   0.00254202
+
+Runtime 77.584 ./cuda/gccalso 751.060 total
+FINISHED 751.067

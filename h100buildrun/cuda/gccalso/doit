@@ -1,0 +1,33 @@
+: Start from a known module state, the default
+module restore
+
+: Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa
+ml gcc-native
+ml nvhpc-nompi/24.1
+: << ++++ 
+ Compile our program
+ The module nvhpc-nompi gives us access to Nvidia's compilers
+ nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+ compilers which are actually links to these.  We do not
+ have direct access to MPI with this set of modules loaded.
+ Here we compile routines that do not containe cuda with g++.
+++++
+
+
+g++ -c normal.c 
+nvcc -std=c++11 -arch=sm_90 cuda.cu normal.o -o stream.sm_90
+
+: Run on all of our nodes
+nlist=`scontrol show hostnames | sort -u`
+for l in $nlist ; do   
+  echo $l
+  for GPU in 0 1 2 3 ; do
+: stream.cu will read the GPU on which to run from the command line
+      srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
+  done
+  echo
+done

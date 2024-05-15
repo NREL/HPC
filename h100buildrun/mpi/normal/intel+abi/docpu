@@ -1,0 +1,52 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/cpu_stack/env_cpe23.sh
+: Load modules. After this we will still have Prg
+ml craype-x86-spr
+ml gcc/12.2.0
+ml intel-oneapi-mpi
+ml intel-oneapi-compilers
+
+: << ++++ 
+ Compile our program.
+ 
+ There are many ways to compile using Intel MPI.
+ Here we use the "Intel Suggested" way using mpiicx
+ and mpifc.  This gives us new Intel backend compilers
+ with Intel MPI. mpif90 and mpicc would give us gcc
+ and gfortan instead
+++++
+
+mpiicx helloc.c -o helloc
+mpifc hellof.f90 -o hellof
+
+: We run with two tasks per nodes an two tasks on one node.
+for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+   echo runnning Fortran version
+   srun $arg hellof
+   echo
+   echo runnning C version
+   srun $arg helloc
+   echo
+done
+
+: Finally we module load cray-mpich-abi.  With this module
+: loaded Intel MPI is replaced with Cray MPI without needing
+: to recompile. After the load we rerun and see Cray MPI
+: in the output
+
+ml cray-mpich-abi
+
+for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+   echo runnning Fortran version
+   srun $arg hellof
+   echo
+   echo runnning C version
+   srun $arg helloc
+   echo
+done
+
+
+
