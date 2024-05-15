@@ -76,7 +76,7 @@ Lab has many new and different extensions, but many are also not compatible betw
 
 ### **Kernel**
 
-Kernels define the Python environments used by your notebooks. Derived from ipykernel, a predecessor project to Jupyte. You may see Jupyter kernels referred to as "ipykernels". Custom kernels require the "ipykernel" package installed in your Jupyter conda environment.
+Kernels define the Python environments used by your notebooks. Derived from ipykernel, a predecessor project to Jupyter, and you may see Jupyter kernels referred to as "ipykernels". Custom kernels require the "ipykernel" package installed in your Jupyter conda environment.
 
 More on kernels later.
 
@@ -86,7 +86,7 @@ The NREL HPC team runs a JupyterHub service for HPC users to quickly access note
 
 KJHub is available from the NREL VPN (onsite or offsite) for internal NREL users.
 
-This service is not directly accessible externally for non-NREL HPC users. However, it may be reached by using the HPC VPN, or by using a FastX Remote Desktop session via the DAV nodes.
+This service is not directly accessible externally for non-NREL HPC users. However, it may be reached by using the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), or by using a [FastX Remote Desktop](https://nrel.github.io/HPC/Documentation/Viz_Analytics/virtualgl_fastx/) session via the DAV nodes.
 
 The JupyterHub service is accessible via web browser at [https://kestrel-jhub.hpc.nrel.gov](https://kestrel-jhub.hpc.nrel.gov)
 
@@ -117,9 +117,9 @@ Kestrel supports running your own Jupyter Notebook server on a compute node. Thi
 ### Advantages:
 
 * Custom conda environments to load preferred libraries.
-* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 104 CPU cores and up to 240GB RAM on Kestrel CPU nodes and up to 2TB RAM on Kestrel bigmem nodes. (See the system specifications page for more information on the types of nodes available on Kestrel.)
+* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 104 CPU cores and up to 248GB RAM on Kestrel CPU nodes and up to 2TB RAM on Kestrel bigmem nodes. (See the system specifications page for more information on the types of nodes available on Kestrel.)
 * No competing with other users for CPU cores and RAM, and no Arbiter2 process throttling.
-* Less than a whole node may be requested via the shared node queue, to save AU.
+* Less than a whole node may be requested via the [shared node](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/running/#shared-node-partition) queue, to save AUs.
 
 ### Disadvantages:
 
