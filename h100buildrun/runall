@@ -1,0 +1,18 @@
+#$git clone git@github.nrel.gov:hpc-apps/build_examples.git
+#cd build_examples
+#salloc --time=2:00:00  --partition=gpu-h100 --nodes=2 --gres=gpu:h100:4  --exclusive 
+#. runall > output 2>&1
+
+doits=`find . -name doit`
+startdir=`pwd`
+for x in $doits ; do
+ dir=`dirname $x`
+ echo ++++++++
+ echo $dir
+ cd $dir
+ . doit
+ cd $startdir
+done
+echo FINISHED
+
+

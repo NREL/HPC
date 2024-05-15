@@ -1,0 +1,42 @@
+: Start from a known module state, the default
+module restore
+
+: Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa
+ml gcc-native/12.1
+ml PrgEnv-nvhpc/8.5.0
+
+
+: << ++++ 
+ Compile our program
+ The module PrgEnv-nvhpc/8.5.0 gives us access to Nvidia's 
+ compilers nvc, nvc++, nvcc, nvfortran as well as the Portland 
+ Group compilers which are actually links to these.  Since we 
+ are not using MPI we could have also used nvhpc-nompi/24.1 or
+ even nvhpc-native/24.1.
+++++
+
+
+nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
+
+
+
+: Run on all of our nodes
+nlist=`scontrol show hostnames | sort -u`
+for l in $nlist ; do   
+  echo $l
+  for GPU in 0 1 2 3 ; do
+: This is one way to set the GPU on which a openacc program runs.
+      export CUDA_VISIBLE_DEVICES=$GPU
+      echo running on gpu $CUDA_VISIBLE_DEVICES
+: Since we are not running MPI we actaully do not need srun here.
+      srun -n 1 --nodes=1 -w $l ./nbody
+  done
+  echo
+done
+
+unset CUDA_VISIBLE_DEVICES
+

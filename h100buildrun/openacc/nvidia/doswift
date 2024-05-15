@@ -1,0 +1,29 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+ml nvhpc
+
+
+
+
+nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
+
+
+: Run on all of our nodes
+nlist=`scontrol show hostnames | sort -u`
+for l in $nlist ; do   
+  echo $l
+  for GPU in 0 1 2 3 ; do
+: This is one way to set the GPU on which a openacc program runs.
+      export CUDA_VISIBLE_DEVICES=$GPU
+      echo running on gpu $CUDA_VISIBLE_DEVICES
+: Since we are not running MPI we actaully do not need srun here.
+      srun -n 1 --nodes=1 -w $l ./nbody
+  done
+  echo
+done
+
+unset CUDA_VISIBLE_DEVICES
+module unload nvhpc
+

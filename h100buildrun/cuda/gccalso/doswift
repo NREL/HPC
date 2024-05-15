@@ -1,0 +1,24 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+
+ml gcc/10.1.0 
+ml nvhpc
+
+g++ -c normal.c 
+nvcc -std=c++11 -arch=sm_80 cuda.cu normal.o -o stream.sm_80
+
+: Run on all of our nodes
+nlist=`scontrol show hostnames | sort -u`
+for l in $nlist ; do   
+  echo $l
+  for GPU in 0 1 2 3 ; do
+: stream.cu will read the GPU on which to run from the command line
+      srun -n 1 --nodes=1 -w $l ./stream.sm_80 -g $GPU
+  done
+  echo
+done
+
+module unload gcc
+module unload nvhpc

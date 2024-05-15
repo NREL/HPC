@@ -1,0 +1,19 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+
+ml openmpi/4.1.6-nvhpc
+
+#export I1=/nopt/nrel/apps/mpi/02-23/spack/opt/spack/linux-rocky8-zen3/nvhpc-23.9/openmpi-4.1.6-oisywta7nuvmsfhtukwyag4qeglr7oxz/include
+#export L1=/nopt/nrel/apps/compilers/02-23/spack/opt/spack/linux-rocky8-zen2/gcc-10.1.0/nvhpc-23.9-psr4p4lfx7ef4i3m33toc37dtkwzyo5f/Linux_x86_64/23.9/cuda/12.2/targets/x86_64-linux/lib
+#nvcc -I$I1 -c ping_pong_cuda_aware.cu
+#mpicc -L$L1 -lcudart  ping_pong_cuda_aware.o -o pp_cuda_aware
+
+mpiCC  ping_pong_cuda_aware.cu -o pp_cuda_aware
+
+srun -n 2 --nodes=1 ./pp_cuda_aware
+srun --tasks-per-node=1 --nodes=2 ./pp_cuda_aware
+
+module unload openmpi
+

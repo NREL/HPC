@@ -1,0 +1,8 @@
+echo "# h100buildrun" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.nrel.gov:tkaiser2/h100buildrun.git
+git push -u origin main
+

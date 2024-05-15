@@ -1,0 +1,264 @@
+++++++++ ./openacc/nvidia
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+check:
+     28, Loop not vectorized/parallelized: contains call
+check_:
+     51, check inlined, size=18 (inline) file nbodyacc2.c (23)
+          28, Loop not vectorized/parallelized: contains call
+checkf:
+     61, Loop not vectorized/parallelized: contains call
+checkf_:
+     84, checkf inlined, size=16 (inline) file nbodyacc2.c (56)
+          61, Loop not vectorized/parallelized: contains call
+checkftol:
+     95, Loop not vectorized/parallelized: contains call
+checkftol_:
+    122, checkftol inlined, size=27 (inline) file nbodyacc2.c (89)
+          95, Loop not vectorized/parallelized: contains call
+checkftol5:
+    133, Loop not vectorized/parallelized: contains call
+checkll:
+    165, Loop not vectorized/parallelized: contains call
+checkll_:
+    187, checkll inlined, size=18 (inline) file nbodyacc2.c (160)
+         165, Loop not vectorized/parallelized: contains call
+checkd:
+    197, Loop not vectorized/parallelized: contains call
+checkd_:
+    219, checkd inlined, size=16 (inline) file nbodyacc2.c (192)
+         197, Loop not vectorized/parallelized: contains call
+checkdtol:
+    230, Loop not vectorized/parallelized: contains call
+checkdtol_:
+    257, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         230, Loop not vectorized/parallelized: contains call
+fcpyf:
+    269, fcpyf_ inlined, size=2 (inline) file nbodyacc2.c (262)
+fcpyi:
+    281, fcpyi_ inlined, size=2 (inline) file nbodyacc2.c (274)
+bodyBodyInteraction:
+    383, Generating implicit acc routine seq
+         Generating acc routine seq
+         Generating NVIDIA GPU code
+seqintegrate:
+    389, FMA (fused multiply-add) instruction(s) generated
+    419, Loop not fused: different loop trip count
+    428, Zero trip check eliminated
+         Generated vector simd code for the loop containing reductions
+    430, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (383)
+    442, Generated vector simd code for the loop
+    459, FMA (fused multiply-add) instruction(s) generated
+    460, FMA (fused multiply-add) instruction(s) generated
+    461, FMA (fused multiply-add) instruction(s) generated
+    464, FMA (fused multiply-add) instruction(s) generated
+    465, FMA (fused multiply-add) instruction(s) generated
+    466, FMA (fused multiply-add) instruction(s) generated
+integrate:
+    389, FMA (fused multiply-add) instruction(s) generated
+    488, Generating copy(force[:n]) [if not already present]
+         Generating copyin(in[:n]) [if not already present]
+         Generating copyout(out[:n]) [if not already present]
+         Generating copy(vel[:n]) [if not already present]
+         Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+        490, #pragma acc loop gang /* blockIdx.x */
+        499, #pragma acc loop vector(128) /* threadIdx.x */
+             Generating implicit reduction(+:fz,fy,fx)
+    488, Local memory used for ff,.inl_f_615,.inl_.X1240_616
+    490, Loop not fused: no successor loop
+    499, Loop is parallelizable
+         Generated vector simd code for the loop containing reductions
+    501, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (383)
+    511, Generating implicit firstprivate(i,n)
+         Generating NVIDIA GPU code
+        514, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+    514, Generating implicit firstprivate(dt)
+         Loop not fused: no successor loop
+         Generated vector simd code for the loop
+    531, FMA (fused multiply-add) instruction(s) generated
+    532, FMA (fused multiply-add) instruction(s) generated
+    533, FMA (fused multiply-add) instruction(s) generated
+    536, FMA (fused multiply-add) instruction(s) generated
+    537, FMA (fused multiply-add) instruction(s) generated
+    538, FMA (fused multiply-add) instruction(s) generated
+dot:
+    555, FMA (fused multiply-add) instruction(s) generated
+normalize:
+    561, dot inlined, size=6 (inline) file nbodyacc2.c (554)
+    561, FMA (fused multiply-add) instruction(s) generated
+cross:
+    573, FMA (fused multiply-add) instruction(s) generated
+    574, FMA (fused multiply-add) instruction(s) generated
+    575, FMA (fused multiply-add) instruction(s) generated
+randomizeBodies:
+    561, FMA (fused multiply-add) instruction(s) generated
+    573, FMA (fused multiply-add) instruction(s) generated
+    574, FMA (fused multiply-add) instruction(s) generated
+    592, Loop not vectorized/parallelized: contains call
+    595, FMA (fused multiply-add) instruction(s) generated
+    596, FMA (fused multiply-add) instruction(s) generated
+    597, FMA (fused multiply-add) instruction(s) generated
+    600, normalize inlined, size=15 (inline) file nbodyacc2.c (560)
+    613, normalize inlined, size=15 (inline) file nbodyacc2.c (560)
+    615, dot inlined, size=6 (inline) file nbodyacc2.c (554)
+    615, FMA (fused multiply-add) instruction(s) generated
+    619, normalize inlined, size=15 (inline) file nbodyacc2.c (560)
+    623, cross inlined, size=14 (inline) file nbodyacc2.c (572)
+    623, FMA (fused multiply-add) instruction(s) generated
+GetTimer:
+    666, FMA (fused multiply-add) instruction(s) generated
+checkCorrectness:
+    683, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (583)
+         430, FMA (fused multiply-add) instruction(s) generated
+         455, FMA (fused multiply-add) instruction(s) generated
+         459, FMA (fused multiply-add) instruction(s) generated
+         460, FMA (fused multiply-add) instruction(s) generated
+         461, FMA (fused multiply-add) instruction(s) generated
+         464, FMA (fused multiply-add) instruction(s) generated
+         465, FMA (fused multiply-add) instruction(s) generated
+         592, Loop not vectorized/parallelized: contains call
+         595, FMA (fused multiply-add) instruction(s) generated
+         596, FMA (fused multiply-add) instruction(s) generated
+         597, FMA (fused multiply-add) instruction(s) generated
+         600, FMA (fused multiply-add) instruction(s) generated
+         613, FMA (fused multiply-add) instruction(s) generated
+         615, FMA (fused multiply-add) instruction(s) generated
+         619, FMA (fused multiply-add) instruction(s) generated
+         623, FMA (fused multiply-add) instruction(s) generated
+    686, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (417)
+         419, Loop not fused: different loop trip count
+         428, Zero trip check eliminated
+              Generated vector simd code for the loop containing reductions
+         442, Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop
+    690, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         230, Loop not vectorized/parallelized: contains call
+main:
+    728, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (583)
+         430, FMA (fused multiply-add) instruction(s) generated
+         455, FMA (fused multiply-add) instruction(s) generated
+         459, FMA (fused multiply-add) instruction(s) generated
+         460, FMA (fused multiply-add) instruction(s) generated
+         461, FMA (fused multiply-add) instruction(s) generated
+         464, FMA (fused multiply-add) instruction(s) generated
+         465, FMA (fused multiply-add) instruction(s) generated
+         592, Loop not vectorized/parallelized: contains call
+         595, FMA (fused multiply-add) instruction(s) generated
+         596, FMA (fused multiply-add) instruction(s) generated
+         597, FMA (fused multiply-add) instruction(s) generated
+         600, FMA (fused multiply-add) instruction(s) generated
+         613, FMA (fused multiply-add) instruction(s) generated
+         615, FMA (fused multiply-add) instruction(s) generated
+         619, FMA (fused multiply-add) instruction(s) generated
+         623, FMA (fused multiply-add) instruction(s) generated
+         665, FMA (fused multiply-add) instruction(s) generated
+         683, FMA (fused multiply-add) instruction(s) generated
+         686, FMA (fused multiply-add) instruction(s) generated
+    731, checkCorrectness inlined, size=286 (inline) file nbodyacc2.c (676)
+         683, randomizeBodies inlined, size=117 (inline) file nbodyacc2.c (583)
+              600, normalize inlined, size=15 (inline) file nbodyacc2.c (560)
+                   561, dot inlined, size=6 (inline) file nbodyacc2.c (554)
+              613, normalize inlined, size=15 (inline) file nbodyacc2.c (560)
+         683, Loop not vectorized/parallelized: contains call
+         686, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (417)
+              430, bodyBodyInteraction inlined, size=13 (inline) file nbodyacc2.c (383)
+         686, Zero trip check eliminated
+              Loop not fused: different loop trip count
+              Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop containing reductions
+              Generated vector simd code for the loop
+         690, checkdtol inlined, size=26 (inline) file nbodyacc2.c (224)
+         690, Loop not vectorized/parallelized: contains call
+    733, StartTimer inlined, size=2 (inline) file nbodyacc2.c (640)
+    733, Generating copy(f[:n],pin[:n],v[:n],pout[:n]) [if not already present]
+    735, Loop not vectorized/parallelized: contains call
+    742, GetTimer inlined, size=9 (inline) file nbodyacc2.c (657)
+    744, StartTimer inlined, size=2 (inline) file nbodyacc2.c (640)
+    745, Loop not fused: function call before adjacent loop
+    747, seqintegrate inlined, size=71 (inline) file nbodyacc2.c (417)
+         419, Loop not fused: different loop trip count
+         428, Zero trip check eliminated
+              Generated vector simd code for the loop containing reductions
+         442, Generated vector simd code for the loop
+    752, GetTimer inlined, size=9 (inline) file nbodyacc2.c (657)
+    754, computePerfStats inlined, size=5 (inline) file nbodyacc2.c (701)
+    755, computePerfStats inlined, size=5 (inline) file nbodyacc2.c (701)
+++++++++ ./cudalib/fft
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./cudalib/factor
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./mpi/cudaaware
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./mpi/withcuda/nvidia/nrelopenmpi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./mpi/withcuda/nvidia/nvidiaopenmpi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./mpi/openacc/nvidia/nrelopenmpi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+smooth:
+     95, Generating copyin(b[:m*n]) [if not already present]
+         Generating copy(a[:m*n]) [if not already present]
+     97, Loop is parallelizable
+     98, Loop is parallelizable
+         Generating NVIDIA GPU code
+         97, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+         98,   /* blockIdx.x threadIdx.x auto-collapsed */
+++++++++ ./mpi/openacc/nvidia/nvidiaopenmpi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+smooth:
+     95, Generating copyin(b[:m*n]) [if not already present]
+         Generating copy(a[:m*n]) [if not already present]
+     97, Loop is parallelizable
+     98, Loop is parallelizable
+         Generating NVIDIA GPU code
+         97, #pragma acc loop gang, vector(128) collapse(2) /* blockIdx.x threadIdx.x */
+         98,   /* blockIdx.x threadIdx.x auto-collapsed */
+++++++++ ./mpi/normal/nvidia/nvidiaopenmpi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./mpi/normal/nvidia/nrelopenmpi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./mpi/normal/intel+abi
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./cuda/nvidia
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+
+++++++++ ./cuda/gccalso
+The system default contains no modules
+  (env var: LMOD_SYSTEM_DEFAULT_MODULES is empty)
+  No changes in loaded modules
+

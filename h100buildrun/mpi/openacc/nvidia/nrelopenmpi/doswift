@@ -1,0 +1,22 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+: Load modules
+ml openmpi/4.1.6-nvhpc
+
+: << ++++ 
+ Compile our program
+ Here we use mpicc and mpif90.  There is support for Cuda
+ but we are not directly using it in this case, just openacc.
+++++
+
+mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
+
+: We run with 4 tasks per nodes.
+srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
+
+module unload nvhpc
+
+
+

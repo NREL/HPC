@@ -1,0 +1,26 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+ml openmpi/4.1.6-gcc
+ml gcc
+: << ++++ 
+ Compile our program
+++++
+
+mpicc helloc.c -o helloc
+mpif90 hellof.f90 -o hellof
+
+
+for arg in "--tasks-per-node=1" "-n 2 --nodes=1" ; do 
+   echo runnning Fortran version
+   srun $arg hellof
+   echo
+   echo runnning C version
+   srun $arg helloc
+   echo
+done
+module unload openmpi
+module unload gcc
+
+

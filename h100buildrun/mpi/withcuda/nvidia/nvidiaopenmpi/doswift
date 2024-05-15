@@ -1,0 +1,25 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+ml nvhpc
+ml gcc
+mpiCC ping_pong_cuda_staged.cu -o staged
+
+: We run with 2 tasks total.
+: This version of MPI does not support srun so we use mpirun
+
+export OMPI_MCA_btl_openib_warn_no_device_params_found=0
+
+echo Run on a single node
+mpirun -n 2 -N 2 ./staged
+
+echo Run on two nodes 
+mpirun -n 2 -N 1 ./staged
+
+unset OMPI_MCA_btl_openib_warn_no_device_params_found
+module unload nvhpc ml gcc
+
+
+
+

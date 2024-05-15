@@ -1,0 +1,50 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+: Size of our matrix to solve
+export MSIZE=4500
+
+: We are going to compile the Intel version using
+: the CPU environment
+
+ml intel-oneapi-compilers
+ml intel-oneapi-mkl
+icpx  -DMINE=$MSIZE -fopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl 
+
+
+: GPU version with libcusolver
+ml nvhpc
+export L1=$NVHPC_ROOT/math_libs/lib64
+export L3=$NVHPC_ROOT/REDIST/cuda/12.3/targets/x86_64-linux/lib 
+nvcc  -DMINE=$MSIZE -L$L1 -lcusolver -L$L3 -lnvJitLink cusolver_getrf_example.cu -o invert.gpu
+
+
+export OMP_NUM_THREADS=32
+echo 
+echo 
+echo ++++++++++++++++++++++
+echo running MKL version
+echo ++++++++++++++++++++++
+./invert.mkl
+
+echo 
+echo 
+
+for GPU in 0 1 2 3 ; do
+  echo 
+  echo 
+  echo ++++++++++++++++++++++
+  echo running gpu version
+  echo ++++++++++++++++++++++
+: invert.gpu will read the GPU on which to run from the command line
+  ./invert.gpu $GPU
+done
+
+unset L1
+unset L3
+module unload intel-oneapi-compilers intel-oneapi-mkl
+module unload nvhpc
+unset OMP_NUM_THREADS
+unset MSIZE
+

@@ -1,0 +1,73 @@
+: Size of our matrix to solve
+export MSIZE=4500
+
+: Start from a known module state, the default
+module restore
+: We are going to compile the Intel version using 
+: the CPU environment
+ml intel-oneapi-mkl/2023.2.0-intel
+ml intel-oneapi-compilers/2023.2.0
+icpx  -DMINE=$MSIZE -fopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl
+
+
+: Start from a known module state, the default
+module restore
+: Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+module purge
+ml craype-x86-genoa
+ml gcc-native/12.1
+ml PrgEnv-gnu/8.5.0
+
+: Here we build the CPU version with libsci
+CC  -DMINE=$MSIZE  -fopenmp -march=native cpu.C -o invert.libsci
+
+module restore
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+ml craype-x86-genoa
+ml nvhpc-native
+
+: << ++++ 
+ Compile our GPU programs.
+ The module nvhpc-native gives us access to Nvidia's compilers
+ nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+ compilers which are actually links to these.
+++++
+
+: GPU version with libcusolver
+export L1=$NVHPC_ROOT/math_libs/lib64
+export L3=$NVHPC_ROOT/REDIST/cuda/12.3/targets/x86_64-linux/lib
+nvcc  -DMINE=$MSIZE -L$L1 -lcusolver -L$L3 -lnvJitLink cusolver_getrf_example.cu -o invert.gpu
+
+
+export OMP_NUM_THREADS=32
+echo 
+echo 
+echo ++++++++++++++++++++++
+echo running MKL version
+echo ++++++++++++++++++++++
+./invert.mkl
+
+echo 
+echo 
+echo ++++++++++++++++++++++
+echo running libsci version 
+echo ++++++++++++++++++++++
+./invert.libsci
+
+for GPU in 0 1 2 3 ; do
+echo 
+echo 
+echo ++++++++++++++++++++++
+echo running gpu version
+echo ++++++++++++++++++++++
+: invert.gpu will read the GPU on which to run from the command line
+./invert.gpu $GPU
+done
+
+unset L1
+unset L3
+unset OMP_NUM_THREADS
+unset MSIZE
+

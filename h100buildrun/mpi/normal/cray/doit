@@ -1,0 +1,66 @@
+: Start from a known module state, the default
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+ml craype-x86-genoa 
+
+: << ++++ 
+ Compile our program.
+ 
+ Here we use cc and ftn.  These are wrappers
+ that point to Cray C (clang) Cray Fortran
+ and Cray MPI. cc and ftn are part of PrgEnv-cray
+ with is part of the default setup.
+++++
+
+cc helloc.c -o helloc
+ftn hellof.f90 -o hellof
+
+: We run with two tasks per nodes an two tasks on one node.
+for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+   echo runnning Fortran version
+   srun $arg hellof
+   echo
+   echo runnning C version
+   srun $arg helloc
+   echo
+done
+
+: With PrgEnv-intel we get the Intel backend compilers
+ml PrgEnv-intel
+ml cray-libsci/23.05.1.4
+cc helloc.c -o helloc.i
+ftn hellof.f90 -o hellof.i
+
+: We run with two tasks per nodes an two tasks on one node.
+for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+   echo runnning Fortran version with Intel backend
+   srun $arg hellof.i
+   echo
+   echo runnning C version with Intel backend
+   srun $arg helloc.i
+   echo
+done
+
+: With PrgEnv-gnu we get the Intel backend compilers
+: As of 04/04/24 the -march=znver3 flag is required
+: because the default version of gcc does not support the
+: current CPU on the GPU nodes
+ml PrgEnv-gnu
+ml cray-libsci/23.05.1.4
+cc  -march=znver3 helloc.c -o helloc.g
+ftn -march=znver3 hellof.f90 -o hellof.g
+
+: We run with two tasks per nodes an two tasks on one node.
+for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+   echo runnning Fortran version with gnu backend
+   srun $arg hellof.g
+   echo
+   echo runnning C version with gnu backend
+   srun $arg helloc.g
+   echo
+done
+
+

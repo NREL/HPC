@@ -1,0 +1,47 @@
+: Start from a known module state, the default
+module purge
+module restore
+
+: Size of our cube to convert
+export CUBE=256
+
+: GPU version with libcufft
+
+ml nvhpc
+nvcc -O3 -forward-unknown-to-host-compiler  --generate-code=arch=compute_80,code=[compute_80,sm_80] -std=c++11 -x cu 3d_mgpu_c2c_example.cpp -c
+export L1=$NVHPC_ROOT/REDIST/math_libs/12.3/targets/x86_64-linux/lib
+nvcc  -o 3dfft 3d_mgpu_c2c_example.o -L$L1 -lcufft
+
+
+: Run our program on a cube. The first parameter gives our cube size.
+: 2048 should work on the H100s.
+: Second parameter determines which algorithm runs first 1 GPU version or 4 GPU version
+echo
+echo
+echo ++++++++++++++
+echo run 1 GPU version first
+./3dfft $CUBE 1
+echo
+echo
+echo ++++++++++++++
+echo run 4 gpu version first
+./3dfft $CUBE 2
+
+
+: Build and run a fftw version
+: We are going to compile the Intel version using
+: the CPU environment
+
+ml intel-oneapi-compilers
+ml intel-oneapi-mkl
+ml fftw
+icx -I$FFTW_ROOT_DIR/include -L$FFTW_ROOT_DIR/lib -lfftw3 -O3 fftw3d.c -o fftw3.exe
+./fftw3.exe $CUBE
+
+
+module unload fftw intel-oneapi-mkl intel-oneapi-compilers
+unset L1
+module unload nvhpc
+unset CUBE
+
+
