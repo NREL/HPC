@@ -45,7 +45,7 @@ The orginal code was modified to take the target GPU number on the command line.
 
 ### cray
 
-Here we use the module PrgEnv-nvidia.  This is one of the "standard" Cray programming envirnment.  It gives us the MPI wrappers cc, CC, and ftn which can be used in place of the normal C, C++, and Fortran compilers.  In this case since our programs do not contain MPI they are compiled without the library.  The PrgEnv-nvidia pulls in the Nvidia Cuda compilers instead of the regular Cray compilers.  The regular Nvidia compilers, nvc,nvcc, nvfortran are also available.
+Here we use the module PrgEnv-nvidia.  This is one of the "standard" Cray programming environments.  It gives us the MPI wrappers cc, CC, and ftn which can be used in place of the normal C, C++, and Fortran compilers.  In this case since our programs do not contain MPI they are compiled without the library.  The PrgEnv-nvidia pulls in the Nvidia Cuda compilers instead of the regular Cray compilers.  The regular Nvidia compilers, nvc,nvcc, nvfortran are also available.
 
 ### nvidia
 There are several nividia related modules.  The module nvhpc-nompi/24.1 gives us the Nvidia Cuda compilers without MPI.  Here we compile with a "normal" Nvidia compiler nvcc.  
