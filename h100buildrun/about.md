@@ -1,13 +1,13 @@
 ## Overview
 This shows how to build and run on Kestrel's GPU nodes using several programming paradigms.  There are pure Cuda programs, Cuda aware MPI programs, MPI programs without Cuda, MPI programs with Cuda, MPI programs with Openacc, and pure Openacc programs.   
 
-Please clone the repo with the run scripts and examples:
+Please clone the HPC repo with the run scripts and examples:
 
 On Kestrel:
 
 ```
 git clone xxxxxxxxxxxxxxxxx
-cd build_examples
+cd HPC/h100buildrun/build_examples
 ```
 
 Each bottom level directory contains a file "doit" which if sourced will build and run the example.  It is assumed that this is run on 2 GPU nodes because some of the codes require a specific task count.  
