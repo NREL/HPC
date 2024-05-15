@@ -40,7 +40,7 @@ The example stream.cu is the STREAM benchmark implementation in Cuda.  It measur
 
 The file stream.cu and the collection of files cuda.cu, extra.h and normal.c produce the same executable.  The orginal stream.cu was split to show how gcc can be used to compile routines that do not contain Cuda and then cobined with Cuda enabled routines. 
 
-The orgianl code was modified to take the target GPU number on the command line.
+The orginal code was modified to take the target GPU number on the command line.
 
 
 ### cray
