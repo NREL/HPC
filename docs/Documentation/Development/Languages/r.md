@@ -39,7 +39,7 @@ For more information about using R in the Anaconda framework, see [Using R langu
 
 ## Running R Interactively
 
-R is most commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Systems/Eagle/Running/interactive_jobs.md)) using the `srun` command. Alternatively, R can be used through Europa running Jupyterhub. For more details, see [Jupyterhub](../Jupyter/jupyterhub.md).
+R is most commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Systems/Eagle/Running/interactive_jobs.md)) using the `srun` command. Alternatively, R can be used through [Jupyterhub](../Jupyter/jupyterhub.md).
 
 Once on a compute node, R environments can be accessed through Anaconda as described above. To access the R interactive console, type R at the command line. You will be prompted with the familiar R console in your terminal window: 
 
