@@ -7,7 +7,7 @@ On Kestrel:
 
 ```
 git clone xxxxxxxxxxxxxxxxx
-cd HPC/h100buildrun/build_examples
+cd HPC/h100buildrun
 ```
 
 Each bottom level directory contains a file "doit" which if sourced will build and run the example.  It is assumed that this is run on 2 GPU nodes because some of the codes require a specific task count.  
