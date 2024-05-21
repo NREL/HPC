@@ -49,7 +49,7 @@ Unlike the other partitions, nodes in the shared partition can be shared by mult
 
 #### Usage
 
-Currently, there are 64 standard compute nodes available in the shared partition. These nodes have 250GB of usable RAM and 104 cores. By default, your job will be allocated 1.024GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
+Currently, there are 64 standard compute nodes available in the shared partition. These nodes have 248GB of usable RAM and 104 cores. By default, your job will be allocated 1.024GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
@@ -75,10 +75,10 @@ The equation for calculating the AU cost of a job is:
 In the shared node partition, the value for `Number of Nodes` can be a fraction of a node. This value will be calculated based on either the amount of cores or the amount of memory requested, whichever is a greater percentage of the total of that resource available on the node.
 
 ???+ example "Example Job Cost Calculation"
-    For example, if you request 125GB of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
+    For example, if you request 124GB of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
     ```
     # To determine the Number of Nodes value: 
-    125/250 = 0.5
+    124/250 = 0.5
 
     26/104 = 0.25 
 
