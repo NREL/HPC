@@ -78,7 +78,7 @@ In the shared node partition, the value for `Number of Nodes` can be a fraction 
     For example, if you request 124GB of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
     ```
     # To determine the Number of Nodes value: 
-    124/250 = 0.5
+    124/248 = 0.5
 
     26/104 = 0.25 
 
