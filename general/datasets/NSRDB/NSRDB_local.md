@@ -1,6 +1,6 @@
 # Solar Resource Data: National Solar Radiation Database (NSRDB)
 
-- /nrel/nsrdb/
+- /kfs2/datasets/NSRDB/
   - conus/
     - nsrdb_conus_[attribute]_[2018-2022].h5
     - attribute: ancillary_a, ancillary_b, clearsky, clouds, csp
