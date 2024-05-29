@@ -18,4 +18,7 @@ ${CONTAINER_EXEC} instance start \
     $(get_spark_bind_mounts ${CONFIG_DIR}) \
     ${CONTAINER_PATH} \
     ${CONTAINER_NAME}
+if [ $? -ne 0 ]; then
+    exit 1
+fi
 ${CONTAINER_EXEC} exec instance://${CONTAINER_NAME} service dropbear start

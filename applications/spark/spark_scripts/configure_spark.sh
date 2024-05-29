@@ -1,69 +1,38 @@
 #!/bin/bash
 
 CONFIG_DIR=$(pwd)
-DRIVER_MEMORY_GB=1
+DRIVER_MEMORY_GB=10
 ENABLE_DYNAMIC_ALLOCATION=false
 ENABLE_HISTORY_SERVER=false
 # Many online docs say executors max out with 5 threads.
 EXECUTOR_CORES=5
 PARTITION_MULTIPLIER=1
 SLURM_JOB_IDS=()
+SPARK_SCRATCH="tmpfs"
 
 # Configure executor settings in spark-defaults.conf.
 function config_executors()
 {
-    rm -f ${CONFIG_DIR}/conf/worker_memory ${CONFIG_DIR}/conf/worker_num_cpus
-    num_workers=0
-    for node_name in $(${SCRIPT_DIR}/get_node_names.sh ${SLURM_JOB_IDS[@]}); do
-        ssh ${USER}@${node_name} ${SCRIPT_DIR}/record_resources.sh ${CONFIG_DIR}
-        ret=$?
-        if [[ $ret -ne 0 ]]; then
-            error "Failed to record resources on the worker node ${node_name}: ${ret}"
-        fi
-        (( num_workers += 1 ))
-    done
+    num_workers=$(get_num_workers)
+    node_memory_overhead_gb=$(get_node_memory_overhead_gb)
+    worker_memory_gb=$(get_worker_memory_gb)
+    worker_num_cpus=$(get_worker_num_cpus)
 
-    driver_mem=$(get_spark_driver_memory_gb)
-    memory_gb_by_node=()
-    lowest_memory_gb=0
-    for node_mem in $(cat ${CONFIG_DIR}/conf/worker_memory); do
-        mem=$(( ${node_mem} - ${driver_mem} - ${NODE_MEMORY_OVERHEAD_GB} ))
-        if [ ${lowest_memory_gb} -eq 0 ] || [ ${node_mem} -lt ${lowest_memory_gb} ]; then
-            lowest_memory_gb=${mem}
-        fi
-        memory_gb_by_node+=(${mem})
-    done
+    # Leave one CPU for OS and management software.
+    worker_num_cpus=$(( ${worker_num_cpus} - 1 ))
 
-    cpus_by_node=()
-    lowest_num_cpus=0
-    for node_num_cpus in $(cat ${CONFIG_DIR}/conf/worker_num_cpus); do
-        # Leave one CPU for OS and management software.
-        cpus=$(( ${node_num_cpus} - 1 ))
-        if [ ${lowest_num_cpus} -eq 0 ] || [ ${cpus} -lt ${lowest_num_cpus} ]; then
-            lowest_num_cpus=${cpus}
-        fi
-        cpus_by_node+=(${cpus})
-    done
+    min_executors_per_node=$(( ${worker_num_cpus} / ${EXECUTOR_CORES} ))
+    executor_memory_gb=$(( ${worker_memory_gb} / ${min_executors_per_node} ))
+    executors_by_mem=$(( ${worker_memory_gb} / ${executor_memory_gb} ))
+    executors_by_cpu=$(( ${worker_num_cpus} / ${EXECUTOR_CORES} ))
+    if [ ${executors_by_cpu} -le ${executors_by_mem} ]; then
+        executors_per_node=${executors_by_cpu}
+    else
+        executors_per_node=${executors_by_mem}
+    fi
 
-    min_executors_per_node=$(( ${lowest_num_cpus} / ${EXECUTOR_CORES} ))
-    executor_memory_gb=$(( ${lowest_memory_gb} / ${min_executors_per_node} ))
-
-    total_num_cpus=0
-    total_num_executors=0
-    for (( i=0; i < ${num_workers}; i++ )); do
-        mem_gb=${memory_gb_by_node[${i}]}
-        executors_by_mem=$(( ${mem_gb} / ${executor_memory_gb} ))
-        cpus=${cpus_by_node[${i}]}
-        executors_by_cpu=$(( ${cpus} / ${EXECUTOR_CORES} ))
-        if [ ${executors_by_cpu} -le ${executors_by_mem} ]; then
-            (( total_num_cpus += ${cpus} ))
-            (( total_num_executors += ${executors_by_cpu} ))
-        else
-            (( total_num_cpus += ${executors_by_mem} * ${EXECUTOR_CORES} ))
-            (( total_num_executors += ${executors_by_mem} ))
-        fi
-    done
-
+    total_num_cpus=$(( ${executors_per_node} * ${EXECUTOR_CORES} * ${num_workers} ))
+    total_num_executors=$(( ${executors_per_node} * ${num_workers} ))
     partitions=$(( ${total_num_cpus} * ${PARTITION_MULTIPLIER} ))
     cat >> ${DEFAULTS_FILE} << EOF
 spark.executor.cores ${EXECUTOR_CORES}
@@ -146,6 +115,8 @@ Options:
   -M, --driver-memory-gb INTEGER      Driver memory in GB. [Default: ${DRIVER_MEMORY_GB}]
   -e, --executor-cores INTEGER        Number of cores per executor. [Default: ${EXECUTOR_CORES}]
   -d, --directory TEXT                Base directory with configuration files. [Default: current]
+  -l, --spark-scratch TEXT            Directory given to Spark workers for shuffle writes and log files.
+                                      [Default: compute node tmpfs]
   -m, --partition-multiplier INTEGER  Set spark.sql.shuffle.partitions to number of
                                       cores multiplied by this value. [Default: ${PARTITION_MULTIPLIER}]
 
@@ -182,6 +153,11 @@ while [[ $# -gt 0 ]]; do
       echo "${USAGE}"
       exit 0
       ;;
+    -l|--spark-scratch)
+      SPARK_SCRATCH=${2}
+      shift
+      shift
+      ;;
     -m|--shuffle-partitions-multiplier)
       PARTITION_MULTIPLIER=${2}
       shift
@@ -197,6 +173,20 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+function write_worker_nodes()
+{
+    workers_file="${CONFIG_DIR}/conf/workers"
+    rm -f ${workers_file}
+    touch ${workers_file}
+
+    for node in $(${SCRIPT_DIR}/get_node_names.sh ${SLURM_JOB_IDS[@]})
+    do
+        if is_worker_node ${node}; then
+            echo "${node}" >> $workers_file
+        fi
+    done
+}
 
 export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . ${SCRIPT_DIR}/common.sh
@@ -214,6 +204,8 @@ if [ ${num_jobs} -eq 0 ]; then
     fi
 fi
 
+run_checks
+
 DEFAULTS_FILE=${CONFIG_DIR}/conf/spark-defaults.conf
 DEFAULTS_TEMPLATE_FILE=${DEFAULTS_FILE}.template
 if ! [ -f ${DEFAULTS_TEMPLATE_FILE} ]; then
@@ -222,13 +214,27 @@ fi
 
 module load ${CONTAINER_MODULE}
 copy_defaults_template_file
+metastore_dir=$(get_config_variable "metastore_dir")
+if [[ ${metastore_dir} != "." ]]; then
+    cp ${CONFIG_DIR}/conf/hive-site.xml.template ${CONFIG_DIR}/conf/hive-site.xml
+    sed -i "s|REPLACE_ME_WITH_CUSTOM_PATH|${metastore_dir}/metastore_db|" ${CONFIG_DIR}/conf/hive-site.xml
+    echo "spark.sql.warehouse.dir ${metastore_dir}/spark-warehouse" >> ${CONFIG_DIR}/conf/spark-defaults.conf
+fi
+
 config_driver
+write_worker_nodes
 config_executors
 if [ ${ENABLE_HISTORY_SERVER} = true ]; then
     enable_history_server
 fi
 if [ ${ENABLE_DYNAMIC_ALLOCATION} = true ]; then
     enable_dynamic_allocation
+fi
+if [ "${SPARK_SCRATCH}" != "tmpfs" ]; then
+    spark_scratch=$(realpath ${SPARK_SCRATCH})
+    echo "SPARK_LOCAL_DIRS=${spark_scratch}/local" >> ${CONFIG_DIR}/conf/spark-env.sh
+    echo "SPARK_WORKER_DIR=${spark_scratch}/worker" >> ${CONFIG_DIR}/conf/spark-env.sh
+    echo "Configured Spark workers to use ${spark_scratch} for shuffle data and log files."
 fi
 
 echo "Configured settings in ${DEFAULTS_FILE}"
