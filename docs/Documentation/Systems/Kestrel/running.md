@@ -43,7 +43,7 @@ The following table summarizes the partitions on Kestrel:
 | ```gpu-h100```|  Nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
 | ```gpu-h100l```|  GPU nodes that prefer jobs with walltimes > 2 days. | 13 nodes total. <br>  7 nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
 
-*GPU jobs in the debug partition are limited to 2 GPUs, TODO? memory per node of total? 
+*GPU jobs in the debug partition are limited to 2 GPUs...
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
 
