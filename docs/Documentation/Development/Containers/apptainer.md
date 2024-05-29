@@ -295,11 +295,11 @@ There are several versions (*tags*) of [Tensorflow images](https://hub.docker.co
 
 | System   | Partition name | GPU type<br>(cards per node) | `nvidia-smi`<br>GPU driver version | CUDA Version |
 |:--------:|:--------------:|:----------------------------:|:----------------------------------:|:------------:|
-| Kestrel  | gpu-h100       | H100 (4)                     | 545.23.08                          | 12.3         |
-| Swift    | gpu            | A100 (4)                     | 545.23.08                          | 12.3         |
+| Kestrel  | gpu-h100       | H100 (4)                     | 550.54.15                          | 12.4         |
+| Swift    | gpu            | A100 (4)                     | 550.54.15                          | 12.4         |
 | Vermilion| gpu            | A100 (1)                     | 460.106.00                         | 11.2         |
 
-Kestrel's H100 GPUs run with CUDA 12.3 with a GPU driver version of 545.23.08. So for this example on Kestrel, we are ideally looking for a Tensorflow image tag that includes CUDA/12.3. On DockerHub, we see from consulting the [layers of `tensorflow:2.15.0-gpu`](https://hub.docker.com/layers/tensorflow/tensorflow/2.15.0-gpu/images/sha256-66b44c162783bb92ab6f44c1b38bcdfef70af20937089deb7bc20a4f3d7e5491?context=explore) that this image fits our requirements (note line 14: `ENV CUDA_VERSION=12.3.0`).
+Kestrel's H100 GPUs run with CUDA 12.4 with a GPU driver version of 550.54.15. Most GPU-enabled applications are compatible with a given major version release of CUDA; for example, if an application requires CUDA/12.4, it will more than likely work with other versions of CUDA >= 12.0. So for this example on Kestrel, we are looking for a Tensorflow image tag that includes as close to CUDA/12.4 as we can. On DockerHub, we see from consulting the [layers of `tensorflow:2.15.0-gpu`](https://hub.docker.com/layers/tensorflow/tensorflow/2.15.0-gpu/images/sha256-66b44c162783bb92ab6f44c1b38bcdfef70af20937089deb7bc20a4f3d7e5491?context=explore) that this image fits our requirements (note line 14: `ENV CUDA_VERSION=12.3.0`). *At the time of writing, a Tensorflow image with CUDA/12.4 is not yet available from this DockerHub repository.*
 
 
 First, allocate a Kestrel GPU compute node:
@@ -519,10 +519,10 @@ apptainer exec --nv gpu_accelerated_tensorflow.sif python tensorflow.py
 ```
 
 ### Providing CUDA to Host Environment (GPU)
-In the [Tensorflow example above](./apptainer.md#tensorflow-container-example), the container included all of the necessary software to run on a GPU, including CUDA. However, depending on the specific software container you are trying to run, its image may or may not include a working version of CUDA. If you encounter CUDA- or GPU-driver errors, try loading version 12.3 of the CUDA module before running the container:
+In the [Tensorflow example above](./apptainer.md#tensorflow-container-example), the container included all of the necessary software to run on a GPU, including CUDA. However, depending on the specific software container you are trying to run, its image may or may not include a working version of CUDA. If you encounter CUDA- or GPU-driver errors, try loading version 12.4 of the CUDA module before running the container:
 
 ```
-module load cuda/12.3
+module load cuda/12.4
 ```
 
 
