@@ -130,7 +130,6 @@ Here is a sample script for submitting an AMR-Wind application run on multiple G
 
     #!/bin/bash
     #SBATCH --time=1:00:00 
-    #SBATCH --partition=gpu-h100
     #SBATCH --account=<user-account>
     #SBATCH --nodes=2
     #SBATCH --gres=gpu:h100:4
