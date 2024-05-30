@@ -7,17 +7,24 @@ title: Running on Kestrel
 
 ## Kestrel Compute Nodes
 
-The [Kestrel system configuration page](https://www.nrel.gov/hpc/kestrel-system-configuration.html) lists the four categories that Kestrel nodes exhibit based on their hardware features. In summary, standard compute nodes on Kestrel have 104 cores and 248GB of usable RAM. 256 of those nodes have a 1.7 TB NVMe local disk. There are also 10 bigmem nodes with 2 TB of RAM and 5.8 TB NVMe local disk.
+There are two general types of compute nodes on Kestrel: CPU nodes and GPU nodes. These nodes can be further broken down into four categories, listed on the [Kestrel System Configuration Page](https://www.nrel.gov/hpc/kestrel-system-configuration.html).
+
+
+### CPU Nodes
+Standard CPU-based compute nodes on Kestrel have 104 cores and 248GB of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.8TB NVMe local disk.
+
 
 ### GPU Nodes
-Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80 GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with 360 GB of usable RAM. The GPU nodes also have 3.25 TB of NVMe local disk. 
+Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with 360GB of usable RAM. The GPU nodes also have 3.25TB of NVMe local disk. 
 
 
 
 ### Using Node Local Storage
 
 
-To use local disk on the nodes that have it available, use the `$TMPDIR` environment variable. On nodes without local disk, writing here will consume RAM. To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). Note that all of the Bigmem and H100 GPU nodes have real local disk. 
+The majority of CPU nodes do not have local disk storage, but there are 256 nodes with fast local NVMe drives for temporary storage by jobs with high disk I/O requirements. To request nodes with local disk, use the `--tmp` option in your job submission script (e.g. `--tmp=1600000`). When your job is allocated nodes with local disk, the storage may then be accessed inside the job by using the `$TMPDIR` environment variable as the path. Be aware that on nodes without local disk, writing to `$TMPDIR` will consume RAM, reducing the available memory for running processes.  
+
+Note that all of the Bigmem and H100 GPU nodes have real local disk. 
 
 
 ## Partitions
