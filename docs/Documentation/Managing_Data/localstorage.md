@@ -4,7 +4,7 @@ The table below summarizes the local and scratch storage currently on NREL HPC s
 
 | System Name | Node Local Storage | $TMPDIR Default | Default $TMPDIR Storage Type | Global Scratch Storage |
 | -- | -- | -- | -- | -- | 
-| Kestrel | 1.7TB on 256 of the standard compute nodes, 5.8TB on bigmem nodes. Other nodes have none. | `/tmp/scratch/$SLURM_JOBID` | Local disk when available, or RAM | `/scratch/$USER` (Lustre) | 
+| Kestrel | 1.7TB on 256 of the standard compute nodes, 5.8TB on bigmem nodes, 3.25TB GPU nodes. Other nodes have none. | `/tmp/scratch/$SLURM_JOBID` | Local disk when available, or RAM | `/scratch/$USER` (Lustre) | 
 | Swift | 1.8TB | `/scratch/$USER/$SLURM_JOBID` | Local disk | None | 
 | Vermilion | 60GB (t), 250GB (sm), 500GB (std), 1.0TB (lg), 2.0TB (gpu) | `/tmp` | RAM. Write to `/tmp/scratch` instead to use local disk. | `/scratch/$USER` |
 
