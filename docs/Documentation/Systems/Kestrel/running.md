@@ -49,7 +49,7 @@ Unlike the other partitions, nodes in the shared partition can be shared by mult
 
 #### Usage
 
-Currently, there are 64 standard compute nodes available in the shared partition. These nodes have 248GB of usable RAM and 104 cores. By default, your job will be allocated 1.024GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
+Currently, there are 64 standard compute nodes available in the shared partition. These nodes have 242GB of usable RAM and 104 cores. By default, your job will be allocated 1.024GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
