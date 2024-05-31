@@ -75,10 +75,10 @@ The equation for calculating the AU cost of a job is:
 In the shared node partition, the value for `Number of Nodes` can be a fraction of a node. This value will be calculated based on either the amount of cores or the amount of memory requested, whichever is a greater percentage of the total of that resource available on the node.
 
 ???+ example "Example Job Cost Calculation"
-    For example, if you request 124GB of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
+    For example, if you request 124000M of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
     ```
     # To determine the Number of Nodes value: 
-    124/248 = 0.5
+    124000/248000 = 0.5
 
     26/104 = 0.25 
 
