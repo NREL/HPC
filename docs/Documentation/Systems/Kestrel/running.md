@@ -28,11 +28,11 @@ The following table summarizes the partitions on Kestrel:
 | Partition Name | Description   | Limits | Placement Condition |
 | -------------- | ------------- | ------ | ------------------- | 
 | ```debug```    | Nodes dedicated to developing and <br> troubleshooting jobs. Debug nodes <br> with each of the non-standard <br> hardware configurations are available. <br> The node-type distribution is: <br> - 2 Bigmem nodes <br> - 2 nodes with 1.7 TB NVMe <br> - 4 standard nodes <br> - **8 total nodes** | 1 job with a <br>max of 2 nodes <br>per user. <br> 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
-|```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2016 nodes total. <br> No limit per user. | ```--time <= 4:00:00```<br>```--mem <= 248000```<br> ```--tmp <= 1700000 (256 nodes)```| 
-| ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2106 nodes total. <br> 1050 nodes per user. | ```--mem <= 248000```<br> ```--tmp <= 1700000```|
-| ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 248000```<br>```--tmp <= 1700000  (256 nodes)```|
-|```bigmem```    | Nodes that have 2 TB of RAM and 5.8 TB NVMe local disk. | 8 nodes total.<br> 4 nodes per user. | ```--mem > 248000```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
-|```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 3 nodes per user. | ```--mem > 248000```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
+|```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2016 nodes total. <br> No limit per user. | ```--time <= 4:00:00```<br>```--mem <= 246064```<br> ```--tmp <= 1700000 (256 nodes)```| 
+| ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2106 nodes total. <br> 1050 nodes per user. | ```--mem <= 246064```<br> ```--tmp <= 1700000```|
+| ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 246064```<br>```--tmp <= 1700000  (256 nodes)```|
+|```bigmem```    | Nodes that have 2 TB of RAM and 5.8 TB NVMe local disk. | 8 nodes total.<br> 4 nodes per user. | ```--mem > 246064```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
+|```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 3 nodes per user. | ```--mem > 246064```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> No limit per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 
@@ -49,7 +49,7 @@ Unlike the other partitions, nodes in the shared partition can be shared by mult
 
 #### Usage
 
-Currently, there are 64 standard compute nodes available in the shared partition. These nodes have about 242GB of usable RAM and 104 cores. By default, your job will be allocated about 1GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
+Currently, there are 64 standard compute nodes available in the shared partition. These nodes have about 240GB of usable RAM and 104 cores. By default, your job will be allocated about 1GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
@@ -78,7 +78,7 @@ In the shared node partition, the value for `Number of Nodes` can be a fraction 
     For example, if you request 124000M of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
     ```
     # To determine the Number of Nodes value: 
-    124000/248000 = 0.5
+    124000/246064 = 0.5
 
     26/104 = 0.25 
 
