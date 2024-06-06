@@ -2,6 +2,11 @@
 
 ### Running using modules
 
+#### GPU
+
+!!! tip "Important"
+	Until we have gpu log in nodes, it is necessary to source /nopt/nrel/apps/gpu_stack/env_cpe23.sh to access gpu modules on Kestrel. 
+
 ??? example "Sample job script: Kestrel - Full GPU node"
 
     ```
@@ -19,14 +24,15 @@
     export MPICH_GPU_SUPPORT_ENABLED=1
     export CUDA_VISIBLE_DEVICES=0,1,2,3
     
-    module use /nopt/nrel/apps/software/vasp/modules/test #will be unecessary when the modules are made available by default
-    module load vasp/6.3.2-gpu
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+    module load vasp/6.3.2
 
     srun vasp_std |& tee out
 
     ```
 
 ??? example "Sample job script: Kestrel - Shared (partial) GPU node"
+    GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When doing so, you must also request appropriate CPU cores and memory. To run VASP on N GPUs, we recommend requesting --ntasks-per-node=N and --mem=N*90G. See the below sample script for running on 2 GPUs. 
 
     ```
     #!/bin/bash
@@ -35,16 +41,17 @@
     #SBATCH --partition=gpu-h100
     #SBATCH --nodes=1
     #SBATCH --gres=gpu:h100:2 
+    #SBATCH --mem=180G
     #SBATCH --ntasks-per-node=2
     #SBATCH --cpus-per-task=1
     #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
 
     export MPICH_GPU_SUPPORT_ENABLED=1
-    export CUDA_VISIBLE_DEVICES=0,1,2,3
+    export CUDA_VISIBLE_DEVICES=0,1
 
-    module use /nopt/nrel/apps/software/vasp/modules/test #will be unecessary when the modules are made available by default
-    module load vasp/6.3.2-gpu
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+    module load vasp/6.3.2
 
     srun vasp_std |& tee out
     ```
