@@ -110,7 +110,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     export MPICH_GPU_SUPPORT_ENABLED=1
     export CUDA_VISIBLE_DEVICES=0,1,2,3
     
-    module use /nopt/nrel/apps/software/vasp/modules/test #will be unecessary when the modules are made available by default
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
     module load vasp/6.3.2-gpu
 
     srun vasp_std |& tee out
