@@ -133,7 +133,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     export CUDA_VISIBLE_DEVICES=0,1,2,3
 
     source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
-    module load vasp/6.3.2-gpu
+    module load vasp/6.3.2
 
     srun vasp_std |& tee out
     ```
