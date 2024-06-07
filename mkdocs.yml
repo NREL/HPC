@@ -19,7 +19,9 @@ nav:
         - Transitioning from Eagle to Kestrel: Documentation/Systems/eagle_to_kestrel_transition.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
-          - Documentation/Systems/Kestrel/running.md
+          - Running on Kestrel:
+            - Documentation/Systems/Kestrel/Running/index.md
+            - Example Sbatch scripts: Documentation/Systems/Kestrel/Running/example_sbatch.md
           - Documentation/Systems/Kestrel/filesystems.md 
           - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
           - Environments: 
