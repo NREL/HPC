@@ -21,7 +21,7 @@ The table below summarizes the local and scratch storage currently on NREL HPC s
 - On Kestrel, only 256 of the standard compute nodes have real local disk, the other standard compute nodes have **no local disk space**. For the nodes without local storage, writing to `$TMPDIR` uses RAM. This could **cause an out-of-memory error if using a lot of space in $TMPDIR**. To solve this problem:
     - Use `/scratch/$USER` instead of the default `$TMPDIR` path if the job benefits little from local storage (e.g. jobs with low I/O communication)
     - Request nodes with local storage by using the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). Then, `$TMPDIR` will be using a local disk. 
-    - In addition, on Kestrel, this bash command can be used to check if there is a local disk on the node: "`if [ -e /dev/nvme0n1 ]`". For example:
+    - In addition, on Kestrel, this bash command can be used to check if there is a local disk on the node: "`if [ -e /dev/nvme0n1 ]`". **This will only work on standard compute nodes**. For example:
 
 ```    
 if [ -e /dev/nvme0n1 ]; then
@@ -32,3 +32,5 @@ else
  APP_SCRATCH=/scratch/$USER/$SLURM_JOB_ID
 fi
 ```
+*This does not work on bigmem nodes. All bigmem nodes have a real local disk.*
+
