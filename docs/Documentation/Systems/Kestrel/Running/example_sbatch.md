@@ -51,7 +51,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *For best scheduling functionality, it is not recommended to select a partition.*
 
-??? info "Sample batch script to utilize Local Disk (/tmp/scratch)"
+??? info "Sample batch script to utilize Local Disk ($TMPDIR)"
     ```
     #!/bin/bash 
     #SBATCH --ntasks=36                # CPU cores requested for job 
@@ -59,12 +59,12 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --time=01-00               # Job should run for up to 1 day (for example) 
     #SBATCH --tmp=20TB                 # Request minimum 20TB local disk 
     
-    export TMPDIR=$LOCAL_SCRATCH 
+    # Copy files into $TMPDIR 
     cp /scratch/<userid>/myfiles* $TMPDIR 
 
     srun ./my_parallel_readwrite_program -input-options $TMPDIR/myfiles  # use your application's commands  
     ```
-    *If you or your application has a need for large local disk, please use /tmp/scratch. In the example above, environment variable $LOCAL_SCRATCH can be used in place of the size limited /tmp.*
+    *`$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` or your job will use RAM.*
 
 ??? info "Sample batch script for an MPI job"
     ```
