@@ -76,8 +76,8 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --time=06:00:00             # Job should run for up to 6 hours 
     #SBATCH --account=<project handle>  # Where to charge NREL Hours 
     
-    module purge
-    module load mpi/intelmpi/18.0.3.222 
+    module swap PrgEnv-cray <new_PrgEnv>  # Line to run if software to run uses a different PrgEnv than the default
+ 
     srun ./compiled_mpi_binary          # srun will infer which mpirun to use
     ```
     *For best scheduling functionality, it is not recommended to select a partition.*
