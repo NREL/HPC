@@ -37,6 +37,20 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun my_graphics_intensive_scripting 
     ```
 
+??? info "Sample batch script for a job in the shared partition"
+    ```
+    #!/bin/bash
+    #SBATCH --nodes=1 
+    #SBATCH --partition=shared         
+    #SBATCH --time=2:00:00    
+    #SBATCH --ntasks=26 # CPUs requested for job 
+    #SBATCH --mem-per-cpu=2000 # Request 2G per core.
+    #SBATCH --account=<allocation handle>
+
+    cd /scratch/$USER 
+    srun ./my_progam # Use your application's commands here  
+    ```
+
 ??? info "Sample batch script for a serial job in default (standard) queue"
     ```
     #!/bin/bash 
