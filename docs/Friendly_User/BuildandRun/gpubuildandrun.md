@@ -32,9 +32,9 @@ ml craype-x86-genoa
 This gives us a standard, known programming environment from which to start.  The "source" line give us access to a new set of modules. ml craype-x86-genoa sets optimizations for the cpus on the GPU nodes.
 
 
-After this header we load module specific to the example.  We then compile and run the example.  
+After this header we load modules specific to the example.  We then compile and run the example.  
 
-**If the file "runall" is sourced (after getting an interactive session on 2 gpu nodes) all examples will are run.  This takes about 20 minutes.  You can also sbatch script.**
+**If the file "runall" is sourced (after getting an interactive session on 2 gpu nodes) all examples will run. This takes about 20 minutes. You can also sbatch script.**
 
  
 
