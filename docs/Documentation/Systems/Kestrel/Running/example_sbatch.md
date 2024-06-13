@@ -10,7 +10,7 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
 Many more examples of sbatch scripts are available in the [HPC Repository Slurm Directory](https://github.com/NREL/HPC/tree/master/slurm) on Github. You may also check the individual [Systems](/Documentation/Systems) pages for details related to the cluster you're working on.
 
 
-??? info "Sample batch script for a serial job in the debug queue"
+??? example "Sample batch script for a serial job in the debug queue"
     ```
     #!/bin/bash 
     #SBATCH --ntasks=4 # Tasks to be run 
@@ -24,7 +24,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun $HOME/hpcapp -options 
     ```
 
-??? info "Sample batch script for a serial job in default (standard) queue"
+??? example "Sample batch script for a serial job in default (standard) queue"
     ```
     #!/bin/bash 
     #SBATCH --partition=standard       # Name of Partition 
@@ -38,7 +38,9 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *For best scheduling functionality, it is not recommended to select a partition.*
 
-??? info "Sample batch script for a job in the shared partition"
+??? example "Sample batch script for a job in the shared partition"
+    When running on a shared partition, the default memory per CPU for users is 1G. To change this amount, use the `--mem-per-cpu=<MEM_REQUEST>` flag.
+
     ```
     #!/bin/bash
     #SBATCH --nodes=1 
@@ -52,14 +54,38 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun ./my_progam # Use your application's commands here  
     ```
 
-??? info "Sample serial batch script with GPU and memory request"
+??? example "Sample serial batch script with GPU and memory request"
+    Every node on Kestrel has 4 h100 GPUs. To run jobs on GPUs, your script should contain the `--gres=gpu:<NUM_GPUS>` and `--partition=gpu-h100` flags in the SBATCH directives.
+
     ```
     #!/bin/bash
-    #SBATCH --nodes=2          # Use 2 nodes
-    #SBATCH --time 00:20:00    # Set a 20 minute time limit
-    #SBATCH --ntasks 2         # Maximum CPU cores for job 
-    #SBATCH --gres=gpu:2       # GPU request 
-    #SBATCH --mem=184000       # Standard partition (192GB nodes) 
+    #SBATCH --nodes=2             # Use 2 nodes
+    #SBATCH --partition=gpu-h100  # h100 GPU partition
+    #SBATCH --time=00:20:00       # Set a 20 minute time limit
+    #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
+    #SBATCH --gres=gpu:4          # GPU request 
+
+    # Enable access to new modules for running on GPUs
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+
+    # Load modules
+    module purge
+    ml craype-x86-genoa  # Module to set optimizations for CPUs on GPU nodes
+
+    # Run program
+    cd /scratch/$USER 
+    srun my_graphics_intensive_scripting 
+    ```
+    GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When doing so, you must also request appropriate CPU cores and memory with the `--ntasks-per-node=<NUM_CPUS>` and `--mem=<MEMORY_REQUEST>` flags, respectively.
+    
+    ```
+    #!/bin/bash
+    #SBATCH --nodes=2             # Use 2 nodes
+    #SBATCH --partition=gpu-h100  # h100 GPU partition
+    #SBATCH --time=00:20:00       # Set a 20 minute time limit
+    #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
+    #SBATCH --gres=gpu:2          # GPU request 
+    #SBATCH --mem=184000          # Standard partition (192GB nodes) 
 
     # Enable access to new modules for running on GPUs
     source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
@@ -74,7 +100,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *Currently, `source /nopt/nrel/apps/gpu_stack/env_cpe23.sh` is necessary to access GPU modules. This is subject to change as the system improves.*
 
-??? info "Sample batch script to utilize Local Disk ($TMPDIR)"
+??? example "Sample batch script to utilize Local Disk ($TMPDIR)"
     ```
     #!/bin/bash 
     #SBATCH --ntasks=36                # CPU cores requested for job 
@@ -89,7 +115,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *`$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` or your job will use RAM.*
 
-??? info "Sample batch script for an MPI job"
+??? example "Sample batch script for an MPI job"
     ```
     Eagle MPI (intel-mpi, hpe-mpi): 
     
@@ -105,7 +131,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *For best scheduling functionality, it is not recommended to select a partition.*
 
-??? info "Sample batch script for high-priority job"
+??? example "Sample batch script for high-priority job"
     ```
     #!/bin/sh
     #SBATCH --job-name=job_monitor
@@ -119,5 +145,3 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     
     srun ./my_job_monitoring.sh
     ```
-
-
