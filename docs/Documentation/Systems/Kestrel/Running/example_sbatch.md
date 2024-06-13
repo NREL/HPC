@@ -24,18 +24,19 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun $HOME/hpcapp -options 
     ```
 
-??? info "Sample serial batch script with GPU and memory request"
+??? info "Sample batch script for a serial job in default (standard) queue"
     ```
-    #!/bin/bash
-    #SBATCH --nodes=2          # Use 2 nodes
-    #SBATCH --time 00:20:00    # Set a 20 minute time limit
-    #SBATCH --ntasks 2         # Maximum CPU cores for job 
-    #SBATCH --gres=gpu:2       # GPU request 
-    #SBATCH --mem=184000       # Standard partition (192GB nodes) 
+    #!/bin/bash 
+    #SBATCH --partition=standard       # Name of Partition 
+    #SBATCH --ntasks=12                # CPU cores requested for job 
+    #SBATCH --nodes=1                  # Keeep all cores on the same node
+    #SBATCH --time=02-00:00:00         # Job should run for up to 2 days (for example) 
 
-    cd /scratch/$USER 
-    srun my_graphics_intensive_scripting 
+    cd /scratch/<userid>/mydir
+
+    srun hpcapp -options /home/hpcuser/app/parameters  # use your application's commands 
     ```
+    *For best scheduling functionality, it is not recommended to select a partition.*
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
@@ -51,19 +52,27 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun ./my_progam # Use your application's commands here  
     ```
 
-??? info "Sample batch script for a serial job in default (standard) queue"
+??? info "Sample serial batch script with GPU and memory request"
     ```
-    #!/bin/bash 
-    #SBATCH --partition=standard       # Name of Partition 
-    #SBATCH --ntasks=12                # CPU cores requested for job 
-    #SBATCH --nodes=1                  # Keeep all cores on the same node
-    #SBATCH --time=02-00:00:00         # Job should run for up to 2 days (for example) 
+    #!/bin/bash
+    #SBATCH --nodes=2          # Use 2 nodes
+    #SBATCH --time 00:20:00    # Set a 20 minute time limit
+    #SBATCH --ntasks 2         # Maximum CPU cores for job 
+    #SBATCH --gres=gpu:2       # GPU request 
+    #SBATCH --mem=184000       # Standard partition (192GB nodes) 
 
-    cd /scratch/<userid>/mydir
+    # Enable access to new modules for running on GPUs
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 
-    srun hpcapp -options /home/hpcuser/app/parameters  # use your application's commands 
+    # Load modules
+    module purge
+    ml craype-x86-genoa  # Module to set optimizations for CPUs on GPU nodes
+
+    # Run program
+    cd /scratch/$USER 
+    srun my_graphics_intensive_scripting 
     ```
-    *For best scheduling functionality, it is not recommended to select a partition.*
+    *Currently, `source /nopt/nrel/apps/gpu_stack/env_cpe23.sh` is necessary to access GPU modules. This is subject to change as the system improves.*
 
 ??? info "Sample batch script to utilize Local Disk ($TMPDIR)"
     ```
