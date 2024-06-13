@@ -55,12 +55,12 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
 
 ??? example "Sample serial batch script with GPU and memory request"
-    Every node on Kestrel has 4 h100 GPUs. To run jobs on GPUs, your script should contain the `--gres=gpu:<NUM_GPUS>` and `--partition=gpu-h100` flags in the SBATCH directives.
+    Every node on Kestrel has 4 h100 GPUs. To run jobs on GPUs, your script should contain the `--gres=gpu:<NUM_GPUS>` flag in the SBATCH directives.
 
     ```
     #!/bin/bash
     #SBATCH --nodes=2             # Use 2 nodes
-    #SBATCH --partition=gpu-h100  # h100 GPU partition
+    #SBATCH --partition=gpu-h100
     #SBATCH --time=00:20:00       # Set a 20 minute time limit
     #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
     #SBATCH --gres=gpu:4          # GPU request 
@@ -81,7 +81,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     #!/bin/bash
     #SBATCH --nodes=2             # Use 2 nodes
-    #SBATCH --partition=gpu-h100  # h100 GPU partition
+    #SBATCH --partition=gpu-h100
     #SBATCH --time=00:20:00       # Set a 20 minute time limit
     #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
     #SBATCH --gres=gpu:2          # GPU request 
@@ -115,21 +115,42 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *`$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` or your job will use RAM.*
 
-??? example "Sample batch script for an MPI job"
+??? example "Sample batch script for an MPI job (CPU and GPU)"
+    The default module for running MPI jobs, PrgENV-cray is automatically loaded for all users.
+
     ```
-    Eagle MPI (intel-mpi, hpe-mpi): 
-    
     #!/bin/bash 
     #SBATCH --nodes=4                   # Number of nodes 
     #SBATCH --ntasks=100                # Request 100 CPU cores 
     #SBATCH --time=06:00:00             # Job should run for up to 6 hours 
     #SBATCH --account=<project handle>  # Where to charge NREL Hours 
     
-    module swap PrgEnv-cray <new_PrgEnv>  # Line to run if software to run uses a different PrgEnv than the default
+    # module swap PrgEnv-cray <new_PrgEnv>  # Line to run if software to run uses a different PrgEnv than the default
  
     srun ./compiled_mpi_binary          # srun will infer which mpirun to use
     ```
     *For best scheduling functionality, it is not recommended to select a partition.*
+
+    To run an MPI job on GPUs, you have to source modules for the GPUs, similar to the example GPU scripts.
+
+    ```
+    #!/bin/bash
+    #SBATCH --account=<your-account-name> 
+    #SBATCH --nodes=1
+    #SBATCH --gres=gpu:2 
+    #SBATCH --mem=180G
+    #SBATCH --ntasks-per-node=2
+    #SBATCH --cpus-per-task=1
+    #SBATCH --time=02:00:00
+    #SBATCH --job-name=<your-job-name>
+
+    export MPICH_GPU_SUPPORT_ENABLED=1
+
+    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh  # Required
+    ml craype-x86-genoa
+
+    srun ./compiled_mpi_binary          # srun will infer which mpirun to use
+    ```
 
 ??? example "Sample batch script for high-priority job"
     ```
