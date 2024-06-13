@@ -65,6 +65,8 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
     #SBATCH --gres=gpu:4          # GPU request 
 
+    export CUDA_VISIBLE_DEVICES=0,1,2,3
+
     # Enable access to new modules for running on GPUs
     source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 
@@ -87,6 +89,8 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --gres=gpu:2          # GPU request 
     #SBATCH --mem=184000          # Standard partition (192GB nodes) 
 
+    export CUDA_VISIBLE_DEVICES=0,1
+
     # Enable access to new modules for running on GPUs
     source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 
@@ -100,6 +104,8 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     *Currently, `source /nopt/nrel/apps/gpu_stack/env_cpe23.sh` is necessary to access GPU modules. This is subject to change as the system improves.*
 
+    The `CUDA_VISIBLE_DEVICES` environment variable specifies the GPU(s) your programs will run on, and is included for the sake of completeness. Read more about this environment variable [here](https://developer.nvidia.com/blog/cuda-pro-tip-control-gpu-visibility-cuda_visible_devices/).
+
 ??? example "Sample batch script to utilize Local Disk ($TMPDIR)"
     ```
     #!/bin/bash 
@@ -107,7 +113,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --nodes=1                  # Keeep all cores on the same node 
     #SBATCH --time=01-00               # Job should run for up to 1 day (for example) 
     #SBATCH --tmp=20TB                 # Request minimum 20TB local disk 
-    
+
     # Copy files into $TMPDIR 
     cp /scratch/<userid>/myfiles* $TMPDIR 
 
