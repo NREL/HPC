@@ -9,7 +9,8 @@ Job arrays are typically used when a user wants to submit many similar jobs with
 To run through the example on your own, you will need to download [uselist.sh](https://github.com/NREL/HPC/blob/master/slurm/uselist.sh) from the main slurm directory along with [doarray.py](https://github.com/NREL/HPC/blob/master/slurm/source/doarray.py) and [invertc.c](https://github.com/NREL/HPC/blob/master/slurm/source/invertc.c) from the source folder.
 
 ## SBATCH Directives for Job Arrays
-In order to submit a job array to Slurm, the SBATCH directives at the top of your script or sbatch command line submission must contain the flag `--array={ARRAY_VALS}`, where `ARRAY_VALS` is a list or range of numbers that will represent the index values of your job array. For example:
+In order to submit a job array to Slurm, the SBATCH directives at the top of your script or sbatch command line submission must contain the flag `--array=<ARRAY_VALS>`, where `ARRAY_VALS` is a list or range of numbers that will represent the index values of your job array. For example:
+
 ```
 # SBATCH --array=0-12  # Submits a job array with index values between 0 and 12
 ...
@@ -18,5 +19,14 @@ In order to submit a job array to Slurm, the SBATCH directives at the top of you
 ...
 
 # SBATCH --array=1-43:2  # Submits a job array with index values between 1 and 43 with a step size of 2
+...
 
+# SBATCH --array=1-25%5  # Submits a job array with index values between 1 and 25 and limits the number of simultaneously running tasks to 5
 ```
+
+!!! note "Submitting Job Arrays on Kestrel"
+    To ensure that your job array is running optimally, it is recommended that job arrays are submitted on the shared partition using `--partition=shared`. See more about shared partitions on Kestrel [here](/Documentation/Systems/Kestrel/running/#shared-node-partition).
+
+## Environment Variables
+
+## Job Control
