@@ -65,6 +65,32 @@ Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the 
 
 This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
 
+#### Python Debugger Extension
+
+In order to utilize the Pythong Debugger extension in your remotely connected VS Code window, first open a new bash terminal and login to Kestrel as described [previously](/Documentation/Development/VSCode/vscode/#connecting-with-vs-code_1). Once in a login node, run the following command to create an ssh tunnel to the interactive job node where VS Code is running:
+
+```
+ssh -2 -L 5678:localhost:5678 <user@hostname>
+```
+
+where `user@hostname` is the hostname of the node where your job was assigned and where VS Code is running.
+
+!!! note "Using an SSH tunnel"
+	While creating an ssh tunnel to your interactive node is not necessary to connect to the debugger, it is **strongly recommended** to ensure no other machine has access to your port.
+
+The next step is to connect the node to the VS Code Python debugger. This is accomplished by running this command:
+
+```
+python -m debugpy --wait-for-client --listen 5678 <my_script.py> <my_args>
+```
+
+where `<my_script.py> <my_args>` is the Python script you wish to debug followed by its arguments. The argument `--wait-for-client` ensures that your script does not run until the debugger is properly connected. You may need to update your environment or install the `debugpy` package.
+
+Next, navigate to the remotely connected VS Code window. Click on the "Run and Debug" tab and click on the "Run and Debug" button. A menu should pop up asking you to select your debugger. Select "Python Debugger" then "Remote Attach". When asked to enter a host name, enter "localhost". Then, when asked to enter a port number, enter "5678".
+
+With the VS Code debugger now connected, you may set breakpoints and step through lines of code on the VS Code window.
+
+
 ### VS Code on Eagle
 
 Similar instructions will work for Eagle, but only for internal (NREL) users. External (non-NREL) users will not be able to use VS Code in this way. 
