@@ -23,21 +23,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
 
     srun $HOME/hpcapp -options 
     ```
-
-??? example "Sample batch script for a serial job in default (standard) queue"
-    ```
-    #!/bin/bash 
-    #SBATCH --partition=standard       # Name of Partition 
-    #SBATCH --ntasks=12                # CPU cores requested for job 
-    #SBATCH --nodes=1                  # Keeep all cores on the same node
-    #SBATCH --time=02-00:00:00         # Job should run for up to 2 days (for example) 
-
-    cd /scratch/<userid>/mydir
-
-    srun hpcapp -options /home/hpcuser/app/parameters  # use your application's commands 
-    ```
-    *For best scheduling functionality, it is not recommended to select a partition.*
-
+    
 ??? example "Sample batch script for a job in the shared partition"
     When running on a shared partition, the default memory per CPU for users is 1G. To change this amount, use the `--mem-per-cpu=<MEM_REQUEST>` flag.
 
