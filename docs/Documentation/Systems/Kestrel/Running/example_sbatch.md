@@ -23,7 +23,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
 
     srun $HOME/hpcapp -options 
     ```
-    
+
 ??? example "Sample batch script for a job in the shared partition"
     When running on a shared partition, the default memory per CPU for users is 1G. To change this amount, use the `--mem-per-cpu=<MEM_REQUEST>` flag.
 
@@ -105,7 +105,8 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
 
     srun ./my_parallel_readwrite_program -input-options $TMPDIR/myfiles  # use your application's commands  
     ```
-    *`$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` or your job will use RAM.*
+
+    `$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` to request a node with local disk space. If this is not included, there is a chance your job will get a node without disk space where it will use RAM instead.    
 
 ??? example "Sample batch script for an MPI job (CPU and GPU)"
     The default module for running MPI jobs, PrgENV-cray is automatically loaded for all users.
