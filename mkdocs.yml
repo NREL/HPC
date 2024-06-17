@@ -21,7 +21,6 @@ nav:
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
           - Documentation/Systems/Kestrel/filesystems.md
-          - Documentation/Systems/Kestrel/modules.md  
           - Environments: 
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
