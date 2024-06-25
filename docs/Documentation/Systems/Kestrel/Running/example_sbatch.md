@@ -25,15 +25,15 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
 
 ??? example "Sample batch script for a job in the shared partition"
-    When running on a shared partition, the default memory per CPU for users is 1G. To change this amount, use the `--mem-per-cpu=<MEM_REQUEST>` flag.
+    If your job does not need to utilize the full CPU (104 cores), you can run your job in the shared partition. When running on a shared partition, the default memory per CPU for users is 1G. To change this amount, use the `--mem-per-cpu=<MEM_REQUEST>` flag.
 
     ```
     #!/bin/bash
     #SBATCH --nodes=1 
     #SBATCH --partition=shared         
     #SBATCH --time=2:00:00    
-    #SBATCH --ntasks=26 # CPUs requested for job 
-    #SBATCH --mem-per-cpu=2000 # Request 2G per core.
+    #SBATCH --ntasks=26                        # CPUs requested for job 
+    #SBATCH --mem-per-cpu=2000                 # Requesting 2G per core.
     #SBATCH --account=<allocation handle>
 
     cd /scratch/$USER 
