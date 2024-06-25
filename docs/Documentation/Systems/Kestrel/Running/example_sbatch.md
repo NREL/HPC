@@ -64,6 +64,9 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     cd /scratch/$USER 
     srun my_graphics_intensive_scripting 
     ```
+    *Currently, `source /nopt/nrel/apps/gpu_stack/env_cpe23.sh` is necessary to access GPU modules. This is subject to change as the system improves.*
+
+    The `CUDA_VISIBLE_DEVICES` environment variable specifies the GPU(s) your programs will run on, and is included for the sake of completeness. Read more about this environment variable [here](https://developer.nvidia.com/blog/cuda-pro-tip-control-gpu-visibility-cuda_visible_devices/).
 
 ??? example "Sample serial batch script with partial GPU request"
     GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When doing so, you must also request appropriate CPU cores and memory with the `--ntasks-per-node=<NUM_CPUS>` and `--mem=<MEMORY_REQUEST>` flags, respectively.
@@ -90,9 +93,6 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     cd /scratch/$USER 
     srun my_graphics_intensive_scripting 
     ```
-    *Currently, `source /nopt/nrel/apps/gpu_stack/env_cpe23.sh` is necessary to access GPU modules. This is subject to change as the system improves.*
-
-    The `CUDA_VISIBLE_DEVICES` environment variable specifies the GPU(s) your programs will run on, and is included for the sake of completeness. Read more about this environment variable [here](https://developer.nvidia.com/blog/cuda-pro-tip-control-gpu-visibility-cuda_visible_devices/).
 
 ??? example "Sample batch script to utilize Local Disk ($TMPDIR) on standard compute nodes"
     On Kestrel, 256 of the standard compute nodes have 1.7TB of local disk space. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` to request a node with local disk space. If this is not included, there is a chance your job will get on a node without disk space, where it will use RAM instead.
