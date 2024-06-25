@@ -92,13 +92,17 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
 
     The `CUDA_VISIBLE_DEVICES` environment variable specifies the GPU(s) your programs will run on, and is included for the sake of completeness. Read more about this environment variable [here](https://developer.nvidia.com/blog/cuda-pro-tip-control-gpu-visibility-cuda_visible_devices/).
 
-??? example "Sample batch script to utilize Local Disk ($TMPDIR)"
+??? example "Sample batch script to utilize Local Disk ($TMPDIR) on standard compute nodes"
+    On Kestrel, 256 of the standard compute nodes have 1.7TB of local disk space. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` to request a node with local disk space. If this is not included, there is a chance your job will get on a node without disk space, where it will use RAM instead.
+
+    `$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. 
+
     ```
     #!/bin/bash 
-    #SBATCH --ntasks=36                # CPU cores requested for job 
+    #SBATCH --ntasks=104               # CPU cores requested for job 
     #SBATCH --nodes=1                  # Keeep all cores on the same node 
     #SBATCH --time=01-00               # Job should run for up to 1 day (for example) 
-    #SBATCH --tmp=20TB                 # Request minimum 20TB local disk 
+    #SBATCH --tmp=1.7TB                # Request maximum 1.7TB local disk on standard nodes
 
     # Copy files into $TMPDIR 
     cp /scratch/<userid>/myfiles* $TMPDIR 
@@ -106,7 +110,24 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun ./my_parallel_readwrite_program -input-options $TMPDIR/myfiles  # use your application's commands  
     ```
 
-    `$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` to request a node with local disk space. If this is not included, there is a chance your job will get a node without disk space where it will use RAM instead.    
+??? example "Sample batch script to utilize Local Disk ($TMPDIR) on bigmem nodes"
+    If your job requires more than 1.7TB of local disk, you can run your job on a bigmem node. Kestrel's bigmem nodes have 5.8TB of NVMe local disk.
+
+    `$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. 
+
+    ```
+    #!/bin/bash 
+    #SBATCH --ntasks=104               # CPU cores requested for job 
+    #SBATCH --nodes=1                  # Keeep all cores on the same node 
+    #SBATCH --time=01-00               # Job should run for up to 1 day (for example) 
+    #SBATCH --tmp=5.8TB                # Request maximum 5.8TB local disk on bigmem nodes
+    #SBATCH --partition=bigmem         # Run on bigmem nodes
+
+    # Copy files into $TMPDIR 
+    cp /scratch/<userid>/myfiles* $TMPDIR 
+
+    srun ./my_parallel_readwrite_program -input-options $TMPDIR/myfiles  # use your application's commands  
+    ```
 
 ??? example "Sample batch script for an MPI job on CPUs"
     The default module for running MPI jobs, PrgENV-cray is automatically loaded for all users.
@@ -114,7 +135,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     ```
     #!/bin/bash 
     #SBATCH --nodes=4                   # Number of nodes 
-    #SBATCH --ntasks=100                # Request 100 CPU cores 
+    #SBATCH --ntasks=104                # Request 104 CPU cores 
     #SBATCH --time=06:00:00             # Job should run for up to 6 hours 
     #SBATCH --account=<project handle>  # Where to charge NREL Hours 
     
