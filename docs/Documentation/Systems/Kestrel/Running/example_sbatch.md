@@ -40,16 +40,16 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun ./my_progam # Use your application's commands here  
     ```
 
-??? example "Sample serial batch script with GPU and memory request"
+??? example "Sample serial batch script with full GPU request"
     Every node on Kestrel has 4 h100 GPUs. To run jobs on GPUs, your script should contain the `--gres=gpu:<NUM_GPUS>` flag in the SBATCH directives.
 
     ```
     #!/bin/bash
-    #SBATCH --nodes=2             # Use 2 nodes
+    #SBATCH --nodes=1
     #SBATCH --partition=gpu-h100
-    #SBATCH --time=00:20:00       # Set a 20 minute time limit
-    #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
-    #SBATCH --gres=gpu:4          # GPU request 
+    #SBATCH --time=00:20:00         # Setting a 20 minute time limit
+    #SBATCH --ntasks-per-node=104   # Maximum CPU cores for job 
+    #SBATCH --gres=gpu:4            # GPU request 
 
     export CUDA_VISIBLE_DEVICES=0,1,2,3
 
@@ -64,16 +64,18 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     cd /scratch/$USER 
     srun my_graphics_intensive_scripting 
     ```
+
+??? example "Sample serial batch script with partial GPU request"
     GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When doing so, you must also request appropriate CPU cores and memory with the `--ntasks-per-node=<NUM_CPUS>` and `--mem=<MEMORY_REQUEST>` flags, respectively.
     
     ```
     #!/bin/bash
-    #SBATCH --nodes=2             # Use 2 nodes
+    #SBATCH --nodes=1
     #SBATCH --partition=gpu-h100
-    #SBATCH --time=00:20:00       # Set a 20 minute time limit
-    #SBATCH --ntasks-per-node=2   # Maximum CPU cores for job 
-    #SBATCH --gres=gpu:2          # GPU request 
-    #SBATCH --mem=184000          # Standard partition (192GB nodes) 
+    #SBATCH --time=00:20:00         # Setting a 20 minute time limit
+    #SBATCH --ntasks-per-node=104   # Maximum CPU cores for job 
+    #SBATCH --gres=gpu:2            # GPU request 
+    #SBATCH --mem=184000            # Standard partition (192GB nodes) 
 
     export CUDA_VISIBLE_DEVICES=0,1
 
