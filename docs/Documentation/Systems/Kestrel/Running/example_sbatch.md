@@ -108,7 +108,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
 
     `$TMPDIR` is a preset variable that points to `/tmp/scratch/<JOB_ID>`. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` to request a node with local disk space. If this is not included, there is a chance your job will get a node without disk space where it will use RAM instead.    
 
-??? example "Sample batch script for an MPI job (CPU and GPU)"
+??? example "Sample batch script for an MPI job on CPUs"
     The default module for running MPI jobs, PrgENV-cray is automatically loaded for all users.
 
     ```
@@ -123,27 +123,6 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun ./compiled_mpi_binary          # srun will infer which mpirun to use
     ```
     *For best scheduling functionality, it is not recommended to select a partition.*
-
-    To run an MPI job on GPUs, you have to source modules for the GPUs, similar to the example GPU scripts.
-
-    ```
-    #!/bin/bash
-    #SBATCH --account=<your-account-name> 
-    #SBATCH --nodes=1
-    #SBATCH --gres=gpu:2 
-    #SBATCH --mem=180G
-    #SBATCH --ntasks-per-node=2
-    #SBATCH --cpus-per-task=1
-    #SBATCH --time=02:00:00
-    #SBATCH --job-name=<your-job-name>
-
-    export MPICH_GPU_SUPPORT_ENABLED=1
-
-    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh  # Required
-    ml craype-x86-genoa
-
-    srun ./compiled_mpi_binary          # srun will infer which mpirun to use
-    ```
 
 ??? example "Sample batch script for high-priority job"
     ```
