@@ -76,7 +76,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --nodes=1
     #SBATCH --partition=gpu-h100
     #SBATCH --time=00:20:00         # Setting a 20 minute time limit
-    #SBATCH --ntasks-per-node=104   # Maximum CPU cores for job 
+    #SBATCH --ntasks-per-node=128   # Maximum CPU cores for job 
     #SBATCH --gres=gpu:2            # GPU request 
     #SBATCH --mem=184000            # Standard partition (192GB nodes) 
 
@@ -94,6 +94,8 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     srun my_graphics_intensive_scripting 
     ```
 
+    *Kestrel's GPU nodes have 128 CPU cores while non-GPU nodes have 104 CPU cores*
+
 ??? example "Sample batch script to utilize Local Disk ($TMPDIR) on standard compute nodes"
     On Kestrel, 256 of the standard compute nodes have 1.7TB of local disk space. Be sure to use the flag `SBATCH --tmp=<LOCAL_DISK_REQUEST>` to request a node with local disk space. If this is not included, there is a chance your job will get on a node without disk space, where it will use RAM instead.
 
@@ -101,7 +103,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
 
     ```
     #!/bin/bash 
-    #SBATCH --ntasks=104               # CPU cores requested for job 
+    #SBATCH --ntasks=128               # CPU cores requested for job 
     #SBATCH --nodes=1                  # Keeep all cores on the same node 
     #SBATCH --time=01-00               # Job should run for up to 1 day (for example) 
     #SBATCH --tmp=1.7TB                # Request maximum 1.7TB local disk on standard nodes
