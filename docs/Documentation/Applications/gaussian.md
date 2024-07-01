@@ -34,7 +34,7 @@ Gaussian may be configured to run on one or more physical nodes, with or without
 
 	```bash
 	#!/bin/bash
-	#SBATCH --job-name g16_test
+	#SBATCH --job-name G16_test
 	#SBATCH --nodes=2
 	#SBATCH --time=1:00:00
 	#SBATCH --account=[your account]
@@ -46,69 +46,39 @@ Gaussian may be configured to run on one or more physical nodes, with or without
 	# Load Gaussian module to set environment
 	module load gaussian python
 	module list
-
+	
 	cd $SLURM_SUBMIT_DIR
-
-	# Set script variables
+	
 	INPUT_BASENAME=G16_test
-	INPUT_FILE=$INPUT_BASENAME.com
 	GAUSSIAN_EXEC=g16
-	MEMSIZE=5GB 
-	if [ -d /tmp/scratch ]; then
- 	 SCRATCH=/tmp/scratch/$SLURM_JOB_ID
+	
+	if [ -e /dev/nvme0n1 ]; then
+	SCRATCH=$TMPDIR
+	echo "This node has a local storage and will use $SCRATCH as the scratch path"
 	else
- 	 SCRATCH=/scratch/$USER/$SLURM_JOB_ID
+	SCRATCH=/scratch/$USER/$SLURM_JOB_ID
+	echo "This node does not have a local storage drive and will use $SCRATCH as the scratch path"
 	fi
-	SCRATCH2=/dev/shm 
-
-	# 
-	# Check on editing input file. If scratch directories 
-	# are listed then file is used un-changed, if 3-line 
-	# header not present, then script prepends these lines 
-	# to the input file to be used in execution line 
-	# 
-	NUMRWFLINES=`grep "RWF" $INPUT_FILE | wc -l` 
-	if [ $NUMRWFLINES -eq 1 ]; then 
-	 echo "standard file found" 
-	 cp $INPUT_FILE infile 
-	else 
-	 echo "prepending lines to input file" 
-	 echo "%RWF=$SCRATCH2/,$MEMSIZE,$SCRATCH/,-1" > infile 
-	 echo "%NoSave" >> infile 
-	 echo " " >> infile 
-	 cat $INPUT_FILE >> infile 
-	fi 
-
-	# 
-	# Run gaussian NREL script (performs much of the Gaussian setup) 
-	g16_nrel 
-
-	# 
-	# Set required Gaussian environment variables 
-	# 
+	
+	mkdir -p $SCRATCH
+	
+	export GAUSS_SCRDIR=$SCRATCH
+	
+	# Run gaussian NREL script (performs much of the Gaussian setup)
+	g16_nrel
+	
+	#Setup Linda parameters
 	if [ $SLURM_JOB_NUM_NODES -gt 1 ]; then 
-	 export GAUSS_LFLAGS='-vv -opt "Tsnet.Node.lindarsharg: ssh"' 
-	 export GAUSS_EXEDIR=$g16root/g16/linda-exe:$GAUSS_EXEDIR 
+	export GAUSS_LFLAGS='-vv -opt "Tsnet.Node.lindarsharg: ssh"' 
+	export GAUSS_EXEDIR=$g16root/g16/linda-exe:$GAUSS_EXEDIR 
 	fi 
-	export GAUSS_SCRDIR=$SCRATCH2 
-	# 
-	# Gaussian needs scratch directories 
-	# Note: sometimes files may have been left behind in 
-	# on-node memory by other jobs that terminated incorrectly 
-	# so clean these to make sure there is enough space. 
-	# 
-
-	mkdir -p $SCRATCH 
-	rm $SCRATCH2/* 
-
+	
 	# Run Gaussian job 
-	$GAUSSIAN_EXEC < infile >& $INPUT_BASENAME.log 
-	rm infile
-
+	$GAUSSIAN_EXEC < $INPUT_BASENAME.com >& $INPUT_BASENAME.log 
+	
 	rm $SCRATCH/*
 	rmdir $SCRATCH
- 
-	```	
+	```
 
 This script and sample Gaussian input are located at */nopt/nrel/apps/gaussian/examples*. The gaussian module is loaded by the script automatically, so the user does not need to have loaded the module before submitting the job. The g16_nrel python script edits the Default.Route file based on the SLURM environment set when the script is submitted to the queue. The user also must supply the name of the input file (`INPUT_BASENAME`). 
 
