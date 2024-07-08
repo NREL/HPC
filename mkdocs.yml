@@ -21,12 +21,12 @@ nav:
           - Documentation/Systems/Kestrel/index.md
           - Documentation/Systems/Kestrel/running.md
           - Documentation/Systems/Kestrel/filesystems.md
+          - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
           - Environments: 
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
-            - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md
-          - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md      
+            - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md     
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 

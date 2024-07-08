@@ -9,12 +9,12 @@ The Lmod environment modules system is used to easily manage software environmen
 Modules typically just set environment variables that one might traditionally do manually by, for example, adding export or setenv commands to their login script. Modules add the ability to back out changes in an orderly manner as well, so users can change their environment in a reversible way. To learn how to build your own modules see [Building an Application](/Documentation/Environment/Building_Packages/modules/).
 
 ## Common Module Commands
-The module command accepts parameters that enable users to inquire about and change the module environment. Most of the basic functionality can be accessed through the following commands.
+The ```module``` command accepts parameters that enable users to inquire about and change the module environment. Most of the basic functionality can be accessed through the following commands.
 
 | Option | Description |
 | -------| ------------| 
 | spider | Prints available modules in a path-agnostic format.| 
-| avail | Prints available modules grouped by path. Note that in Eagle's layout, these two commands return roughly the same information| 
+| avail | Prints available modules grouped by path.| 
 | list | Prints all currently loaded modules.| 
 | display<br>'name' | Prints settings and paths specified for a particular module.| 
 | help 'name' | Prints help message for a particular module.| 
@@ -92,5 +92,5 @@ Currently Loaded Modulefiles:
 1) openmpi/2.1.5/gcc-7.3.0
 ```
 
-### Adding a path to $MODULEPATH
+### Create your own modules
 An in depth example on how to do this can be found at [Building an Application](/Documentation/Environment/Building_Packages/modules/).
