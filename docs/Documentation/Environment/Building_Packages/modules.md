@@ -21,6 +21,8 @@ In this example, there is the MPI version (4.1.0), as well as the compiler type 
 So, we'll make a `/scratch/$USER/modules/default/openmpi/4.1.0` directory, and name the file by the compiler version used to build (gcc-8.4.0). 
 You're free to modify this scheme to suit your own intentions.
 
+If you want to create module collections that all users on a project can see and use, you can instead create a new directory in a project location (e.g., ```/projects/<your project name>```).
+
 ## Copy the original modulefile to your new directory
 The modulefiles that we provide are only a starting point. For maximum control, users should copy these files from the locations in /nopt to their own locations for which they have write access.
 
@@ -53,17 +55,15 @@ So, edit `/scratch/$USER/modules/default/openmpi/4.1.0/gcc-8.4.0.lua` to make th
 Most of these changes only need to be made at the top of the file; variable definitions take care of the rest.
 
 ## Add your new modulefile location to a login script
-In order to add a location to be searched regularly for available modules, the module use command may be added to a login script (e.g., ```.bash_profile```) or issued in an interactive shell or job script. In your `$HOME/.bash_profile`, add the following line near the top:
+```$MODULEPATH``` is an environment variable that the system searches to find available modules. In order for the system to be able to find your new module, the module use command may be added to a login script (e.g., ```.bash_profile```) or issued in an interactive shell or job script. In your `$HOME/.bash_profile`, add the following line near the top:
 
 ```
 module use -a /scratch/$USER/modules/default
 ```
 
-The -a flag appends the path that follows to environment variable MODULEPATH; leaving it out will prepend the path. The first module found in searching $MODULEPATH is used, so the search order is important.
+The -a flag appends the path that follows to environment variable $MODULEPATH; leaving it out will prepend the path. The first module found in searching $MODULEPATH is used, so the search order is important.
 
 If you've built packages before and enabled them this way, you don't have to do this again!
-
-By changing ```$HOME``` in the instructions above to a project location (e.g., ```/projects/<your project name>```), you can create module collections that all users on a project can see and use.
 
 !!! note
 	Since new versions of software are periodically added to the system, check current availability with the ```module spider``` command. If a module is needed often, the ```module load <module_name>``` command can also be put in ```.bash_profile``` or other shell startup files.
