@@ -48,7 +48,7 @@ Many more examples of sbatch scripts are available in the [HPC Repository Slurm 
     #SBATCH --nodes=1
     #SBATCH --partition=gpu-h100
     #SBATCH --time=00:20:00         # Setting a 20 minute time limit
-    #SBATCH --ntasks-per-node=104   # Maximum CPU cores for job 
+    #SBATCH --ntasks-per-node=128   # Maximum CPU cores for job 
     #SBATCH --gres=gpu:4            # GPU request 
 
     export CUDA_VISIBLE_DEVICES=0,1,2,3
