@@ -1,8 +1,8 @@
 #!/bin/bash  --login
 
 ## Modify walltime and account at minimum
-#SBATCH --time=01:00:00
-#SBATCH --account=<project handle>
+#SBATCH --time=<time_estimate>
+#SBATCH --account=<project_handle>
 
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
@@ -10,7 +10,7 @@
 
 module purge
 module load conda
-source activate /home/$USER/.conda-envs/jupyterenv
+source activate /home/$USER/.conda-envs/<environment_name>  # insert your conda environment
 
 port=7878
 
