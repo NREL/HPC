@@ -51,21 +51,6 @@ Unlike the other partitions, nodes in the shared partition can be shared by mult
 
 Currently, there are 64 standard compute nodes available in the shared partition. These nodes have about 240GB of usable RAM and 104 cores. By default, your job will be allocated about 1GB of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
-??? info "Sample batch script for a job in the shared partition"
-    ```
-    #!/bin/bash
-    #SBATCH --nodes=1 
-    #SBATCH --partition=shared         
-    #SBATCH --time=2:00:00    
-    #SBATCH --ntasks=26 # CPUs requested for job 
-    #SBATCH --mem-per-cpu=2000 # Request 2G per core.
-    #SBATCH --account=<allocation handle>
-
-    cd /scratch/$USER 
-    srun ./my_progam # Use your application's commands here  
-    ```
-
-
 #### Accounting
 
 The equation for calculating the AU cost of a job is:
