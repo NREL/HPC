@@ -5,7 +5,7 @@ set -e
 
 unset XDF_RUNTIME_DIR
 
-RES=$(sbatch sbatch_jupyter.sh)
+RES=$(sbatch <SBATCH SCRIPT>)  # insert sbatch_jupyter script here
 
 jobid=${RES##* }
 
