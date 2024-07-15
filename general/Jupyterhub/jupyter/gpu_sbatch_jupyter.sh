@@ -5,7 +5,6 @@
 #SBATCH --account=<project_handle>
 
 #SBATCH --partition=gpu-h100
-#SBATCH --reservation=h100-testing
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=<CPU_request>
