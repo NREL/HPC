@@ -102,7 +102,7 @@ Once the environment has been activated, you can install PyTorch using the stand
     #!/bin/bash
     #SBATCH --account=<your-account-name> 
     #SBATCH --nodes=1
-    #SBATCH --gres=gpu:h100:1 
+    #SBATCH --gpus=h100:1 
     #SBATCH --ntasks-per-node=1
     #SBATCH --cpus-per-task=1
     #SBATCH --time=02:00:00

@@ -305,11 +305,11 @@ Kestrel's H100 GPUs run with CUDA 12.4 with a GPU driver version of 550.54.15. M
 First, allocate a Kestrel GPU compute node:
 
 ```
-salloc -A <YOUR-ACCOUNT> -t 1:00:00 --gres=gpu:1 -N 1 -n 1 --mem-per-cpu=8G
+salloc -A <YOUR-ACCOUNT> -t 1:00:00 --gpus=1 -N 1 -n 1 --mem-per-cpu=8G
 ```
 
 !!! note
-    We are only requesting 1 GPU card (`--gres=gpu:1`) of the 4 available per node, and subsequently 1 task (`-n 1`). Though we are automatically given access to all of the *GPU memory* on the node, we request 8G of *CPU memory* from `salloc`. This is because our Tensorflow example will require a decent amount of CPU memory as it copies data to and from the GPU device. If such CPU memory is a bottleneck in a real-world example, you may want to consider replacing `-n 1 --mem-per-cpu=8G` with `--exclusive` to request all of the node's CPU resources, even if you are only using a single GPU card.
+    We are only requesting 1 GPU card (`--gpus=1`) of the 4 available per node, and subsequently 1 task (`-n 1`). Though we are automatically given access to all of the *GPU memory* on the node, we request 8G of *CPU memory* from `salloc`. This is because our Tensorflow example will require a decent amount of CPU memory as it copies data to and from the GPU device. If such CPU memory is a bottleneck in a real-world example, you may want to consider replacing `-n 1 --mem-per-cpu=8G` with `--exclusive` to request all of the node's CPU resources, even if you are only using a single GPU card.
 
 
 Once we are allocated a node, we will load the Apptainer module, and then pull `tensorflow:2.15.0-gpu` from DockerHub to a personal scratch location on Kestrel.

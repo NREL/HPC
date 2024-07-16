@@ -11,11 +11,11 @@ There are two general types of compute nodes on Kestrel: CPU nodes and GPU nodes
 
 
 ### CPU Nodes
-Standard CPU-based compute nodes on Kestrel have 104 cores and 248GB of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.8TB NVMe local disk.
+Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.8TB NVMe local disk.
 
 
 ### GPU Nodes
-Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with 360GB of usable RAM. The GPU nodes also have 3.25TB of NVMe local disk. 
+Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with about 350G of usable RAM. The GPU nodes also have 3.25TB of NVMe local disk. 
 
 
 
@@ -38,7 +38,7 @@ The following table summarizes the partitions on Kestrel:
 
 | Partition Name | Description   | Limits | Placement Condition |
 | -------------- | ------------- | ------ | ------------------- | 
-| ```debug```    | Nodes dedicated to developing and <br> troubleshooting jobs. Debug nodes with each of the non-standard <br> hardware configurations are available. <br> The node-type distribution is: <br> - 2 bigmem nodes <br> - 2 nodes with 1.7 TB NVMe <br> - 4 standard nodes <br> - 2 GPU nodes <br> **10 total nodes** | 1 job with a max of 2 nodes per user. <br> 2 GPUs per user.<br> 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
+| ```debug```    | Nodes dedicated to developing and <br> troubleshooting jobs. Debug nodes with each of the non-standard <br> hardware configurations are available. <br> The node-type distribution is: <br> - 2 bigmem nodes <br> - 2 nodes with 1.7 TB NVMe <br> - 4 standard nodes <br> - 2 GPU nodes <br> **10 total nodes** | 1 job with a max of 2 nodes per user. <br> 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
 |```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2016 nodes total. <br> No limit per user. | ```--time <= 4:00:00```<br>```--mem <= 248000```<br> ```--tmp <= 1700000 (256 nodes)```| 
 | ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2106 nodes total. <br> 1050 nodes per user. | ```--mem <= 248000```<br> ```--tmp <= 1700000```|
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 248000```<br>```--tmp <= 1700000  (256 nodes)```|
@@ -47,10 +47,11 @@ The following table summarizes the partitions on Kestrel:
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> No limit per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 | ```gpu-h100```|  Nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
-| ```gpu-h100l```|  GPU nodes that prefer jobs with walltimes > 2 days. | 13 nodes total. <br>  7 nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
-
-!!! info
-    GPU nodes in the debug partition are shared. A job in debug on GPU nodes is also limited to 2 GPUs, 108 cores, and 360GB of CPU memory, across 1 or 2 GPU nodes. 
+| ```gpu-h100l```|  GPU nodes that prefer jobs with walltimes > 2 days. | 26 nodes total. <br>  13 nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
+<!-- 20% total, 10% per user -->
+<!-- gpu limits pending -->
+<!-- !!! info 
+    GPU nodes in the debug partition are shared. A job in debug on GPU nodes is also limited to 2 GPUs, 108 cores, and 360GB of CPU memory, across 1 or 2 GPU nodes.  -->
 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
@@ -89,11 +90,11 @@ Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and 360GB of useabl
 
 To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. All of the GPU memory for each GPU allocated will be available to the job (80 GB per GPU).
 
-If your job will require more than the default 1 CPU core and 2300MB of CPU RAM per core allocated, you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`.
+If your job will require more than the default 1 CPU core and 2G of CPU RAM per core allocated, you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`.
 
-The GPU nodes also have 3.25 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or cpus for example. If you need to ensure that your job has all of the disk space, you'll need to request the whole GPU node for the job.
+The GPU nodes also have 3.25 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to request the whole GPU node for the job.
 
-To request the entire GPU node, use the flag `--exclusive`. Requesting the entirity of one or more of the resources types (e.g. CPU, RAM, GPU) will also allocate the job the entire node. 
+To request the entire GPU node, use the flag `--exclusive`. Requesting the entireity of one or more of the resources types (e.g. CPU, RAM, GPU) will similarily allocate the job the entire node. 
 
 ## Allocation Unit (AU) Charges
 

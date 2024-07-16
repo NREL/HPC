@@ -70,7 +70,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 
 ??? example "Sample job script: Kestrel - Shared (partial) node"
 
-    As described in detail in the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (248 GB total) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
+    As described in detail in the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (about 240G total) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
 
     ```
     #!/bin/bash
@@ -101,7 +101,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     #!/bin/bash
     #SBATCH --account=<your-account-name> 
     #SBATCH --nodes=1
-    #SBATCH --gres=gpu:h100:4 
+    #SBATCH --gpus=4 
     #SBATCH --ntasks-per-node=4
     #SBATCH --cpus-per-task=1
     #SBATCH --time=02:00:00
@@ -122,7 +122,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     #!/bin/bash
     #SBATCH --account=<your-account-name> 
     #SBATCH --nodes=1
-    #SBATCH --gres=gpu:h100:2 
+    #SBATCH --gpus=2 
     #SBATCH --ntasks-per-node=2
     #SBATCH --mem=180000 # request cpu memory 
     #SBATCH --cpus-per-task=1
@@ -204,7 +204,7 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     ```
     #Make sure to salloc to a gpu node
-    salloc -N 1 --time=01:00:00 --account=<allocation handle> --gres=gpu:h100:4
+    salloc -N 1 --time=01:00:00 --account=<allocation handle> --gpus=h100:4
 
     # Load appropriate modules for your build. For our example these are:
     module restore

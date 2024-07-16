@@ -130,7 +130,7 @@ Here is a sample script for submitting an AMR-Wind application run on multiple G
     #SBATCH --time=1:00:00 
     #SBATCH --account=<user-account>
     #SBATCH --nodes=2
-    #SBATCH --gres=gpu:h100:4
+    #SBATCH --gpus=h100:4
     #SBATCH --exclusive
 
     module restore 
