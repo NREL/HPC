@@ -86,7 +86,7 @@ Currently, there are 64 standard compute nodes available in the shared partition
 
 ### GPU Jobs
 
-Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and 360GB of useable RAM. All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
+Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and 350GB of useable RAM. All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
 
 To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. All of the GPU memory for each GPU allocated will be available to the job (80 GB per GPU).
 
@@ -107,12 +107,12 @@ The CPU node charge factor is 10, and the GPU node charge factor is 100.
 On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `Number of Nodes` can be a fraction of a node. This value will be calculated based on either the number of cores, amount of memory, or the number of GPUs (on GPU nodes), whichever is a greater percentage of the total of that resource available on the node.
 
 
-???+ example "Example Job Cost Calculation - CPU "
-    For example, if you request 124GB of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
+???+ example "Example Job Cost Calculation - CPU shared "
+    For example, if you request 120G of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
 
     ```bash
     # To determine the Number of Nodes value: 
-    124/248 = 0.5
+    120/240 = 0.5
 
     26/104 = 0.25 
 
@@ -124,13 +124,13 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
 
     ```
 ???+ example "Example Job Cost Calculation - GPU "
-    For example, if you request 270GB of RAM, 32 cores, and 2 GPUs you will be billed 75 AUs per node hour.
+    For example, if you request 263G of RAM, 32 cores, and 2 GPUs you will be billed 75 AUs per node hour.
 
     ```bash
     # To determine the Number of Nodes value: 
     
     # CPU RAM
-    270/360 = 0.75
+    263/350  0.75
 
     # CPU Cores 
     32/128 = 0.25 
