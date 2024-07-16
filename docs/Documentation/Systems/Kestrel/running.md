@@ -38,7 +38,7 @@ The following table summarizes the partitions on Kestrel:
 
 | Partition Name | Description   | Limits | Placement Condition |
 | -------------- | ------------- | ------ | ------------------- | 
-| ```debug```    | Nodes dedicated to developing and <br> troubleshooting jobs. Debug nodes with each of the non-standard <br> hardware configurations are available. <br> The node-type distribution is: <br> - 2 bigmem nodes <br> - 2 nodes with 1.7 TB NVMe <br> - 4 standard nodes <br> - 2 GPU nodes <br> **10 total nodes** | 1 job with a max of 2 nodes per user. <br> 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
+| ```debug```    | Nodes dedicated to developing and <br> troubleshooting jobs. Debug nodes with each of the non-standard <br> hardware configurations are available. <br> The node-type distribution is: <br> - 2 bigmem nodes <br> - 2 nodes with 1.7 TB NVMe <br> - 4 standard nodes <br> - 2 GPU nodes (shared) <br> **10 total nodes** | 1 job with a max of 2 nodes per user. <br> 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
 |```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2016 nodes total. <br> No limit per user. | ```--time <= 4:00:00```<br>```--mem <= 248000```<br> ```--tmp <= 1700000 (256 nodes)```| 
 | ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2106 nodes total. <br> 1050 nodes per user. | ```--mem <= 248000```<br> ```--tmp <= 1700000```|
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 248000```<br>```--tmp <= 1700000  (256 nodes)```|
@@ -49,9 +49,8 @@ The following table summarizes the partitions on Kestrel:
 | ```gpu-h100```|  Nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
 | ```gpu-h100l```|  GPU nodes that prefer jobs with walltimes > 2 days. | 26 nodes total. <br>  13 nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
 <!-- 20% total, 10% per user -->
-<!-- gpu limits pending -->
-<!-- !!! info 
-    GPU nodes in the debug partition are shared. A job in debug on GPU nodes is also limited to 2 GPUs, 108 cores, and 360GB of CPU memory, across 1 or 2 GPU nodes.  -->
+<!-- gpu limits pending, likely limits: A job in debug on GPU nodes is also limited to 2 GPUs, 108 cores, and 350GB of CPU memory, across 1 or 2 GPU nodes. -->
+
 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
