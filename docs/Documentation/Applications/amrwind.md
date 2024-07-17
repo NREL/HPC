@@ -132,6 +132,7 @@ Here is a sample script for submitting an AMR-Wind application run on multiple G
     #SBATCH --nodes=2
     #SBATCH --gpus=h100:4
     #SBATCH --exclusive
+    #SBATCH --mem=0
 
     module restore 
     source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
