@@ -109,6 +109,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     #SBATCH --cpus-per-task=1
     #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
+    #SBATCH --mem=0 
 
     export MPICH_GPU_SUPPORT_ENABLED=1
     export CUDA_VISIBLE_DEVICES=0,1,2,3

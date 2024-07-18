@@ -88,10 +88,10 @@ To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or 
 
 If your job will require more than the default 1 CPU core and 1G of CPU RAM per core allocated, you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`. To request all of the memory available on the GPU node, use `--mem=0`. 
 
-The GPU nodes also have 3.25 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` to prevent the node from being shared with other jobs.
+The GPU nodes also have 3.25 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
 
 !!! warning
-    Using --exclusive doesn't automatically allocated your job all of the RAM on the node. To do this, use the flag `--mem=0`. 
+    A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs on a node, but is only allocated as much memory as requested. Use the flag `--mem=0` to request all of the CPU RAM on the node. 
 
 
 
@@ -123,13 +123,13 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
 
     ```
 ???+ example "Example Job Cost Calculation - GPU "
-    For example, if you request 263G of RAM, 32 cores, and 2 GPUs you will be billed 75 AUs per node hour.
+    For example, if you request 270000M of RAM, 32 cores, and 2 GPUs you will be billed 75 AUs per node hour.
 
     ```bash
     # To determine the Number of Nodes value: 
     
     # CPU RAM
-    263/350  0.75
+    270000/360000  0.75
 
     # CPU Cores 
     32/128 = 0.25 
