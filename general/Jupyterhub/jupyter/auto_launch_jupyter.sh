@@ -5,7 +5,10 @@ set -e
 
 unset XDF_RUNTIME_DIR
 
+# Use full CPU node script by default. For a shared partition or GPU node, comment out the next line and uncomment the line corresponding to the script you would like to run.
 RES=$(sbatch sbatch_jupyter.sh)
+# RES=$(sbatch shared_sbatch_jupyter.sh)
+# RES=$(sbatch gpu_sbatch_jupyter.sh) 
 
 jobid=${RES##* }
 
