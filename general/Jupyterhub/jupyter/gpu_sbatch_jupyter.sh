@@ -1,14 +1,13 @@
 #!/bin/bash  --login
 
 ## Modify walltime and account at minimum
-#SBATCH --time=<time_request>
-#SBATCH --account=<project_handle>
+#SBATCH --time=00:01:00		# Change to time required
+#SBATCH --account=<allocation_handle>  # Change to allocation handle
 
-#SBATCH --partition=gpu-h100
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
-#SBATCH --cpus-per-task=<CPU_request>
-#SBATCH --gres=gpu:<GPU_request>            # GPU request 
+#SBATCH --cpus-per-task=1		# Change to number of CPUs required per task
+#SBATCH --gpus=1           		 # Choose 1, 2, or 4 GPUs as required
 
 export CUDA_VISIBLE_DEVICES=0
 

@@ -1,8 +1,8 @@
 #!/bin/bash  --login
 
 ## Modify walltime and account at minimum
-#SBATCH --time=<time_request>
-#SBATCH --account=<project_handle>
+#SBATCH --time=00:01:00         # Change to time required
+#SBATCH --account=<allocation_handle>  # Change to allocation handle
 
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=1
