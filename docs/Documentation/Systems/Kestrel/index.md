@@ -13,8 +13,6 @@ Kestrel is configured to run compute-intensive and parallel computing jobs. It i
 
 Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
 
-!!! note
-    GPUs are not currently available on Kestrel.  132 nodes with 4x Nvidia H100 GPUs are expected to be installed on Kestrel in FY24 Q2.   
 
 ## Accessing Kestrel
 Access to Kestrel requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
