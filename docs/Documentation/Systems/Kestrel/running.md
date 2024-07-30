@@ -63,7 +63,7 @@ Nodes in the shared partition can be shared by multiple users or jobs. This part
 
 #### Usage
 
-Currently, there are 64 standard compute nodes available in the shared partition. These nodes have 240GB of usable RAM and 104 cores. By default, your job will be allocated 1G of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
+Currently, there are 64 standard compute nodes available in the shared partition. These nodes have about 240G of usable RAM and 104 cores. By default, your job will be allocated about 1G of RAM per core requested To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
@@ -107,11 +107,11 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
 
 
 ???+ example "Example Job Cost Calculation - CPU shared "
-    For example, if you request 120G of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
+    For example, if you request 123032M of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
 
     ```bash
     # To determine the Number of Nodes value: 
-    120/240 = 0.5
+    123032/246064 = 0.5
 
     26/104 = 0.25 
 
