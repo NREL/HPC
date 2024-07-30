@@ -15,7 +15,7 @@ Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RA
 
 
 ### GPU Nodes
-Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with about 350G of usable RAM. The GPU nodes also have 3.25TB of NVMe local disk. 
+Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with about 350G of usable RAM. The GPU nodes also have 3.20TB of NVMe local disk. 
 
 
 
@@ -47,7 +47,7 @@ The following table summarizes the partitions on Kestrel:
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> No limit per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 | ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
-| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 26 nodes total. <br>  13 nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
+| ```gpu-h100-long```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 20% of GPU nodes total. <br>  10% of GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
 <!-- 20% total, 10% per user -->
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
@@ -88,7 +88,7 @@ To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or 
 
 **If your job will require more than the default 1 CPU core and 1G of CPU RAM per core allocated**, you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`. To request all of the memory available on the GPU node, use `--mem=0`. 
 
-The GPU nodes also have 3.25 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
+The GPU nodes also have 3.20 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
 
 !!! warning
     A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs on a node, but is only allocated as much memory as requested. Use the flag `--mem=0` to request all of the CPU RAM on the node. 
