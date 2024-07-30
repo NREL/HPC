@@ -44,7 +44,7 @@ The following table summarizes the partitions on Kestrel:
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 248000```<br>```--tmp <= 1700000  (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.8 TB NVMe local disk. | 8 nodes total.<br> 4 nodes per user. | ```--mem > 248000```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 3 nodes per user. | ```--mem > 248000```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
-| ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> No limit per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
+| ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 | ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
 | ```gpu-h100-long```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 20% of GPU nodes total. <br>  10% of GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
