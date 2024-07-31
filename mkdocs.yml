@@ -27,6 +27,7 @@ nav:
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
+            - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Eagle: 
           - Documentation/Systems/Eagle/index.md
           - Running on Eagle: 
@@ -78,6 +79,7 @@ nav:
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
           - Documentation/Applications/index.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
+          - AMR-Wind:  Documentation/Applications/amrwind.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
           - GAMS:       Documentation/Applications/gams.md
@@ -90,6 +92,7 @@ nav:
             - Interactive Mode: Documentation/Applications/Matlab/interactive.md
             - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
             - Versions and Licenses: Documentation/Applications/Matlab/versions.md
+          - OpenFOAM: Documentation/Applications/openfoam.md
           - PLEXOS:
             - Documentation/Applications/Plexos/index.md
             - Setting Up: Documentation/Applications/Plexos/setup_plexos.md
@@ -182,15 +185,6 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
-  - Kestrel GPU Friendly Users:
-    - Kestrel GPU Friendly Users: Friendly_User/index.md
-    - Building Applications: Friendly_User/BuildandRun/gpubuildandrun.md
-    - Using GPUs with Software Containers: Friendly_User/gpu_containers.md
-    - Applications:
-      - VASP: Friendly_User/Applications/vasp.md
-      - AMR-Wind: Friendly_User/Applications/amrwind.md
-      - PyTorch: Friendly_User/Applications/pytorch.md
-      - OpenFOAM: Friendly_User/Applications/openfoam.md
 theme:
   name: material
   custom_dir: overrides

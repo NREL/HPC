@@ -9,6 +9,7 @@ The following are packages that the NREL Computational Science Center supports:
 | Name        | Description| 
 | :---------- | :--------- | 
 | [Ansys](./ansys.md)       | Enables modeling, simulation, and visualization of flow, turbulence, heat transfer and reactions for industrial applications | 
+| [AMR-Wind](./amrwind.md)       | A massively parallel, block-structured adaptive-mesh, incompressible flow solver for wind turbine and wind farm simulations | 
 | [COMSOL](./comsol.md)      | Multiphysics simulation environment | 
 | Converge | HPC CFD+, focused on engine modeling and simulation | 
 | [FEniCS](./fenics.md) | Solving partial differential equations by the finite element method | 
@@ -17,6 +18,7 @@ The following are packages that the NREL Computational Science Center supports:
 | [Gurobi](./gurobi.md) | Solver for mathematical programming | 
 | [LAMMPS](./lammps.md) | Open-source classical molecular dynamics program designed for massively parallel systems | 
 | [MATLAB](./Matlab/index.md) | General technical computing framework | 
+| [OpenFOAM](./openfoam.md) | Software for computational fluid dynamics | 
 | [PLEXOS](./Plexos/index.md) | Simulation software for modeling electric, gas, and water systems for optimizing energy markets | 
 | [Q-Chem](./qchem.md)    |  *ab initio* quantum chemistry package for predicting molecular structures, reactivities, and vibrational, electronic and NMR spectra | 
 | [<nobr>STAR-CCM+</nobr>](./starccm.md) | Engineering simulation package from CD-adapco for solving problems involving flow of fluids or solids, heat transfer, and stress | 

@@ -13,7 +13,6 @@ Kestrel is configured to run compute-intensive and parallel computing jobs. It i
 
 Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
 
-
 ## Accessing Kestrel
 Access to Kestrel requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
 
