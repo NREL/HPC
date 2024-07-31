@@ -89,7 +89,7 @@ To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or 
 
 **If your job will require more than the default 1 CPU core and 1G of CPU RAM per core allocated**, you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`. To request all of the memory available on the GPU node, use `--mem=0`. 
 
-The GPU nodes also have 3.20 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
+The GPU nodes also have 3.4 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
 
 !!! warning
     A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs on a node, but is only allocated as much memory as requested. Use the flag `--mem=0` to request all of the CPU RAM on the node. 
@@ -108,11 +108,11 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
 
 
 ???+ example "Example Job Cost Calculation - CPU shared "
-    For example, if you request 120G of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
+    For example, if you request 123032M of RAM (half of the available RAM on the node), and 26 cores, you will be billed 5 AUs per node hour.
 
     ```bash
     # To determine the Number of Nodes value: 
-    120/240 = 0.5
+    123032/246064 = 0.5
 
     26/104 = 0.25 
 
