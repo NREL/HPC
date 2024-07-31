@@ -20,7 +20,6 @@ On Kestrel GPU nodes, this can be achieved by first loading the following module
 
 ```bash
 module restore 
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 ml gcc
 ml PrgEnv-nvhpc
 ml nvhpc/24.1
@@ -135,7 +134,6 @@ Here is a sample script for submitting an AMR-Wind application run on multiple G
     #SBATCH --mem=0
 
     module restore 
-    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
     module load PrgEnv-nvhpc
     module load amr-wind/main-craympich-nvhpc
 

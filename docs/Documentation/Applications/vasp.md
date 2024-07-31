@@ -96,7 +96,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 #### GPU 
 
 !!! tip "Important"
-	Until we have GPU login nodes, it is necessary to `source /nopt/nrel/apps/gpu_stack/env_cpe23.sh` to access GPU modules on Kestrel. 
+	Submit GPU jobs from a [GPU login node](../Systems/Kestrel/index.md).
 
 ??? example "Sample job script: Kestrel - Full GPU node"
 
@@ -114,7 +114,6 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     export MPICH_GPU_SUPPORT_ENABLED=1
     export CUDA_VISIBLE_DEVICES=0,1,2,3
     
-    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
     module load vasp/6.3.2
 
     srun vasp_std |& tee out
@@ -139,7 +138,6 @@ GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When
     export MPICH_GPU_SUPPORT_ENABLED=1
     export CUDA_VISIBLE_DEVICES=0,1
 
-    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
     module load vasp/6.3.2
 
     srun vasp_std |& tee out
@@ -211,11 +209,10 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     ```
     #Make sure to salloc to a gpu node
-    salloc -N 1 --time=01:00:00 --account=<allocation handle> --gpus=h100:4
+    salloc -N 1 --time=01:00:00 --account=<allocation handle> --gpus=h100:4 --mem=0
 
     # Load appropriate modules for your build. For our example these are:
     module restore
-    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
     ml gcc
     ml PrgEnv-nvhpc
     ml cray-libsci/23.05.1.4
@@ -233,7 +230,6 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
     ```
     # Load modules appropriate for your build. For ours these are:
     module restore
-    source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
     ml gcc
     ml PrgEnv-nvhpc
     ml cray-libsci/23.05.1.4

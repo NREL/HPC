@@ -92,7 +92,7 @@ Once the environment has been activated, you can install PyTorch using the stand
 	```pip3 install torch torchvision torchaudio```
 
 !!! Note
-	Currently, we recommend installing software using the GPU nodes.
+	We recommend installing software for GPU jobs using the GPU nodes. There are two [GPU login nodes](../Systems/Kestrel/index.md) available on Kestrel. 
 
 ### Running a PyTorch Batch Job on Kestrel - GPU
 
