@@ -12,11 +12,6 @@ hide:
 Kestrel is configured to run compute-intensive and parallel computing jobs. It is a cluster comprised of 2454 nodes (servers) that run the Linux operating system (Red Hat Enterprise Linux), with a peak performance of 44 PetaFLOPS.
 
 Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> gh-pages
 
 ## Accessing Kestrel
 Access to Kestrel requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.
