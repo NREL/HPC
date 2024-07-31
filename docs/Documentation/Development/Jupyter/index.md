@@ -117,7 +117,7 @@ Kestrel supports running your own Jupyter Notebook server on a compute node. Thi
 ### Advantages:
 
 * Custom conda environments to load preferred libraries.
-* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 104 CPU cores and up to 248GB RAM on Kestrel CPU nodes and up to 2TB RAM on Kestrel bigmem nodes. (See the system specifications page for more information on the types of nodes available on Kestrel.)
+* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 104 CPU cores and up to 240GB RAM on Kestrel CPU nodes and up to 2TB RAM on Kestrel bigmem nodes. (See the system specifications page for more information on the types of nodes available on Kestrel.)
 * No competing with other users for CPU cores and RAM, and no Arbiter2 process throttling.
 * Less than a whole node may be requested via the [shared node](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/running/#shared-node-partition) queue, to save AUs.
 

@@ -100,7 +100,7 @@ Each user has their own directory in /scratch.
 
 ## Node File System
 
-Some Kestrel CPU compute nodes have an NVMe local solid-state drive (SSD) for use by compute jobs. They vary in size; 1.7TB on 256 of the standard compute nodes and 5.8TB on the bigmem nodes. The GPU nodes also all have local NVMe drives, with 3.25TB available per node. There are several possible scenarios in which a local disk may make your job run faster. For instance, you may have a job accessing or creating many small (temporary) files, you may have many parallel tasks accessing the same file, or your job may do many random reads/writes or memory mapping.
+Some Kestrel CPU compute nodes have an NVMe local solid-state drive (SSD) for use by compute jobs. They vary in size; 1.7TB on 256 of the standard compute nodes and 5.8TB on the bigmem nodes. The GPU nodes also all have local NVMe drives, with 3.4TB available per node. There are several possible scenarios in which a local disk may make your job run faster. For instance, you may have a job accessing or creating many small (temporary) files, you may have many parallel tasks accessing the same file, or your job may do many random reads/writes or memory mapping.
 
 
 **/tmp/scratch**
