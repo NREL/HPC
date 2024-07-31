@@ -17,7 +17,8 @@ Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RA
 ### GPU Nodes
 Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with about 350G of usable RAM. The GPU nodes also have 3.4TB of NVMe local disk. 
 
-
+!!! warning
+    You should use a [login node](../Kestrel/index.md) that matches the architecture of the compute nodes that your jobs will be running on for compiling software and submitting jobs. 
 
 ### Using Node Local Storage
 
