@@ -128,7 +128,7 @@ ml nvhpc-nompi/24.1
 ```
 
 
-* nvidia [runscript](https://github.com/NREL/HPC/blob/master/h100buildrun/mpi/openacc/nvidia/nvidia)
+* nvidia [runscript](https://github.com/NREL/HPC/blob/master/h100buildrun/mpi/openacc/nvidia/nvidiaopenmpi)
 
 ```
 : Load modules
