@@ -188,7 +188,7 @@ Scripted assistance with launching a Jupyter session on Kestrel is available.
 
 The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group and was originally written for use with Eagle, but now supports Kestrel.
 
-###  Auto-launching on Kestrel With an sbatch Script
+###  Auto-launching on Kestrel with an sbatch Script
 
 There are scripts written for launching a Jupyter session inside of a slurm job.
 
@@ -213,7 +213,7 @@ Full directions and scripts included in the [Jupyter repo](https://github.com/NR
 
     Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow the directions that come up on your terminal window.
 
-??? Example "Standard Jupyter session launch in the shared paritition with partial CPU request"
+??? Example "Standard Jupyter session launch in the shared partition with partial CPU request"
     Download [shared_sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/shared_sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh)
 
     Edit [shared_sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/shared_sbatch_jupyter.sh) to change:
@@ -231,6 +231,7 @@ Full directions and scripts included in the [Jupyter repo](https://github.com/NR
     Edit [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) to include your sbatch_jupyter script:
     ```
     RES=$(sbatch shared_sbatch_jupyter.sh)
+    ```
 
     Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow the directions that come up on your terminal window.
 
@@ -257,6 +258,7 @@ Full directions and scripts included in the [Jupyter repo](https://github.com/NR
     Edit [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) to include your sbatch_jupyter script:
     ```
     RES=$(sbatch gpu_sbatch_jupyter.sh)
+    ```
 
     Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow the directions that come up on your terminal window.
 
