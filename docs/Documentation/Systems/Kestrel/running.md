@@ -48,7 +48,8 @@ The following table summarizes the partitions on Kestrel:
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 | ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
-| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 20% of GPU nodes total. <br>  10% of GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
+| ```gpu-h100s```|  Shareable GPU nodes that prefer jobs with walltimes <= 4 hours. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 4:00:00```| 
+| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 26 GPU nodes total. <br>  13 GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
