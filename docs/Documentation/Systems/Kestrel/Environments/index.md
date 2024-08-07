@@ -67,7 +67,7 @@ The `Cray MPICH` used for each different `PrgEnv-` is pointing to a different in
 ## PrgEnv- Programming Environments
 
 !!! bug "Module Known Issues"
-    As of July 30th, there are some modules that do not work correctly. The following points describe the issues and workarounds. We are working on permanent fixes for these issues. <br>
+    As of July 30th, 2024, there are some modules that do not work correctly. The following points describe the issues and workarounds. We are working on permanent fixes for these issues. <br>
     * If using PrgEnv-intel, cray-libsci/23.12 is loaded by default. Load cray-libsci/22.12 instead. <br>
     * If using PrgEnv-gnu with gcc version 10, load cray-libsci/22.12 instead of the default cray-libsci version. <br>
     * On the GPU nodes, if using PrgEnv-nvhpc, you need to load nvhpc/23.9. nvhpc/24.1 is loaded by default and will not work. <br>
