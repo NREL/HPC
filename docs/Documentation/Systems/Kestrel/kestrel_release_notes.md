@@ -2,6 +2,55 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
+## July 29 - July 30
+
+1. Two [GPU login nodes](../Kestrel/index.md) were added. Use the GPU login nodes for compiling software to run on GPU nodes and for submitting GPU jobs. 
+1. GPU compute nodes were made available for general use and additional GPU partitions were added. See [Running on Kestrel](../Kestrel/running.md) for additional information and recommendations.
+
+Module Updates/Changes 
+
+1. Modules are automatically loaded depending on node type, e.g., the GPU module stack is automatically loaded on GPU nodes. 
+
+1. Naming convention for compilers: <br>
+    example gcc compiler: 
+    * Gcc/version is the compiler used by CPE with Prgenv
+    * Gcc-native/version: also meant to be used with Prgenv. The difference gcc-native and gcc is that the former is optimized for the specific architecture
+    * Gcc-stdalone/version this gcc is meant to be used outside of CPE. 
+    * The same applies to nvhpc and aocc.
+
+1. Intel vs oneapi: <br>
+Moving forward the naming -intel in modules e.g. adios/1.13.1-intel-oneapi-mpi-intel will be deprecated in favor of -oneapi e.g. adios/1.13.1-intel-oneapi-mpi-oneapi. <br>
+This is implemented for the gpu modules and will be implemented for the CPU in the future. <br>
+Oneapi is the new naming convention for intel compilers.
+
+1. compilers-mixed: <br>
+In the list of compilers, you’ll see compilers with -mixed e.g. nvhpc-mixed (same applies to intel, gcc, aocc, etc). 
+Those are meant to be used with CPE Prgenv, where you can force a mix and match between compilers. 
+Example: loading Prgenv-nvhpc and loading gcc-mixed. 
+This is not recommended and should only be used if you know what you’re doing. 
+
+1. Nvhpc: <br>
+There 5 types of nvhpc modules: <br>
+Nvidia module is equivalent to nvhpc and is meant to be used with CPE (Prgenv-nvidia). 
+Per HPE’s instruction, only Prgenv-nvhpc should be used and not Prgenv-nvidia
+    * Nvhpc which is meant to be used with CPE (Prgenv-nvhpc)
+    * Nvhpc-mixed : meant to be used with CPE
+    * Nvhpc-stdalone : can be used outside of CPE for your usual compilation will load the compilers and a precompiled openmpi that ships with nvhpc
+    * nvhpc-nompi:  Similar to Nvhpc-stdalone but doesn’t load the precompiled ompi
+    * nvhpc-byo-compiler: only load libs and header files contained in the nvidia SDK, no compiler or mpi is loaded <br>
+
+1. Cuda: <br>
+    * Cuda/11.7 was removed. If you'd like to access cuda as a standalone you can load cuda/12.3, cuda/12.1 was also added (for the gpus)
+
+1.  Intel: <br>
+    * Intel, intel-oneapi and intel-classic are modules to be used with CPE. If you want to use standalone intel compilers outside of CPE please use: 
+Intel-oneapi-compilers. 
+    * intel-oneapi-compilers/2024.1.0 was added.
+
+1. Anaconda: <br>
+    * The 2024 version is now added.
+ 
+
 ## April 12 - April 17
 
 1. The size of the [shared node partition](./running.md#shared-node-partition) was doubled from 32 nodes to 64 nodes. 
