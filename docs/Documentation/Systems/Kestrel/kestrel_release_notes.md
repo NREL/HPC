@@ -13,7 +13,7 @@ Module Updates/Changes
 
 1. Naming convention for compilers: <br>
     example gcc compiler: 
-    * Gcc/version is the compiler used by CPE in contingency with Prgenv
+    * Gcc/version is the compiler used by CPE with Prgenv
     * Gcc-native/version: also meant to be used with Prgenv. The difference gcc-native and gcc is that the former is optimized for the specific architecture
     * Gcc-stdalone/version this gcc is meant to be used outside of CPE. 
     * The same applies to nvhpc and aocc.
