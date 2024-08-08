@@ -74,7 +74,8 @@ Any WRF version can be downloaded [here](https://github.com/wrf-model/WRF/releas
 
     The following `configure.wrf` file was used to build WRF v4.2.2 on Kestral (to date). Copy this configure.wrf into your WRF build dir WRF-4.x.y, and do `% cd WRF-4.x.y`.
     ```
-    #
+    # configure.wrf
+	#
     # Original configure options used:
     # ./configure 
     # Compiler choice: 47
