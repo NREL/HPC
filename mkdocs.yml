@@ -123,6 +123,7 @@ nav:
          - Programming Models:
               # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
+              - Using GPUs for HPC: Documentation/Development/Programming_Models/gpu_hpc.md 
               # - OpenMP: Documentation/Development/Programming_Models/openmp.md
               # - OpenACC: Documentation/Development/Programming_Models/openacc.md
                 #- CUDA:    Documentation/Development/Programming_Models/cuda.md
