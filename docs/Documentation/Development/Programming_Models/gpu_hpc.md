@@ -68,9 +68,9 @@ The following are some GPU-relevant environment variables you can set in your su
 
 | Variable             | Description |
 | :--                  | :--         |
-| SLURM_GPUS_ON_NODE   | Quantity of GPU devices available to a Slurm job.|
-| SLURM_JOB_GPUS       | GPU device ID(s) available to a Slurm job. Starts with `0`.|
-| CUDA_VISIBLE_DEVICES | GPU device ID(s) available to a CUDA process. Starts with `0`. |
+| SLURM_GPUS_ON_NODE   | Quantity of GPU devices available to a Slurm job. Set by Slurm. |
+| SLURM_JOB_GPUS       | GPU device ID(s) available to a Slurm job. Starts with `0`. Set by Slurm. |
+| CUDA_VISIBLE_DEVICES | GPU device ID(s) available to a CUDA process. Starts with `0`. This is a variable that you might need to set, depending on the application. |
 
 ### Software containers
 
