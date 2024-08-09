@@ -66,11 +66,11 @@ The following examples are generic templates that NREL HPC users can adapt for t
 
 The following are some GPU-relevant environment variables you can set in your submission scripts to Slurm.
 
-| Variable             | Description |
-| :--                  | :--         |
-| SLURM_GPUS_ON_NODE   | Quantity of GPU devices available to a Slurm job. Set by Slurm. |
-| SLURM_JOB_GPUS       | GPU device ID(s) available to a Slurm job. Starts with `0`. Set by Slurm. |
-| CUDA_VISIBLE_DEVICES | GPU device ID(s) available to a CUDA process. Starts with `0`. This is a variable that you might need to set, depending on the application. |
+| Variable               | Description |
+| :--                    | :--         |
+| `SLURM_GPUS_ON_NODE`   | Quantity of GPU devices available to a Slurm job. Set by Slurm. |
+| `SLURM_JOB_GPUS`       | GPU device ID(s) available to a Slurm job. Starts with `0`. Set by Slurm. |
+| `CUDA_VISIBLE_DEVICES` | GPU device ID(s) available to a CUDA process. Starts with `0`. This is a variable that you might need to set, depending on the application. If `CUDA_VISIBLE_DEVICES` isn't already set in your shell session, you can with `CUDA_VISIBLE_DEVICES=$SLURM_JOB_GPUS` |
 
 ### Software containers
 
