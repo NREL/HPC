@@ -16,7 +16,6 @@ The following examples are generic templates that NREL HPC users can adapt for t
     ```bash
     #!/bin/bash 
     #SBATCH --account=<allocation>
-    #SBATCH --partition=gpu-h100
     #SBATCH --time=01:00:00
     #SBATCH --mem=80G
     #SBATCH --gpus=1
@@ -25,6 +24,9 @@ The following examples are generic templates that NREL HPC users can adapt for t
     #SBATCH --output=%j-%x.log
 
     # don't forget to submit this from a GPU login node!
+    # note that you do not have to specify a partition on Kestrel;
+    # your job will be sent to the appropriate gpu-h100 queue based
+    # on your requested --time
     <GPU-enabled code to run>
     ```
 
@@ -212,7 +214,7 @@ Consider the script `numba-mat.py` below. This script demonstrates the importanc
 
 This script runs through four cases of multiplying two large random matrices, each with dimensions (10<sup>9</sup>, 3). For each test case, 10 loops of the function are executed, and the time required reflects the time it takes for all 10 loops. `Test Case 1` is the CPU speed baseline to which we will compare our various GPU runtimes. Matrix multiplication using pure `numpy.multiply()`, which does not invoke the GPU and runs entirely on the CPU, requires approximately 39.86 seconds. The remaining Test Cases will all run on the GPU, but have dramatically different runtime performances depending on how frequently data are copied between the CPU and GPU devices. 
 
-Note that to use the GPU in this script, we define the function `gpu_mult()`, which is vectorized with a `numba` decorator that also tells the device to operate on `float32` values, and defines `cuda` as the runtime target device. Following these instructions, `numba` JIT-compiles `gpu_mult()` into a CUDA kernel that can executed on a GPU.
+Note that to use the GPU in this script, we define the function `gpu_mult()`, which is vectorized with a `numba` decorator that also tells the device to operate on `float32` values, and defines `cuda` as the runtime target device. Following these instructions, `numba` JIT-compiles `gpu_mult()` into a CUDA kernel that can execute on a GPU.
 
 !!! note
     In general, computing on numeric `float32` data performs substantially better compared to `float64` on GPUs.
