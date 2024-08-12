@@ -89,7 +89,7 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
 
 ??? note "Performance Note"
 
-    The use of OpenMP threads is highly reccomended on a system with as many cores per node as Kestrel. Testing of benchmark 2 has shown that OpenMP threads can both increase performance (faster time to solution) as well as scaling:
+    The use of OpenMP threads is highly recommended on a system with as many cores per node as Kestrel. Testing of benchmark 2 has shown that OpenMP threads can both increase performance (faster time to solution) as well as scaling:
 
     ![VASP-sharednodescaling](../../../assets/images/VASP/openmpscaling.png)
 
