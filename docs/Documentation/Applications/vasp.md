@@ -61,7 +61,8 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
    vasp/5.4.4         vasp/6.3.2               vasp/6.4.2            (D)
 ```
 
- What’s new:
+ What’s new: 
+ 
  * New modules have been rebuilt with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
  * OpenMP capability has been added to VASP 6 builds.
  * Modules that include third-party codes (e.g., libXC, libBEEF, VTST tools, and VASPsol) are now denoted with +tpc. Use `module show vasp/<version>` to see details of a specific version.
