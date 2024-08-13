@@ -154,8 +154,7 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
     #SBATCH --mem=0 #Since the GPU partition is entirely shared, you must specify you want all the memory even when requesting all the GPU resources
 
     export MPICH_GPU_SUPPORT_ENABLED=1
-    export CUDA_VISIBLE_DEVICES=0,1,2,3
-    
+
     module load vasp/6.3.2
 
     srun vasp_std &> out
@@ -178,12 +177,12 @@ GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When
     #SBATCH --job-name=<your-job-name>
 
     export MPICH_GPU_SUPPORT_ENABLED=1
-    export CUDA_VISIBLE_DEVICES=0,1
 
     module load vasp/6.3.2
 
     srun vasp_std &> out
     ```
+    
 ### Building VASP on Kestrel
 
 Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel) under the vasp folder.
@@ -245,18 +244,19 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
 #### GPU
 
+!!! tip "Important"
+	Make sure to build GPU software on a [GPU login node](../Systems/Kestrel/index.md) or GPU compute node.
+
 ##### Compiling your build
 
 ??? example "Build recommendations for VASP - GPU"
 
     ```
-    #Make sure to salloc to a gpu node
-    salloc -N 1 --time=01:00:00 --account=<allocation handle> --gpus=h100:4 --mem=0
-
     # Load appropriate modules for your build. For our example these are:
     module restore
     ml gcc
     ml PrgEnv-nvhpc
+    ml nvhpc/23.9   #do not use the default nvhpc/24.1
     ml cray-libsci/23.05.1.4
     ml craype-x86-genoa
 
@@ -274,6 +274,7 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
     module restore
     ml gcc
     ml PrgEnv-nvhpc
+    ml nvhpc/23.9   #do not use the default nvhpc/24.1
     ml cray-libsci/23.05.1.4
     ml craype-x86-genoa
 
