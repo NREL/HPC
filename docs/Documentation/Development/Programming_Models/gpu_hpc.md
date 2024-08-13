@@ -68,9 +68,11 @@ The following are some GPU-relevant environment variables you can set in your su
 
 | Variable               | Description |
 | :--                    | :--         |
-| `SLURM_GPUS_ON_NODE`   | Quantity of GPU devices available to a Slurm job. Set by Slurm. |
-| `SLURM_JOB_GPUS`       | GPU device ID(s) available to a Slurm job. Starts with `0`. Set by Slurm. |
-| `CUDA_VISIBLE_DEVICES` | GPU device ID(s) available to a CUDA process. Starts with `0`. This is a variable that you might need to set, depending on the application. If `CUDA_VISIBLE_DEVICES` isn't already set in your shell session, you can with `CUDA_VISIBLE_DEVICES=$SLURM_JOB_GPUS` |
+| [`SLURM_GPUS_ON_NODE`](https://slurm.schedmd.com/sbatch.html#OPT_SLURM_GPUS_ON_NODE) | Number of GPUs allocated to the batch step. |
+| [`SLURM_JOB_GPUS`](https://slurm.schedmd.com/sbatch.html#OPT_SLURM_JOB_GPUS) | The global GPU IDs of the GPUs allocated to this job. The GPU IDs are not relative to any device cgroup, even if devices are constrained with task/cgroup. Only set in batch and interactive jobs. |
+
+!!! note
+    You can also run `nvidia-smi -L` while connected to any GPU node to return the available GPU device(s).
 
 ### Software containers
 
@@ -147,7 +149,7 @@ Consider the script `numba-mat.py` below. This script demonstrates the importanc
     # float64) and target device type ('cuda' for GPU)
     @vectorize(['float32(float32, float32)'], target='cuda')
     def gpu_mult(x, y):
-        z = x ** y
+        z = x * y
         return z
 
 
