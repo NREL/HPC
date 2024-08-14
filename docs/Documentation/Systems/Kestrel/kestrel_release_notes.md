@@ -2,7 +2,31 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
-## July 29 - July 30
+## August 14, 2024
+
+Jobs running on `debug` GPU nodes are now limited to half a GPU node's resources across one or two nodes. This is equivalent to 64 CPUs, 2 GPUs, and 180G of RAM on one node. `--exclusive` can no longer be used for GPU debug jobs. 
+
+## August 9, 2024
+
+As of 08/09/2024 we have released new modules for VASP on Kestrel CPUs: 
+
+```
+------------ /nopt/nrel/apps/cpu_stack/modules/default/application -------------
+   #new modules:
+   vasp/5.4.4+tpc     vasp/6.3.2_openMP+tpc    vasp/6.4.2_openMP+tpc
+   vasp/5.4.4_base    vasp/6.3.2_openMP        vasp/6.4.2_openMP
+   
+   #legacy modules will be removed during next system time:
+   vasp/5.4.4         vasp/6.3.2               vasp/6.4.2            (D)
+```
+
+ What’s new: 
+ 
+ * New modules have been rebuilt with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
+ * OpenMP capability has been added to VASP 6 builds.
+ * Modules that include third-party codes (e.g., libXC, libBEEF, VTST tools, and VASPsol) are now denoted with +tpc. Use `module show vasp/<version>` to see details of a specific version.
+
+## July 29 - July 30, 2024
 
 1. Two [GPU login nodes](../Kestrel/index.md) were added. Use the GPU login nodes for compiling software to run on GPU nodes and for submitting GPU jobs. 
 1. GPU compute nodes were made available for general use and additional GPU partitions were added. See [Running on Kestrel](../Kestrel/running.md) for additional information and recommendations.
@@ -51,7 +75,7 @@ Intel-oneapi-compilers.
     * The 2024 version is now added.
  
 
-## April 12 - April 17
+## April 12 - April 17, 2024
 
 1. The size of the [shared node partition](./running.md#shared-node-partition) was doubled from 32 nodes to 64 nodes. 
 
@@ -62,7 +86,7 @@ Intel-oneapi-compilers.
 4. `/kfs2/pdatasets` was renamed to `/kfs2/datasets` and a symlink `/datasets` was added. 
 
 
-## Jan. 29 - Feb. 14 Upgrades
+## Jan. 29 - Feb. 14, 2024 Upgrades
 
 1. We have experienced that most previously built software runs without modification (this includes NREL provided modules) and performs at the same level. 
 
