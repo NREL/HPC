@@ -4,7 +4,7 @@
 
 ## August 14, 2024
 
-Jobs running on `debug` GPU nodes are now limited to half a GPU node's resources across one or two nodes. This is equivalent to 64 CPUs, 2 GPUs, and 180G of RAM on one node. `--exclusive` can no longer be used for GPU debug jobs. 
+Jobs running on `debug` GPU nodes are now limited to a total of half of one GPU node's resources across one or two nodes. This is equivalent to 64 CPUs, 2 GPUs, and 180G of RAM on one node or 32 CPUs, 1 GPU, and 90GB of RAM on two nodes. `--exclusive` can no longer be used for GPU debug jobs. 
 
 ## August 9, 2024
 
