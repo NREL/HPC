@@ -13,19 +13,16 @@ Software *images* provide a method of packaging your code so that its *container
 **A note on terminology**: A software *container* is considered an instance of an *image*, meaning the former gets created during the runtime of the latter. In other words, a software *image* is what you build and distribute, whereas the *container* is what gets executed from a given image.
 
 
-## Docker vs. Singularity/Apptainer
-The most common container runtime environment (outside of HPC) is Docker. Due to the fact that it requires root-level permissions to build its associated images and run containers, Docker is not suited for HPC environments and is therefore not available on NREL's systems currently. Singularity, as well as its later release, Apptainer, are both alternative containerization tools that can be used in HPC environments because they have build methods that do not require root. However, you can use Docker to build images locally and convert them to the Singularity/Apptainer format for use with HPC (described in more detail [here](index.md#building-software-images)).
-
-Going forward in this documentation, the term "Apptainer" will be used to refer to both "Singularity" and "Apptainer" for brevity, unless otherwise specified. 
-
+## Docker vs. Apptainer
+The most common container runtime environment (outside of HPC) is Docker. Due to the fact that it requires root-level permissions to build its associated images and run containers, Docker is not suited for HPC environments and is therefore not available on NREL's systems currently. Apptainer is an alternative containerization tool that can be used in HPC environments because running it does not require root. However, you can use Docker to build images locally and convert them to the Apptainer format for use with HPC (described in more detail [here](index.md#building-software-images)).
 
 ## Compatibility 
-Apptainer is able to run most Docker images, but Docker is unable to run Apptainer images. A key consideration when deciding to containerize an application is which container engine to build with. A suggested best practice is to build images with Docker whenever possible, as this provides more flexibility. However, sometimes this is not feasible, and you may have to build with Apptainer or maintain separate images for each container engine.
+Apptainer is able to run most Docker images, but Docker is unable to run Apptainer images. A key consideration when deciding to containerize an application is which container engine to build with. A suggested best practice is to build images with Docker whenever possible, as this provides more flexibility. However, if this is not feasible, you may have to build with Apptainer or maintain separate images for each container engine.
 
 ## Advantages to software containerization
 * **Portability**: Containers can be run on HPC, locally, and on cloud infrastructure used at NREL. 
 * **Reproducibility**: Containers are one option to ensure reproducible research by packaging all necessary software to reproduce an analysis. Containers are also easily versioned using a hash.
-* **Modularity**: Images are composed of cacheable "layers" of other images, facilitating the build process.
+* **Modularity**: Images are composed of cacheable "layers" of other images or build commands, facilitating the image building process.
 * **Workflow integration**: Workflow management systems such as Airflow, Nextflow, Luigi, and others provide built-in integration with container engines. 
 
 ## Accessing HPC hardware from software containers
@@ -35,7 +32,7 @@ Both Apptainer and Docker provide the ability to use hardware based features on 
 ## Building software images
 Regardless of the runtime platform, images are built from a special configuration file. A `Dockerfile` is such a configuration for Docker, while Apptainer uses a "Definition File" (with a `.def` extension). These files specify the installation routines necessary to create the desired application, as well as any additional software packages to install and configure in this environment that may be required. You can think of these files as "recipes" for installing a given application you wish to containerize.
 
-Building Docker or Apptainer images requires root/admin privileges and cannot be done directly by users of HPC systems. Docker is available on most platforms, and users with admin privileges on a local machine (such as your laptop) can build Docker images locally. The Docker image file can then be pushed to a registry and pulled on the HPC system using Apptainer as described [here](registries.md), or a tool such as [Docker2Singularity](https://github.com/singularityhub/docker2singularity) may be used to convert the image to the Apptainer format. Alternatively, users with admin privileges on a Linux system can run Apptainer locally to build images. Another option is to use Sylab's remote building [Container Service](https://cloud.sylabs.io/), which provides free accounts with a limited amount of build time.
+Building Docker or Apptainer images requires root/admin privileges and cannot be done directly by users of HPC systems. Docker is available on most platforms, and users with admin privileges on a local machine (such as your laptop) can build Docker images locally. The Docker image file can then be pushed to a registry and pulled on the HPC system using Apptainer as described [here](registries.md), or a tool such as [Docker2Singularity](https://github.com/singularityhub/docker2singularity) may be used to convert the image to the Apptainer format. Alternatively, users with admin privileges on a Linux system can run Apptainer locally to build images. Another option is to use Sylab's remote building [Container Service](https://cloud.sylabs.io/), which provides free accounts with a limited amount of build time for Apptainer-formatted images.
 
 ### Example Docker build workflow for HPC users
 
@@ -93,10 +90,10 @@ For more information on alternatives to `rsync` (such as FileZilla or Globus), p
 
 #### 4. Convert .tar to Apptainer image
 
-Once `rsync` finishes, you should find the following file (roughly 72MB in size) in your personal scratch folder on Kestrel (i.e., `/scratch/USERNAME` or `$LOCAL_SCRATCH`):
+Once `rsync` finishes, you should find the following file (roughly 72MB in size) in your personal scratch folder on Kestrel (i.e., `/scratch/$USER`):
 
 ```
-[USERNAME@kl1 USERNAME]$ ls -lh ${LOCAL_SCRATCH}/simple_python3.tar.gz
+[USERNAME@kl1 USERNAME]$ ls -lh /scratch/$USER/simple_python3.tar.gz
 -rw-r--r-- 1 USERNAME USERNAME 72M Mar 20 15:39 /scratch/USERNAME/simple_python3.tar.gz
 ```
 
@@ -109,9 +106,9 @@ salloc -A <account> -p <partition> -t <time> ...
 You can now convert the Docker image archive to an Apptainer `.sif` image on Kestrel with the following `build` command. Be sure to first unzip the `.tar.gz` archive, and prefix the resulting `.tar` with `docker-archive://`:
 
 ```
-cd ${LOCAL_SCRATCH}
+cd /scratch/$USER
 module load apptainer/1.1.9
-tar czf simple_python3.tar.gz simple_python3.tar
+tar xzf simple_python3.tar.gz simple_python3.tar
 apptainer build simple_python3.sif docker-archive://simple_python3.tar
 ```
 
@@ -141,6 +138,6 @@ Python 3.10.12
 
 For more specific information on and best practices for using Apptainer on NREL's HPC systems, please refer to its [dedicated documentation page](./apptainer.md).
 
-### Using Apptainer/Singularity as build alternatives to Docker
+### Using Apptainer as build alternatives to Docker
 
-Given Docker's popularity, support, and its widespread compatibility with other container runtimes, it is recommended to start your containerization journey with the steps outlined in the previous section. However, there could be rare cases in which you need to directly build an image with [Singularity](https://docs.sylabs.io/guides/latest/user-guide/definition_files.html)/[Apptainer](https://apptainer.org/docs/user/main/definition_files.html). Instead of "Dockerfiles", these container runtimes use "Definition Files" for image building that have a similar, yet distinct format. Please refer to the respective links for more information. We also provide an [Apptainer image build example](./apptainer.md#create-ubuntu-based-image-with-mpi-support) in our documentation, which can be remotely built via the [Singularity Container Service](https://cloud.sylabs.io/).
+Given Docker's popularity, support, and its widespread compatibility with other container runtimes, it is recommended to start your containerization journey with the steps outlined in the previous section. However, there could be rare cases in which you need to directly build an image with [Apptainer](https://apptainer.org/docs/user/main/definition_files.html). Instead of "Dockerfiles", these container runtimes use "Definition Files" for image building that have a similar, yet distinct format. Please refer to the respective link for more information. We also provide an [Apptainer image build example](./apptainer.md#create-ubuntu-based-image-with-mpi-support) in our documentation, which can be remotely built via the [Singularity Container Service](https://cloud.sylabs.io/) from Sylabs, the developer of Apptainer.

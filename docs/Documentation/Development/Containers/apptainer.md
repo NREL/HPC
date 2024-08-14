@@ -1,17 +1,16 @@
-## How to use Apptainer (Singularity) on Kestrel
+!!! note 
+    Singularity has been deprecated in favor of a new container runtime environment called Apptainer, which is its direct decendent. Apptainer will run Singularity containers and it supports Singularity commands by default. Since Singularity is deprecated, it is advised to use Apptainer when building new images. More information about Apptainer can be found at [https://apptainer.org](https://apptainer.org). 
+    
+## How to use Apptainer
 
-Singularity has been deprecated in favor of a new container runtime environment called Apptainer, which is its direct decendent. Apptainer will run Singularity containers and it supports Singularity commands by default. On Kestrel, `singularity` is an alias for `apptainer` and the two commands can be used interchangeably in most instances. However, since Singularity is deprecated, it is advised to use Apptainer.
+On NREL HPC systems, Apptainer is accessed via a module named `apptainer` (you can check the current default module via `ml -d av apptainer`). On Kestrel specifically, the directory `/nopt/nrel/apps/software/apptainer/1.1.9/examples` holds a number of images (`*.sif`) and an example script (`script`) that shows how to run containers hosting MPI programs across multiple nodes. The `script` can also be accessed from [our GitHub repository](https://github.com/NREL/HPC/blob/master/kestrel/apptainer/script).
 
-More information about Apptainer can be found at [https://apptainer.org](https://apptainer.org). 
-
-On Kestrel, Apptainer is installed on compute nodes and is accessed via a module named `apptainer` (you can check the current default module via `ml -d av apptainer`). The directory `/nopt/nrel/apps/software/apptainer/1.1.9/examples` holds a number of images (`*.sif`) and an example script (`script`) that shows how to run containers hosting MPI programs across multiple nodes. The `script` can also be accessed from [our GitHub repository](https://github.com/NREL/HPC/blob/master/kestrel/apptainer/script).
-
-Before we get to the more complicated example from `script`, we'll first look at downloading (or *pulling*) and working with a simple image.
+Before we get to the more complicated example from `script`, we'll first look at downloading (or *pulling*) and working with a simple image. The following examples assume you are logged into Kestrel, but the concepts demonstrated are still valid for any host system on which you wish to execute a container.
 
 Input commands are preceded by a `$`.
 
 !!! note
-    If you wish to containerize your own application, it may be worth starting with [building a local Docker image and transferring it to Kestrel](./index.md#example-docker-build-workflow-for-hpc-users) before attempting to directly create your own Apptainer image, since you do not have root access on Kestrel.
+    If you wish to containerize your own application, it may be worth starting with [building a local Docker image and transferring it to Kestrel](./index.md#example-docker-build-workflow-for-hpc-users) before attempting to directly create your own Apptainer image, since you do not have root access on HPC systems.
 
 ## Apptainer runtime examples
 
