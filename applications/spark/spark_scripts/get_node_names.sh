@@ -9,11 +9,14 @@ slurm_job_ids=$@
 nodes=()
 for job_id in ${slurm_job_ids}
 do
-    host_list=`squeue -j ${job_id} --format="%5D %1000N" -h | awk '{print $2}'`
-    host_names=`scontrol show hostnames ${host_list}`
-    for host_name in $host_names
+    # The squeue command will produce multiple lines if the job is heterogeneous.
+    for host_list in $(squeue -j ${job_id} --format="%5D %1000N" -h | awk '{print $2}')
     do
-        nodes+=($host_name)
+        host_names=$(scontrol show hostnames ${host_list})
+        for host_name in $host_names
+        do
+            nodes+=($host_name)
+        done
     done
 done
 

@@ -76,8 +76,8 @@
 # - MKL_NUM_THREADS=1        Disable multi-threading of Intel MKL
 # - OPENBLAS_NUM_THREADS=1   Disable multi-threading of OpenBLAS
 
-SPARK_LOCAL_DIRS=$TMPDIR/spark/local
 SPARK_LOG_DIR=logs
 # In order to preserve worker logs for debugging purposes, change this to a permanent location
 # or copy the files before relinquishing the nodes.
-SPARK_WORKER_DIR=$TMPDIR/spark/worker
+# Ensure that it is an absolute path.
+# SPARK_WORKER_DIR=

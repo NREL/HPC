@@ -6,7 +6,9 @@ The scripts in this directory create ephemeral Apache Spark clusters on HPC comp
 
 [Basic Configuration](#basic-configuration-instructions) | [Advanced Configuration](#advanced-configuration-instructions) | [Run Jobs](#run-jobs)
 
-[Debugging Problems](#debugging-problems) | [Performance Monitoing](#performance-monitoring)
+[Visualize Data with Tableau](tableau.md)
+
+[Debugging Problems](#debugging-problems) | [Performance Monitoring](#performance-monitoring)
 
 [Resources](#resources)
 
@@ -16,37 +18,29 @@ The scripts require the Spark software to be installed in an Apptainer container
 Spark Python and R images. The files have instructions on how to convert the Docker images to
 Apptainer.
 
-**Note**: If you are running on Eagle, replace `apptainer` with `singularity`. It was rebranded
-and Eagle has the old software.
-
-Kestrel:
 ```
 $ module load apptainer
 $ apptainer --help
 ```
-Eagle:
-```
-$ module load singularity-container
-$ singularity --help
-```
 
-Existing containers on Kestrel and Eagle:
+Existing containers on Kestrel:
 
-- Spark 3.5.0 and Python 3.11, 3.12 (default = 3.12)
+- Spark 3.5.2 and Python 3.11
 
   This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `pyarrow`.
+  It also includes the `duckdb` CLI, which is great for processing Parquet files.
 
   ```
-  /datasets/images/apache_spark/spark350_py311.sif
+  /datasets/images/apache_spark/spark352_py311.sif
   ```
 
-- Spark 3.3.1 and R 4.0.4:
+- Spark 3.4.0 and R 4.2.2:
 
   This image includes the packages `tidyverse`, `sparklyr`, `data.table`, `here`, `janitor`, and
   `skimr`.
 
   ```
-  /datasets/images/apache_spark/spark350_py311.sif
+  /datasets/images/apache_spark/sparkr.sif
   ```
 
 ## Setup
@@ -56,51 +50,55 @@ Existing containers on Kestrel and Eagle:
     $ git clone https://github.com/NREL/HPC.git
     ```
 
-2. Change to a directory in `/scratch/$USER`.
-
-3. Add the `spark_scripts` directory to your path.
+2. Add the `spark_scripts` directory to your path with the command below. If used frequently,
+consider adding the command to your `~/.bashrc` file.
     ```
     $ export PATH=$PATH:<your-repo-path>/HPC/applications/spark/spark_scripts
     ```
 
 ## Compute Nodes
 Consider the type of compute nodes to acquire. If you will be performing large shuffles then
-you must get nodes with fast local storage. A minimum requirement is approximately 500 MB/s.
+you should prefer nodes with fast local storage. A minimum requirement is approximately 500 MB/s.
 
 - Any modern SSD should be sufficient.
 - A spinning disk will be too slow.
-- The Lustre filesystem on Kestrel may be fast enough for some queries.
-- The Lustre filesystem on Eagle is too slow.
+- The Lustre filesystem on Kestrel may be fast enough for most queries. It is ~25% slower than
+Kestrel SSDs.
 - A RAM drive (`/dev/shm`) will work well for smaller data sizes. Half the node memory is available
-on NREL compute nodes.
+on Kestrel compute nodes.
 
-### Kestrel
-Only 256 out of the 2144 CPU-only Kestrel compute nodes have local SSDs. Pick those if you can. For
-example, `salloc --tmp=1600G`. Refer to the [Kestrel
-documentation](https://www.nrel.gov/hpc/kestrel-system-configuration.html) for more information.
+**Notes**:
 
-### Eagle
-Standard nodes have spinning disks and are unsuitable if you will shuffle data. `bigmem` and `gpu`
-nodes have fast local SSDs. Use those if you can. For example, `salloc --mem=730G` will acquire
-nodes from either partition. Refer to the [Eagle
-documentation](https://www.nrel.gov/hpc/eagle-system-configuration.html) for
-more information.
+- If the size of the data to be shuffled is greater than the size of the nodes' SSDs, then
+you'll need to either add more nodes or use Lustre.
+- 256 out of the 2304 CPU-only Kestrel compute nodes have local SSDs of size 1.92 TB.
+- The 10 bigmem compute nodes have SSDs with a filesystem size of 6.4 TB.
+- The GPU Kestrel compute nodes also have SSDs.
+- Use the option below with salloc/sbatch/srun to get a compute node with SSD local storage.
+
+```
+$ salloc --tmp=1600G
+```
+Refer to the [Kestrel documentation](https://www.nrel.gov/hpc/kestrel-system-configuration.html)
+for more information.
 
 ## Basic Configuration Instructions
 This section lists instructions that should be sufficient for most cases. Refer to [Advanced
 Instructions](#advanced-instructions) to customize the Spark configuration parameters.
 
-1. Acquire interactive compute nodes. Here are examples using the `debug` partition on Kestrel and
-Eagle with ideal node types.
+**Notes**:
 
-    Kestrel:
+- These scripts require that the Slurm allocation(s) for Spark workers use all resources
+in the nodes and that all nodes have the same number of CPUs.
+- All Slurm allocations must request memory and not rely on default values. The scripts
+rely on a Slurm environment variable which is only set when the user passes `--mem`.
+
+1. Acquire interactive compute nodes. Here are examples using the `debug` partition on Kestrel
+with ideal node types. Note that you may want to consider
+[heterogeneous jobs](#heterogeneous-slurm-jobs) and [compute node failures](#compute-node-failures).
+
     ```
-    $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --tmp=1600G
-    ```
-    
-    Eagle:
-    ```
-    $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --mem=730G
+    $ salloc -t 01:00:00 -N2 --account=<your-account> --partition=debug --tmp=1600G --mem=240G
     ```
 
 2. Configure and start the cluster with `configure_and_start_spark.sh`. You can run
@@ -112,18 +110,43 @@ Eagle with ideal node types.
     Pass the path of the container that you want to use with the `-c` option.
 
     ```
-    $ configure_and_start_spark.sh -c /kfs2/pdatasets/images/apache_spark/spark350_py311.sif
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif
     ```
 
     **Note**: If you logged into the compute node manually with ssh or are using multiple
     Slurm allocations, specify the Slurm job IDs on the command line, like this:
     ```
-    $ configure_and_start_spark.sh -c /kfs2/pdatasets/images/apache_spark/spark350_py311.sif <SLURM_JOB_ID_1> <SLURM_JOB_ID_2>
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif <SLURM_JOB_ID_1> <SLURM_JOB_ID_2>
+    ```
+
+    If your compute nodes do not have local storage, you'll need to provide a custom Spark
+    scratch directory. Here are two examples:
+
+    Use the compute nodes' in-memory tmpfs:
+    ```
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif --spark-scratch /dev/shm/spark-scratch
+    ```
+
+    Use the Lustre filesystem:
+    ```
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif --spark-scratch /scratch/$USER/spark-scratch
+    ```
+
+    **Note**: You may need to configure Lustre file striping for your directory in order achieve
+    optimal results. Here are two resources:
+    - https://wiki.lustre.org/index.php/Configuring_Lustre_File_Striping
+    - http://doc.lustre.org/lustre_manual.xhtml#pfl
+
+    An example command for Kestrel that should be suitable for Spark shuffle data is below.
+    It must be run **before** you write data to the directory.
+    ```
+    $ lfs setstripe -E 256K -L mdt -E 8M -c -1 -S 1M -E -1 -c -1 -p flash /scratch/$USER/spark-scratch
     ```
 
     **Note**: This command creates several directories that are used by the cluster. If you will
     run multiple clusters simultaneously, be sure to use different base directories. The base
     directory is the current directory by default, and can be changed with `--directory`.
+
 
 3. Set this environment variable so that your jobs use the Spark configuration settings that you
 just created.
@@ -132,6 +155,76 @@ just created.
     ```
 
 4. Run jobs as described [below](#run-jobs).
+
+### Heterogeneous Slurm jobs
+The scripts in this repository are well-suited for an environment where the
+Spark cluster manager, driver, and user application run on a shared node with a limited number of
+CPUs, and the workers run on exclusive nodes with uniform resources. Refer to this
+[diagram](https://spark.apache.org/docs/latest/cluster-overview.html) to see an illustration
+of the Spark cluster components.
+
+This can be achieved with
+[Slurm heterogeneous jobs](https://slurm.schedmd.com/heterogeneous_jobs.html).
+
+Here is one possible configuration:
+- Spark driver memory = 10 GB
+- Spark master memory + overhead for OS and Slurm = 20 GB
+- CPUs for Spark master, driver, user application, and overhead for OS and Slurm = 4
+
+Allocate one compute node from the shared partition and then four from the regular partition.
+
+**Note**: The shared partition must be first and must have only one compute node.
+That is where your application will run.
+
+```
+$ salloc --account=<your-account> -t 01:00:00 -n4 --mem=30G --partition=shared : \
+    -N2 --partition=debug --tmp=1600G --mem=240G
+```
+
+Here is the format of sbatch script:
+```bash
+#!/bin/bash
+#SBATCH --account=<my-account>
+#SBATCH --job-name=my-job
+#SBATCH --time=1:00:00
+#SBATCH --output=output_%j.o
+#SBATCH --error=output_%j.e
+#SBATCH --partition=shared
+#SBATCH --nodes=1
+#SBATCH --mem=30G
+#SBATCH --ntasks=4
+#SBATCH hetjob
+#SBATCH --nodes=2
+#SBATCH --mem=240G
+```
+
+You will need to adjust the CPU and memory parameters based on what you will pass to
+`configure_and_start_spark.sh`.
+
+Then proceed with the rest of the instructions.
+
+### Compute Node Failures
+If your job uses multiple compute nodes, you may want to consider setting the flag `--no-kill` in
+your `sbatch` command.
+
+By default, if a compute node fails (kernel panic, hardware failure, etc.), Slurm will terminate
+the job.
+
+This behavior can be disadvantageous for a Spark cluster because it can tolerate worker node
+failures in many cases. If a job is almost complete when a failure occurs, it may be able to retry
+the failed tasks on a different node and complete successfully.
+
+On the other hand, if the remaining nodes will not be able to complete the job, the default
+behavior is better.
+
+The more nodes you have, the more likely it is to be beneficial to set this option. If you allocate
+two nodes, you probably don't want to set it. If you allocate eight nodes, it may be good to set
+it.
+
+Recommendation: only set this option in conjunction with heterogeneous Slurm jobs as discussed
+above. The Spark cluster master created by these scripts is not redundant. If it fails, the job
+will never complete. Hopefully, since it is doing far less work, it will be less likely to fail.
+However, if you are using a shared node, you obviously cannot control what others are doing.
 
 ## Advanced Configuration Instructions
 This section describes how to run the configuration scripts individually so that you can customize
@@ -192,8 +285,7 @@ Here are some parameters in the `conf` files to consider editing:
    benefit if the value is greater than 5. It should be configured in tandem with
    `spark.executor.memory` so that you maxmize the number of executors on each worker node.
    - `spark.executor.memory`: Adjust as necessary depending on the type of nodes you acquire. 10 GB
-   and 5 cores per executor allow for 7 executors on Eagle and 20 on Kestrel, respectively, and
-   will work well in most cases.
+   and 5 cores per executor allow for 20 executors on Kestrel and will work well in most cases.
    - `spark.driver.memory`: Adjust as necessary depending on how much data you will pull from Spark
    into your application. Some online source recommend making it the same as
    `spark.executor.memory`.
@@ -256,9 +348,8 @@ be able to load data files in any of them:
 - `/projects`
 - `/scratch`
 - `/datasets`
-- `/lustre` (Eagle)
-- `/kfs2` (Kestrel)
-- `/kfs3` (Kestrel)
+- `/kfs2`
+- `/kfs3`
 
 ### Shut down the cluster
 This command will stop the Spark processes and the containers.
@@ -275,6 +366,7 @@ needed for the Command shell or PowerShell.
 ```
 $ export COMPUTE_NODE=<your-compute-node-name>
 $ ssh -L 4040:$COMPUTE_NODE:4040 -L 8080:$COMPUTE_NODE:8080 $USER@kestrel.hpc.nrel.gov
+```
 
 Open your browser to http://localhost:4040 after configuring the tunnel to access the application UI.
 
@@ -286,9 +378,9 @@ is an example of how to start it:
 
 ```
 $ apptainer exec \
-	--env SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory=./events" \
-	instance://spark \
-	start-history-server.sh
+    --env SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory=./events" \
+    instance://spark \
+    start-history-server.sh
 ```
 
 **Note**: Be sure to gracefully shut down the cluster with `stop_spark_cluster.sh` if you intend
