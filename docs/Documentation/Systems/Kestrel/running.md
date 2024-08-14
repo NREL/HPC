@@ -95,7 +95,9 @@ The GPU nodes also have 3.4 TB of local disk space. Note that other jobs running
 !!! warning
     A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs on a node, but is only allocated as much memory as requested. Use the flag `--mem=0` to request all of the CPU RAM on the node. 
 
+#### GPU Debug Jobs
 
+There are two shared GPU nodes available for debugging. To use them, specify `--partition=debug` in your job script. In addition to the limits for the `debug` partition, 1 job per user, up to 2 nodes per user, up to 1 hour of walltime, a single GPU job is also limited to half of a total GPU node's resources. This is equivalent to 64 CPU cores, 2 GPUs, and 180G of RAM, which can be spread across 1 or 2 nodes. Unlike the other GPU nodes, the GPU debug nodes can't be used exclusively, so the `--exclusive` flag can't be used for debug GPU jobs. 
 
 ## Allocation Unit (AU) Charges
 
