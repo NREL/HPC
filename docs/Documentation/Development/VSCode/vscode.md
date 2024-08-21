@@ -33,12 +33,12 @@ You may use an existing key pair on your local computer/laptop, or create one wi
 We recommend choosing a strong passphrase and storing it in a password manager. The passphrase on your key will allow you to log in via ssh, but it is not the same as your HPC account password.
 
 !!! note "SSH Key Pair Caution"
-    Do **not** replace the key pair in your Kestrel or Eagle home directory. These keys are generated when you log into the cluster, and are used by Slurm jobs to communicate between nodes. There is a corresponding public key entry in your cluster home directory ~/.ssh/authorized_keys that must also be left in place.
+    Do **not** replace the key pair in your Kestrel home directory. These keys are generated when you log into the cluster, and are used by Slurm jobs to communicate between nodes. There is a corresponding public key entry in your cluster home directory ~/.ssh/authorized_keys that must also be left in place.
 
 !!! note "Reminder About Passwords"
-    Using an SSH key with an SSH agent can remove the need to use a password to SSH to Kestrel or Eagle. However, not all HPC services (including [Lex](https://hpcprojects.nrel.gov)) use SSH keys. **An SSH key does NOT replace your HPC account password**. You **must** maintain a regular HPC account password in accordance with our [Appropriate Use Policy](https://www.nrel.gov/hpc/appropriate-use-policy.html) and [User Account Password Guidelines](https://www.nrel.gov/hpc/user-account-passwords.html). Ignoring password expiration date notices will lead to automatic account lockouts, and you will need to contact [HPC Support](/Documentation/help) to restore your account.
+    Using an SSH key with an SSH agent can remove the need to use a password to SSH to Kestrel. However, not all HPC services (including [Lex](https://hpcprojects.nrel.gov)) use SSH keys. **An SSH key does NOT replace your HPC account password**. You **must** maintain a regular HPC account password in accordance with our [Appropriate Use Policy](https://www.nrel.gov/hpc/appropriate-use-policy.html) and [User Account Password Guidelines](https://www.nrel.gov/hpc/user-account-passwords.html). Ignoring password expiration date notices will lead to automatic account lockouts, and you will need to contact [HPC Support](/Documentation/help) to restore your account.
 
-Once you have a key pair on your local computer, use the `ssh-copy-id <username>@kestrel.hpc.nrel.gov` command to copy the public portion to Kestrel. This will add your public key to the ~/.ssh/authorized_keys file in your Kestrel home directory. Alternatively, you may manually add the contents of your PUBLIC key file (for example, the contents of ~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub) onto the end of this file. **Do not delete the existing entries in these files on Kestrel or on Eagle.**
+Once you have a key pair on your local computer, use the `ssh-copy-id <username>@kestrel.hpc.nrel.gov` command to copy the public portion to Kestrel. This will add your public key to the ~/.ssh/authorized_keys file in your Kestrel home directory. Alternatively, you may manually add the contents of your PUBLIC key file (for example, the contents of ~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub) onto the end of this file. **Do not delete the existing entries in these files on Kestrel.**
 
 #### Editing the VS Code SSH Config File
 
@@ -65,13 +65,3 @@ Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the 
 
 This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
 
-### VS Code on Eagle
-
-Similar instructions will work for Eagle, but only for internal (NREL) users. External (non-NREL) users will not be able to use VS Code in this way. 
-
-To use VS Code on Eagle, NREL users may follow the SSH key steps as for Kestrel, but add the following Host entry to the SSH config file, either instead of or in addition to the entry for Kestrel:
-
-```
-Host r*i*n*
-    ProxyJump <username>@eagle.hpc.nrel.gov
-```
