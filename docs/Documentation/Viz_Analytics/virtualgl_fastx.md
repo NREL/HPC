@@ -16,15 +16,6 @@ All Kestrel DAV nodes have 104 CPU cores (2x 52-core Intel Xeon Sapphire Rapids 
 
 DAV nodes are shared resources that support multiple simultaneous users. CPU and RAM usage is monitored by automated software called Arbiter, and high usage may result in temporary throttling of processes. 
 
-## Remote Visualization on Eagle
-
-Eagle DAV nodes will remain available through the end of the system's lifetime. 
-
-There are five Eagle DAV nodes available to NREL users on the NREL VPN, on campus, or via the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) for external users. There are no external facing DAV nodes on Eagle. 
-
-All Eagle DAV nodes have 36 CPU cores (Intel Xeon Gold 6150), 768GB RAM, one 32GB NVIDIA Quadro GV100 GPU, and offer a Linux desktop (via FastX) with visualization capabilities, optional VirtualGL, and standard Linux terminal applications.
-
-Eagle DAV nodes may be accessed using the same instructions as the Kestrel DAV nodes, but the address is **eagle-dav.hpc.nrel.gov**. Unlike on Kestrel, external users must be connected to the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html) to access the Eagle DAV nodes. 
 
 ## VirtualGL
 VirtualGL is an open-source package that gives any Linux remote display software the ability to run OpenGL applications with full 3D hardware acceleration. 
@@ -63,7 +54,7 @@ NREL users may use the web browser or the FastX desktop client. External users m
 
     Give your profile a name and enter the settings...
 
-    Address/URL: *kestrel-dav.hpc.nrel.gov* (Kestrel) or *eagle-dav.hpc.nrel.gov* (Eagle) 
+    Address/URL: *kestrel-dav.hpc.nrel.gov*
 
     OR you may use the address of an individual kd or ed node if you would like to resume a previous session.
 
@@ -174,7 +165,7 @@ nodes that you are not using, or your sessions may be terminated by system admin
 active users. 
 
 ## Reattaching FastX Sessions
-Connections to the DAV nodes via kestrel-dav.hpc.nrel.gov or eagle-dav.hpc.nrel.gov will connect you to a random node. To resume a session that you have suspended, take note of the node your session is running on (Kestrel: kd1, kd2, kd3, kd4, kd5, kd6, or kd7; Eagle: ed1, ed2, ed3, ed5, ed6) before you close the FastX client or browser window, and you may directly access that node when you are ready to reconnect at e.g. `kd#.hpc.nrel.gov` in the FastX client or through your web browser at `https://kd#.hpc.nrel.gov`. For Eagle, use the ed# nodes.
+Connections to the DAV nodes via kestrel-dav.hpc.nrel.gov will connect you to a random node. To resume a session that you have suspended, take note of the node your session is running on (kd1, kd2, kd3, kd4, kd5, kd6, or kd7) before you close the FastX client or browser window, and you may directly access that node when you are ready to reconnect at e.g. `kd#.hpc.nrel.gov` in the FastX client or through your web browser at `https://kd#.hpc.nrel.gov`. 
 
 ## Troubleshooting
 

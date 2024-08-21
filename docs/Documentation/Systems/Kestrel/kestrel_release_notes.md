@@ -29,7 +29,7 @@ As of 08/09/2024 we have released new modules for VASP on Kestrel CPUs:
 ## July 29 - July 30, 2024
 
 1. Two [GPU login nodes](../Kestrel/index.md) were added. Use the GPU login nodes for compiling software to run on GPU nodes and for submitting GPU jobs. 
-1. GPU compute nodes were made available for general use and additional GPU partitions were added. See [Running on Kestrel](../Kestrel/running.md) for additional information and recommendations.
+1. GPU compute nodes were made available for general use and additional GPU partitions were added. See [Running on Kestrel](./Running/index.md) for additional information and recommendations.
 
 Module Updates/Changes 
 
@@ -77,7 +77,7 @@ Intel-oneapi-compilers.
 
 ## April 12 - April 17, 2024
 
-1. The size of the [shared node partition](./running.md#shared-node-partition) was doubled from 32 nodes to 64 nodes. 
+1. The size of the [shared node partition](./Running/index.md#shared-node-partition) was doubled from 32 nodes to 64 nodes. 
 
 2. Cray programming environment (CPE) 23.12 is now the default on the system. 
 

@@ -41,7 +41,7 @@ Any allocation may submit a job to a standby QoS, even if there are unspent AUs.
 By default, nodes can be shared between users.  To get exclusive access to a node use the `--exclusive` flag in your sbatch script or on the sbatch command line.
 
 !!! tip "Important"
-    Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core. This behavior differs from Eagle.
+    Use `--cpus-per-task` with srun/sbatch otherwise some applications may only utilize a single core.
 
 ### GPU Nodes
 
@@ -158,7 +158,7 @@ cp -r example ~/example
 cd ~/example
 ```
 #### Conda
-There is a very basic version of conda in the "anaconda" directory in each  /nopt/nrel/apps/YYMMDDa directory. However, there is a more complete environment pointed to by the module under /nopt/nrel/apps/modules. This is set up like Eagle. Please see our [Conda Documentation](../../Environment/Customization/conda.md) for more information.
+There is a very basic version of conda in the "anaconda" directory in each  /nopt/nrel/apps/YYMMDDa directory. However, there is a more complete environment pointed to by the module under /nopt/nrel/apps/modules. Please see our [Conda Documentation](../../Environment/Customization/conda.md) for more information.
 
 ## Simple batch script
 

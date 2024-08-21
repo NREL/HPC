@@ -16,10 +16,11 @@ nav:
       - Help and Support: Documentation/help.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
-        - Transitioning from Eagle to Kestrel: Documentation/Systems/eagle_to_kestrel_transition.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
-          - Documentation/Systems/Kestrel/running.md
+          - Running on Kestrel: 
+            - Documentation/Systems/Kestrel/Running/index.md
+            - Performance Recommendations: Documentation/Systems/Kestrel/Running/performancerecs.md
           - Documentation/Systems/Kestrel/filesystems.md 
           - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
           - Environments: 

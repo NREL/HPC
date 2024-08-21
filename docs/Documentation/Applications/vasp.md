@@ -70,7 +70,7 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
 **We encourage users to switch to the new builds and strongly recommend using OpenMP parallelism.**
 
 !!! tip "Important: Conserving your AUs on Kestrel"
-	Kestrel nodes have nearly 3x as many cores as Eagle's did. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition).
+	Kestrel nodes have nearly 3x as many cores as Eagle's did. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/Running/index.md#shared-node-partition).
 
 ??? example "Sample job script: Kestrel - Full node w/ OpemMP"
 
@@ -112,7 +112,7 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
 
 ??? example "Sample job script: Kestrel - Shared (partial) node"
 
-    As described in detail in the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (about 240G total or 2.3G/core) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
+    As described in detail in the [Shared partition documentation](../Systems/Kestrel/Running/index.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (about 240G total or 2.3G/core) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
 
     ```
     #!/bin/bash
