@@ -40,7 +40,7 @@ Because of the permission limitations described above, it is recommended that HP
 
 #### 1. Local Docker build
 
-The following Dockerfile illustrates the build steps to create a small image. In this example, we simply install `python3` into an image based on the Ubuntu operating system (version 22.04):
+The following [Dockerfile](https://github.com/NREL/HPC/tree/master/docker-examples/simple-python3/Dockerfile) illustrates the build steps to create a small image. In this example, we simply install `python3` into an image based on the Ubuntu operating system (version 22.04):
 
 ```
 # Docker example: save as `Dockerfile` in your working directory
@@ -137,6 +137,10 @@ Python 3.10.12
 ```
 
 For more specific information on and best practices for using Apptainer on NREL's HPC systems, please refer to its [dedicated documentation page](./apptainer.md).
+
+#### 5. A more involved Dockerfile example (CUDA 12.4)
+
+For an example of an image you can build to provide everything needed for CUDA v.12.4, please refer to this [Dockerfile](https://github.com/NREL/HPC/tree/master/docker-examples/cuda-12.4/Dockerfile).
 
 ### Using Apptainer as build alternatives to Docker
 
