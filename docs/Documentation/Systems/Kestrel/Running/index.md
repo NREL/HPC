@@ -151,7 +151,8 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
     ```
 
 If a job requests the maximum amount of any resource type available on the node (CPUs, GPUs, RAM), it will be charged with the full charge factor (10 or 100).
+
 ## Performance Recommendations
 
-Please see [this page](../eagle_to_kestrel_transition.md#5-performance-recommendations) for our most up-to-date performance recommendations on Kestrel.
+Please see [this page](./performancerecs.md) for our most up-to-date performance recommendations on Kestrel.
 

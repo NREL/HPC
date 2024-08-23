@@ -52,7 +52,6 @@ The following is a summary of available compilers and toolchains.  User are enco
 |-----------|--------------|--------------------------|---------------------------|
 | gcc       | `g++`        | `gcc`                    | All                       |
 | Intel     | `icpc`       | `intel-oneapi-compilers` | Swift, Vermilion, Kestrel |
-| Intel     | `icpc`       | `comp-intel`             | Eagle                     |
 | Cray      | `CC`         | `PrgEnv-cray`            | Kestrel                   |
 
 Note that Kestrel also provides the `PrgEnv-intel` and `PrgEnv-gnu` modules, which combine the Intel or gcc compilers together with Cray MPICH.  Please refer to [Kestrel Programming Environments Overview](../../Systems/Kestrel/Environments/index.md) for details about the programming environments available on Kestrel.
