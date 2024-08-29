@@ -4,12 +4,15 @@
 Simcenter STAR-CCM+ is a multiphysics CFD software that enables CFD engineers to model the complexity and explore the possibilities of products operating under real-world conditions. For information about the software's features, see the [STAR-CCM+
 website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
 
-STAR-CCM+ is installed on both Eagle and Kestrel but it is not supported on Vermilion or Swift. The network
+STAR-CCM+ is installed on Kestrel but it is not supported on Vermilion or Swift. The network
 licenses are checked out from the license server running on 1wv11lic02.nrel.gov. 
+
+!!! tip "Important"
+	 To run STAR-CCM+, users must be a member of the STAR-CCM+ user group. To be added to the group, contact [HPC-Help](mailto:hpc-help@nrel.gov).
 
 ## Running STAR-CCM+ in GUI
 
-STAR-CCM+ can be run interactively on both Eagle and Kestrel using X windows by running the following commands in the terminal of an X window.
+STAR-CCM+ can be run interactively on Kestrel using X windows by running the following commands in the terminal of an X window.
 
 ```bash
 module load starccm
@@ -34,7 +37,7 @@ Then you need to create a Slurm script `<your_scriptfile>` as shown below to sub
     #!/bin/bash -l
     #SBATCH --time=2:00:00             # walltime limit of 2 hours
     #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
+    #SBATCH --ntasks-per-node=104       # number of tasks per node (<=104 on Kestrel)
     #SBATCH --ntasks=72                # total number of tasks
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
@@ -65,7 +68,7 @@ STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script s
     #!/bin/bash -l
     #SBATCH --time=2:00:00             # walltime limit of 2 hours
     #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
+    #SBATCH --ntasks-per-node=104       # number of tasks per node (<=104 on Kestrel)
     #SBATCH --ntasks=72                # total number of tasks
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
@@ -99,7 +102,7 @@ STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ jo
     #!/bin/bash -l
     #SBATCH --time=2:00:00             # walltime limit of 2 hours
     #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=36       # number of tasks per node (<=36 on Eagle, <=104 on Kestrel)
+    #SBATCH --ntasks-per-node=104       # number of tasks per node (<=104 on Kestrel)
     #SBATCH --ntasks=72                # total number of tasks
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
