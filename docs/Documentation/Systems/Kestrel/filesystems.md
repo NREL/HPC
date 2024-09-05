@@ -13,6 +13,11 @@ The Home File System (HFS) on Kestrel is part of the ClusterStor used for the Pa
 
 The /home directory on Kestrel is intended to hold small files. These include shell startup files, scripts, source code, executables, and data files. Each user has a quota of 50 GB.
 
+???+ info "To check your home quota usage, run the following command:"
+    ```bash
+    [user@kl1 ~]$ lfs quota -uh $USER /home/$USER
+    ```
+
 **/nopt**
 
 The /nopt directory on Kestrel resides on HFS and is where NREL-specific software, module files, licenses, and licensed software are kept.
