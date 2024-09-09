@@ -6,10 +6,12 @@ CPP_OPTIONS= -DHOST=\"LinuxIFC\"\
 	-Davoidalloc \
 	-Dvasp6 \
 	-Duse_bse_te \
-	-Dtbdyn
+	-Dtbdyn \
+	-D_OPENMP
+
 CPP = fpp -f_com=no -free -w0 $*$(FUFFIX) $*$(SUFFIX) $(CPP_OPTIONS)
-FC = mpiifort -mprefer-vector-width=512 -O3 -xCORE-AVX512
-FCL = mpiifort -mprefer-vector-width=512 -O3 -xCORE-AVX512
+FC = mpiifx -qopenmp -mprefer-vector-width=512 -O3 -xCORE-AVX512
+FCL = mpiifx -mprefer-vector-width=512 -O3 -xCORE-AVX512
 FREE = -free -names lowercase
 FFLAGS = -assume byterecl -w
 OFLAG = -O3
@@ -37,7 +39,7 @@ FREE_LIB = $(FREE)
 OBJECTS_LIB= linpack_double.o getshmem.o
 
 # For the parser library
-CXX_PARS = icpc
+CXX_PARS = icpx
 LLIBS += -lstdc++
 
 # Normally no need to change this

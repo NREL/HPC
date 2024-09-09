@@ -4,11 +4,9 @@ CPP_OPTIONS= -DHOST=\"LinuxIFC\"\
              -DscaLAPACK -DMPI_INPLACE \
              -DCACHE_SIZE=16000 \
              -Davoidalloc \
-             -Dvasp6 \
              -Duse_bse_te \
              -Dtbdyn \
-             -Duse_shmem \
-             -Dsol_compat 
+             -Duse_shmem 
 
 CPP        = fpp -f_com=no -free -w0  $*$(FUFFIX) $*$(SUFFIX) $(CPP_OPTIONS)
 
@@ -18,26 +16,16 @@ FCL        = mpiifort -mprefer-vector-width=512 -O3 -xCORE-AVX512 -qmkl=cluster 
 FREE       = -free -names lowercase
 
 FFLAGS     = -assume byterecl -w
+
 OFLAG      = -O3
 OFLAG_IN   = $(OFLAG)
 DEBUG      = -O0
 
-MKL_PATH   = $(MKLROOT)/lib/intel64
-
-#BLAS       = -mkl=cluster -Wl,-rpath=$(MKL_PATH) -Wl,-rpath=$(OMP_PATH)
-BLAS        = -L${MKLROOT}/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
-LAPACK     =
-BLACS      = -lmkl_blacs_intelmpi_lp64 
-SCALAPACK  = -lmkl_scalapack_lp64 $(BLACS)
-
 OBJECTS    = fftmpiw.o fftmpi_map.o fft3dlib.o fftw3d.o
-
-INCS       =-I$(MKLROOT)/include/fftw -I$(MKLROOT)/include
-
-LLIBS      = $(SCALAPACK) $(LAPACK) $(BLAS)
-
 OBJECTS_O1 += fftw3d.o fftmpi.o fftmpiw.o
 OBJECTS_O2 += fft3dlib.o
+
+INCS       =-I$(MKLROOT)/include/fftw -I$(MKLROOT)/include
 
 # For what used to be vasp.5.lib
 CPP_LIB    = $(CPP)
@@ -46,13 +34,17 @@ CC_LIB     = icx
 CFLAGS_LIB = -O0
 FFLAGS_LIB = -O0
 FREE_LIB   = $(FREE)
-
 OBJECTS_LIB= linpack_double.o getshmem.o
 
-# For the parser library
-# CXX_PARS   = icpc
-# LLIBS      += -lstdc++
+# Intel MKL (FFTW, BLAS, LAPACK, and scaLAPACK)
+MKL_PATH   = $(MKLROOT)/lib/intel64
+BLAS        = -L${MKLROOT}/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl
+LAPACK     =
+BLACS      = -lmkl_blacs_intelmpi_lp64
+SCALAPACK  = -lmkl_scalapack_lp64 $(BLACS)
+LLIBS      = $(SCALAPACK) $(LAPACK) $(BLAS)
 
+# For the parser library
 CXX_PARS   = icpc
 LIBS       += parser
 LLIBS      += -Lparser -lparser -lstdc++
