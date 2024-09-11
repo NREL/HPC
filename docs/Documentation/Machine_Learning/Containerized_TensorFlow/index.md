@@ -14,7 +14,7 @@ After allocating a job, note that you will have to bind mount `/nopt` (where the
 
 ```bash
 # Get allocation
-salloc --gres=gpu:2 -N 1 --mem=80G -n 32 -A hpcapps -t 01:00:00 -p debug
+salloc --gres=gpu:2 -N 1 --mem=80G -n 32 -A <allocation handle> -t 01:00:00 -p debug
 # Run Apptainer in srun environment
 module load apptainer
 # Note that you will have to bind mount /nopt (where the image lives) as well as the parent directory of where you are working from (e.g., /scratch or /projects)
