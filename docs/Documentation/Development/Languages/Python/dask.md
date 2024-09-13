@@ -40,11 +40,11 @@ This installs Dask along with common dependencies such as NumPy. Additionally, t
 mamba install conda-forge::dask-jobqueue
 ```
 
-Further, there is the `dask-mpi` package (also discussed below). To ensure compatibility with the system MPI libraries, it is recommended to install `dask-mpi` using pip. As such, we recommending installing any conda packages first. `dask-mpi` depends on `mpi4py`, although we have found that the pip install command does not automatically install `mpi4py`, so we install it explicitly. Also, installation of `mpi4py` will link against the system libraries, so the desired MPI library should be loaded first. In addition, it may be necessary to explicitly specify the MPI compiler driver. For example, to install mpi4py on Kestrel using the default programming environment and MPI (PrgEnv-cray using Cray MPICH):
+Further, there is the `dask-mpi` package (also discussed below). To ensure compatibility with the system MPI libraries, it is recommended to install `dask-mpi` using pip. As such, we recommending installing any conda packages first. `dask-mpi` depends on `mpi4py`, although we have found that the pip install command does not automatically install `mpi4py`, so we install it explicitly. Also, installation of `mpi4py` will link against the system libraries, so the desired MPI library should be loaded first. In addition, it may be necessary to explicitly specify the MPI compiler driver. For example, to install mpi4py on Kestrel using the Intel programming environment and its associated MPI (`PrgEnv-intel`), you would do the following:
 
 ```
-module load PrgEnv-cray
-env MPICC=cc pip install dask-mpi mpi4py
+module load PrgEnv-intel
+MPICC=`which mpicc` pip install dask-mpi mpi4py
 ```
 
 ## Dask single node
