@@ -23,12 +23,12 @@ documentation](https://www.gurobi.com/documentation/).
 
 ## Available Modules
 
-| Kestrel         | Eagle           | Swift           |
+| Kestrel         | Swift           |
 |:---------------:|:---------------:|:---------------:|
-| gurobi/11.0.0   |||
-| gurobi/10.0.2   | gurobi/10.0.2   ||
-| gurobi/10.0.1   | gurobi/10.0.1   ||
-| gurobi/9.5.1    | gurobi/9.5.1    | gurobi/9.5.1    |
+| gurobi/11.0.0   ||
+| gurobi/10.0.2   ||
+| gurobi/10.0.1   ||
+| gurobi/9.5.1    | gurobi/9.5.1    |
 
 
 ## Gurobi and MATLAB
