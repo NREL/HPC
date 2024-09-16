@@ -63,7 +63,10 @@ Before we can run PLEXOS, we need to create a license file on the cluster. For t
       <LicenseServerRequestCount />
     </XmlRegistryRoot>'   > ~/.config/PLEXOS/EE_reg.xml
     ```
-## Conda environment for PLEXOS with Python and R
+## Optional: Conda environment for PLEXOS with Python and R
+
+!!! note
+    The following instructions are NOT required for only running PLEXOS. One only needs to load the relevant Gurobi and PLEXOS modules to run a PLEXOS XML database. Users may combine these runs with conda, Julia, or other software simply by loading the relevant modules and activating the appropriate conda and Julia environments.
 
 1. We need to load a few modules and create the requisite conda environment. First, we need to create a conda environment for PLEXOS.
     ```bash
@@ -127,7 +130,7 @@ Before we can run PLEXOS, we need to create a license file on the cluster. For t
     pip install numpy pandas
     ```
 
-## Loading an existing PLEXOS environment
+### Loading an existing PLEXOS environment
 
 If you have successfully followed all the instructions in the previous subsection and installed PLEXOS, you can simply load the following modules and activate the conda environment
 
@@ -137,7 +140,7 @@ module load comp-intel intel-mpi mkl conda
 conda activate plex1
 ```
 
-## Using your own version of R and Python
+### Using your own version of R and Python
 
 This section is in regards to Point 3 in [setting up the PLEXOS environment](#conda-environment-for-plexos-with-python-and-r).
 The following R libraries will need to be installed manually in this case.
