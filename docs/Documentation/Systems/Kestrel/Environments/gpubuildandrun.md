@@ -85,7 +85,7 @@ There are a number of "helper" files  shipped with the examples.  The script *on
     [tkaiser2@kl6 h100]$
     ```
 
-The file *whack.sh* defines a function myrestore.  This function is a replacement for the command module reset.  The default module reset command has some issues which cause some things to not findable after it is called.  The "fix" is to unset some environmental variables, call the original module reset and finally repair your PATH variable; moving paths in your home directory to the front of the list.  The function  myrestore can be added to your environment by sourcing the file whack.sh
+The file *whack.sh* defines a function myrestore.  This function is a replacement for the command `module restore`.  The default `module restore` command has some issues which cause some things to not findable after it is called.  The "fix" is to unset some environmental variables, call the original module reset and finally repair your PATH variable; moving paths in your home directory to the front of the list.  The function `myrestore` can be added to your environment by sourcing the file whack.sh
 
 ```
 . whack.sh
@@ -239,7 +239,7 @@ Our script, shown below does the following:
     ```
 
 
-## <a name="head01">cuda/cray</a>
+## cuda/cray
 Here we build and run a single GPU code stream.cu.  This code is a standard benchmark that measures the floating point performance for a GPU.
 
 In this case we are loading PrgEnv-nvhpc/8.4.0 which requires cray-libsci/23.05.1.4.  We compile with the "wrapper" compiler CC which, in this case builds with NVIDIA's backend compiler.  CC would "pull in" Cray's MPI it it was required.
@@ -280,7 +280,7 @@ We run on each GPU of each Node in our allocation.
     ```
 
 
-## <a name="head02">cuda/gccalso</a>
+## cuda/gccalso
 
 Here we build and run a single GPU code stream.cu. This code is a standard benchmark that measures the floating point performance for a GPU.  In this case we break the compile into two parts; compiling the "normal" C portions with gcc and the Cuda portions with compilers enabled via the load nvhpc-nompi.  This is NVIDIA's compilers without MPI.
 
@@ -317,7 +317,7 @@ Here we build and run a single GPU code stream.cu. This code is a standard bench
     done
     ```
 
-## <a name="head03">cuda/nvidia</a>
+## cuda/nvidia
 
 Steam.cu runs a standard benchmark showing the computational speed of the gpu for simple math operations.
 
@@ -354,7 +354,7 @@ We use nvhpc-nompi which is a NREL written environment that builds cuda programs
 
 
 
-## <a name="head07">mpi/normal/cray</a>
+## mpi/normal/cray
 
 We are building MPI programs that do not contain Cuda.  We unload nvhpc and load an older version to prevent compile issues.  We need to load cuda because Cray's MPI expects it, even for nonCuda programs.  We compile with ftn and cc which are "replacements" for the more traditional mpicc and mpifort.  These will pull in MPI as needed.  These should be used for codes even if they don't contain MPI.  Parallel programs built with PrgEnv-* should be launched with srun as shown here.
 
@@ -422,7 +422,7 @@ We are building MPI programs that do not contain Cuda.  We unload nvhpc and load
     done
     ```
 
-## <a name="head08">mpi/normal/intel+abi</a>
+## mpi/normal/intel+abi
 
 In this case we are building hello world using Intel's compilers and Intel's MPI.  We load the intel-onapi-{mpi,compilers} modules and build with mpiicx and and mpifc.
 
@@ -477,7 +477,7 @@ However, if we load the modules craype and cray-mpich-abi the Intel MPI library 
     done
     ```
 
-## <a name="head09">mpi/normal/nvidia/nrelopenmpi</a>
+## mpi/normal/nvidia/nrelopenmpi
 
 In this case we are building normal MPI programs but using a NREL built OpenMPI and a NREL installed version of NVIDIA's environment.  This particular OpenMPI was built using NVIDIA's compilers and thus is more compatible with other NVIDIA packages.  NREL's MPI versions are built with slurm support so these programs are launched with srun.
 
@@ -511,7 +511,7 @@ In this case we are building normal MPI programs but using a NREL built OpenMPI 
     done
     ```
 
-## <a name="head11">mpi/normal/nvidia/nvidiaopenmpi</a>
+## mpi/normal/nvidia/nvidiaopenmpi
 
 In this case we are building normal MPI programs but using a nvhpc/24.1.  This particular MPI was built using NVIDIA's compilers and thus is more compatible with other NVIDIA packages.  This version of MPI does not support slurm's srun command so we launch with mpirun.
 
@@ -544,7 +544,7 @@ In this case we are building normal MPI programs but using a nvhpc/24.1.  This p
     done
     ```
 
-## <a name="head15">mpi/withcuda/cray</a>
+## mpi/withcuda/cray
 This example is a MPI ping-pong test where the data starts and ends up on a GPU but passes through CPU memory. Here are the Cuda copy routines and MPI routines. d_A is a GPU (device) array.  It is copied to/from A a CPU array using cudaMemcpy.  A is sent/received via the MPI calls.
 
 ```bash
@@ -611,7 +611,7 @@ Since PrgEnv-* is compatible with slurm we launch using srun. We do a on-node an
     ```
 
 
-## <a name="head16">mpi/withcuda/nvidia/nrelopenmpi</a>
+## mpi/withcuda/nvidia/nrelopenmpi
 
 This example is a MPI ping-pong test where the data starts and ends up on a GPU but passes through CPU memory.  See the explanation in the previous example.
 
@@ -653,7 +653,7 @@ Since PrgEnv-* is compatible with slurm we launch using srun. We do a on-node an
     srun --tasks-per-node=4  ./mstream -n $VSIZE
     ```
 
-## <a name="head17">mpi/withcuda/nvidia/nvidiaopenmpi</a>
+## mpi/withcuda/nvidia/nvidiaopenmpi
 This example is a MPI ping-pong test where the data starts and ends up on a GPU but passes through CPU memory.  See the explanation two examples previous.
 
 
@@ -692,7 +692,7 @@ We compile with mpiCC.  Since NVIDIA's MPI does not support srun we launch with 
     mpirun -n 8 -N 4  ./mstream -n $VSIZE
     ```
 
-## <a name="head06">mpi/cudaaware</a>
+## mpi/cudaaware
 
 This example is a ping-pong test where the dat starts and ends up on a GPU. Unlike the previous three examples There is no explicit copy to/from the GPU and CPU.  Data is sent directly between GPUs.  The array d_A is a device array and is not defined on the CPU.  This is much faster than doing an explicit copy.  
 
@@ -742,10 +742,10 @@ We need to  MPICH_GPU_SUPPORT_ENABLED=1 to make this work.  Depending on the cod
     ```
 
 Here is a plot comparing the bandwidth using Staged and Cuda aware MPI.
-![Bandwidth comparison between Staged and Aware MPI](bw.PNG)
+![Bandwidth comparison between Staged and Aware MPI](../../../../../assets/images/bw.png)
 
 
-## <a name="head18">openacc/cray</a>
+## openacc/cray
 
 Here we run one of NVIDIA's examples.  It is a single GPU version nbody calculation.  It runs the same calculation on the CPU and the GPU and reports the difference in performance.
 
@@ -791,7 +791,7 @@ Since this is not a MPI program we don't actually need srun.  However, we use it
     ```
 
 
-## <a name="head19">openacc/nvidia</a>
+## openacc/nvidia
 
 Here we run one of NVIDIA's examples.  It is a single GPU version nbody calculation.  It runs the same calculation on the CPU and the GPU and reports the difference in performance.
 
@@ -837,7 +837,7 @@ Since this is not a MPI program we don't actually need srun.  However, we use it
     unset CUDA_VISIBLE_DEVICES
     ```
 
-## <a name="head12">mpi/openacc/cray</a>
+## mpi/openacc/cray
 This is a somewhat contrived example.  If does, in fact combine MPI and OpenACC but the MPI does almost nothing.  At the MPI level it is embarrassingly parallel and each MPI task does the same calculation which is enhanced via OpenACC.  MPI starts the tasks and reports a summary of timings.  However, MPI combined with OpenACC is a important paradigm.  The GPU version of VASP can combine MPI and OpenACC.
 
 Here we load PrgEnv-nvhpc which requires cray-libsci/23.05.1.4 giving us Cray MPI and nvidia backend compilers.  Again recall that cc and ftn are wrappers that will build MPI and non-MPI programs.  
@@ -868,9 +868,7 @@ We launch with srun since PrgEnv-* supports the slurm scheduler.
     srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
     ```
 
-STOP
-
-## <a name="head13">mpi/openacc/nvidia/nrelopenmpi</a>
+## mpi/openacc/nvidia/nrelopenmpi
 
 As discussed above this is a somewhat contrived example.  If does, in fact combine MPI and OpenACC but the MPI does almost nothing.  At the MPI level it is embarrassingly parallel and each MPI task does the same calculation which is enhanced via OpenACC.  MPI starts the tasks and reports a summary of timings.  However, MPI combined with OpenACC is a important paradigm.  The GPU version of VASP can combine MPI and OpenACC.
 
@@ -898,7 +896,7 @@ We launch with srun since NREL's OpenMPI supports the slurm scheduler.
     : We run with 4 tasks per nodes.
     srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
     ```
-## <a name="head14">mpi/openacc/nvidia/nvidiaopenmpi</a>
+## mpi/openacc/nvidia/nvidiaopenmpi
 
 As discussed above this is a somewhat contrived example.  If does, in fact combine MPI and OpenACC but the MPI does almost nothing.  At the MPI level it is embarrassingly parallel and each MPI task does the same calculation which is enhanced via OpenACC.  MPI starts the tasks and reports a summary of timings.  However, MPI combined with OpenACC is a important paradigm.  The GPU version of VASP can combine MPI and OpenACC.
 
@@ -927,7 +925,7 @@ We launch with mpirun since NVIDIA's MPI lacks support for the slurm scheduler.
     mpirun -N 4 ./jacobi 46000 46000 5 nvidia
     ```
 
-## <a name="head04">cudalib/factor</a>
+## cudalib/factor
 
 We have two programs here.  Both do a linear solve, actually a factorization.   cpu.C is a CPU program and it does its solve using a LAPACK routine dgetrs.  This program is built and run against Cray's libsci and Intel's MKL.  The program cusolver_getrf_example.cu calls a NVIDIA cuda linear solver cusolverDnDgetrf.
 
@@ -1011,7 +1009,7 @@ build and run.
     unset MSIZE
     ```
 
-## <a name="head05">cudalib/fft</a>
+## cudalib/fft
 
 We are doing FFTs on a cube.  There are two versions.  3d_mgpu_c2c_example.cpp is a multi GPU program that will also run on a single GPU.  fftw3d.c calls fftw; in this case Cray's version.  fftw3d.c can also be compiled for 1d and 2d; see the source.
 
