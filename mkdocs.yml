@@ -20,6 +20,8 @@ nav:
           - Documentation/Systems/Kestrel/index.md
           - Running on Kestrel: 
             - Documentation/Systems/Kestrel/Running/index.md
+            - Documentation/Systems/Kestrel/Running/kestrel_job_priorities.md
+            - Documentation/Systems/Kestrel/Running/example_sbatch.md
             - Performance Recommendations: Documentation/Systems/Kestrel/Running/performancerecs.md
           - Documentation/Systems/Kestrel/filesystems.md 
           - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
