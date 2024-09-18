@@ -86,7 +86,7 @@ Now that the exported Docker image is compressed to `.tar.gz` format, you will n
 rsync -aP --no-g simple_python3.tar.gz USERNAME@kestrel.hpc.nrel.gov:/scratch/USERNAME/
 ```
 
-For more information on alternatives to `rsync` (such as FileZilla or Globus), please refer to our [documentation regarding file transfers](../../Managing_Data/Transferring_Files/file-transfers.md).
+For more information on alternatives to `rsync` (such as FileZilla or Globus), please refer to our [documentation regarding file transfers](../../Managing_Data/Transferring_Files/index.md).
 
 #### 4. Convert .tar to Apptainer image
 
