@@ -1,4 +1,4 @@
-# Using the Gurobi Optimizer Solvers
+# Gurobi
 
 *Gurobi Optimizer is a suite of solvers for mathematical programming.*
 

@@ -86,6 +86,13 @@ nav:
           - GAMS:       Documentation/Applications/gams.md
           - Gaussian:   Documentation/Applications/gaussian.md
           - Gurobi:     Documentation/Applications/gurobi.md
+          - IDAES Solvers : 
+            - Documentation/Applications/IDAES_Solvers/index.md
+            - Bonmin : Documentation/Applications/IDAES_Solvers/bonmin.md
+            - CBC : Documentation/Applications/IDAES_Solvers/cbc.md
+            - CLP : Documentation/Applications/IDAES_Solvers/clp.md
+            - Couenne : Documentation/Applications/IDAES_Solvers/couenne.md
+            - IPOPT : Documentation/Applications/IDAES_Solvers/ipopt.md
           - LAMMPS:     Documentation/Applications/lammps.md
           - MATLAB:
             - Documentation/Applications/Matlab/index.md
@@ -102,6 +109,7 @@ nav:
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
           - WRF:        Documentation/Applications/wrf.md
+          - Xpress:     Documentation/Applications/xpressmp.md
       - Development:
          - Languages:
              - Julia:
