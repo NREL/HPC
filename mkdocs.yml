@@ -48,6 +48,7 @@ nav:
         - Submitting Batch Jobs: Documentation/Slurm/batch_jobs.md
         - Running Interactive Jobs: Documentation/Slurm/interactive_jobs.md
         - Multiple Sub-Jobs: Documentation/Slurm/multiple_sub_jobs.md
+        - Job Arrays: Documentation/Slurm/job_arrays.md
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
