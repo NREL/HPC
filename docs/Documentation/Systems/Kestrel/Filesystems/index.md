@@ -22,7 +22,7 @@ The /nopt directory on Kestrel resides on HFS and is where NREL-specific softwar
 The Parallel File System (PFS) ProjectFS and ScratchFS on Kestrel is a ClusterStor Lustre file system intended for high-performance I/O. 
 
 !!! warning 
-    **There are no backups of PFS data.**  Users are responsible for ensuring that critical data is copied to [Mass Storage](../../Managing_Data/mss.md) or other alternate data storage location.
+    **There are no backups of PFS data.**  Users are responsible for ensuring that critical data is copied to [Mass Storage](../../../Managing_Data/mss.md) or other alternate data storage location.
 
 ### ProjectFS
 
