@@ -5,7 +5,7 @@ parent: Applications
 
 # COMSOL Multiphysics 
 
-*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies. Currently, we host three floating network licenses and a number of additional modules. Two COMSOL versions ar available on Kestrel, they are 6.1 and 6.2.*
+*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies. Currently, we host three floating network licenses and a number of additional modules. Two COMSOL versions are available on Kestrel, they are 6.1 and 6.2.*
 
 ## Building a COMSOL Model
 Extensive documentation is available in the menu: **Help > Documentation**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
