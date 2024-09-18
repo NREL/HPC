@@ -5,7 +5,7 @@ parent: Applications
 
 # COMSOL Multiphysics 
 
-*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies. Currently, we host three floating network licenses and a number of additional modules.*
+*COMSOL Multiphysics is a versatile finite element analysis and simulation package. The COMSOL graphical user interface (GUI) environment is supported primarily for building and solving small models while operation in batch mode allows users to scale their models to larger, higher-fidelity studies. Currently, we host three floating network licenses and a number of additional modules. Two COMSOL versions are available on Kestrel, they are 6.1 and 6.2.*
 
 ## Building a COMSOL Model
 Extensive documentation is available in the menu: **Help > Documentation**. For beginners, it is highly recommended to follow the steps in *Introduction to COMSOL Multiphysics* found in **Help > Documentation**.
@@ -13,21 +13,8 @@ Extensive documentation is available in the menu: **Help > Documentation**. For 
 For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
 ## Building Models in the COMSOL GUI
-Before beginning, it is a good practice to check the license status. To do so you need create a bash script file named `lmstat.comsol` in your working directory, add executable permission to the `lmstat.comsol` file, and execute it:
-
-Copy and paste the following script to the created file named `lmstat.comsol`:
+Before beginning, it is a good practice to check the license status. To do so, you need to run the following script command:
      
-```bash
-#!/bin/bash
-COMSOL_LIC_DIR=/nopt/nrel/apps/software/comsol/6.1/comsol61/multiphysics/license/glnxa64
-cd $COMSOL_LIC_DIR
-./lmstat -a --no-user-info -c ../license.dat
-```
-Add executable permission:
-```
-[user@kl3 ~]$ chmod +x ./lmstat.comsol
-```
-Execute it:
 ```
 [user@kl3 ~]$ ./lmstat.comsol
 ```
@@ -35,8 +22,8 @@ Execute it:
 When licenses are available, COMSOL can be used by starting the COMSOL GUI which allows you to build models, run the COMSOL computational engine, and analyze results. The COMSOL GUI can be accessed through a [FastX desktop](https://kestrel-dav.hpc.nrel.gov/auth/ssh/) by opening a terminal in a FastX window and running the following commands:
 
 ```
-[user@kl3 ~]$ module load comsol/6.1
-[user@kl3 ~]$ vglrun comsol &
+[user@kl3 ~]$ module load comsol
+[user@kl3 ~]$ vglrun comsol
 ```
 
 Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell on a compute node by replacing the `vglrun comosl` command with:
@@ -70,7 +57,7 @@ You can save your model built in FastX+GUI mode into a file such as `myinputfile
     cd $SLURM_SUBMIT_DIR
 
     # Set up environment, and list to stdout for verification
-    module load comsol/6.1
+    module load comsol
     echo " "
     module list
     echo " "
@@ -114,7 +101,7 @@ To configure a COMSOL job with multiple MPI ranks, required for any job where th
     cd $SLURM_SUBMIT_DIR
 
     # Set up environment, and list to stdout for verification                                                                                                                                       
-    module load comsol/6.1
+    module load comsol
     echo " "
     module list
     echo " "
