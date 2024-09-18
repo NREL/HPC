@@ -10,10 +10,10 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
 ??? example "Sample batch script for a CPU job in the debug queue"
     ```
     #!/bin/bash 
-    #SBATCH --account=<allocation handle> # Required
-    #SBATCH --ntasks=104 # Tasks to be run 
-    #SBATCH --nodes=1  # Run the tasks on the same node 
-    #SBATCH --time=5   # Required, maximum job duration 
+    #SBATCH --account=<allocation handle>   # Required
+    #SBATCH --ntasks=104                    # Tasks to be run 
+    #SBATCH --nodes=1                       # Run the tasks on the same node 
+    #SBATCH --time=5                        # Required, maximum job duration 
     #SBATCH --partition=debug 
 
     cd /scratch/$USER 
@@ -25,10 +25,10 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     Standard Kestrel CPU nodes have about 250G of usable RAM. There are 10 bigmem nodes with 2TB of ram. 
     ```
     #!/bin/bash 
-    #SBATCH --account=<allocation handle>      # Required 
-    #SBATCH --ntasks=104               # CPU cores requested for job 
-    #SBATCH --time=01-00               # Job should run for up to 1 day (for example) 
-    #SBATCH --mem=500G                 # Memory request
+    #SBATCH --account=<allocation handle>   # Required 
+    #SBATCH --ntasks=104                    # CPU cores requested for job 
+    #SBATCH --time=01-00                    # Required, maximum job duration
+    #SBATCH --mem=500G                      # Memory request
 
 
     cd /scratch/$USER 
@@ -43,10 +43,10 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     #!/bin/bash
     #SBATCH --nodes=1 
     #SBATCH --partition=shared         
-    #SBATCH --time=2:00:00                     # Required, maximum job duration
-    #SBATCH --ntasks=26                        # CPUs requested for job 
-    #SBATCH --mem-per-cpu=2000                 # Requesting 2G per core.
-    #SBATCH --account=<allocation handle>      # Required 
+    #SBATCH --time=2:00:00                  # Required, maximum job duration
+    #SBATCH --ntasks=26                     # CPUs requested for job 
+    #SBATCH --mem-per-cpu=2000              # Requesting 2G per core.
+    #SBATCH --account=<allocation handle>   # Required 
 
     cd /scratch/$USER 
     srun ./my_progam # Use your application's commands here  
@@ -78,7 +78,7 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     #!/bin/bash
     #SBATCH --job-name=job_monitor
     #SBATCH --account=<allocation handle>      # Required     
-    #SBATCH --time=00:05:00      
+    #SBATCH --time=00:05:00                    # Required, maximum job duration
     #SBATCH --qos=high                         # Request high priority
     #SBATCH --ntasks=104
     #SBATCH -N 2 
@@ -92,12 +92,12 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     All GPU nodes in the debug queue are shared.  You are limited to two GPUs per job, across 1 or 2 nodes. 
     ```
     #!/bin/bash 
-    #SBATCH --account=<allocation handle> # Required
+    #SBATCH --account=<allocation handle>   # Required
     #SBATCH --nodes=2  
     #SBATCH --gpus-per-node=1
-    #SBATCH --mem=50G           # request CPU memory per node 
-    #SBATCH --ntasks-per-node=2 # request CPU cores per node
-    #SBATCH --time=01:00:00     # Required, maximum job duration 
+    #SBATCH --mem=50G                       # Request CPU memory per node 
+    #SBATCH --ntasks-per-node=2             # Request CPU cores per node
+    #SBATCH --time=01:00:00                 # Required, maximum job duration 
     #SBATCH --partition=debug 
 
     cd /scratch/$USER 
@@ -111,12 +111,12 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     ```
     #!/bin/bash
     #SBATCH --nodes=1
-    #SBATCH --account=<allocation handle>      # Required 
-    #SBATCH --time=02:00:00         # Required, maximum job duration
-    #SBATCH --ntasks-per-node=128   # Maximum CPU cores for job 
-    #SBATCH --gpus=4                # GPU request 
-    #SBATCH --exclusive             # Request exclusive access to node. Allocates all CPU cores and GPUs by default.  
-    #SBATCH --mem=0                 # Request all of the RAM available on node
+    #SBATCH --account=<allocation handle>   # Required 
+    #SBATCH --time=02:00:00                 # Required, maximum job duration
+    #SBATCH --ntasks-per-node=128           # Maximum CPU cores for job 
+    #SBATCH --gpus=4                        # GPU request 
+    #SBATCH --exclusive                     # Request exclusive access to node. Allocates all CPU cores and GPUs by default.  
+    #SBATCH --mem=0                         # Request all of the RAM available on node
 
 
     # Load modules
@@ -133,11 +133,11 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     ```
     #!/bin/bash
     #SBATCH --nodes=1
-    #SBATCH --account=<allocation handle>      # Required 
-    #SBATCH --time=2:00:00         # Required, maximum job duration
-    #SBATCH --ntasks-per-node=20   # Request CPU cores 
-    #SBATCH --gpus=2               # GPU request 
-    #SBATCH --mem=170G             # Request CPU memory
+    #SBATCH --account=<allocation handle>   # Required 
+    #SBATCH --time=2:00:00                  # Required, maximum job duration
+    #SBATCH --ntasks-per-node=20            # Request CPU cores 
+    #SBATCH --gpus=2                        # GPU request 
+    #SBATCH --mem=170G                      # Request CPU memory
 
     # Load modules
     

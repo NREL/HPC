@@ -22,7 +22,7 @@ nav:
             - Documentation/Systems/Kestrel/Running/index.md
             - Documentation/Systems/Kestrel/Running/kestrel_job_priorities.md
             - Documentation/Systems/Kestrel/Running/example_sbatch.md
-            - Debugging at Scale: Documentation/Systems/Kestrel/Running/debugging_at_scale.md
+            # - Debugging at Scale: Documentation/Systems/Kestrel/Running/debugging_at_scale.md
             - Performance Recommendations: Documentation/Systems/Kestrel/Running/performancerecs.md
           - Filesystems: 
             - Documentation/Systems/Kestrel/Filesystems/index.md
