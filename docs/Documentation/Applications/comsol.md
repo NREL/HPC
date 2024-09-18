@@ -13,7 +13,7 @@ Extensive documentation is available in the menu: **Help > Documentation**. For 
 For instructional videos, see the [COMSOL website](https://www.comsol.com) Video Gallery.
 
 ## Building Models in the COMSOL GUI
-Before beginning, it is a good practice to check the license status. To do so you need to run the following script command
+Before beginning, it is a good practice to check the license status. To do so, you need to run the following script command:
      
 ```
 [user@kl3 ~]$ ./lmstat.comsol
