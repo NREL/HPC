@@ -27,7 +27,7 @@ The /nopt directory on Kestrel resides on HFS and is where NREL-specific softwar
 The Parallel File System (PFS) ProjectFS and ScratchFS on Kestrel is a ClusterStor Lustre file system intended for high-performance I/O. 
 
 !!! warning 
-    **There are no backups of PFS data.**  Users are responsible for ensuring that critical data is copied to [Mass Storage](../../Managing_Data/mss.md) or other alternate data storage location.
+    **There are no backups of PFS data.**  Users are responsible for ensuring that critical data is copied to [Mass Storage](../../../Managing_Data/mss.md) or other alternate data storage location.
 
 ### ProjectFS
 
@@ -110,7 +110,7 @@ Some Kestrel CPU compute nodes have an NVMe local solid-state drive (SSD) for us
 
 The local disk on nodes that have one is mounted at `/tmp/scratch`. To write to the local disk, use the `$TMPDIR` environment variable, which is set to `/tmp/scratch/<JOBID>`. A node will not have read or write access to any other node's local scratch, only its own. Also, this directory will be cleaned once the job ends. You will need to transfer any files to be saved to another file system. Note that writing to `$TMPDIR` on a node without a real local disk will use RAM. 
 
-To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). For more information about requesting this feature, please see the [Running on Kestrel page](../Kestrel/Running/index.md).
+To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). For more information about requesting this feature, please see the [Running on Kestrel page](../Running/index.md).
 
 
 

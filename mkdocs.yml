@@ -20,8 +20,13 @@ nav:
           - Documentation/Systems/Kestrel/index.md
           - Running on Kestrel: 
             - Documentation/Systems/Kestrel/Running/index.md
+            - Documentation/Systems/Kestrel/Running/kestrel_job_priorities.md
+            - Documentation/Systems/Kestrel/Running/example_sbatch.md
+            # - Debugging at Scale: Documentation/Systems/Kestrel/Running/debugging_at_scale.md
             - Performance Recommendations: Documentation/Systems/Kestrel/Running/performancerecs.md
-          - Documentation/Systems/Kestrel/filesystems.md 
+          - Filesystems: 
+            - Documentation/Systems/Kestrel/Filesystems/index.md
+            - Documentation/Systems/Kestrel/Filesystems/lustre.md
           - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
           - Environments: 
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
@@ -29,16 +34,6 @@ nav:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
             - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
-        - Eagle: 
-          - Documentation/Systems/Eagle/index.md
-          - Running on Eagle: 
-            - Documentation/Systems/Eagle/Running/index.md
-            - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
-            - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
-            - Example Sbatch Scripts: Documentation/Systems/Eagle/Running/example_sbatch.md
-            - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
-          - Modules: Documentation/Systems/Eagle/modules.md
-          - Documentation/Systems/Eagle/lustrebestpractices.md
         - Swift:
           - Documentation/Systems/Swift/index.md
           - Documentation/Systems/Swift/running.md
@@ -64,7 +59,7 @@ nav:
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
           - Shell Startup: Documentation/Environment/shell.md
-          # - Lmod: Documentation/Environment/lmod.md
+          - Lmod: Documentation/Environment/lmod.md
           # - Customization:
               #  - Spack Environments: Documentation/Environment/Customization/spack.md
           - Conda: Documentation/Environment/Customization/conda.md

@@ -54,14 +54,14 @@ The following table summarizes the partitions on Kestrel:
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
 
-For more information on running jobs and Slurm job scheduling, please see the [Slurm documentation section](../../Slurm/index.md).
+For more information on running jobs and Slurm job scheduling, please see the [Slurm documentation section](../../../Slurm/index.md).
 
 ### Shared Node Partition 
 
 Nodes in the shared partition can be shared by multiple users or jobs. This partition is intended for jobs that do not require a whole node.
 
 !!! tip
-    Testing at NREL has been done to evaluate the performance of VASP using shared nodes. Please see the [VASP page](../../Applications/vasp.md#vasp-on-kestrel) for specific recommendations. 
+    Testing at NREL has been done to evaluate the performance of VASP using shared nodes. Please see the [VASP page](../../../Applications/vasp.md#vasp-on-kestrel) for specific recommendations. 
 
 #### Usage
 

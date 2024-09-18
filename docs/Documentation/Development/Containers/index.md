@@ -80,13 +80,13 @@ tar czf simple_python3.tar.gz simple_python3.tar
 
 #### 3. Upload exported image in `.tar.gz` format to HPC system
 
-Now that the exported Docker image is compressed to `.tar.gz` format, you will need to transfer it to one of NREL's HPC systems. Considering the [scratch space](../../Systems/Kestrel/filesystems.md#scratchfs) of [Kestrel](../../Systems/Kestrel/getting_started_kestrel.md) as an example destination, we will use `rsync` as the transfer method. Be sure to replace `USERNAME` with your unique HPC username:
+Now that the exported Docker image is compressed to `.tar.gz` format, you will need to transfer it to one of NREL's HPC systems. Considering the [scratch space](../../Systems/Kestrel/Filesystems/index.md#scratchfs) of [Kestrel](../../Systems/Kestrel/index.md) as an example destination, we will use `rsync` as the transfer method. Be sure to replace `USERNAME` with your unique HPC username:
 
 ```
 rsync -aP --no-g simple_python3.tar.gz USERNAME@kestrel.hpc.nrel.gov:/scratch/USERNAME/
 ```
 
-For more information on alternatives to `rsync` (such as FileZilla or Globus), please refer to our [documentation regarding file transfers](../../Managing_Data/Transferring_Files/file-transfers.md).
+For more information on alternatives to `rsync` (such as FileZilla or Globus), please refer to our [documentation regarding file transfers](../../Managing_Data/Transferring_Files/index.md).
 
 #### 4. Convert .tar to Apptainer image
 
