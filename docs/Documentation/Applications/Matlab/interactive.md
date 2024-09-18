@@ -24,7 +24,7 @@ When your job starts, you will have a shell on a compute node.
        and include a valid project allocation handle. For more information, see
        [User Accounts](https://www.nrel.gov/hpc/user-accounts.html).
     2. For more information on interactive jobs, see [Running Interactive
-       Jobs](../../Systems/Eagle/interactive_jobs.md).
+       Jobs](../../Slurm/interactive_jobs.md).
 
 From the shell on the compute node, the next steps are to load the MATLAB module
 to set up your user environment, which includes setting the location of the
