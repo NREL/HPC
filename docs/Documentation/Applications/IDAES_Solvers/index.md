@@ -25,7 +25,7 @@ Available optimizers include:
 | idaes_solvers/3.4.0-intel-oneapi-mkl |
 | idaes_solvers/3.4.0-netlib-lapack    |
 
-## v3.4.0
+### v3.4.0
 
 IDAES Solvers v3.4.0 contains the following optimizer versions
 
@@ -38,4 +38,15 @@ IDAES Solvers v3.4.0 contains the following optimizer versions
 | IPOPT + HSL | 3.13.2  |
 
 !!! note
-    IPOPT is available with performant HSL MA27 and MA57 linear solvers. These have been shown to perform better than the default MUMPS solver for a variety of renewable energy optimization problems.
+    IPOPT is available with performant HSL MA27 and MA57 linear solvers. These have been shown to perform better than the default MUMPS solver for a variety of renewable energy optimization problems. Please see documentation [here](ipopt.md#ipopt--hsl)
+
+## Usage
+
+Users can run any of the IDAES solvers simply by loading the appropriate module, e.g.,
+
+```bash
+module load idaes_solvers/3.4.0-intel-oneapi-mkl
+```
+
+!!! note
+    IDAES solvers dependent on LAPACK require users to load the current `netlib-lapack` module. Please see [here](ipopt.md#usage) for explicit instructions.
