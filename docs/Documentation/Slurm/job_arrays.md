@@ -25,7 +25,7 @@ In order to submit a job array to Slurm, the SBATCH directives at the top of you
 ```
 
 !!! note "Submitting Job Arrays on Kestrel"
-    To ensure that your job array is running optimally, it is recommended that job arrays are submitted on the shared partition using `--partition=shared`. See more about shared partitions on Kestrel [here](/Documentation/Systems/Kestrel/running/#shared-node-partition).
+    To ensure that your job array is running optimally, it is recommended that job arrays are submitted on the shared partition using `--partition=shared`. See more about shared partitions on Kestrel [here](../Systems/Kestrel/Running/index.md#shared-node-partition).
 
 ## Job Control
 Like standard slurm jobs, job arrays have a JOB_ID, which is stored in the environment variable `SLURM_ARRAY_JOB_ID`. The environment variable `SLURM_ARRAY_TASK_ID` will hold information about the index of the job array.
