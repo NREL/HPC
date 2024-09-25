@@ -22,7 +22,8 @@ Previous Gaussian 09 users sometimes may feel Gaussian 16 runs slower than Gauss
 
 ### Sample Job Scripts
 
-Gaussian may be configured to run on one or more physical nodes, with or without shared memory parallelism. Distributed memory, parallel setup is taken care of automatically based on settings in the SLURM script example below, which should work on Eagle, Swift, and Kestrel.
+Gaussian may be configured to run on one or more physical nodes, with or without shared memory parallelism. Distributed memory, parallel setup is taken care of automatically based on settings in the SLURM script example below.
+
 
 ??? example "Sample Submission Script"
 
