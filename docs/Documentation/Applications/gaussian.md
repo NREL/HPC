@@ -16,15 +16,9 @@
 
 ## Configuration and Default Settings
 
-NREL currently has Gaussian16 Revision C.01 installed, and the user manual can be found at the [Gaussian website](https://gaussian.com/man).  Gaussian 16 C.01 also has an GPU version, and for instructions on how to run Gaussian 16 on GPU nodes, see [GitHub](https://github.nrel.gov/hlong/Gaussian_GPU).
+NREL currently has Gaussian16 Revision C.01 installed, and the user manual can be found at the [Gaussian website](https://gaussian.com/man).  Gaussian currently doesn't have support for H100 GPUs.
 
 Previous Gaussian 09 users sometimes may feel Gaussian 16 runs slower than Gaussian 09. That's because Gaussian G16 has changed the default accuracy into `Int=Acc2E=12 Grid=Ultrafine`, which means that individual SCF iterations will take longer with G16 than with G09. 
-
-## Batch Submission with Use of In-Memory Filesystem (Preferred Method)
-
-Gaussian jobs typically write large amounts of information to temporary scratch files. When many Gaussian jobs are running, this can put a large traffic load on the Lustre parallel filesystem. To reduce this load, we recommend putting the first 5 GB or so of scratch files into a local (on-node) in-memory filesystem called `/dev/shm`.
-
-This scratch space is set automatically by the example script below. The Gaussian input file needs the following two directives to tell the program to put read-write files first in `/dev/shm` (up to 5GB below), and to put data that exceeds 5GB into files in a directory on the `/scratch` file system. An example script for batch submission is given below: 
 
 ### Sample Job Scripts
 
@@ -83,10 +77,6 @@ Gaussian may be configured to run on one or more physical nodes, with or without
 This script and sample Gaussian input are located at */nopt/nrel/apps/gaussian/examples*. The gaussian module is loaded by the script automatically, so the user does not need to have loaded the module before submitting the job. The g16_nrel python script edits the Default.Route file based on the SLURM environment set when the script is submitted to the queue. The user also must supply the name of the input file (`INPUT_BASENAME`). 
 
 The user scratch space is set to a directory in the default scratch space, with a name containing the job ID so different jobs will not overwrite the disk space. The default scratch space is /tmp/scratch when a local disk is available or /scratch/$USER. The script sets the directories for scratch files and environment variables needed by Gaussian (eg `GAUSS_SCRDIR`).
-
-Please note that if a template input file without the header lines containing `%RWF`, and  `%NoSave` directives, the script will prepend these lines to the input file based on variables set in the script above. 
-
-Eagle currently has 50 computing nodes with dual NVIDIA Tesla V100 GPUs and Gaussian G16 C.01 has the capability to run on those nodes using GPUs. For detailed instructions on how to run Gaussian on GPU nodes, see [GitHub](https://github.nrel.gov/hlong/Gaussian_GPU). 
 
 To submit a job with the example script, named g16.slurm, one would type:
 
