@@ -24,7 +24,7 @@ documentation](https://www.gurobi.com/documentation/).
 ## Available Modules
 
 | Kestrel         | Swift           |
-|:---------------:|:---------------:|:---------------:|
+|:---------------:|:---------------:|
 | gurobi/11.0.0   ||
 | gurobi/10.0.2   ||
 | gurobi/10.0.1   ||

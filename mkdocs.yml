@@ -92,7 +92,7 @@ nav:
             - CBC : Documentation/Applications/IDAES_Solvers/cbc.md
             - CLP : Documentation/Applications/IDAES_Solvers/clp.md
             - Couenne : Documentation/Applications/IDAES_Solvers/couenne.md
-            - IPOPT : Documentation/Applications/IDAES_Solvers/ipopt.md
+            - IPOPT + HSL: Documentation/Applications/IDAES_Solvers/ipopt.md
           - LAMMPS:     Documentation/Applications/lammps.md
           - MATLAB:
             - Documentation/Applications/Matlab/index.md
