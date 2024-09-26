@@ -25,7 +25,7 @@ Xpress solver cannot be used to solve nonlinear programs.
 | xpressmp/9.2.5 |
 
 !!! info
-    Xpress is available as a module on Kestrel. Additionally, NREL has a site-wide license for Xpress to run locally on an NREL-issued computer. Please see instructions [here](https://github.nrel.gov/MSOC/fico-xpress)
+    Xpress is available as a module on Kestrel. Additionally, NREL has a site-wide license for Xpress to run locally on an NREL-issued computer. Please see instructions [here](https://github.nrel.gov/MSOC/fico-xpress).
 
 ## Running Xpress Solver on Kestrel
 
