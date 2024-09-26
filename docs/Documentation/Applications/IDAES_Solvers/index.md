@@ -38,7 +38,7 @@ IDAES Solvers v3.4.0 contains the following optimizer versions
 | IPOPT + HSL | 3.13.2  |
 
 !!! note
-    IPOPT is available with performant HSL MA27 and MA57 linear solvers. These have been shown to perform better than the default MUMPS solver for a variety of renewable energy optimization problems. Please see documentation [here](ipopt.md#ipopt--hsl)
+    IPOPT is available with performant HSL MA27 and MA57 linear solvers. These have been shown to perform better than the default MUMPS solver for a variety of renewable energy optimization problems. Please see documentation [here](ipopt.md#ipopt--hsl).
 
 ## Usage
 
