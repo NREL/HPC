@@ -29,7 +29,7 @@ However, if you need a version of Julia for which a module does not exist or wan
 * performance or need to customize Julia build - [do it yourself](#do-it-yourself-build-v-12-or-later) (i.e. build from source)
 
 !!! Warning
-    Julia built on Kestrel CPU nodes will not work on the GPU nodes and vice versa. Always build Julia on compute nodes you intend to run on.
+    Julia built on Kestrel CPU nodes will not work on the GPU nodes and vice versa. Always build Julia on the same type of compute node that you intend to run on.
 
 ## Anaconda
 
