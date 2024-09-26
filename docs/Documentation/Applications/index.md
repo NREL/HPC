@@ -29,4 +29,4 @@ The following are packages that the NREL Computational Science Center supports:
 | [<nobr>STAR-CCM+</nobr>](./starccm.md) | Engineering simulation package from CD-adapco for solving problems involving flow of fluids or solids, heat transfer, and stress | 
 | [VASP](./vasp.md) | Atomic scale materials modeling, e.g., electronic structure calculations and quantum-mechanical molecular dynamics, from first principles | 
 | [WRF](./wrf.md) | Mesoscale numerical weather prediction system designed for both atmospheric research and operational forecasting applications | 
-
+| [Xpress](./xpressmp.md) | Optimization algorithms and technologies to solve linear, mixed integer and non-linear problems |
