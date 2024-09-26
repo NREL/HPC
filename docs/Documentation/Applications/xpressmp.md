@@ -43,7 +43,7 @@ Xpress solvers can be used by simply loading the module
 module load xpressmp/9.2.5
 ```
 
-Once the module is loaded, Xpress Solver can be used directly using command line 
+Once the module is loaded, Xpress Solver can be used directly using the command line 
 by running the `optimizer` command.
 
 ```bash
