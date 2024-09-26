@@ -19,7 +19,10 @@ Available optimizers include:
 
 ## Available Modules
 
-| Kestrel                              |
+!!! info
+    IDAES solvers are currently not available on GPU compute nodes.
+
+| Kestrel (CPU nodes)                  |
 |:------------------------------------:|
 | idaes_solvers/3.4.0-cray-libsci      |
 | idaes_solvers/3.4.0-intel-oneapi-mkl |
