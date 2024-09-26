@@ -30,7 +30,7 @@ Xpress solver cannot be used to solve nonlinear programs.
 ## Running Xpress Solver on Kestrel
 
 !!! important
-    While Xpress Solver is available as a module on Kestrel for use by all NREL-users, you MUST be a part of `xpressmp` group on Kestrel. If you are new or have not used Xpress in a while, you can:
+    While Xpress Solver is available as a module on Kestrel for use by all NREL-users, you MUST be a part of the `xpressmp` group on Kestrel. If you are new or have not used Xpress in a while, you can:
 
     1. Check whether you are a part of this group by running the `groups` command from your terminal, or
     2. Load the `xpressmp` module and run an example
