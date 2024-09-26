@@ -8,28 +8,30 @@ parent: Libraries
 grand_parent: Development
 ---
 
-# Ipopt
+# IPOPT
 
-*Ipopt (Interior Point OPTimizer, pronounced "Eye-Pea-Opt") is an open-source non-linear optimizer using the interior point method.*
+*IPOPT (Interior Point OPTimizer, pronounced "Eye-Pea-Opt") is an open-source non-linear optimizer using the interior point method.*
 
-Ipopt is commonly used in solving power flow, e.g., AC Optimal Power Flow, and controls problems. Please refer to their [project website](https://github.com/coin-or/Ipopt) for the source code. The documentation can be found [here](https://coin-or.github.io/Ipopt/index.html).
+IPOPT is commonly used in solving power flow, e.g., AC Optimal Power Flow, and controls problems. Please refer to their [project website](https://github.com/coin-or/Ipopt) for the source code. The documentation can be found [here](https://coin-or.github.io/Ipopt/index.html).
+
+!!! info
+    IPOPT with HSL linear solvers is available as a module on Kestrel. Please see [IDAES Solvers](./idaes_solvers.md) for additional details.
+
 
 ## Installation
 
-The default installation instructions can be found in the [Ipopt documentation here](https://coin-or.github.io/Ipopt/INSTALL.html). The remainder of the page describes what has worked for NREL HPC users.
+The default installation instructions can be found in the [IPOPT documentation here](https://coin-or.github.io/Ipopt/INSTALL.html). The remainder of the page describes what has worked for NREL HPC users.
 
-### Eagle
-
-We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to build Ipopt along with the dependencies ASL, HSL and Mumps libraries. 
+We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to build IPOPT along with the dependencies ASL, HSL and Mumps libraries. 
 
 !!! note
-    Follow the [instructions to setup the environment](hsl.md#Eagle) for HSL before proceeding with the steps below.
+    Follow the [instructions to setup the environment](../Development/Libraries/hsl.md#hpc) for HSL before proceeding with the steps below.
 
 1. `module load gcc/8.4.0 mkl`
 2. Clone (or download) the [coinbrew](https://github.com/coin-or/coinbrew) repo. If you download the repo you may have to change the permissions on the `coinbrew` *script* before using it: `chmod u+x coinbrew/coinbrew`
 3. `cd` into the directory
 4. `./coinbrew fetch Ipopt@stable/3.13`
-    * This fetches the branch `stable/3.13` of the Ipopt repository as well as the dependencies COIN-OR repositories `ThirdParty-ASL`, `ThirdParty-HSL` and `ThirdParty-Mumps` (other versions of Ipopt can also be downloaded in this manner)
+    * This fetches the branch `stable/3.13` of the IPOPT repository as well as the dependencies COIN-OR repositories `ThirdParty-ASL`, `ThirdParty-HSL` and `ThirdParty-Mumps` (other versions of IPOPT can also be downloaded in this manner)
 5. `cd ThirdParty/HSL`
 6. Copy the HSL source code to the current directory and unpack it
 7. Create a link called `coinhsl` that points to the HSL source code (or rename the directory)
@@ -40,8 +42,8 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
     ./coinbrew build Ipopt --disable-java --prefix="${MYAPPS}" --with-metis-cflags="-I${MYINC}" --with-metis-lflags="-L${MYLIB} -lmetis" --with-lapack-lflags="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl" --with-lapack-cflags="-m64 -I${MKLROOT}/include" ADD_CFLAGS="-march=skylake-avx512" ADD_FCFLAGS="-march=skylake-avx512" ADD_FFLAGS="-march=skylake-avx512"
     ```
 
-    * `build Ipopt` tells `coinbrew` to configure and build Ipopt and its dependencies
-    * `--disable-java` says to build Ipopt without the java interface
+    * `build Ipopt` tells `coinbrew` to configure and build IPOPT and its dependencies
+    * `--disable-java` says to build IPOPT without the java interface
     * `--prefix` says to install the library in "${MYAPPS}"
     * `--with-metis-cflags` gives the compiler the location of the metis header "metis.h"
     * `--with-metis-lflags` gives the linker the location and name of the metis library
@@ -52,29 +54,29 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
     When linking with MKL libraries, Intel's [link line advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) is extremely helpful.
 
 !!! note 
-    When compiling Julia with MKL libraries, the single dynamic library interface is used to link against.  This is why we are also using that linking method.  Using a different linking method will cause unusual behaviors when using Ipopt with Julia (e.g. through JuMP).
+    When compiling Julia with MKL libraries, the single dynamic library interface is used to link against.  This is why we are also using that linking method.  Using a different linking method will cause unusual behaviors when using IPOPT with Julia (e.g. through JuMP).
 
 ## Usage
 
 ### Using Custom Ipopt with JuMP
 
 !!! note
-    When running your custom Ipopt build on Eagle, you will need to do two things:
+    When running your custom IPOPT build on Eagle, you will need to do two things:
 
     1. Load the same MKL module you compiled against:
         ```bash
         module load mkl
         ```
-    2. Add the directory containing Ipopt and HSL libraries to your LD_LIBRARY_PATH
+    2. Add the directory containing IPOPT and HSL libraries to your LD_LIBRARY_PATH
         ```bash
         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MYLIB}
         ```
 
 
-To use our custom installation of Ipopt with `Ipopt.jl`, we do the following:
+To use our custom installation of IPOPT with `Ipopt.jl`, we do the following:
 
-1. Open the Julia REPL and activate an environment that has Ipopt installed
-2. Tell Julia and `Ipopt.jl` the location of our Ipopt library and executable
+1. Open the Julia REPL and activate an environment that has IPOPT installed
+2. Tell Julia and `Ipopt.jl` the location of our IPOPT library and executable
     ```julia
     ENV["JULIA_IPOPT_LIBRARY_PATH"] = ENV["MYLIB"]
     ENV["JULIA_IPOPT_EXECUTABLE_PATH"] = ENV["MYBIN"]

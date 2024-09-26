@@ -10,12 +10,17 @@ The following are packages that the NREL Computational Science Center supports:
 | :---------- | :--------- | 
 | [Ansys](./ansys.md)       | Enables modeling, simulation, and visualization of flow, turbulence, heat transfer and reactions for industrial applications | 
 | [AMR-Wind](./amrwind.md)       | A massively parallel, block-structured adaptive-mesh, incompressible flow solver for wind turbine and wind farm simulations | 
+| [Bonmin](./idaes_solvers.md#bonmin) | Open source solver that leverages CBC and IPOPT to solve general mixed integer nonlinear programs (MINLP) |
+| [CBC](./idaes_solvers.md#cbc) | Open-source optimizer for solving mixed integer programs (MIP) |
+| [CLP](./idaes_solvers.md#clp) | Open-source linear program solver |
 | [COMSOL](./comsol.md)      | Multiphysics simulation environment | 
-| Converge | HPC CFD+, focused on engine modeling and simulation | 
+| Converge | HPC CFD+, focused on engine modeling and simulation |
+| [Couenne](./idaes_solvers.md#couenne) | Open-source mixed integer nonlinear programming (MINLP) global optimization solver |
 | [FEniCS](./fenics.md) | Solving partial differential equations by the finite element method | 
 | [GAMS](./gams.md) | High-level modeling system for mathematical programming and optimization | 
 | [Gaussian](./gaussian.md) | Program for calculating molecular electronic structure and reactivity | 
-| [Gurobi](./gurobi.md) | Solver for mathematical programming | 
+| [Gurobi](./gurobi.md) | Solver for mathematical programming |
+| [IPOPT](./ipopt.md) | Open-source interior point nonlinear optimizer |
 | [LAMMPS](./lammps.md) | Open-source classical molecular dynamics program designed for massively parallel systems | 
 | [MATLAB](./Matlab/index.md) | General technical computing framework | 
 | [OpenFOAM](./openfoam.md) | Software for computational fluid dynamics | 

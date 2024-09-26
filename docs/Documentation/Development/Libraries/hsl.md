@@ -8,19 +8,19 @@ parent: Libraries
 grand_parent: Development
 ---
 
-# HSL for Ipopt
+# HSL for IPOPT
 
-*HSL (Harwell Subroutine Library) for Ipopt are a set of linear solvers that can greatly accelerate the speed of the optimization over the default MUMPS solver.*
+*HSL (Harwell Subroutine Library) for IPOPT are a set of linear solvers that can greatly accelerate the speed of the optimization over the default MUMPS solver.*
 
 ## Installation
 
-Go to the [HSL for Ipopt](http://www.hsl.rl.ac.uk/ipopt/) site and follow the instructions to request the source code for all the available solvers. Note that the solver MA27 is free to obtain, but MA27 is a serial solver. Other solvers will require a license. Please request a license that applies to your use case.
+Go to the [HSL for IPOPT](http://www.hsl.rl.ac.uk/IPOPT/) site and follow the instructions to request the source code for all the available solvers. Note that the solver MA27 is free to obtain, but MA27 is a serial solver. Other solvers will require a license. Please request a license that applies to your use case.
 
-### Eagle
+### HPC
 
-The default version of Ipopt distributed with `Ipopt.jl` on Linux links to the OpenBLAS library.  This causes issues when linking the HSL library to the MKL libraries.  For this reason, to use HSL linear solvers with Ipopt on Eagle, either we must compile Ipopt from scratch or compile HSL with OpenBLAS instead of MKL.  For performance reasons, we have elected to compile Ipopt from scratch so that we can use the MKL libraries.
+The default version of IPOPT distributed with `Ipopt.jl` on Linux links to the OpenBLAS library.  This causes issues when linking the HSL library to the MKL libraries.  For this reason, to use HSL linear solvers with IPOPT on Eagle, either we must compile IPOPT from scratch or compile HSL with OpenBLAS instead of MKL.  For performance reasons, we have elected to compile IPOPT from scratch so that we can use the MKL libraries.
 
-The following provides detailed instructions for compiling Ipopt with HSL and Mumps on Eagle.
+The following provides detailed instructions for compiling IPOPT with HSL and Mumps on Eagle.
 
 #### Pre-requisites
 
@@ -70,7 +70,7 @@ export MYLIB=${MYAPPS}/lib
 ```
 
 These can be added to the .bash_profile file (or equivalent for other shells).  Remember after adding these to source `.bash_profile` (or equivalent) or to open a new terminal and do all building there.
-To make the Metis header and dynamic library easily accessible to the HSL, MUMPS and Ipopt libraries, we will put symbolic links in the `${MYINC}` and `${MYLIB}` directories.  Do this by doing the following:
+To make the Metis header and dynamic library easily accessible to the HSL, MUMPS and IPOPT libraries, we will put symbolic links in the `${MYINC}` and `${MYLIB}` directories.  Do this by doing the following:
 
 ```bash
 cd ${MYINC}
@@ -79,11 +79,11 @@ cd ${MYLIB}
 ln -s ${METIS_LIBRARY}/libmetis.so
 ```
 
-This has a couple of advantages.  First, the `coinbrew` build will automatically add the `${MYLIB}` directory to the rpath of all constructed libraries and executables.  This means that we don't need to add `${MYLIB}` to the LD_LIBRARY_PATH.  The other advantage is that anaconda puts all the environments libraries and include files in the same directories with `libmetis.so` and `metis.h`.  Many of these libraries overlap with those used by HSL, Mumps and Ipopt but are not necessarily the same versions.  Loading a different version of a library than those compiled against can cause unexpected behavior.
+This has a couple of advantages.  First, the `coinbrew` build will automatically add the `${MYLIB}` directory to the rpath of all constructed libraries and executables.  This means that we don't need to add `${MYLIB}` to the LD_LIBRARY_PATH.  The other advantage is that anaconda puts all the environments libraries and include files in the same directories with `libmetis.so` and `metis.h`.  Many of these libraries overlap with those used by HSL, Mumps and IPOPT but are not necessarily the same versions.  Loading a different version of a library than those compiled against can cause unexpected behavior.
 
 #### Configure and Install
 
-Follow the [Ipopt installation instructions here](ipopt.md#eagle) to finish the installation of HSL solvers on Eagle.
+Follow the [IPOPT installation instructions here](../../Applications/ipopt.md#installation) to finish the installation of HSL solvers on Eagle.
 
 ### MacOS
 
@@ -91,7 +91,7 @@ The following installation has been tested on Apple's M1 ARM based processors.
 
 #### Pre-requisites
 
-We will use [Homebrew](https://brew.sh) and [ThirdParty-HSL](https://github.com/coin-or-tools/ThirdParty-HSL) to install HSL libraries (and IPOPT). As per the [default IPOPT installation instructions](https://coin-or.github.io/Ipopt/INSTALL.html), we will rely on GNU compilers for the installation. Run the following commands
+We will use [Homebrew](https://brew.sh) and [ThirdParty-HSL](https://github.com/coin-or-tools/ThirdParty-HSL) to install HSL libraries (and IPOPT). As per the [default IPOPT installation instructions](https://coin-or.github.io/IPOPT/INSTALL.html), we will rely on GNU compilers for the installation. Run the following commands
 
 ```bash
 # Update homebrew and download packages
@@ -137,7 +137,7 @@ mkdir build && cd build
 make && make install
 ```
 
-This should install the HSL libraries in `${MYAPPS}`. Finally add `MYLIB` to your `DYLD_LIBRARY_PATH`. You can append the following line to your `.bash_profile` to make it permanent or call it every time you need to run Ipopt with HSL solvers.
+This should install the HSL libraries in `${MYAPPS}`. Finally add `MYLIB` to your `DYLD_LIBRARY_PATH`. You can append the following line to your `.bash_profile` to make it permanent or call it every time you need to run IPOPT with HSL solvers.
 
 ```bash
 export export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MYLIB}/UserApps/IPOPT/HSL/hsl_install/lib
@@ -145,12 +145,12 @@ export export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MYLIB}/UserApps/IPOPT/HSL
 
 ## Usage
 
-Ipopt has a feature called the linear solver loader (read about it [here](https://coin-or.github.io/Ipopt/INSTALL.html#LINEARSOLVERLOADER)). This allows for loading linear solvers from a dynamic library at run time.  We will use this feature to use the HSL solvers.
+IPOPT has a feature called the linear solver loader (read about it [here](https://coin-or.github.io/IPOPT/INSTALL.html#LINEARSOLVERLOADER)). This allows for loading linear solvers from a dynamic library at run time.  We will use this feature to use the HSL solvers.
 
-The only thing you have to do is to make the HSL dynamic library findable.  This is done by adding the directory containing the HSL library to the environment variable `DYLD_LIBRARY_PATH` in MacOS and `LD_LIBRARY_PATH` on Linux-based systems. See above for MacOS and [here](ipopt.md#using-custom-ipopt-with-jump) for NREL systems. To use the new linear solvers just use the `linear_solver="<solver>"` argument to `Ipopt.Optimizer`.
+The only thing you have to do is to make the HSL dynamic library findable.  This is done by adding the directory containing the HSL library to the environment variable `DYLD_LIBRARY_PATH` in MacOS and `LD_LIBRARY_PATH` on Linux-based systems. See above for MacOS and [here](IPOPT.md#using-custom-IPOPT-with-jump) for NREL systems. To use the new linear solvers just use the `linear_solver="<solver>"` argument to `IPOPT.Optimizer`.
 
 !!! info
-    The Ipopt build that comes with `Ipopt.jl` seems to expect the HSL library to have the name `libhsl.dylib` on MacOS. The repo ThirdParty-HSL builds the library `libcoinhsl.dylib`.  The simplest fix is to do the following:
+    The IPOPT build that comes with `Ipopt.jl` seems to expect the HSL library to have the name `libhsl.dylib` on MacOS. The repo ThirdParty-HSL builds the library `libcoinhsl.dylib`.  The simplest fix is to do the following:
 
     ```bash
     cd ${MYLIB}
@@ -161,9 +161,9 @@ The only thing you have to do is to make the HSL dynamic library findable.  This
 The following Julia code is useful for testing the HSL linear solvers are working
 
 ```julia
-using JuMP, Ipopt
+using JuMP, IPOPT
 
-m = JuMP.Model(()->Ipopt.Optimizer(linear_solver="ma97"))
+m = JuMP.Model(()->IPOPT.Optimizer(linear_solver="ma97"))
 @variable(m, x)
 @objective(m, Min, x^2)
 JuMP.optimize!(m)
