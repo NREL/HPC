@@ -85,5 +85,5 @@ BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs
 	 QCHEMOPT="-gpu -nt $SLURM_NTASKS"
 	fi
    ```
-4. Submit jobs through the GPU login nodes on Kestrel or add "#SBATCH -p gpu" to the header of slurm file if running on Swift.
+4. Submit jobs through the GPU login nodes on Kestrel or add "#SBATCH -p gpu" to the header of the batch script if running on Swift.
    
