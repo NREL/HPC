@@ -74,7 +74,7 @@ To run this script on HPCs other than Kestrel, the number of threads should be c
 A large number of example Q-Chem input examples are available in `/nopt/nrel/apps/q-chem/<version>/samples`.
 
 ## Running BrianQC
-BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs, which is significantly faster for some larger ab initio jobs. BrianQC uses the same input file as Q-Chem. To run BrianQC, please make the following changes to the sample Slurm scipt above:
+BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs, which is significantly faster for some larger ab initio jobs. BrianQC uses the same input file as Q-Chem. To run BrianQC, please make the following changes to the sample Slurm script above:
 1. Add this line in the header section: "#SBATCH --gres=gpu:1"
 2. Load the BrianQC module instead of Q-Chem: "module load brianqc"
 3. Add "-gpu" in $QCHEMOPT like:
