@@ -69,7 +69,7 @@ A template Slurm script to run Q-Chem with 104 threads is:
 	rmdir $SCRATCH
 ```
 
-To run this script on HPCs other than Kestrel, the number of threads should be changed accordingly. 
+To run this script on systems other than Kestrel, the number of threads should be changed accordingly. 
 
 A large number of example Q-Chem input examples are available in `/nopt/nrel/apps/q-chem/<version>/samples`.
 
