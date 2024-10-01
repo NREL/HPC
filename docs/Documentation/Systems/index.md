@@ -8,7 +8,7 @@ order: 4
 # NREL Systems
 NREL operates three on-premises systems for computational work. 
 
-## System configurations
+## System Configurations
 
 | Name        | Kestrel |  Swift        | Vermilion     | 
 | :---------- | :------ |  :----------- | :------------- |
