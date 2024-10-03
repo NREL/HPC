@@ -192,6 +192,8 @@ theme:
 markdown_extensions:
   - toc:
       permalink: "#"
+  - pymdownx.arithmatex:
+      generic: true
   - admonition
   - attr_list
   - meta
@@ -204,6 +206,9 @@ extra:
     property: UA-189117140-2
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 site_name: NREL HPC 
 repo_url: https://github.com/NREL/HPC/tree/gh-pages
 repo_name: NREL/HPC
