@@ -64,6 +64,18 @@ You can transfer files with Globus through the [Globus
 Online](https://www.globus.org) website or via the [CLI](https://docs.globus.org/cli/) 
 (command line interface).
 
+!!! warning "Important"
+    It is strongly recommended to compress multiple files into a single archive (tar.gz, zip) before transferring data with Globus.
+
+    To compress a directory:
+    ```
+    tar -czvf filename.tar.gz /path/to/dir
+    ```
+    To extract an archive:
+    ```
+    tar -xzvf filename.tar.gz
+    ```
+
 ??? abstract "Globus Online" 
     Globus Online is a hosted service that allows you to use a browser to transfer
     files between trusted sites called "endpoints".  To use it, the Globus software
