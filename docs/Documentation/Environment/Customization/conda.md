@@ -189,14 +189,6 @@ To speed up dependency solving, substitute the mamba command for conda.  Mamba i
 mamba create --prefix /path/to/mypy python=3.7 numpy
 ```
 
-## Reduce home directory usage
-
-By default, the conda module uses the home directory for package caches and named environments.  This results in a lot of the home directory quota used. Some ways to reduce home directory usage include:
-
-* Use the `-p PATH_NAME` switch when creating or updating your environment.  Make sure `PATH_NAME` isn't in the home directory.  Keep in mind files in /scratch are deleted after about a month of inactivity.
-
-* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  A simple way to avoid filling up the home directory with cached conda data is to soft link a location on scratch to `~/.conda-pkgs`, for example `ln -s /scratch/$USER/.conda-pkgs /home/$USER/.conda-pkgs`.  Alternatively, calling `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/scratch/$USER/.conda-pkgs` will reduce home directory usage.
-
 ## HPC Considerations
 
 ### Migrating from local to HPC system
@@ -224,19 +216,26 @@ python my_main.py
 
 ### Where to store Conda environments
 
-As mentioned previously, Conda stores environments in your home directory by default.  This can cause problems on the HPC systems, because Conda environments can require a lot of storage space, and the home directory typically has a limited amount of space on the HPC systems.  T
+By default, the conda module uses the home directory for package caches and named environments. This can cause problems on the HPC systems because conda environments can require a lot of storage space, and home directories have a quota of 50GB. Additionally, the home filesystem is not designed to handle heavy I/O loads, so if you're running a lot of jobs or large multi-node jobs calling conda environments that are stored in home, it can strain the filesystem. 
 
-By default, the conda module uses the home directory for package caches and named environments.  This results in a lot of the home directory quota used. Some ways to reduce home directory usage include:
+Some ways to change the default storage location for conda environments and packages:
 
-* Use the `-p PATH_NAME` switch when creating or updating your environment.  Make sure `PATH_NAME` isn't in the home directory.
+* Use the `-p PATH_NAME` switch when creating or updating your environment.  Make sure `PATH_NAME` isn't in the home directory. Keep in mind files in /scratch are deleted after about a month of inactivity.
 
-* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  Calling `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/scratch/$USER/.conda-pkgs` will reduce home directory usage.
+* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  A simple way to avoid filling up the home directory with cached conda data is to soft link a location on scratch to `~/.conda-pkgs`, for example `ln -s /scratch/$USER/.conda-pkgs /home/$USER/.conda-pkgs`.  Alternatively, you can call `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/projects/<allocation handle>/$USER/.conda-pkgs`.
+
+* Similarly, you can specify the directory in which environments are stored by default. To do this, either set the `CONDA_ENVS_PATH` environment variable, or use the `--prefix` option as [described above](./conda.md#creating-environments-by-location). 
+
+!!! warning
+    Overriding the default location for the environment and package cache directories in your `.condarc` file by setting `envs_dirs` and `pkgs_dirs` won't work as expected on Kestrel. When the conda module is loaded, it overrides these settings. Instead, set the environment variables after you load the conda module as described above. 
+
+
 
 Following are some guidelines and suggestions regarding where to store environments:
 
 | Path | When to use | Caveats |
 |------|-------------|---------|
-| `/home` | `$HOME/.conda` is the default location for environments. For one-off environments, or if you don't create environments often, this is a reasonable location for your environments and doesn't require any extra flags or parameters.            | On systems such as Kestrel, `$HOME` is limited to 50 GB.         |
+| `/home` | `$HOME/.conda` is the default location for environments. For one-off environments, or if you don't create environments often, this is a reasonable location for your environments and doesn't require any extra flags or parameters.            | On systems such as Kestrel, `$HOME` is limited to 50 GB. <br> Not suited for multi-node jobs.         |
 | `/scratch` | `/scratch` or `/projects` are well-suited for multiple-node jobs because these locations provide enhanced filesystem performance for parallel access. | The contents of `/scratch` are purged after 28 days of inactivity. |
 | `/projects` | Ideal location for storing environments that will be shared with colleagues that are working on the same project. | Storage under `/projects` is contingent on having an HPC project allocation, and the project allocation has its own storage quota. |
 
