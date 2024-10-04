@@ -37,7 +37,7 @@ This is repeated at each level of the fairshare tree, where the siblings at each
 
 As additional complexity, the above usage calculations are modified by a half-decay system that empahsizes more recent usage and de-emphasizes historical usage.  The half life decay is set to 14-days on Kestrel, and the associated usage calculations would be:
 
-$$ U = U_{current_period} + ( D * U_{last-period}) + (D * D * U_{period-2}) + ...$$
+$$ U = U_{current-period} + ( D * U_{last-period}) + (D * D * U_{period-2}) + ...$$
 
 The decay factor, *D*, is described in more detail on the Slurm documentation, but is a number between 0 and 1 that achives the half-decay rate specified by the Slurm configruation (14-days on Kestrel). 
 
