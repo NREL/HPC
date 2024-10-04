@@ -18,7 +18,10 @@ IPOPT is commonly used in solving power flow, e.g., AC Optimal Power Flow, and c
     IPOPT with HSL linear solvers is available as a module on Kestrel. Please see [IDAES Solvers](./idaes_solvers.md) for additional details.
 
 
-## Installation
+## Installation from source
+
+!!! warning
+    The following installation instructions are for NREL's older cluster Eagle. We recommend users use the [IPOPT modules available on Kestrel](./idaes_solvers.md). Users will have to tweak the instructions below to build IPOPT from source on Kestrel.  
 
 The default installation instructions can be found in the [IPOPT documentation here](https://coin-or.github.io/Ipopt/INSTALL.html). The remainder of the page describes what has worked for NREL HPC users.
 
@@ -48,7 +51,7 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
     * `--with-metis-cflags` gives the compiler the location of the metis header "metis.h"
     * `--with-metis-lflags` gives the linker the location and name of the metis library
     * `--with-lapack-lflags` gives the location of LAPACK and BLAS libraries as well as the needed linker lines.  Here we are using Intel's single dynamic library interface (google "mkl single dynamic library" for more details on this).
-    * `ADD_CFLAGS`, `ADD_FCFLAGS` and `ADD_FFLAGS` say to use those extra flags when compiling C and fortran code, respectively. Specifically, `-march=skylake-avx512` tells the compiler to optimize code for the skylake CPUs on Eagle which is [recommended for perfomance reasons](https://www.nrel.gov/hpc/eagle-software-libraries-mkl.html).
+    * `ADD_CFLAGS`, `ADD_FCFLAGS` and `ADD_FFLAGS` say to use those extra flags when compiling C and fortran code, respectively.
 
 !!! tip
     When linking with MKL libraries, Intel's [link line advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) is extremely helpful.
@@ -58,10 +61,10 @@ We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to bu
 
 ## Usage
 
-### Using Custom Ipopt with JuMP
+### Using Custom IPOPT with JuMP
 
 !!! note
-    When running your custom IPOPT build on Eagle, you will need to do two things:
+    When running your custom IPOPT build on Kestrel, you will need to do two things:
 
     1. Load the same MKL module you compiled against:
         ```bash

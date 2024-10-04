@@ -148,7 +148,6 @@ nav:
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
               - HSL:  Documentation/Development/Libraries/hsl.md
-              - IPOPT: Documentation/Development/Libraries/ipopt.md
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
