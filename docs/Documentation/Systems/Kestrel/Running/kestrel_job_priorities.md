@@ -13,15 +13,14 @@ affect the expected start time of higher priority jobs).
 
 An individual job's priority is a combination of multiple factors: (1) age, (2) nodes requested or jobsize, (3) partition
 factor, (4) quality of service (qos), and (5) the relative fair-share of the individual allocation.  There is a weighting
-factor associated with each of these components (shown below) that determines the relative contribution of each factor to
-a job's priority. 
+factor associated with each of these components (shown below) that determines the relative contribution of each factor:
 
 | Component | Weighting Factor | Nominal Weight| Note |
 | :---| :---: | :---: | :--- | 
 | AGE | 30,589,200 |4% | Jobs accumulate AGE priority while in the queue and eligible to run (up to a maximum of 14 days) |
 | JOBSIZE | 221,771,700 | 29%| TO BE CHANGED
 | PARTITION | 38,236,500 | 5% | Not currently implemented in Kestrel; all jobs receive max partition priority.|
-| QOS | 76,473,000 | 10%| A job may request high-priority using --qos=high.  Jobs with this flag selected receive maximum
+| QOS | 76,473,000 | 10%| A job may request high-priority using --qos=high.  Jobs with this flag selected receive a priority boost.
 | FAIR-SHARE| 397,659,600 | 55% |  A project is under-served (and receives a higher fair-share priority) if the projects' usage is low relative to the size of its' allocation.  There is additional complexity discussed below.|
 
 ## Fairshare
@@ -34,8 +33,13 @@ where
 
 $$S = \frac{Sraw_{self}}{Sraw_{self+siblings}}, \quad U = \frac{Uraw_{self}}{Uraw_{self+siblings}}$$
 
-This is repeated at each level of the fairshare tree, where the siblings at each level are used in the calculation (e.g., at the EERE Office level, the siblings for EERE_WETO are the other EERE offices; within EERE_WETO, the siblings are the other projects contained in that office).  Once the level fairshare calculations are complete,  a ranked list is built using a depth first traversal of the fairshare tree and a projects fairshare priority is proportional its' position on this list.
+This is repeated at each level of the fairshare tree, where the siblings at each level are used in the calculation (e.g., at the EERE Office level, the siblings for EERE_WETO are the other EERE offices; within EERE_WETO, the siblings are the other projects within EERE_WETO).  Once the level fairshare calculations are complete,  a ranked list is built using a depth first traversal of the fairshare tree and a projects fairshare priority is proportional its' position on this list.
 
+As additional complexity, the above usage calculations are modified by a half-decay system that empahsizes more recent usage and de-emphasizes historical usage.  The half life decay is set to 14-days on Kestrel, and the associated usage calculations would be:
+
+$$ U = U_{current_period} + ( D * U_{last-period}) + (D * D * U_{period-2}) + ...$$
+
+The decay factor, *D*, is described in more detail on the Slurm documentation, but is a number between 0 and 1 that achives the half-decay rate specified by the Slurm configruation (14-days on Kestrel). 
 
 ## How to Get High Priority for a Job
 You can submit your job to run at high priority or you can request a node reservation.
