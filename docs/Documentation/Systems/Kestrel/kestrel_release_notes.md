@@ -2,6 +2,13 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
+## October 8, 2024
+
+1. Slurm was upgraded from 23.11.7 to 23.11.10. 
+1. The load order of default bash profile data was changed on login nodes such that app-related environment variables load last.
+1. PrgEnv-gnu/8.5.0 is now loaded by default when you login to Kestrel instead of PrgEnv-cray. 
+1. The `module restore` command shouldn't be used. It will load broken modules. 
+
 ## August 14, 2024
 
 Jobs running on `debug` GPU nodes are now limited to a total of half of one GPU node's resources across one or two nodes. This is equivalent to 64 CPUs, 2 GPUs, and 180G of RAM on one node or 32 CPUs, 1 GPU, and 90GB of RAM on two nodes. `--exclusive` can no longer be used for GPU debug jobs. 
