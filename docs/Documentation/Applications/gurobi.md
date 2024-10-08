@@ -1,4 +1,4 @@
-# Using the Gurobi Optimizer Solvers
+# Gurobi
 
 *Gurobi Optimizer is a suite of solvers for mathematical programming.*
 
@@ -23,12 +23,12 @@ documentation](https://www.gurobi.com/documentation/).
 
 ## Available Modules
 
-| Kestrel         | Eagle           | Swift           |
-|:---------------:|:---------------:|:---------------:|
-| gurobi/11.0.0   |||
-| gurobi/10.0.2   | gurobi/10.0.2   ||
-| gurobi/10.0.1   | gurobi/10.0.1   ||
-| gurobi/9.5.1    | gurobi/9.5.1    | gurobi/9.5.1    |
+| Kestrel         | Swift           |
+|:---------------:|:---------------:|
+| gurobi/11.0.0   ||
+| gurobi/10.0.2   ||
+| gurobi/10.0.1   ||
+| gurobi/9.5.1    | gurobi/9.5.1    |
 
 
 ## Gurobi and MATLAB
