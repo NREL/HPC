@@ -9,10 +9,10 @@ Learn about [job partitions and scheduling policies](./index.md).
 
 The Slurm scheduler has two scheduling loops: 
 
-1. Main scheduling loop, which schedules jobs in strict priority order, 
-2. Backfill scheduling loop, that allows lower priority jobs to be scheduled (as long as the expected start time of higher priority jobs is not affected).  
+1. **Main scheduling loop**, which schedules jobs in strict priority order, 
+2. **Backfill scheduling loop**, that allows lower priority jobs to be scheduled (as long as the expected start time of higher priority jobs is not affected).  
 
-In both cases, Slurm schedules in strict priority, with higher priority jobs being considered first for scheduling; however, due to the resources requested or other configuration options, there may be availability for backfill to schedule lower priority jobs (with the same caveat as before, that lower priority jobs can not affect the expected start time of higher priority jobs).
+In both cases, Slurm schedules in strict priority, with higher priority jobs being considered first for scheduling; however, due to the resources requested or other configuration options, there may be availability for backfill to schedule lower priority jobs (with the same caveat as before, that lower priority jobs can not affect the expected start time of higher priority jobs).  The backfill scheduler uses the user defined wallclock during submission for scheduling, which can result in scheduler inefficineces as the estimates diverge from actual wallclock.
 
 An individual job's priority is a combination of multiple factors: (1) age, (2) nodes requested or jobsize, (3) partition
 factor, (4) quality of service (qos), and (5) the relative fair-share of the individual allocation.  There is a weighting
@@ -24,7 +24,7 @@ factor associated with each of these components (shown below) that determines th
 | jobsize | 221,771,700 | 29%| TO BE CHANGED
 | partition | 38,236,500 | 5% | Not currently implemented in Kestrel; all jobs receive max partition priority.|
 | qos | 76,473,000 | 10%| A job may request high-priority using --qos=high and receive the full qos priority.  Jobs without this flag receive no qos priority.
-| fairshare| 397,659,600 | 55% |  A project is under-served (and receives a higher fair-share priority) if the projects' usage is low relative to the size of its' allocation.  There is additional complexity discussed below.|
+| fairshare| 397,659,600 | 52% |  A project is under-served (and receives a higher fair-share priority) if the projects' usage is low relative to the size of its' allocation.  There is additional complexity discussed below.|
 
 ## Fairshare
 
