@@ -5,6 +5,7 @@
 ## October 8, 2024
 
 1. Slurm was upgraded from 23.11.7 to 23.11.10. 
+1. The load order of default bash profile data was changed on login nodes such that app-related environment variables load last.
 1. PrgEnv-gnu/8.5.0 is now loaded by default when you login to Kestrel instead of PrgEnv-cray. 
 1. The `module restore` command shouldn't be used. It will load broken modules. 
 
