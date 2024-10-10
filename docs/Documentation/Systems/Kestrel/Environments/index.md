@@ -82,9 +82,9 @@ These environments come packaged with:
 3. Cray LibSci, which can be used in place of MKL
 4. Additional communication and network libraries
 
-Upon logging into the machine, the `PrgEnv-cray` is loaded by default. If we `module list`, we can see the modules associated with `PrgEnv-cray`. If we `module unload PrgEnv-cray` then we can see a few lingering modules. These are `craype-x86-spr` and `perftools-base/22.09` where the first dictates the architecture of the processors and is used to optimize the build step for the given hardware and the latter is a perfomance software that can be used to profile codes.   
+Upon logging into the machine, the `PrgEnv-gnu` is loaded by default on both the CPU and GPU login nodes. If we `module list`, we can see the modules associated with `PrgEnv-gnu`. If we `module unload PrgEnv-gnu` then we can see a few lingering modules. These are `craype-x86-spr` and `perftools-base/22.09` where the first dictates the architecture of the processors and is used to optimize the build step for the given hardware and the latter is a perfomance software that can be used to profile codes.   
 
-We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-cray` is loaded but we want to use the GNU programming environment instead, we can `module swap PrgEnv-cray PrgEnv-gnu`.
+We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-gnu` is loaded but we want to use `PrgEnv-cray` instead, we can `module swap PrgEnv-gnu PrgEnv-cray`.
 
 ### What is a PrgEnv module doing?
 
@@ -117,17 +117,6 @@ setenv		 CRAY_PRGENVGNU loaded
 ```
 
 This tells us that PrgEnv-gnu conflicts with all other PrgEnvs. The modulefile sets some environment variables (the `setenv` lines), and loads the modules associated with the programming environment.
-
-For most intents and purposes, we could re-construct and utilize the same programming environment by individually loading the associated modules:
-
-```
-module load gcc/12.1.0
-module load craype
-module load cray-mpich
-module load cray-libsci
-module load craype-network-ofi
-module load cray-dsmml
-```
 
 We can use the `module whatis` command to give us a brief summary of a module. For example, the command:
 
