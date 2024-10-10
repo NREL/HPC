@@ -82,7 +82,7 @@ These environments come packaged with:
 3. Cray LibSci, which can be used in place of MKL
 4. Additional communication and network libraries
 
-Upon logging into the machine, the `PrgEnv-gnu` is loaded by default on both the CPU and GPU login nodes. If we `module list`, we can see the modules associated with `PrgEnv-gnu`. If we `module unload PrgEnv-gnu` then we can see a few lingering modules. These are `craype-x86-spr` and `perftools-base/22.09` where the first dictates the architecture of the processors and is used to optimize the build step for the given hardware and the latter is a perfomance software that can be used to profile codes.   
+Upon logging into the machine, the `PrgEnv-gnu` is loaded by default on both the CPU and GPU login nodes. If we `module list`, we can see the modules associated with `PrgEnv-gnu`.
 
 We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-gnu` is loaded but we want to use `PrgEnv-cray` instead, we can `module swap PrgEnv-gnu PrgEnv-cray`.
 
