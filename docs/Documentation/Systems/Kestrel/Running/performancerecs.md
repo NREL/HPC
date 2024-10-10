@@ -29,8 +29,3 @@ These environment variables turn off some collective optimizations that we have 
 
 4. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
 
-6. ONLY if you are running on 10 or more nodes and are experiencing scalability issues, you can try half-packing the nodes you request, i.e., requesting 52 ranks per node instead of 104 ranks per node, then spreading these ranks evenly across the two sockets. This can be accomplished by including the following in your srun command:   
-```
---ntasks-per-node=52 --distribution=cyclic:cyclic --cpu_bind=cores
-```
-
