@@ -1,0 +1,7488 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../Programming_Models/gpu_hpc/">
+      
+      
+        <link rel="next" href="../../Build_Tools/cmake/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>Compilers - NREL HPC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","UA-189117140-2"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","UA-189117140-2",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=UA-189117140-2",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#compiler-information" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+<!-- Add announcement here, including arbitrary HTML -->
+Eagle external login methods have changed: non-NREL users now have to access Eagle through the <a
+  href="https://www.nrel.gov/hpc/vpn-connection.html">HPC VPN</a>
+or <a href="https://www.nrel.gov/hpc/ssh-gateway-connection.html">SSH gateway</a>. This does not affect Kestrel. <a
+  
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="NREL HPC" class="md-header__button md-logo" aria-label="NREL HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NREL HPC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compilers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NREL/HPC/tree/gh-pages" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NREL/HPC
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../blog/2020-12-01-numba/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="NREL HPC" class="md-nav__button md-logo" aria-label="NREL HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NREL HPC
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NREL/HPC/tree/gh-pages" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NREL/HPC
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2020-12-01-numba/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Speeding up Python Code with Numba
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2021-05-06-tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Faster Machine Learning with Custom Built TensorFlow on Eagle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2021-06-18-srun/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using srun to Launch Applications Under Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2022-02-02-Changes_to_Slurm_srun_for_interactive_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changes to Slurm "srun" for Interactive Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2022-10-04-python2to3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Legacy Python 2 Code on Eagle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2022-03-05-local-io-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local I/O Performance on Eagle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2022-12-19-windows_ssh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workaround for Windows SSH "Corrupted MAC on input" Error
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2023-01-10-using_specific_module_versions_on_hpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using Specific Module Versions on the HPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/2023-11-28_module_updates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Module Updates on Kestrel for November 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Systems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/Kestrel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Kestrel
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kestrel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/Kestrel/Running/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Running on Kestrel
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2_2" id="__nav_3_4_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Running on Kestrel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Running/kestrel_job_priorities/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Priorities on Kestrel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Running/example_sbatch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Example Sbatch Scripts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Running/performancerecs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Recommendations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/Kestrel/Filesystems/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Filesystems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2_3" id="__nav_3_4_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Filesystems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Filesystems/lustre/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lustre Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/kestrel_release_notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kestrel Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/Kestrel/Environments/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2_5" id="__nav_3_4_2_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Environments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2_5_2" id="__nav_3_4_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Toolchains
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_4_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Toolchains
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Environments/Toolchains/intel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Environments/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Kestrel/Environments/gpubuildandrun/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building Applications for GPUs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/Swift/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Swift
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Swift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/running/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running on Swift
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Swift/filesystems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Filesystems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Systems/Vermilion/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Vermilion
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vermilion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Systems/Vermilion/running/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running on Vermilion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Slurm/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Slurm Job Scheduling
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm Job Scheduling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Slurm/monitor_and_control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor and Control Commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Slurm/batch_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Submitting Batch Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Slurm/interactive_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Interactive Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Slurm/multiple_sub_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multiple Sub-Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Slurm/job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Managing your Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Managing your Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Managing_Data/file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unix File Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Managing_Data/mss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mass Storage System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Managing_Data/localstorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Local Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Managing_Data/Transferring_Files/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Transferring Files
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_4" id="__nav_3_6_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transferring Files
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Managing_Data/Transferring_Files/FileZilla/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FileZilla
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Managing_Data/Transferring_Files/globus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transferring Files with Globus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Managing_Data/Transferring_Files/winscp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WinSCP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shell Startup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/lmod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lmod
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/Customization/conda/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conda
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Environment/Building_Packages/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Building an Application
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7_4" id="__nav_3_7_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Building an Application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/Building_Packages/acquire/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting the package
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/Building_Packages/config_make_install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config, Make, Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Environment/Building_Packages/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create a Modulefile
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Applications/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Applications
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/ansys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ANSYS CFD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/amrwind/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AMR-Wind
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/comsol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COMSOL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/fenics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FEniCS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/gams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAMS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/gaussian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gaussian
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/gurobi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gurobi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/idaes_solvers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDAES Solvers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/ipopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPOPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/lammps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAMMPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8_12" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Applications/Matlab/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    MATLAB
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8_12" id="__nav_3_8_12_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8_12">
+            <span class="md-nav__icon md-icon"></span>
+            MATLAB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/Matlab/batch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Batch Mode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/Matlab/interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interactive Mode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/Matlab/parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Computing Toolbox
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/Matlab/versions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Versions and Licenses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/openfoam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenFOAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8_14" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Applications/Plexos/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    PLEXOS
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8_14" id="__nav_3_8_14_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8_14">
+            <span class="md-nav__icon md-icon"></span>
+            PLEXOS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/Plexos/setup_plexos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting Up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/Plexos/run_plexos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/qchem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Q-Chem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/starccm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STAR-CCM+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/vasp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VASP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/wrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WRF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Applications/xpressmp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Xpress
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_1" id="__nav_3_9_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_1">
+            <span class="md-nav__icon md-icon"></span>
+            Languages
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Languages/Julia/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_1_1" id="__nav_3_9_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Julia
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/Julia/julia_install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/Julia/julia_tour/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tour of Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/Julia/julia_parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia Parallel Computing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/Julia/julia_ccall_pycall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyCall and CCall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/bash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Languages/Fortran/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Fortran
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_1_5" id="__nav_3_9_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Fortran
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/Fortran/f90_advanced/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Languages/Python/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_1_6" id="__nav_3_9_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Languages/Python/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Jupyter/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jupyter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_3" id="__nav_3_9_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Programming Models
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_3">
+            <span class="md-nav__icon md-icon"></span>
+            Programming Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Programming_Models/mpi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Programming_Models/gpu_hpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using GPUs for HPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Compilers
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Compilers
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilers-covered" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilers covered
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gccg" class="md-nav__link">
+    <span class="md-ellipsis">
+      gcc/g++
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gcc/g++">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gfortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      gfortran
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gfortran">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-save" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Save)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-argument-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (argument mismatch)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-listing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating listing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iccicpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      icc/icpc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="icc/icpc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ifort" class="md-nav__link">
+    <span class="md-ellipsis">
+      ifort
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ifort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-listing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate Listing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generate Listing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coarray-fortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coarray Fortran
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cray-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cray CC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cray CC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Language standard settings (Dialect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-values-for-the-c-language-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported values for the C language are:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-values-for-the-c-language-are_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported values for the C++ language are:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-values-for-the-cuda-language-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported values for the CUDA language are:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-listing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating listing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cray-ftn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cray ftn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cray ftn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-save_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Save)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-listing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating listing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_5" id="__nav_3_9_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Build Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_5">
+            <span class="md-nav__icon md-icon"></span>
+            Build Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Build_Tools/cmake/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CMake
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Build_Tools/spack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Build_Tools/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Libraries/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Libraries
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_6" id="__nav_3_9_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_6">
+            <span class="md-nav__icon md-icon"></span>
+            Libraries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/howto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Libraries How-to
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/fftw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FFTW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/hdf5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HDF5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/hsl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HSL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/lapack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAPACK and ScaLAPACK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/libsci/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibSci
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/mkl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MKL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Libraries/petsc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PETSc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_7" id="__nav_3_9_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Performance Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_7">
+            <span class="md-nav__icon md-icon"></span>
+            Performance Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_7_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Performance_Tools/Linaro-Forge/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linaro-Forge
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_7_1" id="__nav_3_9_7_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Linaro-Forge
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Performance_Tools/Linaro-Forge/map/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Performance_Tools/Linaro-Forge/performance_rep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Reports
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_7_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Performance_Tools/Intel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Intel Parallel Studio
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Intel Parallel Studio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_8" id="__nav_3_9_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Debug Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_8">
+            <span class="md-nav__icon md-icon"></span>
+            Debug Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Debug_Tools/gdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_9" id="__nav_3_9_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Visual Studio Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_9">
+            <span class="md-nav__icon md-icon"></span>
+            Visual Studio Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VSCode/vscode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connecting With VS Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Containers/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_10" id="__nav_3_9_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_10">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/registries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container registries at NREL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/singularity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Singularity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/apptainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apptainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Viz_Analytics/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Visualization and Analytics
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Visualization and Analytics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Viz_Analytics/virtualgl_fastx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VirtualGL and FastX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Viz_Analytics/paraview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Paraview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Viz_Analytics/visit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VisIT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_11" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Machine_Learning/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_11">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Machine_Learning/Reinforcement_Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Machine_Learning/TensorBoard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TensorBoard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Machine_Learning/Containerized_TensorFlow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Containerized TensorFlow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Topics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilers-covered" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilers covered
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gccg" class="md-nav__link">
+    <span class="md-ellipsis">
+      gcc/g++
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gcc/g++">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gfortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      gfortran
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gfortran">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-save" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Save)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-argument-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (argument mismatch)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-listing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating listing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iccicpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      icc/icpc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="icc/icpc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ifort" class="md-nav__link">
+    <span class="md-ellipsis">
+      ifort
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ifort">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-listing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate Listing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generate Listing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coarray-fortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coarray Fortran
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cray-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cray CC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cray CC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Language standard settings (Dialect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-values-for-the-c-language-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported values for the C language are:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-values-for-the-c-language-are_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported values for the C++ language are:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-values-for-the-cuda-language-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported values for the CUDA language are:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-listing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating listing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cray-ftn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cray ftn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cray ftn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal-invocation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal invocation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-optimization_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-performance_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compiling-for-debugging-and-related-purposes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compiling for debugging and related purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#some-file-extensions_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Some file extensions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-dialect_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Dialect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language-standard-settings-save_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language standard settings (Save)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-listing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generating listing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openmp-support_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenMP support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openacc-support_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenACC support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-compiler-specific-options_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important compiler specific options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="compiler-information">Compiler Information<a class="headerlink" href="#compiler-information" title="Permanent link">#</a></h1>
+<p><em>This document describes some of the important command line options for various compilers.  This includes gcc, gfortran, g++, Intel, Fortran, C, C++, as well as the Cray compilers. The infomation contained herein is not complete but only a small subset of what is available in man pages and full documentation.  For example, the man page for gcc is over 21,000 lines long.</em></p>
+<h2 id="topics">Topics<a class="headerlink" href="#topics" title="Permanent link">#</a></h2>
+<p>The topics covered include:</p>
+<ul>
+<li>Normal invocation</li>
+<li>Default optimization level</li>
+<li>Compiling for performance</li>
+<li>Compiling for debugging and related purposes</li>
+<li>Runtime checks</li>
+<li>Some File extensions</li>
+<li>Language standard settings (Dialect)</li>
+<li>Generating listing, if available</li>
+<li>Preprocessing</li>
+<li>OpenMP support</li>
+<li>OpenACC support</li>
+<li>UPC support (C++)</li>
+<li>Coarray support (Fortran)</li>
+<li>Important compiler specific options</li>
+<li>Notes</li>
+</ul>
+<h2 id="compilers-covered">Compilers covered<a class="headerlink" href="#compilers-covered" title="Permanent link">#</a></h2>
+<ul>
+<li>gcc</li>
+<li>gfortran</li>
+<li>Intel icc (Classic, not Clang)</li>
+<li>Intel ifort (Fortran, not Clang)</li>
+<li>Cray C (Clang based)</li>
+<li>Cray Fortran (ftn)</li>
+</ul>
+<h2 id="gccg">gcc/g++<a class="headerlink" href="#gccg" title="Permanent link">#</a></h2>
+<p>This discussion is for version 12.x. Most options are supported for recent versions of the compilers.  Also, most command line options for gcc and g++ are supported for each compiler.  It is recommended that C++ programs be compiled with g++ and C programs with gcc.</p>
+<h4 id="normal-invocation">Normal invocation<a class="headerlink" href="#normal-invocation" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code># Compile and link a program with the executable sent to the indicated
+  file
+gcc mycode.c -o myexec
+g++ mycode.C -o myexec
+
+# Compile a file but don&#39;t link 
+gcc -c mycode.c 
+g++ -c mycode.C 
+</code></pre></div>
+<h4 id="default-optimization">Default optimization<a class="headerlink" href="#default-optimization" title="Permanent link">#</a></h4>
+<p>The default optimization level is -O0 on most systems.  It is possible that a compiler might be configured to have a different default.  One easy way to determine the default is to build a simple application without specifying an optimization level and compare its size to a version compiled with optimization on.  </p>
+<h4 id="compiling-for-performance">Compiling for performance<a class="headerlink" href="#compiling-for-performance" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-O1 Optimize.  Optimizing compilation takes somewhat more time, and a
+    lot more memory for a large function.
+
+-O2 Optimize even more.  GCC performs nearly all supported
+    optimizations that do not involve a space-speed tradeoff.
+
+-O3 Optimize yet more.
+
+-Ofast Disregard strict standards compliance.  -Ofast enables all -O3
+    optimizations.  It also enables optimizations that are not valid
+    for all standard-compliant programs.  
+</code></pre></div>
+<p>You can discover which optimizations are at various levels of optimization as shown below.  The last command will show all potential optimization flags, over 250.</p>
+<div class="highlight"><pre><span></span><code>gcc -c -Q -O3 --help=optimizers &gt; /tmp/O3-opts
+gcc -c -Q -O2 --help=optimizers &gt; /tmp/O2-opts
+diff /tmp/O2-opts /tmp/O3-opts | grep enabled
+
+gcc -Q  --help=optimizers 
+</code></pre></div>
+<h4 id="compiling-for-debugging-and-related-purposes">Compiling for debugging and related purposes<a class="headerlink" href="#compiling-for-debugging-and-related-purposes" title="Permanent link">#</a></h4>
+<p><div class="highlight"><pre><span></span><code>-Og Optimize debugging experience. Use instead of -O0. Does sopme
+    optimization but maintains debug information
+
+-g  Produce debugging information
+
+gcc -Og -g myprog.c
+
+-p,-pg Generate extra code to write profile information suitable for
+    the analysis program prof (for -p) or gprof
+</code></pre></div>
+There are many potential options  for profiling.  See the man page and search for -pg. </p>
+<h4 id="some-file-extensions">Some file extensions<a class="headerlink" href="#some-file-extensions" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>file.c
+   C source code that must be preprocessed.
+
+file.i
+   C source code that should not be preprocessed.
+
+file.ii
+   C++ source code that should not be preprocessed.
+
+file.cc
+file.cp
+file.cxx
+file.cpp
+file.CPP
+file.c++
+file.C
+   C++ source code that must be preprocessed.  
+</code></pre></div>
+<p>You can specify explicitly the language for file indepenent of the extension using the -x option.  For example <strong>gcc -x c file.cc</strong> will complie the program as C instead of C++.</p>
+<h4 id="language-standard-settings-dialect">Language standard settings (Dialect)<a class="headerlink" href="#language-standard-settings-dialect" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-ansi This is equivalent to -std=c90. In C++ mode, it is equivalent to -std=c++98.
+
+
+-std=
+
+c90
+   Support all ISO C90 programs 
+
+iso9899:199409
+   ISO C90 as modified in amendment 1.
+
+c99
+   ISO C99.  
+
+c11
+   ISO C11, the 2011 revision of the ISO C standard.  
+
+c18
+   ISO C17, the 2017 revision of the ISO C standard
+   (published in 2018).  
+
+c2x The next version of the ISO C standard, still under
+    development.  The support for this version is
+    experimental and incomplete.
+
+
+c++98 The 1998 ISO C++ standard plus the 2003 technical
+      corrigendum and some additional defect reports. Same as
+      -ansi for C++ code.
+
+c++11
+   The 2011 ISO C++ standard plus amendments.  
+
+c++14
+   The 2014 ISO C++ standard plus amendments.  
+
+c++17
+   The 2017 ISO C++ standard plus amendments. 
+</code></pre></div>
+<p>This is a subset of all of the options.  There are "gnu" specific versions of many of these which give slight variations.  Also, some fo these can be specified  in various deprecated flags. The dialects available for the compilers are highly version dependent.  Older versions of compiler will not support newer dialects.</p>
+<h4 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">#</a></h4>
+<p>Unless explicitly disabled by the file extension as described above files are preprocessed.  If you pass the <strong>-E</strong> option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output </p>
+<h4 id="openmp-support">OpenMP support<a class="headerlink" href="#openmp-support" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fopenmp 
+          Enable handling of OpenMP directives
+-fopenmp-simd
+          Enable handling of OpenMP&#39;s SIMD directives   
+-mgomp          
+          Generate code for use in OpenMP offloading 
+</code></pre></div>
+<p>Offlading will not work on all platforms and may require additional options.</p>
+<h4 id="openacc-support">OpenACC support<a class="headerlink" href="#openacc-support" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code> -fopenacc
+           Enable handling of OpenACC directives
+
+ -fopenacc-dim=geom
+           Specify default compute dimensions for parallel offload
+           regions that do not explicitly specify
+ ```
+
+Offlading will not work on all platforms and may require additional options.          
+</code></pre></div>
+<h4 id="important-compiler-specific-options">Important compiler specific options<a class="headerlink" href="#important-compiler-specific-options" title="Permanent link">#</a></h4>
+<p>-Wall
+     This enables all the warnings about constructions that some
+     users consider questionable, and that are easy to avoid (or
+     modify to prevent the warning)</p>
+<p>-Wextra 
+     This enables some extra warning flags that are not enabled by
+     -Wall.</p>
+<h2 id="gfortran">gfortran<a class="headerlink" href="#gfortran" title="Permanent link">#</a></h2>
+<p>This discussion is for version 12.x. Most options are supported for recent versions of the compilers.  Also, most command line options for gcc and g++ are supported for gfortran.</p>
+<h4 id="normal-invocation_1">Normal invocation<a class="headerlink" href="#normal-invocation_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code># Compile and link a program with the executable sent to the indicated
+  file
+gfortran mycode.f90  -o myexec
+
+# Compile a file but don&#39;t link 
+gfortran -c mycode.f90
+</code></pre></div>
+<h4 id="default-optimization_1">Default optimization<a class="headerlink" href="#default-optimization_1" title="Permanent link">#</a></h4>
+<p>The default optimization level is -O0 on most systems.  It is possible that a compiler might be configured to have a different default.  One easy way to determine the default is to build a simple application without specifying an optimization level and compare its size to a version compiled with optimization on.  </p>
+<h4 id="compiling-for-performance_1">Compiling for performance<a class="headerlink" href="#compiling-for-performance_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-O1 Optimize.  Optimizing compilation takes somewhat more time, and a
+    lot more memory for a large function.
+
+-O2 Optimize even more.  GCC performs nearly all supported
+    optimizations that do not involve a space-speed tradeoff.
+
+-O3 Optimize yet more.
+
+-Ofast Disregard strict standards compliance.  -Ofast enables all -O3
+    optimizations.  It also enables optimizations that are not valid
+    for all standard-compliant programs.  
+</code></pre></div>
+<p>You can discover which optimizations are at various levels of optimization as shown below.  The last command will show all potential optimization flags, over 250.</p>
+<div class="highlight"><pre><span></span><code>gfortran -c -Q -O3 --help=optimizers &gt; /tmp/O3-opts
+gfortran -c -Q -O2 --help=optimizers &gt; /tmp/O2-opts
+diff /tmp/O2-opts /tmp/O3-opts | grep enabled
+
+gfortran -Q  --help=optimizers 
+</code></pre></div>
+<h4 id="compiling-for-debugging-and-related-purposes_1">Compiling for debugging and related purposes<a class="headerlink" href="#compiling-for-debugging-and-related-purposes_1" title="Permanent link">#</a></h4>
+<p><div class="highlight"><pre><span></span><code>-Og Optimize debugging experience. Use instead of -O0. Does sopme
+    optimization but maintains debug information
+
+-g  Produce debugging information
+
+-fbacktrace Try to print a back trace on error
+
+-fcheck=&lt;all|array-temps|bits|bounds|do|mem|pointer|recursion&gt;.
+    Perform various runtime checks.  This will slow your program
+    down.
+
+gfortran -Og -g -fbacktrace -fcheck=all myprog.c
+
+-fcheck=&lt;all|array-temps|bits|bounds|do|mem|pointer|recursion&gt;
+    Perform various runtime checks
+
+-p,-pg Generate extra code to write profile information suitable for
+    the analysis program prof (for -p) or gprof
+</code></pre></div>
+There are many potential options  for profiling.  See the man page and search for -pg. </p>
+<h4 id="some-file-extensions_1">Some file extensions<a class="headerlink" href="#some-file-extensions_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>.F, .FOR, .FTN, .fpp, .FPP, .F90, .F95, .F03
+    preprocessor is run automatically   
+
+.f, .for, .ftn, .f90, .f95, .f03
+    preprocessor is not run automatically   
+</code></pre></div>
+<h4 id="language-standard-settings-dialect_1">Language standard settings (Dialect)<a class="headerlink" href="#language-standard-settings-dialect_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>f95, f2003, f2008, f2018 Specify strict conformance to the various
+    standards
+
+gnu 2018 with gnu extensions
+
+legacy Older codes
+
+-ffree-form / -ffixed-form The source is in Free / Fixed form
+</code></pre></div>
+<h4 id="language-standard-settings-save">Language standard settings (Save)<a class="headerlink" href="#language-standard-settings-save" title="Permanent link">#</a></h4>
+<p>The Fortran 90 standard does not indicate the status of variables that leave scope.  That is in general, a variable defined in a subroutine may or may not be defined when the subroutine is reentered.  There are exceptions for variables in common blocks and those defined in modules.</p>
+<p>For Fortran 95 and later local allocatable variables are automatically deallocated upon exit from a subroutine.</p>
+<p>The flags -fautomatic  and -fno-automatic change this behavior.</p>
+<div class="highlight"><pre><span></span><code>-fautomatic Automatically deallocate variables on exit independent of
+    standard setting
+
+-fno-automatic Do not automatically deallocate variables on exit
+    independent of standard setting
+
+-fmax-stack-var-size With this value set to some small value, say 1
+    it appears that variables are not deallocated.  A program
+    compiled with this option would in general be nonconformnet.
+</code></pre></div>
+<p>The above applies to allocatable arrays.  It is not clean what happens to scalers.</p>
+<h4 id="language-standard-settings-argument-mismatch">Language standard settings (argument mismatch)<a class="headerlink" href="#language-standard-settings-argument-mismatch" title="Permanent link">#</a></h4>
+<p>Some code contains calls to external procedures with mismatches
+between the calls and the procedure definition, or with
+mismatches between different calls. Such code is non-conforming,
+and will usually be flagged with an error.  This options degrades
+the error to a warning, which can only be disabled by disabling
+all warnings via -w.  Only a single occurrence per argument is
+flagged by this warning. -fallow-argument-mismatch is implied by
+-std=legacy.</p>
+<p>It is recomended that source code be modified to have interfaces for routines that are called iwth various types of arguments.  Fortran 2018 allows for a generic type for such interfaces.  For example here is an interface for MPI_Bcast </p>
+<div class="highlight"><pre><span></span><code>module bcast
+interface
+ subroutine MPI_BCAST(BUF, COUNT, DATATYPE, DEST, COMM, IERROR)
+ type(*),intent(inout) :: BUF
+ !type(*), dimension(..), intent(in) :: BUF
+ integer, intent(in) ::  COUNT, DATATYPE, DEST,  COMM
+ integer, intent(out) :: IERROR
+ end subroutine
+end interface
+end module
+</code></pre></div>
+<h4 id="generating-listing">Generating listing<a class="headerlink" href="#generating-listing" title="Permanent link">#</a></h4>
+<p>Gfortran does not produce listings.</p>
+<h4 id="preprocessing_1">Preprocessing<a class="headerlink" href="#preprocessing_1" title="Permanent link">#</a></h4>
+<p>Automatic preprocessing is determined by the file name extension as discussed above. You can manually turn it on/off via the options </p>
+<div class="highlight"><pre><span></span><code>-cpp - Preprocess
+-nocpp - Don&#39;t preprocess
+-cpp -E - Preprocess and send output to standard out. Don&#39;t compile
+</code></pre></div>
+<h4 id="openmp-support_1">OpenMP support<a class="headerlink" href="#openmp-support_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fopenmp        Enable handling of OpenMP directives
+-fopenmp-simd   Enable handling of OpenMP&#39;s SIMD directives   
+-mgomp          Generate code for use in OpenMP offloading 
+</code></pre></div>
+<p>Offlading will not work on all platforms and may require additional options.</p>
+<h4 id="openacc-support_1">OpenACC support<a class="headerlink" href="#openacc-support_1" title="Permanent link">#</a></h4>
+<p><div class="highlight"><pre><span></span><code> -fopenacc Enable handling of OpenACC directives
+
+ -fopenacc-dim=geom Specify default compute dimensions for parallel offload
+     regions that do not explicitly specify
+</code></pre></div>
+Offlading will not work on all platforms and may require additional options.          </p>
+<h4 id="important-compiler-specific-options_1">Important compiler specific options<a class="headerlink" href="#important-compiler-specific-options_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fimplicit-none 
+            Produce and error message if there are explicitly typed variables.  
+
+-fdefault-real-8
+            Set the default real type to an 8 byte wide type.  This option also affects the kind of non-double real constants like 1.0. 
+
+-pedantic 
+            Issue warnings for uses of extensions to Fortran.
+
+       -fall-intrinsics
+           This option causes all intrinsic procedures (including the GNU-specific extensions) to be accepted.  This can
+           be useful with -std= to force standard-compliance but get access to the full range of intrinsics available
+           with gfortran.  
+</code></pre></div>
+<h2 id="iccicpc">icc/icpc<a class="headerlink" href="#iccicpc" title="Permanent link">#</a></h2>
+<p>This discussion is for version 2021.6.0.  Icc and icpc will be replaced with clang based alternatives in the near future, icx and icpx.  In the Cray environment if PrgEnv-intel is loaded the "cc" maps to icc.</p>
+<h4 id="normal-invocation_2">Normal invocation<a class="headerlink" href="#normal-invocation_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>Compile and link a program with the executable sent to the indicated
+  file
+icc mycode.c -o myexec
+icpc mycode.C -o myexec
+
+Compile a file but don&#39;t link 
+icc -c mycode.c 
+icpc -c mycode.C 
+</code></pre></div>
+<p>NOTE: The icpc command uses the same compiler options as the icc command. Invoking the compiler using icpc compiles .c and .i files as C++. Invoking the compiler using icc compiles .c and .i files as C. Using icpc always  links in C++ libraries. Using icc only links in C++ libraries if C++ source is provided on the command line.</p>
+<h4 id="default-optimization_2">Default optimization<a class="headerlink" href="#default-optimization_2" title="Permanent link">#</a></h4>
+<p>The default optimization level is -O2.  </p>
+<h4 id="compiling-for-performance_2">Compiling for performance<a class="headerlink" href="#compiling-for-performance_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-O0  Disables all optimizations.
+
+-O1  Enables optimizations for speed.
+
+-O2 Optimize even more. 
+
+-O  Same ans -O2
+
+-O3 Optimize yet more.
+
+-Ofast -O3, -no-prec-div, and -fp-model
+
+-no-prec-div  enables optimizations that give slightly less precise
+    results than full IEEE division
+
+-fp-model slight decrease in the accuracy of math library functions
+
+-opt_report  Generate and optimization report
+</code></pre></div>
+<p>You can learn more about optimizations are at various levels of optimization as shown below.  </p>
+<div class="highlight"><pre><span></span><code>icc -V -help opt
+</code></pre></div>
+<h4 id="compiling-for-debugging-and-related-purposes_2">Compiling for debugging and related purposes<a class="headerlink" href="#compiling-for-debugging-and-related-purposes_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-g[n] 
+    0 Disables generation of symbolic debug information.
+    1 Produces minimal debug information for performing stack traces.
+    2 Produces complete debug information. This is the same as specifying -g with no n.
+    3 Produces extra information that may be useful for some tools.
+
+-Os Generate extra code to write profile information suitable for
+    the analysis program gprof
+</code></pre></div>
+<h4 id="some-file-extensions_2">Some file extensions<a class="headerlink" href="#some-file-extensions_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>file.c
+   C source code that must be preprocessed.
+
+file.i
+   C source code that should not be preprocessed.
+
+file.ii
+   C++ source code that should not be preprocessed.
+
+file.cc
+file.cp
+file.cxx
+file.cpp
+file.CPP
+file.c++
+file.C
+   C++ source code that must be preprocessed.  
+</code></pre></div>
+<p>You can specify explicitly the language for file indepenent of the extension using the -x option.  For example <strong>icc -x c file.cc</strong> will complie the program as C instead of C++.
+<div class="highlight"><pre><span></span><code>#### Language standard settings (Dialect)
+</code></pre></div>
+-std=<std>  enable language support for <std>, as described below</p>
+<p>c99
+    conforms to ISO/IEC 9899:1999 standard for C programs</p>
+<p>c11
+    conforms to ISO/IEC 9899:2011 standard for C programs</p>
+<p>c17
+    conforms to ISO/IEC 9899:2017 standard for C programs</p>
+<p>c18 
+    conforms to ISO/IEC 9899:2018 standard for C programs</p>
+<p>c++11
+    enables C++11 support for C++ programs</p>
+<p>c++14
+    enables C++14 support for C++ programs</p>
+<p>c++17
+    enables C++17 support for C++ programs</p>
+<p>c++20
+    enables C++20 support for C++ programs</p>
+<p>c89
+    conforms to ISO/IEC 9899:1990 standard for C programs</p>
+<p>gnu89
+    conforms to ISO C90 plus GNU extensions</p>
+<p>gnu99 
+    conforms to ISO C99 plus GNU extensions</p>
+<p>gnu++98 
+    conforms to 1998 ISO C++ standard plus GNU extensions</p>
+<p>gnu++11
+    conforms to 2011 ISO C++ standard plus GNU extensions</p>
+<p>gnu++14
+    conforms to 2014 ISO C++ standard plus GNU extensions</p>
+<p>gnu++17 
+    conforms to 2017 ISO C++ standard plus GNU extensions</p>
+<p>gnu++20 c
+    onforms to 2020 ISO C++ standard plus GNU extensions</p>
+<p>-strict-ansi 
+    Implement a strict ANSI conformance dialect</p>
+<div class="highlight"><pre><span></span><code>```
+</code></pre></div>
+<h4 id="preprocessing_2">Preprocessing<a class="headerlink" href="#preprocessing_2" title="Permanent link">#</a></h4>
+<p>Unless explicitly disabled by the file extension as described above files are preprocessed.  If you pass the <strong>-E</strong> option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output </p>
+<h4 id="openmp-support_2">OpenMP support<a class="headerlink" href="#openmp-support_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fopenmp
+    Enable handling of OpenMP directives
+-qopenmp-stubs
+    Compile OpenMP programs in sequential mode 
+-parallel          
+    Auto parallelize
+</code></pre></div>
+<h4 id="openacc-support_2">OpenACC support<a class="headerlink" href="#openacc-support_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>Not supported
+</code></pre></div>
+<p>Offlading will not work on all platforms and may require additional options.          </p>
+<ul>
+<li>Important compiler specific options</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-Wall
+     This enables all the warnings about constructions that some
+     users consider questionable, and that are easy to avoid (or
+     modify to prevent the warning)
+
+-Wextra 
+     This enables some extra warning flags that are not enabled by
+     -Wall.
+
+-help [category]   print full or category help message
+
+Valid categories include
+       advanced        - Advanced Optimizations
+       codegen         - Code Generation
+       compatibility   - Compatibility
+       component       - Component Control
+       data            - Data
+       deprecated      - Deprecated Options
+       diagnostics     - Compiler Diagnostics
+       float           - Floating Point
+       help            - Help
+       inline          - Inlining
+       ipo             - Interprocedural Optimization (IPO)
+       language        - Language
+       link            - Linking/Linker
+       misc            - Miscellaneous
+       opt             - Optimization
+       output          - Output
+       pgo             - Profile Guided Optimization (PGO)
+       preproc         - Preprocessor
+       reports         - Optimization Reports
+
+       openmp          - OpenMP and Parallel Processing
+</code></pre></div>
+<h2 id="ifort">ifort<a class="headerlink" href="#ifort" title="Permanent link">#</a></h2>
+<p>This discussion is for version 2021.6.0.  Ifort  will be replaced with a clang backend based alternative in the near future, ifx.  Ifx will have most of the same options as ifort with some clang additions.  In the Cray environment if PrgEnv-intel is loaded the "cc" maps to icc.</p>
+<h4 id="normal-invocation_3">Normal invocation<a class="headerlink" href="#normal-invocation_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code># Compile and link a program with the executable sent to the indicated
+  file
+ifort mycode.f90 -o myexec
+
+# Compile a file but don&#39;t link 
+ifort -c mycode.c 
+</code></pre></div>
+<h4 id="default-optimization_3">Default optimization<a class="headerlink" href="#default-optimization_3" title="Permanent link">#</a></h4>
+<p>The default optimization level is -O2.  </p>
+<h4 id="compiling-for-performance_3">Compiling for performance<a class="headerlink" href="#compiling-for-performance_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-O1 optimize for maximum speed, but disable some optimizations which
+    increase code size for a small speed benefit
+
+-O2 optimize for maximum speed (DEFAULT)
+
+-O3 optimize for maximum speed and enable more aggressive
+    optimizations that may not improve performance on some programs
+
+-O  same as -O2
+
+-Os  enable speed optimizations, but disable some optimizations which
+    increase code size for small speed benefit
+
+-O0  disable optimizations
+
+-Ofast  enable -O3 -no-prec-div -fp-model fast=2 optimizations
+
+-fno-alias  assume no aliasing in program
+
+-fno-fnalias  assume no aliasing within functions, but assume
+    aliasing across calls
+
+-fast  enable -xHOST -ipo -no-prec-div -O3 -static -fp-model=fast=2
+    optimizations
+
+-opt_report Generate and optimization report
+</code></pre></div>
+<p>You can learn more about optimizations are at various levels of optimization as shown below.  </p>
+<div class="highlight"><pre><span></span><code>ifort -V -help opt
+</code></pre></div>
+<h4 id="compiling-for-debugging-and-related-purposes_3">Compiling for debugging and related purposes<a class="headerlink" href="#compiling-for-debugging-and-related-purposes_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code> -g[n] 
+       0 Disables generation of symbolic debug information.
+       1 Produces minimal debug information for performing stack traces.
+       2 Produces complete debug information. This is the same as specifying -g with no n.
+       3 Produces extra information that may be useful for some tools.
+
+none    Disables all check options.
+
+arg_temp_created    Determines whether checking occurs for actual
+    arguments copied into temporary storage before routine calls.
+
+assume    Determines whether checking occurs to test that the
+    scalar-Boolean-expression in the ASSUME directive is true, or
+    that the addresses in the ASSUME_ALIGNED directive  are  aligned 
+    on  the specified byte boundaries.
+
+bounds    Determines whether checking occurs for array subscript and
+    character s ubstring expressions.
+
+contiguous    Determines whether the compiler checks pointer
+    contiguity at pointer-assignment time.
+
+format    Determines whether checking occurs for the data type of an
+    item being formatted for output.
+
+output_conversion    Determines whether checking occurs for the fit
+    of data items within a designated format descriptor field.
+
+pointers    Determines whether checking occurs for certain
+    disassociated or uninitialized pointers or unallocated
+    allocatable objects.
+
+shape    Determines whether array conformance checking is performed.
+
+stack    Determines whether checking occurs on the stack frame.
+
+teams    Determines whether the run-time system diagnoses
+    non-standard coarray team usage.
+
+udio_iostat    Determines whether conformance checking occurs when
+    user-defined derived type input/output routines are executed.
+
+uninit     Determines whether checking occurs for uninitialized
+    variables.
+
+    all    Enables all check options.
+
+-Os Generate extra code to write profile information suitable for
+           the analysis program gprof
+</code></pre></div>
+<h4 id="some-file-extensions_3">Some file extensions<a class="headerlink" href="#some-file-extensions_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>Filenames with the suffix .f90 are interpreted as free-form Fortran
+    95/90 source files.
+
+Filenames with the suffix .f, .for, or .ftn are interpreted as
+    fixed-form Fortran source files.
+
+Filenames with the suffix .fpp, .F, .FOR, .FTN, or .FPP are
+    interpreted as fixed-form Fortran source files, which must be
+    preprocessed by the fpp preprocessor before being compiled.
+
+Filenames with the suffix .F90 are interpreted as free-form Fortran
+    source files, which must be pre-processed by the fpp preprocessor
+    before being compiled.
+</code></pre></div>
+<p>You can specify explicitly the language for file indepenent of the extension using the -x option.  For example <strong>icc -x c file.cc</strong> will complie the program as C instead of C++.</p>
+<h4 id="language-standard-settings-dialect_2">Language standard settings (Dialect)<a class="headerlink" href="#language-standard-settings-dialect_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-stand 
+
+none    Tells the compiler to issue no messages for nonstandard
+    language elements. This is the same as specifying nostand.
+
+f90    Tells the compiler to issue messages for language elements
+    that are not standard in Fortran 90.
+
+f95    Tells the compiler to issue messages for language elements
+    that are not standard in Fortran 95.
+
+f03    Tells the compiler to issue messages for language elements
+    that are not standard in Fortran 2003.
+
+f08    Tells the compiler to issue messages for language elements
+    that are not standard in Fortran 2008.
+
+f18    Tells the compiler to issue messages for language elements
+    that are not standard in Fortran 2018. This option is set if you
+    specify warn stderrors.
+</code></pre></div>
+<h3 id="generate-listing">Generate Listing<a class="headerlink" href="#generate-listing" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>-list
+</code></pre></div>
+<h4 id="preprocessing_3">Preprocessing<a class="headerlink" href="#preprocessing_3" title="Permanent link">#</a></h4>
+<p>Unless explicitly enabled by the file extension as described above files are not preprocessed.  If you pass the <strong>-E</strong> option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output.  The option  **-fpp ** will force running the preprocessor.</p>
+<h4 id="openmp-support_3">OpenMP support<a class="headerlink" href="#openmp-support_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fopenmp
+    Enable handling of OpenMP directives
+-qopenmp-stubs
+    Compile OpenMP programs in sequential mode 
+-parallel          
+    Auto parallelize
+</code></pre></div>
+<h4 id="openacc-support_3">OpenACC support<a class="headerlink" href="#openacc-support_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>Not supported
+</code></pre></div>
+<h4 id="coarray-fortran">Coarray Fortran<a class="headerlink" href="#coarray-fortran" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-coarray[=keyword] Enables the coarray feature where keyword
+    Specifies the memory system where the coarrays will be
+    implemented. Possible values are:
+
+shared    Indicates a shared memory system. This is the default.
+
+distributed    Indicates a distributed memory system.
+
+single     Indicates a configuration where the image does not
+    contain self-replication code. This results in an executable with
+    a single running image. This configuration can be useful for
+    debugging purposes, even though there are no inter-image
+    interactions.
+</code></pre></div>
+<ul>
+<li>Important compiler specific options</li>
+</ul>
+<div class="highlight"><pre><span></span><code>-save    Causes variables to be placed in static memory.
+
+
+Default:    This option saves all variables in static allocation
+    except local variables within a recursive routine and variables
+    declared as AUTOMATIC.
+
+-auto-scalar    Scalar variables of intrinsic types INTEGER, REAL,
+    COMPLEX, and LOGICAL are allocated  to the run-time stack unless
+    the routine is recursive of OpenMP For Fortran 95 and later
+    variables are not saved by default and allocatable arrays are
+    deallocated.  This appears to be true ifort even if the standard
+    is set to f90.  However, it is poor practice to rely on this
+    behavior.
+
+
+-Wall.   This enables all the warnings about constructions that some
+    users consider questionable, and that are easy to avoid (or
+    modify to prevent the warning)
+
+-warn declarations    Generate warnings for variables that are not
+    explicitly typed.
+
+-Wextra     This enables some extra warning flags that are not
+    enabled by -Wall.
+-save    Causes variables to be placed in static memory.
+
+
+Default:    This option saves all variables in static allocation
+    except local variables within a recursive routine and variables
+    declared as AUTOMATIC.
+
+-auto-scalar    Scalar variables of intrinsic types INTEGER, REAL,
+    COMPLEX, and LOGICAL are allocated  to the run-time stack unless
+    the routine is recursive of OpenMP For Fortran 95 and later
+    variables are not saved by default and allocatable arrays are
+    deallocated.  This appears to be true ifort even if the standard
+    is set to f90.  However, it is poor practice to rely on this
+    behavior.
+
+
+-Wall.   This enables all the warnings about constructions that some
+    users consider questionable, and that are easy to avoid (or
+    modify to prevent the warning)
+
+-warn declarations    Generate warnings for variables that are not
+    explicitly typed.
+
+-Wextra     This enables some extra warning flags that are not
+    enabled by -Wall.
+
+
+-help [category]    print full or category help message
+
+Valid categories include
+       advanced        - Advanced Optimizations
+       codegen         - Code Generation
+       compatibility   - Compatibility
+       component       - Component Control
+       data            - Data
+       deprecated      - Deprecated Options
+       diagnostics     - Compiler Diagnostics
+       float           - Floating Point
+       help            - Help
+       inline          - Inlining
+       ipo             - Interprocedural Optimization (IPO)
+       language        - Language
+       link            - Linking/Linker
+       misc            - Miscellaneous
+       opt             - Optimization
+       output          - Output
+       pgo             - Profile Guided Optimization (PGO)
+       preproc         - Preprocessor
+       reports         - Optimization Reports
+
+       openmp          - OpenMP and Parallel Processing
+</code></pre></div>
+<h2 id="cray-cc">Cray CC<a class="headerlink" href="#cray-cc" title="Permanent link">#</a></h2>
+<p>In the Cray environment cc is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray C : Version 14.0.4.  cc will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.  Cray C : Version 14.0.4 is clang based with Cray enhancements</p>
+<h4 id="normal-invocation_4">Normal invocation<a class="headerlink" href="#normal-invocation_4" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code># Compile and link a program with the executable sent to the indicated
+  file
+cc mycode.c  -o myexec
+
+# Compile a file but don&#39;t link 
+cc -c mycode.c 
+</code></pre></div>
+<h4 id="default-optimization_4">Default optimization<a class="headerlink" href="#default-optimization_4" title="Permanent link">#</a></h4>
+<p>The default optimization level is -O0.</p>
+<h4 id="compiling-for-performance_4">Compiling for performance<a class="headerlink" href="#compiling-for-performance_4" title="Permanent link">#</a></h4>
+<p><div class="highlight"><pre><span></span><code>-O0, -O1, -O2, -O3, -Ofast, -Os, -Oz, -Og, -O, -O4 Specify which
+    optimization level to use: 
+
+-O0    Means &quot;no optimization&quot;: this
+    level compiles the fastest and generates the most debuggable
+    code.
+
+-O1    Somewhere between -O0 and -O2.
+
+-O2    Moderate level of optimization which enables most
+    optimizations.
+
+-O3     Like -O2, except that it enables optimizations that take
+    longer to perform or that may generate larger code (in an attempt
+    to make the program run faster).
+
+-Ofast     Enables all the optimizations from -O3 along with other
+    aggressive optimizations that may violate strict compliance with
+    language standards.
+
+-Os     Like -O2 with extra optimizations to reduce code size.
+
+-Oz    Like -Os (and thus -O2), but reduces code size further.
+
+-Og    Like -O1. In future versions, this option might disable
+    different optimizations in order to improve debuggability.
+
+-O    Equivalent to -O1.
+
+-O4    and higher Currently equivalent to -O3
+</code></pre></div>
+For best performance, -Ofast with -flto is recommended where -flot = Generate  output  files  in  LLVM  formats,  suitable for link time optimization.  The performance improvement with high levels of optimmization.  Here are the run times for a simple finite difference code at various levels of optimization.</p>
+<div class="highlight"><pre><span></span><code>Option       Run Time (sec)
+-O0            10.30
+-O1             3.19
+-O2             2.99
+-O3             2.04
+-Ofast          1.88
+-Ofast -flto    1.49
+-Os             3.19
+-Oz             3.31
+-Og             3.19
+-O              3.20
+</code></pre></div>
+<h4 id="compiling-for-debugging-and-related-purposes_4">Compiling for debugging and related purposes<a class="headerlink" href="#compiling-for-debugging-and-related-purposes_4" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fstandalone-debug 
+      Turn off the stripping of some debug information that might be useful to some debuggers
+
+-feliminate-unused-debug-types
+      By default, Clang does not emit type information for types that are defined but not 
+      used in a program. To retain the debug info for these unused types, the negation 
+      -fno-eliminate-unused-debug-types can be used.
+
+-fexceptions
+      Enable generation of unwind information. This allows exceptions to be thrown through 
+      Clang compiled stack frames.  This is on by default in x86-64.
+
+-ftrapv
+      Generate code to catch integer overflow errors.  Signed integer overflow is undefined 
+      in C. With this flag, extra code is generated to detect this and abort when it happens.
+</code></pre></div>
+<h4 id="some-file-extensions_4">Some file extensions<a class="headerlink" href="#some-file-extensions_4" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>file.c
+   C source code that must be preprocessed.
+
+file.i
+   C source code that should not be preprocessed.
+
+file.ii
+   C++ source code that should not be preprocessed.
+
+file.cc
+file.cp
+file.cxx
+file.cpp
+file.CPP
+file.c++
+file.C
+   C++ source code that must be preprocessed.  
+file.upc
+   UPC
+</code></pre></div>
+<h4 id="language-standard-settings-dialect_3">Language standard settings (Dialect)<a class="headerlink" href="#language-standard-settings-dialect_3" title="Permanent link">#</a></h4>
+<p>Standards are determined by the file extension as given above.  Some addttional checks can be performed.</p>
+<div class="highlight"><pre><span></span><code>  -std=&lt;standard&gt;
+</code></pre></div>
+<p>Specify the language standard to compile for.</p>
+<h5 id="supported-values-for-the-c-language-are">Supported values for the C language are:<a class="headerlink" href="#supported-values-for-the-c-language-are" title="Permanent link">#</a></h5>
+<ul>
+<li>
+<p>ISO C 1999 with GNU extensions</p>
+<ul>
+<li>c89</li>
+<li>c90</li>
+</ul>
+</li>
+<li>
+<p>iso9899:1990</p>
+</li>
+<li>
+<p>ISO C 2011</p>
+<ul>
+<li>c11</li>
+<li>iso9899:2011</li>
+</ul>
+</li>
+<li>
+<p>ISO C 2011 with GNU extensions</p>
+<ul>
+<li>gnu11</li>
+</ul>
+</li>
+<li>
+<p>ISO C 2017</p>
+<ul>
+<li>iso9899:2017</li>
+<li>c17</li>
+</ul>
+</li>
+<li>
+<p>ISO C 2017 with GNU extensions</p>
+<ul>
+<li>gnu17</li>
+</ul>
+</li>
+</ul>
+<p>The default C language standard is gnu17</p>
+<h5 id="supported-values-for-the-c-language-are_1">Supported values for the C++ language are:<a class="headerlink" href="#supported-values-for-the-c-language-are_1" title="Permanent link">#</a></h5>
+<ul>
+<li>
+<p>ISO C++ 1998 with amendments</p>
+<ul>
+<li>c++98</li>
+<li>c++03</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 1998 with amendments and GNU extensions</p>
+<ul>
+<li>gnu++98</li>
+<li>gnu++03</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 2011 with amendments</p>
+<ul>
+<li>c++11</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 2011 with amendments and GNU extensions</p>
+<ul>
+<li>gnu++11</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 2014 with amendments</p>
+<ul>
+<li>c++14</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 2014 with amendments and GNU extensions</p>
+<ul>
+<li>gnu++14</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 2017 with amendments</p>
+<ul>
+<li>c++17</li>
+</ul>
+</li>
+<li>
+<p>ISO C++ 2017 with amendments and GNU extensions</p>
+<ul>
+<li>gnu++17</li>
+</ul>
+</li>
+<li>
+<p>Working draft for ISO C++ 2020</p>
+<ul>
+<li>c++2a</li>
+</ul>
+</li>
+<li>
+<p>Working draft for ISO C++ 2020 with GNU extensions</p>
+<ul>
+<li>gnu++2a</li>
+</ul>
+</li>
+<li>
+<p>The default OpenCL language standard is cl1.0.</p>
+<ul>
+<li>OpenCL</li>
+</ul>
+</li>
+</ul>
+<h5 id="supported-values-for-the-cuda-language-are">Supported values for the CUDA language are:<a class="headerlink" href="#supported-values-for-the-cuda-language-are" title="Permanent link">#</a></h5>
+<ul>
+<li>cuda</li>
+</ul>
+<h4 id="generating-listing_1">Generating listing<a class="headerlink" href="#generating-listing_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fsave-loopmark    Generate a loopmark listing file (.lst) that shows which optimizations 
+    were applied to which parts of the source code.
+
+-floopmark-style=&lt;style&gt;    Specifies the style of the loopmark listing file.
+
+    Valid values for &lt;style&gt; are:
+        &#39;&#39;grouped&#39;&#39;         Places all messages at the end of the listing.
+        &#39;&#39;interspersed&#39;&#39;    Places each message after the relevant source code line.
+</code></pre></div>
+<h4 id="preprocessing_4">Preprocessing<a class="headerlink" href="#preprocessing_4" title="Permanent link">#</a></h4>
+<p>Automatic preprocessing is determined by the file name extension as discussed above. You can manually turn it on/off via the options</p>
+<div class="highlight"><pre><span></span><code> -E    with output going to standard out
+</code></pre></div>
+<p>The compiler predefines the macro <strong>cray</strong> in addition to all of the usual Clang predefined macros.</p>
+<h4 id="openmp-support_4">OpenMP support<a class="headerlink" href="#openmp-support_4" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-fopenmp    Enables OpenMP and links in OpenMP libraries
+</code></pre></div>
+<h4 id="openacc-support_4">OpenACC support<a class="headerlink" href="#openacc-support_4" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>Not suported    
+</code></pre></div>
+<h4 id="important-compiler-specific-options_2">Important compiler specific options<a class="headerlink" href="#important-compiler-specific-options_2" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>   Unified Parallel C (UPC) Options
+-hupc, -hdefault -hupc    Configures the compiler driver to expect
+    UPC source code.  Source files with a .upc extension are
+    automatically treated as UPC code, but this option permits a file
+    with any other extension (typically .c) to be understood as UPC
+    code.  -hdefault cancels this behavior; if both -hupc and
+    -hdefault appear in a command line, whichever appears last takes
+    precedence and applies to all source files in the command line.
+
+-fupc-auto-amo, -fno-upc-auto-amo    Automatically use network
+    atomics for remote updates to reduce latency.  For example, x +=
+    1 can be performed as a remote atomic add.  If an update is
+    recognized as local to the current  thread,  then  no  atomic  is
+    used.  These atomics are intended as a performance optimization
+    only and shall not be relied upon to prevent race conditions. 
+    Enabled at -O1 and above.
+
+-fupc-buffered-async, -fno-upc-buffered-async    Set aside memory in
+    the UPC runtime library for aggregating random remote accesses
+    designated with &quot;#pragma pgas buffered_async&quot;.  Disabled by
+    default.
+
+-fupc-pattern, -fno-upc-pattern    Identify simple communication
+    loops and aggregate the remote accesses into a single function
+    call which replaces the loop.  Enabled at -O1 and above.
+
+-fupc-threads=&lt;N&gt;    Set  the number of threads for a static THREADS
+    translation.  This option causes __UPC_STATIC_THREADS__ to be
+    defined instead of __UPC_DYNAMIC_THREADS__ and replaces all uses
+    of the UPC keyword THREADS with the value N.
+</code></pre></div>
+<h2 id="cray-ftn">Cray ftn<a class="headerlink" href="#cray-ftn" title="Permanent link">#</a></h2>
+<p>In the Cray environment ftn is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray Fortran : Version 14.0.4.  Ftn will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.</p>
+<h4 id="normal-invocation_5">Normal invocation<a class="headerlink" href="#normal-invocation_5" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code># Compile and link a program with the executable sent to the indicated
+  file
+ftn mycode.f90  -o myexec
+
+# Compile a file but don&#39;t link 
+ftn -c mycode.f90
+</code></pre></div>
+<h4 id="default-optimization_5">Default optimization<a class="headerlink" href="#default-optimization_5" title="Permanent link">#</a></h4>
+<p>The default optimization level is -O 2.</p>
+<h4 id="compiling-for-performance_5">Compiling for performance<a class="headerlink" href="#compiling-for-performance_5" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-O
+
+0      Specifies  no  automatic  cache  management;  all memory
+    references are allocated to cache.  Both automatic cache blocking
+    and manual cache blocking (by use of the BLOCKABLE directive) are
+    shut off. Characteristics include low compile time.  This option
+    is compatible with all optimization levels.
+
+1      Specifies conservative automatic cache management.
+    Characteristics include moderate compile time.  Symbols are
+    placed in the cache when the possibility of cache reuse exists
+    and the predicted cache footprint of the symbol in isolation is
+    small enough to experience reuse.
+
+2      Specifies  moderately  aggressive automatic cache management. 
+    Characteristics include moderate compile time.  Symbols are
+    placed in the cache when the possibility of cache reuse exists
+    and the preâ€ dicted state of the cache model is such that the
+    symbol will be reused. (Default)
+
+3      Specifies aggressive automatic cache management.
+    Characteristics include potentially high compile time.  Symbols
+    are placed in the cache when the possibility of cache reuse
+    exists and the  allocation of the symbol to the cache is
+    predicted to increase the number of cache hits.
+
+fast    Same as 3.
+</code></pre></div>
+<h4 id="compiling-for-debugging-and-related-purposes_5">Compiling for debugging and related purposes<a class="headerlink" href="#compiling-for-debugging-and-related-purposes_5" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-G (level)
+
+    0      Full   information is available for debugging, but at the cost
+        of a slower and larger executable.  Breakpoints can be set at
+        each line.  Most optimizations are disabled.
+
+    1      Most  information is available with partial optimization. Some
+        optimizations make tracebacks and limited breakpoints available
+        in the debugger.  Some scalar optimizations and  all  loop  nest
+        reâ€ structuring  is  disabled,  but  the source code will be
+        visible and most symbols will be available.
+
+    2      Partial information.  Most optimizations, tracebacks and very
+        limited breakpoints are available in the debugger.  The source
+        code will be visible and some symbols will be  available.
+
+
+-R runchk Specifies any of a group of runtime checks for your
+    program.  To specify more than one type of checking, specify
+    consecutive runchk arguments, as follows: -R bs.
+
+
+    b      Enables checking of array bounds.  Bounds checking is not
+        performed on arrays dimensioned as (1).  Enables -Ooverindex.
+
+    c      Enables conformance checking of array operands in array
+        expressions.
+
+    d      Enables a run time check for the !dir$ collapse directive and
+        checks the validity of the loop_info count information.
+
+    p      Generates run time code to check the association or allocation
+        status of referenced POINTER variables, ALLOCATABLE arrays, or
+        assumed-shape arrays.
+
+    s      Enables checking of character substring bounds.
+</code></pre></div>
+<h4 id="some-file-extensions_5">Some file extensions<a class="headerlink" href="#some-file-extensions_5" title="Permanent link">#</a></h4>
+<p>The default is fixed for source files that have .f, .F, .for, or .FOR</p>
+<p>The default is free for source files that have .f90, .F90, .f95, .F95, .f03, .F03, .f08, .F08, .f18, .F18,  .ftn,  or  .FTN</p>
+<p>The upper-case file extensions, .F, .FOR, .F90, .F95, .F03, .F08, .F18, or .FTN, will enable source preprocessing by default.</p>
+<h4 id="language-standard-settings-dialect_4">Language standard settings (Dialect)<a class="headerlink" href="#language-standard-settings-dialect_4" title="Permanent link">#</a></h4>
+<p>Standards are determined by the file extension as given above.  Some addttional checks can be performed.</p>
+<div class="highlight"><pre><span></span><code>-e enable
+
+      b      If enabled, issue a warning message rather than an error
+        message when the compiler detects a call to a procedure
+        with one or more dummy arguments having the TARGET,
+        VOLATILE or ASYNCHRONOUS attribute and there is not an
+        explicit interface definition.
+
+
+      c      Interface checking: use Cray system modules to check
+        library calls in a compilation.  If you have a procedure
+        with the same name as one in the library, you will get
+        errors, as the compiler does not skip  user- specified
+        procedures when performing checks.
+
+
+      C      Enable/disable some types of standard call site
+        checking.  The current Fortran standard requires that the
+        number and types of arguments must agree between the caller
+        and callee.  These constraints are enforced in cases where
+        the compiler can detect them, however, specifying -dC
+        disables some of this error-checking, which may be
+        necessary in order to get some older Fortran codes to
+        compile.
+
+-f source_form free or fixed
+</code></pre></div>
+<h4 id="language-standard-settings-save_1">Language standard settings (Save)<a class="headerlink" href="#language-standard-settings-save_1" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>    -e v    Allocate  variables to static storage.  These variables
+            are treated as if they had appeared in a SAVE statement.  Variables
+            that are explicitly or implicitly defined as automatic variables are
+            not allocated to static storage. The following types of variables are
+            not allocated to static storage: automatic variables (explicitly or
+            implicitly stated), variables declared with the AUTOMATIC attribute,
+            variables allocated in  an  ALLOCATE statement, and local
+            variables in explicit recursive procedures.  Variables with the
+            ALLOCATABLE attribute remain allocated upon procedure exit, unless
+            explicitly deallocated, but they are not allocated in static memory. 
+            Variables in explicit recursive procedures consist of those in
+            functions, in subroutines, and in internal procedures within
+            functions and subroutines that have been defined with the RECURSIVE 
+            attribute.  The STACK compiler directive overrides this option.
+</code></pre></div>
+<h4 id="generating-listing_2">Generating listing<a class="headerlink" href="#generating-listing_2" title="Permanent link">#</a></h4>
+<p>-h list=a</p>
+<h4 id="preprocessing_5">Preprocessing<a class="headerlink" href="#preprocessing_5" title="Permanent link">#</a></h4>
+<p>Automatic preprocessing is determined by the file name extension as discussed above. You can manually turn it on/off via the options</p>
+<p><div class="highlight"><pre><span></span><code> -E    Preprocess and compile
+ -eZ   Preprocess and compile
+ -eP   Preprocess don&#39; compile
+</code></pre></div>
+The Cray Fortran preprocessor has limited functionality.  In particular it does not remove C style comments which can cause compile errors.  You might want to use the gnu preprocessor instead.  </p>
+<div class="highlight"><pre><span></span><code>gfortran -cpp -E file.F90 &gt; file.f90
+ftn file.f80
+</code></pre></div>
+<h4 id="openmp-support_5">OpenMP support<a class="headerlink" href="#openmp-support_5" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-homp    Enables OpenMP and links in OpenMP libraries when possible
+    using CCE-Classic.
+
+-hnoomp    Disables OpenMP and links in non-OpenMP libraries when
+    using CCE-classic.
+
+THE FOLLOWING APPLIE IF THE BACKEND COMPILER IS NOT CRAY FORTRAN.
+
+-fopenmp   Enables OpenMP and links in OpenMP libraries when possible
+    using CCE, AOCC, and GNU.
+
+-openmp    Enables OpenMP and links in OpenMP libraries when
+    possible.
+
+-noopenmp       Disables OpenMP.
+
+-mp        Enables OpenMP and links in OpenMP libraries when
+    possible using PGI.
+
+-Mnoopenmp  Disables OpenMP and links in non-OpenMP libraries when
+    using PGI.
+
+-qopenmp     Enables OpenMP and links in OpenMP libraries when
+    possible when using Intel.
+
+-qno-openmp  Disables OpenMP and links in non-OpenMP libraries
+    when possible when using Intel.
+</code></pre></div>
+<h4 id="openacc-support_5">OpenACC support<a class="headerlink" href="#openacc-support_5" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code> -h acc         
+</code></pre></div>
+<h4 id="coarray">Coarray<a class="headerlink" href="#coarray" title="Permanent link">#</a></h4>
+<p>The -h pgas_runtime option directs the compiler driver to link with the runtime libraries required when linking programs that use UPC or coarrays.  In general, a resource manager job launcher such as aprun  or
+                     srun must be used to launch the resulting executable.</p>
+<h4 id="important-compiler-specific-options_3">Important compiler specific options<a class="headerlink" href="#important-compiler-specific-options_3" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>-e I      Treat all variables as if an IMPLICIT NONE statement had been specified. 
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+       <footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+  <nav class="md-footer__inner md-grid" aria-label="footer.title">
+
+    <!-- Link to previous page -->
+    
+    
+    <a href="../../Programming_Models/gpu_hpc/" class="md-footer__link md-footer__link--prev"
+      aria-label="Previous: Using GPUs for HPC" rel="prev">
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </div>
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Previous
+          </span>
+          Using GPUs for HPC
+        </div>
+      </div>
+    </a>
+    
+
+    <!-- Link to next page -->
+    
+    
+    <a href="../../Build_Tools/cmake/" class="md-footer__link md-footer__link--next"
+      aria-label="Next: CMake" rel="next">
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Next
+          </span>
+          CMake
+        </div>
+      </div>
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+      </div>
+    </a>
+    
+  </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        <a href="https://www.nrel.gov/computational-science/" title="Computational Science at NREL">Computational
+          Science at NREL</a><br>
+        <a href="https://www.nrel.gov/hpc/about-hpc.html" target="_blank"
+          title="About NREL High-Performance Computing">About NREL High-Performance Computing</a><br>
+        <a href="https://www.nrel.gov/hpc/contact-us.html" target="_blank" title="Contact Us">Contact Us</a><br>
+      </div>
+    </div>
+  </div>
+  <footer>
+    
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "announce.dismiss"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

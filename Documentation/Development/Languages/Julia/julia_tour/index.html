@@ -1,0 +1,6101 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A brief introduction to Julia">
+      
+      
+        <meta name="author" content="Jonathan Maack">
+      
+      
+      
+        <link rel="prev" href="../julia_install/">
+      
+      
+        <link rel="next" href="../julia_parallel/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>Tour of Julia - NREL HPC</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","UA-189117140-2"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","UA-189117140-2",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=UA-189117140-2",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tour-of-julia" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+              <button class="md-banner__button md-icon" aria-label="Don't show this again">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              </button>
+            
+            
+<!-- Add announcement here, including arbitrary HTML -->
+Eagle external login methods have changed: non-NREL users now have to access Eagle through the <a
+  href="https://www.nrel.gov/hpc/vpn-connection.html">HPC VPN</a>
+or <a href="https://www.nrel.gov/hpc/ssh-gateway-connection.html">SSH gateway</a>. This does not affect Kestrel. <a
+  
+          </div>
+          
+            <script>var el=document.querySelector("[data-md-component=announce]");if(el){var content=el.querySelector(".md-typeset");__md_hash(content.innerHTML)===__md_get("__announce")&&(el.hidden=!0)}</script>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="NREL HPC" class="md-header__button md-logo" aria-label="NREL HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NREL HPC
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tour of Julia
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NREL/HPC/tree/gh-pages" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NREL/HPC
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../blog/2020-12-01-numba/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="NREL HPC" class="md-nav__button md-logo" aria-label="NREL HPC" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    NREL HPC
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NREL/HPC/tree/gh-pages" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NREL/HPC
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2020-12-01-numba/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Speeding up Python Code with Numba
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2021-05-06-tf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Faster Machine Learning with Custom Built TensorFlow on Eagle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2021-06-18-srun/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using srun to Launch Applications Under Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2022-02-02-Changes_to_Slurm_srun_for_interactive_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changes to Slurm "srun" for Interactive Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2022-10-04-python2to3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Legacy Python 2 Code on Eagle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2022-03-05-local-io-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local I/O Performance on Eagle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2022-12-19-windows_ssh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workaround for Windows SSH "Corrupted MAC on input" Error
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2023-01-10-using_specific_module_versions_on_hpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using Specific Module Versions on the HPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../blog/2023-11-28_module_updates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Module Updates on Kestrel for November 2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Help and Support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Systems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/Kestrel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Kestrel
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kestrel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/Kestrel/Running/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Running on Kestrel
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2_2" id="__nav_3_4_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Running on Kestrel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Running/kestrel_job_priorities/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Priorities on Kestrel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Running/example_sbatch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Example Sbatch Scripts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Running/performancerecs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Recommendations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/Kestrel/Filesystems/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Filesystems
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2_3" id="__nav_3_4_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Filesystems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Filesystems/lustre/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lustre Best Practices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/kestrel_release_notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kestrel Release Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/Kestrel/Environments/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_2_5" id="__nav_3_4_2_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_4_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Environments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2_5_2" id="__nav_3_4_2_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Toolchains
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_3_4_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Toolchains
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Environments/Toolchains/intel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Environments/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Kestrel/Environments/gpubuildandrun/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building Applications for GPUs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/Swift/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Swift
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Swift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Swift/running/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running on Swift
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Swift/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Swift/filesystems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Filesystems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Systems/Vermilion/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Vermilion
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vermilion
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Systems/Vermilion/running/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running on Vermilion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Slurm/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Slurm Job Scheduling
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm Job Scheduling
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Slurm/monitor_and_control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor and Control Commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Slurm/batch_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Submitting Batch Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Slurm/interactive_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Interactive Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Slurm/multiple_sub_jobs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multiple Sub-Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Slurm/job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Managing your Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Managing your Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Managing_Data/file_permissions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unix File Permissions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Managing_Data/mss/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mass Storage System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Managing_Data/localstorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node Local Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Managing_Data/Transferring_Files/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Transferring Files
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6_4" id="__nav_3_6_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Transferring Files
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Managing_Data/Transferring_Files/FileZilla/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FileZilla
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Managing_Data/Transferring_Files/globus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transferring Files with Globus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Managing_Data/Transferring_Files/winscp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WinSCP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Environment/shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shell Startup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Environment/lmod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lmod
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Environment/Customization/conda/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conda
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Environment/Building_Packages/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Building an Application
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7_4" id="__nav_3_7_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Building an Application
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Environment/Building_Packages/acquire/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting the package
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Environment/Building_Packages/config_make_install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config, Make, Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Environment/Building_Packages/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create a Modulefile
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Applications/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Applications
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/ansys/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ANSYS CFD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/amrwind/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AMR-Wind
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/comsol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COMSOL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/fenics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FEniCS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/gams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GAMS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/gaussian/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gaussian
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/gurobi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gurobi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/idaes_solvers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IDAES Solvers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/ipopt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPOPT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/lammps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAMMPS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8_12" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Applications/Matlab/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    MATLAB
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8_12" id="__nav_3_8_12_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8_12">
+            <span class="md-nav__icon md-icon"></span>
+            MATLAB
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/Matlab/batch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Batch Mode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/Matlab/interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interactive Mode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/Matlab/parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Computing Toolbox
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/Matlab/versions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Versions and Licenses
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/openfoam/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenFOAM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8_14" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Applications/Plexos/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    PLEXOS
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8_14" id="__nav_3_8_14_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_8_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8_14">
+            <span class="md-nav__icon md-icon"></span>
+            PLEXOS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/Plexos/setup_plexos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting Up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/Plexos/run_plexos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/qchem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Q-Chem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/starccm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STAR-CCM+
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/vasp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VASP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/wrf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WRF
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Applications/xpressmp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Xpress
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_1" id="__nav_3_9_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Languages
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9_1">
+            <span class="md-nav__icon md-icon"></span>
+            Languages
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_1_1" id="__nav_3_9_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Julia
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia_install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Tour of Julia
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Tour of Julia
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-julia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Julia?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repl-read-evaluate-print-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      REPL (Read-Evaluate-Print-Loop)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-installed-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Installed Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vectorizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vectorizing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Package Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-packages-repl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Packages (REPL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-packages-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Packages (Scripts)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activating-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activating Environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copying-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copying Environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-layering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Layering
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Dispatch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Structs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutable-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutable Structs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametric-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parametric Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metaprogramming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metaprogramming
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metaprogramming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-julia-code-is-executed" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Julia Code is Executed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Macros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia_parallel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia Parallel Computing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia_ccall_pycall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyCall and CCall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c%2B%2B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bash/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Fortran/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Fortran
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_1_5" id="__nav_3_9_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Fortran
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Fortran/f90_advanced/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_1_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Python/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_1_6" id="__nav_3_9_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Jupyter/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            Jupyter
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_3" id="__nav_3_9_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Programming Models
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_3">
+            <span class="md-nav__icon md-icon"></span>
+            Programming Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Programming_Models/mpi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MPI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Programming_Models/gpu_hpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using GPUs for HPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Compilers/rosetta_stone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compilers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_5" id="__nav_3_9_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Build Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_5">
+            <span class="md-nav__icon md-icon"></span>
+            Build Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Build_Tools/cmake/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CMake
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Build_Tools/spack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Build_Tools/git/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Libraries/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Libraries
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_6" id="__nav_3_9_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_6">
+            <span class="md-nav__icon md-icon"></span>
+            Libraries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/howto/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Libraries How-to
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/fftw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FFTW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/hdf5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HDF5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/hsl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HSL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/lapack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAPACK and ScaLAPACK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/libsci/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibSci
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/mkl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MKL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Libraries/petsc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PETSc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_7" id="__nav_3_9_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Performance Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_7">
+            <span class="md-nav__icon md-icon"></span>
+            Performance Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_7_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Performance_Tools/Linaro-Forge/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Linaro-Forge
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_7_1" id="__nav_3_9_7_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            Linaro-Forge
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Performance_Tools/Linaro-Forge/map/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Performance_Tools/Linaro-Forge/performance_rep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Reports
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_7_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Performance_Tools/Intel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Intel Parallel Studio
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_9_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Intel Parallel Studio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_8" id="__nav_3_9_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Debug Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_8">
+            <span class="md-nav__icon md-icon"></span>
+            Debug Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Debug_Tools/gdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9_9" id="__nav_3_9_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Visual Studio Code
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_9">
+            <span class="md-nav__icon md-icon"></span>
+            Visual Studio Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../VSCode/vscode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Connecting With VS Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Containers/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9_10" id="__nav_3_9_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_9_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9_10">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Containers/registries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container registries at NREL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Containers/singularity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Singularity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Containers/apptainer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apptainer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Viz_Analytics/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Visualization and Analytics
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
+            <span class="md-nav__icon md-icon"></span>
+            Visualization and Analytics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Viz_Analytics/virtualgl_fastx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VirtualGL and FastX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Viz_Analytics/paraview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Paraview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Viz_Analytics/visit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VisIT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_11" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../Machine_Learning/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_11">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Machine_Learning/Reinforcement_Learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Machine_Learning/TensorBoard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TensorBoard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Machine_Learning/Containerized_TensorFlow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Containerized TensorFlow
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-julia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Julia?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repl-read-evaluate-print-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      REPL (Read-Evaluate-Print-Loop)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-installed-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Installed Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vectorizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vectorizing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Package Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-packages-repl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Packages (REPL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-packages-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Managing Packages (Scripts)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activating-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activating Environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copying-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Copying Environments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-layering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Layering
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Dispatch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Structs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutable-structs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutable Structs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametric-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parametric Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metaprogramming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metaprogramming
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metaprogramming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-julia-code-is-executed" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Julia Code is Executed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Macros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="tour-of-julia">Tour of Julia<a class="headerlink" href="#tour-of-julia" title="Permanent link">#</a></h1>
+<p><em>"Julia aims to create an unprecedented combination of ease-of-use, power, and efficiency in a single language." --Julia Documentation</em></p>
+<h2 id="why-julia">Why Julia?<a class="headerlink" href="#why-julia" title="Permanent link">#</a></h2>
+<p>Feature Highlights:</p>
+<ul>
+<li>Designed for scientific computing</li>
+<li>Non-vectorized code is just as fast as vectorized code</li>
+<li>Designed for distributed and parallel computing</li>
+<li>Call C/FORTRAN functions directly</li>
+<li>Metaprogramming</li>
+</ul>
+<h2 id="basics">Basics<a class="headerlink" href="#basics" title="Permanent link">#</a></h2>
+<h3 id="repl-read-evaluate-print-loop">REPL (Read-Evaluate-Print-Loop)<a class="headerlink" href="#repl-read-evaluate-print-loop" title="Permanent link">#</a></h3>
+<ul>
+<li>Command line julia interface</li>
+<li>Type the command <code>julia</code> in a terminal (assuming Julia is in your path)</li>
+<li>Basic way to interact with objects, packages and environments</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="n">jmaack</span><span class="o">-</span><span class="mi">32918</span><span class="n">s</span><span class="o">:~</span><span class="w"> </span><span class="n">jmaack</span><span class="o">$</span><span class="w"> </span><span class="n">julia</span>
+<span class="w">               </span><span class="n">_</span>
+<span class="w">   </span><span class="n">_</span><span class="w">       </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="n">_</span><span class="w">     </span><span class="o">|</span><span class="w">  </span><span class="n">Documentation</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">://</span><span class="n">docs</span><span class="o">.</span><span class="n">julialang</span><span class="o">.</span><span class="n">org</span>
+<span class="w">  </span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w">    </span><span class="o">|</span>
+<span class="w">   </span><span class="n">_</span><span class="w"> </span><span class="n">_</span><span class="w">   </span><span class="n">_</span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="n">_</span><span class="w">  </span><span class="n">__</span><span class="w"> </span><span class="n">_</span><span class="w">   </span><span class="o">|</span><span class="w">  </span><span class="kt">Type</span><span class="w"> </span><span class="s">&quot;?&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">help</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;]?&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Pkg</span><span class="w"> </span><span class="n">help</span><span class="o">.</span>
+<span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">|/</span><span class="w"> </span><span class="sa">_</span><span class="sb">` |  |</span>
+<span class="sb">  | | |_| | | | (_| |  |  Version 1.6.1 (2021-04-23)</span>
+<span class="sb"> _/ |\__&#39;_|_|_|\__&#39;_|  |  </span>
+<span class="sb">|__/                   |</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">pi</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="nb">im</span>
+<span class="mf">39.47841760435743</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1.4142135623730951</span><span class="nb">im</span>
+
+<span class="n">help</span><span class="o">?&gt;</span><span class="w"> </span><span class="kt">Int</span>
+<span class="n">search</span><span class="o">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kt">Int8</span><span class="w"> </span><span class="kt">Int64</span><span class="w"> </span><span class="kt">Int32</span><span class="w"> </span><span class="kt">Int16</span><span class="w"> </span><span class="kt">Int128</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="n">intersect</span><span class="w"> </span><span class="n">intersect!</span><span class="w"> </span><span class="n">InteractiveUtils</span><span class="w"> </span><span class="kt">InterruptException</span>
+
+<span class="w">  </span><span class="kt">Int64</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Signed</span>
+
+<span class="w">  </span><span class="mi">64</span><span class="o">-</span><span class="n">bit</span><span class="w"> </span><span class="n">signed</span><span class="w"> </span><span class="n">integer</span><span class="w"> </span><span class="n">type</span><span class="o">.</span>
+
+<span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exit</span><span class="p">()</span>
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When using the REPL, the result of the (last) expression is always printed. This is sometimes undesirable. We can suppress printing by ending the last expression with a semicolon <code>;</code>. This is used throughout this presentation for appearance purposes. <em>Unless otherwise stated any semicolon in code is not needed.</em></p>
+</div>
+<h3 id="defining-functions">Defining Functions<a class="headerlink" href="#defining-functions" title="Permanent link">#</a></h3>
+<p>There are two ways to define functions</p>
+<ul>
+<li>
+<p>Standard way:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">my_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">2</span>
+<span class="k">end</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Short form way:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ul>
+<p>It is also possible to define anonymous functions (and save pointers to them):</p>
+<div class="highlight"><pre><span></span><code><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nd">@show</span><span class="w"> </span><span class="n">my_function</span><span class="p">(</span><span class="nb">pi</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_func</span><span class="p">(</span><span class="nb">pi</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="nb">pi</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>my_function(pi) = 9.869604401089358
+my_func(pi) = 9.869604401089358
+f(pi) = 9.869604401089358
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Julia uses the standard control flow keywords such as <code>for</code>, <code>while</code>, <code>if</code>, <code>elseif</code>, <code>else</code>. See the <a href="https://docs.julialang.org/en/v1/manual/control-flow/">Control Flow</a> section of the Julia documentation for more details. Obviously, these are helpful in writing functions.</p>
+</div>
+<h3 id="using-installed-packages">Using Installed Packages<a class="headerlink" href="#using-installed-packages" title="Permanent link">#</a></h3>
+<p>Packages can be accessed in two ways:</p>
+<ul>
+<li>
+<p><code>import</code> statement -- makes all module attributes (i.e. functions and types) available by prefixing the module name followed by a dot</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">import</span><span class="w"> </span><span class="n">Statistics</span>
+<span class="n">Statistics</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0.3339056277968421
+</code></pre></div>
+</li>
+<li>
+<p><code>using</code> statement -- everything exported by the module is directly accessible</p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Statistics</span>
+<span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0.3339056277968421
+</code></pre></div>
+</li>
+</ul>
+<p>Any attribute that is not exported by the module can still be accessed by prefixing the module name followed by a dot.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Statistics</span><span class="o">.</span><span class="n">_conj</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>5-element Vector{Float64}:
+ 0.17922586649673145
+ 0.7155842248637634
+ 0.29280412953665125
+ 0.10325841440419592
+ 0.3786555036828685
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Like in python, there are no private attributes. Users may access anything created by a module. Package authors can suggest attributes that users should not use by not exporting them or with naming conventions (e.g. prefixing <code>_</code> to any name that is internal only).</p>
+</div>
+<p>Julia 1.6 introduced the "pythonic" import syntax</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="n">Statistics</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Stats</span>
+<span class="n">Stats</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0.3339056277968421
+</code></pre></div>
+<p>In older Julia versions, we can declare a constant for our packages</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="n">Statistics</span>
+<span class="k">const</span><span class="w"> </span><span class="n">St</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Statistics</span>
+<span class="n">St</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>0.3339056277968421
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When writing Julia code, use <code>import</code> rather than <code>using</code>. This makes code easier to follow as well as giving hints on where to look for documentation.</p>
+</div>
+<h3 id="vectorizing">Vectorizing<a class="headerlink" href="#vectorizing" title="Permanent link">#</a></h3>
+<p>Julia uses the MATLAB dot syntax to operate component-wise on arrays (i.e. vectors and matrices)</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">(</span><span class="n">x</span><span class="o">.*</span><span class="n">y</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>3-element Vector{Float64}:
+ 0.5367929263482071
+ 0.008092183589557244
+ 0.36146876615689527
+</code></pre></div>
+<p>Julia also extends this syntax to <strong>ANY</strong> function that operates on vector elements</p>
+<div class="highlight"><pre><span></span><code><span class="n">number_op</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span>
+<span class="n">number_op</span><span class="o">.</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>3-element Vector{Float64}:
+ 5.754141942494573
+ 5.8412967567631
+ 5.637813968303307
+</code></pre></div>
+<p>In Julia, vectorizing is done for convenience rather than performance:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">my_mult_for</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">        </span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">z</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">my_mult_vect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">.*</span><span class="w"> </span><span class="n">y</span>
+<span class="k">end</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># This forces Julia to compile the function definitions</span>
+<span class="c"># so that the timing results in the next cell are correct</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nd">@time</span><span class="w"> </span><span class="n">my_mult_vect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="nd">@time</span><span class="w"> </span><span class="n">my_mult_for</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  0.055219 seconds (145.07 k allocations: 8.243 MiB, 99.96% compilation time)
+  0.009099 seconds (15.42 k allocations: 873.090 KiB, 99.82% compilation time)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="nd">@time</span><span class="w"> </span><span class="n">my_mult_vect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="nd">@time</span><span class="w"> </span><span class="n">my_mult_for</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>  0.000015 seconds (2 allocations: 78.203 KiB)
+  0.000032 seconds (2 allocations: 78.203 KiB)
+</code></pre></div>
+<h2 id="package-manager">Package Manager<a class="headerlink" href="#package-manager" title="Permanent link">#</a></h2>
+<h3 id="managing-packages-repl">Managing Packages (REPL)<a class="headerlink" href="#managing-packages-repl" title="Permanent link">#</a></h3>
+<p>Open the REPL and hit the <code>[</code> key to enter package management mode. From here we can add or remove packages:</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nd">@v1</span><span class="mf">.6</span><span class="p">)</span><span class="w"> </span><span class="n">pkg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">Compat</span>
+<span class="w">   </span><span class="n">Resolving</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">versions</span><span class="o">...</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Manifest.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">bb1440f</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">DelimitedFiles</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">ba89e20</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Distributed</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="n">a1011a3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SharedArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">2f01184</span><span class="n">e</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SparseArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">10745</span><span class="n">b16</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Statistics</span>
+
+<span class="p">(</span><span class="nd">@v1</span><span class="mf">.6</span><span class="p">)</span><span class="w"> </span><span class="n">pkg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="n">Compat</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Manifest.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">bb1440f</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DelimitedFiles</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">ba89e20</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Distributed</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="n">a1011a3</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">SharedArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">2f01184</span><span class="n">e</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">SparseArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">10745</span><span class="n">b16</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Statistics</span>
+</code></pre></div>
+<p>We can also print out what packages are available
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nd">@v1</span><span class="mf">.6</span><span class="p">)</span><span class="w"> </span><span class="n">pkg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">st</span>
+<span class="w">      </span><span class="n">Status</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">7073</span><span class="n">ff75</span><span class="p">]</span><span class="w"> </span><span class="n">IJulia</span><span class="w"> </span><span class="n">v1</span><span class="mf">.23.2</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">438e738</span><span class="n">f</span><span class="p">]</span><span class="w"> </span><span class="n">PyCall</span><span class="w"> </span><span class="n">v1</span><span class="mf">.92.3</span>
+</code></pre></div>
+or update the packages
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nd">@v1</span><span class="mf">.6</span><span class="p">)</span><span class="w"> </span><span class="n">pkg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">up</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="n">registry</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="sb">`~/.julia/registries/General`</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="n">git</span><span class="o">-</span><span class="n">repo</span><span class="w"> </span><span class="sb">`https://github.com/JuliaRegistries/General.git`</span>
+<span class="w">  </span><span class="n">No</span><span class="w"> </span><span class="n">Changes</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="n">No</span><span class="w"> </span><span class="n">Changes</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Manifest.toml`</span>
+</code></pre></div></p>
+<h3 id="managing-packages-scripts">Managing Packages (Scripts)<a class="headerlink" href="#managing-packages-scripts" title="Permanent link">#</a></h3>
+<p>Package management mode in the REPL is actually just a convenient interface to the Julia package <a href="https://pkgdocs.julialang.org/stable/">Pkg.jl</a> which is part of the Julia standard library.</p>
+<p>All package mode commands are functions in Pkg.jl:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="n">Pkg</span><span class="p">;</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;Compat&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">rm</span><span class="p">(</span><span class="s">&quot;Compat&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="n">registry</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="sb">`~/.julia/registries/General`</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="n">git</span><span class="o">-</span><span class="n">repo</span><span class="w"> </span><span class="sb">`https://github.com/JuliaRegistries/General.git`</span>
+<span class="w">   </span><span class="n">Resolving</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">versions</span><span class="o">...</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Manifest.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">bb1440f</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">DelimitedFiles</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">ba89e20</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Distributed</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="n">a1011a3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SharedArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">2f01184</span><span class="n">e</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SparseArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">10745</span><span class="n">b16</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Statistics</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Manifest.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">34</span><span class="n">da2185</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Compat</span><span class="w"> </span><span class="n">v3</span><span class="mf">.31.0</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">bb1440f</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DelimitedFiles</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">8</span><span class="n">ba89e20</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Distributed</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="n">a1011a3</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">SharedArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">2f01184</span><span class="n">e</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">SparseArrays</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">10745</span><span class="n">b16</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Statistics</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Pkg</span><span class="o">.</span><span class="n">status</span><span class="p">();</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+<span class="w">      </span><span class="n">Status</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">7073</span><span class="n">ff75</span><span class="p">]</span><span class="w"> </span><span class="n">IJulia</span><span class="w"> </span><span class="n">v1</span><span class="mf">.23.2</span>
+<span class="w">  </span><span class="p">[</span><span class="mf">438e738</span><span class="n">f</span><span class="p">]</span><span class="w"> </span><span class="n">PyCall</span><span class="w"> </span><span class="n">v1</span><span class="mf">.92.3</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="n">registry</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="sb">`~/.julia/registries/General`</span>
+<span class="w">    </span><span class="n">Updating</span><span class="w"> </span><span class="n">git</span><span class="o">-</span><span class="n">repo</span><span class="w"> </span><span class="sb">`https://github.com/JuliaRegistries/General.git`</span>
+<span class="w">  </span><span class="n">No</span><span class="w"> </span><span class="n">Changes</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Project.toml`</span>
+<span class="w">  </span><span class="n">No</span><span class="w"> </span><span class="n">Changes</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="sb">`~/.julia/environments/v1.6/Manifest.toml`</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you want to use Julia within Jupyter notebook, some package management features (like adding new packages) do not work well. It is best to add/remove/update either with a script or using the REPL.</p>
+</div>
+<h3 id="environments">Environments<a class="headerlink" href="#environments" title="Permanent link">#</a></h3>
+<p>Environments allow us to install different versions of packages for use with different projects. Very similar to python virtual environments or conda environments.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Pkg</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="s">&quot;env-one&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+
+<span class="w">  </span><span class="n">Activating</span><span class="w"> </span><span class="n">environment</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="sb">`~/HPC_Apps/julia-tutorial/env-one/Project.toml`</span>
+<span class="w">      </span><span class="n">Status</span><span class="w"> </span><span class="sb">`~/HPC_Apps/julia-tutorial/env-one/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">91</span><span class="n">a5bcdd</span><span class="p">]</span><span class="w"> </span><span class="n">Plots</span><span class="w"> </span><span class="n">v1</span><span class="mf">.13.1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Pkg</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="s">&quot;env-two&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">Pkg</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+
+<span class="w">  </span><span class="n">Activating</span><span class="w"> </span><span class="n">environment</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="sb">`~/HPC_Apps/julia-tutorial/env-two/Project.toml`</span>
+<span class="w">      </span><span class="n">Status</span><span class="w"> </span><span class="sb">`~/HPC_Apps/julia-tutorial/env-two/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">91</span><span class="n">a5bcdd</span><span class="p">]</span><span class="w"> </span><span class="n">Plots</span><span class="w"> </span><span class="n">v1</span><span class="mf">.16.6</span>
+</code></pre></div>
+<p>The environment names are given by the directory in which they reside. The explicitly added packages are given in the <code>Project.toml</code> file. The entire environment with all the required dependencies (down to specific commits) are in the <code>Manifest.toml</code> file.</p>
+<h3 id="activating-environments">Activating Environments<a class="headerlink" href="#activating-environments" title="Permanent link">#</a></h3>
+<p>There are 3 ways to activate an environment:</p>
+<ul>
+<li>Using the <code>Pkg.activate</code> function:
+    <div class="highlight"><pre><span></span><code><span class="n">Pkg</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="s">&quot;path/to/environment/&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+<li>Within package management mode with the <code>activate</code> command:
+    <div class="highlight"><pre><span></span><code><span class="n">activate</span><span class="w"> </span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">environment</span>
+</code></pre></div></li>
+<li>From the command line with the <code>--project</code> option:
+    <div class="highlight"><pre><span></span><code>julia<span class="w"> </span>--project<span class="o">=</span>&lt;path/to/environment&gt;
+</code></pre></div></li>
+</ul>
+<p>The first 2 ways can also be used to <strong>create</strong> new environments.</p>
+<h3 id="copying-environments">Copying Environments<a class="headerlink" href="#copying-environments" title="Permanent link">#</a></h3>
+<p>To copy an environment, all you need is the <code>Project.toml</code> file. Put it in the desired directory and activate that environment. Finally, in package management mode, use the <code>instantiate</code> command:</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">fake</span><span class="o">-</span><span class="n">env</span><span class="p">)</span><span class="w"> </span><span class="n">pkg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">st</span>
+<span class="w">      </span><span class="n">Status</span><span class="w"> </span><span class="sb">`~/fake-env/Project.toml`</span>
+<span class="o">→</span><span class="w"> </span><span class="p">[</span><span class="n">da04e1cc</span><span class="p">]</span><span class="w"> </span><span class="n">MPI</span><span class="w"> </span><span class="n">v0</span><span class="mf">.18.1</span>
+<span class="w">        </span><span class="n">Info</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="n">marked</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">downloaded</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="sb">`instantiate`</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">download</span>
+
+<span class="p">(</span><span class="n">fake</span><span class="o">-</span><span class="n">env</span><span class="p">)</span><span class="w"> </span><span class="n">pkg</span><span class="o">&gt;</span><span class="w"> </span><span class="n">instantiate</span>
+<span class="w">   </span><span class="n">Installed</span><span class="w"> </span><span class="n">MPI</span><span class="w"> </span><span class="n">─</span><span class="w"> </span><span class="n">v0</span><span class="mf">.18.1</span>
+<span class="w">    </span><span class="n">Building</span><span class="w"> </span><span class="n">MPI</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="sb">`~/.julia/scratchspaces/44cfe95a-1eb2-52ea-b672-e2afdf69b78f/494d99052881a83f36f5ef08b23de07cc7c03a96/build.log`</span>
+<span class="n">Precompiling</span><span class="w"> </span><span class="n">project</span><span class="o">...</span>
+<span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="n">dependency</span><span class="w"> </span><span class="n">successfully</span><span class="w"> </span><span class="n">precompiled</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="p">(</span><span class="mi">11</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">precompiled</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Alternatively, you can use the <code>Pkg.instantiate</code> function.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If you need to exactly copy an environment exactly copy both the <code>Project.toml</code> and <code>Manifest.toml</code> files into the desired directory and use the <code>instantiate</code> command.</p>
+</div>
+<h3 id="environment-layering">Environment Layering<a class="headerlink" href="#environment-layering" title="Permanent link">#</a></h3>
+<p>Julia environments can be layered such that packages from more than just the top layer environment can be imported. This allows us to have access to debugging and development tools without putting them in whatever environment were working on. This is a major difference from conda environments.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Pkg</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="w">      </span><span class="n">Status</span><span class="w"> </span><span class="sb">`~/HPC_Apps/julia-tutorial/env-one/Project.toml`</span>
+<span class="w">  </span><span class="p">[</span><span class="mi">91</span><span class="n">a5bcdd</span><span class="p">]</span><span class="w"> </span><span class="n">Plots</span><span class="w"> </span><span class="n">v1</span><span class="mf">.13.1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="n">BenchmarkTools</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">BT</span><span class="w"> </span><span class="c"># THIS IS NOT IN OUR TOP ENVIRONMENT!!!</span>
+</code></pre></div>
+<p>When loading a package, Julia has a hierarchy of environments that it checks for the package. Julia loads the first version of the package it encounters in this hierarchy.  The environment hierarchy can be altered by the <a href="https://docs.julialang.org/en/v1/manual/environment-variables/"><code>JULIA_LOAD_PATH</code></a> environment variable.</p>
+<p>These environment stacks are discussed more in the <a href="https://docs.julialang.org/en/v1/manual/code-loading/#Environments">Environments</a> subsection of the Code Loading part of the Julia Manual.</p>
+<h2 id="types">Types<a class="headerlink" href="#types" title="Permanent link">#</a></h2>
+<h3 id="type-hierarchy">Type Hierarchy<a class="headerlink" href="#type-hierarchy" title="Permanent link">#</a></h3>
+<p>In Julia everything has a type. We can access an object's type with the <code>typeof</code> function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">typeof</span><span class="p">(</span><span class="mf">7.5</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Float64
+</code></pre></div>
+<p>Even types have a type:</p>
+<div class="highlight"><pre><span></span><code><span class="n">typeof</span><span class="p">(</span><span class="kt">Float64</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>DataType
+</code></pre></div>
+<p>Julia also has a type hierarchy. There are subtypes and supertypes. We can access explore these with the functions <code>subtypes</code> and <code>supertype</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">subtypes</span><span class="p">(</span><span class="kt">Float64</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Type[]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">supertype</span><span class="p">(</span><span class="kt">Float64</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>AbstractFloat
+</code></pre></div>
+<p><code>Float64</code> has no subtypes because it is a <strong>Concrete Type</strong>. All the supertypes are an <strong>Abstract Type</strong>.  Only Concrete Types can actually exist.</p>
+<p>Every type has <strong>only one</strong> immediate supertype. However, each supertype has a supertype. We can get the whole chain with the <code>supertypes</code> (plural) function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">supertypes</span><span class="p">(</span><span class="kt">Float64</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>(Float64, AbstractFloat, Real, Number, Any)
+</code></pre></div>
+<p>Let us see all the floating point types available in Julia:</p>
+<div class="highlight"><pre><span></span><code><span class="n">subtypes</span><span class="p">(</span><span class="kt">AbstractFloat</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>4-element Vector{Any}:
+ BigFloat
+ Float16
+ Float32
+ Float64
+</code></pre></div>
+<p>We can test whether or not a type is a subtype of something with the <code>&lt;:</code> operator:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">Float64</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractFloat</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>true
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">Float64</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Float64</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>true
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">Int</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">AbstractFloat</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>false
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Subtypes and supertypes get complicated when dealing with containers:</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kt">Float64</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Real</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>true
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">Vector</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Vector</span><span class="p">{</span><span class="kt">Real</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>false
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">Vector</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Vector</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>true
+</code></pre></div>
+<p>We can use this to write functions:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">my_abs_sub</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Complex</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Complex!&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">re</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="nb">im</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="k">elseif</span><span class="w"> </span><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Real</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Real!&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Not a number!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_abs_sub</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_abs_sub</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_abs_sub</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="nb">im</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Real!
+my_abs_sub(-5) = 5
+Real!
+my_abs_sub(-5.0) = 5.0
+Complex!
+my_abs_sub(-1 + 2im) = 2.23606797749979
+</code></pre></div>
+<h3 id="multiple-dispatch">Multiple Dispatch<a class="headerlink" href="#multiple-dispatch" title="Permanent link">#</a></h3>
+<p>A more Julia way of doing this is to write the typing information directly into the function definition:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">my_abs_md</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Real</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Multiple Dispatch Real!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span>
+<span class="k">end</span>
+<span class="k">function</span><span class="w"> </span><span class="n">my_abs_md</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Complex</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Multiple Dispatch Complex!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">re</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="nb">im</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_abs_md</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_abs_md</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="nb">im</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Multiple Dispatch Real!
+my_abs_md(-5) = 5
+Multiple Dispatch Complex!
+my_abs_md(-1 + 2im) = 2.23606797749979
+</code></pre></div>
+<p>Notice that the functions have the same name, but the correct one is executed based on the type of the argument. This is called <strong>Multiple Dispatch</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Add typing information for any function you are likely to use a lot. There are two reasons:</p>
+<ol>
+<li>Type information is used by the Julia compiler to make code more efficient</li>
+<li>Type information is a fast and easy way to document your code and catch bugs.</li>
+</ol>
+</div>
+<h2 id="structs">Structs<a class="headerlink" href="#structs" title="Permanent link">#</a></h2>
+<h3 id="defining-structs">Defining Structs<a class="headerlink" href="#defining-structs" title="Permanent link">#</a></h3>
+<p>Julia allows us to define our own (composite) types:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="kt">Point</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="k">end</span>
+<span class="n">p0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Point(1.0, 2.0)
+</code></pre></div>
+<p>We can define functions with this type as the argument now</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Point</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="o">::</span><span class="kt">Point</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sqrt</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">distance</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>2.23606797749979
+</code></pre></div>
+<p>We can build structs with other structs as components:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="kt">Circle</span>
+<span class="w">    </span><span class="n">center</span><span class="o">::</span><span class="kt">Point</span>
+<span class="w">    </span><span class="n">radius</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="k">end</span>
+
+<span class="n">my_circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Circle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Circle(Point(1.0, 2.0), 5.0)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">is_in</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">Point</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">::</span><span class="kt">Circle</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">.</span><span class="n">center</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">c</span><span class="o">.</span><span class="n">radius</span>
+<span class="k">end</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">is_in</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span><span class="w"> </span><span class="n">my_circle</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">is_in</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">my_circle</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>is_in(p0, my_circle) = true
+is_in(Point(100, 0), my_circle) = false
+</code></pre></div>
+<h3 id="mutable-structs">Mutable Structs<a class="headerlink" href="#mutable-structs" title="Permanent link">#</a></h3>
+<p>What if we want to change the radius of the circle?</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_circle</span><span class="o">.</span><span class="n">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span><span class="w"> </span><span class="c"># Causes an error!!</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>setfield! immutable struct of type Circle cannot be changed
+
+
+
+Stacktrace:
+
+ [1] setproperty!(x::Circle, f::Symbol, v::Float64)
+
+   @ Base ./Base.jl:34
+
+ [2] top-level scope
+
+   @ In[34]:1
+
+ [3] eval
+
+   @ ./boot.jl:360 [inlined]
+
+ [4] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
+
+   @ Base ./loading.jl:1116
+</code></pre></div>
+<p>Structs are immutable (cannot be changed) by default in Julia. This allows for some optimizations behind the scenes and most of the time we do not need to change the values in a Struct.</p>
+<p>If we need to change fields in a struct, we add the <code>mutable</code> keyword:</p>
+<div class="highlight"><pre><span></span><code><span class="k">mutable</span><span class="w"> </span><span class="k">struct</span> <span class="kt">MutableCircle</span>
+<span class="w">    </span><span class="n">center</span><span class="o">::</span><span class="kt">Point</span>
+<span class="w">    </span><span class="n">radius</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="k">end</span>
+<span class="n">my_mutable_circle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MutableCircle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_mutable_circle</span>
+<span class="n">my_mutable_circle</span><span class="o">.</span><span class="n">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">my_mutable_circle</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>my_mutable_circle = MutableCircle(Point(1.0, 2.0), 5.0)
+my_mutable_circle = MutableCircle(Point(1.0, 2.0), 10.0)
+</code></pre></div>
+<h3 id="parametric-types">Parametric Types<a class="headerlink" href="#parametric-types" title="Permanent link">#</a></h3>
+<p>Let us go back to our Point type:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="kt">Point</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We locked in the types in the fields of this struct. What if we want to use a <code>Point</code> struct with a different type? Such as an <code>Int</code>. We use a <strong>Parametric Type</strong>.</p>
+<p>We define a Parametric Type in the following way:</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="kt">ParametricPoint</span><span class="p">{</span><span class="kt">R</span><span class="w"> </span><span class="o">&lt;:</span><span class="w"> </span><span class="kt">Real</span><span class="p">}</span>
+<span class="w">    </span><span class="n">x</span><span class="o">::</span><span class="kt">R</span>
+<span class="w">    </span><span class="n">y</span><span class="o">::</span><span class="kt">R</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="o">::</span><span class="kt">ParametricPoint</span><span class="p">{</span><span class="o">&lt;:</span><span class="kt">Real</span><span class="p">},</span>
+<span class="w">        </span><span class="n">q</span><span class="o">::</span><span class="kt">ParametricPoint</span><span class="p">{</span><span class="o">&lt;:</span><span class="kt">Real</span><span class="p">})</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sqrt</span><span class="p">((</span><span class="n">p</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">q</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">q</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">p0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParametricPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">typeof</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
+<span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParametricPoint</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">typeof</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>typeof(p0) = ParametricPoint{Int64}
+typeof(p1) = ParametricPoint{Float64}
+distance(p0, p1) = 1.4142135623730951
+</code></pre></div>
+<h2 id="metaprogramming">Metaprogramming<a class="headerlink" href="#metaprogramming" title="Permanent link">#</a></h2>
+<h3 id="how-julia-code-is-executed">How Julia Code is Executed<a class="headerlink" href="#how-julia-code-is-executed" title="Permanent link">#</a></h3>
+<p>At a very high level, Julia code is executed in two phases:</p>
+<ol>
+<li>Parsing a string and turning it into an expression</li>
+<li>Evaluating that expression</li>
+</ol>
+<h3 id="expressions">Expressions<a class="headerlink" href="#expressions" title="Permanent link">#</a></h3>
+<p>Julia code is parsed and turned into expressions. These expressions are themselves Julia data structures.</p>
+<div class="highlight"><pre><span></span><code><span class="n">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Meta</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;z^2 + 1&quot;</span><span class="p">)</span>
+<span class="n">expr</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>:(z ^ 2 + 1)
+</code></pre></div>
+<p>While the expression prints as a human-readable mathematical expression, it is actually a tree:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dump</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Expr
+  head: Symbol call
+  args: Array{Any}((3,))
+    1: Symbol +
+    2: Expr
+      head: Symbol call
+      args: Array{Any}((3,))
+        1: Symbol ^
+        2: Symbol z
+        3: Int64 2
+    3: Int64 1
+</code></pre></div>
+<p>Since this is a data structure, we can change the expression</p>
+<div class="highlight"><pre><span></span><code><span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">:-</span>
+<span class="n">expr</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">:*</span>
+<span class="n">expr</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>:(z * 2 - 1)
+</code></pre></div>
+<p>Then evaluate it</p>
+<div class="highlight"><pre><span></span><code><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">eval</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.5</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">eval</span><span class="p">(</span><span class="n">expr</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>eval(expr) = 5
+eval(expr) = 4.0
+</code></pre></div>
+<p>Note we gave <code>z</code> a value <strong>after</strong> we wrote the expression.</p>
+<h3 id="macros">Macros<a class="headerlink" href="#macros" title="Permanent link">#</a></h3>
+<p>A macro is a special function that takes expressions, symbols and literal values as arguments and returns an expression. The biggest difference between a macro and a normal function is that a macro is executed during the <strong>parse</strong> phase. This means that in a macro we have access to the expression!</p>
+<p>Let's take a look at the <code>@assert</code> macro:</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="nd">@assert</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>AssertionError: x == y
+
+
+
+Stacktrace:
+
+ [1] top-level scope
+
+   @ In[42]:2
+
+ [2] eval
+
+   @ ./boot.jl:360 [inlined]
+
+ [3] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
+
+   @ Base ./loading.jl:1116
+</code></pre></div>
+<p>The error contains the expression that caused the error! This is not possible to do with a function because that expression is not available at runtime.</p>
+<p>How do we write macros? More or less like we write functions but using the <code>macro</code> keyword instead of the <code>function</code> keyword:</p>
+<div class="highlight"><pre><span></span><code><span class="k">macro</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">name</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+<span class="w">    </span><span class="k">quote</span>
+<span class="w">        </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">name</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">f</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">g</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>@fadd (macro with 1 method)
+</code></pre></div>
+<p>This macro takes two functions and creates an expression that for a function that computes the sum of the two. It is actually generating code!</p>
+<div class="highlight"><pre><span></span><code><span class="n">p</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">q</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">2</span>
+<span class="nd">@fadd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="nb">pi</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">q</span><span class="p">(</span><span class="nb">pi</span><span class="p">)</span>
+<span class="nd">@show</span><span class="w"> </span><span class="n">h</span><span class="p">(</span><span class="nb">pi</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>p(pi) + q(pi) = 11.012830091668627
+h(pi) = 11.012830091668627
+</code></pre></div>
+<p>We can look at the expression that the macro generates with the macro <code>@macroexpand</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@macroexpand</span><span class="p">(</span><span class="nd">@fadd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>quote
+    #= In[43]:4 =#
+    h(var&quot;#73###258&quot;) = begin
+            #= In[43]:4 =#
+            p(var&quot;#73###258&quot;) + q(var&quot;#73###258&quot;)
+        end
+end
+</code></pre></div>
+<p>Ignoring all the stuff with <code>#</code> symbols we can see that the expression returned by the macro looks more or less like a function definition.</p>
+<p>Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:</p>
+<div class="highlight"><pre><span></span><code><span class="k">macro</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">name</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+<span class="w">    </span><span class="k">quote</span>
+<span class="w">        </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">name</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">f</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">g</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We'll unpack it one line at a time.</p>
+<p>Having seen how this works let's unpack the macro definition a bit more. For context, here's the whole definition again:</p>
+<div class="highlight"><pre><span></span><code><span class="k">macro</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">name</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+<span class="w">    </span><span class="k">quote</span>
+<span class="w">        </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">name</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">f</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">g</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><em>First Line:</em></p>
+<div class="highlight"><pre><span></span><code><span class="k">macro</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">name</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The macro definition looks a lot like a function definition but with <code>macro</code> instead of <code>function</code>.</p>
+<p><em>Second Line:</em></p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+</code></pre></div>
+<p>Here we create a vector of symbols of size <code>nargs</code>. The <code>gensym</code> function generates a symbol for a variable that is guaranteed not to clash with existing variables.  These symbols will be the arguments of our new function.</p>
+<p><em>Third Line:</em></p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">quote</span>
+<span class="w">        </span><span class="c"># expression here</span>
+<span class="w">    </span><span class="k">end</span>
+</code></pre></div>
+<p>This is an easy way to generate an expression. The contents of this block is the expression returned by the macro.</p>
+<p><em>Fourth Line:</em></p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">name</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">f</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">g</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+</code></pre></div>
+<p>This is the meat of the macro and it may seem a bit much at first.  However, each term is essentially the same. So let's just focus on the left hand side of the equality.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">name</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+</code></pre></div>
+<ul>
+<li>The <code>name</code> variable is local to the macro. It's value is what we want to put into the expression. So we <strong>interpolate</strong> it into the expression using <code>$</code>. </li>
+<li>However, we want that symbol to be evaluated in the context in which the macro was called. So we tell Julia to leave the value as is with the <code>esc</code> function.</li>
+<li>Without the call to <code>esc</code>, Julia will assume that the variable is local and needs to be renamed with <code>gensym</code> transformed so that it will not clash with other variables.</li>
+<li>Finally, we want to interpolate the contents of the vector <code>x</code> into the expression. This is done with the <strong>splat operator</strong> <code>...</code> in conjunction with <code>$</code>.</li>
+</ul>
+<p><strong>Why can't we just write a function to do this?</strong> Let's try:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">::</span><span class="kt">Function</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Function</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+<span class="w">    </span><span class="p">[</span><span class="n">WHAT</span><span class="w"> </span><span class="n">HERE</span><span class="o">?</span><span class="p">](</span><span class="n">x</span><span class="o">...</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="n">WHAT</span><span class="w"> </span><span class="n">TO</span><span class="w"> </span><span class="n">RETURN</span><span class="o">?</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>There are a couple problems here:</p>
+<ol>
+<li>What do we put for the function name? We want the <strong>value</strong> of the argument name. If we just put <code>name</code> we would end up with a function called name.</li>
+<li>What do we return? Even if we knew what to name the function, that name is only bound to the function <strong>in our current scope</strong>--the function <code>fadd</code>. Once we return from <code>fadd</code>, the name is no longer bound to this function.</li>
+</ol>
+<p>If we do not care about creating function names, we could construct and return an anonymous function:</p>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="kt">Function</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Function</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">)</span><span class="o">-&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+<span class="k">end</span>
+<span class="n">h1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">h1</span><span class="p">(</span><span class="nb">pi</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>11.012830091668627
+</code></pre></div>
+<p>This gets us pretty close to the same functionality since we could assign the function pointer to any valid variable name.</p>
+<p>However, we did not maximize the value of the macro. We can actually generate documentation for our function as well:</p>
+<div class="highlight"><pre><span></span><code><span class="k">macro</span><span class="w"> </span><span class="n">fadd</span><span class="p">(</span><span class="n">name</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">::</span><span class="kt">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">nargs</span><span class="o">::</span><span class="kt">Int</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">gensym</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="n">nargs</span><span class="p">]</span>
+<span class="w">    </span><span class="k">local</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Functions </span><span class="si">$f</span><span class="s"> and </span><span class="si">$g</span><span class="s"> added together. Created with the `@fadd` macro!&quot;</span>
+<span class="w">    </span><span class="k">quote</span>
+<span class="w">        </span><span class="nd">@doc</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="o">$</span><span class="n">help</span><span class="p">)</span>
+<span class="w">        </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">name</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">f</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">$</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">g</span><span class="p">))(</span><span class="o">$</span><span class="p">(</span><span class="n">x</span><span class="o">...</span><span class="p">))</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">end</span>
+<span class="nd">@fadd</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">?</span><span class="n">h</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Functions</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="n">together</span><span class="o">.</span><span class="w"> </span><span class="n">Created</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="sb">`@fadd`</span><span class="w"> </span><span class="k">macro</span><span class="o">!</span>
+</code></pre></div>
+<h2 id="other-resources">Other Resources<a class="headerlink" href="#other-resources" title="Permanent link">#</a></h2>
+<p>The <a href="https://docs.julialang.org/en/v1/">Julia Documentation</a> is a great place to read about Julia features. Numerous examples are normally given along with detailed explanation.</p>
+<p>The <a href="https://julialang.org/">official Julia website</a> is a great place to find <a href="https://julialang.org/learning/">Julia tutorials</a>, learn about the <a href="https://julialang.org/community/">Julia community</a> or discover <a href="https://julialang.org/research/">research</a> using Julia.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+       <footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+  <nav class="md-footer__inner md-grid" aria-label="footer.title">
+
+    <!-- Link to previous page -->
+    
+    
+    <a href="../julia_install/" class="md-footer__link md-footer__link--prev"
+      aria-label="Previous: Installing Julia" rel="prev">
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </div>
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Previous
+          </span>
+          Installing Julia
+        </div>
+      </div>
+    </a>
+    
+
+    <!-- Link to next page -->
+    
+    
+    <a href="../julia_parallel/" class="md-footer__link md-footer__link--next"
+      aria-label="Next: Julia Parallel Computing" rel="next">
+      <div class="md-footer__title">
+        <div class="md-ellipsis">
+          <span class="md-footer__direction">
+            Next
+          </span>
+          Julia Parallel Computing
+        </div>
+      </div>
+      <div class="md-footer__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+      </div>
+    </a>
+    
+  </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        <a href="https://www.nrel.gov/computational-science/" title="Computational Science at NREL">Computational
+          Science at NREL</a><br>
+        <a href="https://www.nrel.gov/hpc/about-hpc.html" target="_blank"
+          title="About NREL High-Performance Computing">About NREL High-Performance Computing</a><br>
+        <a href="https://www.nrel.gov/hpc/contact-us.html" target="_blank" title="Contact Us">Contact Us</a><br>
+      </div>
+    </div>
+  </div>
+  <footer>
+    
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.tabs", "navigation.indexes", "announce.dismiss"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
