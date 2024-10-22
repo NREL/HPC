@@ -11,7 +11,7 @@ The main workflow that we support has two stages. The first is interactive graph
      License usage can be checked on Kestrel with the command `lmstat.ansys`. Network floating licenses are a shared resource. Whenever you open an Ansys Fluent window, a license is pulled from the pool and becomes unavailable to other users. *Please do not keep idle windows open if you are not actively using the application*, close it and return the associated licenses to the pool. Excessive retention of software licenses falls under the inappropriate use policy.
 
 ## Building Models in the Ansys GUI
-GUI access is provided through [FastX desktops](https://eagle-dav.hpc.nrel.gov/session/). Open a terminal, load, and launch the Ansys Fluent environment with:
+GUI access is provided through [FastX desktops](https://nrel.github.io/HPC/Documentation/Viz_Analytics/virtualgl_fastx/). Open a terminal, load, and launch the Ansys Workbench with:
 
 ```
 module load ansys/<version>
@@ -35,25 +35,37 @@ bash
 #SBATCH -e fluent_%j.err
 #SBATCH --nodes=2
 #SBATCH --time=1:00:00
-#SBATCH --qos=high
+#SBATCH --qos=high 
 #SBATCH --partition=debug
 #SBATCH --ntasks-per-node=104
 #SBATCH --exclusive
 
 cd $SLURM_SUBMIT_DIR
 module load ansys/<version>
-module load intel-mpi/2018.0.3
-...
-unset I_MPI_PMI_LIBRARY
-srun hostname -s | sort -V > myhosts.txt
-...
-fluent 2ddp -g -t $SLURM_NTASKS -cnf=myhosts.txt -mpi=intel -pinfiniband -i input_file.jou
+
+export FLUENT_AFFINITY=0
+export SLURM_ENABLED=1
+export SCHEDULER_TIGHT_COUPLING=13
+
+scontrol show hostnames > nodelist
+
+FLUENT=`which fluent`
+VERSION=3ddp
+JOURNAL=journal_name.jou
+LOGFILE=fluent.log
+MPI=intel
+ 
+OPTIONS="-i$JOURNAL -t$SLURM_NPROCS -mpi=$MPI -cnf=$PWD/nodelist"
+ 
+nodelist > fluent.log
+ 
+$FLUENT $VERSION -g $OPTIONS > $LOGFILE 2>&1
 ```
 
 Once this script file (assumed to be named `ansys-job.slurm`) is saved, it can be submitted to the job scheduler with
 
 ```
-[user@el3 ~]$ sbatch ansys-job.slurm
+[user@kl3 ~]$ sbatch ansys-job.slurm
 ```
 
 In this example batch script, `2ddp` can be replaced with the version of FLUENT your job requires (`2d`, `3d`, `2ddp`, or `3ddp`), `-g` specifies that the job should run without the GUI, `-t` specifies the number of processors to use (in this example, 2 x 36 processors), `-cnf` specifies the hosts file (the list of nodes allocated to this job), `-mpi` and `-p<...>` specify the MPI implementation and interconnect, respectively, and`-i` is used to specify the job input file.  Note that generally speaking the generation of the hostname file,`myhosts.txt`, must be repeated in the beginning of each job since the allocated nodes will likely change for each run. 
