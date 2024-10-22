@@ -25,24 +25,24 @@ where `<version>` will be replaced with an Ansys version/release e.g., `2024R1`.
 ### Ansys Fluent
 To launch Ansys Fluent jobs in parallel batch mode, you can build on the batch script presented below.
 
-???+ example "Example Fluent Submission Script"
-    ```
-    bash
-    #!/bin/bash
-    ...
-    #SBATCH --nodes=2
-    #SBATCH --ntasks-per-node=36
 
-    cd $SLURM_SUBMIT_DIR
-    module purge  # purge everything else
-    module load ansys/<version>
-    module load intel-mpi/2018.0.3
-    ...
-    unset I_MPI_PMI_LIBRARY
-    srun hostname -s | sort -V > myhosts.txt
-    ...
-    fluent 2ddp -g -t $SLURM_NTASKS -cnf=myhosts.txt -mpi=intel -pinfiniband -i input_file.jou
-    ```
+```
+bash
+#!/bin/bash
+...
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+
+cd $SLURM_SUBMIT_DIR
+module purge  # purge everything else
+module load ansys/<version>
+module load intel-mpi/2018.0.3
+...
+unset I_MPI_PMI_LIBRARY
+srun hostname -s | sort -V > myhosts.txt
+...
+fluent 2ddp -g -t $SLURM_NTASKS -cnf=myhosts.txt -mpi=intel -pinfiniband -i input_file.jou
+```
 
 Once this script file (assumed to be named `ansys-job.slurm`) is saved, it can be submitted to the job scheduler with
 
