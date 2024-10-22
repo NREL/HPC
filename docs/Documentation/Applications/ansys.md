@@ -20,33 +20,10 @@ vglrun runwb2
 
 where `<version>` will be replaced with an Ansys version/release e.g., `2024R1`. Press `tab` to auto-suggest all available versions. Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs.
 
-<!-- 
-## Running Ansys in Parallel Batch Mode
+## Running Ansys Model in Parallel Batch Mode
 
-To initiate an Ansys run that uses the HPC Packs, it is necessary to create a command line that contains the hosts and number of processes on each in a format `host1:ppn_host1:host2:ppn_host2:....`. In order to do this as illustrated below, you must set `--ntasks-per-node` and `--nodes` in your Slurm header. A partial example submit script might look as follows.
-
-???+ example "Example Ansys Submission Script"
-    ```bash
-    #!/bin/bash -l
-    ...
-    #SBATCH --nodes=2
-    #SBATCH --ntasks-per-node=36
-    ...
-    cd $SLURM_SUBMIT_DIR
-    module purge  # purge everything else
-    module load ansys/19.2
-    module load intel-mpi/2018.0.3
-    ...
-    unset I_MPI_PMI_LIBRARY
-    machines=$(srun hostname | sort | uniq -c | awk '{print $2 ":" $1}' | paste -s -d ":" -)
-    ...
-    ansys192 -dis -mpi intelmpi -machines $machines -i <input>.dat
-    ```
- -->
-
-## Running a Fluent Model in Parallel Batch Mode
-
-To launch Ansys Fluent jobs in parallel batch mode, you can build on the batch script presented below.
+### Fluent
+To launch Ansys jobs in parallel batch mode, you can build on the batch script presented below.
 
 ???+ example "Example Fluent Submission Script"
     ```bash
