@@ -29,12 +29,18 @@ To launch Ansys Fluent jobs in parallel batch mode, you can build on the batch s
 ```
 bash
 #!/bin/bash
-...
+#SBATCH --job-name=jobname
+#SBATCH --account=your_account
+#SBATCH -o fluent_%j.out
+#SBATCH -e fluent_%j.err
 #SBATCH --nodes=2
-#SBATCH --ntasks-per-node=36
+#SBATCH --time=1:00:00
+#SBATCH --qos=high
+#SBATCH --partition=debug
+#SBATCH --ntasks-per-node=104
+#SBATCH --exclusive
 
 cd $SLURM_SUBMIT_DIR
-module purge  # purge everything else
 module load ansys/<version>
 module load intel-mpi/2018.0.3
 ...
