@@ -26,7 +26,8 @@ where `<version>` will be replaced with an Ansys version/release e.g., `2024R1`.
 To launch Ansys Fluent jobs in parallel batch mode, you can build on the batch script presented below.
 
 ???+ example "Example Fluent Submission Script"
-    ```bash
+    ```
+    bash
     #!/bin/bash
     ...
     #SBATCH --nodes=2
