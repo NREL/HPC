@@ -18,7 +18,7 @@ module load ansys/<version>
 vglrun runwb2
 ```
 
-where `<version>` will be replaced with an Ansys version/release e.g., `2021R2`. Press `tab` to auto-suggest all available versions. Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs.
+where `<version>` will be replaced with an Ansys version/release e.g., `2024R1`. Press `tab` to auto-suggest all available versions. Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs.
 
 <!-- 
 ## Running Ansys in Parallel Batch Mode
