@@ -68,7 +68,15 @@ Once this script file (assumed to be named `ansys-job.slurm`) is saved, it can b
 [user@kl3 ~]$ sbatch ansys-job.slurm
 ```
 
-In this example batch script, `2ddp` can be replaced with the version of FLUENT your job requires (`2d`, `3d`, `2ddp`, or `3ddp`), `-g` specifies that the job should run without the GUI, `-t` specifies the number of processors to use (in this example, 2 x 36 processors), `-cnf` specifies the hosts file (the list of nodes allocated to this job), `-mpi` and `-p<...>` specify the MPI implementation and interconnect, respectively, and`-i` is used to specify the job input file.  Note that generally speaking the generation of the hostname file,`myhosts.txt`, must be repeated in the beginning of each job since the allocated nodes will likely change for each run. 
+In this example batch script, `3ddp` can be replaced with the version of FLUENT your job requires (`2d`, `3d`, `2ddp`, or `3ddp`), `-g` specifies that the job should run without the GUI, `-t` specifies the number of processors to use (in this example, 2 x 104 processors), `-cnf` specifies the hosts file (the list of nodes allocated to this job), `-mpi` specifies the MPI implementation (intel or openmpi) and interconnect, respectively, and`-i` is used to specify the job input file.  
+
+In addition, the following commands in the slurm script are included to make sure the right bootstrap is used:
+
+```
+export FLUENT_AFFINITY=0
+export SLURM_ENABLED=1
+export SCHEDULER_TIGHT_COUPLING=13
+```
 
 !!! tip "A Note on Licenses and Job Scaling"
     HPC Pack licenses are used to distribute Ansys batch jobs to run in parallel across many compute cores.  The HPC Pack model is designed to enable exponentially more computational resources per each additional license, roughly 2x4^(num_hpc_packs).  A table summarizing this relationship is shown below.
