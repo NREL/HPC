@@ -42,13 +42,11 @@ To launch Ansys Fluent jobs in parallel batch mode, you can build on the batch s
 bash
 #!/bin/bash
 #SBATCH --job-name=jobname
-#SBATCH --account=your_account
+#SBATCH --account=<your_account>
 #SBATCH -o fluent_%j.out
 #SBATCH -e fluent_%j.err
 #SBATCH --nodes=2
 #SBATCH --time=1:00:00
-#SBATCH --qos=high 
-#SBATCH --partition=debug
 #SBATCH --ntasks-per-node=104
 #SBATCH --exclusive
 
@@ -101,11 +99,8 @@ Ansys Mechanical is a finite element analysis (FEA) software used to perform str
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=2
 #SBATCH --time=1:00:00
-##SBATCH --exclusive
-#SBATCH --account=your_account
-#SBATCH --qos=high
-#SBATCH --partition=standard
-##SBATCH --exclusive
+#SBATCH --exclusive
+#SBATCH --account=<your_account>
 #SBATCH --output="ansys-%j.out"
 #SBATCH --error="ansys-%j.err"
 
@@ -123,7 +118,7 @@ In the slurm script, `ansys241` starts the Ansys mechanical module, `-dis` enabl
 
 ### A Few Nodes
 
-When running Ansys job, the out of memory error is commonly encountered. To overcome the out of memory issue you can try the following  a few things:
+When running an Ansys job, the out of memory error (OOM) is commonly encountered. To overcome the out of memory issue, you can try the following:
 
 If you are running on shared nodes, by default, your job will be allocated about 1G of RAM per core requested. To change this amount, you can use the `--mem` or `--mem-per-cpu` flag in your job submission. To allocate all of the memory available on a node, use the `--mem=0` flag (https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/).
 
@@ -132,7 +127,7 @@ Try to run the job on nodes with local disk by using the `--tmp` option in your 
 
 ## Connect to Your Own License
 
-At NREL, a few groups own their own Ansys license. In order to connect to the private license, the user can set the environment variable `ANSYSLMD_LICENSE_FILE` (e.g. `export ANSYSLMD_LICENSE_FILE=1055@10.60.1.85`, replace to the corresponding port and license server hostname or IP address). 
+At NREL, a few groups own their own Ansys license. In order to connect to the private license, the user can set the environment variable `ANSYSLMD_LICENSE_FILE` (e.g. `export ANSYSLMD_LICENSE_FILE=1055@10.60.1.85`, replacing your corresponding port and license server hostname or IP address).  
 
 ## Contact
 For information about accessing licenses beyond CSC's base capability, please contact [Emily Cousineau.](mailto://Emily.Cousineau@nrel.gov)
