@@ -1,0 +1,9 @@
+# run this to create a tarball with outputs only
+dotar ()
+{
+  rm -rf output.tgz
+  newf=`git ls-files --others --exclude-standard`
+  tar -czf output.tgz $newf
+}
+
+dotar

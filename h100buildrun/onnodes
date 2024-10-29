@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+# ./onnodes [JOB_ID ...]
+# For each specified or running JOB
+#  For each NODE of the JOB
+#    Show what user has running on each core
+#    If NODE has GPUs show what is running on the GPUs
+if [[ $# -eq 0 ]] ; then
+  jobs=`squeue -hu $USER -o %A%t | grep R | sed "s/R//"`
+else
+  jobs="${@:1}"
+fi
+for j in $jobs ; do
+	echo JOB $j
+	list=`squeue -u $USER -j $j -ho %N`
+	long=`scontrol show hostnames $list | sort -u`
+	echo NODES $long
+	for l in $long ; do  
+	  echo $l 
+	  #ssh $l uptime
+	  echo "   PID    LWP PSR COMMAND         %CPU"  
+	  ssh $l ps -U $USER -L -o pid,lwp,psr,comm,pcpu | grep -v COMMAND | sort -k3n 
+	  ssh $l "if  command -v nvidia-smi  ; then nvidia-smi; fi"
+	done
+done
+

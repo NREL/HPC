@@ -60,8 +60,8 @@ program hybrid
     if (myid .eq. 0)then
       write(*,*)"Fortran MPI TASKS ",numtasks
       call MPI_Get_library_version(version, vlan, ierr)
-      write(*,*)trim(version)
-      write(*,*)trim(ADJUSTL(COMPILER_VERSION()))
+      write(*,*)"MPI VERSION: ",trim(version)
+      write(*,*)"BACKEND COMPILER: ",trim(ADJUSTL(COMPILER_VERSION()))
     endif
 !! runtriad runs "triad", in parallel, for 4 seconds to give threads time to settle
 !!  if input to triad is negative run for -# seconds

@@ -1,0 +1,109 @@
+#!/bin/bash
+#SBATCH --time=0:10:00
+#SBATCH --partition=gpu-h100
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:h100:4
+#SBATCH --exclusive
+#SBATCH --output=quick.out
+#SBATCH --error=quick.out
+
+
+cat > hellof.f90 << END
+!*********************************************
+!  This is a simple hello world program. Each processor 
+!  prints out its name, rank and  number of processors 
+!  in the current MPI run. 
+!*********************************************
+      program hello
+      use iso_fortran_env
+      include "mpif.h"
+      integer myid,numprocs,ierr,nlength
+      character(len=MPI_MAX_LIBRARY_VERSION_STRING+1) :: version
+      character (len=MPI_MAX_PROCESSOR_NAME+1):: myname
+      call MPI_INIT( ierr )
+      call MPI_COMM_RANK( MPI_COMM_WORLD, myid, ierr )
+      call MPI_COMM_SIZE( MPI_COMM_WORLD, numprocs, ierr )
+      call MPI_Get_processor_name(myname,nlength,ierr)
+      call MPI_Get_library_version(version, nlength, ierr)
+      write (*,*) "Hello from ",trim(myname)," # ",myid," of ",numprocs
+      if (myid .eq. 0)then
+              write(*,*)trim(version)
+              write(*,*)"compiler: ",compiler_version()
+      endif
+      call MPI_FINALIZE(ierr)
+      stop
+      end
+
+END
+
+cat > helloc.c << END
+#include <stdio.h>
+#include <stdlib.h>
+#include <mpi.h>
+#include <math.h>
+ 
+/************************************************************
+This is a simple hello world program. Each processor prints
+name, rank, and total run size.
+************************************************************/
+int main(int argc, char **argv)
+{
+    int myid,numprocs,resultlen;
+    char version[MPI_MAX_LIBRARY_VERSION_STRING];
+    char myname[MPI_MAX_PROCESSOR_NAME] ;
+    int vlan;
+    MPI_Init(&argc,&argv);
+    MPI_Comm_size(MPI_COMM_WORLD,&numprocs);
+    MPI_Comm_rank(MPI_COMM_WORLD,&myid);
+    MPI_Get_processor_name(myname,&resultlen); 
+    printf("Hello from %s %d %d\n",myname,myid,numprocs);
+    if (myid == 0 ) {
+	    MPI_Get_library_version(version, &vlan);
+	    printf("%s\n",version);
+    }
+    MPI_Finalize();
+}
+END
+
+
+echo our default modules
+ml
+
+echo This should work but does not
+echo Compiling C
+cc helloc.c -o helloc
+echo 
+echo Compiling Fortran
+ftn hellof.f90 -o hellof
+
+echo 
+echo unloading nvhpc
+module unload nvhpc
+echo
+echo We need cuda to get this to work
+ml cuda
+
+echo Compiling and running C
+cc helloc.c -o helloc
+srun -n 2 ./helloc
+
+echo Compiling and running fortran
+ftn hellof.f90 -o hellof
+srun -n 2 ./hellof
+
+echo Similar for PrgEnv-gnu and PrgEnv-intel
+module unload nvhpc
+ml cuda
+ml PrgEnv-gnu
+cc -march=skylake helloc.c -o gcc.exe
+srun -n 2 ./gcc.exe
+
+module unload nvhpc
+ml cuda
+ml PrgEnv-intel
+ml cray-libsci/22.12.1.1
+ml binutils
+cc  helloc.c -o intel.exe
+srun -n 2 ./intel.exe
+
+

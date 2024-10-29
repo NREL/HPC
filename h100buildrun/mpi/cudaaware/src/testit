@@ -1,0 +1,81 @@
+module restore
+
+:  Enable a newer environment
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+: Load modules
+ml craype-x86-genoa 
+
+cc -g cpumod.c -o cray_cpu
+
+unset MPICH_GPU_SUPPORT_ENABLED
+srun --tasks-per-node=2 --nodes=1 ./cray_cpu 0 0  | tee cray_cpu_on_0_0
+srun --tasks-per-node=2 --nodes=1 ./cray_cpu 1 0  | tee cray_cpu_on_1_0
+srun --tasks-per-node=2 --nodes=1 ./cray_cpu 0 1  | tee cray_cpu_on_0_1
+srun --tasks-per-node=2 --nodes=1 ./cray_cpu 1 1  | tee cray_cpu_on_1_1
+
+
+srun --tasks-per-node=1 --nodes=2 ./cray_cpu 0 0  | tee cray_cpu_off_0_0
+srun --tasks-per-node=1 --nodes=2 ./cray_cpu 1 0  | tee cray_cpu_off_1_0
+srun --tasks-per-node=1 --nodes=2 ./cray_cpu 0 1  | tee cray_cpu_off_0_1
+srun --tasks-per-node=1 --nodes=2 ./cray_cpu 1 1  | tee cray_cpu_off_1_1
+
+
+ml PrgEnv-nvidia
+ml cray-libsci/23.05.1.4  
+
+CC -g -gpu=cc90   $CFLAGS -cuda -target-accel=nvidia90  -c gpumod.cu
+cc -g -gpu=cc90   -cuda -target-accel=nvidia90 -lcudart -lcuda  gpumod.o -o cray_gpu
+export MPICH_GPU_SUPPORT_ENABLED=1
+
+srun --tasks-per-node=2 --nodes=1 ./cray_gpu 0 0  | tee cray_gpu_on_0_0
+srun --tasks-per-node=2 --nodes=1 ./cray_gpu 1 0  | tee cray_gpu_on_1_0
+srun --tasks-per-node=2 --nodes=1 ./cray_gpu 0 1  | tee cray_gpu_on_0_1
+srun --tasks-per-node=2 --nodes=1 ./cray_gpu 1 1  | tee cray_gpu_on_1_1
+
+
+srun --tasks-per-node=1 --nodes=2 ./cray_gpu 0 0  | tee cray_gpu_off_0_0
+srun --tasks-per-node=1 --nodes=2 ./cray_gpu 1 0  | tee cray_gpu_off_1_0
+srun --tasks-per-node=1 --nodes=2 ./cray_gpu 0 1  | tee cray_gpu_off_0_1
+srun --tasks-per-node=1 --nodes=2 ./cray_gpu 1 1  | tee cray_gpu_off_1_1
+
+unset MPICH_GPU_SUPPORT_ENABLED
+
+
+module purge
+ml openmpi/5.0.3-gcc
+#ml nvhpc-hpcx-cuda12/24.1
+
+
+unset EXTRA
+#export EXTRA="--bind-to core --mca mtl_ofi_disable_hmem 1  --mca opal_common_ofi_provider_include shm+cxi:linkx"
+#export EXTRA="--mca btl_smcuda_use_cuda_ipc_same_gpu 0 --mca mpi_common_cuda_verbose 100"
+#export EXTRA="--mca mpi_common_cuda_verbose 100"
+#export EXTRA="--mca opal_common_ofi_provider_include cxi"
+
+mpicc cpumod.c -o open_cpu
+mpirun $EXTRA -n 2 ./open_cpu 0 0  | tee open_cpu_on_0_0
+mpirun $EXTRA -n 2 ./open_cpu 1 0  | tee open_cpu_on_1_0
+mpirun $EXTRA -n 2 ./open_cpu 0 1  | tee open_cpu_on_0_1
+mpirun $EXTRA -n 2 ./open_cpu 1 1  | tee open_cpu_on_1_1
+
+
+mpirun $EXTRA -N 1 ./open_cpu 0 0  | tee open_cpu_off_0_0
+mpirun $EXTRA -N 1 ./open_cpu 1 0  | tee open_cpu_off_1_0
+mpirun $EXTRA -N 1 ./open_cpu 0 1  | tee open_cpu_off_0_1
+mpirun $EXTRA -N 1 ./open_cpu 1 1  | tee open_cpu_off_1_1
+
+
+nvcc -g  -c gpumod.cu -I/nopt/nrel/apps/gpu_stack/mpi/04-24/openmpi-5.0.3/build_linkx_gpu/include 
+mpiCC -g -lcudart  -L/nopt/cuda/12.3/targets/x86_64-linux/lib gpumod.o -o open_gpu
+mpirun $EXTRA -n 2 ./open_gpu 0 0  | tee open_gpu_on_0_0
+mpirun $EXTRA -n 2 ./open_gpu 1 0  | tee open_gpu_on_1_0
+mpirun $EXTRA -n 2 ./open_gpu 0 1  | tee open_gpu_on_0_1
+mpirun $EXTRA -n 2 ./open_gpu 1 1  | tee open_gpu_on_1_1
+
+
+mpirun $EXTRA -N 1 ./open_gpu 0 0  | tee open_gpu_off_0_0
+mpirun $EXTRA -N 1 ./open_gpu 1 0  | tee open_gpu_off_1_0
+mpirun $EXTRA -N 1 ./open_gpu 0 1  | tee open_gpu_off_0_1
+mpirun $EXTRA -N 1 ./open_gpu 1 1  | tee open_gpu_off_1_1
+
+unset EXTRA

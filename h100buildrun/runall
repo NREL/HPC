@@ -1,5 +1,5 @@
-#$git clone git@github.com:NREL/HPC.git
-#cd HPC/h100buildrun
+#$git clone git@github.nrel.gov:hpc-apps/build_examples.git
+#cd build_examples
 #salloc --time=2:00:00  --partition=gpu-h100 --nodes=2 --gres=gpu:h100:4  --exclusive 
 #. runall > output 2>&1
 

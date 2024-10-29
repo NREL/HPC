@@ -1,13 +1,14 @@
 : Start from a known module state, the default
-module restore
+myrestore
 
-:  Enable a newer environment
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 : Load modules
-ml craype-x86-genoa 
-ml gcc-native
+#module unload PrgEnv-cray/8.5.0
+#module unload nvhpc/24.1
+
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
 ml PrgEnv-nvhpc
 ml cray-libsci/23.05.1.4
+ml binutils
 
 : << ++++ 
  Compile our program.
@@ -15,10 +16,10 @@ ml cray-libsci/23.05.1.4
  Here we use cc and ftn.  These are wrappers
  that point to Cray C (clang) Cray Fortran
  and Cray MPI. cc and ftn are part of PrgEnv-cray
- with is part of the default setup.
+ which is part of the default setup.
 ++++
 
-cc -acc -Minfo=accel -fast acc_c3.c -o jacobi
+cc -acc -Minfo=accel -fast acc_c3.c  -o jacobi
 
 : We run with 4 tasks per nodes.
 srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia

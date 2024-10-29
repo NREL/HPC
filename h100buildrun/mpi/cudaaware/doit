@@ -1,13 +1,14 @@
 : Start from a known module state, the default
-module restore
+myrestore
 
-:  Enable a newer environment
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 : Load modules
-ml craype-x86-genoa 
-ml gcc-native
+#module unload nvhpc/24.1
+#module unload PrgEnv-cray/8.5.0
+
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
 ml PrgEnv-nvhpc
 ml cray-libsci/23.05.1.4  
+ml binutils
 
 : << ++++ 
  Compile our program.
@@ -21,7 +22,19 @@ CC -gpu=cc90  -cuda -target-accel=nvidia90  -c ping_pong_cuda_aware.cu
 cc -gpu=cc90  -cuda -target-accel=nvidia90 -lcudart -lcuda ping_pong_cuda_aware.o -o pp_cuda_aware
 
 export MPICH_GPU_SUPPORT_ENABLED=1
+export MPICH_OFI_NIC_POLICY=GPU
 srun -n 2 --nodes=1 ./pp_cuda_aware
 srun --tasks-per-node=1 --nodes=2 ./pp_cuda_aware
 unset MPICH_GPU_SUPPORT_ENABLED
+unset MPICH_OFI_NIC_POLICY
+
+
+: << SKIP
+ml openmpi/5.0.3-gcc
+nvcc -c ping_pong_cuda_aware.cu -I/nopt/nrel/apps/gpu_stack/mpi/04-24/openmpi-5.0.3/build_linkx_gpu/include 
+mpiCC -lcudart  -L/nopt/cuda/12.3/targets/x86_64-linux/lib   ping_pong_cuda_aware.o -o  ping_pong_cuda_aware.exe
+
+mpirun -n 2 ./ping_pong_cuda_aware.exe
+mpirun -N 1 ./ping_pong_cuda_aware.exe
+SKIP
 

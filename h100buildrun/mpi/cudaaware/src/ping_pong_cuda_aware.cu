@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
-
+#include <string.h>
 // Macro for checking errors in CUDA API calls
 #define cudaErrorCheck(call)                                                              \
 do{                                                                                       \
@@ -35,6 +35,27 @@ int main(int argc, char *argv[])
 		MPI_Finalize();
 		exit(0);
 	}
+	if ( rank == 0 ) {
+		char version[MPI_MAX_LIBRARY_VERSION_STRING];
+		int vlan;
+		MPI_Get_library_version(version, &vlan);
+    		printf("%s\n",version);
+	}
+    char myname[MPI_MAX_PROCESSOR_NAME] ;
+    char name1[MPI_MAX_PROCESSOR_NAME] ;
+    int resultlen;
+    MPI_Get_processor_name(myname,&resultlen);
+    if(rank == 1)
+            MPI_Send(myname, MPI_MAX_PROCESSOR_NAME, MPI_CHAR, 0, 1, MPI_COMM_WORLD);
+    else {  
+            MPI_Recv(name1, MPI_MAX_PROCESSOR_NAME, MPI_CHAR, 1, 1, MPI_COMM_WORLD, &stat); 
+            if (strcmp(myname,name1) != 0) { 
+                printf("Two nodes %s %s\n",myname,name1);
+            }       
+            else {  
+                printf("One node %s\n",myname);
+            }       
+    }       
 
 	// Map MPI ranks to GPUs
     int num_devices = 0;

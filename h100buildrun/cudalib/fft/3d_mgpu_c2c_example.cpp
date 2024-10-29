@@ -193,22 +193,24 @@ int main(int argc, char *argv[]) {
     s1=mysecond();
     single(fft, data_in, data_out_reference);
     s2=mysecond();
+    std::cout << "starting single gpu version ";
     std::cout << "single GPU time " << s2-s1 << " seconds" << std::endl;
+    std::cout << "starting multi gpu version ";
     std::cout << "using a total of " << gpus.size() << " GPUs"<< std::endl;
-    std::cout << "starting multi\n";
     m1=mysecond();
     spmg(fft, gpus, data_in, data_out_test, decomposition);
     m2=mysecond();
     std::cout << " multi GPU time " << m2-m1 << " seconds"  << std::endl;
     }
     else {
+    std::cout << "starting multi gpu version ";
     std::cout << "using a total of " << gpus.size() << " GPUs"<< std::endl;
-    std::cout << "starting multi\n";
     m1=mysecond();
     spmg(fft, gpus, data_in, data_out_test, decomposition);
     m2=mysecond();
     std::cout << " multi GPU time " << m2-m1 << " seconds"  << std::endl;
     s1=mysecond();
+    std::cout << "starting single gpu version "<< std::endl;
     single(fft, data_in, data_out_reference);
     s2=mysecond();
     std::cout << "single GPU time " << s2-s1 << " seconds" << std::endl;
