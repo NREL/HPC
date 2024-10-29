@@ -32,6 +32,7 @@ nav:
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/other.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
             - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Swift:
@@ -163,7 +164,7 @@ nav:
          - Debug Tools:
             #  - ARM:
             #    - Documentation/Development/Debug_Tools/ARM/index.md
-            #    - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md
+             - DDT: Documentation/Development/Debug_Tools/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
                #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
                #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
