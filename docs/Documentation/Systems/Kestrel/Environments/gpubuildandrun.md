@@ -85,16 +85,19 @@ There are a number of "helper" files  shipped with the examples.  The script *on
     [tkaiser2@kl6 h100]$
     ```
 
-There is a function *myrestore* defined in /nopt/nrel/apps/env.sh
+There is a function *module_restore* defined in /nopt/nrel/apps/env.sh
 Sourcing /nopt/nrel/apps/env.sh sets modules back to the original state
-Myrestore also modifies $PATH and $LD_LIBRARY_PATH putting paths with your 
+module_restore also modifies $PATH and $LD_LIBRARY_PATH putting paths with your 
 home directory at the beginning.
 
 
 ```
 . /nopt/nrel/apps/env.sh
-myrewstore
+module_restore
 ```
+
+As of October 2024 /nopt/nrel/apps/env.sh is sourced automatically when you login so the
+function module_restore should be in you path.
 
 
 ### Just MPI
@@ -159,7 +162,7 @@ export doits="./cudalib/factor/doit ./cudalib/fft/doit ./mpi/cudaaware/doit"
 
 ## General notes for all examples
 
-* All examples run myrestore to set the environment to a know state.  See above.
+* All examples run module_restore to set the environment to a know state.  See above.
 * Many of the examples unload  PrgEnv-cray/8.5.0 and nvhpc/24.1 to prevent conflicts with other modules.
 * There is a compile and run of one or more programs.  
 * MPI programs are run with srun or mpirun on one or two nodes.  Mpirun is used with some versions of NVIDIA's environment because srun is not supported.
@@ -174,7 +177,7 @@ Our script, shown below does the following:
 1. Test to make sure we are starting from a GPU node.
 1. Define a simple timer.
 1. Save our environment and a copy of the script.
-1. Bring the function myrestore into our environment (see above).
+1. Bring the function module_restore into our environment (see above).
 1. Set our default version of gcc.
 1. Find our examples if the user has not set a list beforehand and echo our list.
 1. Go into each directory and run the test.
@@ -211,7 +214,7 @@ Our script, shown below does the following:
 	
 	#runs script to put our restore function in our environment
 	. /nopt/nrel/apps/env.sh
-	myrestore
+	module_restore
 	
 	#some possible values for gcc module
 	#export MYGCC=gcc-native/12.1
@@ -265,7 +268,7 @@ We run on each GPU of each Node in our allocation.
 ??? example "cuda/cray"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -307,7 +310,7 @@ Here we build and run a single GPU code stream.cu. This code is a standard bench
 ??? example "cuda/gccalso"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload  PrgEnv-cray/8.5.0
@@ -353,7 +356,7 @@ We use nvhpc-nompi which is a NREL written environment that builds cuda programs
 ??? example "cuda/nvidia"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload  PrgEnv-cray/8.5.0
@@ -392,7 +395,7 @@ We are building MPI programs that do not contain Cuda.  We unload nvhpc and load
 ??? example "mpi/normal/cray"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	
 	: Load modules
@@ -474,7 +477,7 @@ However, if we load the modules craype and cray-mpich-abi the Intel MPI library 
 ??? example "mpi/normal/intel+abi"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -533,7 +536,7 @@ In this case we are building normal MPI programs but using a NREL built OpenMPI 
 ??? example "mpi/normal/nvidia/nrelopenmpi"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -571,7 +574,7 @@ In this case we are building normal MPI programs but using a nvhpc/24.1.  This p
 ??? example "mpi/normal/nvidia/nvidiaopenmpi"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -633,7 +636,7 @@ Since PrgEnv-* is compatible with slurm we launch using srun. We do a on-node an
 ??? example "mpi/withcuda/cray"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -691,7 +694,7 @@ Since PrgEnv-* is compatible with slurm we launch using srun. We do a on-node an
 ??? example "mpi/withcuda/nvidia/nrelopenmpi"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -737,7 +740,7 @@ We compile with mpiCC.  Since NVIDIA's MPI does not support srun we launch with 
 ??? example "mpi/withcuda/nvidia/nvidiaopenmpi"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -796,7 +799,7 @@ We need to  MPICH_GPU_SUPPORT_ENABLED=1 to make this work.  Depending on the cod
 	??? example "mpi/cudaaware"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload nvhpc/24.1
@@ -844,7 +847,7 @@ Since this is not a MPI program we don't actually need srun.  However, we use it
 ??? example "openacc/cray"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -900,7 +903,7 @@ Since this is not a MPI program we don't actually need srun.  However, we use it
 ??? example "openacc/nvidia"
 	```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -950,7 +953,7 @@ We launch with srun since PrgEnv-* supports the slurm scheduler.
 ??? example "mpi/openacc/cray"
     ```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -988,7 +991,7 @@ We launch with srun since NREL's OpenMPI supports the slurm scheduler.
     ```bash
 	cat doit
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -1022,7 +1025,7 @@ We launch with mpirun since NVIDIA's MPI lacks support for the slurm scheduler.
 ??? example "mpi/openacc/nvidia/nvidiaopenmpi"
     ```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
@@ -1073,7 +1076,7 @@ build and run.
 	: We are going to Cray libsci version with the GPU
 	: environment even though it does not use GPUs
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	: Load modules
 	#module unload PrgEnv-cray/8.5.0
@@ -1119,7 +1122,7 @@ build and run.
 	
 	: We are going to compile the Intel version using 
 	: the CPU environment
-	myrestore
+	module_restore
 	ml intel-oneapi-mkl
 	ml intel-oneapi-compilers
 	icpx  -DMINE=$MSIZE -qopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl
@@ -1162,7 +1165,7 @@ Again we run on a cube of size 512.
 ??? example "cudalib/fft"
     ```bash
 	: Start from a known module state, the default
-	myrestore
+	module_restore
 	
 	
 	
@@ -1207,7 +1210,7 @@ Again we run on a cube of size 512.
 	done
 	
 	: Build and run a fftw version
-	myrestore
+	module_restore
 	#module unload nvhpc/24.1
 	#module unload PrgEnv-cray/8.5.0
 	ml  PrgEnv-cray/8.4.0 
