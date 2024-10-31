@@ -1,5 +1,5 @@
 : Start from a known module state, the default
-myrestore
+module_restore
 
 
 
@@ -44,7 +44,7 @@ for DOIT in `seq 1 4` ; do
 done
 
 : Build and run a fftw version
-myrestore
+module_restore
 #module unload nvhpc/24.1
 #module unload PrgEnv-cray/8.5.0
 ml  PrgEnv-cray/8.4.0 

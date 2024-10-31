@@ -1,5 +1,5 @@
 : Start from a known module state, the default
-myrestore
+module_restore
 
 : Load modules
 #module unload nvhpc/24.1

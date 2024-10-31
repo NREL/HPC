@@ -149,16 +149,12 @@ Wed Aug 21 11:55:50 2024
 
 ```
 
-There is a function *myrestore* defined in /nopt/nrel/apps/env.sh
-Sourcing /nopt/nrel/apps/env.sh sets modules back to the original state
-Myrestore also modifies $PATH and $LD_LIBRARY_PATH putting paths with your 
-home directory at the beginning.
+The file *whack.sh* defines a function myrestore.  This function is a replacement for the command module reset.  The default module reset command has some issues which cause some things to not findable after it is called.  The "fix" is to unset some environmental variables, call the original module reset and finally repair your PATH variable; moving paths in your home directory to the front of the list.  The function  myrestore can be added to your environment by sourcing the file whack.sh
 
 ```
-. /nopt/nrel/apps/env.sh
-myrewstore
+. whack.sh
 ```
-
+As of October 2024 there is a function module_restore that should be in your environment by default.  It replaces myrestore and has the same functionality.
 
 ## Just MPI
 There is an extra slurm script *quick* which does a build of C and Fortran MPI hello world.  The script shows that to get a MPI program to build with the standard Programing environments PrgEnv-{cray,intel,gnu} you must module unload nvhpc and module load cuda.  These environments build using Cray's MPI and the various back end compilers.  There is a conflict between the default version of nvhpc and these environments.  Also, Cray MPI wants cuda even if the program being built does not require it.

@@ -1,5 +1,5 @@
 : Start from a known module state, the default
-myrestore
+module_restore
 
 : Load modules
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi

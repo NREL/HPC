@@ -25,8 +25,7 @@ printenv > env-$SLURM_JOB_ID.out
 cat $0 > script-$SLURM_JOB_ID.out
 
 #runs script to put our restore function in our environment
-. /nopt/nrel/apps/env.sh
-myrestore
+module_restore
 
 #some possible values for gcc module
 #export MYGCC=gcc-native/12.1

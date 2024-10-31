@@ -5,7 +5,7 @@ export MSIZE=4500
 : We are going to Cray libsci version with the GPU
 : environment even though it does not use GPUs
 : Start from a known module state, the default
-myrestore
+module_restore
 
 : Load modules
 #module unload PrgEnv-cray/8.5.0
@@ -51,7 +51,7 @@ done
 
 : We are going to compile the Intel version using 
 : the CPU environment
-myrestore
+module_restore
 ml intel-oneapi-mkl
 ml intel-oneapi-compilers
 icpx  -DMINE=$MSIZE -qopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl
