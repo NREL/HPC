@@ -21,7 +21,7 @@ IPOPT is commonly used in solving power flow, e.g., AC Optimal Power Flow, and c
 ## Installation from source
 
 !!! info
-    We advise build all applications on the compute node on an interactive session. Please see [Running Interactive Jobs](../Slurm/interactive_jobs.md#running-interactive-jobs) for additional details.
+    We advise building all applications on a compute node using an interactive session. Please see [Running Interactive Jobs](../Slurm/interactive_jobs.md#running-interactive-jobs) for additional details.
 
 ### Optional Pre-requisites
 
