@@ -15,7 +15,7 @@ grand_parent: Development
 IPOPT is commonly used in solving power flow, e.g., AC Optimal Power Flow, and controls problems. Please refer to their [project website](https://github.com/coin-or/Ipopt) for the source code. The documentation can be found [here](https://coin-or.github.io/Ipopt/index.html).
 
 !!! note
-    IPOPT with HSL linear solvers is available as a module on Kestrel. Please see [IDAES Solvers](./idaes_solvers.md) for additional details. We recommend using the system module for ease-of-use and only build if they do not meet your needs.
+    IPOPT with HSL linear solvers is available as a module on Kestrel. Please see [IDAES Solvers](./idaes_solvers.md) for additional details. We recommend using the system module for ease-of-use and only build if the module does not meet your needs.
 
 
 ## Installation from source
