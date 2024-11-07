@@ -53,7 +53,7 @@ conda install conda-forge::metis
 !!! note
     Anaconda packages sometimes have issues when they come from different channels.  We tend to pull everything from `conda-forge` hence the channel choice above.
 
-The Metis library and header files are placed in `/projects/hpcapps/kpanda/conda-envs/metis/lib/` and `/projects/hpcapps/kpanda/conda-envs/metis/include/`, respectively
+The Metis library and header files are placed in `/projects/hpcapps/kpanda/conda-envs/metis/lib/` and `/projects/hpcapps/kpanda/conda-envs/metis/include/`, respectively.
 
 ##### Compilers
 
