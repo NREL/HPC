@@ -39,7 +39,7 @@ improve the performance of linear solvers such as MUMPS and HSL.
 
 We will install Metis using Anaconda. However, it can also be installed from source.
 To install using Anaconda, we will create a clean environment with only Metis.
-The conda environment is being constructed within a directory in the `hpcapps` project on 
+For this example, the conda environment is being constructed within a directory in the `hpcapps` project on 
 Kestrel. Users can create a conda environment in any place of their choice.
 
 ```bash
