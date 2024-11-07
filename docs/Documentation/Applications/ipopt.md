@@ -2,7 +2,7 @@
 title: IPOPT
 postdate: October 27, 2020
 layout: default
-author: Jonathan Maack
+author: Jonathan Maack, Kinshuk Panda
 description: How to install and use IPOPT with different programming languages
 parent: Libraries
 grand_parent: Development
@@ -14,75 +14,169 @@ grand_parent: Development
 
 IPOPT is commonly used in solving power flow, e.g., AC Optimal Power Flow, and controls problems. Please refer to their [project website](https://github.com/coin-or/Ipopt) for the source code. The documentation can be found [here](https://coin-or.github.io/Ipopt/index.html).
 
-!!! info
-    IPOPT with HSL linear solvers is available as a module on Kestrel. Please see [IDAES Solvers](./idaes_solvers.md) for additional details.
+!!! note
+    IPOPT with HSL linear solvers is available as a module on Kestrel. Please see [IDAES Solvers](./idaes_solvers.md) for additional details. We recommend using the system module for ease-of-use and only build if the module does not meet your needs.
 
 
 ## Installation from source
 
+!!! info
+    We advise building all applications on a compute node using an interactive session. Please see [Running Interactive Jobs](../Slurm/interactive_jobs.md#running-interactive-jobs) for additional details.
+
+### Optional Pre-requisites
+
+We will build IPOPT using all prerequisites mentioned below. Users may pick and
+choose depending on their needs.
+
+#### Metis
+
+It is highly recommended to install [Metis](https://github.com/KarypisLab/METIS.git)
+- Serial Graph Partitioning and Fill-reducing Matrix Ordering software to 
+improve the performance of linear solvers such as MUMPS and HSL.
+
 !!! warning
-    The following installation instructions are for NREL's older cluster Eagle. We recommend users use the [IPOPT modules available on Kestrel](./idaes_solvers.md). Users will have to tweak the instructions below to build IPOPT from source on Kestrel.  
+    Using HSL linear solvers requires installing Metis. Metis is optional for MUMPS.
 
-The default installation instructions can be found in the [IPOPT documentation here](https://coin-or.github.io/Ipopt/INSTALL.html). The remainder of the page describes what has worked for NREL HPC users.
+We will install Metis using Anaconda. However, it can also be installed from source.
+To install using Anaconda, we will create a clean environment with only Metis.
+For this example, the conda environment is being constructed within a directory in the `hpcapps` project on 
+Kestrel. Users can create a conda environment in any place of their choice.
 
-We will use COIN-OR's [coinbrew](https://github.com/coin-or/coinbrew) repo to build IPOPT along with the dependencies ASL, HSL and Mumps libraries. 
+```bash
+module load conda
+conda create -p /projects/hpcapps/kpanda/conda-envs/metis python
+conda activate /projects/hpcapps/kpanda/conda-envs/metis
+conda install conda-forge::metis
+```
+
+#### Coinbrew
+
+[Coinbrew](https://github.com/coin-or/coinbrew) is a package manager to install
+COIN-OR tools. It makes installing IPOPT and its dependencies easier. However, it 
+is not necessary to the installation if one clones the repositories individually.
+A user can download `coinbrew` by running the following command
+
+```bash
+wget https://raw.githubusercontent.com/coin-or/coinbrew/master/coinbrew
+```
+
+#### Intel oneAPI MKL
+
+Intel oneAPI MKL provides BLAS and LAPACK libraries for efficient linear algebra.
+Additionally, it also provides access to oneMKL PARDISO linear solver that is 
+compatible with IPOPT.
 
 !!! note
-    Follow the [instructions to setup the environment](../Development/Libraries/hsl.md#hpc) for HSL before proceeding with the steps below.
+    oneMKL PARDISO is not available on Kestrel GPU nodes since they consist of AMD processors.
 
-1. `module load gcc/8.4.0 mkl`
-2. Clone (or download) the [coinbrew](https://github.com/coin-or/coinbrew) repo. If you download the repo you may have to change the permissions on the `coinbrew` *script* before using it: `chmod u+x coinbrew/coinbrew`
-3. `cd` into the directory
-4. `./coinbrew fetch Ipopt@stable/3.13`
-    * This fetches the branch `stable/3.13` of the IPOPT repository as well as the dependencies COIN-OR repositories `ThirdParty-ASL`, `ThirdParty-HSL` and `ThirdParty-Mumps` (other versions of IPOPT can also be downloaded in this manner)
-5. `cd ThirdParty/HSL`
-6. Copy the HSL source code to the current directory and unpack it
-7. Create a link called `coinhsl` that points to the HSL source code (or rename the directory)
-8. Go back to coinbrew root directory: `cd ../..`
-9. Configure and build everything:
+#### HSL
 
-    ```bash
-    ./coinbrew build Ipopt --disable-java --prefix="${MYAPPS}" --with-metis-cflags="-I${MYINC}" --with-metis-lflags="-L${MYLIB} -lmetis" --with-lapack-lflags="-L${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl" --with-lapack-cflags="-m64 -I${MKLROOT}/include" ADD_CFLAGS="-march=skylake-avx512" ADD_FCFLAGS="-march=skylake-avx512" ADD_FFLAGS="-march=skylake-avx512"
-    ```
+[HSL (Harwell Subroutine Library)](http://hsl.rl.ac.uk/ipopt) is a set of linear solvers 
+that can greatly accelerate the speed of optimization over other linear solvers, e.g., MUMPS.
+HSL can be installed separately as well using [ThirdParty-HSL](https://github.com/coin-or-tools/ThirdParty-HSL).
+Please see [here](../Development/Libraries/hsl.md) for installation on Kestrel.
 
-    * `build Ipopt` tells `coinbrew` to configure and build IPOPT and its dependencies
-    * `--disable-java` says to build IPOPT without the java interface
-    * `--prefix` says to install the library in "${MYAPPS}"
-    * `--with-metis-cflags` gives the compiler the location of the metis header "metis.h"
-    * `--with-metis-lflags` gives the linker the location and name of the metis library
-    * `--with-lapack-lflags` gives the location of LAPACK and BLAS libraries as well as the needed linker lines.  Here we are using Intel's single dynamic library interface (google "mkl single dynamic library" for more details on this).
-    * `ADD_CFLAGS`, `ADD_FCFLAGS` and `ADD_FFLAGS` say to use those extra flags when compiling C and fortran code, respectively.
+### Installation
 
-!!! tip
-    When linking with MKL libraries, Intel's [link line advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) is extremely helpful.
+In this demonstration, we will install Ipopt within
+`/projects/msoc/kpanda/apps/Ipopt/install`. However, one is free to set their
+install directory as they wish. Starting with the base working directory
+`/projects/msoc/kpanda/apps/` we will do the following
 
-!!! note 
-    When compiling Julia with MKL libraries, the single dynamic library interface is used to link against.  This is why we are also using that linking method.  Using a different linking method will cause unusual behaviors when using IPOPT with Julia (e.g. through JuMP).
+```bash
+cd /projects/msoc/kpanda/apps/ # go into the base working directory
+wget https://raw.githubusercontent.com/coin-or/coinbrew/master/coinbrew # install coinbrew
+coinbrew fetch Ipopt # Fetch Ipopt and its dependencies
+```
+
+This will download 2 additional directories `Ipopt` and `ThirdParty`.
+`ThirdParty`, furthermore, contains 3 subdirectories `ASL`, `HSL`, and `Mumps`.
+The source code of all but `HSL` will be downloaded. 
+
+Next, we will create our install directories and subdirectories
+
+```bash
+mkdir -p /projects/msoc/kpanda/apps/Ipopt/install # create the install directory
+cd /projects/msoc/kpanda/apps/Ipopt/install # enter the directory
+mkdir bin lib include # create some subdirectories
+```
+
+We then add symbolic links to Metis in the install directory. 
+
+!!! note
+    If `libmetis.so` is in your `LD_LIBRARY_PATH` you do not need to do this step.
+
+```bash
+cd /projects/msoc/kpanda/apps/Ipopt/install/lib
+ln -s /projects/hpcapps/kpanda/conda-envs/metis/lib/libmetis.so libmetis.so
+cd ../include
+ln -s /projects/hpcapps/kpanda/conda-envs/metis/include/metis.h metis.h
+cd /projects/msoc/kpanda/apps/ # go back base directory
+```
+
+This has two advantages.
+First, we don't need to add `/projects/hpcapps/kpanda/conda-envs/metis/lib/` to
+the `LD_LIBRARY_PATH`.  The second advantage is that anaconda puts all the 
+environments libraries and include files in the same directories with
+`libmetis.so` and `metis.h`.  Many of these libraries overlap with those used
+by HSL, Mumps and IPOPT but are not necessarily the same versions.  Loading a
+different version of a library than those compiled against can cause unexpected behavior.
+
+Next, we will load additional modules. If users require oneMKL PARDISO or would
+like to leverage intel performance optimization, run the following commands
+
+```bash
+module load intel-oneapi-mkl
+```
+
+Alternatively, users can load the open source Netlib LAPACK using the command
+
+```bash
+module load netlib-lapack # Please ensure you do not have intel-oneapi-mkl loaded
+```
+
+We will now copy the HSL source code tarball into 
+`/projects/msoc/kpanda/apps/ThirdParty/HSL/`, unpack it, and rename or (create a 
+symbolic link to the unpacked directory) as `coinhsl`. 
+
+We are now ready to install IPOPT and its dependencies. We will use the default
+compilers available in the Kestrel programming environment. Going back to the base 
+directory, we will run the following commands
+
+```bash
+cd /projects/msoc/kpanda/apps/ # go back base directory
+./coinbrew build Ipopt --disable-java \
+--prefix=/kfs2/projects/msoc/kpanda/apps/Ipopt/install \
+--with-metis \
+--with-metis-cflags=-I/projects/hpcapps/kpanda/conda-envs/metis/include \
+--with-metis-lflags="-L/projects/hpcapps/kpanda/conda-envs/metis/lib -lmetis" \
+--parallel-jobs 4 \
+--verbosity 4 \
+--reconfigure
+```
 
 ## Usage
 
-### Using Custom IPOPT with JuMP
+The installed Ipopt is now ready to be used. We need to update our `PATH` AND 
+`LD_LIBRARY_PATH` environment variables. In our demonstrations this will be
+
+```bash
+export PATH=/projects/msoc/kpanda/apps/Ipopt/install/bin:${PATH}
+export LD_LIBRARY_PATH=/projects/msoc/kpanda/apps/Ipopt/install/lib:${LD_LIBRARY_PATH}
+```
 
 !!! note
-    When running your custom IPOPT build on Kestrel, you will need to do two things:
+    Do not forget to load `intel-oneapi-mkl` or `netlib-lapack` before running IPOPT else your runs will fail.
 
-    1. Load the same MKL module you compiled against:
-        ```bash
-        module load mkl
-        ```
-    2. Add the directory containing IPOPT and HSL libraries to your LD_LIBRARY_PATH
-        ```bash
-        export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MYLIB}
-        ```
-
+### Using Custom IPOPT with JuMP
 
 To use our custom installation of IPOPT with `Ipopt.jl`, we do the following:
 
 1. Open the Julia REPL and activate an environment that has IPOPT installed
 2. Tell Julia and `Ipopt.jl` the location of our IPOPT library and executable
     ```julia
-    ENV["JULIA_IPOPT_LIBRARY_PATH"] = ENV["MYLIB"]
-    ENV["JULIA_IPOPT_EXECUTABLE_PATH"] = ENV["MYBIN"]
+    ENV["JULIA_IPOPT_LIBRARY_PATH"] = ENV["/projects/msoc/kpanda/apps/Ipopt/install/lib"]
+    ENV["JULIA_IPOPT_EXECUTABLE_PATH"] = ENV["/projects/msoc/kpanda/apps/Ipopt/install/bin"]
     ```
 3. Rebuild `Ipopt.jl` with the above environment variables set to pick up the new library and executable
     ```julia
@@ -92,3 +186,23 @@ To use our custom installation of IPOPT with `Ipopt.jl`, we do the following:
     ```julia
     using Ipopt; println(Ipopt.libipopt_path)
     ```
+
+!!! info
+    The IPOPT build that comes with `Ipopt.jl` seems to expect the HSL library to have the name `libhsl.so`. The repo ThirdParty-HSL builds the library `libcoinhsl.so`.  The simplest fix is to do the following:
+
+    ```bash
+    cd /projects/msoc/kpanda/apps/Ipopt/install/lib # install directory
+    # Create a symbolic link called libhsl.so
+    ln -s libcoinhsl.so libhsl.so
+    ```
+
+The following Julia code is useful for testing the HSL linear solvers are working
+
+```julia
+using JuMP, IPOPT
+
+m = JuMP.Model(()->IPOPT.Optimizer(linear_solver="ma97"))
+@variable(m, x)
+@objective(m, Min, x^2)
+JuMP.optimize!(m)
+```
