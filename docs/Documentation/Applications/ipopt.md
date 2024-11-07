@@ -30,7 +30,7 @@ choose depending on their needs.
 
 #### Metis
 
-It is highly recommended installing [Metis](https://github.com/KarypisLab/METIS.git)
+It is highly recommended to install [Metis](https://github.com/KarypisLab/METIS.git)
 - Serial Graph Partitioning and Fill-reducing Matrix Ordering software to 
 improve the performance of linear solvers such as MUMPS and HSL.
 
