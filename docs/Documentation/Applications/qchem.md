@@ -74,16 +74,51 @@ To run this script on systems other than Kestrel, the number of threads should b
 A large number of example Q-Chem input examples are available in `/nopt/nrel/apps/q-chem/<version>/samples`.
 
 ## Running BrianQC
-BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs, which is significantly faster for some larger ab initio jobs. BrianQC uses the same input file as Q-Chem. To run BrianQC, please make the following changes to the sample Slurm script above:
-1. Add this line in the header section: "#SBATCH --gres=gpu:1"
-2. Load the BrianQC module instead of Q-Chem: "module load brianqc"
-3. Add "-gpu" in $QCHEMOPT like:
-   ```
+BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs, which is significantly faster for some larger ab initio jobs. BrianQC uses the same input file as Q-Chem. Below is a sample slurm script for BrianQC, which should be submitted on the GPU login nodes of Kestrel. If running on Swift, please also add "#SBATCH -p gpu" to the header of this script.
+```
+ 	#!/bin/bash
+	#SBATCH --job-name=my_qchem_job
+	#SBATCH --account=my_allocation_ID
+	#SBATCH --nodes=1
+ 	#SBATCH --tasks-per-node=104
+  	#SBATCH --time=01:00:00
+   	#SBATCH --gres=gpu:<number of gpu>
+	#SBATCH --mem=<requested memory>
+	#SBATCH --mail-type=BEGIN,END,FAIL
+	#SBATCH --mail-user=your_email@domain.name
+	#SBATCH --output=std-%j.out
+	#SBATCH --error=std-%j.err
+	 
+	# Load the Q-Chem environment
+	module load brianqc
+
+	if [ -e /dev/nvme0n1 ]; then
+	 SCRATCH=$TMPDIR
+	 echo "This node has a local storage and will use $SCRATCH as the scratch path"
+	else
+	 SCRATCH=/scratch/$USER/$SLURM_JOB_ID
+	 echo "This node does not have a local storage drive and will use $SCRATCH as the scratch path"
+	fi
+
+	mkdir -p $SCRATCH
+
+	export QCSCRATCH=$SCRATCH
+	export QCLOCALSCR=$SCRATCH
+
+	jobnm=qchem_test
+
 	if [ $SLURM_JOB_NUM_NODES -gt 1 ]; then
 	 QCHEMOPT="-gpu -mpi -np $SLURM_NTASKS"
 	else
 	 QCHEMOPT="-gpu -nt $SLURM_NTASKS"
 	fi
-   ```
-4. Submit jobs through the GPU login nodes on Kestrel or add "#SBATCH -p gpu" to the header of the batch script if running on Swift.
+
+	echo Running Q-Chem with this command: qchem $QCHEMOPT $jobnm.com $jobnm.out
+	qchem $QCHEMOPT $jobnm.com $jobnm.out
+
+	rm $SCRATCH/*
+	rmdir $SCRATCH
+```
+
+
    
