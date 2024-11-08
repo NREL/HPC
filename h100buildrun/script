@@ -7,6 +7,8 @@
 #SBATCH --output=output-%j.out
 #SBATCH --error=infor-%j.out
 
+
+if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; then : ; else echo Run script from a GPU node; exit ; fi
 # a simple timer
 dt ()
 {
@@ -19,11 +21,32 @@ dt ()
     echo $rtn
 }
 
-startdir=`pwd`
-doits=`find . -name doit`
+printenv > env-$SLURM_JOB_ID.out
+cat $0 > script-$SLURM_JOB_ID.out
+
+#runs script to put our restore function in our environment
+module_restore
+
+#some possible values for gcc module
+#export MYGCC=gcc-native/12.1
+#export MYGCC=gcc-stdalone/10.1.0
+#export MYGCC=gcc-stdalone/12.3.0 
+#export MYGCC=gcc-stdalone/13.1.0
+
+if [ -z ${MYGCC+x} ]; then export MYGCC=gcc-native/12.1  ; else echo MYGCC already set ; fi
+echo MYGCC=$MYGCC
+
+if [ -z ${doits+x} ]; then 
+	doits=`find . -name doit | sort -t/ -k2,2`
+else 
+	echo doits already set 
+fi
+
 for x in $doits ; do
-	echo found example in `dirname $x`
+	echo running example in `dirname $x`
 done
+
+startdir=`pwd`
 t1=`dt`
 for x in $doits ; do
  dir=`dirname $x`
@@ -32,9 +55,14 @@ for x in $doits ; do
  echo $dir
  cd $dir
  tbegin=`dt`
- . doit
+ . doit | tee  $SLURM_JOB_ID
  echo Runtime `dt $tbegin` $dir `dt $t1` total
  cd $startdir
 done
 echo FINISHED `dt $t1`
+
+# post  (this is optional)
+mkdir -p /scratch/$USER/gputest/$SLURM_JOB_ID
+cp *out  /scratch/$USER/gputest/$SLURM_JOB_ID
+# . cleanup
 

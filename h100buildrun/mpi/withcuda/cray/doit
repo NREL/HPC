@@ -1,14 +1,20 @@
 : Start from a known module state, the default
-module restore
+module_restore
 
-:  Enable a newer environment
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 : Load modules
-ml craype-x86-genoa 
-ml gcc-native
+#module unload PrgEnv-cray/8.5.0
+#module unload nvhpc/24.1
+
+ml >&2
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+#######
+ml 2>&1 | grep gcc-native/12.1 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-native/12.1 ; ml gcc-stdalone/13.1.0 ; fi
+#######
+ml >&2
+
 ml PrgEnv-nvhpc
 ml cray-libsci/23.05.1.4
-
+ml binutils
 : << ++++ 
  Compile our program.
  
@@ -27,4 +33,11 @@ srun  --nodes=1 --tasks-per-node=2 ./staged
 
 echo running staged off node
 srun  --nodes=2 --tasks-per-node=1 ./staged
+
+echo running multi-gpu stream
+CC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
+export VSIZE=3300000000
+export VSIZE=330000000
+srun --tasks-per-node=4  ./mstream -n $VSIZE
+
 

@@ -1,13 +1,10 @@
 : Start from a known module state, the default
-module restore
+module_restore
 
-:  Enable a newer environment
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 : Load modules
-module purge
-ml craype-x86-genoa 
-ml gcc-native 
-ml nvhpc-hpcx-cuda12/24.1
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+ml nvhpc-stdalone/24.1
+
 
 : << ++++ 
  Compile our program

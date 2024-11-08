@@ -14,5 +14,10 @@ mpiCC ping_pong_cuda_staged.cu -o ping_pong_cuda_staged
 srun -n 2 --nodes=1 ./ping_pong_cuda_staged
 srun --tasks-per-node=1 --nodes=2 ./ping_pong_cuda_staged
 
+echo running multi-gpu stream
+mpiCC -gpu=cc80  -DNTIMES=1000  mstream.cu -o mstream
+export VSIZE=1600000000
+srun --tasks-per-node=4  ./mstream -n $VSIZE
+
 module unload openmpi
 

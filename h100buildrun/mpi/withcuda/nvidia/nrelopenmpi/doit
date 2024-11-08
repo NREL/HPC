@@ -1,14 +1,14 @@
 : Start from a known module state, the default
-module restore
+module_restore
 
-:  Enable a newer environment
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 : Load modules
-module purge
-ml craype-x86-genoa 
-ml gcc-native 
+#module unload PrgEnv-cray/8.5.0
+#module unload nvhpc/24.1
+
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
 ml openmpi/4.1.6-nvhpc
 ml nvhpc-nompi/24.1
+ml binutils
 
 : << ++++ 
  Compile our program
@@ -26,4 +26,11 @@ srun --tasks-per-node=2 --nodes=1 ./staged
 
 echo Run on two nodes 
 srun --tasks-per-node=1 --nodes=2 ./staged
+
+echo running multi-gpu stream
+mpiCC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
+export VSIZE=3300000000
+export VSIZE=330000000
+srun --tasks-per-node=4  ./mstream -n $VSIZE
+
 

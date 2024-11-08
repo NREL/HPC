@@ -1,0 +1,45 @@
+#!/usr/bin/bash
+#
+# NOTE: if using with srun then you should select "SLURM (MPMD)" as the MPI
+#       implementation on the System Settings page of the Options window.
+#
+# WARNING: If you install a new version of Arm Forge to the same
+#          directory as this installation, then this file will be overwritten.
+#          If you customize this script at all, please rename it.
+#
+# Name: SLURM
+#
+# submit: sbatch
+# display: squeue
+# job regexp: (\d+)
+# cancel: scancel JOB_ID_TAG
+#
+# WALL_CLOCK_LIMIT_TAG: {type=text,label="Wall Clock Limit",default="00:30:00",mask="09:09:09"}
+# QUEUE_TAG: {type=text,label="Queue",default=normal}
+
+#SBATCH --nodes=1
+#SBATCH --partition=gpu-h100
+#SBATCH --time=00:05:00
+#SBATCH --job-name="ddt"
+#SBATCH --output=allinea.stdout
+#SBATCH --error=allinea.stdout
+##SBATCH --partition=QUEUE_TAG
+#SBATCH --account=hpcapps 
+#SBATCH --partition=gpu-h100 
+#SBATCH --reservation=h100-testing 
+#SBATCH --gres=gpu:h100:4
+#SBATCH --exclusive
+
+
+
+cat $0 > ~/ddt.$SLURM_JOB_ID
+
+source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+module purge
+ml openmpi/5.0.3-gcc
+#export PATH=/nopt/nrel/apps/cpu_stack/software/forge/23.1.2/bin:$PATH
+
+
+#AUTO_LAUNCH_TAG
+#srun -n 2 ./hello
+mpirun -n 2 check.exe

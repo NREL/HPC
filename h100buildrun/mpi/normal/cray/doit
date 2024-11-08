@@ -1,11 +1,12 @@
 : Start from a known module state, the default
-module restore
+module_restore
 
-:  Enable a newer environment
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
+
 : Load modules
-ml craype-x86-genoa 
+#module unload nvhpc/24.1
+ml PrgEnv-cray/8.4.0 
 
+ml cuda
 : << ++++ 
  Compile our program.
  
@@ -20,10 +21,10 @@ ftn hellof.f90 -o hellof
 
 : We run with two tasks per nodes an two tasks on one node.
 for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-   echo runnning Fortran version
+   echo running Fortran version
    srun $arg hellof
    echo
-   echo runnning C version
+   echo running C version
    srun $arg helloc
    echo
 done
@@ -31,23 +32,27 @@ done
 : With PrgEnv-intel we get the Intel backend compilers
 ml PrgEnv-intel
 ml cray-libsci/23.05.1.4
+#ml gcc-stdalone/13.1.0
+ml binutils
+
 cc helloc.c -o helloc.i
 ftn hellof.f90 -o hellof.i
 
 : We run with two tasks per nodes an two tasks on one node.
 for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-   echo runnning Fortran version with Intel backend
+   echo running Fortran version with Intel backend
    srun $arg hellof.i
    echo
-   echo runnning C version with Intel backend
+   echo running C version with Intel backend
    srun $arg helloc.i
    echo
 done
 
-: With PrgEnv-gnu we get the Intel backend compilers
+: With PrgEnv-gnu we get the gnu backend compilers
 : As of 04/04/24 the -march=znver3 flag is required
 : because the default version of gcc does not support the
-: current CPU on the GPU nodes
+: current CPU on the GPU nodes.  Or you could
+: ml craype-x86-milan
 ml PrgEnv-gnu
 ml cray-libsci/23.05.1.4
 cc  -march=znver3 helloc.c -o helloc.g
@@ -55,10 +60,10 @@ ftn -march=znver3 hellof.f90 -o hellof.g
 
 : We run with two tasks per nodes an two tasks on one node.
 for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-   echo runnning Fortran version with gnu backend
+   echo running Fortran version with gnu backend
    srun $arg hellof.g
    echo
-   echo runnning C version with gnu backend
+   echo running C version with gnu backend
    srun $arg helloc.g
    echo
 done

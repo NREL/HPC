@@ -1,0 +1,20 @@
+both: exc exf tmps
+
+exf: ex1.f90 triad.o
+
+exc: ex1.c triad.o
+
+triad.o: triad.c
+	cc  -g -fopenmp -c triad.c
+
+exf:
+	ftn -g -fopenmp  ex1.f90 triad.o -o exf
+
+exc:
+	cc  -g -fopenmp ex1.c triad.o -o exc
+
+clean:
+	rm -f triad.o exf exc *mod
+
+tmps: 
+	rm -f *o *mod

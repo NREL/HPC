@@ -3,7 +3,6 @@
 #include <omp.h>
 #include <unistd.h>
 int sched_getcpu();
-double dotriad();
 double dotriad(int *myid);
 /************************************************************
 This is a simple hybrid hello world program.
@@ -31,8 +30,8 @@ int main(int argc, char **argv)
     if (myid == 0 ) {
 	    printf(" C MPI TASKS %d\n",numtasks);
 	    MPI_Get_library_version(version, &vlan);
-            printf("%s\n",version);
-            printf("%s\n",__VERSION__);
+            printf("MPI VERSION: %s\n",version);
+            printf("BACKEND VERSION: %s\n",__VERSION__);
     }
 // dotriad runs "triad", in parallel, for 4 seconds to give threads time to settle
 //  if input to triad is negative run for -# seconds

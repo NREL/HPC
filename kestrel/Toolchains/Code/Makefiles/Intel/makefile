@@ -1,12 +1,11 @@
 SHELL:=/usr/bin/bash
 
 recurse:
-	: . /nopt/nrel/apps/env.sh            ; \
-	. /nopt/nrel/apps/test_env.sh       ; \
+	. /nopt/nrel/apps/env.sh            ; \
 	module purge                        ; \
 	module load  intel-oneapi-compilers ; \
 	module load intel-oneapi-mpi        ; \
-	module load gcc                     ; \
+	module load gcc-stdalone            ; \
 	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) intel gnu rmo
 
 intel: ex_f ex_c 
@@ -18,8 +17,8 @@ PCC=mpiicc
 ICC=icx
 
 #Uncomment the next two lines to build with icc instead of icx
-ICC=icc
-XOPT=-diag-disable=10441
+#ICC=icc
+#XOPT=-diag-disable=10441
 
 #Intel mpi with gcc and gfortran
 PG90=mpif90
@@ -50,12 +49,12 @@ gex_c: ex1.c triadg.o
 
 
 clean:rmo
-	rm -rf  ex_f ex_c gex_f gex_c intel.tar
+	rm -rf  ex_f ex_c gex_f gex_c intel.tar exc exf
 
 #clean up after the compile
 rmo:
 	rm -rf *o *mod*
 
 tar:
-	tar -cf intel.tar ex1.c ex1.f90 makefile script triad.c
+	tar -cf intel.tar ex1.c ex1.f90 makefile script triad.c debug
 
