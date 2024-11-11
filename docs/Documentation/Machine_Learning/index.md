@@ -71,30 +71,48 @@ sbatch <your_batch_file_name>.sb
 
 ## Advanced (GPU)
 
-The above examples are simple CPU-based computing environments. The following section covers how to build and run PyTorch for use with GPUs on Kestrel. For TensorFlow, we refer you to the [TensorFlow](https://www.tensorflow.org/install) install directions. 
+The above examples show how to build CPU-based conda environments. The following section covers how to build and run PyTorch and TensorFlow for use with GPUs on Kestrel. 
 
-For optimized TensorFlow performance, we recommend using a [containerized version of TensorFlow](Containerized_TensorFlow/index.md). 
-
-### Installing PyTorch on Kestrel
-
-To install PyTorch for use with GPUs on Kestrel, the first step is to load the anaconda module on the GPU node using ```module load conda```. Once the anaconda module has been loaded, create a new environment in which to install PyTorch, e.g.,
+To install either PyTorch or TensorFlow for use with GPUs on Kestrel, the first step is to load the anaconda module on the GPU node using ```module load conda```. Once the anaconda module has been loaded, create a new environment in which to install PyTorch or TensorFlow, e.g.,
 
 ??? example "Creating and activating a new conda environment"
         conda create --prefix /projects/<your-project-name>/<your-user-name>/<conda-env-dir>/pt python=3.9
-        conda activate /projects/<your-project-name>/<your-user-name>/<conda-env-dir>/pt
+        conda activate /projects/<your-project-name>/<your-user-name>/<conda-env-dir>/<pt or tf>
 
 !!! Note
 	If you are not familiar with using [Anaconda environments](https://www.anaconda.com/) please refer to the [NREL HPC page on using Conda environments](../Environment/Customization/conda.md) and also the Conda guide to [managing environments](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+
+
+### Installing TensorFlow on Kestrel
+
+Presented below are instructions for installing TensorFlow following in the ```pip``` install instructions found here: [TensorFlow](https://www.tensorflow.org/install). For optimized TensorFlow performance, we recommend using a [containerized version of TensorFlow](Containerized_TensorFlow/index.md).
+
+Once the conda environment created above has been activated, you can install TensorFlow using the ```pip``` based approach described in [TensorFlow](https://www.tensorflow.org/install/pip), but with a couple modifications. Instead of using the ```cudatoolkit```, we recommend using the nvhpc programming environment accessed using the module ```Prg-Env-nvhpc```. Also, there is a module for ```cudnn```. Using these two modules, we install TensorFlow with the following commands: 
+
+??? example "Installing TensorFlow using pip"
+	```
+	module load PrgEnv-nvhpc
+	module load cudnn
+	python3 -m pip install tensorflow[and-cuda]
+	```
+
+
+### Installing PyTorch on Kestrel
 
 Once the environment has been activated, you can install PyTorch using the standard approach found under the Get Started tab of the [PyTorch](https://pytorch.org/) website, e.g., using ```pip```,
 
 ??? example "Installing PyTorch using pip"
 	```pip3 install torch torchvision torchaudio```
 
+or using ```conda,```
+
+??? example "Installing PyTorch using conda specifying CUDA 12.4"
+	```conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia```
+
 !!! Note
 	We recommend installing software for GPU jobs using the GPU nodes. There are two [GPU login nodes](../Systems/Kestrel/index.md) available on Kestrel. 
 
-### Running a PyTorch Batch Job on Kestrel - GPU
+### Running a PyTorch or TensorFlow Batch Job on Kestrel - GPU
 
 ??? example "Sample job script: Kestrel - Shared (partial) GPU node"
 
@@ -109,9 +127,35 @@ Once the environment has been activated, you can install PyTorch using the stand
     #SBATCH --job-name=<your-job-name>
 
     module load conda
-    conda activate /projects/<your-project-name>/<your-user-name>/<conda-env-dir>/pt
+    conda activate /projects/<your-project-name>/<your-user-name>/<conda-env-dir>/<pt or tf>
 
-    srun python <your-pytorch-code>.py
+    srun python <your-pytorch or tensorflow-code>.py
+    ```
+
+### TensorFlow Example
+Find below a simple neural network example using the MNIST data set for getting started using TensorFlow with Kestrel GPUs. This example was based on TensorFlow's quick start documentation found [here](https://github.com/tensorflow/docs/blob/master/site/en/tutorials/quickstart/beginner.ipynb).
+
+??? example "MNIST example"
+    ```
+    import tensorflow as tf
+
+    # Select a standard data set and normalize
+    mnist = tf.keras.datasets.mnist    
+    (x_train, y_train),(x_test, y_test) = mnist.load_data()
+    x_train, x_test = x_train / 255.0, x_test / 255.0
+   
+    # Set up and compile a model 
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Flatten(input_shape=(28, 28)),	tf.keras.layers.Dense(128, activation='relu’), 
+        tf.keras.layers.Dropout(0.2), tf.keras.layers.Dense(10, activation='softmax')]) 
+    
+    model.compile(optimizer='adam’, 
+	loss='sparse_categorical_crossentropy’,	metrics=['accuracy'])
+    
+    # Fit model to training data and evaluate on test data
+    model.fit(x_train, y_train, epochs=5)
+    
+    model.evaluate(x_test, y_test)
     ```
 
 ### PyTorch Example
