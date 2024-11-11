@@ -85,8 +85,8 @@ There are a number of "helper" files  shipped with the examples.  The script *on
     [tkaiser2@kl6 h100]$
     ```
 
-There is a function *module_restore* defined in /nopt/nrel/apps/env.sh
-Sourcing /nopt/nrel/apps/env.sh sets modules back to the original state
+There is a function *module_restore* defined in /nopt/nrel/apps/env.sh.
+Sourcing /nopt/nrel/apps/env.sh sets modules back to the original state.
 module_restore also modifies $PATH and $LD_LIBRARY_PATH putting paths with your 
 home directory at the beginning.
 
@@ -96,7 +96,7 @@ home directory at the beginning.
 module_restore
 ```
 
-As of October 2024 /nopt/nrel/apps/env.sh is sourced automatically when you login so the
+As of October 2024, /nopt/nrel/apps/env.sh is sourced automatically when you login so the
 function module_restore should be in you path.
 
 

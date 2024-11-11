@@ -32,7 +32,7 @@ nav:
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
-              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/other.md
+              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/others.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
             - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Swift:
@@ -134,7 +134,6 @@ nav:
               # - NVHPC: Documentation/Development/Compilers/nvhpc.md
               # - AOCC : Documentation/Development/Compilers/aocc.md
               # - Cray : Documentation/Development/Compilers/cray.md
-              # - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
@@ -162,8 +161,6 @@ nav:
             #  - CrayPat: Documentation/Development/Performance_Tools/craypat.md
             #  - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
          - Debug Tools:
-            #  - ARM:
-            #    - Documentation/Development/Debug_Tools/ARM/index.md
              - DDT: Documentation/Development/Debug_Tools/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
                #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md

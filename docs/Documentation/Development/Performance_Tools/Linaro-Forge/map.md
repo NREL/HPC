@@ -21,20 +21,20 @@ Once you have the client installed, you will need to configure it to connect to 
 
 1.	Open the Linaro Forge Client application
 2.	Select the configure option in the "Remote Launch" dropdown menu, click "Add" and set the hostname to "USER@HOST.hpc.nrel.gov" where USER is your username and HOST is the host you are trying to connect to. We recommend using DAV nodes if available on your system.
-3.	In the Remote Installation Directory field, set the path to the Linaro installation on your host. (This can be found by running the command: 
+3.	In the Remote Installation Directory field, set the path to the Linaro installation on your host. This can be found by running the command: 
 
 
- ```
- dirname $(dirname $(which map))
- ```
- 
- For example:
- 
- ```
-module load forge/24.0.4
-dirname $(dirname $(which map))
-/nopt/nrel/apps/cpu_stack/software/forge/24.0.4
-```
+    ```
+    dirname $(dirname $(which map))
+    ```
+    
+    For example:
+    
+    ```
+    module load forge/24.0.4
+    dirname $(dirname $(which map))
+    /nopt/nrel/apps/cpu_stack/software/forge/24.0.4
+    ```
 
 4.	Hit "Test Remote Launch" to test the configuration. 
 
@@ -82,7 +82,7 @@ You should now see the profiling data we described in the previous section [MAP]
 
 ## Debugging a program
 
-The Forge debugger is ddt.  It uses the same local client at map and perf-report.  To get started set up your local client version of Forge as described above in the section in  *MAP Setup - Option 1: Remote Client Setup*.
+The Forge debugger is ddt.  It uses the same local client at map and perf-report.  To get started, set up your local client version of Forge as described above in the section [MAP Setup - Option 1: Remote Client Setup](#option-1-remote-client-setup).
 
 There are many ways to launch a debug session.  Probably the simplest is to launch from an interactive session on a compute node.  
 
@@ -122,7 +122,7 @@ Then run the command:
 ddt --connect
 ```
 
-Ddt is running on the compute node, waiting for you to connect with the local client.  Launch you local client.  Then under **Remote Launch:** select the machine to which you want to connect.  After a few seconds you will see a window announcing that the ddt wants to connect you your client.  Hit **Accept**. 
+Ddt is running on the compute node, waiting for you to connect with the local client.  Launch your local client.  Then under **Remote Launch:** select the machine to which you want to connect.  After a few seconds you will see a window announcing that the ddt wants to connect you to your client.  Hit **Accept**. 
 
 ![Linaro-MAP-Profile](../../../../../assets/images/Profiling/DDT-1.png)
 
@@ -130,7 +130,7 @@ After acceptance completes click **Run and debug a program**.
 
 Here is where you need the directory for your program.  Put the full path to your application in the **Application** box and the directory in **Working Directory**.  We assume the Working Directory, the directory which would normally contain your data is the same as your program directory.
 
-This is a MPI program so select MPI.  After that you will see more options.  For most programs the Implementation should be SLURM (generic). If this is not what is shown or you know you need something else, select Change... to set it.  For OpenMP programs select that box also.  
+This is an MPI program so select MPI.  After that you will see more options.  For most programs the Implementation should be SLURM (generic). If this is not what is shown or you know you need something else, select Change... to set it.  For OpenMP programs select that box also.  
 
 ![Linaro-MAP-Profile](../../../../../assets/images/Profiling/DDT-2.png)
 

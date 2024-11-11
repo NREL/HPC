@@ -28,7 +28,7 @@ The topics covered include:
 * gcc
 * gfortran
 * Intel icc (Classic)
-* 	Moving to Intel's new icx compiler
+	* Moving to Intel's new icx compiler
 * Intel ifort (Fortran)
 	* Moving to Intel's new ifx compiler
 * Cray C (Clang based)
@@ -960,7 +960,7 @@ Valid categories include
 ## Moving to Intel's new compiler ifx
 
 Intel® Fortran Compiler Classic (ifort) is now deprecated and will be discontinued in late 2024. 
-Intel recommends that customers transition now to using the LLVM-based Intel® Fortran Compiler (ifx)
+Intel recommends that customers transition now to using the LLVM-based Intel® Fortran Compiler (ifx).
 Other  than the name change some people will not notice significant differences.  The new compiler
 supports offloading to Intel GPU. Kestrel and Swift do not have Intel GPUs so this is not at NREL.  
 
@@ -969,7 +969,7 @@ One notable deletion from the new compiler is dropping of auto-parilization.  Wi
  is no auto-parallelization feature with ifx.
  
  
-For complete details please see:[https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html)
+For complete details please see: [https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html)
 
          
 ## Cray CC
