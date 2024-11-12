@@ -1,3 +1,8 @@
+---
+title: Chemical-Kinetics
+parent: Applications
+---
+
 # Chemical kinetics: Cantera, zero-RK, PelePhysics
 <!---
 **Documentation:** [ link to documentation](https://nrel.gov)
@@ -6,8 +11,7 @@
 
 ## Overview
 
-A wide variety of packages are available for the purpose, each with their strengths, pros and cons. The matrix below provides a birds eye view of some of the packages. 
-(All company, product and service names used on this page are for identification purposes only. Use of these names, trademarks and brands does not imply endorsement.)
+A wide variety of packages are available for the purpose, each with their strengths, pros and cons. The matrix below provides a birds eye view of some of the packages. When applicable, please refer to the footnotes marked at the bottom of the page. (All company, product and service names used on this page are for identification purposes only. Use of these names, trademarks and brands does not imply endorsement.)
 
 |                                                                          | C++   | Fortran | Python | Matlab | GPU    | Speed*$^5$ | Features | Cost | Compatibility       | Speciality                   | Notes      |
 |:------------------------------------------------------------------------:|:-----:|:-------:|:------:|:------:|:------:|:----------:|:--------:|:----:|:-------------------:|:----------------------------:|:----------:|
@@ -39,9 +43,9 @@ A typical workflow could look as follows:
 	
 	👎 Fewer features than Cantera & Chemkin, C++ only. 
 
-## Installation and testing on the Kestrel
+## Installation and testing on Kestrel
 
-#Cantera
+### Cantera
 !!! note
 	Cantera can be [installed from source](https://cantera.org/install/compiling-install.html#sec-compiling) or with the conda envionment on the Kestrel as explained below.
 	The performance can vary depending on the compile options and flags while compiling from source. We are more than happy to learn from power users about the flags which lead to the best performance. 
@@ -118,10 +122,10 @@ $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
 	```
 	Please refer to the [job submission documentation](https://www.nrel.gov/hpc/running-jobs.html) for larger jobs in Batch mode.   
 
-#zero-RK
+### zero-RK
 [Please follow the official installation instructions](https://github.com/LLNL/zero-rk).
 
-#PelePhysics
+### PelePhysics
 [Please follow the official installation instructions](https://amrex-combustion.github.io/PelePhysics/GettingStarted.html#building-and-running-test-cases).
 
 !!! note
@@ -261,20 +265,20 @@ Be sure to include where the user can download the source code
 Include known problems and workarounds here, if applicable
 -->
 
-Footnotes:
+## Footnotes
 
-*1 Not clear from the documentation but ‘gpu’ exists in the code in several places. No actual GPU users amongst those surveyed at the NREL.
+* 1 Not clear from the documentation but ‘gpu’ exists in the code in several places. No actual GPU users amongst those surveyed at the NREL.
 
-*2 Also possible through Chemkin II, which was a free Fortran library, not available online anymore.
+* 2 Also possible through Chemkin II, which was a free Fortran library, not available online anymore.
 
-*3 The Ansys Fluent CFD solver uses GPU, the Chemkin Pro module does not.
+* 3 The Ansys Fluent CFD solver uses GPU, the Chemkin Pro module does not.
 
-*4 Features unclear due to very poor documentation. Estimate based on reading parts of the code and NREL user comments.
+* 4 Features unclear due to very poor documentation. Estimate based on reading parts of the code and NREL user comments.
 
-*5 Very vague estimate from documentation and NREL user comments. Benchmarking not performed.
+* 5 Very vague estimate from documentation and NREL user comments. Benchmarking not performed.
 
-*6 Python scripts exist which gather parameters to execute C++ executables, no actual Python / Cython API like Cantera.
+* 6 Python scripts exist which gather parameters to execute C++ executables, no actual Python / Cython API like Cantera.
 
-*7 Faster than Chemkin and Cantera for mechanisms involving more than 100 species, information from documentation.
+* 7 Faster than Chemkin and Cantera for mechanisms involving more than 100 species, information from documentation.
 
-*8 Coupling with various codes such as OpenFoam, Nek5000, JAX-Fluids etc. has been possible.
+* 8 Coupling with various codes such as OpenFoam, Nek5000, JAX-Fluids etc. has been possible.
