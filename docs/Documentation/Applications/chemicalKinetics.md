@@ -13,12 +13,12 @@ parent: Applications
 
 A wide variety of packages are available for the purpose, each with their strengths, pros and cons. The matrix below provides a birds eye view of some of the packages. When applicable, please refer to the footnotes marked at the bottom of the page. (All company, product and service names used on this page are for identification purposes only. Use of these names, trademarks and brands does not imply endorsement.)
 
-|                                                                          | C++   | Fortran | Python | Matlab | GPU    | Speed*$^5$ | Features | Cost | Compatibility       | Speciality                   | Notes      |
-|:------------------------------------------------------------------------:|:-----:|:-------:|:------:|:------:|:------:|:----------:|:--------:|:----:|:-------------------:|:----------------------------:|:----------:|
-| [Cantera](https://cantera.org/)                                          | y     | y       | y      | y      | x      | ++         | ++++     | Free | Research codes*$^8$ | Simplicity, large user base  | 0.0.0      |
-| [zero-RK](https://github.com/LLNL/zero-rk)                               | y     | x       | x*$^6$ | x      | y*$^1$ | ++++*$^7$	 | ++*$^4$  | Free | Converge CFD ($)    | Model reduction tools        | 0.0.0 	 |  
-| [PelePhysics](https://amrex-combustion.github.io/PelePhysics/)           | y     | x       | x      | x      | y      | +++++      | +++      | Free | Amrex/Pele          | HPC, NREL popular framework  | 0.0.0      |
-| [Chemkin Pro](https://www.ansys.com/products/fluids/ansys-chemkin-pro)   | y     | y*$^2$  | x      | x      | x*$^3$ | ++++       | ++++     | $    | Ansys ($)           | Legacy, professional support | 0.0.0      |
+|                                                                          | C++   | Fortran | Python | Matlab | GPU    | Speed*$^5$ | Features | Cost | Compatibility       | Speciality                   |
+|:------------------------------------------------------------------------:|:-----:|:-------:|:------:|:------:|:------:|:----------:|:--------:|:----:|:-------------------:|:----------------------------:|
+| [Cantera](https://cantera.org/)                                          | y     | y       | y      | y      | x      | ++         | ++++     | Free | Research codes*$^8$ | Simplicity, large user base  |
+| [zero-RK](https://github.com/LLNL/zero-rk)                               | y     | x       | x*$^6$ | x      | y*$^1$ | ++++*$^7$	 | ++*$^4$  | Free | Converge CFD ($)    | Model reduction tools        |  
+| [PelePhysics](https://amrex-combustion.github.io/PelePhysics/)           | y     | x       | x      | x      | y      | +++++      | +++      | Free | Amrex/Pele          | HPC, NREL popular framework  |
+| [Chemkin Pro](https://www.ansys.com/products/fluids/ansys-chemkin-pro)   | y     | y*$^2$  | x      | x      | x*$^3$ | ++++       | ++++     | $    | Ansys ($)           | Legacy, professional support |
 
 
 ## Strategy
