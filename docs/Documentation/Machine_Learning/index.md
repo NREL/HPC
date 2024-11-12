@@ -44,23 +44,22 @@ You should now be up and running with a TensorFlow! Similar to PyTorch, the [Ten
 
 ### Example Job Script
 
-??? example "PyTorch or TensorFlow CPU"
-	```
-	#!/bin/bash 
-	#SBATCH --nodes=1			# Run the tasks on the same node
-	#SBATCH --time=1:00:00			# Required, estimate 1 hour
-	#SBATCH --account=<your_account>
-	#SBATCH --exclusive			# if you want to use the whole node
+??? example "PyTorch or TensorFlow shared partition CPU example"
+      ```
+      #!/bin/bash
+      #SBATCH --nodes=1
+      #SBATCH --ntasks-per-node=1
+      #SBATCH --mem=64G
+      #SBATCH --cpus-per-task=26
+      #SBATCH --partition=shared
+      #SBATCH --account=<your account>
+      #SBATCH --time=00:30:00
 
-	module load anaconda3 
+      module load conda
+      conda activate /projects/<your_project>/<conda_envs_dir>/<pt_or_tf>
 
-	cd /projects/<your_project_here>/<your_code_directory>
-
-	conda activate /projects/<your_project_here>/<folder_for_conda_envs>/pt #or tf
-
-	srun python your_pt_code.py
-
-	```
+      srun python <your_code>.py
+      ```
 !!! note
 	This Getting Started section is only scratching the surface of ML libraries and resources that can be used on Kestrel. Tools such as LightGBM, XGBoost, and scikit-learn work well with conda environments, and other tools such as Flux for the Julia Language can be used on Kestrel as well.
 
@@ -120,10 +119,11 @@ or using ```conda,```
     #!/bin/bash
     #SBATCH --account=<your-account-name> 
     #SBATCH --nodes=1
-    #SBATCH --gpus=h100:1 
+    #SBATCH --gpus=1 
     #SBATCH --ntasks-per-node=1
-    #SBATCH --cpus-per-task=1
-    #SBATCH --time=02:00:00
+    #SBATCH --mem=96G
+    #SBATCH --cpus-per-task=32
+    #SBATCH --time=00:30:00
     #SBATCH --job-name=<your-job-name>
 
     module load conda
