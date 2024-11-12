@@ -30,3 +30,4 @@ The following are packages that the NREL Computational Science Center supports:
 | [VASP](./vasp.md) | Atomic scale materials modeling, e.g., electronic structure calculations and quantum-mechanical molecular dynamics, from first principles | 
 | [WRF](./wrf.md) | Mesoscale numerical weather prediction system designed for both atmospheric research and operational forecasting applications | 
 | [Xpress](./xpressmp.md) | Optimization algorithms and technologies to solve linear, mixed integer and non-linear problems |
+| [Chemical Kinetics](./chemicalKinetics.md) | An overview of packages for chemical kinetics, thermodynamics, transport processes etc.|
