@@ -48,18 +48,17 @@ Once the job has finished, the standard output is saved in a file called
 **matlabTest.sb**
 
 ```bash
-#!/bin/bash  --login
-#SBATCH --time=05:00          # Maximum time requested for job (5 min.)
-#SBATCH --nodes=1                # Number of nodes
-#SBATCH --job-name=matlabTest              # Name of job
-#SBATCH --account=<account_string>        # Program-based WCID (account string associated with job)
+#!/bin/bash
+#SBATCH --time=05:00                   # Maximum time requested for job (5 min.)
+#SBATCH --nodes=1                      # Number of nodes
+#SBATCH --job-name=matlabTest          # Name of job
+#SBATCH --account=<your_account>       # account associated with job
 
-module purge
 module load matlab
 
 # execute code
-cd $SLURM_SUBMIT_DIR                        # Change directories (output will save here)
-matlab -nodisplay -r matlabTest          # Run the MATLAB script
+cd $SLURM_SUBMIT_DIR                   # Change directories (output will save here)
+matlab -nodisplay -r matlabTest        # Run the MATLAB script
 ```
 
 **matlabTest.m**
