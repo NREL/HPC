@@ -200,6 +200,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
+  - footnotes
 extra:
   analytics:
     provider: google
