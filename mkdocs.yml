@@ -63,9 +63,7 @@ nav:
           - Shell Startup: Documentation/Environment/shell.md
           - Lmod: Documentation/Environment/lmod.md
           # - Customization:
-              #  - Spack Environments: Documentation/Environment/Customization/spack.md
           - Conda: Documentation/Environment/Customization/conda.md
-              #  - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
             - Documentation/Environment/Building_Packages/acquire.md
@@ -122,7 +120,6 @@ nav:
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
          - Programming Models:
-              # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
               - Using GPUs for HPC: Documentation/Development/Programming_Models/gpu_hpc.md 
               # - OpenMP: Documentation/Development/Programming_Models/openmp.md
@@ -163,8 +160,6 @@ nav:
          - Debug Tools:
              - DDT: Documentation/Development/Debug_Tools/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
-               #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
-               #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
          - Visual Studio Code:
             - Documentation/Development/VSCode/vscode.md
          - Containers:
