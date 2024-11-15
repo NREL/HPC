@@ -7,7 +7,7 @@ Intel's C compiler icc has been around for many years.  It is being retired and 
 
 Our example programs are hybrid MPI/Openmp so we'll show commands for building hybrid programs.  If your program is pure MPI the only change you need to make to the build process is to remove the compile line option -fopenmp.  
 
-Sample makefile, source codes, and runscript for on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel)  under the Toolchains folder.  There are individual directories for source,makefiles, and scripts or you can download the intel.tgz file containing all required files.
+Sample makefile, source codes, and runscript for on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel)  under the Toolchains folder.  There are individual directories for source,makefiles, and scripts or you can download the intel.tgz file containing all required files.  The source differs slightly from what is shown here.  There is an extra file *triad.c* that gets compiled along with the Fortran and C programs discussed below.  This file does some "dummy" work to allow the programs to run for a few seconds.  
 
 
 ### module loads for compile
@@ -49,7 +49,7 @@ Here's what the compile lines should be where we add the -fopenmp option for Opn
 mpiifort -O3 -g -fopenmp  ex1.f90  
 ```
 
-#### 2. C with: Intel MPI and Intel C compiler, older compiler (icc) 
+#### 2a. C with: Intel MPI and Intel C compiler, older compiler (icc) 
 ```
 mpiicc -O3 -g -fopenmp  ex1.c  -o ex_c
 ```
@@ -62,13 +62,26 @@ We can compile with the extra flag.
 mpiicc -diag-disable=10441 -O3 -g -fopenmp  ex1.c   -o gex_c
 ```
 
-#### 3. C with: Intel MPI and Intel C compiler, newer compiler (icx)
+#### 2b. Older compiler (icc) might not be avialable
+
+Depending on the version of compilers loaded the message shown above might be replaced with one saying that the icx is no longer available.  In this case you **MUST** use icx.  There are two ways to do that shown below.  
+
+#### 3a. C with: Intel MPI and Intel C compiler, newer compiler (icx)
 
 ```
 export I_MPI_CC=icx
 mpiicc -O3 -g -fopenmp  ex1.c  -o ex_c
 ```
 Setting the environmental variable tells mpiicc to use icx (the newer Intel compiler) instead of icc.
+
+
+#### 3a. C with: Intel MPI and Intel C compiler, newer compiler (icx)
+
+```
+mpiicx -O3 -g -fopenmp  ex1.c  -o ex_c
+```
+Explictly running mpiicx will give you icx as the backend compiler.  
+
 
 ### mpicc and mpif90 may not give you what you expect.  
 
@@ -179,7 +192,7 @@ Our srun command line options for 2 tasks per node and 3 threads per task are:
 --mpi=pmi2 --cpu-bind=v,cores --threads-per-core=1 --tasks-per-node=2 --cpus-per-task=3
 ```
 
-* --mpi=pmi2 : tells srun to use a particular launcher 
+* --mpi=pmi2 : tells srun to use a particular launcher (This is optional.)
 * --cpu-bind=v,cores : discussed above
 * --threads-per-core=1 : don't allow multiple threads to run on the same core.  Without this option it is possible for multiple threads to end up on the same core, decreasing performance.  
 * --cpus-per-task=3 : The cpus-per-task should always be equal to OMP\_NUM\_THREADS.

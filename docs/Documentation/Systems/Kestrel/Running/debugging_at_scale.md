@@ -1,3 +1,8 @@
+---
+search:
+  exclude: true
+---
+
 # Approaches to Debugging at Scale
 
 On an HPC system, occasionally there is the need to debug programs at relatively large scale, on a larger number of nodes than what is available via the short or debug queues. Because many of jobs run for several days, it may take a long time to acquire a large number of nodes.

@@ -32,6 +32,7 @@ nav:
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/others.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
             - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Swift:
@@ -62,9 +63,7 @@ nav:
           - Shell Startup: Documentation/Environment/shell.md
           - Lmod: Documentation/Environment/lmod.md
           # - Customization:
-              #  - Spack Environments: Documentation/Environment/Customization/spack.md
           - Conda: Documentation/Environment/Customization/conda.md
-              #  - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
             - Documentation/Environment/Building_Packages/acquire.md
@@ -122,7 +121,6 @@ nav:
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
          - Programming Models:
-              # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
               - Using GPUs for HPC: Documentation/Development/Programming_Models/gpu_hpc.md 
               # - OpenMP: Documentation/Development/Programming_Models/openmp.md
@@ -134,7 +132,6 @@ nav:
               # - NVHPC: Documentation/Development/Compilers/nvhpc.md
               # - AOCC : Documentation/Development/Compilers/aocc.md
               # - Cray : Documentation/Development/Compilers/cray.md
-              # - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
@@ -162,12 +159,8 @@ nav:
             #  - CrayPat: Documentation/Development/Performance_Tools/craypat.md
             #  - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
          - Debug Tools:
-            #  - ARM:
-            #    - Documentation/Development/Debug_Tools/ARM/index.md
-            #    - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md
+             - DDT: Documentation/Development/Debug_Tools/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
-               #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
-               #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
          - Visual Studio Code:
             - Documentation/Development/VSCode/vscode.md
          - Containers:
@@ -203,6 +196,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
+  - footnotes
 extra:
   analytics:
     provider: google
