@@ -8,7 +8,7 @@ has_children: true
 # Swift Filesystem Architecture Overview
 
 Swift's central storage currently has a capacity of approximately 3PB, served over NFS (Network File System). It is a performant system with 
-multiple read and write cache layers and redundancies for data protection, but it is not a parallel filesystem, unlike Eagle's Lustre configuration.
+multiple read and write cache layers and redundancies for data protection, but it is not a parallel filesystem, unlike Kestrel's Lustre configuration.
 
 The underlying filesystem and volume management is via ZFS. Data is protected in ZFS RAID arrangements (raidz3) of 8 storage disks and 3 parity disks. 
 
@@ -32,7 +32,7 @@ Project directories are automatically mounted or unmounted via NFS on an "as-nee
 
 ## Scratch Space: /scratch/username and /scratch/username/jobid
 
-For users who also have Eagle allocations, please be aware that scratch space on Swift behaves differently, so adjustments to job scripts may be necessary. 
+For users who also have Kestrel allocations, please be aware that scratch space on Swift behaves differently, so adjustments to job scripts may be necessary. 
 
 The scratch directory on each Swift compute node is a 1.8TB spinning disk, and is accessible only on that node. The default writable path for scratch use is `/scratch/<username>`. There is no global, network-accessible `/scratch` space. `/projects` and `/home` are both network-accessible, and may be used as /scratch-style working space instead.
 
@@ -45,7 +45,7 @@ There is no expectation of data longevity in scratch space, and it is subject to
 
 ## Mass Storage System
 
-There is no Mass Storage System for deep archive storage on Swift. However, Swift is expected to be a part of the upcoming Campaign Storage system (VAST storage) in the future, allowing those projects with allocations on Eagle to seamlessly transfer data between clusters, and into the Eagle MSS system.
+There is no Mass Storage System for deep archive storage on Swift.
 
 ## Backups and Snapshots
 

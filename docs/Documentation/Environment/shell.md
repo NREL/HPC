@@ -1,7 +1,5 @@
 # Shell Startup
 
-**Documentation:** [ link to documentation](https://nrel.gov)
-
 *When you login to a linux based machine you interact with the operating system via a program called a shell.  There are various types of shell programs.  One of the more common is **bash**.  Bash is the default shell on NREL's HPC platforms.  This document describes ways you can customize your shell's, in particular, bash's behavior.*
 
 

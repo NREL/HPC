@@ -17,9 +17,9 @@ For links to in-depth tutorials and walkthroughs of GDB features, please see [Re
 
 ## Availability
 
-| Eagle | Swift | Vermilion |
-|:-------:|:-----:|:-----------|
-| gdb/7.6.1\*| gdb/8.2\*  |gdb/12.1, gdb/8.2\*  |
+|Kestrel| Eagle | Swift | Vermilion |
+|:-----:|:-------:|:-----:|:-----------|
+| gdb/12.1 | gdb/7.6.1\*| gdb/8.2\*  |gdb/12.1, gdb/8.2\*  |
 
 \* Located in `/usr/bin`. Do not need to use `module load`.
 

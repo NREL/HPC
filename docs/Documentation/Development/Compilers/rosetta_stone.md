@@ -27,8 +27,10 @@ The topics covered include:
 
 * gcc
 * gfortran
-* Intel icc (Classic, not Clang)
-* Intel ifort (Fortran, not Clang)
+* Intel icc (Classic)
+	* Moving to Intel's new icx compiler
+* Intel ifort (Fortran)
+	* Moving to Intel's new ifx compiler
 * Cray C (Clang based)
 * Cray Fortran (ftn)
 
@@ -632,7 +634,40 @@ Valid categories include
        reports         - Optimization Reports
 
        openmp          - OpenMP and Parallel Processing
-```           
+```
+           
+## Moving to Intel's new compiler icx
+The Intel compilers icc and icpc are being retired and being replaced with icx and icpx.  
+Other than the name change many people will not notice significant differences.  
+
+The document [https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-icc-users-to-dpcpp-or-icx.html](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-icc-users-to-dpcpp-or-icx.html) 
+has details.  Here are some important blurbs from that page.
+
+
+
+ICX and ICC Classic use different compiler drivers. The Intel® C++ Compiler Classic 
+compiler drivers are icc, icpc, and icl.  The Intel® oneAPI DPC++/C++ Compiler drivers 
+are icx and icpx. Use icx to compile and link C programs, and icpx for C++ programs.
+
+Unlike the icc driver, icx does not use the file extension to determine whether to 
+compile as C or C+. Users must invoke icpx to compile C+ files. . In addition to 
+providing a core C++ Compiler, ICX/ICPX is also used to compile SYCL/DPC++ codes for the 
+Intel® oneAPI Data Parallel C++ Compiler when we pass an additional flag “-fsycl”. 
+
+The major changes in compiler defaults are listed below:
+
+* The Intel® oneAPI DPC++/C++ Compiler drivers are icx and icpx.
+* Intel® C++ Compiler Classic uses icc, icpc or icl drivers but this compiler will be deprecated in the upcoming release.
+* DPC++/SYCL users can use the icx/icpx driver along with the -fsycl flag which invokes ICX with SYCL extensions. 
+* Unlike Clang, the ICX Default floating point model was chosen to match ICC behavior and by default it is -fp-model=fast .
+* MACRO naming is changing. Please be sure to check release notes for future macros to be included in ICX.
+* No diagnostics numbers are listed for remarks, warnings, or notes. Every diagnostic is emitted with the corresponding compiler option to disable it. 
+* Compiler intrinsics cannot be automatically recognized without processor targeting options, unlike the behavior in Intel® C++ Compiler Classic. If you use intrinsics, read more on the documentation about intrinsic behavior changes. 
+
+
+
+
+
 ## ifort
 
 This discussion is for version 2021.6.0.  Ifort  will be replaced with a clang backend based alternative in the near future, ifx.  Ifx will have most of the same options as ifort with some clang additions.  In the Cray environment if PrgEnv-intel is loaded the "cc" maps to icc.
@@ -920,7 +955,23 @@ Valid categories include
        reports         - Optimization Reports
 
        openmp          - OpenMP and Parallel Processing
-```           
+```  
+
+## Moving to Intel's new compiler ifx
+
+Intel® Fortran Compiler Classic (ifort) is now deprecated and will be discontinued in late 2024. 
+Intel recommends that customers transition now to using the LLVM-based Intel® Fortran Compiler (ifx).
+Other  than the name change some people will not notice significant differences.  The new compiler
+supports offloading to Intel GPU. Kestrel and Swift do not have Intel GPUs so this is not at NREL.  
+
+One notable deletion from the new compiler is dropping of auto-parilization.  With ifort the 
+-parallel compiler option auto-parallelization is enabled. That is not true for ifx; there
+ is no auto-parallelization feature with ifx.
+ 
+ 
+For complete details please see: [https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html)
+
+         
 ## Cray CC
 
 In the Cray environment cc is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray C : Version 14.0.4.  cc will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.  Cray C : Version 14.0.4 is clang based with Cray enhancements

@@ -10,11 +10,10 @@ Connection](https://www.nrel.gov/hpc/system-connection.html).
 
 ## Running MATLAB via an Interactive Job
 
-After connecting to the login node, the next step is to start an interactive job. For
-example, the following command gets # nodes for interactive use for an hour:
+After connecting to the login node, the next step is to start an interactive job. For example, the following command gets a user-selected number of nodes for interactive use, taking as input tasks per node, job duration, and account.
 
 ```
-$ srun -N # --time 01:00:00 --account=<handle> --pty $SHELL
+$ salloc --nodes=<number of nodes> --ntasks-per-node=<tasks per node> --account=<your account here> --time=<desired time>
 ```
 
 When your job starts, you will have a shell on a compute node.
@@ -25,7 +24,7 @@ When your job starts, you will have a shell on a compute node.
        and include a valid project allocation handle. For more information, see
        [User Accounts](https://www.nrel.gov/hpc/user-accounts.html).
     2. For more information on interactive jobs, see [Running Interactive
-       Jobs](../../Systems/Eagle/interactive_jobs.md).
+       Jobs](../../Slurm/interactive_jobs.md).
 
 From the shell on the compute node, the next steps are to load the MATLAB module
 to set up your user environment, which includes setting the location of the

@@ -1,4 +1,4 @@
-# Using the Gurobi Optimizer Solvers
+# Gurobi
 
 *Gurobi Optimizer is a suite of solvers for mathematical programming.*
 
@@ -10,15 +10,34 @@ Gurobi includes a linear programming solver (LP), quadratic programming solver
 programming solver (MILP), mixed-integer quadratic programming solver (MIQP),
 and a mixed-integer quadratically constrained programming solver (MIQCP).
 
-Gurobi is available on the Eagle system, which hosts 6 general use (including
-commercial) and 18 academic/government standalone Gurobi licenses. After logging
-onto Eagle, load the Gurobi module using `module load gurobi`.  The Gurobi
-interactive shell is run by typing "`gurobi.sh`". Gurobi can also be interfaced
-with C/C++/Java/MATLAB/R codes by linking with the Gurobi libraries.
+Gurobi is available on multiple systems. **There are 24 license tokens available for 
+concurrent use** - 6 are for general use (including commercial) and 18 standalone license tokens
+are for academic/government use. After logging
+onto the appropriate cluster, load the default Gurobi module using 
+`module load gurobi`.  The Gurobi interactive shell is run by typing 
+"`gurobi.sh`". Gurobi can also be interfaced with C/C++/Java/MATLAB/R codes by 
+linking with the Gurobi libraries.
+
+!!! tip
+    You can check how many Gurobi licenses are available for use by running the following command
+    after loading the Gurobi module
+    ```bash
+    gurobi_cl -t
+    ```
 
 For details on Gurobi programming, see the [Gurobi Resource
 Center](https://www.gurobi.com/resource-center/) and [Gurobi
 documentation](https://www.gurobi.com/documentation/).
+
+## Available Modules
+
+| Kestrel         | Swift           |
+|:---------------:|:---------------:|
+| gurobi/11.0.0   ||
+| gurobi/10.0.2   ||
+| gurobi/10.0.1   ||
+| gurobi/9.5.1    | gurobi/9.5.1    |
+
 
 ## Gurobi and MATLAB
 

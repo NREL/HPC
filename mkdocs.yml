@@ -4,8 +4,12 @@ nav:
       - blog/2020-12-01-numba.md
       - blog/2021-05-06-tf.md
       - blog/2021-06-18-srun.md
+      - blog/2022-02-02-Changes_to_Slurm_srun_for_interactive_jobs.md
       - blog/2022-10-04-python2to3.md
+      - blog/2022-03-05-local-io-performance.md
       - blog/2022-12-19-windows_ssh.md
+      - blog/2023-01-10-using_specific_module_versions_on_hpc.md
+      - blog/2023-11-28_module_updates.md
   - Documentation:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
@@ -14,23 +18,23 @@ nav:
         - Systems: Documentation/Systems/index.md
         - Kestrel: 
           - Documentation/Systems/Kestrel/index.md
-          - Documentation/Systems/Kestrel/running.md
-          - Documentation/Systems/Kestrel/modules.md
-          - Documentation/Systems/Kestrel/filesystems.md
-        - Eagle: 
-          - Documentation/Systems/Eagle/index.md
-          - Running on Eagle: 
-            - Documentation/Systems/Eagle/Running/index.md
-            - Partitions and Scheduling: Documentation/Systems/Eagle/Running/eagle_partitions.md
-            - Job Priorities: Documentation/Systems/Eagle/Running/eagle_job_priorities.md
-            - Batch Jobs: Documentation/Systems/Eagle/Running/batch_jobs.md
-            - Interactive Jobs: Documentation/Systems/Eagle/Running/interactive_jobs.md
-            - Multiple Sub-Jobs: Documentation/Systems/Eagle/Running/multiple_sub_jobs.md
-            - Sample Batch Scripts: Documentation/Systems/Eagle/Running/sample_sbatch.md
-            - Debugging at Scale: Documentation/Systems/Eagle/Running/debugging_at_scale.md
-            - Monitor and Control Commands: Documentation/Systems/Eagle/Running/monitor_and_control.md
-          - Modules: Documentation/Systems/Eagle/modules.md
-          - Documentation/Systems/Eagle/lustrebestpractices.md
+          - Running on Kestrel: 
+            - Documentation/Systems/Kestrel/Running/index.md
+            - Documentation/Systems/Kestrel/Running/kestrel_job_priorities.md
+            - Documentation/Systems/Kestrel/Running/example_sbatch.md
+            # - Debugging at Scale: Documentation/Systems/Kestrel/Running/debugging_at_scale.md
+            - Performance Recommendations: Documentation/Systems/Kestrel/Running/performancerecs.md
+          - Filesystems: 
+            - Documentation/Systems/Kestrel/Filesystems/index.md
+            - Documentation/Systems/Kestrel/Filesystems/lustre.md
+          - Kestrel Release Notes: Documentation/Systems/Kestrel/kestrel_release_notes.md 
+          - Environments: 
+            - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
+            - Toolchains:
+              - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/others.md
+            - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
+            - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Swift:
           - Documentation/Systems/Swift/index.md
           - Documentation/Systems/Swift/running.md
@@ -39,11 +43,17 @@ nav:
         - Vermilion:
           - Documentation/Systems/Vermilion/index.md
           - Documentation/Systems/Vermilion/running.md
-          - Documentation/Systems/Vermilion/modules.md
-          - Documentation/Systems/Vermilion/filesystems.md
+      - Slurm Job Scheduling:
+        - Documentation/Slurm/index.md
+        - Monitor and Control Commands: Documentation/Slurm/monitor_and_control.md
+        - Submitting Batch Jobs: Documentation/Slurm/batch_jobs.md
+        - Running Interactive Jobs: Documentation/Slurm/interactive_jobs.md
+        - Multiple Sub-Jobs: Documentation/Slurm/multiple_sub_jobs.md
+        - Job Arrays: Documentation/Slurm/job_arrays.md
       - Managing your Data:
         - Unix File Permissions: Documentation/Managing_Data/file_permissions.md
         - Mass Storage System: Documentation/Managing_Data/mss.md
+        - Node Local Storage: Documentation/Managing_Data/localstorage.md
         - Transferring Files:
           - Documentation/Managing_Data/Transferring_Files/index.md
           - Documentation/Managing_Data/Transferring_Files/FileZilla.md
@@ -51,11 +61,9 @@ nav:
           - Documentation/Managing_Data/Transferring_Files/winscp.md
       - Environment:
           - Shell Startup: Documentation/Environment/shell.md
-          # - Lmod: Documentation/Environment/lmod.md
+          - Lmod: Documentation/Environment/lmod.md
           # - Customization:
-              #  - Spack Environments: Documentation/Environment/Customization/spack.md
           - Conda: Documentation/Environment/Customization/conda.md
-              #  - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
             - Documentation/Environment/Building_Packages/acquire.md
@@ -65,12 +73,17 @@ nav:
           # - Templates:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
+          - Documentation/Applications/index.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
+          - AMR-Wind:  Documentation/Applications/amrwind.md
+          - Chemical Kinetics: Documentation/Applications/chemicalKinetics.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
           - GAMS:       Documentation/Applications/gams.md
           - Gaussian:   Documentation/Applications/gaussian.md
           - Gurobi:     Documentation/Applications/gurobi.md
+          - IDAES Solvers : Documentation/Applications/idaes_solvers.md
+          - IPOPT:      Documentation/Applications/ipopt.md
           - LAMMPS:     Documentation/Applications/lammps.md
           - MATLAB:
             - Documentation/Applications/Matlab/index.md
@@ -78,10 +91,16 @@ nav:
             - Interactive Mode: Documentation/Applications/Matlab/interactive.md
             - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
             - Versions and Licenses: Documentation/Applications/Matlab/versions.md
+          - OpenFOAM: Documentation/Applications/openfoam.md
+          - PLEXOS:
+            - Documentation/Applications/Plexos/index.md
+            - Setting Up: Documentation/Applications/Plexos/setup_plexos.md
+            - Running Models: Documentation/Applications/Plexos/run_plexos.md
           - Q-Chem:     Documentation/Applications/qchem.md
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
           - WRF:        Documentation/Applications/wrf.md
+          - Xpress:     Documentation/Applications/xpressmp.md
       - Development:
          - Languages:
              - Julia:
@@ -101,10 +120,9 @@ nav:
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
-             - JupyterHub: Documentation/Development/Jupyter/jupyterhub.md
          - Programming Models:
-              # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
+              - Using GPUs for HPC: Documentation/Development/Programming_Models/gpu_hpc.md 
               # - OpenMP: Documentation/Development/Programming_Models/openmp.md
               # - OpenACC: Documentation/Development/Programming_Models/openacc.md
                 #- CUDA:    Documentation/Development/Programming_Models/cuda.md
@@ -114,7 +132,6 @@ nav:
               # - NVHPC: Documentation/Development/Compilers/nvhpc.md
               # - AOCC : Documentation/Development/Compilers/aocc.md
               # - Cray : Documentation/Development/Compilers/cray.md
-              # - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
@@ -125,17 +142,16 @@ nav:
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
               - HSL:  Documentation/Development/Libraries/hsl.md
-              - IPOPT: Documentation/Development/Libraries/ipopt.md
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
+              - PETSc:  Documentation/Development/Libraries/petsc.md
               # - NetCDF: Documentation/Development/Libraries/netcdf.md
-              # - PETSc:  Documentation/Development/Libraries/petsc.md
          - Performance Tools:
-            #  - ARM Performance Reports:
-            #    - Documentation/Development/Performance_Tools/ARM/index.md
-            #    - MAP : Documentation/Development/Performance_Tools/ARM/map.md
-            #    - Performance Reports: Documentation/Development/Performance_Tools/ARM/performance_rep.md
+             - Linaro-Forge:
+               - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
+               - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
+               - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
              - Intel Parallel Studio:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
@@ -143,20 +159,18 @@ nav:
             #  - CrayPat: Documentation/Development/Performance_Tools/craypat.md
             #  - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
          - Debug Tools:
-            #  - ARM:
-            #    - Documentation/Development/Debug_Tools/ARM/index.md
-            #    - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md
+             - DDT: Documentation/Development/Debug_Tools/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
-               #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
-               #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
+         - Visual Studio Code:
+            - Documentation/Development/VSCode/vscode.md
          - Containers:
             - Documentation/Development/Containers/index.md
-            - Documentation/Development/Containers/registres.md
+            - Documentation/Development/Containers/registries.md
             - Documentation/Development/Containers/singularity.md
+            - Documentation/Development/Containers/apptainer.md
       - Visualization and Analytics:
          - Documentation/Viz_Analytics/index.md
          - VirtualGL and FastX: Documentation/Viz_Analytics/virtualgl_fastx.md 
-         - Avizo: Documentation/Viz_Analytics/avizo.md
          - Paraview: Documentation/Viz_Analytics/paraview.md
          - VisIT: Documentation/Viz_Analytics/visit.md
       - Machine Learning:
@@ -170,21 +184,28 @@ theme:
   features:
     - navigation.tabs
     - navigation.indexes
+    - announce.dismiss
 markdown_extensions:
   - toc:
       permalink: "#"
+  - pymdownx.arithmatex:
+      generic: true
   - admonition
   - attr_list
   - meta
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
+  - footnotes
 extra:
   analytics:
     provider: google
     property: UA-189117140-2
 extra_css:
   - stylesheets/extra.css
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 site_name: NREL HPC 
 repo_url: https://github.com/NREL/HPC/tree/gh-pages
 repo_name: NREL/HPC

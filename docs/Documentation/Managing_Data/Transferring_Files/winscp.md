@@ -9,7 +9,7 @@ title: WinSCP
 
 You may follow the prompts to import your PuTTY sites to simplify host management.
 ## Connecting to a Host
-* Set up a host (if needed) by selecting "New Site" and providing a host name (e.g., eagle.nrel.gov) and your user name.  In most cases, use the SFTP protocol.
+* Set up a host (if needed) by selecting "New Site" and providing a host name (e.g., kestrel.nrel.gov) and your user name.  In most cases, use the SFTP protocol.
 * Connect to the server by selecting a site and clicking [Login].
 * Enter your password or Password+Token when prompted.
 

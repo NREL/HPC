@@ -1,3 +1,8 @@
+---
+search:
+  exclude: true
+---
+
 # Template for an Application Page
 
 **Documentation:** [ link to documentation](https://nrel.gov)

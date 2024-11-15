@@ -14,7 +14,7 @@ parent: Transferring Data
 
 ### Connecting to a Host
 
-- Decide which host you wish to connect to such as, eagle.hpc.nrel.gov
+- Decide which host you wish to connect to such as, kestrel.hpc.nrel.gov
 - Enter your username in the Username field.
 - Enter your password or Password+OTP Token in the Password field.
 - Use 22 as the Port.

@@ -1,7 +1,8 @@
 ---
 title: Getting Started
+---
 
-In order to use the NREL HPC systems, you will need to [request a user account](https://www.nrel.gov/hpc/user-accounts.html). For a guide to accessing our systems, please see our [User Basics guide](https://www.nrel.gov/hpc/eagle-user-basics.html)
+In order to use the NREL HPC systems, you will need to [request a user account](https://www.nrel.gov/hpc/user-accounts.html). For a guide to accessing our systems, please see our [User Basics guide](https://www.nrel.gov/hpc/user-basics.html)
 
 Below we've collected answers for many of the most frequently asked questions. 
 
@@ -31,12 +32,12 @@ Below we've collected answers for many of the most frequently asked questions.
     allocations' compute-time approximates the projected availability of the entire system.
     Project allocations are identified by a unique "handle" which doubles as a Linux account
     under which you submit HPC jobs related to the project to the job scheduler. Learn
-    more about [requesting an allocation](https:/www.nrel.gov/hpc/resource-allocation-requests.html).
+    more about [requesting an allocation](https://www.nrel.gov/hpc/resource-allocation-requests.html).
 
 ??? note "How can I access NREL HPC systems?"
 
-    Begin by [requesting an NREL HPC account](https:/www.nrel.gov/hpc/user-accounts.html). 
-    Then, consult our guide on [how to connect to the NREL HPC system](https:/www.nrel.gov/hpc/system-connection.html).
+    Begin by [requesting an NREL HPC account](https://www.nrel.gov/hpc/user-accounts.html). 
+    Then, consult our guide on [how to connect to  NREL HPC systems](https://www.nrel.gov/hpc/system-connection.html).
 
 ??? note "What is a one-time password (OTP) token?"
 
@@ -84,14 +85,11 @@ Below we've collected answers for many of the most frequently asked questions.
 ??? note "What is proper NREL HPC login node etiquette?"
 
     As mentioned above, login nodes are a shared resource, and are subject to process
-    limiting based on usage. Each user is permitted up to 8 cores and 100GB of RAM at
-    a time, after which the Arbiter monitoring software will begin moderating resource
-    consumption, restricting further processes by the user until usage is reduced to acceptable
-    limits. If you do computationally intensive work on these systems, it will unfairly
+    limiting based on usage. If you do computationally intensive work on these systems, it will unfairly
     occupy resources and make the system less responsive for other users. Please reserve
     your computationally intensive tasks (especially those that will fully utilize CPU
     cores) for jobs submitted to compute nodes. Offenders of login node abuse will be
-    admonished accordingly. For more information please see our [policy](https:/www.nrel.gov/hpc/inappropriate-use-policy.html) on what 
+    admonished accordingly. For more information please see our [policy](https://www.nrel.gov/hpc/inappropriate-use-policy.html) on what 
     constitutes inappropriate use.
 
 ??? note "What is "system time?""
@@ -99,10 +97,9 @@ Below we've collected answers for many of the most frequently asked questions.
     System time is a regularly occurring interval of time during which NREL HPC systems
     are taken offline for necessary patches, updates, software installations, and anything
     else to keep the systems useful, updated, and secure. **You will not be able to access 
-    the system or submit jobs during system times.**  System times occur the first Monday 
-    every month. A reminder announcement is sent out prior to every system time detailing 
+    the system or submit jobs during system times.** A reminder announcement is sent out prior to every system time detailing 
     what changes will take place, and includes an estimate of how long the system time will be. 
-    You can check the [system status page](https:/www.nrel.gov/hpc/system-status.html) if you are ever 
+    You can check the [system status page](https://www.nrel.gov/hpc/system-status.html) if you are ever 
     unsure if an NREL HPC system is currently down for system time.
 
 ??? note "How can I more closely emulate a Linux/macOS workflow on my Windows workstation?"
@@ -114,19 +111,19 @@ Below we've collected answers for many of the most frequently asked questions.
     emulator for Windows is known as the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). 
     Other recommended terminal applications include: [Git Bash](https://git-scm.com/downloads), [Git for WIndows](https://gitforwindows.org/), 
     [Cmder](https://cmder.app/), and [MYSYS2](https://www.msys2.org/). Note that PuTTY is not a terminal emulator, 
-    it is only an SSH client. The applications listed above implement an <kbd>ssh</kbd> command, 
+    it is only an SSH client. The applications listed above implement an `ssh` command, 
     which mirrors the functionality of PuTTY.
 
 ??? note "What is the secure shell (SSH) protocol?"
 
     Stated briefly, the SSH protocol establishes an encrypted channel to share various
-    kinds of network traffic. Not to be confused with the <kbd>ssh</kbd> terminal command or 
+    kinds of network traffic. Not to be confused with the `ssh` terminal command or 
     SSH clients which are applications that implement the SSH protocol in software to 
     create secure connections to remote systems.
 
 ??? note "Why aren't my jobs running?"
 
-    Good question! There may be hundreds of reasons why. Please [contact HPC support](https:/www.nrel.gov/hpc/contact-us.html)
+    Good question! There may be hundreds of reasons why. Please [contact HPC support](https://www.nrel.gov/hpc/contact-us.html)
     with a message containing as many relevant details as you can provide so we are more
     likely to be able to offer useful guidance (such as what software you're using, how
     you are submitting your job, what sort of data you are using, how you are setting

@@ -3,11 +3,13 @@ layout: default
 title: Vermilion
 parent: Systems
 has_children: true
+hide:
+ - toc
 ---
 
 # About Vermilion
 
-Vermilion is an OpenHPC-based cluster running on Dual AMD EPYC 7532 Rome CPUs. The nodes run as virtual machines in a local virtual private cloud (OpenStack). Mellanox drivers and OFED are installed on all nodes.
+Vermilion is an OpenHPC-based cluster running on Dual AMD EPYC 7532 Rome CPUs and nVidia A100 GPUs. The nodes run as virtual machines in a local virtual private cloud (OpenStack). Vermilion is allocated for NREL workloads and intended for LDRD, SPP or Office of Science workloads. Allocation decisions are made by the IACAC through the annual allocation request process. Check back regularly as the configuration and capabilities for Vermilion are augmented over time.
 
 ## Accessing Vermilion
 Access to Vermilion requires an NREL HPC account and permission to join an existing allocation. Please see the [System Access](https://www.nrel.gov/hpc/system-access.html) page for more information on accounts and allocations.

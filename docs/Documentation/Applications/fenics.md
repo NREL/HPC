@@ -103,7 +103,7 @@ conda create -n myfenics -c conda-forge fenics-dolfinx
 
     ```
 
-To run this script, first download the Poisson demo [ here ](https://fenicsproject.org/olddocs/dolfin/2019.1.0/python/demos/poisson/demo_poisson.py.html) and place it either in a folder titled "poisson_demo" in your scratch directory (home for Swift). Then save the script as "demo_script.sh" and submit it with `sbatch demo_script.sh`. This demo is only supported by FEniCS 2019.1.0 and not FEniCSx. 
+To run this script, first download the Poisson demo [ here ](https://fenicsproject.org/olddocs/dolfin/2019.1.0/python/demos/poisson/demo_poisson.py.html) and place it in a folder titled "poisson_demo" in your scratch directory (home for Swift). Next, replace "USERNAME" in the script with your username. Then save the script as "demo_script.sh" and submit it with `sbatch demo_script.sh`. This demo is only supported by FEniCS 2019.1.0 and not FEniCSx. 
 
 ## Supported Versions
 

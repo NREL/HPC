@@ -1,3 +1,8 @@
+---
+search:
+  exclude: true
+---
+
 # BerkeleyGW
 
 **Documentation:** [BerkeleyGW](https://berkeleygw.org/documentation/)

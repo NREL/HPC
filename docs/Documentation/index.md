@@ -6,7 +6,7 @@ description: Documentation Home
 
 ---
 
-Welcome to the central source of user-contributed documentation for Eagle and other NREL HPC systems. This repository is open to both NREL and non-NREL HPC users. You can browse the documentation here, or start contributing by [visiting the repository in Git](https://github.com/NREL/HPC) for more information.
+Welcome to the central source of user-contributed documentation for NREL's HPC systems. This repository is open to both NREL and non-NREL HPC users. You can browse the documentation here, or start contributing by [visiting the repository in Git](https://github.com/NREL/HPC) for more information.
 
 ## Where to Begin
 
@@ -15,7 +15,7 @@ Please use the navigation bar on the left to explore the available documentation
 ### Highlights 
 * [Systems Guide](./Systems/index.md) to learn about our HPC systems
 * [Jupyterhub](./Development/Jupyter/index.md) to get started with Jupyter Notebooks 
-* [Conda environment](./Environment/Customization/conda.md) howto and Eagle-specific information
+* [Conda environment](./Environment/Customization/conda.md) howto and HPC-specific information
 
 ### Other NREL Documentation Resources
 

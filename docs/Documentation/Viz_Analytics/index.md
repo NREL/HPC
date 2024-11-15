@@ -15,10 +15,6 @@ Provides remote visualization for OpenGL-based applications. For more informatio
 An open-source, multi-platform data analysis and visualization application. 
 For information, see [using ParaView](paraview.md).
 
-## Avizo
-
-3D Analysis software for scientific and industrial data. For information, see [using Avizo software](avizo.md).
-
 ## VAPOR
 
 VAPOR (Visualization and Analysis Platform for Ocean, Atmosphere, and Solar Researchers) enables interactive exploration of terascale gridded data sets that are large in both the spatial and temporal domains. Wavelet-based multiresolution data representation permits users to make speed/quality trade-offs for visual as well as non-visual data exploration tasks.

@@ -1,25 +1,26 @@
 ---
 layout: default
-title: Config Make Install
+title: Config, Make, Install
 parent: Building Packages
 grand_parent: Intermediate
 ---
 
-## Configuring your build
+# Configuring your build
 
-1. We will illustrate a package build that relies on the popular autotools system. Colloquially, this is
-the `configure; make; make install` process that is often encountered first by those new to package
-builds on Linux. Other build systems like CMake (which differ primarily in the configuration steps)
-won't be covered. If you need to build a package that relies on CMake, please contact hpc-help@nrel.gov
-for assistance.
 
-2. We'll use GCC version 8.4.0 for this illustration, so load the associated module first (_i.e._, `gcc/8.4.0`).
+1. We will illustrate a package build that relies on the popular autotools system. 
+Colloquially, this is the `configure; make; make install` process that is often encountered first by those new to package builds on Linux. 
+Other build systems like [CMake](../../Development/Build_Tools/cmake.md) (which differ primarily in the configuration steps) won't be covered. 
+If you need to build a package that relies on CMake, please contact hpc-help@nrel.gov for assistance.
 
-3. Now that you've acquired and unpacked the package tarball and changed into the top-level directory
-of the package, you should see a script named "configure". In order to see all available options to
-an autotools configure script, use `./configure -h` (don't forget to include the `./` explicit path,
-otherwise the script will not be found in the default Linux search paths, or worse, a different script
-will be found).
+2. We'll use *GCC* version 8.4.0 for this illustration, so load the associated module first (_i.e._, `gcc/8.4.0`).
+
+???+ note "Building on Kestrel "
+     You can use any version of *GCC* available to you on Kestrel. 
+     The paths in step 3 are for Eagle, please make the necessary changes for Kestrel.
+
+3. Now that you've acquired and unpacked the package tarball and changed into the top-level directory of the package, you should see a script named "configure". 
+In order to see all available options to an autotools configure script, use `./configure -h` (don't forget to include the `./` explicit path, otherwise the script will not be found in the default Linux search paths, or worse, a different script will be found).
 
 	We will build with the following command: 
 	```
@@ -43,17 +44,24 @@ will be found).
 	* `LDFLAGS` : -L options point to non-standard library locations. -Wl,-rpath options embed paths into the binaries, so that having LD_LIBRARY_PATH set correctly is not necessary (i.e., no separate module for these components).
 	* `CPPFLAGS` : Point to header files in non-standard locations.
 
-	NOTE: The CUDA paths are not needed for CUDA function per se, but the resulting MPI errors out without setting them. There appears to be a lack of modularity that sets up a seemingly unneeded dependency.
+	NOTE: The CUDA paths are not needed for CUDA function per se, but the resulting MPI errors out without setting them. 
+    There appears to be a lack of modularity that sets up a seemingly unneeded dependency.
 
-	After lots of messages scroll by, you should be returned to a prompt following a summary of options. It's not a bad idea to glance through these, and make sure everything makes sense and is what you intended.
+	After lots of messages scroll by, you should be returned to a prompt following a summary of options. 
+    It's not a bad idea to glance through these, and make sure everything makes sense and is what you intended.
 
-4. Now that the build is configured, you can "make" it. For packages that are well integrated with automake, you can speed the build up by parallelizing it over multiple processes with the `-j #` option. If you're building this on a compute node, feel free to set this option to the total number of cores available. On the other hand, if you're using a login node, be a good citizen and leave cores available for other users (_i.e._, don't use more than 4; Arbiter should limit access at any rate regardless of this setting).
+4. Now that the build is configured, you can "make" it. 
+For packages that are well integrated with automake, you can speed the build up by parallelizing it over multiple processes with the `-j #` option. 
+If you're building this on a compute node, feel free to set this option to the total number of cores available. 
+On the other hand, if you're using a login node, be a good citizen and leave cores available for other users (_i.e._, don't use more than 4; Arbiter should limit access at any rate regardless of this setting).
 
 	```
 	make -j 4
 	```
 
-5. Try a `make check` and/or a `make test`. Not every package enables these tests, but if they do, it's a great idea to run these sanity checks to find if your build is perfect, maybe-good-enough, or totally wrong before building lots of other software on top of it.
+5. Try a `make check` and/or a `make test`. 
+Not every package enables these tests, but if they do, it's a great idea to run these sanity checks to find if your build is perfect, maybe-good-enough, or totally wrong before building lots of other software on top of it.
 
-6. Assuming checks passed if present, it's now time for `make install`. Assuming that completes without errors, you can move onto creating an environment module to use your new MPI library.
+6. Assuming checks passed if present, it's now time for `make install`. 
+Assuming that completes without errors, you can move onto creating an environment module to use your new MPI library.
 

@@ -20,8 +20,8 @@ New users are encouraged to refer to the documentation linked above, in particul
 mkdir build
 cd build
 # Reference the path to the CMakeLists.txt file:
-cmake ..
-CC=<c_compiler> CXX=<c++_compiler> make
+CC=<c_compiler> CXX=<c++_compiler> cmake ..
+make
 ```
 
 Here the `CC` and `CXX` environment variables are used to explicitly specify the C and C++ compiler that CMake should use.  If not specified, CMake will determine a default compiler to use.
