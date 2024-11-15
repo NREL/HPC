@@ -13,12 +13,12 @@ parent: Applications
 
 A wide variety of packages are available for the purpose, each with their strengths, pros and cons. The matrix below provides a birds eye view of some of the packages. When applicable, please refer to the footnotes marked at the bottom of the page. (All company, product and service names used on this page are for identification purposes only. Use of these names, trademarks and brands does not imply endorsement.)
 
-|                                                                          | C++   | Fortran | Python | Matlab | GPU    | Speed*$^5$ | Features | Cost | Compatibility       | Speciality                   |
+|                                                                          | C++   | Fortran | Python | Matlab | GPU    | Speed*[^5] | Features | Cost | Compatibility       | Speciality                   |
 |:------------------------------------------------------------------------:|:-----:|:-------:|:------:|:------:|:------:|:----------:|:--------:|:----:|:-------------------:|:----------------------------:|
-| [Cantera](https://cantera.org/)                                          | y     | y       | y      | y      | x      | ++         | ++++     | Free | Research codes*$^8$ | Simplicity, large user base  |
-| [zero-RK](https://github.com/LLNL/zero-rk)                               | y     | x       | x*$^6$ | x      | y*$^1$ | ++++*$^7$	 | ++*$^4$  | Free | Converge CFD ($)    | Model reduction tools        |  
+| [Cantera](https://cantera.org/)                                          | y     | y       | y      | y      | x      | ++         | ++++     | Free | Research codes*[^8] | Simplicity, large user base  |
+| [zero-RK](https://github.com/LLNL/zero-rk)                               | y     | x       | x*[^6] | x      | y*[^1] | ++++*[^7]  | ++*[^4]  | Free | Converge CFD ($)    | Model reduction tools        |  
 | [PelePhysics](https://amrex-combustion.github.io/PelePhysics/)           | y     | x       | x      | x      | y      | +++++      | +++      | Free | Amrex/Pele          | HPC, NREL popular framework  |
-| [Chemkin Pro](https://www.ansys.com/products/fluids/ansys-chemkin-pro)   | y     | y*$^2$  | x      | x      | x*$^3$ | ++++       | ++++     | $    | Ansys ($)           | Legacy, professional support |
+| [Chemkin Pro](https://www.ansys.com/products/fluids/ansys-chemkin-pro)   | y     | y*[^2]  | x      | x      | x*[^3] | ++++       | ++++     | $    | Ansys ($)           | Legacy, professional support |
 
 
 ## Strategy
@@ -44,12 +44,11 @@ A typical workflow could look as follows:
 	👎 Fewer features than Cantera & Chemkin, C++ only. 
 
 ## Installation and testing on Kestrel
-
-### Cantera
 !!! note
-	Cantera can be [installed from source](https://cantera.org/install/compiling-install.html#sec-compiling) or with the conda envionment on the Kestrel as explained below.
-	The performance can vary depending on the compile options and flags while compiling from source. We are more than happy to learn from power users about the flags which lead to the best performance. 
-[Installation: Python version](https://cantera.org/install/conda-install.html#sec-install-conda)
+	Cantera can also be [installed from source](https://cantera.org/install/compiling-install.html#sec-compiling) apart from the conda method explained below.
+	The performance of packages mentioned on this page can vary depending on the choice of dependency library variants and optimization flags while compiling from source. We are more than happy to learn from power users about choices which lead to the best performance. Please report your experiences by [email](mailto:hpc-help@nrel.gov).
+### Cantera
+ [Installation: Python version](https://cantera.org/install/conda-install.html#sec-install-conda)
 ```
 $ module load conda
 $ conda create --name ct-env --channel cantera cantera ipython matplotlib jupyter
@@ -120,165 +119,48 @@ $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
 	``` 
 	srun -n 5 ./flame.out
 	```
-	Please refer to the [job submission documentation](https://www.nrel.gov/hpc/running-jobs.html) for larger jobs in Batch mode.   
+	Please refer to the [job submission documentation](https://nrel.github.io/HPC/Documentation/Slurm/batch_jobs/) for larger jobs in Batch mode.   
 
 ### zero-RK
-[Please follow the official installation instructions](https://github.com/LLNL/zero-rk).
+Please follow the [official installation instructions](https://github.com/LLNL/zero-rk). The procedure has been tested successfully on the Kestrel and repeated below from the official instructions for convenience.
+```
+$ git clone https://github.com/llnl/zero-rk   #git
+$ cd zero-rk
+$ mkdir build
+$ cd build
+$ cmake ../                                   #configure
+$ make                                        #build
+$ ctest                                       #test
+$ make install                                #install
+```
 
 ### PelePhysics
-[Please follow the official installation instructions](https://amrex-combustion.github.io/PelePhysics/GettingStarted.html#building-and-running-test-cases).
-
 !!! note
 	Please mind the amrex dependency and remember to set the `AMREX_HOME` environment variable to your amrex location before beginning to compile PelePhysics.
-
-<!---
-This section provides the minimum amount of information necessary to successfully run a basic job on an NREL Cluster.
-This information should be as complete and self-contained as possible.
-
-Instructions should be step-by-step and include copy-and-pastable commands where applicable.
-
-For example, describe how the user can load the program module  with `module avail` and `module load`:
-
+Please follow the [official instructions](https://amrex-combustion.github.io/PelePhysics/GettingStarted.html#building-and-running-test-cases) for obtaining the PelePhysics library and compiling examples. The procedure has been tested successfully on the Kestrel. The process for obtaining PelePhysics and compiling the ReactEval example is repeated below from the official instructions for convenience.
 ```
-module avail program
-   program/2.0.0    program/1.0.0
-```
-
-```
-module load program/2.0.0
-```
-
-
-Include a section on how to run the job, e.g., with job script examples or commands for an interactive session.
-
-### Example Job Scripts
-
-??? example "Kestrel CPU"
-
-	```slurm
-	#!/bin/bash
-
-	# In a comment summarize the hardware requested, e.g. number of nodes, 
-        # number of tasks per node, and number of threads per task
-
-	#SBATCH --time=
-	#SBATCH --nodes=
-	#SBATCH --ntasks-per-node=
-	#SBATCH --cpus-per-task=
-	#SBATCH --partition=
-	#SBATCH --account=
-
-	# include a section of relevant export and module load commands, e.g.:
-
-	module load gcc/8.4.0
-
-	export OMP_NUM_THREADS=
-
-	# include a sample srun command or similar
-	srun program.x
-
-	```
-
-??? example "Vermillion"
-
-	If the submit script for Vermillion differs from Kestrel, then include a Vermillion example script here.
-	If the submit script does not differ, then remove this section (starting from the `??? example "Vermillion"` line)
-
-
-??? example "Swift"
-
-	If the submit script for Swift differs from Kestrel, then include a Swift  example script here.
-	If the submit script does not differ, then remove this section (starting from the `??? example "Swift"` line)
-
-
-??? example "Template"
-	
-	Here's a template of a collapsible example.
-
-	```
-	You can include blocked sections
-	```
-
-	And unblocked sections.
-
-!!! note
-	You can use a note to draw attention to information.
-
-Include instructions on how to submit the job script
-
-## Supported Versions
-
-| Kestrel | Swift | Vermillion |
-|:-------:|:-----:|:----------:|
-| 0.0.0   | 0.0.0 | 0.0.0      |
-
-## Advanced
-
-Include advanced user information about the code here (see BerkeleyGW page for some examples)
-
-One common "advanced case" might be that users want to build their own version of the code.
-
-### Building From Source
-
-Here, give detailed and step-by-step instructions on how to build the code, if this step is necessary. Include detailed instructions for how to do it on each applicable HPC system. Be explicit in your instructions. Ideally a user reading one of the build sections can follow along step-by-step
-and have a functioning build by the end.
-
-If building from source is not something anyone would reasonably want to do, remove this section.
-
-Be sure to include where the user can download the source code
-
-??? example "Building on Kestrel"
-
-	Include here, for example, a Kestrel-specific makefile (see berkeleygw example page). This template assumes that we build the code with only one toolchain, which may not be the case. If someone might reasonably want to build with multiple toolchains, use the "Multiple toolchain instructions on Kestrel" template instead.
-	
-	```
-	Include relevant commands in blocks.
-	```
-	or as in-line `blocks`
-
-	Be sure to state how to set-up the necessary environment, e.g.:
-
-	```
-	module load gcc/8.4.0
-	module load openmpi/3.1.6/gcc-8.4.0
-	module load hdf5/1.10.6/gcc-ompi
-	```
-
-	Give instructions on compile commands. E.g., to view the available make targets, type `make`. To compile all program executables, type:
-
-	```
-	make cleanall
-	make all
-	```
-	
-??? example "Building on Vermillion"
-
-	information on how to build on Vermillion
-
-??? example "Building on Swift"
-
-	information on how to build on Swift
-
-
-## Troubleshooting
-
-Include known problems and workarounds here, if applicable
--->
+$ git clone --recursive https://github.com/AMReX-Combustion/PelePhysics.git
+$ cd PelePhysics
+$ git pull && git submodule update
+$ cd Testing/Exec/ReactEval
+$ make TPL
+$ make
+``` 
 
 ## Footnotes
 
-* 1 Not clear from the documentation but ‘gpu’ exists in the code in several places. No actual GPU users amongst those surveyed at the NREL.
+[^1]: Not clear from the documentation but ‘gpu’ exists in the code in several places. No actual GPU users amongst those surveyed at the NREL.
 
-* 2 Also possible through Chemkin II, which was a free Fortran library, not available online anymore.
+[^2]: Also possible through Chemkin II, which was a free Fortran library, not available online anymore.
 
-* 3 The Ansys Fluent CFD solver uses GPU, the Chemkin Pro module does not.
+[^3]: The Ansys Fluent CFD solver uses GPU, the Chemkin Pro module does not.
 
-* 4 Features unclear due to very poor documentation. Estimate based on reading parts of the code and NREL user comments.
+[^4]: Features unclear due to very poor documentation. Estimate based on reading parts of the code and NREL user comments.
 
-* 5 Very vague estimate from documentation and NREL user comments. Benchmarking not performed.
+[^5]: Very vague estimate from documentation and NREL user comments. Benchmarking not performed.
 
-* 6 Python scripts exist which gather parameters to execute C++ executables, no actual Python / Cython API like Cantera.
+[^6]: Python scripts exist which gather parameters to execute C++ executables, no actual Python / Cython API like Cantera.
 
-* 7 Faster than Chemkin and Cantera for mechanisms involving more than 100 species, information from documentation.
+[^7]: Faster than Chemkin and Cantera for mechanisms involving more than 100 species, information from documentation.
 
-* 8 Coupling with various codes such as OpenFoam, Nek5000, JAX-Fluids etc. has been possible.
+[^8]: Coupling with various codes such as OpenFoam, Nek5000, JAX-Fluids etc. has been possible.
