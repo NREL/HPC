@@ -28,6 +28,9 @@ However, if you need a version of Julia for which a module does not exist or wan
 * performance and ease - [Spack](#spack-build)
 * performance or need to customize Julia build - [do it yourself](#do-it-yourself-build-v-12-or-later) (i.e. build from source)
 
+!!! Warning
+    Julia built on Kestrel CPU nodes will not work on the GPU nodes and vice versa. Always build Julia on the same type of compute node that you intend to run on.
+
 ## Anaconda
 
 Older versions of Julia are available from `conda-forge` channel
@@ -90,8 +93,6 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
 !!! note
     When compiling Julia **with** MKL, Julia uses the `single dynamic library` option for linking.  Any dynamic libraries (e.g. Ipopt or CoinHSL) loaded by Julia also need to be linked to MKL with this approach. Failing to do so will result in unusual behavior, e.g. getting garbage values passed to the MKL function calls.
 
-!!! info
-    We are using Eagle as an example for this demonstration. The process remains the same for other clusters.
 
 1. Load the following modules:
     * gcc (>= 5.1)
@@ -102,7 +103,6 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
 3. `cd julia`
 4. Change to the version of Julia you want to build `git checkout <julia_version>`
 5. In `Make.user` (you will need to create the file if it doesn't exist) in `JULIA_HOME` put the following:
-	* `MARCH=skylake-avx512` -- tell the compiler to [optimize floating point instructions for Eagle's Skylake processors](../../Libraries/mkl.md#user-tips)
     * *If you want to compile Julia **with** MKL also add the following*
         * `USE_INTEL_MKL=1` -- Use Intel versions of BLAS and LAPACK (this is why we loaded mkl module)
         * `USE_BLAS64=0` -- Use the 64-bit library with the 32-bit integer interface. This will necessitate changes in `Make.inc`. The reasons for this are discussed in step 7.
@@ -113,7 +113,7 @@ When compiling Julia you can choose to compile against Intel's MKL libraries or 
 `make -C deps/ extract-suitesparse`
     * With your favorite editor, open the file
 `JULIA_HOME/deps/scratch/SuiteSparse-5.4.0/UMFPACK/Lib/Makefile`
-    * In the `Makefile`, do a global replace on `USER` --i.e. change all occurrences of the variable  `USER`  to something else like  `MUSER`
+    * In the `Makefile`, do a global replace on `USER` --i.e. change all occurrences of the variable `USER` to something else like  `MUSER`
 7. The second problem is that when compiling against MKL, Julia either uses the 32-bit MKL libraries or the 64-bit MKL libraries with *64-bit interface*.  It is common for other libraries (e.g. Ipopt or HSL) to compile against the 64-bit MKL libraries with *32-bit interface*.  This causes unusual behavior.  To make Julia compile against the 64-bit MKL libraries with 32-bit interface, do the following:
     * Open `Make.inc` in your favorite editor and make the following change
         * find where `MKLLIB` is set (there will be an if-else statement depending on the value of `USE_BLAS64`)

@@ -18,19 +18,7 @@ The Vienna Ab initio Simulation Package (VASP) is an application for atomic scal
     Once status can be confirmed, we can provide access to our VASP builds. 
 
 ## Getting Started
-VASP is available through modules on all HPC systems. Use the command `module avail vasp` to view the versions of VASP available on each cluster, and `module load vasp/<version>` to load a specific version. If no version is specified, the default module (marked with "(D)") will be loaded.  In the following sections, we will give sample input scripts and recommendations for the different builds. To run VASP, the following 4 input files are needed: POSCAR, POTCAR, INCAR, KPOINTS. For more information about VASP input files, see the [VASP wiki](https://www.vasp.at/wiki/index.php/Input).
-
-!!! warning "Attention"
-	If you would like to build your own VASP on Kestrel, please read our section [Building VASP on Kestrel](vasp.md#building-vasp-on-kestrel) carefully before compiling on Kestrel's cray architecture. 
-
-## Supported Versions
-NREL offers modules for VASP 5 and VASP 6 on CPUs as well as GPUs on certain systems. See table below for current availability, as well as system specific documentation for more details on running different builds.
-
-|             |    Kestrel    |     Eagle     |     Swift     |   Vermilion   |
-| ----------- | ------------- | ------------- | ------------- | ------------- |
-| VASP 5      |       X       |       X       |               |       X       |
-| VASP 6      |       X       |       X       |       X       |       X       |
-| VASP 6 GPU  |               |       X       |               |       X       |
+VASP is available through modules on all HPC systems. To view the available versions of VASP modules on each cluster, use the command `module avail vasp`. To see details for a specific version, use `module show vasp/<version>`. To load a specific version, use `module load vasp/<version>`. If no version is specified, the default module (marked with "(D)") will be loaded.  In the following sections, we will give sample submission scripts and performance recommendations. To run VASP, the following 4 input files are needed: POSCAR, POTCAR, INCAR, KPOINTS. For more information about VASP input files, see the [VASP wiki](https://www.vasp.at/wiki/index.php/Input).
 
 Each VASP module provides three executables where the correct one should be chosen for the type of job:
 
@@ -40,16 +28,75 @@ Each VASP module provides three executables where the correct one should be chos
 
 3. `vasp_gam` is for Gamma-point-only calculations
 
-NREL also offers support for additional functionalities such as [transition state theory tools from University of Texas-Austin](http://theory.cm.utexas.edu/vtsttools/), [implicit solvation models from the University of Florida](http://vaspsol.mse.ufl.edu/), and [BEEF-vdw functionals](https://github.com/vossjo/libbeef). Please contact [HPC-Help](mailto:hpc-help@nrel.gov) if a functionality you need is not present in one of our builds.
+NREL also offers build and module support for additional functionalities such as [transition state theory tools from University of Texas-Austin](http://theory.cm.utexas.edu/vtsttools/), [implicit solvation models from the University of Florida](http://vaspsol.mse.ufl.edu/), and [BEEF-vdw functionals](https://github.com/vossjo/libbeef). Please contact [HPC-Help](mailto:hpc-help@nrel.gov) if a functionality you need is not present in one of our builds.
+
+!!! warning "Attention"
+	If you would like to build your own VASP on Kestrel, please read our section [Building VASP on Kestrel](vasp.md#building-vasp-on-kestrel) carefully before compiling on Kestrel's cray architecture. 
+
+## Supported Versions
+NREL offers modules for VASP 5 and VASP 6 on CPUs as well as GPUs on certain systems. See table below for current availability, as well as system specific documentation for more details on running different builds.
+
+|             |    Kestrel    |     Swift     |   Vermilion   |
+| ----------- | ------------- | ------------- | ------------- |
+| VASP 5      |       X       |               |       X       |
+| VASP 6      |       X       |       X       |       X       |
+| VASP 6 GPU  |       X       |       X       |       X       |
+
 
 ## VASP on Kestrel
 
+### Running Using Modules
+
 #### CPU
 
-There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, transition state tools, and BEEF-vdW functionals. These modules can be loaded with ```module load vasp/<version>```.
+There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 we have released new modules for VASP on Kestrel CPUs: 
+
+```
+CPU $ module avail vasp
+
+------------ /nopt/nrel/apps/cpu_stack/modules/default/application -------------
+   #new modules:
+   vasp/5.4.4+tpc     vasp/6.3.2_openMP+tpc    vasp/6.4.2_openMP+tpc
+   vasp/5.4.4_base    vasp/6.3.2_openMP        vasp/6.4.2_openMP
+   
+   # Legacy modules will be removed during system time in December!
+   vasp/5.4.4         vasp/6.3.2               vasp/6.4.2            (D)
+```
+
+ What’s new: 
+ 
+ * New modules have been rebuilt with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
+ * OpenMP capability has been added to VASP 6 builds.
+ * Modules that include third-party codes (e.g., libXC, libBEEF, VTST tools, and VASPsol) are now denoted with +tpc. Use `module show vasp/<version>` to see details of a specific version.
+
+**We encourage users to switch to the new builds and strongly recommend using OpenMP parallelism.**
 
 !!! tip "Important: Conserving your AUs on Kestrel"
-	Kestrel nodes have nearly 3x as many cores as Eagle. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition).
+	Kestrel nodes have nearly 3x as many cores as Eagle's did. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/Running/index.md#shared-node-partition).
+
+??? example "Sample job script: Kestrel - Full node w/ OpenMP"
+
+    Note: (--ntasks-per-node) x (--cpus-per-task) = total number of physical cores you want to use per node. Here 4x26=104, all cores/node.
+
+    ```
+    #!/bin/bash
+    #SBATCH --nodes=2
+    #SBATCH --tasks-per-node=26 # set number of MPI ranks per node
+    #SBATCH --cpus-per-task=4 # set number of OpenMP threads per MPI rank
+    #SBATCH --time=2:00:00
+    #SBATCH --account=<your-account-name>
+    #SBATCH --job-name=<your-job-name>
+
+    module load vasp/<version with openMP>
+
+    srun vasp_std &> out
+    ```
+
+??? note "Performance Note"
+
+    The use of OpenMP threads is highly recommended on a system with as many cores per node as Kestrel. Testing of benchmark 2 has shown that OpenMP threads can both increase performance (faster time to solution) as well as scaling:
+
+    ![VASP-sharednodescaling](../../../assets/images/VASP/openmpscaling.png)
 
 ??? example "Sample job script: Kestrel - Full node"
 
@@ -57,49 +104,112 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
     #!/bin/bash
     #SBATCH --nodes=2
     #SBATCH --tasks-per-node=104
+    #SBATCH --cpus-per-task=1
     #SBATCH --time=2:00:00
     #SBATCH --account=<your-account-name>
     #SBATCH --job-name=<your-job-name>
 
     module load vasp/<version>
 
-    srun vasp_std |& tee out
+    srun vasp_std &> out
     ```
 
 ??? example "Sample job script: Kestrel - Shared (partial) node"
 
-    As described in detail in the [Shared partition documentation](../Systems/Kestrel/running.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (256 GB total) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
+    As described in detail in the [Shared partition documentation](../Systems/Kestrel/Running/index.md#shared-node-partition), when you run on part of a node, you will be charged for the greater of either the fraction of cores (104 total) or of memory (about 240G total or 2.3G/core) requested. The script below shows how to request 1/4 of a node, but you can freely set `--tasks` and `--mem-per-cpu` as you see fit.
 
     ```
     #!/bin/bash
     #SBATCH --nodes=1
     #SBATCH --partition=shared
     #SBATCH --tasks=26 #How many cpus you want
-    #SBATCH --mem-per-cpu=2G #Default is 1 GB/core but 2 GB/core is a good starting place
+    #SBATCH --mem-per-cpu=2G #Default is 1 GB/core but this is likely too little for electronic structure calculations
     #SBATCH --time=2:00:00
     #SBATCH --account=<your-account-name>
     #SBATCH --job-name=<your-job-name>
 
     module load vasp/<version>
 
-    srun vasp_std |& tee out
+    srun vasp_std &> out
     ```
 
-??? note "Performance Notes"
+??? note "Performance Note"
 
     Internal testing at NREL has indicated that standard VASP DFT calculations from sizes 50-200 atoms run most efficiently on a quarter to a half node. The graph below shows the performance of a 192-atom VASP DFT job using partial nodes on the shared partition. Up to 1/2 a node, near perfect scaling is observed, but using the full node gives a speedup of only 1.5 relative to using 1/2 a node. So, the calculation will cost 50% more AUs if run on a single node compared to a half node. For a 48-atom surface Pt calculation, using the full node gives no speedup relative to using 1/2 a node, so the calculation will cost 100% more AUs if run on a single node compared to half a node. 
 
     ![VASP-sharednodescaling](../../../assets/images/VASP/sharedscaling-192.png)
 
-
-### Building VASP on Kestrel
- 
-#### Compiling your build
+#### GPU 
 
 !!! tip "Important"
-    On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](../Systems/Kestrel/Environments/index.md) for more details on programming environments.
+	Submit GPU jobs from a [GPU login node](../Systems/Kestrel/index.md).
+    $ ssh <username>@kestrel-gpu.hpc.nrel.gov
 
-??? example "Build recommendations for VASP"
+There are several modules for GPU builds of VASP 5 and VASP 6: 
+
+```
+GPU $ module avail vasp
+
+------------ /nopt/nrel/apps/gpu_stack/modules/default/application -------------
+   vasp/6.3.2_openMP    vasp/6.3.2    vasp/6.4.2_openMP    vasp/6.4.2 (D)
+
+```
+
+??? example "Sample job script: Kestrel - Full GPU node"
+
+    ```
+    #!/bin/bash
+    #SBATCH --account=<your-account-name> 
+    #SBATCH --nodes=1
+    #SBATCH --gpus=4 
+    #SBATCH --ntasks-per-node=4
+    #SBATCH --cpus-per-task=1 #The GPU partition is shared :. you must specify cpus needed even when requesting all the GPU resources
+    #SBATCH --time=02:00:00
+    #SBATCH --job-name=<your-job-name>
+    #SBATCH --mem=0 #The GPU partition is shared :. you must specify memory needed even when requesting all the GPU resources
+
+    export MPICH_GPU_SUPPORT_ENABLED=1
+
+    module load vasp/<version>
+
+    srun vasp_std &> out
+
+    ```
+
+GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When doing so, you must also request appropriate CPU cores and memory. To run VASP on N GPUs, we recommend requesting `--gpus=N`, `--ntasks-per-node=N`, and `--mem=N*85G`. See the below sample script for running on 2 GPUs. 
+
+??? example "Sample job script: Kestrel - Partial GPU node"
+
+    ```
+    #!/bin/bash
+    #SBATCH --account=<your-account-name> 
+    #SBATCH --nodes=1
+    #SBATCH --gpus=2 
+    #SBATCH --ntasks-per-node=2
+    #SBATCH --mem=170G # request cpu memory 
+    #SBATCH --cpus-per-task=1
+    #SBATCH --time=02:00:00
+    #SBATCH --job-name=<your-job-name>
+
+    export MPICH_GPU_SUPPORT_ENABLED=1
+
+    module load vasp/<version>
+
+    srun vasp_std &> out
+    ```
+    
+### Building VASP on Kestrel
+
+Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel) under the vasp folder.
+
+!!! tip "Important"
+    On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](../Systems/Kestrel/Environments/index.md) page for more details on programming environments.
+
+#### CPU
+ 
+##### Compiling your build
+
+??? example "Build recommendations for VASP - CPU "
 
     We recommend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 
@@ -117,12 +227,12 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 
     Sample makefiles for vasp5 and vasp6 on Kestrel can be found in our [Kestrel Repo](https://github.com/NREL/HPC/tree/master/kestrel) under the vasp folder.
 
-#### Running your build
+##### Running your build
 
 !!! tip "Important"
     We have found that it is optimal to run an Intel toolchain build of VASP using cray-mpich-abi at runtime. Cray-mpich-abi has several dependencies on cray network modules, so the easiest way to load it is to first load ```PrgEnv-intel``` and then swap the default cray-mpich module for the cray-mpich-abi ```module swap cray-mpich cray-mpich-abi```. You must then load your intel compilers and math libraries, and unload cray's libsci. A sample script showing all of this is in the dropdown below.
 
-??? example "Sample job script: How to run your own build"
+??? example "Sample job script: How to run your own build - CPU "
 
     ```
     #!/bin/bash
@@ -143,104 +253,47 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 
     export VASP_PATH=/PATH/TO/YOUR/vasp_exe
 
-    srun ${VASP_PATH}/vasp_std |& tee out
+    srun ${VASP_PATH}/vasp_std &> out
 
     ```
-
-
-## VASP on Eagle
-
-#### CPU
-
-??? example "Sample job script: Eagle - VASP CPU"
-
-    ```
-    #!/bin/bash
-    #SBATCH --nodes=1
-    #SBATCH --time=4:00:00
-    #SBATCH --account=<your-account-name>
-    #SBATCH --job-name=<your-job-name>
-
-    module purge
-
-    #Load module
-    ml vasp/<version>
-
-    srun -n 36 vasp_std &> out
-    ```
-
-
-??? note "Performance Notes"
-
-    The Intel MPI builds are recommended over the Open MPI builds as they exhibit fastest performance.
-
-    If using the openmpi builds, you may see the following warning in the vasp output that can be ignored:
-    ```
-    Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
-    Note: The following floating-point exceptions are signalling: IEEE_UNDERFLOW_FLAG
-    ```
-
 
 #### GPU
 
-??? example "Sample job script: Eagle - VASP 6 GPU (OpenACC)"
+!!! tip "Important"
+	Make sure to build GPU software on a [GPU login node](../Systems/Kestrel/index.md) or GPU compute node.
+
+##### Compiling your build
+
+??? example "Build recommendations for VASP - GPU"
+
     ```
-    #!/bin/bash
-    #SBATCH --job-name=vasp_gpu
-    #SBATCH --time=1:00:00
-    #SBATCH --error=std.err
-    #SBATCH --output=std.out
-    #SBATCH --nodes=1
-    #SBATCH --gpus-per-node=2
-    #SBATCH --gpu-bind=map_gpu:0,1
-    #SBATCH --account=myaccount
+    # Load appropriate modules for your build. For our example these are:
+    ml gcc-stdalone/13.1.0
+    ml PrgEnv-nvhpc/8.5.0
+    ml nvhpc/23.9   #do not use the default nvhpc/24.1
+    ml cray-libsci/23.05.1.4
 
-    #To run on multiple nodes, change the last two SBATCH lines:
-    ##SBATCH --nodes=4
-    ##SBATCH --gpu-bind=map_gpu:0,1,0,1,0,1,0,1 #one set of "0,1" per node
-
-    module purge
-
-    #Load the OpenACC build of VASP
-    ml vasp/6.3.1-nvhpc_acc
-
-    #Load some additional modules
-    module use /nopt/nrel/apps/220511a/modules/lmod/linux-centos7-x86_64/gcc/12.1.0
-    ml fftw nvhpc
-
-    mpirun -npernode 2 vasp_std &> out
-    ```
-    Note: the following warning may be printed to the vasp output and can be ignored so long as the run produces the expected results.
-    ```
-    Warning: ieee_invalid is signaling
-    Warning: ieee_divide_by_zero is signaling
-    Warning: ieee_underflow is signaling
-    Warning: ieee_inexact is signaling
-    FORTRAN STOP
-    ```
-??? example "Sample job script: Eagle - VASP 6 GPU (Cuda)"
-    
-    To run the Cuda build of VASP on Eagle's GPUs, we can call the ```vasp_gpu``` executable in a module for a build of VASP older than 6.3.0. To use both GPUs per node, make sure to set ```#SBATCH --gpus-per-node=2``` and ```#SBATCH --ntasks-per-node=2```.
-      
-    ```
-    #!/bin/bash
-    #SBATCH --job-name="benchmark"
-    #SBATCH --account=myaccount
-    #SBATCH --time=4:00:00
-    #SBATCH --nodes=1 
-    #SBATCH --gpus-per-node=2
-    #SBATCH --ntasks-per-node=2
-
-    module purge
-
-    #Load Intel MPI VASP build
-    ml vasp/6.1.2
-
-    srun -n 2 vasp_gpu &> out
+    make DEPS=1 -j8 all
     ```
 
-??? note "Performance Notes"
-    The OpenACC build shows significant performance improvement compared to the Cuda build, but is more susceptible to running out of memory. The OpenACC GPU-port of VASP was released with VASP 6.2.0, and the Cuda GPU-port of VASP was dropped in VASP 6.3.0.
+##### Running your build
+
+??? example "Sample job script: How to run your own build - GPU"
+
+    See sample jobs scripts above for SBATCH and export directives to request full or shared gpu nodes.
+
+    ```
+    # Load modules appropriate for your build. For ours these are:
+    ml gcc-stdalone/13.1.0
+    ml PrgEnv-nvhpc/8.5.0
+    ml nvhpc/23.9   #do not use the default nvhpc/24.1
+    ml cray-libsci/23.05.1.4
+
+    # Export path to your buid
+    export VASP_PATH=/PATH/TO/YOUR/BUILD/bin
+
+    srun ${VASP_PATH}/vasp_std &> out
+    ```
 
 ## VASP on Swift
 
@@ -376,7 +429,7 @@ There are modules for CPU builds of VASP 5 and VASP 6 each with solvation, trans
 
     On Swift, VASP is most efficiently run on partially full nodes. 
 
-    Unlike on Eagle, multiple jobs can run on the same nodes on Swift. If you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which might deteriorate the performance. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. 
+    Multiple jobs can run on the same nodes on Swift. If you are only using a fraction of a node, other users' jobs could be assigned to the rest of the node, which might deteriorate the performance. Setting "#SBATCH --exclusive" in your run script prevents other users from using the same node as you, but you will be charged the full 5AUs/node, regardless of the number of CPUs/node you are using. 
 
 #### GPU
 

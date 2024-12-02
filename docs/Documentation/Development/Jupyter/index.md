@@ -59,7 +59,7 @@ axes[3].set_title("fill_between");
     
 This is the multi-user "backend" server. The "Hub" allows users to login, then launches the single-user Jupyter server for them. Hubs are usually installed and managed by system administrators, not Jupyter users.
     
-NREL's "Europa" (Eagle-only) runs Jupyterhub. More on Europa later in this document.
+A Jupyterhub server (kestrel-jhub) is available on Kestrel for use with your HPC data. More on KJHub later in this document.
 
 ### **Jupyter/Jupyter Server/Notebook server**
 
@@ -69,68 +69,70 @@ The single-user server/web interface. Use to create, save, or load .ipynb notebo
 
 A Notebook is an individual .pynb file. It contains your Python code and visualizations, and is sharable/downloadable.
 
-###  **Jupyter lab**
+###  **Jupyter Lab**
 
-A "nicer" redesigned web interface for your Jupyter Server - "Notebooks 2.0". Preferred by some, and promoted as the next evolution of Notebooks.
+A redesigned web interface for your Jupyter Notebook Server - "Notebooks 2.0". Preferred by some, and promoted as the next evolution of Notebooks.
 Lab has many new and different extensions, but many are also not compatible between Notebook and Lab. Lab is still under development, so is lacking some features of "classic" notebooks.
 
 ### **Kernel**
 
-Kernels define the Python environments used by your notebooks. Derived from ipykernel, a predecessor project to Jupyter: you may see Jupyter kernels referred to as "ipykernels". Custom kernels require the "ipykernel" package installed in your Jupyter conda environment.
+Kernels define the Python environments used by your notebooks. Derived from ipykernel, a predecessor project to Jupyter, and you may see Jupyter kernels referred to as "ipykernels". Custom kernels require the "ipykernel" package installed in your Jupyter conda environment.
 
 More on kernels later.
 
-## Eagle's "Europa" Jupyterhub Server
+## JupyterHub Service on Kestrel (KJHub)
 
-The NREL HPC team runs a Jupyterhub server called Europa that is available for internal (NREL) Eagle users only. 
+The NREL HPC team runs a JupyterHub service for HPC users to quickly access notebooks and data stored on Kestrel, Kestrel-JHub (KJHub.)
 
-Europa is connected to Eagle's Lustre storage system for access to /projects data.
+KJHub is available from the NREL VPN (onsite or offsite) for internal NREL users.
 
-A replacement for Europa on Kestrel is in the planning stage.
+This service is not directly accessible externally for non-NREL HPC users. However, it may be reached by using the [HPC VPN](https://www.nrel.gov/hpc/vpn-connection.html), or by using a [FastX Remote Desktop](https://nrel.github.io/HPC/Documentation/Viz_Analytics/virtualgl_fastx/) session via the DAV nodes.
 
-### Europa's Advantages:
+The JupyterHub service is accessible via web browser at [https://kestrel-jhub.hpc.nrel.gov](https://kestrel-jhub.hpc.nrel.gov)
 
-* Fast and easy access to notebooks with no setup.
-* Use regular Eagle credentials to log in.
-* Great for simple tasks, including light to moderate data processing, code debugging/testing, and light to moderate visualization using standard/basic scientific and visualization libraries.
+### JupyterHub Advantages:
 
-### Europa's Disadvantages:
+* Fast and easy access to notebooks with no setup. 
+* Use regular Kestrel credentials to log in.
+* Great for simple tasks, including light to moderate data processing, code debugging/testing, and/or visualization using basic scientific and visualization libraries.
 
-* Limited resources: Only 48 CPU cores and 190GB RAM total.
-* Managed usage: Up to 8 cores/128GB RAM per user before automatic throttling will greatly slow down processing.
-* Must compete with other users for CPU and RAM on a single machine.
-* Limited list of scientific libraries and visualization tools are available, and may not be latest versions.
-* Custom environments are difficult to configure.
-* No access for external (non-NREL) users.
-* Not available for Kestrel (yet).
+### JupyterHub Disadvantages:
+
+* Limited resources: KJHub is a single node with 128 CPU cores and 512GB RAM.
+* Managed usage: Up to 8 cores/100GB RAM per user before automatic throttling will greatly slow down processing.
+* Competition: Your notebook competes with other users for CPU and RAM on the KJHub nod.
+* Slow updates: A limited list of basic scientific libraries are available in the default notebook kernel/environment.
    
-### Simple Instructions to access Europa:
+### Simple Instructions to access JupyterHub:
     
-* Visit Europa at (https://europa.hpc.nrel.gov/) in a web browser and log in using your HPC credentials.
+* Visit [https://kestrel-jhub.hpc.nrel.gov](https://kestrel-jhub.hpc.nrel.gov/) in a web browser and log in using your HPC credentials.
    
-Europa opens a standard "notebooks" interface by default. Change the url ending from "/tree" to "/lab" in your web browser to use the Jupyter Lab interface, if preferred.
+KJHub opens a standard JupyterLab interface by default. Change the url ending from "/lab" to "/tree" in your web browser to switch to the classic Notebooks interface.
 
 
 ## Using a Compute Node to Run Your Own Jupyter Notebooks
 
+Kestrel supports running your own Jupyter Notebook server on a compute node. This is highly recommended over KJHub for advanced Jupyter use and heavy computational processing.
+
 ### Advantages:
 
 * Custom conda environments to load preferred libraries.
-* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 36 CPU cores and up to ~750GB RAM on Eagle bigmem nodes, and up to 104 CPU cores and up to ~2TB RAM on Kestrel bigmem nodes. See the system specifications page for the cluster you are working on.
+* Full node usage: Exclusive access to the resources of the node your job is reserved on, including up to 104 CPU cores and up to 240GB RAM on Kestrel CPU nodes and up to 2TB RAM on Kestrel bigmem nodes. (See the system specifications page for more information on the types of nodes available on Kestrel.)
 * No competing with other users for CPU cores and RAM, and no Arbiter2 process throttling.
+* Less than a whole node may be requested via the [shared node](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/running/#shared-node-partition) queue, to save AUs.
 
 ### Disadvantages:
 
 * Must compete with other users for a node via the job queue.
-* Costs your allocation AU.
+* Costs your allocation AU. 
     
 ## Launching Your Own Jupyter Server on an HPC System
 
-Both Kestrel and Eagle support running your own Jupyter Notebook server. This is highly recommended over Europa for advanced Jupyter use and heavy computational processing.
+Before you get started, we recommend installing your own Jupyter inside of a conda environment. The default conda/anaconda3 module contains basic Jupyter Notebook packages, but you will likely want your own Python libraries, notebook extensions, and other features. Basic directions are included later in this document.
 
-External (non-NREL) **Kestrel** users may follow the directions below for Kestrel, but please use `kestrel.nrel.gov` instead of `kestrel.hpc.nrel.gov`. 
+Internal (NREL) HPC users on the NREL VPN, or external users of the HPC VPN, may use the instructions below.
 
-External (non-NREL) **Eagle** users will no longer be able to use Jupyter in this fashion as of February 2024. If you require Jupyter, please consider transitioning to Kestrel as soon as possible.
+External (non-NREL) HPC users may follow the same instructions, but please use `kestrel.nrel.gov` in place of `kestrel.hpc.nrel.gov`.
 
 ## Using a Compute Node to run Jupyter Notebooks
 
@@ -138,26 +140,18 @@ Connect to a login node and request an interactive job using the `salloc` comman
 
 The examples below will start a 2-hour job. Edit the `<account>` to the name of your allocation, and adjust the time accordingly. Since these are interactive jobs, they will get some priority, especially if they're shorter, so only book as much time as you will be actively working on the notebook.
 
-Before you get started, we recommend installing your own Jupyter inside of a conda environment. The default conda/anaconda3 modules contain basic Jupyter Notebook servers, but you will likely want your own Python libraries, notebook extensions, and other features. Basic directions are included later in this document.
 
-### Kestrel:
+### On Kestrel:
+
+Connect to the login node and launch an interactive job:
 
 `[user@laptop:~]$ ssh kestrel.hpc.nrel.gov`
 
 `[user@kl1:~]$ salloc -A <account> -t 02:00:00`
 
-### Eagle:
-
-`[user@laptop:~]$ ssh eagle.hpc.nrel.gov`
-
-`[user@el1:~]$ salloc -A <account> -t 02:00:00`
-
-
 ## Starting Jupyter Inside the Job
 
 Once the job starts and you are allocated a compute node, load the appropriate modules, activate your Jupyter environment, and launch the Jupyter server.
-
-#### Kestrel:
 
 `[user@x1000c0s0b0n1:~]$ module load anaconda3`
 
@@ -171,33 +165,12 @@ Also note the url that Jupyter displays when starting up, e.g. `http://127.0.0.1
 
 The `<alphabet soup>` is a long string of letters and numbers. This is a unique authorization token for your Jupyter session. you will need it, along with the full URL, for a later step.
 
-#### Eagle:
 
-`[user@r2i7n35:~]$ module load conda`
-
-`source activate myjupenv`
-
-`jupyter-notebook --no-browser --ip=$(hostname -s)`
-
-Take note of the node name that your job is assigned. (r2i7n35 in this example.)
-
-Also note the url that Jupyter displays when starting up, e.g. `http://127.0.0.1:8888/?token=<alphabet soup>`.
-
-The `<alphabet soup>` is a long string of letters and numbers. This is a unique authorization token for your Jupyter session. you will need it, along with the full URL, for a later step.
-
-### On Your Own Computer
+### On Your Own Computer:
 
 Next, open an SSH tunnel through a login node to the compute node. Log in when prompted using your regular HPC credentials, and put this terminal to the side or minimize it, but leave it open until you are done working with Jupyter for this session.
 
-#### Kestrel: 
-
 `[user@laptop:~]$ ssh -N -L 8888:<nodename>:8888 username@kestrel.hpc.nrel.gov`
-
-
-#### Eagle:
-
-`[user@laptop:~]$ ssh -N -L 8888:<nodename>:8888 username@eagle.hpc.nrel.gov`
-
 
 ### Open a Web Browser
 
@@ -208,35 +181,93 @@ Copy the full url and token from Jupyter startup into your web browser. For exam
 
 ## Using a Compute Node - The Easy Way
 
-Scripted assistance with launching a Jupyter session on Eagle or Kestrel is available.
+Scripted assistance with launching a Jupyter session on Kestrel is available.
 
 
 ### Internal NREL Users Only: pyeagle
 
-The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group, and provides utilities for working on Eagle and Kestrel.
+The [pyeagle](https://github.nrel.gov/MBAP/pyeagle) package is available for internal users to handle launching and monitoring a jupyter server on a compute node. This package is maintained by an NREL HPC user group and was originally written for use with Eagle, but now supports Kestrel.
 
-###  Auto-launching on Eagle With an sbatch Script
+###  Auto-launching on Kestrel with an sbatch Script
 
-These scripts are designed for Eagle and may not yet be  adapted for Kestrel, but may be downloaded and adapted manually.
+There are scripts written for launching a Jupyter session inside of a slurm job.
 
-Full directions included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
+Full directions and scripts included in the [Jupyter repo](https://github.com/NREL/HPC/tree/master/general/Jupyterhub/jupyter).
 
-Download [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh)
+??? Example "Standard Jupyter session launch with full CPU request"
+    Download [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh)
 
-Edit [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/sbatch_jupyter.sh) to change:
+    Edit [sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/sbatch_jupyter.sh) to change:
+    ```
+    --time=<time_request>
+    --account=<project_handle>
+    ...
+    ...
+    source activate /home/$USER/.conda-envs/<MY_ENVIRONMENT> # Replace <MY_ENVIRONMENT> with the name of your conda environment
+    ```
 
-`--account=*yourallocation*`
+    Edit [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) to include your sbatch_jupyter script:
+    ```
+    RES=$(sbatch sbatch_jupyter.sh)
+    ```
 
-`--time=*timelimit*`
+    Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow the directions that come up on your terminal window.
 
-Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow directions
+??? Example "Standard Jupyter session launch in the shared partition with partial CPU request"
+    Download [shared_sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/shared_sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh)
 
-That's it!
+    Edit [shared_sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/shared_sbatch_jupyter.sh) to change:
+    ```
+    --time=<time_request>
+    --account=<project_handle>
+    ...
+    --cpus-per-task=<CPUs_request>
+    --mem-per-cpu=<CPU_memory_request>                 # Default is 1G per core
+    ...
+    ...
+    source activate /home/$USER/.conda-envs/<MY_ENVIRONMENT>  # Replace <MY_ENVIRONMENT> with the name of your conda environment
+    ```
+
+    Edit [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) to include your sbatch_jupyter script:
+    ```
+    RES=$(sbatch shared_sbatch_jupyter.sh)
+    ```
+
+    Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow the directions that come up on your terminal window.
+
+??? Example "Standard Jupyter session launch with GPU request"
+    Download [gpu_sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/gpu_sbatch_jupyter.sh) and [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh)
+
+    Edit [gpu_sbatch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/gpu_sbatch_jupyter.sh) to change:
+    ```
+    --time=<time_request>
+    --account=<project_handle>
+    ...
+    --cpus-per-task=<CPU_request>
+    --gres=gpu:<GPU_request>
+
+    export CUDA_VISIBLE_DEVICES=0  # if GPUs request is 1, then set =0
+                                   # if GPUs request is 2, then set =0,1
+                                   # if GPUs request is 3, then set =0,1,2
+                                   # if GPUs request if 4, then set =0,1,2,3
+    ...
+    ...
+    source activate /home/$USER/.conda-envs/<MY_ENVIRONMENT>  # Replace <MY_ENVIRONMENT> with the name of your conda environment
+    ```
+
+    Edit [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) to include your sbatch_jupyter script:
+    ```
+    RES=$(sbatch gpu_sbatch_jupyter.sh)
+    ```
+
+    Run [auto_launch_jupyter.sh](https://github.com/NREL/HPC/blob/master/general/Jupyterhub/jupyter/auto_launch_jupyter.sh) and follow the directions that come up on your terminal window.
+
 
 ## Reasons to Not Run Jupyter Directly on a Login Node
 
-* Data processing and visualization should be done via Europa or compute nodes.
-* Uses a highly shared resource (login nodes): there will be competition for CPU, RAM, and network I/O for storage. Arbiter2 software will automatically throttle moderate to heavy usage on login nodes, greatly slowing down processing.
+Data processing and visualization should be done via either KJHub or a compute node.
+
+Login nodes are highly shared and limited resources. There will be competition for CPU, RAM, and network I/O for storage, and Arbiter2 software will automatically throttle moderate to heavy usage on login nodes, greatly slowing down your processing.
 
 ## Custom Conda Environments and Jupyter Kernels
 
@@ -244,11 +275,9 @@ On Kestrel, the module 'anaconda3' is available to run the conda command and man
 
 As an alternative, the module 'mamba' is available instead. Mamba is a conda-compatible environment manager with very similar usage. Most conda commands in this documentation may be used with mamba instead and they may generally be considered interchangeable.
 
-On Eagle, the module 'conda' contains the conda command. The Eagle conda module also contains mamba installed as a conda package. 
-
 ### Creating a Conda Environment
 
-To add your own packages to conda on Kestrel or Eagle:
+To add your own packages to conda on Kestrel:
 
 Create an environment and install the base jupyter packages. Then activate the environment and install other libraries that you want to use, e.g. scipy, numpy, and so on.
 
@@ -345,5 +374,4 @@ You can also run shell commands inside a cell. For example:
 [GeoJSON Extension](https://github.com/jupyterlab/jupyter-renderers/tree/master/packages/geojson-extension)
 
 
-## Happy Notebooking!
 

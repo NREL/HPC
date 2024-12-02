@@ -7,10 +7,10 @@ grand_parent: Applications
 Please follow the [setup instructions](setup_plexos.md) before running the examples. Example scripts for new users are available within the [master branch](https://github.com/NREL/HPC/tree/master/applications/plexos).
 
 !!! note
-    Sometimes newer modules may be availabe in a `test` directory which is hidden by default from the general user base. This obscured release is done to iron out any bugs that may arise during the installation and use of the module while avoiding breaking users existing jobs and workflows. You can use these test modules by running
+    Sometimes newer modules may be available in a `test` directory which is hidden by default from the general user base. This obscured release is done to iron out any bugs that may arise during the installation and use of the module while avoiding breaking users existing jobs and workflows. You can use these test modules by running
 
     ```bash
-    module use /nopt/nrel/apps/modules/test/modulefiles
+    module use /nopt/nrel/apps/software/plexos/modules/test
     module avail
     ```
 

@@ -64,7 +64,6 @@ A sample script for batch submission is provided here:
 cd $SLURM_SUBMIT_DIR
 	 
 # Create runtime environment
-module purge
 module load gams/<version>
 	  
 # Run GAMS

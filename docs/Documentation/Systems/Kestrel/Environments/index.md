@@ -66,6 +66,13 @@ The `Cray MPICH` used for each different `PrgEnv-` is pointing to a different in
 
 ## PrgEnv- Programming Environments
 
+!!! bug "Module Known Issues"
+    As of July 30th, 2024, there are some modules that do not work correctly. The following points describe the issues and workarounds. We are working on permanent fixes for these issues. <br>
+    * If using PrgEnv-intel, cray-libsci/23.12 is loaded by default. Load cray-libsci/22.12 instead. <br>
+    * If using PrgEnv-gnu with gcc version 10, load cray-libsci/22.12 instead of the default cray-libsci version. <br>
+    * On the GPU nodes, if using PrgEnv-nvhpc, you need to load nvhpc/23.9. nvhpc/24.1 is loaded by default and will not work. <br>
+    * The ```module restore``` command could cause an "Unable to find cray-mpich" libraries error when used with PrgEnv-intel. If this happens, remove ```module restore``` from the list of commands.
+
 ### Introduction
 
 These environments come packaged with:
@@ -75,9 +82,9 @@ These environments come packaged with:
 3. Cray LibSci, which can be used in place of MKL
 4. Additional communication and network libraries
 
-Upon logging into the machine, the `PrgEnv-cray` is loaded by default. If we `module list`, we can see the modules associated with `PrgEnv-cray`. If we `module unload PrgEnv-cray` then we can see a few lingering modules. These are `craype-x86-spr` and `perftools-base/22.09` where the first dictates the architecture of the processors and is used to optimize the build step for the given hardware and the latter is a perfomance software that can be used to profile codes.   
+Upon logging into the machine, the `PrgEnv-gnu` is loaded by default on both the CPU and GPU login nodes. If we `module list`, we can see the modules associated with `PrgEnv-gnu`.
 
-We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-cray` is loaded but we want to use the GNU programming environment instead, we can `module swap PrgEnv-cray PrgEnv-gnu`.
+We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-gnu` is loaded but we want to use `PrgEnv-cray` instead, we can `module swap PrgEnv-gnu PrgEnv-cray`.
 
 ### What is a PrgEnv module doing?
 
@@ -110,17 +117,6 @@ setenv		 CRAY_PRGENVGNU loaded
 ```
 
 This tells us that PrgEnv-gnu conflicts with all other PrgEnvs. The modulefile sets some environment variables (the `setenv` lines), and loads the modules associated with the programming environment.
-
-For most intents and purposes, we could re-construct and utilize the same programming environment by individually loading the associated modules:
-
-```
-module load gcc/12.1.0
-module load craype
-module load cray-mpich
-module load cray-libsci
-module load craype-network-ofi
-module load cray-dsmml
-```
 
 We can use the `module whatis` command to give us a brief summary of a module. For example, the command:
 

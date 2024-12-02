@@ -15,13 +15,27 @@ There are two options for how to run MAP. The first method is to use the remote 
 ### Option 1: Remote Client Setup
 Download the remote client from the [Linaroforge Website](https://www.linaroforge.com/downloadForge/) Select the client for your platform (Mac/Windows/Linux) and ensure the client version number matches the version number of the Linaro suite you are using. You can see all the versions of linaro-forge available using:
 
-`$ module avail linaro-forge`
+`$ module avail forge`
 
 Once you have the client installed, you will need to configure it to connect to the host:
 
 1.	Open the Linaro Forge Client application
 2.	Select the configure option in the "Remote Launch" dropdown menu, click "Add" and set the hostname to "USER@HOST.hpc.nrel.gov" where USER is your username and HOST is the host you are trying to connect to. We recommend using DAV nodes if available on your system.
-3.	In the Remote Installation Directory field, set the path to the Linaro installation on your host. (For example on Eagle this is: /nopt/nrel/apps/linaro-forge/##.#.# where ##.#.# represents the version number that must match your installation. Hint: use `$ module show linaro-forge/##.#.#` to get the path, do not include "/lib..." in the path)
+3.	In the Remote Installation Directory field, set the path to the Linaro installation on your host. This can be found by running the command: 
+
+
+    ```
+    dirname $(dirname $(which map))
+    ```
+    
+    For example:
+    
+    ```
+    module load forge/24.0.4
+    dirname $(dirname $(which map))
+    /nopt/nrel/apps/cpu_stack/software/forge/24.0.4
+    ```
+
 4.	Hit "Test Remote Launch" to test the configuration. 
 
 Once the remote client is correctly set up, start a terminal and connect to the desired HPC system.
@@ -64,3 +78,81 @@ Once you have an appropriate build of your program to profile and either the Lin
 You should now see the profiling data we described in the previous section [MAP](index.md). Please refer to that page as well as the [Linaro Forge Documentation](https://www.linaroforge.com/documentation/) for more details on what you can learn from such profiles.
 
 ![Linaro-MAP-Profile](../../../../../assets/images/Profiling/MAP-7.png)
+
+
+## Debugging a program
+
+The Forge debugger is ddt.  It uses the same local client at map and perf-report.  To get started, set up your local client version of Forge as described above in the section [MAP Setup - Option 1: Remote Client Setup](#option-1-remote-client-setup).
+
+There are many ways to launch a debug session.  Probably the simplest is to launch from an interactive session on a compute node.  
+
+Get an interactive session replacing MYACCOUNT with your account:
+
+```
+salloc --exclusive --mem=0 --tasks-per-node=104 --nodes=1 --time=01:00:00 --account=MYACCOUNT --partition=debug
+```
+
+As with map your application needs to be compiled with the -g option.  Here is a simple build with make.  (Here we also have a OpenMP program so we add the flag -fopenmp.)
+
+```
+
+make
+cc  -g -fopenmp -c triad.c
+cc  -g -fopenmp ex1.c triad.o -o exc
+```
+
+Our executable is *exc*.
+
+We are going to need our remote directory so we run *pwd*.
+
+```
+pwd
+/kfs3/scratch/user/debug
+```
+
+We load the module:
+
+```
+module load forge/24.0.4
+```
+
+Then run the command:
+
+```
+ddt --connect
+```
+
+Ddt is running on the compute node, waiting for you to connect with the local client.  Launch your local client.  Then under **Remote Launch:** select the machine to which you want to connect.  After a few seconds you will see a window announcing that the ddt wants to connect you to your client.  Hit **Accept**. 
+
+![Linaro-MAP-Profile](../../../../../assets/images/Profiling/DDT-1.png)
+
+After acceptance completes click **Run and debug a program**.
+
+Here is where you need the directory for your program.  Put the full path to your application in the **Application** box and the directory in **Working Directory**.  We assume the Working Directory, the directory which would normally contain your data is the same as your program directory.
+
+This is an MPI program so select MPI.  After that you will see more options.  For most programs the Implementation should be SLURM (generic). If this is not what is shown or you know you need something else, select Change... to set it.  For OpenMP programs select that box also.  
+
+![Linaro-MAP-Profile](../../../../../assets/images/Profiling/DDT-2.png)
+
+
+Finally hit Run.  After a few seconds you will see the debug window with the "main" source in the center window.  You can set Break Points by clicking in the leftmost column of the source window.  To start your program click the right facing triangle in the top left corner of the window.  
+
+![Linaro-MAP-Profile](../../../../../assets/images/Profiling/DDT-3.png)
+
+See the full documentation for complete instructions.  There is a copy of *userguide-forge.pdf* in the *doc* directory of the Forge directory.  
+
+```
+module load forge
+
+$echo `dirname $(dirname $(which ddt))`/doc
+/nopt/nrel/apps/cpu_stack/software/forge/24.0.4/doc
+
+ls /nopt/nrel/apps/cpu_stack/software/forge/24.0.4/doc
+RELEASE-NOTES  stacks.dtd  userguide-forge.pdf
+```
+
+
+ 
+
+
+

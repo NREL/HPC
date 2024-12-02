@@ -40,7 +40,7 @@ Specific resources may be requested from the scheduler to help the scheduler ass
 | Nodes, Tasks, MPI Ranks | `--nodes` or `-N` <br> `--ntasks` or `-n` <br> `--ntasks-per-node` | `--nodes=20` <br> `--ntasks=40` <br> `--ntasks-per-node=20` | if `ntasks` is specified, it is important to indicate the number of nodes request as well. This helps with scheduling jobs on the fewest possible Ecells (racks) required for the job. <br><br> The maximum number of tasks that can be assigned per node is equal to the CPU (core) count of the node.|
 | Memory  | `--mem`<br> `--mem-per-cpu` | `--mem=50000` | Memory per node <br> memory per task/MPI rank|
 | Local disk (/tmp/scratch) | `--tmp` | `--tmp=10TB`<br>`--tmp=100GB`<br>`--tmp=1000000`| Request /tmp/scratch space in megabytes (default), GB, or TB.|
-| GPUs  | `--gres:gpu` | `--gres:gpu:2` | Requests 2 GPUs. See system information for total number of GPUs.|
+| GPUs  | `--gpus` | `--gpus=2` | Requests 2 GPUs. See system information for total number of GPUs.|
 
 ## Job Management and Output
 
@@ -62,8 +62,9 @@ You may use these environment variables in your sbatch scripts to help control o
 
 | Parameter        | Semantic Value    | Sample Value             |
 | ---------------- | ----------------- | ------------------------ |
-| `$LOCAL_SCRATCH` | Absolute directory path for local-only disk space per node. This should always be /tmp/scratch for compute nodes.| `/tmp/scratch`|
-| `$SLURM_CLUSTER_NAME` | The cluster name as per the master configuration in Slurm. Identical to `$NREL_CLUSTER`. | `kestrel`, `eagle`,`swift`|
+| `$LOCAL_SCRATCH` | Absolute directory path for local-only disk space per node. This should always be /tmp/scratch for compute nodes with local disk.| `/tmp/scratch`|
+| `$TMPDIR` | Path for temporary directory for scratch space. Uses local storage on compute nodes with local disk, and RAM on those without. | `/tmp/scratch/<JOBID>` (default value on Kestrel)|
+| `$SLURM_CLUSTER_NAME` | The cluster name as per the master configuration in Slurm. Identical to `$NREL_CLUSTER`. | `kestrel`, `swift`|
 | `$SLURM_CPUS_ON_NODE` | Quantity of CPUs per compute node. | `104` |
 | `$SLURMD_NODENAME` | Slurm name of the node on which the variable is evaluated. Matches hostname. | `r4i2n3`|
 | `$SLURMD_JOB_ACCOUNT` | The Slurm account used to submit the job. Matches the project handle. | `csc000` |

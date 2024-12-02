@@ -16,7 +16,7 @@ A collection of various resources, examples, and executables for the general NRE
 [Documentation](Documentation/index.md){ .md-button }
 
 ## Contributing 
-These docs are driven by the NREL HPC community. They are currently under active development. If you would like to [contribute](https://github.com/NREL/HPC/blob/dev/CONTRIBUTING.md) or recommend a topic to be covered please open an issue or pull request in the repository. 
+These docs are driven by the NREL HPC community. They are currently under active development. If you would like to [contribute](https://github.com/NREL/HPC/blob/master/CONTRIBUTING.md) or recommend a topic to be covered please open an issue or pull request in the repository. 
 
 [Docs repository](https://github.com/NREL/hpc){ .md-button } 
 
@@ -26,7 +26,7 @@ The HPC community also hosts workshops covering various topics. Check the traini
 
 ## Additional NREL resources
 * [About NREL HPC](https://www.nrel.gov/hpc/about-hpc.html)
-* [User Basics](https://www.nrel.gov/hpc/eagle-user-basics.html)
+* [User Basics](https://www.nrel.gov/hpc/user-basics.html)
 
 
 ## Calendar
