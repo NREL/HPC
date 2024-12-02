@@ -1,8 +1,6 @@
-# Intel Parallel Studio
+# Intel Performance tools
 
-*Intel Parallel Studio is a set of tools that enable developing and optimizing software for the latest processor architectures.*
-
-Some of the tools available as part of the Intel Parallel Studio include:
+*Intel Performance tools are a set of software that enable developing and optimizing software for the latest processor architectures.*
 
 ??? example "Intel VTune Amplifier XE"
 	
@@ -131,7 +129,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 
 **Before you begin, please make sure that your application is compiled with the debug flag (-g), to enable profiling and debugging.**
 
-
+When using the suite of tools from Intel Performance packages on Kestrel, we recommend that you set your `TMPDIR` to point to a location in your `SCRATCH` directory:
 `export TMPDIR=/scratch/$USER/tmp`
 
 !!! tip "Important:"
