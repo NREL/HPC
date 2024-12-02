@@ -39,7 +39,7 @@ VisIt features a robust remote visualization capability.  To enable remote visua
 8. It will display a window with an option to change the username, if the username is not correct, then click on change username. *This is your HPC username*
 9. Type your HPC username and click Confirm username.
 10. Enter your HPC password and click OK.
-11. Wait for visit client to connect to the server on Eagle.
+11. Wait for visit client to connect to the server on Kestrel.
 12. Enter the directory where your data is located into Path.
 ![Alt text](/assets/images/VisIT/kestrel-14.png)
 13. Once you choose your data file, VisIt will display the job information; you can change them and then click OK.
