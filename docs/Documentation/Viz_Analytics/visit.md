@@ -10,7 +10,7 @@ VisIt was designed to handle very large data set sizes in the terascale range, a
 For more information on VisIt, see their [Lawrence Livermore National Laboratory website](https://wci.llnl.gov/simulation/computer-codes/visit).
 
 ## Using VisIT
-VisIT can be used through the GUI on Dav nodes 
+VisIT can be used through the GUI on DAV nodes 
 
 ```
 module load visit 
