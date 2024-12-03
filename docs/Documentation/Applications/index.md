@@ -12,6 +12,7 @@ The following are packages that the NREL Computational Science Center supports:
 | [AMR-Wind](./amrwind.md)       | A massively parallel, block-structured adaptive-mesh, incompressible flow solver for wind turbine and wind farm simulations | 
 | [Bonmin](./idaes_solvers.md#bonmin) | Open source solver that leverages CBC and IPOPT to solve general mixed integer nonlinear programs (MINLP) |
 | [CBC](./idaes_solvers.md#cbc) | Open-source optimizer for solving mixed integer programs (MIP) |
+| [Chemical Kinetics](./chemicalKinetics.md) | An overview of packages for chemical kinetics, thermodynamics, transport processes etc.|
 | [CLP](./idaes_solvers.md#clp) | Open-source linear program solver |
 | [COMSOL](./comsol.md)      | Multiphysics simulation environment | 
 | Converge | HPC CFD+, focused on engine modeling and simulation |

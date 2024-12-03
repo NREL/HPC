@@ -76,6 +76,7 @@ nav:
           - Documentation/Applications/index.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - AMR-Wind:  Documentation/Applications/amrwind.md
+          - Chemical Kinetics: Documentation/Applications/chemicalKinetics.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
           - GAMS:       Documentation/Applications/gams.md
