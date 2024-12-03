@@ -13,13 +13,73 @@ turbines within a wind farm. For more information see [the AMR-Wind documentatio
 AMR-Wind is only supported on Kestrel. 
 
 
-## Installation of AMR-Wind on GPU Nodes
+## Cmake installation
+
+In this section we provide cmake scripts for installation of AMR-wind.
+Make sure to add cmake lines for additional dependencies (openfast, NETCDF, HELICS, etc ...).
+
+
+### Installation of AMR-Wind on CPU Nodes
+AMR-wind can be installed by following the instructions [here](https://exawind.github.io/amr-wind/user/build.      html#building-from-source).
+On Kestrel CPU nodes, this can be achieved by executing the following script:
+
+```
+#!/bin/bash
+
+module purge
+module load PrgEnv-intel
+module load netcdf/4.9.2-intel-oneapi-mpi-intel
+module load netlib-scalapack/2.2.0-gcc
+
+export LD_LIBRARY_PATH=/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel:$LD_LIBRARY_PATH
+export LD_PRELOAD=/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel/libmpi_intel.so.12:/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel/libmpifort_intel.so.12
+export MPICH_VERSION_DISPLAY=1
+export MPICH_ENV_DISPLAY=1
+export MPICH_OFI_CXI_COUNTER_REPORT=2
+export FI_MR_CACHE_MONITOR=memhooks
+export FI_CXI_RX_MATCH_MODE=software
+export MPICH_SMP_SINGLE_COPY_MODE=NONE
+
+echo $LD_LIBRARY_PATH |tr ':' '\n'
+
+module list
+
+cmake .. \
+-DCMAKE_C_COMPILER=mpicc \
+-DCMAKE_CXX_COMPILER=mpicxx \
+-DMPI_Fortran_COMPILER=mpifort \
+-DCMAKE_Fortran_COMPILER=ifort \
+-DCMAKE_CXX_COMPILER=icpc \
+-DCMAKE_C_COMPILER=icc \
+-DAMR_WIND_ENABLE_CUDA:BOOL=OFF \
+-DAMR_WIND_ENABLE_MPI:BOOL=ON \
+-DAMR_WIND_ENABLE_OPENMP:BOOL=OFF \
+-DAMR_WIND_TEST_WITH_FCOMPARE:BOOL=OFF \
+-DCMAKE_BUILD_TYPE=Release \
+-DAMR_WIND_ENABLE_NETCDF:BOOL=ON \
+-DAMR_WIND_ENABLE_HYPRE:BOOL=OFF \
+-DAMR_WIND_ENABLE_MASA:BOOL=OFF \
+-DAMR_WIND_ENABLE_TESTS:BOOL=ON \
+-DAMR_WIND_ENABLE_ALL_WARNINGS:BOOL=ON \
+-DAMR_WIND_ENABLE_OPENFAST:BOOL=OFF \
+-DBUILD_SHARED_LIBS:BOOL=ON \
+-DCMAKE_INSTALL_PREFIX:PATH=./install
+
+nice make -j32
+make install
+
+```
+
+
+
+### Installation of AMR-Wind on GPU Nodes
+
+
 
 AMR-wind can be installed by following the instructions [here](https://exawind.github.io/amr-wind/user/build.html#building-from-source).
 On Kestrel GPU nodes, this can be achieved by first loading the following modules:
 
 ```bash
-module restore 
 ml gcc
 ml PrgEnv-nvhpc
 ml nvhpc/24.1
@@ -106,8 +166,6 @@ You should now have a successful installation of AMR-Wind.
 At runtime, make sure to follow this sequence of module loads.
 
 ```
-module restore 
-source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
 ml PrgEnv-nvhpc
 ml cray-libsci/22.12.1.1
 ```
@@ -133,7 +191,6 @@ Here is a sample script for submitting an AMR-Wind application run on multiple G
     #SBATCH --exclusive
     #SBATCH --mem=0
 
-    module restore 
     module load PrgEnv-nvhpc
     module load amr-wind/main-craympich-nvhpc
 
