@@ -15,7 +15,7 @@ AMR-Wind is only supported on Kestrel.
 
 ## Cmake installation
 
-In this section we provide cmake scritps for installation of AMR-wind.
+In this section we provide cmake scripts for installation of AMR-wind.
 Make sure to add cmake lines for additional dependencies (openfast, NETCDF, HELICS, etc ...).
 
 
