@@ -1,7 +1,6 @@
 # Lex Allocation Management System (Beta)
 *Lex is a system for managing your high-performance computing (HPC) resource assignments, account information, and tracking utilization.*
 
-*Note:  Lex is currently in development with beta functionality available.*
 
 ## Access
 
