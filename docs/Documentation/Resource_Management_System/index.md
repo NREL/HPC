@@ -20,7 +20,7 @@ To add users, click the "Add User" button and enter the user's email. Repeat for
 ![image](../../assets/images/Lex/lex-manage-users.png)
 
 
-Users that have an existing NREL HPC account will be added to the allocation group and permissions will be granted within 24 hours. 
+Users who have an existing NREL HPC account will be added to the allocation group and permissions will be granted within 24 hours. 
 Otherwise, they will be sent an email invitation to request an account and will be listed in the "Pending Invitations" list until their account has been created. You can cancel an invitation by selecting the "Cancel" button and clicking "Submit Changes". 
 
 ## Tracking Allocation Usage
