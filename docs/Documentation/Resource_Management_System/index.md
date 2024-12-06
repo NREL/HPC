@@ -31,7 +31,7 @@ The sidebar on the Lex homepage shows all of the allocations that you have acces
 
 ![image](../../assets/images/Lex/lex_nav.png)
 
-On the "Allocation Unit Use Report" page, the "Project Use" section lists all of the systems that the project has an allocation on and corresponding AU usage. The "AUs Charged by User" section provides a breakdown of AU usage by user for the project. By default, the data displayed shows each user's total usage across all systems. To filter this to show data for a specific system, use the system button as shown below. 
+On the "AU Use Report" page, the "Project Use" section lists all of the systems that the project has an allocation on and corresponding AU usage. The "AUs Charged by User" section provides a breakdown of AU usage by user for the project. By default, the data displayed shows each user's total usage across all systems. To filter this to show data for a specific system, use the system button as shown below. 
 
 
 ![image](../../assets/images/Lex/lex_aus_by_user.png)
