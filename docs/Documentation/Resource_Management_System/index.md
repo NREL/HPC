@@ -5,7 +5,7 @@
 
 ## Access
 
-An [NREL HPC account](https://www.nrel.gov/hpc/user-accounts.html) is required to access Lex. To login to Lex, open a web browser to [https://hpcprojects.nrel.gov](https://hpcprojects.nrel.gov/login/?next=/). Login with your NREL HPC username and password. An OTP token is not required to authenticate. 
+An [NREL HPC account](https://www.nrel.gov/hpc/user-accounts.html) is required to access Lex. To log in to Lex, open a web browser to [https://hpcprojects.nrel.gov](https://hpcprojects.nrel.gov/login/?next=/). Log in with your NREL HPC username and password. An OTP token is not required to authenticate. 
 
 ## Managing Users
 
