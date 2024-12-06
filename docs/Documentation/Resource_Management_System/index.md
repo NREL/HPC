@@ -6,6 +6,10 @@
 
 An [NREL HPC account](https://www.nrel.gov/hpc/user-accounts.html) is required to access Lex. To log in to Lex, open a web browser to [https://hpcprojects.nrel.gov](https://hpcprojects.nrel.gov/login/?next=/). Log in with your NREL HPC username and password. An OTP token is not required to authenticate. 
 
+## Requesting an Allocation
+
+The system resource allocation request form is available on Lex. For further information on allocations and how to request one, please visit the [Resource Allocations page.](https://www.nrel.gov/hpc/resource-allocation-requests.html)  
+
 ## Managing Users
 
 The allocation PI, Project Lead, and Alternate Project Lead can use Lex to manage the allocation entitlement list. 
