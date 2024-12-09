@@ -1,0 +1,36 @@
+:root {
+
+  /* Default color shades */
+  --md-default-fg-color: #212121;
+  --md-default-fg-color--light: #F7A11A;
+
+
+  /* Primary color shades */
+  --md-primary-fg-color: #0079C2;
+
+
+  /* Accent color shades */
+
+  --md-accent-fg-color: #5D9732;
+  --md-accent-fg-color--transparent: #827f7f;
+
+  --md-accent-bg-color: #212121;
+  --md-accent-bg-color--light: #212121;
+
+
+  /* Code block color shades */
+  --md-code-bg-color: #f0f0f0;
+  --md-code-fg-color: #36454e;
+  --md-code-hl-number-color: #e6695b;
+  --md-code-hl-special-color: #f06090;
+  --md-code-hl-function-color: #a74ac7;
+  --md-code-hl-constant-color: #4824fb;
+  --md-code-hl-keyword-color: #3e61a3;
+  --md-code-hl-string-color: #0aa357;
+  --md-code-hl-name-color: #36454e;
+  --md-code-hl-operator-color: #36454e;
+  --md-code-hl-punctuation-color: #36454e;
+  --md-code-hl-comment-color: #36454e;
+  --md-code-hl-generic-color: #36454e;
+  --md-code-hl-variable-color: #36454e;
+}
