@@ -26,7 +26,7 @@ VisIt features a robust remote visualization capability.  To enable remote visua
     to your `.bashrc` file in the home directory
 2. On a local machine, download VisIt 3.3.3 for the appropriate platform from the [Lawrence Livermore National Laboratory VisIt site](https://wci.llnl.gov/simulation/computer-codes/visit/executables).
 3. The installed profile can be viewed and edited by clicking on 'Options → Host profiles ... '. A remote host profile should appear.
-![Alt text](../..../../assets/images/VisIT/kestrel-5a.png)
+![Alt text](../../assets/images/VisIT/kestrel-5a.png)
 ![Alt text](../../assets/images/VisIT/kestrel-5b.png)
 4. Go to Launch Profiles.
 ![Alt text](../../assets/images/VisIT/kestrel-6.png)
