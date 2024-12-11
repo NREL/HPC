@@ -23,6 +23,7 @@ The following are packages that the NREL Computational Science Center supports:
 | [Gurobi](./gurobi.md) | Solver for mathematical programming |
 | [IPOPT](./ipopt.md) | Open-source interior point nonlinear optimizer |
 | [LAMMPS](./lammps.md) | Open-source classical molecular dynamics program designed for massively parallel systems | 
+| [MACE](./mace.md) | MACE is a machine learning framework for developing interatomic potentials |
 | [MATLAB](./Matlab/index.md) | General technical computing framework | 
 | [OpenFOAM](./openfoam.md) | Software for computational fluid dynamics | 
 | [PLEXOS](./Plexos/index.md) | Simulation software for modeling electric, gas, and water systems for optimizing energy markets | 
