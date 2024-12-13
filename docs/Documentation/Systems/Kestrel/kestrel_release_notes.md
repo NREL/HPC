@@ -2,6 +2,23 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
+## December 13, 2024
+
+1.  Two new racks of GPU nodes were integrated into the system.
+1.  Two racks of CPU compute nodes had dual interconnect network cards added to form a new high-bandwidth partition. An announcement will be made when the high-bandwidth nodes are available for general use, and documentation will be added. 
+1. The following legacy VASP modules were removed:
+
+```
+   vasp/5.4.4         vasp/6.3.2               vasp/6.4.2            (D)
+``` 
+
+The available VASP modules are now as follows:
+```
+   vasp/5.4.4+tpc    vasp/5.4.4    vasp/6.3.2_openMP+tpc    vasp/6.3.2_openMP    vasp/6.4.2_openMP+tpc    vasp/6.4.2_openMP (D)
+```
+
+The `vasp/5.4.4_base` module was renamed to `vasp/5.4.4`. Note that the default vasp module is now `vasp/6.4.2_openMP`.
+
 ## October 8, 2024
 
 1. Slurm was upgraded from 23.11.7 to 23.11.10. 
