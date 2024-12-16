@@ -28,7 +28,7 @@ A template Slurm script to run Q-Chem with 104 threads is:
 ```
  	#!/bin/bash
 	#SBATCH --job-name=my_qchem_job
-	#SBATCH --account=my_allocation_ID
+	#SBATCH --account=[my_allocation_ID]
 	#SBATCH --nodes=1
  	#SBATCH --tasks-per-node=104
   	#SBATCH --time=01:00:00
@@ -78,12 +78,12 @@ BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs
 ```
  	#!/bin/bash
 	#SBATCH --job-name=my_qchem_job
-	#SBATCH --account=my_allocation_ID
+	#SBATCH --account=[my_allocation_ID]
 	#SBATCH --nodes=1
  	#SBATCH --tasks-per-node=104
   	#SBATCH --time=01:00:00
-   	#SBATCH --gres=gpu:<number of gpu>
-	#SBATCH --mem=<requested memory>
+   	#SBATCH --gres=gpu:[number of gpu]
+	#SBATCH --mem=[requested memory]
 	#SBATCH --mail-type=BEGIN,END,FAIL
 	#SBATCH --mail-user=your_email@domain.name
 	#SBATCH --output=std-%j.out
