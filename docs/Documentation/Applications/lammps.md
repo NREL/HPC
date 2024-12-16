@@ -4,7 +4,7 @@
 
 LAMMPS has numerous built-in potentials for simulations of solid-state, soft matter, and coarse-grained systems. It can be run on a single processor or in parallel using MPI. To learn more, see the [LAMMPS website](https://www.lammps.org/#gsc.tab=0). 
 
-The versions of LAMMPS on Kestrel, Swift, Vermilion can be checked by using "module avail lammps". Usually there are two most recent stable versions are available compiled using different compiler and MPI toolchains. The following packages have been installed: asphere, body, bocs, class2, colloid, dielectric, diffraction, dipole, dpd-basic, drude, eff, electrode, extra-fix, extra-pair, fep, granular, h5md, intel, interlayer, kspace, manifold, manybody, mc, meam, misc, molecule, mpiio, openmp, opt, python, phonon, qep, qmmm, reaction, reaxff, replica, rigid, shock, spin, voronoi.
+The versions of LAMMPS on Kestrel, Swift, and Vermilion can be checked by running `module avail lammps`. Usually there are two recent stable versions available that were compiled using different compiler and MPI toolchains. The following packages have been installed: asphere, body, bocs, class2, colloid, dielectric, diffraction, dipole, dpd-basic, drude, eff, electrode, extra-fix, extra-pair, fep, granular, h5md, intel, interlayer, kspace, manifold, manybody, mc, meam, misc, molecule, mpiio, openmp, opt, python, phonon, qep, qmmm, reaction, reaxff, replica, rigid, shock, spin, voronoi.
 
 If you need other packages or a certain LAMMPS version, please [contact us](mailto:HPC-Help@nrel.gov). 
 
