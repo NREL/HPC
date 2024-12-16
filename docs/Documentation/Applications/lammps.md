@@ -16,7 +16,7 @@ A sample Slurm script for running LAMMPS on Kestrel CPU nodes is given below:
 #SBATCH --job-name cpu-test
 #SBATCH --nodes=2 #Request two CPU nodes
 #SBATCH --time=1:00:00
-#SBATCH --account=[your allocation name]
+#SBATCH --account=<your allocation name>
 #SBATCH --error=std.err
 #SBATCH --output=std.out
 #SBATCH --tasks-per-node=104
