@@ -80,7 +80,7 @@ Device 1: NVIDIA H100 80GB HBM3, 132 CUs, 2 GHZ (Mixed Precision)
 
 ## Hints and Additional Resources
 1. For calculations requesting more than ~10 nodes, the cray mpich stall library is recommended, the details are described at [MPI Stall Library](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/performancerecs/#mpi-stall-library) and [Improvement of LAMMPS Performance by Using CQ STALL Feature](https://github.nrel.gov/hlong/lammps_stall)
-3. For CPU runs, especially for multi-nodes runs, the optimal performance for a particular job may be occurred at a tasks-per-node value less than 104. For GPU runs, number of GPUs should also be varied to achieve the optimal performance. Users should investigate those parameters for large jobs by performing some short test runs.
+2. For CPU runs, especially for multi-nodes runs, the optimal performance for a particular job may be at a tasks-per-node value less than 104. For GPU runs, number of GPUs should also be varied to achieve the optimal performance. Users should investigate those parameters for large jobs by performing some short test runs.
 3. For instructions on running LAMMPS with OpenMP, see the [HPC Github code repository](https://github.com/NREL/HPC/tree/master/applications/lammps).
 
 
