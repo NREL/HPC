@@ -21,7 +21,6 @@ Please follow the [setup instructions](setup_plexos.md) before running the examp
 We will load the requisite modules for running PLEXOS 9.2R06 for this example. Please see the [module compatibility](setup_plexos.md#loading-the-appropriate-modules) chart for loading the correct modules
 
 ```bash
-module load gurobi/10.0.2
 module load plexos/9.200R06
 ```
 
@@ -47,6 +46,9 @@ $PLEXOS/PLEXOS64 -n 5_bus_system_v2.xml -m 2024_yr_15percPV_MT_Gurobi -cu nrelpl
 
 !!! warning
     Not providing the username and password in batch jobs **WILL** cause your jobs to fail.
+
+!!! note
+    PLEXOS will automatically upgrade or downgrade the XML database to the version you are running at run time. You do not need to do so manually. However, your solution may be different or erroneous.
 
 ## Example Scripts
 
@@ -83,7 +85,6 @@ The basic functionality test is the same as the example run in the section above
     cd /to/you/XML/file/
 
     # Load the requisite modules
-    module load gurobi/10.0.2
     module load plexos/9.200R06
 
     # Finally run the PLEXOS executable
