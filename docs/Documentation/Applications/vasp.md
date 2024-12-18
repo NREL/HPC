@@ -49,23 +49,18 @@ NREL offers modules for VASP 5 and VASP 6 on CPUs as well as GPUs on certain sys
 
 #### CPU
 
-There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 we have released new modules for VASP on Kestrel CPUs: 
+There are several modules for CPU builds of VASP 5 and VASP 6.
 
 ```
 CPU $ module avail vasp
-
------------- /nopt/nrel/apps/cpu_stack/modules/default/application -------------
-   #new modules:
-   vasp/5.4.4+tpc     vasp/6.3.2_openMP+tpc    vasp/6.4.2_openMP+tpc
-   vasp/5.4.4_base    vasp/6.3.2_openMP        vasp/6.4.2_openMP
-   
-   # Legacy modules will be removed during system time in December!
-   vasp/5.4.4         vasp/6.3.2               vasp/6.4.2            (D)
+------------- /nopt/nrel/apps/cpu_stack/modules/default/application -------------
+   vasp/5.4.4+tpc    vasp/6.3.2_openMP+tpc    vasp/6.4.2_openMP+tpc
+   vasp/5.4.4        vasp/6.3.2_openMP        vasp/6.4.2_openMP     (D)
 ```
 
- What’s new: 
+ Notes:
  
- * New modules have been rebuilt with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
+ * These modules have been built with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
  * OpenMP capability has been added to VASP 6 builds.
  * Modules that include third-party codes (e.g., libXC, libBEEF, VTST tools, and VASPsol) are now denoted with +tpc. Use `module show vasp/<version>` to see details of a specific version.
 
