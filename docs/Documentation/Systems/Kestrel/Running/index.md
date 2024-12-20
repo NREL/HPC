@@ -11,7 +11,7 @@ There are two general types of compute nodes on Kestrel: CPU nodes and GPU nodes
 
 
 ### CPU Nodes
-Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.6TB NVMe local disk.
+Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.6TB NVMe local disk. Two racks of the CPU compute nodes have dual interconnect network cards which may increase performance for certain types of multi-node jobs. 
 
 
 ### GPU Nodes
@@ -45,6 +45,7 @@ The following table summarizes the partitions on Kestrel:
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 246064```<br>```--tmp <= 1700000  (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.6 TB NVMe local disk. | 8 nodes total.<br> 4 nodes per user. | ```--mem > 246064```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 3 nodes per user. | ```--mem > 246064```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
+|```hbw```    | CPU compute nodes with dual interconnect network cards. | 512 nodes total.<br> 256 nodes per user. | ```-p hbw``` <br> ```--constraint=hbw``` <br>```--time > 2-00```| 
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 | ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
@@ -80,6 +81,12 @@ Currently, there are 64 standard compute nodes available in the shared partition
     cd /scratch/$USER 
     srun ./my_progam # Use your application's commands here  
     ```
+
+### High Bandwidth Partition
+
+To request nodes with dual interconnect cards, you can either specify the `hbw` partition, or the feature constaint `--constraint=hbw`. Do not specify the constraint and a partition other than the hbw partition. This will prevent your jobs from having 
+priority on the high bandwidth nodes, thus increasing queue time. 
+
 
 
 ### GPU Jobs
