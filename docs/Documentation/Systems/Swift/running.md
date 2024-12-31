@@ -31,7 +31,6 @@ The most up to date list of partitions can always be found by running the `sinfo
 | long      | jobs up to ten days of walltime |
 | standard  | jobs up to two days of walltime | 
 | gpu  |  Nodes with four NVIDIA A100 40 GB Computational Accelerators, up to two days of walltime |
-| parallel  | optimized for large parallel jobs, up to two days of walltime |
 | debug     | two nodes reserved for short tests, up to four hours of walltime |
 
 Each partition also has a matching `-standby` partition. Allocations which have consumed all awarded AUs for the year may only submit jobs to these partitions, and their default QoS will be set to `standby`. Jobs in standby partitions will be scheduled when there are otherwise idle cycles and no other non-standby jobs are available. Jobs that run in the standby queue will not be charged any AUs. 
