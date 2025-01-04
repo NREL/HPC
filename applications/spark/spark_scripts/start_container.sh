@@ -10,8 +10,8 @@ export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null &&
 
 module load ${CONTAINER_MODULE}
 
-echo "Start ${CONTAINER_EXEC} instance on $(hostname)"
-${CONTAINER_EXEC} instance start \
+echo "Start apptainer instance on $(hostname)"
+apptainer instance start \
     -B $(mktemp -d ${CONFIG_DIR}/run/`hostname`_XXXX):/run \
     -B ${CONFIG_DIR}/dropbear/:/etc/dropbear \
     ${LUSTRE_BIND_MOUNTS} \
@@ -21,4 +21,19 @@ ${CONTAINER_EXEC} instance start \
 if [ $? -ne 0 ]; then
     exit 1
 fi
-${CONTAINER_EXEC} exec instance://${CONTAINER_NAME} service dropbear start
+apptainer exec instance://${CONTAINER_NAME} service dropbear start
+
+enable_pg=$(get_config_variable "enable_postgres_metastore")
+pg_password=$(get_config_variable "postgres_password")
+if ${enable_pg}; then
+    pg_data_dir=$(get_config_variable "postgres_data_dir")
+    pg_run_dir=$(get_config_variable "postgres_run_dir")
+    mkdir -p ${pg_data_dir} ${pg_run_dir}
+    apptainer instance start \
+        --env POSTGRES_PASSWORD=${pg_password} \
+        ${LUSTRE_BIND_MOUNTS} \
+        -B ${pg_data_dir}:/var/lib/postgresql/data \
+        -B ${pg_run_dir}:/var/run/postgresql \
+        docker://postgres \
+        pg-server
+fi

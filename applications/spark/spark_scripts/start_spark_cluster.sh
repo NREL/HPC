@@ -3,7 +3,7 @@
 function setup()
 {
     if ! [ -d dropbear ]; then
-        ${CONTAINER_EXEC} exec ${LUSTRE_BIND_MOUNTS} ${CONTAINER_PATH} ${SCRIPT_DIR}/make_dropbear.sh
+        apptainer exec ${LUSTRE_BIND_MOUNTS} ${CONTAINER_PATH} ${SCRIPT_DIR}/make_dropbear.sh
     fi
     rm -rf ${CONFIG_DIR}/events && mkdir ${CONFIG_DIR}/events
     rm -rf ${CONFIG_DIR}/logs && mkdir ${CONFIG_DIR}/logs
@@ -17,6 +17,10 @@ function start_containers()
     for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
 	if [ ${node_name} != $(hostname) ]; then
             ssh ${USER}@${node_name} ${SCRIPT_DIR}/start_container.sh ${CONFIG_DIR}
+            if [ $? -ne 0 ]; then
+                echo "Failed to start the container on ${node_name}"
+                exit 1
+            fi
         fi
     done
 
@@ -28,6 +32,11 @@ function start_spark_processes()
     master_node=$(hostname | tr -d '\n')
     spark_cluster=spark://${master_node}:7077
     node_memory_overhead_gb=$(get_node_memory_overhead_gb)
+    enable_pg=$(get_config_variable "enable_postgres_metastore")
+
+    if ${enable_pg}; then
+        setup_postgres_metastore
+    fi
 
     exec_spark_process start-master.sh
     check_history_server_enabled
@@ -36,7 +45,7 @@ function start_spark_processes()
     fi
     enable_thrift_server=$(get_config_variable "thrift_server")
     if [ ${enable_thrift_server} == "true" ]; then
-        exec_spark_process start-thriftserver.sh ${spark_cluster}
+        exec_spark_process start-thriftserver.sh --master ${spark_cluster}
     fi
     echo "Started Spark master processes on ${master_node}"
     echo "Spark worker memory overhead = ${node_memory_overhead_gb} GB"
@@ -65,6 +74,55 @@ function start_spark_processes()
             echo "Started Spark worker on worker node ${node_name}"
         fi
     done
+}
+
+function setup_postgres_metastore()
+{
+    pg_password=$(get_config_variable "POSTGRES_PASSWORD")
+    pg_data_dir=$(get_config_variable "postgres_data_dir")
+    pg_run_dir=$(get_config_variable "postgres_run_dir")
+    if [ -z "$(ls -A ${pg_data_dir})" ]; then
+        pg_exists=false
+    else
+        pg_exists=true
+    fi
+    if ! ${pg_exists}; then
+        apptainer exec instance://pg-server initdb
+    fi
+    set -e
+    apptainer exec instance://pg-server \
+        pg_ctl \
+            -D /var/lib/postgresql/data \
+            -l logfile \
+            start
+    if ! ${pg_exists}; then
+        apptainer exec instance://pg-server createdb hive_metastore
+        apptainer exec instance://pg-server \
+            psql \
+                -c "CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD '${pg_password}'" \
+                hive_metastore
+        init_hive
+    fi
+    set +e
+}
+
+function init_hive()
+{
+    export HADOOP_HOME=/datasets/images/apache_spark/hadoop-3.4.1
+    export HIVE_HOME=${CONFIG_DIR}/apache-hive-4.0.1-bin
+    export HIVE_CONF=${CONFIG_DIR}/apache-hive-4.0.1-bin/conf
+    export JAVA_HOME=/usr
+    existing_dir=${CONFIG_DIR}/apache-hive-4.0.1-bin
+    if [ -d ${existing_dir} ]; then
+        rm -rf ${existing_dir}
+    fi
+    tar -C ${CONFIG_DIR} -xzf /datasets/images/apache_spark/apache-hive-4.0.1-bin.tar.gz
+    cp /datasets/images/apache_spark/postgresql-42.7.4.jar ${HIVE_HOME}/lib
+    write_postgres_hive_site_file ${HIVE_CONF}
+    cd ${HIVE_CONF}
+    ${HIVE_HOME}/bin/schematool -dbType postgres -initSchema
+    cd -
+    unset HADOOP_HOME HIVE_HOME HIVE_CONF JAVA_HOME
 }
 
 # Main

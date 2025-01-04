@@ -16,11 +16,14 @@ Configuring this workflow has some complexity, and so it is important that you u
 going on.
 
 ### Components
-- Metastore: Created by Spark in your working directory on the Lustre filesystem.
-- Derby database: Manages the metastore. This has an important limitation: only one process can
-access it at a time. (Shared Spark clusters in cloud environments employ a much more sophisticated
-solution.)
 - Thrift Server: Connects SQL clients (like Tableau) to the Spark cluster over the network.
+- Hive Metastore: Created by Spark in your working directory on the Lustre filesystem.
+- Derby database: Manages the metastore by default. This has an important limitation: there can
+  only be one open Spark session at a time. This means that you cannot simultaneously run jobs
+  through PySpark and the Thrift Server.
+- PostgreSQL database: Optional database for the metastore that supports multiple Spark sessions.
+  This can be enabled in the script `configure_and_start_spark.sh`. It will start a postgres
+  database and initialize it through Hive.
 - Data sources: Parquet/CSV files on the Lustre filesystem.
 - Views: Read-only views into the data sources that get registered in the database.
 
@@ -64,9 +67,9 @@ how to create several views in a batch process.
    
    Add lines like these to a text file called `views.txt`:
    ```
-   CREATE VIEW my_view1 AS SELECT * FROM parquet.`/projects/my-project/data/table1.parquet`
-   CREATE VIEW my_view2 AS SELECT * FROM parquet.`/projects/my-project/data/table2.parquet`
-   CREATE VIEW my_view3 AS SELECT * FROM parquet.`/projects/my-project/data/table3.parquet`
+   CREATE VIEW my_view1 AS SELECT * FROM parquet.`/projects/my-project/data/table1.parquet;`
+   CREATE VIEW my_view2 AS SELECT * FROM parquet.`/projects/my-project/data/table2.parquet;`
+   CREATE VIEW my_view3 AS SELECT * FROM parquet.`/projects/my-project/data/table3.parquet;`
    ```
    
    Execute the commands with `spark-sql`.
@@ -80,7 +83,7 @@ how to create several views in a batch process.
    ```
 
    **Warning**: If you need to create more views, you must stop this server to avoid database
-   conflicts.
+   conflicts (unless you enabled the Postgres option).
    ```
    $ apptainer exec instance://spark stop-thriftserver.sh
    ```

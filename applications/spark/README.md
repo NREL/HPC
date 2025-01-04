@@ -4,7 +4,7 @@ The scripts in this directory create ephemeral Apache Spark clusters on HPC comp
 
 [Prerequisites](#prerequisites) | [Setup](#setup) | [Compute Nodes](#compute-nodes)
 
-[Basic Configuration](#basic-configuration-instructions) | [Advanced Configuration](#advanced-configuration-instructions) | [Run Jobs](#run-jobs)
+[Basic Configuration](#basic-configuration-instructions) | [Advanced Configuration](#advanced-configuration-instructions) | [Apache Hive](#apache-hive) | [Run Jobs](#run-jobs)
 
 [Visualize Data with Tableau](tableau.md)
 
@@ -25,13 +25,13 @@ $ apptainer --help
 
 Existing containers on Kestrel:
 
-- Spark 3.5.2 and Python 3.11
+- Spark 3.5.4 and Python 3.11
 
   This image includes the packages `ipython`, `jupyter`, `numpy`, `pandas`, and `pyarrow`.
   It also includes the `duckdb` CLI, which is great for processing Parquet files.
 
   ```
-  /datasets/images/apache_spark/spark352_py311.sif
+  /datasets/images/apache_spark/spark354_py311.sif
   ```
 
 - Spark 3.4.0 and R 4.2.2:
@@ -110,13 +110,13 @@ with ideal node types. Note that you may want to consider
     Pass the path of the container that you want to use with the `-c` option.
 
     ```
-    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark354_py311.sif
     ```
 
     **Note**: If you logged into the compute node manually with ssh or are using multiple
     Slurm allocations, specify the Slurm job IDs on the command line, like this:
     ```
-    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif <SLURM_JOB_ID_1> <SLURM_JOB_ID_2>
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark354_py311.sif <SLURM_JOB_ID_1> <SLURM_JOB_ID_2>
     ```
 
     If your compute nodes do not have local storage, you'll need to provide a custom Spark
@@ -124,12 +124,12 @@ with ideal node types. Note that you may want to consider
 
     Use the compute nodes' in-memory tmpfs:
     ```
-    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif --spark-scratch /dev/shm/spark-scratch
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark354_py311.sif --spark-scratch /dev/shm/spark-scratch
     ```
 
     Use the Lustre filesystem:
     ```
-    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark352_py311.sif --spark-scratch /scratch/$USER/spark-scratch
+    $ configure_and_start_spark.sh -c /datasets/images/apache_spark/spark354_py311.sif --spark-scratch /scratch/$USER/spark-scratch
     ```
 
     **Note**: You may need to configure Lustre file striping for your directory in order achieve
@@ -311,6 +311,37 @@ just created.
     ```
 
 7. Run jobs as described [below](#run-jobs).
+
+## Apache Hive
+Spark supports reading and writing data from [Apache Hive](https://hive.apache.org) as described
+[here](https://spark.apache.org/docs/latest/sql-data-sources-hive-tables.html).
+
+This is useful if you want to access data in SQL tables through a JDBC/ODBC client
+instead of Parquet files through Python/R or `spark-sql`. It also provides access to Spark with
+[SQLAlchemy](https://www.sqlalchemy.org) through
+[PyHive](https://kyuubi.readthedocs.io/en/v1.8.0/client/python/pyhive.html).
+
+You can configure Spark with a Hive Metastore by running this command:
+```
+$ configure_and_start_spark.sh --hive-metastore --metastore-dir /path/to/my/metastore
+```
+
+By default Spark uses [Apache Derby](https://db.apache.org/derby/) as the database for the metastore.
+This has a limitation: only one client can be connected to the metastore at a time.
+
+If you need multiple simultaneous connections to the metastore, you can use
+[PostgreSQL](https://www.postgresql.org) as the backend instead by running the following command:
+```
+$ configure_and_start_spark.sh --postgers-hive-metastore --metastore-dir /path/to/my/metastore
+```
+This takes a few extra minutes to start the first time, as it has to download a container and
+start the server. Apptainer will cache the container image and you can reuse the database data
+across Slurm allocations.
+
+**Note**: The metadata about your tables will be stored in Derby or Postgres. Your tables will
+be stored on the filesystem (Parquet files by default) in a directory called `spark_warehouse`,
+which gets created in the directory passed to `--metastore-dir` (current directory by default).
+Postgres data, if enabled, will be in the same directory (`pg-data`).
 
 ## Run Jobs
 These instructions assume that have allocated compute nodes and started a Spark cluster.
