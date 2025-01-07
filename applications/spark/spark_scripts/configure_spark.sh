@@ -214,21 +214,38 @@ fi
 
 module load ${CONTAINER_MODULE}
 copy_defaults_template_file
+enable_derby_metastore=$(get_config_variable "enable_derby_metastore")
+enable_postgres_metastore=$(get_config_variable "enable_postgres_metastore")
 metastore_dir=$(get_config_variable "metastore_dir")
-if [[ ${metastore_dir} != "." ]]; then
-    cp ${CONFIG_DIR}/conf/hive-site.xml.template ${CONFIG_DIR}/conf/hive-site.xml
-    sed -i "s|REPLACE_ME_WITH_CUSTOM_PATH|${metastore_dir}/metastore_db|" ${CONFIG_DIR}/conf/hive-site.xml
+if ${enable_derby_metastore} || ${enable_postgres_metastore}; then
+    if ${enable_postgres_metastore}; then
+        write_postgres_hive_site_file ${CONFIG_DIR}/conf
+    elif ${enable_derby_metastore}; then
+        cp ${CONFIG_DIR}/conf/hive-site.xml.template ${CONFIG_DIR}/conf/hive-site.xml
+        sed -i "s|REPLACE_ME_WITH_CUSTOM_PATH|${metastore_dir}/metastore_db|" ${CONFIG_DIR}/conf/hive-site.xml
+    fi
     echo "spark.sql.warehouse.dir ${metastore_dir}/spark-warehouse" >> ${CONFIG_DIR}/conf/spark-defaults.conf
+else
+    rm -f ${CONFIG_DIR}/conf/hive-site.xml
 fi
 
 config_driver
 write_worker_nodes
 config_executors
-if [ ${ENABLE_HISTORY_SERVER} = true ]; then
+if ${ENABLE_HISTORY_SERVER}; then
     enable_history_server
 fi
-if [ ${ENABLE_DYNAMIC_ALLOCATION} = true ]; then
+if ${ENABLE_DYNAMIC_ALLOCATION}; then
     enable_dynamic_allocation
+else
+    enable_pg=$(get_config_variable "enable_postgres_metastore")
+    enable_derby=$(get_config_variable "enable_derby_metastore")
+    if ${enable_pg} || ${enable_derby}; then
+        echo "Enable dynamic resource allocation because a hive metastore is enabled."
+        enable_dynamic_allocation
+        echo "spark.driver.extraClassPath /datasets/images/apache_spark/postgresql-42.7.4.jar" >> ${DEFAULTS_FILE}
+        echo "spark.executor.extraClassPath /datasets/images/apache_spark/postgresql-42.7.4.jar" >> ${DEFAULTS_FILE}
+    fi
 fi
 if [ "${SPARK_SCRATCH}" != "tmpfs" ]; then
     spark_scratch=$(realpath ${SPARK_SCRATCH})

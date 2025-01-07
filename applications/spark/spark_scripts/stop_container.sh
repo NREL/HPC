@@ -9,8 +9,14 @@ export CONFIG_DIR=$(realpath ${1})
 export SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . ${SCRIPT_DIR}/common.sh
 
-echo "Stop ${CONTAINER_EXEC} instance on $(hostname)"
+echo "Stop apptainer instance on $(hostname)"
 
 module load ${CONTAINER_MODULE}
-${CONTAINER_EXEC} exec instance://${CONTAINER_NAME} stop-worker.sh
-${CONTAINER_EXEC} instance stop ${CONTAINER_NAME}
+apptainer exec instance://${CONTAINER_NAME} stop-worker.sh
+apptainer instance stop ${CONTAINER_NAME}
+
+enable_pg=$(get_config_variable "enable_postgres_metastore")
+if ${enable_pg}; then
+    apptainer exec instance://pg-server pg_ctl stop
+    apptainer instance stop pg-server
+fi

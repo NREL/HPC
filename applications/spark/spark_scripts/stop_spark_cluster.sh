@@ -39,7 +39,7 @@ module load ${CONTAINER_MODULE}
 check_history_server_enabled
 if [ $? -eq 0 ]; then
     # Checking for errors is not necessary.
-    ${CONTAINER_EXEC} exec instance://${CONTAINER_NAME} stop-history-server.sh
+    apptainer exec instance://${CONTAINER_NAME} stop-history-server.sh
 fi
 enable_thrift_server=$(get_config_variable "thrift_server")
 if [ ${enable_thrift_server} == "true" ]; then
@@ -49,8 +49,8 @@ fi
 # Something about the ssh configuration causes a warning when the Spark
 # scripts ssh to each worker node. It doesn't happen in our ssh commands.
 # Workaround the issue by stopping the Spark worker inside stop_container.sh.
-# ${CONTAINER_EXEC} exec instance://${CONTAINER_NAME} stop-all.sh
-${CONTAINER_EXEC} exec instance://${CONTAINER_NAME} stop-master.sh
+# apptainer exec instance://${CONTAINER_NAME} stop-all.sh
+apptainer exec instance://${CONTAINER_NAME} stop-master.sh
 ${SCRIPT_DIR}/stop_container.sh ${CONFIG_DIR}
 for node_name in $(cat ${CONFIG_DIR}/conf/workers); do
     if [ ${node_name} != $(hostname) ]; then

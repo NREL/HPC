@@ -1,12 +1,15 @@
 #!/bin/bash
 
 CONFIG_DIR=$(pwd)
-CONTAINER_PATH="/datasets/images/apache_spark/spark352_py311.sif"
+CONTAINER_PATH="/datasets/images/apache_spark/spark354_py311.sif"
 CONTAINER_NAME="spark"
 NODE_MEMORY_OVERHEAD_GB=10
 DRIVER_MEMORY_GB=10
 ENABLE_DYNAMIC_ALLOCATION=false
 ENABLE_HISTORY_SERVER=false
+ENABLE_DERBY_METASTORE=false
+ENABLE_POSTGRES_METASTORE=false
+POSTGRES_PASSWORD="postgres"
 METASTORE_DIR="."
 ENABLE_THRIFT_SERVER=false
 # Many online docs say executors max out with 5 threads.
@@ -37,8 +40,13 @@ Options:
                                       [Default: compute node tmpfs]
   -m, --partition-multiplier INTEGER  Set spark.sql.shuffle.partitions to number of
                                       cores multiplied by this value. [Default: ${PARTITION_MULTIPLIER}]
+  -S, --hive-metastore                Create a Hive metastore with Spark defaults (Apache Derby).
+                                      Supports only one Spark session. [Default: false]
+  -p, --postgres-hive-metastore       Create a metastore with PostgreSQL.
+                                      Supports multiple Spark sessions. [Default: false]
+  -P, --postgres-password TEXT        Password for PostgreSQL. [Default: random string]
   -s, --metastore-dir TEXT            Set a custom directory for the metastore and warehouse. [Default: current]
-  -t, --thrift-server TEXT            Enable the Thrift server to connect a SQL client. [Default: false]
+  -t, --thrift-server                 Enable the Thrift server to connect a SQL client. [Default: false]
 
 Example:
   $(basename $0) --driver-memory-gb 2
@@ -94,6 +102,19 @@ while [[ $# -gt 0 ]]; do
       shift
       shift
       ;;
+    -S|--hive-metastore)
+      ENABLE_DERBY_METASTORE=true
+      shift
+      ;;
+    -p|--postgres-hive-metastore)
+      ENABLE_POSTGRES_METASTORE=true
+      shift
+      ;;
+    -P|--postgres-password)
+      POSTGRES_PASSWORD=$2
+      shift
+      shift
+      ;;
     -s|--metastore-dir)
       METASTORE_DIR=$2
       shift
@@ -121,10 +142,19 @@ done
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 set -e
 create_flags=""
+if ${ENABLE_DERBY_METASTORE}; then
+    create_flags+=" -S"
+fi
+if ${ENABLE_POSTGRES_METASTORE}; then
+    create_flags+=" -p"
+fi
+if [[ ${POSTGRES_PASSWORD} != "postgres" ]]; then
+    create_flags+=" -P ${POSTGRES_PASSWORD}"
+fi
 if [[ ${METASTORE_DIR} != "." ]]; then
     create_flags+=" -s ${METASTORE_DIR}"
 fi
-if [ ${ENABLE_THRIFT_SERVER} = true ]; then
+if ${ENABLE_THRIFT_SERVER}; then
     create_flags+=" -t"
 fi
 
@@ -136,12 +166,12 @@ bash ${script_dir}/create_config.sh \
     -o ${NODE_MEMORY_OVERHEAD_GB}
 
 . ${script_dir}/common.sh
-if [ ${ENABLE_DYNAMIC_ALLOCATION} = true ]; then
+if ${ENABLE_DYNAMIC_ALLOCATION}; then
     flags="-D"
 else
     flags=""
 fi
-if [ ${ENABLE_HISTORY_SERVER} = true ]; then
+if ${ENABLE_HISTORY_SERVER}; then
     flags+=" -H"
 fi
 

@@ -35,7 +35,6 @@ export NODE_MEMORY_OVERHEAD_GB=$(get_config_variable "node_memory_overhead_gb")
 if [ ! -z ${NREL_CLUSTER} ] && [ ${NREL_CLUSTER} == "kestrel" ]; then
     module load apptainer
     export CONTAINER_MODULE=apptainer
-    export CONTAINER_EXEC=apptainer
     export LUSTRE_BIND_MOUNTS=" -B /nopt:/nopt \
         -B /projects:/projects \
         -B /scratch:/scratch \
@@ -44,7 +43,6 @@ if [ ! -z ${NREL_CLUSTER} ] && [ ${NREL_CLUSTER} == "kestrel" ]; then
         -B /kfs3:/kfs3"
 else
     export CONTAINER_MODULE=singularity-container
-    export CONTAINER_EXEC=singularity
     export LUSTRE_BIND_MOUNTS=" -B /nopt:/nopt \
         -B /datasets:/datasets \
         -B /lustre:/lustre \
@@ -77,6 +75,12 @@ function get_node_memory_overhead_gb()
     else
         driver_mem=$(get_spark_driver_memory_gb)
         node_memory_overhead_gb=$(( ${driver_mem} + ${NODE_MEMORY_OVERHEAD_GB} ))
+        enable_pg=$(get_config_variable "enable_postgres_metastore")
+        if [ ${enable_pg} ]; then
+            # Postgres should be idle most of the time. We aren't adding any CPU overhead.
+            # Add a conservative cushion for memory.
+            (( node_memory_overhead_gb += 2 ))
+        fi
         echo "${node_memory_overhead_gb}"
     fi
 }
@@ -148,9 +152,7 @@ function exec_spark_process()
         exit 1
     fi
     cmd=$@
-    ${CONTAINER_EXEC} exec \
-        ${LUSTRE_BIND_MOUNTS} \
-        $(get_spark_bind_mounts ${CONFIG_DIR}) \
+    apptainer exec \
         instance://${CONTAINER_NAME} \
         ${cmd}
     ret=$?
@@ -183,3 +185,46 @@ function run_checks()
         fi
     fi
 }
+
+function write_postgres_hive_site_file()
+{
+    dst_dir=$1
+    pg_password=$(get_config_variable "postgres_password")
+    cat > ${dst_dir}/hive-site.xml << EOF
+<configuration>
+   <property>
+      <name>javax.jdo.option.ConnectionURL</name>
+      <value>jdbc:postgresql://localhost:5432/hive_metastore</value>
+      <description>Postgres JDBC connection URL</description>
+   </property>
+   <property>
+      <name>javax.jdo.option.ConnectionDriverName</name>
+      <value>org.postgresql.Driver</value>
+      <description>Driver class name</description>
+   </property>
+   <property>
+      <name>javax.jdo.option.ConnectionUserName</name>
+      <value>postgres</value>
+      <description>Postgres username</description>
+   </property>
+   <property>
+      <name>javax.jdo.option.ConnectionPassword</name>
+      <value>${pg_password}</value>
+      <description>Postgres password</description>
+   </property>
+   <property>
+      <name>datanucleus.autoCreateSchema</name>
+      <value>true</value>
+   </property>
+   <property>
+      <name>datanucleus.fixedDatastore</name>
+      <value>true</value>
+   </property>
+   <property>
+      <name>datanucleus.autoCreateTables</name>
+      <value>True</value>
+   </property>
+</configuration>
+EOF
+}
+
