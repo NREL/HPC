@@ -94,7 +94,7 @@ To request nodes with two NICs, specify `--partition=hbw` in your job submission
 If you would like assistance with determining whether your workflow could benefit from running in the `hbw` partition, please reach out to [HPC-Help@nrel.gov](mailto:HPC-Help).
 
 !!! info
-    We'll be continuing to update documentation with use cases for the dual NIC nodes, including specific examples on the LAMMPS and AMRWind pages. 
+    We'll be continuing to update documentation with use cases and recommendations for the dual NIC nodes, including specific examples on the LAMMPS and AMRWind pages. 
 
 
 ### GPU Jobs
