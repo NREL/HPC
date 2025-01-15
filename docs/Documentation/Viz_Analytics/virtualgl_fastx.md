@@ -141,11 +141,11 @@ Kestrel DAV nodes have two NVIDIA A40 GPUs. Using vglrun will default to the fir
 
 To run your OpenGL software with a GPU of your choosing, you may add the `-d <gpu>` flag to vglrun to pick a GPU. The first GPU is referred to as 0:0, the second as 0:1. For example, to run Matlab on the second GPU:
 
-`vglrun -d 0:1 matlab`
+`vglrun -d :0.1 matlab`
 
 to run Ansys on the first GPU:
 
-`vglrun -d 0:0 ansys`
+`vglrun -d :0.0 ansys`
 
 
 ## Download FastX Desktop Client
