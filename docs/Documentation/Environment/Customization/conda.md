@@ -216,13 +216,13 @@ python my_main.py
 
 ### Where to store Conda environments
 
-By default, the conda module uses the home directory for package caches and named environments. This can cause problems on the HPC systems because conda environments can require a lot of storage space, and home directories have a quota of 50GB. Additionally, the home filesystem is not designed to handle heavy I/O loads, so if you're running a lot of jobs or large multi-node jobs calling conda environments that are stored in home, it can strain the filesystem. 
+By default, the conda module uses the home directory for named environments. This can cause problems on the HPC systems because conda environments can require a lot of storage space, and home directories have a quota of 50GB. Additionally, the home filesystem is not designed to handle heavy I/O loads, so if you're running a lot of jobs or large multi-node jobs calling conda environments that are stored in home, it can strain the filesystem. 
+
+The conda module uses `/scratch/$USER/.conda-pkgs` for package caches by default to avoid filling up the home directory with cached conda data. If you would like to change this location, you can call `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/projects/<allocation handle>/$USER/.conda-pkgs`. We don't recommend using your home directory since this data can use a lot of space. 
 
 Some ways to change the default storage location for conda environments and packages:
 
 * Use the `-p PATH_NAME` switch when creating or updating your environment.  Make sure `PATH_NAME` isn't in the home directory. Keep in mind files in /scratch are deleted after about a month of inactivity.
-
-* Change the directory used for caching.  This location is set by the module file to `~/.conda-pkgs`.  A simple way to avoid filling up the home directory with cached conda data is to soft link a location on scratch to `~/.conda-pkgs`, for example `ln -s /scratch/$USER/.conda-pkgs /home/$USER/.conda-pkgs`.  Alternatively, you can call `export CONDA_PKGS_DIRS=PATH_NAME` to specify somewhere to store downloads and cached files such as `/projects/<allocation handle>/$USER/.conda-pkgs`.
 
 * Similarly, you can specify the directory in which environments are stored by default. To do this, either set the `CONDA_ENVS_PATH` environment variable, or use the `--prefix` option as [described above](./conda.md#creating-environments-by-location). 
 
