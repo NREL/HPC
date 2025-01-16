@@ -139,7 +139,7 @@ $ vglrun matlab
 ## Choosing a GPU on Kestrel
 Kestrel DAV nodes have two NVIDIA A40 GPUs. Using vglrun will default to the first GPU available, which may leave one GPU overutilized while the second is underutilized. 
 
-To run your OpenGL software with a GPU of your choosing, you may add the `-d <gpu>` flag to vglrun to pick a GPU. The first GPU is referred to as 0:0, the second as 0:1. For example, to run Matlab on the second GPU:
+To run your OpenGL software with a GPU of your choosing, you may add the `-d <gpu>` flag to vglrun to pick a GPU. The first GPU is referred to as :0.0, the second as :0.1. For example, to run Matlab on the second GPU:
 
 `vglrun -d :0.1 matlab`
 
