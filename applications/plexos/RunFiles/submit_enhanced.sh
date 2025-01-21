@@ -9,8 +9,7 @@
 #SBATCH --error=%J.err
 
 module purge
-module load craype-x86-spr
-module load gurobi/10.0.2 plexos/9.200R06
+module load plexos/9.200R06
 
 cd /scratch/${USER}/HPC/applications/plexos/RunFiles/
 
