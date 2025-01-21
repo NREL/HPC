@@ -55,7 +55,7 @@ Make sure the same module is loaded at runtime.
 
 ## Running OpenFOAM cases using pre-installed modules
 
-There are several modules for builds of OpenFOAM. After logging in to a CPU node on the Kestrel, please use the `module avail` command to view available versions. 
+There are several modules for builds of OpenFOAM. After logging in to a CPU node on Kestrel, please use the `module avail` command to view available versions. 
 
 ```
 CPU $ module avail openfoam
