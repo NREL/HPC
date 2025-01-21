@@ -19,6 +19,14 @@ Enter your HPC password (or password and OTP code if external) and you will be c
 !!! bug "VS Code Remote-SSH Bug"
     If you are no longer able to connect to Kestrel with VS Code, in your settings for the Remote-SSH extension set "Use Exec Server" to False by unchecking the box. This issue is due to a VS Code bug in an update to the Remote-SSH plugin or VS code itself. 
 
+!!! bug "Windows SSH "Corrupted MAC on input" Error"
+    Some people who use Windows 10/11 computers to ssh to Kestrel via Visual Studio Code's SSH extension might receive an error message about a "Corrupted MAC on input" or "message authentication code incorrect." To workaround this issue, you will need to create an ssh config file on your local computer, `~/.ssh/config`, with a host entry for Kestrel that specifies a new message authentication code:
+    ```
+    Host kestrel
+        HostName kestrel.hpc.nrel.gov
+        MACs hmac-sha2-512
+    ```
+    This [Visual Studio Blog post](https://code.visualstudio.com/blogs/2019/10/03/remote-ssh-tips-and-tricks) has further instructions on how to create the ssh configuration file for Windows and VS Code.
 
 ## Caution About VS Code Processes
 
