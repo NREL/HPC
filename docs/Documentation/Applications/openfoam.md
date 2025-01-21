@@ -93,7 +93,7 @@ CPU $ module avail openfoam
 
 ### Installing additional OpenFOAM packages
 
-Additional packages built on top of OpenFOAM API can be installed after loading a compatible module. As an example, we show the process to install the [OpenFuelCell2](https://github.com/openFuelCell2/openFuelCell2) package.
+Additional packages built on top of the OpenFOAM API can be installed after loading a compatible module. As an example, we show the process to install the [OpenFuelCell2](https://github.com/openFuelCell2/openFuelCell2) package.
 ```
 # Download or clone the required package
 $ git clone https://github.com/openFuelCell2/openFuelCell2.git
