@@ -16,6 +16,9 @@ You may then enter your HPC username and the address of an HPC system to connect
 
 Enter your HPC password (or password and OTP code if external) and you will be connected to a login node. You may open a folder on the remote host to browse your home directory and select files to edit, and so on.
 
+!!! bug "VS Code Remote-SSH Bug"
+    If you are no longer able to connect to Kestrel with VS Code, in your settings for the Remote-SSH extension set "Use Exec Server" to False by unchecking the box. This issue is due to a VS Code bug in an update to the Remote-SSH plugin or VS code itself. 
+
 !!! bug "Windows SSH "Corrupted MAC on input" Error"
     Some people who use Windows 10/11 computers to ssh to Kestrel via Visual Studio Code's SSH extension might receive an error message about a "Corrupted MAC on input" or "message authentication code incorrect." To workaround this issue, you will need to create an ssh config file on your local computer, `~/.ssh/config`, with a host entry for Kestrel that specifies a new message authentication code:
     ```
