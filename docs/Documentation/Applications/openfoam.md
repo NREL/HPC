@@ -53,7 +53,7 @@ Make sure the same module is loaded at runtime.
 
 <!-- ## OpenFOAM on Kestrel -->
 
-## Running OpenFOAM cases using pre-installed modules
+## Running OpenFOAM cases using Modules
 
 There are several modules for builds of OpenFOAM. After logging in to a CPU node on Kestrel, please use the `module avail` command to view available versions. 
 
@@ -66,7 +66,7 @@ CPU $ module avail openfoam
 
 **We encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) for their setup when submitting a new large job. According to some user reports, the application has shown to scale very poorly beyond 2 nodes.**
 
-??? example "Kestrel: A sample job script utilising one of the pre-installed openfoam modules."
+??? example "Sample job script: Kestrel"
 
 
     ```
