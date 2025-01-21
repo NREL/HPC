@@ -16,6 +16,10 @@ You may then enter your HPC username and the address of an HPC system to connect
 
 Enter your HPC password (or password and OTP code if external) and you will be connected to a login node. You may open a folder on the remote host to browse your home directory and select files to edit, and so on.
 
+!!! bug "VS Code Remote-SSH Bug"
+    If you are no longer able to connect to Kestrel with VS Code, in your settings for the Remote-SSH extension set "Use Exec Server" to False by unchecking the box. This issue is due to a VS Code bug in an update to the Remote-SSH plugin or VS code itself. 
+
+
 ## Caution About VS Code Processes
 
 Please be aware that the Remote SSH extension runs processes on the remote host. This includes any extensions or helpers, include language parsers, code analyzers, AI code assistants, and so on. These extensions can take up a _considerable_ amount of CPU and RAM on any remote host that VS Code connects to. Jupyter notebooks loaded through VS Code will also be executed on the remote host and can use excessive CPU and RAM, as well. When the remote host is a shared login node on an HPC system, this can be a considerable drain on the resources of the login node, and cause system slowdowns for all users of that login node. 
