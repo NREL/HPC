@@ -66,7 +66,7 @@ CPU $ module avail openfoam
 
 **We encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) for their setup when submitting a new large job. According to some user reports, the application has shown to scale very poorly beyond 2 nodes.**
 
-??? example "Kestrel: A sample job script using openfoam/v2306-openmpi-gcc module as an example."
+??? example "Kestrel: A sample job script utilising one of the pre-installed openfoam modules."
 
 
     ```
@@ -82,7 +82,7 @@ CPU $ module avail openfoam
     #SBATCH --time=04:00:00
     
     
-    module load openfoam/v2306-openmpi-gcc
+    module load openfoam/<version>
 
     decomposePar
 
