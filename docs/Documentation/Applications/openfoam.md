@@ -66,7 +66,7 @@ CPU $ module avail openfoam
 
 **We encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) for their setup when submitting a new large job. According to some user reports, the application has shown to scale very poorly beyond 2 nodes.**
 
-??? example "Sample job script: Kestrel"
+??? example "Kestrel: A sample job script using openfoam/v2306-openmpi-gcc module as an example."
 
 
     ```
