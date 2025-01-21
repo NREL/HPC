@@ -6,7 +6,7 @@ grand_parent: Applications
 
 ## Loading the Appropriate Modules
 
-PLEXOS XML model files can only run with Gurobi that is pre-packaged a given PLEXOS version. The most common version combinations you may encounter at NREL are
+PLEXOS XML model files can only run with Gurobi that is pre-packaged with a given PLEXOS version. The most common version combinations you may encounter at NREL are
 
 | PLEXOS Module    | Gurobi Version |
 |:----------------:|:-------------:|
