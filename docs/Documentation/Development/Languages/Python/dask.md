@@ -204,7 +204,7 @@ The following example was modified from the official [`dask-jobqueue`](https://j
     # When process ID 1 exits the SlurmRunner context manager it sends a graceful shutdown to the Dask processes.
     ```
 
-The python script is submitted to SLURM via a sbatch script.
+The python script is submitted to SLURM via a sbatch script. Note that because this example job requests two partial nodes, it is submitted to the [`shared` partition](../../../Systems/Kestrel/Running/index.md#shared-node-partition). Be sure to replace `your-HPC-account` accordingly.
 
 ??? example "`dask_slurm_runner_launcher.sh`"
 
@@ -213,18 +213,19 @@ The python script is submitted to SLURM via a sbatch script.
     #SBATCH --nodes=2
     #SBATCH --ntasks=4
     #SBATCH --mem=8G
+    #SBATCH --partition=shared
     #SBATCH --time=10
-    #SBATCH --account=pvfleets24
-    #SBATCH --output=./logs/slurm-%j.log
+    #SBATCH --account=your-HPC-account # replace with your HPC account
+    #SBATCH --output=slurm-%j.log
 
     export MALLOC_TRIM_THRESHOLD_=65536
 
     ml conda
     conda activate /path/to/dask-env
-    srun -n 4 python -u dask_slurm_runner_example.py >> ./logs/slurm-$SLURM_JOB_ID.log 2>&1
+    srun -n 4 python -u dask_slurm_runner_example.py
     ```
 
-Note that SlurmRunner does not start a distributed nanny process. Thus, the MALLOC_TRIM_THRESHOLD_ (defined in the configuration file `distributed.yaml)` is not automatically set and needs to be set in the batch script. You can find further details on worker memory managament [`here`](https://distributed.dask.org/en/stable/worker-memory.html).
+Note that SlurmRunner does not start a distributed nanny process, which would normally set the limits for resources consumed by Dask workers. Thus, you must manually export the `MALLOC_TRIM_THRESHOLD_` variable, which sets the minimum amount of contiguous free memory required to trigger a release of memory back to the system from each worker. You can find further details on worker memory managament [`here`](https://distributed.dask.org/en/stable/worker-memory.html).
 
 The job is then launched as:
 
