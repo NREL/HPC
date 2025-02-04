@@ -80,7 +80,7 @@ Device 1: NVIDIA H100 80GB HBM3, 132 CUs, 2 GHZ (Mixed Precision)
 
 ## Sample High-Bandwidth Partition Slurm Script
 
-When running LAMMPs on more than 10 nodes, it is recommended to run LAMMPs on the High-Bandwidth Partition (hbw) – this partition consists of nodes that have dual-NICs as part of its hardware architecture, which can significantly improve LAMMPs performance. 
+When running LAMMPs on more than 10 nodes, it is recommended to run LAMMPs on the [High-Bandwidth Partition (hbw)](../Systems/Kestrel/Running/index.md#high-bandwidth-partition) – this partition consists of nodes that have dual-NICs as part of its hardware architecture, which can significantly improve LAMMPs performance. 
 
 ```
 #!/bin/bash
@@ -116,7 +116,7 @@ $run_cmd $lmp_path -in $name.in >& $name.log
 Please note – the CPU binding and MPICH_OFI_NIC_POLICY being set explicitly allow for extra performance gains on the high-bandwidth partition. If not set, there are still performance gains on the high-bandwidth nodes, just not as much as there would be otherwise. 
 
 ## Hints and Additional Resources
-1. For calculations requesting more than ~10 nodes, running on the high-bandwidth partition is recommended. Further information on the High-Bandwidth partition can be found here: [High-Bandwidth Partition](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/#high-bandwidth-partition)
+1. For calculations requesting more than ~10 nodes, running on the high-bandwidth partition is recommended. Further information on the High-Bandwidth partition can be found here: [High-Bandwidth Partition](../Systems/Kestrel/Running/index.md#high-bandwidth-partition).
 2. For CPU runs, especially for multi-nodes runs, the optimal performance for a particular job may be at a tasks-per-node value less than 104. For GPU runs, number of GPUs should also be varied to achieve the optimal performance. Users should investigate those parameters for large jobs by performing some short test runs. Some tasks-per-node values that could be useful to test are: 72, 52, and 48.
 3. For instructions on running LAMMPS with OpenMP, see the [HPC Github code repository](https://github.com/NREL/HPC/tree/master/applications/lammps).
 

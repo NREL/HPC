@@ -88,13 +88,13 @@ In December 2024, Kestrel had two racks of CPU nodes reconfigured with an extra 
 A NIC is a hardware component that enables inter-node (i.e., *network*) communication as multi-node jobs run. 
 On Kestrel, most CPU nodes include a single NIC. Although having one NIC per node is acceptable for the majority of workflows run on Kestrel, it can lead to communication congestion 
 when running multi-node applications that send significant amounts of data over Kestrel's network. When this issue is encountered, increasing the number of available NICs 
-can alleviate such congestion during runtime. Some common examples of communication-bound HPC software are AMRWind and LAMMPS.
+can alleviate such congestion during runtime. Some common examples of communication-bound HPC software are AMRWind and [LAMMPS](../../../Applications/lammps.md).
 
 To request nodes with two NICs, specify `--partition=hbw` in your job submissions. Because the purpose of the high bandwidth nodes is to optimize communication in multi-node jobs, it is not permitted to submit single-node jobs to the `hbw` partition.
 If you would like assistance with determining whether your workflow could benefit from running in the `hbw` partition, please reach out to [HPC-Help@nrel.gov](mailto:HPC-Help).
 
 !!! info
-    We'll be continuing to update documentation with use cases and recommendations for the dual NIC nodes, including specific examples on the LAMMPS and AMRWind pages. 
+    We'll be continuing to update documentation with use cases and recommendations for the dual NIC nodes, including specific examples on the AMRWind page. 
 
 
 ### GPU Jobs
