@@ -78,9 +78,46 @@ Device 1: NVIDIA H100 80GB HBM3, 132 CUs, 2 GHZ (Mixed Precision)
 --------------------------------------------------------------------------
 ```
 
+## Sample High-Bandwidth Partition Slurm Script
+
+When running LAMMPs on more than 10 nodes, it is recommended to run LAMMPs on the High-Bandwidth Partition (hbw) – this partition consists of nodes that have dual-NICs as part of its hardware architecture, which can significantly improve LAMMPs performance. 
+
+```
+#!/bin/bash
+#SBATCH --job-name lammps-16nodes-96ranks
+#SBATCH --nodes=16
+#SBATCH --time=01:30:00
+#SBATCH --account=[your allocation name here]
+#SBATCH --error=std.err
+#SBATCH --output=std.out
+#SBATCH --tasks-per-node=96
+#SBATCH --exclusive
+#SBATCH -p hbw
+#SBATCH --array=1-5
+#SBATCH --output=lammps-96nodes/lammps-16nodes-96ranks_%a.out
+
+
+module load lammps/062322-cray-mpich
+
+export OMP_NUM_THREADS=1
+
+CPUBIND='--cpu-bind=map_cpu:0,52,13,65,26,78,39,91,1,53,14,66,27,79,40,92,2,54,15,67,28,80,41,93,3,55,16,68,29,81,42,94,4,56,17,69,30,82,43,95,5,57,18,70,31,83,44,96,6,58,19,71,32,84,45,97,7,59,20,72,33,85,46,98,8,60,21,73,34,86,47,99,9,61,22,74,35,87,48,100,10,62,23,75,36,88,49,101,11,63,24,76,37,89,50,102,12,64,25,77,38,90,51,103'
+
+export MPICH_OFI_NIC_POLICY="NUMA"
+
+#MPI only, no OpenMP
+run_cmd="srun --mpi=pmi2 $CPUBIND"
+lmp_path=lmp
+run_name=(medium)
+
+$run_cmd $lmp_path -in $name.in >& $name.log
+```
+
+Please note – the CPU binding and MPICH_OFI_NIC_POLICY being set explicitly allow for extra performance gains on the high-bandwidth partition. If not set, there are still performance gains on the high-bandwidth nodes, just not as much as there would be otherwise. 
+
 ## Hints and Additional Resources
-1. For calculations requesting more than ~10 nodes, the cray mpich stall library is recommended, the details are described at [MPI Stall Library](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/performancerecs/#mpi-stall-library) and [Improvement of LAMMPS Performance by Using CQ STALL Feature](https://github.nrel.gov/hlong/lammps_stall)
-2. For CPU runs, especially for multi-nodes runs, the optimal performance for a particular job may be at a tasks-per-node value less than 104. For GPU runs, number of GPUs should also be varied to achieve the optimal performance. Users should investigate those parameters for large jobs by performing some short test runs.
+1. For calculations requesting more than ~10 nodes, running on the high-bandwidth partition is recommended. Further information on the High-Bandwidth partition can be found here: [High-Bandwidth Partition](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/#high-bandwidth-partition)
+2. For CPU runs, especially for multi-nodes runs, the optimal performance for a particular job may be at a tasks-per-node value less than 104. For GPU runs, number of GPUs should also be varied to achieve the optimal performance. Users should investigate those parameters for large jobs by performing some short test runs. Some tasks-per-node values that could be useful to test are: 72, 52, and 48.
 3. For instructions on running LAMMPS with OpenMP, see the [HPC Github code repository](https://github.com/NREL/HPC/tree/master/applications/lammps).
 
 
