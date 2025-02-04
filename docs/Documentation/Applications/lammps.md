@@ -87,7 +87,7 @@ When running LAMMPs on more than 10 nodes, it is recommended to run LAMMPs on th
 #SBATCH --job-name lammps-16nodes-96ranks
 #SBATCH --nodes=16
 #SBATCH --time=01:30:00
-#SBATCH --account=[your allocation name here]
+#SBATCH --account=<your allocation name here>
 #SBATCH --error=std.err
 #SBATCH --output=std.out
 #SBATCH --tasks-per-node=96
