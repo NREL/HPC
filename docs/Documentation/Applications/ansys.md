@@ -1,11 +1,10 @@
 ## Ansys
-
-The NREL Computational Science Center (CSC) maintains an Ansys license pool for general use, including two seats of CFD, one seat of Ansys Mechanical, and four Ansys HPC Packs to support running a model on many cores/parallel solves.
+The current Ansys license is an unlimited license that covers all Ansys products, with no restrictions on quantities. However, since Ansys is unable to provide a license file that includes all products in unlimited quantities, we have requested licenses based on our anticipated needs. You can check the available licenses on Kestrel using the command `lmstat.ansys`. If the module you need is not listed, please submit a ticket so that we can request an updated license to include the specific module you require.
 
 The main workflow that we support has two stages. The first is interactive graphical usage, e.g., for interactively building meshes or visualizing boundary geometry. For this, Ansys should be run on a [FastX desktop](https://nrel.github.io/HPC/Documentation/Viz_Analytics/virtualgl_fastx/). The second stage is batch (i.e., non-interactive) parallel processing, which should be run on compute nodes via a Slurm job script. Of course, if you have Ansys input from another location ready to run in batch mode, the first stage is not needed. We unfortunately cannot support running parallel jobs on the DAV nodes, nor launching parallel jobs from interactive sessions on compute nodes.
 
 ### Shared License Etiquette
-License usage can be checked on Kestrel with the command `lmstat.ansys`. Network floating licenses are a shared resource. Whenever you open an Ansys Fluent window, a license is pulled from the pool and becomes unavailable to other users. *Please do not keep idle windows open if you are not actively using the application*, close it and return the associated licenses to the pool. Excessive retention of software licenses falls under the inappropriate use policy.
+Network floating licenses are a shared resource. Whenever you open an Ansys Fluent window, a license is pulled from the pool and becomes unavailable to other users. *Please do not keep idle windows open if you are not actively using the application*, close it and return the associated licenses to the pool. Excessive retention of software licenses falls under the inappropriate use policy.
 
 ### A Note on Licenses and Job Scaling
 HPC Pack licenses are used to distribute Ansys batch jobs to run in parallel across many compute cores. The HPC Pack model is designed to enable exponentially more computational resources per each additional license, roughly 2x4^(num_hpc_packs).  A table summarizing this relationship is shown below.
