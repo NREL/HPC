@@ -74,7 +74,6 @@ If you need to run AlphaFold on many (e.g., dozens to hundreds) of JSON files, i
     ```slurm
     #!/bin/bash
     #SBATCH -A hpcapps # Replace with your HPC account
-    #SBATCH -p gpu-h100
     #SBATCH -t 00:30:00
     #SBATCH -n 8 # note that genetic searches run on the CPUs
     #SBATCH -N 1
