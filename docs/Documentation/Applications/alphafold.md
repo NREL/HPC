@@ -34,7 +34,7 @@ AlphaFold requires input data to be formatted in a [special JSON style](https://
 
 ## Running AlphaFold on Kestrel
 
-At the time of writing, AlphaFold3 is generally limited to running its inference pipeline on a single JSON on a single GPU device at a time. In other words, multi-GPU and/or multi-node jobs are not inherently supported by the software. As such, running the model sequentially on multiple JSONs requires the least amount of effort on the user's part. However, depending on the number of input JSONs, this limited throughput can lead to prohibitively long jobs in terms of research productivity. For cases in which you need to run AlphaFold on many JSON files representing as many individual sequences, we can instead leverage the "embarrassing parallelism" that Slurm provides with [job arrays](../Slurm/job_arrays.md). 
+As of February 2025, AlphaFold3 is generally limited to running its inference pipeline on a single JSON on a single GPU device at a time. In other words, multi-GPU and/or multi-node jobs are not inherently supported by the software. As such, running the model sequentially on multiple JSONs requires the least amount of effort on the user's part. However, depending on the number of input JSONs, this limited throughput can lead to prohibitively long jobs in terms of research productivity. For cases in which you need to run AlphaFold on many JSON files representing as many individual sequences, we can instead leverage the "embarrassing parallelism" that Slurm provides with [job arrays](../Slurm/job_arrays.md). 
 
 Example submission scripts representing both strategies are given in the next sections.
 
