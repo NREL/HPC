@@ -76,6 +76,7 @@ nav:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
           - Documentation/Applications/index.md
+          - AlphaFold:  Documentation/Applications/alphafold.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - AMR-Wind:  Documentation/Applications/amrwind.md
           - Chemical Kinetics: Documentation/Applications/chemicalKinetics.md
