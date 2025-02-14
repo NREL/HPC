@@ -7,7 +7,7 @@
 AlphaFold runs as a [containerized](../Development/Containers/index.md) module on Kestrel and can leverage GPU resources. As such, **you must be on a GPU node to load the module**: `ml alphafold`. Once the module is loaded, run `run_alphafold --help` for the pipeline's help page.
 
 !!! Note
-    You need to be part of the `esp-alphafold3` group on Kestrel to access the model and its reference databases in `/kfs2/shared-projects/alphafold3`.
+    You need to be part of the `esp-alphafold3` group on Kestrel to access the model and its reference databases in `/kfs2/shared-projects/alphafold3`. To be added to the group, contact [HPC-Help@nrel.gov](mailto:HPC-Help@nrel.gov).
 
 ## Input data
 
