@@ -1,0 +1,9 @@
+gymnasium==0.28.1
+ray==2.9.2
+torch==2.2.0
+pygame==2.5.2
+dm-tree==0.1.8
+pyarrow==15.0.0
+pandas==2.2.0
+scikit-image==0.22.0
+tensorboard==2.16.2
