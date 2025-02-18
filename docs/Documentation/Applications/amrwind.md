@@ -12,15 +12,80 @@ turbines within a wind farm. For more information see [the AMR-Wind documentatio
 
 AMR-Wind is only supported on Kestrel. 
 
+## Using the AMR-Wind Modules
 
-## Cmake installation
+NREL makes available different modules for using AMR-Wind for CPUs and GPUs for different toolchains. 
+
+### Running on the CPU nodes
+
+On Kestrel, AMR-Wind performs the best on CPU nodes in the [`hbw` ("high bandwidth") partition](../Systems/Kestrel/Running/index.md#high-bandwidth-partition), which each have two network interface cards (NICs). **We strongly recommend submitting multi-node AMR-Wind jobs to the `hbw` partition for the best performance and to save AUs** when compared to running on single-NIC nodes in `short`, `standard`, or `long`. 
+
+Additionally, according to benchmarks, AMR-Wind achieves the best performance on Kestrel CPU nodes using 72 MPI ranks per node. An example script using the current CPU module of AMR-Wind using all of the best practice recommendations is provided below.
+
+!!! Note
+    Single-node jobs are not allowed to be submitted to `hbw`; they should instead be continued to be submitted to the "general" CPU partitions such as `short`, `standard`, or `long`.
+
+??? example "Sample job script: Kestrel - High-Bandwidth Nodes"
+
+    ```
+    #!/bin/bash​
+    #SBATCH --account=<user-account> # Replace with your HPC account
+    #SBATCH –-partition=hbw​
+    #SBATCH --time=01:00:00
+    #SBATCH –-nodes=16 # May need to change depending on your problem​​
+
+    export FI_MR_CACHE_MONITOR=memhooks​
+    export FI_CXI_RX_MATCH_MODE=software​
+    export MPICH_SMP_SINGLE_COPY_MODE=NONE​
+    export MPICH_OFI_NIC_POLICY=NUMA​
+
+    # Optimal number of launcher (srun) tasks per node benchmarked on Kestrel
+    export SRUN_TASKS_PER_NODE=72
+
+    # Replace <input>​ with your input file
+    srun -N $SLURM_JOB_NUM_NODES \
+        -n $(($SRUN_TASKS_PER_NODE * $SLURM_JOB_NUM_NODES)) \
+        --ntasks-per-node=$SRUN_TASKS_PER_NODE \
+        --distribution=block:block \
+        --cpu_bind=rank_ldom \
+        amr_wind <input>​
+    ```
+
+### Running on the GPU nodes
+
+A module for AMR-Wind can also be run on GPU nodes, which can obtain the most optimal performance.
+
+Here is a sample script for submitting an AMR-Wind application run on multiple GPU nodes, with the user's input file and mesh grid in the current working directory.
+
+??? example "Sample job script: Kestrel - Multiple GPUs across nodes"
+
+    ```
+
+    #!/bin/bash
+    #SBATCH --time=1:00:00 
+    #SBATCH --account=<user-account> # Replace with your HPC account
+    #SBATCH --nodes=2
+    #SBATCH --gpus=h100:4
+    #SBATCH --exclusive
+    #SBATCH --mem=0
+
+    module load PrgEnv-nvhpc
+    module load amr-wind/main-craympich-nvhpc
+
+    # Replace <input>​ with your input file
+    srun -K1 -n 16 --gpus-per-node=4 amr_wind <input>
+
+    ```
+
+
+## Custom `cmake` installation
 
 In this section we provide cmake scripts for installation of AMR-wind.
-Make sure to add cmake lines for additional dependencies (openfast, NETCDF, HELICS, etc ...).
+Make sure to add cmake lines for additional dependencies (OpenFAST, NETCDF, HELICS, etc ...).
 
 
 ### Installation of AMR-Wind on CPU Nodes
-AMR-wind can be installed by following the instructions [here](https://exawind.github.io/amr-wind/user/build.      html#building-from-source).
+AMR-wind can be installed by following the instructions [here](https://exawind.github.io/amr-wind/user/build.html#building-from-source).
 On Kestrel CPU nodes, this can be achieved by executing the following script:
 
 ```
@@ -170,30 +235,3 @@ ml PrgEnv-nvhpc
 ml cray-libsci/22.12.1.1
 ```
 
-
-## Running on the GPUs Using Modules
-
-NREL makes available different modules for using AMR-Wind for CPUs and GPUs for
-different toolchains. It is recommended that AMR-Wind be run on GPU nodes for obtaining the most optimal
-performance.
-
-Here is a sample script for submitting an AMR-Wind application run on multiple GPU nodes, with the user's input file and mesh grid in the current working directory.
-
-??? example "Sample job script: Kestrel - Full GPU node"
-
-    ```
-
-    #!/bin/bash
-    #SBATCH --time=1:00:00 
-    #SBATCH --account=<user-account>
-    #SBATCH --nodes=2
-    #SBATCH --gpus=h100:4
-    #SBATCH --exclusive
-    #SBATCH --mem=0
-
-    module load PrgEnv-nvhpc
-    module load amr-wind/main-craympich-nvhpc
-
-    srun -K1 -n 16 --gpus-per-node=4 amr_wind abl_godunov-512.i >& ablGodunov-512.log
-
-    ```
