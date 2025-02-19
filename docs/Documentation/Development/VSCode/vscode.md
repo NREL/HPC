@@ -59,7 +59,7 @@ We will now create a host entry in your local ssh config file to make connecting
 Use the remote-ssh command to edit your VS Code ssh config file (~/.ssh/config). Add the following:
 
 ```
-Host x?00?c*
+Host x????c*
     ProxyJump <username>@kestrel.hpc.nrel.gov
 ```
 
