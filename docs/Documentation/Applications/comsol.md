@@ -31,7 +31,7 @@ Because FastX desktop sessions are supported from DAV nodes shared between multi
 For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell on a compute node.
 
 
-To do so, submit your interactive job and wait to obtain a node, and take note of the node name once the job has started. Open a secondary terminal on the FastX desktop, and `ssh -Y <nodename>` to connect to job node with X-forwarding enabled. Then `module load comsol` on that node, and launch comsol. To run comsol with software rendering on a CPU-only node:
+To do so, submit your interactive job and wait to obtain a node, and take note of the node name once the job has started. Open a secondary terminal on the FastX desktop, and `ssh -Y <nodename>` to connect to the job node with X-forwarding enabled. Then `module load comsol` on that node, and launch comsol. To run comsol with software rendering on a CPU-only node:
 
 ```
 [user@kd1 ~]$ ssh -Y x1000c0s0b1n0
