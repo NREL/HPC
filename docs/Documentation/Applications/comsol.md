@@ -26,13 +26,23 @@ When licenses are available, COMSOL can be used by starting the COMSOL GUI which
 [user@kl3 ~]$ vglrun comsol
 ```
 
-Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell on a compute node by replacing the `vglrun comosl` command with:
+Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs. 
+
+For jobs that require both large-scale compute resources and GUI interactivity simultaneously, there is partial support for running the GUI from an X-enabled shell on a compute node.
+
+
+To do so, submit your interactive job and wait to obtain a node, and take note of the node name once the job has started. Open a secondary terminal on the FastX desktop, and `ssh -Y <nodename>` to connect to job node with X-forwarding enabled. Then `module load comsol` on that node, and launch comsol. To run comsol with software rendering on a CPU-only node:
 
 ```
-[user@kl3 ~]$ comsol -3drend sw
+[user@kd1 ~]$ ssh -Y x1000c0s0b1n0
+
+[user@x1000c0s0b1n0 ~]$ module load comsol
+[user@x1000c0s0b1n0 ~]$ comsol -3drend sw
 ```
 
-However, the performance may be slow and certain display features may behave unexpectedly.
+Note that performance with software rendering may be slow and certain display features may behave unexpectedly.
+
+
 
 ## Running a Single-Node COMSOL Model in Batch Mode
 You can save your model built in FastX+GUI mode into a file such as `myinputfile.mph`. Once that's available, the following job script shows how to run a single process multithreaded job in batch mode:
