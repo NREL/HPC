@@ -167,6 +167,9 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
 
 If a job requests the maximum amount of any resource type available on the node (CPUs, GPUs, RAM), it will be charged with the full charge factor (10 or 100).
 
+### aus_report Command Line Utility
+There is a CLI utility `aus_report` available on Kestrel to track your AU usage. This utility uses the data from [Lex](../../../Resource_Management_System/index.md) to output AU usage information on a per-allocation and per-user basis. Please refer to Lex in the case of an discrepancies. Run `aus_report --help` for more information. 
+
 ## Performance Recommendations
 
 Please see [this page](./performancerecs.md) for our most up-to-date performance recommendations on Kestrel.

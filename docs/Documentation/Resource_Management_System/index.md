@@ -39,6 +39,10 @@ On the "AU Use Report" page, the "Project Use" section lists all of the systems 
 
 ![image](../../assets/images/Lex/lex_aus_by_user.png)
 
+#### aus_report Command Line Utility
+
+There is a CLI utility `aus_report` available on NREL HPC systems to track your AU usage. This utility uses the data from Lex to output AU usage information on a per-allocation and per-user basis. Please refer to Lex in the case of an discrepancies. Run `aus_report --help` for more information. 
+
 ### Jobs Data
 
 To see the list of jobs run using the allocation, select the "List Jobs" tab. 
