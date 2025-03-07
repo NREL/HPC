@@ -49,6 +49,7 @@ Command and control and monitoring customization are also available:
 | Parameter    | Flag              | Example                  |  Explanation   |
 | -----------  | ----------------- | ------------------------ |  ------------------ |
 | High priority | `--qos` | `--qos=high` | High-priority jobs will take precedence in the queue. *Note*: There is an AU penalty of *2X* for high-priority jobs.|
+| Standby priority | `--qos` | `--qos=standby` | Standby jobs will only run when nodes are idle. *Note*: Jobs with standby priority do not consume AUs.| 
 | Dependencies | `--dependency` | `--dependency=<condition>:<job_id>` <br><br>Conditions:<br><br>`after`<br>`afterany`<br>`afternotok`<br>`afterok`<br>`singleton` | You can submit jobs that will wait until a condition is met before running. <br><br><br>Conditions:<br><br>After the listed jobs have started<br>After the listed jobs have finished<br>After the listed jobs have failed<br>After the listed jobs return exit code 0<br>After all existing jobs with the same name and user have ended|
 | Job Name | `--job-name` | `--job-name=myjob` | A short, descriptive job name for easier identification in the queue.|
 | Email notifications | `--mail-user` | `--mail-user=my.email@nrel.gov`<br>`--mail=type=ALL` | Slurm will send updates on job status change. Type can be specified with `--mail-type` as BEGIN, END, FAIL, or ALL.|
