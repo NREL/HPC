@@ -12,6 +12,16 @@ parent: Programming Languages
 * [Dask](dask.md): Parallelize your Python code
 * [Jupyter notebooks](../../Jupyter/index.md): Run interactive notebooks
 
+## Parallel Interactive Tutorials
+Tututials for utilising Kestrel for parallel interactive python scripts.
+
+* [Setting up modules and allocating compute resources for parallel jobs](./KestrelParallelPytonJupyter/README.md)
+* Example jupyter notebooks to download and test:
+    * [cupy](./KestrelParallelPytonJupyter/exampleNotebooks/cupyOnly.ipynb)
+    * [numbaCUDA](./KestrelParallelPytonJupyter/exampleNotebooks/numbaCUDA.ipynb)
+    * [cupy ipyparallel](./KestrelParallelPytonJupyter/exampleNotebooks/cupyAndIpyparallel.ipynb)
+    * [dask](./KestrelParallelPytonJupyter/exampleNotebooks/dask.ipynb)
+
 ## HPC Python
 Links to External resources:
 
