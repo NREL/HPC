@@ -107,6 +107,11 @@ cd $SLURM_SUBMIT_DIR
 
 module load ansys
 
+unset HYDRA_LAUNCHER_EXTRA_ARGS
+unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
+unset OMPI_MCA_plm_slurm_args
+unset PRTE_MCA_plm_slurm_args
+
 machines=$(srun hostname | sort | uniq -c | awk '{print $2 ":" $1}' | paste -s -
 d ":" -)
 
