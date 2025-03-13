@@ -53,7 +53,7 @@ Interactive jobs are useful for many tasks. For example, to debug a job script, 
 A debug job allows up to two nodes to be available with shorter wait times when the system is heavily utilized. This is accomplished by specifying `--partition=debug`. For example:
 
 ```
-[hpc_user@kl1 ~]$ salloc --time=60 --accounft=<handle> --partition=debug
+[hpc_user@kl1 ~]$ salloc --time=60 --account=<handle> --partition=debug
 ```
 
 Add `--nodes=2` to claim two nodes.
