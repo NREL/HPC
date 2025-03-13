@@ -63,7 +63,7 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     #SBATCH --ntasks=104                       # CPU cores requested for job 
     #SBATCH --nodes=1                  
     #SBATCH --time=01-00                       # Required, maximum job duration
-    #SBATCH --tmp=1700000                      # Request local disk space
+    #SBATCH --partition=nvme                   # Request node with local disk
 
     # Copy files into $TMPDIR 
     cp /scratch/<userid>/myfiles* $TMPDIR 
