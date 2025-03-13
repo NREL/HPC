@@ -25,18 +25,18 @@ salloc: job 512998 queued and waiting for resources
 salloc: job 512998 has been allocated resources
 salloc: Granted job allocation 512998
 salloc: Waiting for resource configuration
-salloc: Nodes r2i2n5,r2i2n6 are ready for job
-[hpc_user@r2i2n5 ~]$ 
+salloc: Nodes x1008c7s6b1n0,x1008c7s6b1n1 are ready for job
+[hpc_user@x1008c7s6b1n0 ~]$ 
 ```
 
 You can view the nodes that are assigned to your interactive jobs using one of these methods:
 
 ```
 $ echo $SLURM_NODELIST
-r2i2n[5-6]
+x1008c7s6b1n[0-1]
 $ scontrol show hostname
-r2i2n5
-r2i2n6
+x1008c7s6b1n0
+x1008c7s6b1n1
 ```
 
 Once a job is allocated, you will automatically "ssh" to the first allocated node so you do not need to manually ssh to the node after it is assigned. If you requested more than one node, you may ssh to any of the additional nodes assigned to your job. 
@@ -50,13 +50,17 @@ Type `exit` when finished using the node.
 
 Interactive jobs are useful for many tasks. For example, to debug a job script, users may submit a request to get a set of nodes for interactive use. When the job starts, the user "lands" on a compute node, with a shell prompt. Users may then run the script to be debugged many times without having to wait in the queue multiple times.
 
-A debug job allows up to two nodes to be available with shorter wait times when the system is heavily utilized. This is accomplished by limiting the number of nodes to 2 per job allocation and specifying `--partition=debug`. For example:
+A debug job allows up to two nodes to be available with shorter wait times when the system is heavily utilized. This is accomplished by specifying `--partition=debug`. For example:
 
 ```
-[hpc_user@el1 ~]$ salloc --time=60 --accounft=<handle> --nodes=2 --partition=debug
+[hpc_user@kl1 ~]$ salloc --time=60 --account=<handle> --partition=debug
 ```
 
-A debug node will only be available for a maximum wall time of 1 hour.
+Add `--nodes=2` to claim two nodes.
+
+Add `--gpus=#` (substituting the number of GPUs you want to use) to claim a debug GPU node. Note that there are fewer GPU nodes in the debug queue, so there may be more of a wait time.
+
+A debug job on any node type will only be available for jobs with a maximum walltime (--time) of 1 hour, and only one debug job at a time is permitted per person.
 
 ## Sample Interactive Job Commands
 
@@ -75,8 +79,8 @@ $ salloc --time=20 --account=<handle> --nodes=2
 The above salloc command will log you into one of the two nodes automatically. You can then launch your software using an srun command with the appropriate flags, such as --ntasks or --ntasks-per-node:
 
 ```
-[hpc_user@r2i2n5 ~]$ module purge; module load paraview
-[hpc_user@r2i2n5 ~]$ srun --ntasks=20 --ntasks-per-node=10 pvserver --force-offscreen-rendering
+[hpc_user@x1008c7s6b1n0 ~]$ module purge; module load paraview
+[hpc_user@x1008c7s6b1n0 ~]$ srun --ntasks=20 --ntasks-per-node=10 pvserver --force-offscreen-rendering
 ```
 
 If your single-node job needs a GUI that uses X-windows:
@@ -92,7 +96,7 @@ If your multi-node job needs a GUI that uses X-windows, the least fragile mechan
 ```
 $ salloc --time=20 --account=<handle> --nodes=2
 ...
-[hpc_user@r3i5n13 ~]$ (your compute node r3i5n13)
+[hpc_user@x1008c7s6b1n0 ~]$ (your compute node x1008c7s6b1n0)
 ```
 
 Then from your local workstation:
@@ -100,42 +104,49 @@ Then from your local workstation:
 ```
 $ ssh -Y kestrel.hpc.nrel.gov
 ...
-[hpc_user@el1 ~]$ ssh -Y r3i5n13  #(from login node to reserved compute node)
+[hpc_user@kl1 ~]$ ssh -Y x1008c7s6b1n0  #(from login node to reserved compute node)
 ...
-[hpc_user@r3i5n13 ~]$  #(your compute node r3i5n13, now X11-capable)
-[hpc_user@r3i5n13 ~]$ xterm  #(or another X11 GUI application)
+[hpc_user@x1008c7s6b1n0 ~]$  #(your compute node x1008c7s6b1n0, now X11-capable)
+[hpc_user@x1008c7s6b1n0 ~]$ xterm  #(or another X11 GUI application)
 ```
+
+From a Kestrel-DAV FastX remote desktop session, you can omit the `ssh -Y kestrel.hpc.nrel.gov` above since your terminal in FastX will already be connected to a DAV (kd#) login node. 
+
 
 ## Requesting Interactive GPU Nodes
 
 The following command requests interactive access to GPU nodes:
 
 ```
-[hpc_user@el2 ~] $ salloc --account=<handle> --time=5 --gres=gpu:2 
+[hpc_user@kl2 ~] $ salloc --account=<handle> --time=5 --gpus=2
 ```
-
-This next srun command inside the interactive session gives you access to the GPU devices:
+You may run the nvidia-smi command to confirm the GPUs are visible:
 
 ```
-[hpc_user@r104u33 ~] $ srun --gres=gpu:2 nvidia-smi
-Mon Oct 21 09:03:29 2019
-+-------------------------------------------------------------------+
-| NVIDIA-SMI 410.72 Driver Version: 410.72 CUDA Version: 10.0 |
-|---------------------+----------------------+----------------------+
-| GPU Name Persistence-M| Bus-Id Disp.A | Volatile Uncorr. ECC |
-| Fan Temp Perf Pwr:Usage/Cap| Memory-Usage | GPU-Util Compute M. |
-|=====================+======================+======================|
-| 0 Tesla H100-PCIE... Off | 00000000:37:00.0 Off | 0 |
-| N/A 41C P0 38W / 250W | 0MiB / 16130MiB | 0% Default |
-+---------------------+----------------------+----------------------+
-| 1 Tesla H100-PCIE... Off | 00000000:86:00.0 Off | 0 |
-| N/A 40C P0 36W / 250W | 0MiB / 16130MiB | 0% Default |
-+---------------------+----------------------+----------------------+
+[hpc_user@x3100c0s29b0n0 ~] $ nvidia-smi
+Wed Mar 12 16:20:53 2025
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.15              Driver Version: 550.54.15      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 80GB HBM3          On  |   00000000:04:00.0 Off |                    0 |
+| N/A   40C    P0             71W /  699W |       0MiB /  81559MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA H100 80GB HBM3          On  |   00000000:64:00.0 Off |                    0 |
+| N/A   40C    P0             73W /  699W |       0MiB /  81559MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
 
-+-------------------------------------------------------------------+
-| Processes: GPU Memory |
-| GPU PID Type Process name Usage |
-|===================================================================|
-| No running processes found |
-+-------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
 ```
