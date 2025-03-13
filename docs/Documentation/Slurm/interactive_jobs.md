@@ -110,7 +110,7 @@ $ ssh -Y kestrel.hpc.nrel.gov
 [hpc_user@x1008c7s6b1n0 ~]$ xterm  #(or another X11 GUI application)
 ```
 
-From a Kestrel-DAV Fastx remote desktop session, you can omit the `ssh -Y kestrel.hpc.nrel.gov` above since your terminal in FastX will already be connected to a DAV (kd#) login node. 
+From a Kestrel-DAV FastX remote desktop session, you can omit the `ssh -Y kestrel.hpc.nrel.gov` above since your terminal in FastX will already be connected to a DAV (kd#) login node. 
 
 
 ## Requesting Interactive GPU Nodes
