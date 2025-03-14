@@ -1,6 +1,16 @@
+---
+layout: default
+title: Kestrel Parallel Python Jupyter
+parent: Python
+nav_order: 2
+has_children: true
+grand_parent: Programming Languages
+---
+
+
 # Interactive Parallel Python on Kestrel with Jupyter
 
-For a general introduction to using Jupyter notebooks on Kestrel, please refer to the [official documentation](https://nrel.github.io/HPC/Documentation/Development/Jupyter/). For quick low compute intensive jobs, please visit the [Kestrel JupyterHub](https://kestrel-jhub.hpc.nrel.gov/). This page conveys specific information on how to leverage parallel computing on NREL HPC systems with python through Jupyter notebooks. Accompanying notebooks to test if the environment and the allocation has been configured correctly are in the 'exampleNotebooks' folder.
+For a general introduction to using Jupyter notebooks on Kestrel, please refer to the [official documentation](https://nrel.github.io/HPC/Documentation/Development/Jupyter/). This page covers how to leverage parallel computing with python through Jupyter notebooks on compute nodes. Accompanying notebooks to test if the environment and the job have been configured correctly are under the topic 'Parallel Interactive Tutorials' on the main [Python](../index.md/#parallel-interactive-tutorials) page.
 
 ## Setting up your account
 
@@ -86,13 +96,16 @@ $ conda install matplotlib
 
 ## Launching jobs
 
-A general guide to allocating resources for running jobs on the Kestrel can be found in the [official documentation](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/). Below are example proceedures suitable for running jobs involving specific python modules, depending on their parallelisation capability. 
+A general guide to running jobs on Kestrel can be found in the [official documentation](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/). Below are example procedures suitable for running jobs involving specific python modules, depending on their parallelization capability.
 
-The text in red box shows an example of the output parameter `<nodename>` and the text in yellow box shows an example of the output parameter `<alphabet soup>`, relevant to the following tutorial.
+The text in the red box shows an example of the output parameter `<nodename>` and the text in the yellow box shows an example of the output parameter `<alphabet soup>`, relevant to the following tutorial.
 
-<img src="metadata/nodeName.png" alt="<nodename>" width="300"/>
+<!-- <img src="metadata/nodeName.png" alt="<nodename>" width="300"/>
 
-<img src="metadata/alphabetSoup.png" alt="<alphabet soup>" width="600"/>
+<img src="metadata/alphabetSoup.png" alt="<alphabet soup>" width="600"/> -->
+
+![<nodename>](metadata/nodeName.png "nodename"){width=400}
+![<alphabet soup>](metadata/alphabetSoup.png "alphabet soup")
 
 <!-- ![<alphabet soup>](metadata/alphabetSoup.png "<alphabet soup>") -->
 
