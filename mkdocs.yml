@@ -156,7 +156,7 @@ nav:
                - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
                - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
                - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
-             - Intel Parallel Studio:
+             - OneApi Tools:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
               #  - VTune : Documentation/Development/Performance_Tools/Intel/vtune.md
