@@ -11,11 +11,11 @@ There are two general types of compute nodes on Kestrel: CPU nodes and GPU nodes
 
 
 ### CPU Nodes
-Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.6TB NVMe local disk.
+Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.6TB NVMe local disk. Two racks of the CPU compute nodes have dual network interface cards (NICs) which may increase performance for certain types of multi-node jobs. 
 
 
 ### GPU Nodes
-Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with about 350G of usable RAM. The GPU nodes also have 3.4TB of NVMe local disk. 
+Kestrel has 156 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with 132 nodes having about 350G of usable RAM and 24 nodes having about 700G. The GPU nodes also have 3.4TB of NVMe local disk. 
 
 !!! warning
     You should use a [login node](../index.md) that matches the architecture of the compute nodes that your jobs will be running on for compiling software and submitting jobs. 
@@ -23,7 +23,7 @@ Kestrel has 132 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These 
 ### Using Node Local Storage
 
 
-The majority of CPU nodes do not have local disk storage, but there are 256 nodes with fast local NVMe drives for temporary storage by jobs with high disk I/O requirements. To request nodes with local disk, use the `--tmp` option in your job submission script (e.g. `--tmp=1600000`). When your job is allocated nodes with local disk, the storage may then be accessed inside the job by using the `$TMPDIR` environment variable as the path. Be aware that on nodes without local disk, writing to `$TMPDIR` will consume RAM, reducing the available memory for running processes.  
+The majority of CPU nodes do not have local disk storage, but there are 256 nodes with fast local NVMe drives for temporary storage by jobs with high disk I/O requirements. To request the standard CPU nodes with local disk, specify the `nvme` partition (`-p nvme` or `--partition=nvme`) in your job submission script. When your job is allocated nodes with local disk, the storage may then be accessed inside the job by using the `$TMPDIR` environment variable as the path. Be aware that on nodes without local disk, writing to `$TMPDIR` will consume RAM, reducing the available memory for running processes.  
 
 Note that all of the Bigmem and H100 GPU nodes have real local disk. 
 
@@ -39,12 +39,14 @@ The following table summarizes the partitions on Kestrel:
 
 | Partition Name | Description   | Limits | Placement Condition |
 | -------------- | ------------- | ------ | ------------------- | 
-| ```debug```    | Nodes dedicated to developing and <br> troubleshooting jobs. Debug nodes with each of the non-standard <br> hardware configurations are available. <br> The node-type distribution is: <br> - 2 bigmem nodes <br> - 2 nodes with 1.7 TB NVMe <br> - 4 standard nodes <br> - 2 GPU nodes (shared) <br> **10 total nodes** | - 1 job with a max of 2 nodes per user. <br> - 2 GPUs per user.<br> - 1/2 GPU node resources per user (Across 1-2 nodes). <br> - 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
+| ```debug```    | Nodes dedicated to developing <br> and troubleshooting jobs. Debug nodes with each of the non-standard hardware configurations are available. | - 1 job with a max of 2 nodes per user. <br> - 2 GPUs per user.<br> - 1/2 GPU node resources per user (Across 1-2 nodes). <br> - 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
 |```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2016 nodes total. <br> No limit per user. | ```--time <= 4:00:00```<br>```--mem <= 246064```<br> ```--tmp <= 1700000 (256 nodes)```| 
 | ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2106 nodes total. <br> 1050 nodes per user. | ```--mem <= 246064```<br> ```--tmp <= 1700000```|
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 525 nodes total.<br> 262 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 246064```<br>```--tmp <= 1700000  (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.6 TB NVMe local disk. | 8 nodes total.<br> 4 nodes per user. | ```--mem > 246064```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 3 nodes per user. | ```--mem > 246064```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
+|```hbw```    | CPU compute nodes with dual network interface cards. | 512 nodes total.<br> 256 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time <= 10-00``` <br> ```--nodes >= 2```| 
+|```nvme```    | CPU compute nodes with 1.7TB NVMe local drives. | 256 nodes total.<br> 128 nodes per user. | ```-p nvme``` <br>```--time <= 2-00```| 
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
 | ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
@@ -81,10 +83,24 @@ Currently, there are 64 standard compute nodes available in the shared partition
     srun ./my_progam # Use your application's commands here  
     ```
 
+### High Bandwidth Partition
+
+In December 2024, Kestrel had two racks of CPU nodes reconfigured with an extra network interface card, which can greatly benefit communication-bound HPC software.
+A NIC is a hardware component that enables inter-node (i.e., *network*) communication as multi-node jobs run. 
+On Kestrel, most CPU nodes include a single NIC. Although having one NIC per node is acceptable for the majority of workflows run on Kestrel, it can lead to communication congestion 
+when running multi-node applications that send significant amounts of data over Kestrel's network. When this issue is encountered, increasing the number of available NICs 
+can alleviate such congestion during runtime. Some common examples of communication-bound HPC software are AMRWind and [LAMMPS](../../../Applications/lammps.md).
+
+To request nodes with two NICs, specify `--partition=hbw` in your job submissions. Because the purpose of the high bandwidth nodes is to optimize communication in multi-node jobs, it is not permitted to submit single-node jobs to the `hbw` partition.
+If you would like assistance with determining whether your workflow could benefit from running in the `hbw` partition, please reach out to [HPC-Help@nrel.gov](mailto:HPC-Help).
+
+!!! info
+    We'll be continuing to update documentation with use cases and recommendations for the dual NIC nodes, including specific examples on the AMRWind page. 
+
 
 ### GPU Jobs
 
-Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and 350GB of useable RAM. All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
+Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and at least 350GB of useable RAM. 24 of the GPU nodes have about 700G of RAM. All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
 
 To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. All of the GPU memory for each GPU allocated will be available to the job (80 GB per GPU).
 
@@ -97,7 +113,7 @@ The GPU nodes also have 3.4 TB of local disk space. Note that other jobs running
 
 #### GPU Debug Jobs
 
-There are two shared GPU nodes available for debugging. To use them, specify `--partition=debug` in your job script. In addition to the limits for the `debug` partition, 1 job per user, up to 2 nodes per user, up to 1 hour of walltime, a single GPU job is also limited to half of a total GPU node's resources. This is equivalent to 64 CPU cores, 2 GPUs, and 180G of RAM, which can be spread across 1 or 2 nodes. Unlike the other GPU nodes, the GPU debug nodes can't be used exclusively, so the `--exclusive` flag can't be used for debug GPU jobs. 
+To run GPU debug jobs, specify `--partition=debug` in your job script. In addition to the limits for the `debug` partition, 1 job per user, up to 2 nodes per user, and up to 1 hour of walltime, a single GPU job is also limited to half of a total GPU node's resources. This is equivalent to 64 CPU cores, 2 GPUs, and 180G of RAM, which can be spread across 1 or 2 nodes. Unlike the other GPU nodes, the GPU debug nodes can't be used exclusively, so the `--exclusive` flag can't be used for debug GPU jobs. 
 
 ## Allocation Unit (AU) Charges
 
@@ -151,6 +167,9 @@ On shared nodes (nodes in the `shared` partition and GPU nodes), the value for `
     ```
 
 If a job requests the maximum amount of any resource type available on the node (CPUs, GPUs, RAM), it will be charged with the full charge factor (10 or 100).
+
+### aus_report Command Line Utility
+There is a CLI utility `aus_report` available on Kestrel to track your AU usage. This utility uses the data from [Lex](../../../Resource_Management_System/index.md) to output AU usage information on a per-allocation and per-user basis. Please refer to Lex in the case of an discrepancies. Run `aus_report --help` for more information. 
 
 ## Performance Recommendations
 

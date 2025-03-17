@@ -2,7 +2,7 @@
 
 *ParaView is an open-source, multi-platform data analysis and visualization application. ParaView users can quickly build visualizations to analyze their data using qualitative and quantitative techniques. The data exploration can be done interactively in 3D or programmatically using ParaView's batch processing capabilities. ParaView was developed to analyze extremely large data sets using distributed memory computing resources. It can be run on supercomputers to analyze data sets of terascale as well as on laptops for smaller data.*
 
-The following tutorials are meant for Eagle and Kestrel supercomputers. 
+The following tutorials are meant for Kestrel supercomputer. 
 
 
 ## Using ParaView in Client-Server Mode 
@@ -15,14 +15,14 @@ The first step is to install ParaView.
 It is recommended that you use the binaries provided by Kitware on your workstation matching the NREL installed version. 
 This ensures client-server compatibility. 
 The version number that you install must identically match the version installed at NREL. 
-To determine which version of ParaView is installed on the cluster, connect to Eagle or Kestrel as you normally would, load the ParaView module with `module load paraview`, then check the version with `pvserver --version`.  
+To determine which version of ParaView is installed on the cluster, connect to Kestrel as you normally would, load the ParaView module with `module load paraview`, then check the version with `pvserver --version`.  
 The version number, e.g., 5.11.0, will then be displayed to your terminal.  
 To download the correct ParaView client binary version for your desktop environment, visit the ParaView [website](https://www.paraview.org/download/).
 
 
 1. Reserve Compute Nodes
 
-    The first step is to reserve the computational resources on Eagle/Kestrel that will be running the ParaView server.
+    The first step is to reserve the computational resources on Kestrel that will be running the ParaView server.
     
     This requires using the Slurm `salloc` directive and specifying an allocation name and time limit for the reservation.
     
@@ -32,7 +32,7 @@ To download the correct ParaView client binary version for your desktop environm
     
     (Otherwise, for interactive jobs that just require one process on one node, the "salloc-then-srun" construct isn't necessary at all; for that type of job you may just use `srun -A <account> -t <time> --pty $SHELL` to land on a compute node and run your software as per normal, without needing an srun in front.)
     
-    To reserve the computational resources on Eagle/Kestrel:
+    To reserve the computational resources on Kestrel:
     
     ```bash
     salloc -A <alloc_name> -t <time_limit>
@@ -41,14 +41,14 @@ To download the correct ParaView client binary version for your desktop environm
     where `<alloc_name>` will be replaced with the allocation name you wish to charge your time to and `<time_limit>` is the amount of time you're reserving the nodes for. 
     At this point, you may want to copy the name of the node that the Slurm scheduler assigns you (it will look something like r1i0n10, r4i3n3, etc., and follow immediately after the "@" symbol at the command prompt ) as we'll need it in Step 3.
     
-    In the example above, we default to requesting only a single node which limits the maximum number of ParaView server processes we can launch to the maximum number of cores on a single Eagle node (on Eagle, this is 36) or Kestrel node (on Kestrel, this is 104).  
+    In the example above, we default to requesting only a single node which limits the maximum number of ParaView server processes we can launch to the maximum number of cores on a single Kestrel node (on Kestrel, this is 104).  
     If you intend to launch more ParaView server processes than this, you'll need to request multiple nodes with your `salloc` command.
     
     ```bash
     salloc -A <alloc_name> -t <time_limit> -N 2
     ```
     
-    where the `-N 2` option specifies that two nodes be reserved, which means the maximum number of ParaView servers that can be launched in Step 2 is 36 x 2 = 72 (Eagle) 104 x 2 = 208 (Kestrel).  
+    where the `-N 2` option specifies that two nodes be reserved, which means the maximum number of ParaView servers that can be launched in Step 2 is  104 x 2 = 208 (Kestrel).  
     Although this means you'll be granted multiple nodes with multiple names, the one to copy for Step 3 is still the one immediately following the "@" symbol.  
     See the table of recommended workload distributions in Step 2 for more insight regarding the number of nodes to request.
 
@@ -67,7 +67,7 @@ To download the correct ParaView client binary version for your desktop environm
     ```
     
     In this example, the ParaView server will be started on 8 processes.  
-    The `--force-offscreen-rendering` option is present to ensure that, where possible, CPU-intensive filters and rendering calculations will be performed server-side (i.e., on the Eagle/Kestrel compute nodes) and *not* on your local machine.  
+    The `--force-offscreen-rendering` option is present to ensure that, where possible, CPU-intensive filters and rendering calculations will be performed server-side (i.e., on the Kestrel compute nodes) and *not* on your local machine.  
     Remember that the maximum number of ParaView server processes that can be launched is limited by the amount of nodes reserved in Step 1.  
     Although every dataset may be different, ParaView offers the following recommendations for balancing grid cells to processors.
     
@@ -76,9 +76,9 @@ To download the correct ParaView client binary version for your desktop environm
     | Structured Data   | 5-10 M               | 20 M              |
     | Unstructured Data | 250-500 K            | 1 M               |
     
-    So for example, if you have data stored in an unstructured mesh with 6 M cells, you'd want to aim for between 12 and 24 ParaView server processes, which easily fits on a single Eagle or Kestrel node.  
-    If the number of unstructured mesh cells was instead around 60 M, you'd want to aim for 120 to 240 processes, which means requesting a minimum of 4 eagle nodes at the low end (36 x 4 = 144) or 2 Kestrel nodes.  
-    Note, this 4-node/2-nodes request may remain in the queue longer while the scheduler looks for resources, so depending on your needs, it may be necessary to factor queue times into your optimal cells-per-process calculation.
+    So for example, if you have data stored in an unstructured mesh with 6 M cells, you'd want to aim for between 12 and 24 ParaView server processes, which easily fits on a single Kestrel node.  
+    If the number of unstructured mesh cells was instead around 60 M, you'd want to aim for 120 to 240 processes, which means requesting a minimum of 2 Kestrel nodes.  
+    Note, this 2-nodes request may remain in the queue longer while the scheduler looks for resources, so depending on your needs, it may be necessary to factor queue times into your optimal cells-per-process calculation.
     
     Note: The `--server-port=<port>` option may be used with pvserver if you wish to use a port other than 11111 for Paraview. 
     You'll need to adjust the port in the SSH tunnel and tell your Paraview client which port to use, as well. 
@@ -87,16 +87,12 @@ To download the correct ParaView client binary version for your desktop environm
 3. Create SSH Tunnel
 
     Next, we'll create what's called an SSH tunnel to connect your local desktop to the compute node(s) you reserved in Step 1.  
-    This will allow your local installation of ParaView to interact with files stored remotely on Eagle/Kestrel.  
+    This will allow your local installation of ParaView to interact with files stored remotely on Kestrel.  
     **In a new terminal window**, execute the following line of code **on your own computer**:
     
     For Kestrel:
     ```bash
     ssh -L 11111:<node_name>:11111 <user_name>@kestrel.hpc.nrel.gov
-    ```
-    For Eagle:
-    ```bash
-    ssh -L 11111:<node_name>:11111 <user_name>@eagle.hpc.nrel.gov
     ```
     
     where `<node_name>` is the node name you copied in Step 1 and `<user_name>` is your HPC username.
@@ -104,7 +100,7 @@ To download the correct ParaView client binary version for your desktop environm
     Note that if you changed the default port to something other than 11111 (see the previous section) you'll need to change the port settings in your SSH tunnel, as well. 
     The SSH command construct above follows the format of `<local_port>:<node_name>:<remote_port>`. 
     The `<local_port>` is the "beginning" of the tunnel on your computer, and is often the same as the "end" port of the tunnel, though this is not required. 
-    You may set this to anything convenient to you, but you will need to tell your Paraview client the right port if you change it (see the next section for details.) <remote_port> is the port on the Eagle/Kestrel compute node where pvserver is running. 
+    You may set this to anything convenient to you, but you will need to tell your Paraview client the right port if you change it (see the next section for details.) <remote_port> is the port on the Kestrel compute node where pvserver is running. 
     The default for pvserver is 11111, but if you changed this with pvserver `--server-port=` flag, you'll need to change <remote_port> in your ssh command to match.
 
 4. Connect ParaView Client
@@ -115,7 +111,7 @@ To download the correct ParaView client binary version for your desktop environm
     
     | Name        | Value         |
     |-------------|---------------|
-    | Name        | Eagle HPC or Kestrel HPC   |
+    | Name        | Kestrel HPC   |
     | Server Type | Client/Server |
     | Host        | localhost     |
     | Port        | 11111         |
@@ -127,7 +123,7 @@ To download the correct ParaView client binary version for your desktop environm
     When finished, select the server just created and click "Connect".  
     The simplest way to confirm that the ParaView server is running as expected is to view the Memory Inspector toolbar (`View > Memory Inspector`) where you should see a ParaView server for each process started in Step 2 (e.g., if `-n 8` was specified, processes `0-7` should be visible).
     
-    That's it!  You can now `File > Open` your data files as you normally would, but instead of your local hard drive you'll be presented with a list of the files stored on Eagle or Kestrel.
+    That's it!  You can now `File > Open` your data files as you normally would, but instead of your local hard drive you'll be presented with a list of the files stored on Kestrel.
 
 ### General Tips
 
@@ -142,17 +138,13 @@ To download the correct ParaView client binary version for your desktop environm
 
 ## High-quality Rendering With ParaView 
 
-How to use ParaView in batch mode to generate single frames and animations on Eagle/Kestrel
+How to use ParaView in batch mode to generate single frames and animations on Kestrel
 
 ![](../../images/paraview.png)
 
 ###  Building PvBatch Scripts in Interactive Environments
 
-1.  Begin by connecting to an Eagle or Kestrel login node:
-
-        ssh {username}@eagle.hpc.nrel.gov 
-
-        or
+1.  Begin by connecting to a Kestrel login node:
 
         ssh {username}@kestrel.hpc.nrel.gov 
 

@@ -1,8 +1,6 @@
-# Intel Parallel Studio
+# Intel Performance tools
 
-*Intel Parallel Studio is a set of tools that enable developing and optimizing software for the latest processor architectures.*
-
-Some of the tools available as part of the Intel Parallel Studio include:
+*Intel Performance tools are a set of software that enable developing and optimizing software for the latest processor architectures.*
 
 ??? example "Intel VTune Amplifier XE"
 	
@@ -25,9 +23,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 	# completes. 
 	export TMPDIR=/scratch/$USER/tmp
 	# load application specific modules
-	module load comp-intel
-	# Setup the environment to use parallel studio
-	. /nopt/nrel/apps/compilers/intel/2019.5/parallel_studio_xe_2019/psxevars.sh
+	module load intel-oneapi-vtune
 	# profile the executable
 	amplxe-cl --collect hpc-performance ./executable.exe
 	```
@@ -57,10 +53,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 	export TMPDIR=/scratch/$USER/tmp
 	
 	# load application specific modules
-	module load comp-intel
-	# Setup the environment to use parallel studio and load the Intel MPI module
-	module load intel-mpi
-	. /nopt/nrel/apps/compilers/intel/2019.5/parallel_studio_xe_2019/psxevars.sh
+	module load intel-oneapi-trace
 	
 	# to profile the executable, just append '-trace' to mpirun
 	mpirun -trace -n 4 ./executable.exe
@@ -79,9 +72,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 	
 	```bash
 	# load application specific modules
-	module load comp-intel
-	# Setup the environment to use parallel studio
-	. /nopt/nrel/apps/compilers/intel/2019.5/parallel_studio_xe_2019/psxevars.sh
+	module load intel-oneapi-advisor
 	
 	# set your tmpdir, and don't forget to clean it after your job
 	# completes.
@@ -102,9 +93,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 	
 	```bash
 	# load application specific modules
-	module load comp-intel
-	# Setup the environment to use parallel studio
-	. /nopt/nrel/apps/compilers/intel/2019.5/parallel_studio_xe_2019/psxevars.sh
+	module load intel-oneapi-inspector
 	
 	# set your tmpdir, and don't forget to clean it after your job
 	# completes.
@@ -127,9 +116,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 	
 	```bash
 	# load application specific modules
-	module load comp-intel
-	# Setup the environment to use parallel studio
-	. /nopt/nrel/apps/compilers/intel/2019.5/parallel_studio_xe_2019/psxevars.sh
+	module load intel-oneapi-vtune
 	
 	# serial/SMP executable
 	$ aps <executable> # this generates an aps result directory
@@ -142,8 +129,7 @@ Some of the tools available as part of the Intel Parallel Studio include:
 
 **Before you begin, please make sure that your application is compiled with the debug flag (-g), to enable profiling and debugging.**
 
-When using the suite of tools from Intel Parallel Studio on Eagle, we recommend that you set your `TMPDIR` to point to a location in your `SCRATCH` directory:
-
+When using the suite of tools from Intel Performance packages on Kestrel, we recommend that you set your `TMPDIR` to point to a location in your `SCRATCH` directory:
 `export TMPDIR=/scratch/$USER/tmp`
 
 !!! tip "Important:"

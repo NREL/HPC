@@ -14,6 +14,8 @@ nav:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
       - Help and Support: Documentation/help.md
+      - Allocation Management System:
+        - Documentation/Resource_Management_System/index.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
         - Kestrel: 
@@ -74,8 +76,10 @@ nav:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
           - Documentation/Applications/index.md
+          - AlphaFold:  Documentation/Applications/alphafold.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - AMR-Wind:  Documentation/Applications/amrwind.md
+          - Chemical Kinetics: Documentation/Applications/chemicalKinetics.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
           - GAMS:       Documentation/Applications/gams.md
@@ -84,6 +88,7 @@ nav:
           - IDAES Solvers : Documentation/Applications/idaes_solvers.md
           - IPOPT:      Documentation/Applications/ipopt.md
           - LAMMPS:     Documentation/Applications/lammps.md
+          - MACE:     Documentation/Applications/mace.md
           - MATLAB:
             - Documentation/Applications/Matlab/index.md
             - Batch Mode: Documentation/Applications/Matlab/batch.md

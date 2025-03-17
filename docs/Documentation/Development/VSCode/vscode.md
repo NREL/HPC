@@ -16,6 +16,18 @@ You may then enter your HPC username and the address of an HPC system to connect
 
 Enter your HPC password (or password and OTP code if external) and you will be connected to a login node. You may open a folder on the remote host to browse your home directory and select files to edit, and so on.
 
+!!! bug "VS Code Remote-SSH Bug"
+    If you are no longer able to connect to Kestrel with VS Code, in your settings for the Remote-SSH extension set "Use Exec Server" to False by unchecking the box. This issue is due to a VS Code bug in an update to the Remote-SSH plugin or VS code itself. 
+
+!!! bug "Windows SSH "Corrupted MAC on input" Error"
+    Some people who use Windows 10/11 computers to ssh to Kestrel via Visual Studio Code's SSH extension might receive an error message about a "Corrupted MAC on input" or "message authentication code incorrect." To workaround this issue, you will need to create an ssh config file on your local computer, `~/.ssh/config`, with a host entry for Kestrel that specifies a new message authentication code:
+    ```
+    Host kestrel
+        HostName kestrel.hpc.nrel.gov
+        MACs hmac-sha2-512
+    ```
+    This [Visual Studio Blog post](https://code.visualstudio.com/blogs/2019/10/03/remote-ssh-tips-and-tricks) has further instructions on how to create the ssh configuration file for Windows and VS Code.
+
 ## Caution About VS Code Processes
 
 Please be aware that the Remote SSH extension runs processes on the remote host. This includes any extensions or helpers, include language parsers, code analyzers, AI code assistants, and so on. These extensions can take up a _considerable_ amount of CPU and RAM on any remote host that VS Code connects to. Jupyter notebooks loaded through VS Code will also be executed on the remote host and can use excessive CPU and RAM, as well. When the remote host is a shared login node on an HPC system, this can be a considerable drain on the resources of the login node, and cause system slowdowns for all users of that login node. 
@@ -47,7 +59,7 @@ We will now create a host entry in your local ssh config file to make connecting
 Use the remote-ssh command to edit your VS Code ssh config file (~/.ssh/config). Add the following:
 
 ```
-Host x?00?c*
+Host x????c*
     ProxyJump <username>@kestrel.hpc.nrel.gov
 ```
 
