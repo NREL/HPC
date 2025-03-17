@@ -51,7 +51,6 @@ Non-default locations of this file may be set through the `OMPI_TMPDIR` environm
 |openmpi/5.0.1-gcc  (CPU)  |||
 |openmpi/5.0.3-gcc  (CPU)  ||| 
 |openmpi/4.1.6-gcc (GPU)   |||
-|                          |||
 
 ## IntelMPI
 **Documentation:** [IntelMPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html)
@@ -130,8 +129,7 @@ An example batch script to run 4 MPI ranks across two nodes is as follows.
      #SBATCH --error=%x-%j.err
      #SBATCH --output=%x-%j.out
      
-     ml use -a /nopt/nrel/apps/modules/test/modulefiles
-     ml gcc/8.4.0 cuda/10.2.89 openmpi/4.0.4/gcc+cuda
+     ml gcc cuda openmpi
      
      cd $SLURM_SUBMIT_DIR
      srun ./jacobi
