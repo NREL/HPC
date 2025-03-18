@@ -10,7 +10,7 @@ grand_parent: Programming Languages
 
 # Interactive Parallel Python on Kestrel with Jupyter
 
-For a general introduction to using Jupyter notebooks on Kestrel, please refer to the [official documentation](https://nrel.github.io/HPC/Documentation/Development/Jupyter/). This page covers how to leverage parallel computing with python through Jupyter notebooks on compute nodes. Accompanying notebooks to test if the environment and the job have been configured correctly are under the topic 'Parallel Interactive Tutorials' on the main [Python](../index.md/#parallel-interactive-tutorials) page.
+For a general introduction to using Jupyter notebooks on Kestrel, please refer to the [official documentation](../../../Jupyter/index.md). This page covers how to leverage parallel computing with python through Jupyter notebooks on compute nodes. Accompanying notebooks to test if the environment and the job have been configured correctly are under the topic 'Parallel Interactive Tutorials' on the main [Python](../index.md/#parallel-interactive-tutorials) page.
 
 ## Setting up your account
 
