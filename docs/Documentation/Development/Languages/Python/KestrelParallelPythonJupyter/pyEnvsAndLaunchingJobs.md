@@ -96,7 +96,7 @@ $ conda install matplotlib
 
 ## Launching jobs
 
-A general guide to running jobs on Kestrel can be found in the [official documentation](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/). Below are example procedures suitable for running jobs involving specific python modules, depending on their parallelization capability.
+A general guide to running jobs on Kestrel can be found in the [official documentation](../../../../Systems/Kestrel/Running/index.md). Below are example procedures suitable for running jobs involving specific python modules, depending on their parallelization capability.
 
 The text in the red box shows an example of the output parameter `<nodename>` and the text in the yellow box shows an example of the output parameter `<alphabet soup>`, relevant to the following tutorial.
 
