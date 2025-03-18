@@ -158,7 +158,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
 
 ### Multi node capable job. E.g. mpi4py through ipyparallel 
 
-1. Kestrel: Launch a multi node interactive job
+1. Kestrel: Launch a multinode interactive job
     ```
     $ salloc -A <projectname> -t 00:15:00 --nodes=2 --ntasks-per-node=1 --partition=short
     $ module load anaconda3/2024.06.1
