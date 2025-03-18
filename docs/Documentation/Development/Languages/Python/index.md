@@ -13,7 +13,7 @@ parent: Programming Languages
 * [Jupyter notebooks](../../Jupyter/index.md): Run interactive notebooks
 
 ## Parallel Interactive Tutorials
-Tutorials for utilizing Kestrel for parallel interactive python scripts.
+Tutorials for parallel computing with python through Jupyter notebooks
 
 * [Setting up modules and allocating compute resources for parallel jobs](./KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md)
 * Example jupyter notebooks to download and test:
