@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Kestrel Parallel Python Jupyter
+title: Parallel Python with Jupyter
 parent: Python
 nav_order: 2
 has_children: true
