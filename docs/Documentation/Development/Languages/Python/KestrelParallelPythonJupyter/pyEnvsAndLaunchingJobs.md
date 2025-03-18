@@ -135,7 +135,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
 
 ### Multi thread capable modules: E.g. Dask
 
-1. Kestrel: Launch a multi thread interactive job
+1. Kestrel: Launch a multithread interactive job
     ```
     $ salloc -A <projectname> -t 00:15:00 --nodes=1 --ntasks-per-node=104 --partition=debug
     $ module load anaconda3/2024.06.1
