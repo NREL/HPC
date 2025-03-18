@@ -42,7 +42,7 @@ $ conda create --prefix ./myEnv
 
 Activate your new environment
 ```
-$ conda activate /kfs2/projects/projectname/<username>/myEnv
+$ conda activate /kfs2/projects/<projectname>/<username>/myEnv
 # (or) From the same directory
 $ conda activate ./myEnv
 ```
