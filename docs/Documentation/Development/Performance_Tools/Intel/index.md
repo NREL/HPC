@@ -1,6 +1,6 @@
-# Intel Performance tools
+# oneAPI
 
-*Intel Performance tools are a set of software that enable developing and optimizing software for the latest processor architectures.*
+*oneAPI tools are a set of software that enable developing and optimizing software for the latest processor architectures.*
 
 ??? example "Intel VTune Amplifier XE"
 	
@@ -129,7 +129,7 @@
 
 **Before you begin, please make sure that your application is compiled with the debug flag (-g), to enable profiling and debugging.**
 
-When using the suite of tools from Intel Performance packages on Kestrel, we recommend that you set your `TMPDIR` to point to a location in your `SCRATCH` directory:
+When using the suite of tools from oneAPI on Kestrel, we recommend that you set your `TMPDIR` to point to a location in your `SCRATCH` directory:
 `export TMPDIR=/scratch/$USER/tmp`
 
 !!! tip "Important:"
