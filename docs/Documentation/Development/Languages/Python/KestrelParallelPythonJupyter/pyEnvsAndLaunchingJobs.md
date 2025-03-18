@@ -156,7 +156,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
     File > New > Notebook > myEnvJupyter
 
 
-### Multi node capable job. E.g. mpi4py through ipyparallel 
+### Multinode capable job. E.g. mpi4py through ipyparallel 
 
 1. Kestrel: Launch a multinode interactive job
     ```
