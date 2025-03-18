@@ -179,7 +179,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
     File > New > Notebook > myEnvJupyter
 
 
-### GPU + multi node jobs. E.g. CuPy + mpi4py through ipyparallel
+### GPU + multinode jobs. E.g. CuPy + mpi4py through ipyparallel
 
 1. Kestrel: Launch an interactive job
     ```
