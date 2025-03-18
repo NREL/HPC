@@ -19,7 +19,7 @@ Login to Kestrel
 $ ssh -X <username>@kestrel-gpu.hpc.nrel.gov
 ```
 
-Navigate to you project directory
+Navigate to your /projects directory
 ```
 $ cd /projects/<projectname>/<username>/
 ```
