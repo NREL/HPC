@@ -133,7 +133,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
     File > New > Notebook > myEnvJupyter
 
 
-### Multi thread capable modules: E.g. Dask
+### Multithread capable modules: E.g. Dask
 
 1. Kestrel: Launch a multithread interactive job
     ```
