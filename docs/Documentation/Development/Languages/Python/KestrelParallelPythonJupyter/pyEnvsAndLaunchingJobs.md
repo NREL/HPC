@@ -57,7 +57,7 @@ $ python -m ipykernel install --user --name=myEnvJupyter
 ```
 $ ln -s /scratch/<username>/ scratch
 ```
-The above command will create a symbolic link to the `scratch` folder, which can be navigated to from Jupyter hub to access files in your scratch directory.
+The above command will create a symbolic link to the `scratch` folder, which can be navigated to from JupyterHub to access files in your scratch directory.
 
 ## Install packages
 
