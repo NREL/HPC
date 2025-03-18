@@ -24,7 +24,7 @@ Navigate to your /projects directory
 $ cd /projects/<projectname>/<username>/
 ```
 
-Load nvidia hpc programming environment
+Load the Nvidia HPC programming environment
 ```
 $ module load PrgEnv-nvhpc/8.5.0
 ```
