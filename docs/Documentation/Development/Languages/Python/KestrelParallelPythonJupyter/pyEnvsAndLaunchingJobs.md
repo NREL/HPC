@@ -53,7 +53,7 @@ $ conda install ipykernel
 $ python -m ipykernel install --user --name=myEnvJupyter
 ```
 
-(Optional) To access your `scratch` directory from your project directory, execute the following in your project directory
+(Optional) To access your `/scratch` directory from your `/projects` directory, execute the following in your project directory
 ```
 $ ln -s /scratch/<username>/ scratch
 ```
