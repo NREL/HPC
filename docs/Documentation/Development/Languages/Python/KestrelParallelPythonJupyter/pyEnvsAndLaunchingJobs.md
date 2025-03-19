@@ -132,6 +132,9 @@ The text in the red box shows an example of the output parameter `<nodename>` an
 
     File > New > Notebook > myEnvJupyter
 
+[Jupyter test notebook for CuPy](./exampleNotebooks/cupyOnly.ipynb)
+
+[Jupyter test notebook for numba-cuda](./exampleNotebooks/numbaCUDA.ipynb)
 
 ### Multithread capable modules: E.g. Dask
 
@@ -155,6 +158,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
 
     File > New > Notebook > myEnvJupyter
 
+[Jupyter test notebook for dask](./exampleNotebooks/dask.ipynb)
 
 ### Multinode capable job. E.g. mpi4py through ipyparallel 
 
@@ -178,6 +182,7 @@ The text in the red box shows an example of the output parameter `<nodename>` an
 
     File > New > Notebook > myEnvJupyter
 
+[Jupyter test notebook for mpi4py](./exampleNotebooks/cupyAndIpyparallel.ipynb)
 
 ### GPU + multinode jobs. E.g. CuPy + mpi4py through ipyparallel
 
@@ -200,6 +205,8 @@ The text in the red box shows an example of the output parameter `<nodename>` an
     ```
 
     File > New > Notebook > myEnvJupyter
+
+[Jupyter test notebook for CuPy + mpi4py](./exampleNotebooks/cupyAndIpyparallel.ipynb)
 
 ###
 
