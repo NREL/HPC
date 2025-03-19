@@ -17,7 +17,7 @@ These are the module you will need for compiles:
 ```
 module load  intel-oneapi-compilers 
 module load intel-oneapi-mpi        
-module load gcc/13.1.0                     
+module load gcc                     
 ```
 
 Intel compilers use some gcc functionality so  we load gcc to give a newer version of that compiler.
