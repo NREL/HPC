@@ -100,4 +100,4 @@ FAST.Farm is OpenMP-capable, but still runs within a node. Its execution is simi
     FAST.Farm <your_fastfarm_input_file>.fstf
 ```
 
-FAST.Farm input deck can become complex depending on your simulation model. FAST.Farm users are encouraged to use accompaining toolbox for case setup available [here](https://github.com/OpenFAST/openfast_toolbox/tree/main/openfast_toolbox/fastfarm).
+FAST.Farm input deck can become complex depending on your simulation model. FAST.Farm users are encouraged to use accompanying toolbox for case setup available [here](https://github.com/OpenFAST/openfast_toolbox/tree/main/openfast_toolbox/fastfarm).
