@@ -62,7 +62,8 @@ We can compile with the extra flag.
 mpiicc -diag-disable=10441 -O3 -g -fopenmp  ex1.c   -o gex_c
 ```
 
-#### 2b. Older compiler (icc) might not be avialable
+#### 2b. Older compiler (icc) might not be available
+
 
 Depending on the version of compilers loaded the message shown above might be replaced with one saying that the icx is no longer available.  In this case you **MUST** use icx.  There are two ways to do that shown below.  
 
