@@ -36,7 +36,7 @@ If coupling to OpenFAST is needed, add `openfast` to the `quick-create-dev` call
 quick-create-dev -n amr-wind-env -s amr-wind+netcdf+hdf5+openfast+tiny_profile@3.4.0
 ```
 
-Additional details and troubleshooing information are available on their documentation, available [here](https://exawind.github.io/amr-wind/walkthrough/compiling.html).
+Additional details and troubleshooting information are available on their documentation, available [here](https://exawind.github.io/amr-wind/walkthrough/compiling.html).
 
 
 
