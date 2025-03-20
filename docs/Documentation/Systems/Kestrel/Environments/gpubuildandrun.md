@@ -1,6 +1,8 @@
 # Building and Running on Kestrel's H100 GPU nodes.
 This page describes how to build and run on Kestrel's GPU nodes using several programming paradigms.  There are pure Cuda programs, Cuda aware MPI programs, MPI programs without Cuda, MPI programs with Cuda, MPI programs with Openacc, and pure Openacc programs. 
 
+
+
 The examples are contained in a tarball available on Kestrel via the command:
 
 ```bash
@@ -20,6 +22,42 @@ cd h100
 sbatch --account=MYACCOUNT script
 ```
 where you need to provide your account name.  This will run in about 22 minutes using 2 GPU nodes.  Some of the examples require 2 nodes but most will run on a single node.
+
+## Note about gcc/gfortran
+
+Almost all compiling/running on a linux system will at some point reference or in some way use some portion of the GNU (gcc/gfortran/linker) system.  Kestrel has many versions of gcc.  These fall into three categories:
+
+* Native to the Operating system
+* Built by Cray
+* Built by NREL
+
+You will also see modules for "mixed" versions.  These are just duplicates of others and should not be loaded.
+
+Here are some of the options:  
+
+#### module load  gcc-native/12.1
+* which gcc
+	* /opt/rh/gcc-toolset-12/root/usr/bin/gcc
+* Native to the operating system
+
+#### module load gcc/12.2.0
+* which gcc
+	* /opt/cray/pe/gcc/12.2.0/bin/gcc
+* Built by the vendor
+
+#### module load gcc-standalone/13.1.0
+* which gcc
+	* /nopt/nrel/apps/gpu_stack/compilers/03-24/.../gcc-13.1.0.../bin/gcc
+* Built by NREL
+
+#### module load gcc-standalone/12.3.0 
+* which gcc
+	* /nopt/nrel/apps/cpu_stack/compilers/06-24/.../gcc-12.3.0.../bin/gcc
+* Built by NREL
+ 
+
+
+
 
 ## Helper files
 
@@ -170,6 +208,11 @@ export doits="./cudalib/factor/doit ./cudalib/fft/doit ./mpi/cudaaware/doit"
 
 
 
+  
+
+
+
+
 ## The script
 
 Our script, shown below does the following:
@@ -195,7 +238,12 @@ Our script, shown below does the following:
 	#SBATCH --output=output-%j.out
 	#SBATCH --error=infor-%j.out
 	
+	func () { typeset -f $1 || alias $1; }
+	func module > module.$SLURM_JOB_ID
 	
+	# we "overload" srun here to not allow any one subjob has 
+	# a problem and to runs too long.  this should not happen.
+	alias srun="/nopt/slurm/current/bin/srun --time=00:05:00 $@"
 	if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; then : ; else echo Run script from a GPU node; exit ; fi
 	# a simple timer
 	dt ()
@@ -213,7 +261,7 @@ Our script, shown below does the following:
 	cat $0 > script-$SLURM_JOB_ID.out
 	
 	#runs script to put our restore function in our environment
-	. /nopt/nrel/apps/env.sh
+	. whack.sh
 	module_restore
 	
 	#some possible values for gcc module
@@ -239,13 +287,12 @@ Our script, shown below does the following:
 	t1=`dt`
 	for x in $doits ; do
 	 dir=`dirname $x`
-	 echo ++++++++ $dir >&2 
-	 echo ++++++++
+	 echo ++++++++ $dir | tee >(cat 1>&2)
 	 echo $dir
 	 cd $dir
 	 tbegin=`dt`
 	 . doit | tee  $SLURM_JOB_ID
-	 echo Runtime `dt $tbegin` $dir `dt $t1` total
+	 echo Runtime `dt $tbegin` $dir `dt $t1` total | tee >(cat 1>&2)
 	 cd $startdir
 	done
 	echo FINISHED `dt $t1`
@@ -254,53 +301,53 @@ Our script, shown below does the following:
 	mkdir -p /scratch/$USER/gputest/$SLURM_JOB_ID
 	cp *out  /scratch/$USER/gputest/$SLURM_JOB_ID
 	# . cleanup
-	
-	```
-
-
-## cuda/cray
-Here we build and run a single GPU code stream.cu.  This code is a standard benchmark that measures the floating point performance for a GPU.
-
-In this case we are loading PrgEnv-nvhpc/8.4.0 which requires cray-libsci/23.05.1.4.  We compile with the "wrapper" compiler CC which, in this case builds with NVIDIA's backend compiler.  CC would "pull in" Cray's MPI it it was required.
-
-We run on each GPU of each Node in our allocation.
-
-??? example "cuda/cray"
-	```bash
-	: Start from a known module state, the default
-	module_restore
-	
-	: Load modules
-	#module unload PrgEnv-cray/8.5.0
-	#module unload nvhpc/24.1
+		
+		```
 	
 	
-	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-	ml PrgEnv-nvhpc/8.4.0
-	ml cray-libsci/23.05.1.4
-	ml binutils
-	: << ++++ 
-	 Compile our program
-	 CC as well as cc, and ftn are wrapper compilers. Because
-	 we have PrgEnv-nvidia loaded they map to Nvidia's compilers
-	 but use would use Cray MPI if this was an MPI program.
-	 Note we can also use nvcc since this is not an MPI program.
-	++++
+	## cuda/cray
+	Here we build and run a single GPU code stream.cu.  This code is a standard benchmark that measures the floating point performance for a GPU.
 	
-	rm -rf ./stream.sm_90
-	CC -gpu=cc90  -cuda -target-accel=nvidia90  stream.cu  -o stream.sm_90
-	# nvcc -std=c++11 -ccbin=g++ stream.cu -arch=sm_90 -o stream.sm_90
+	In this case we are loading PrgEnv-nvhpc/8.4.0 which requires cray-libsci/23.05.1.4.  We compile with the "wrapper" compiler CC which, in this case builds with NVIDIA's backend compiler.  CC would "pull in" Cray's MPI it it was required.
 	
-	: Run on all of our nodes
-	nlist=`scontrol show hostnames | sort -u`
-	for l in $nlist ; do   
-	  echo $l
-	  for GPU in 0 1 2 3 ; do
-	: stream.cu will read the GPU on which to run from the command line
-		  srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
-	  done
-	  echo
-	done
+	We run on each GPU of each Node in our allocation.
+	
+	??? example "cuda/cray"
+		```bash
+		: Start from a known module state, the default
+		module_restore
+		
+		: Load modules
+		#module unload PrgEnv-cray/8.5.0
+		#module unload nvhpc/24.1
+		
+		
+		if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+		ml PrgEnv-nvhpc/8.4.0
+		ml cray-libsci/23.05.1.4
+		ml binutils
+		: << ++++ 
+		 Compile our program
+		 CC as well as cc, and ftn are wrapper compilers. Because
+		 we have PrgEnv-nvidia loaded they map to Nvidia's compilers
+		 but use would use Cray MPI if this was an MPI program.
+		 Note we can also use nvcc since this is not an MPI program.
+		++++
+		
+		rm -rf ./stream.sm_90
+		CC -gpu=cc90  -cuda -target-accel=nvidia90  stream.cu  -o stream.sm_90
+		# nvcc -std=c++11 -ccbin=g++ stream.cu -arch=sm_90 -o stream.sm_90
+		
+		: Run on all of our nodes
+		nlist=`scontrol show hostnames | sort -u`
+		for l in $nlist ; do   
+		  echo $l
+		  for GPU in 0 1 2 3 ; do
+		: stream.cu will read the GPU on which to run from the command line
+			  srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
+		  done
+		  echo
+		done
 	```
 
 ## cuda/gccalso

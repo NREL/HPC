@@ -2822,7 +2822,6 @@ end
 
 ## References
 - [http://www.fortran.com/fortran/](http://www.fortran.com/fortran/) Pointer to everything Fortran
-- [http://meteora.ucsd.edu/~pierce/fxdr_home_page.html](http://meteora.ucsd.edu/~pierce/fxdr_home_page.html) Subroutines to do unformatted I/O across platforms, provided by David Pierce at UCSD
 - [http://www.nsc.liu.se/~boein/f77to90/a5.html](http://www.nsc.liu.se/~boein/f77to90/a5.html) A good reference for intrinsic functions
 - [https://wg5-fortran.org/N1551-N1600/N1579.pdf](https://wg5-fortran.org/N1551-N1600/N1579.pdf)New Features of Fortran 2003
 - [https://wg5-fortran.org/N1701-N1750/N1729.pdf](https://wg5-fortran.org/N1701-N1750/N1729.pdf)New Features of Fortran 2008
@@ -2830,8 +2829,6 @@ end
 - <b>Fortran 90 Handbook Complete ANSI/ISO Reference</b>. Jeanne Adams, Walt Brainerd, Jeanne Martin, Brian Smith, Jerrold Wagener
 - <b>Fortran 90 Programming</b>. T. Ellis, Ivor Philips, Thomas Lahey
 - [https://github.com/llvm/llvm-project/blob/master/flang/docs/FortranForCProgrammers.md](https://github.com/llvm/llvm-project/blob/master/flang/docs/FortranForCProgrammers.md)
-- [FFT stuff](../mkl/)
-- [Fortran 95 and beyond](../95/)
 
 <!-- 
 - [French Translation provided by Mary Orban](http://www.pkwteile.ch/science/avancee-fortran-90/)
