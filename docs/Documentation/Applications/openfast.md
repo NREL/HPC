@@ -52,5 +52,52 @@ You can clone your desired verstion of OpenFAST from [here](https://github.com/O
 
 ## Running OpenFAST
 
+OpenFAST is a serial tool and can be executed by simply calling it directly
+??? example "Sample job script: Running OpenFAST on a dedicated node"
+```
+    #!/bin/bash
+
+    #SBATCH --account=<user-account> # Replace with your HPC account
+    #SBATCH --time=01:00:00
+    #SBATCH –-nodes=1
+    #SBATCH --partition=shared
+
+    module purge
+    module load PrgEnv-intel/8.5.0
+    module load intel-oneapi-mkl/2024.0.0-intel
+    module load intel-oneapi
+    module load binutils
+    module load hdf5/1.14.3-intel-oneapi-mpi-intel
+
+    openfast <your_turbine_input_file>.fst
+```
+
+Examples of turbine models are available in the regression tests repository, [here](https://github.com/OpenFAST/r-test/).
+
+!!! Note
+    OpenFAST input files change from one version to another. If you build a certain version, ensure your input files (or exemples from the regression tests repository linked above) are compatible with your version.
+
+
 ## Running FAST.Farm
 
+FAST.Farm is OpenMP-capable, but still runs within a node. Its execution is similar to OpenFAST.
+
+??? example "Sample job script: Running FAST.Farm on a dedicated node"
+```
+    #!/bin/bash
+
+    #SBATCH --account=<user-account> # Replace with your HPC account
+    #SBATCH --time=01:00:00
+    #SBATCH –-nodes=1
+
+    module purge
+    module load PrgEnv-intel/8.5.0
+    module load intel-oneapi-mkl/2024.0.0-intel
+    module load intel-oneapi
+    module load binutils
+    module load hdf5/1.14.3-intel-oneapi-mpi-intel
+
+    FAST.Farm <your_fastfarm_input_file>.fstf
+```
+
+FAST.Farm input deck can become complex depending on your simulation model. FAST.Farm users are encouraged to use accompaining toolbox for case setup available [here](https://github.com/OpenFAST/openfast_toolbox/tree/main/openfast_toolbox/fastfarm).
