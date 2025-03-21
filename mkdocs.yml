@@ -122,6 +122,7 @@ nav:
                - Advanced: Documentation/Development/Languages/Fortran/f90_advanced.md
              - Python:
                   - Documentation/Development/Languages/Python/index.md
+                  - Documentation/Development/Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
