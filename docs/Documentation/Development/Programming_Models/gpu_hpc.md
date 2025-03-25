@@ -10,7 +10,7 @@ The following examples are generic templates that NREL HPC users can adapt for t
     When launching a GPU job on Kestrel, be sure to do so from [one of its dedicated GPU login nodes](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/#accessing-kestrel).
 
 !!! note
-    Be aware that `--mem` in Slurm ALWAYS refers to CPU, not GPU, memory. You are automatically given all of the GPU memory in a Slurm job.
+    Be aware that `--mem` in Slurm ALWAYS refers to CPU, not GPU, memory. You are automatically given all of the per-device GPU memory in a Slurm job.
 
 ??? example "Kestrel"
     ```bash
@@ -61,6 +61,53 @@ The following examples are generic templates that NREL HPC users can adapt for t
     # with `#SBATCH --gpus=1` or `#SBATCH --gres=gpu:1`.
     <GPU-enabled code to run>
     ```
+
+### Checking the GPU device(s)
+
+On Kestrel, Swift, and Vermilion, you can use the `nvidia-smi` utility to query various aspects of the GPU device(s) as your job runs. It is a helpful tool to quickly determine whether your code is exercising the GPU itself. Note that although `nvidia-smi` is a single-node application, it will return information on every GPU device available on the node from which it is launched (i.e., up to 4 devices on Kestrel or Swift).
+
+To illustrate how to use this utility, suppose you (`HPC-USER`) want to interactively run a Python script named `gpu_code.py` you wrote out of your /scratch directory on Kestrel that does some calculations on a single GPU device from a custom [conda/mamba environment](../../Environment/Customization/conda.md) (`my-cuda-env`). As the example code chunks below demonstrate, you can submit an interactive debug job with a GPU device attached, launch the script, and then query the GPU hardware utilization in a separate terminal session connected to that compute node. 
+
+First, request an interactive job, activate your environment, and launch the Python script:
+
+```
+[HPC-USER@kl5 ~] GPU $ salloc -A <allocation> -p debug -t 01:00:00 --gpus=1 --mem=80G -n 1 -N 1
+[HPC-USER@x3100c0s21b0n0 ~] GPU $ ml mamba && conda activate my-cuda-env
+(my-cuda-env) [HPC-USER@x3100c0s21b0n0 HPC-USER] GPU $ cd /scratch/HPC-USER
+(my-cuda-env) [HPC-USER@x3100c0s21b0n0 HPC-USER] GPU $ python gpu_code.py
+```
+
+From there, launch a new terminal session, connect to Kestrel, and `ssh` into the node on which your interactive job is running. Launching the `nvidia-smi` command reveals useful information such as the GPU device core and memory utilization at that point in time. In this example, the process `python` (which launched `gpu_code.py`) is at 100% GPU core utilization (under `Volatile GPU-Util`) and is using ~23GB of GPU memory (reported in the bottom right corner):
+
+```
+[HPC-USER@kl5 ~] GPU $ ssh x3100c0s21b0n0
+[HPC-USER@x3100c0s21b0n0 ~] GPU $ nvidia-smi
+Mon Mar 24 16:42:36 2025
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.54.15              Driver Version: 550.54.15      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 80GB HBM3          On  |   00000000:04:00.0 Off |                    0 |
+| N/A   43C    P0            158W /  699W |   34866MiB /  81559MiB |    100%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A    181231      C   python                                      23410MiB |
++-----------------------------------------------------------------------------------------+
+```
+
+Please reach out to [HPC-Help@nrel.gov](mailto:HPC-Help@nrel.gov) if you would like assistance with profiling your multi-node GPU jobs in a similar manner.
+
+!!! note
+    **Importantly**, if your target process is running but does *not* show up in the `nvidia-smi` output, that indicates your code cannot recognize the GPU device(s), likely due to software problems or user error. Always feel free to submit a ticket with [HPC-Help@nrel.gov](mailto:HPC-Help@nrel.gov) if something does not look right!
 
 ### GPU-relevant environment variables
 
