@@ -90,6 +90,8 @@ The National Solar Radiation Database (NSRDB) is a serially complete collection 
 
 The Wind Integration National Data Set (WIND) Toolkit consists of wind resource data for North America and was produced using the Weather Research and Forecasting Model (WRF).
 
+For more information on the data sets hosted on Kestrel, please see the [Github repository](https://github.com/NREL/HPC/tree/master/general/datasets).
+
 ### ScratchFS
 
 ScratchFS is a Lustre file system in a hybrid flash-disk configuration providing a total of 27 petabytes (PB) of capacity with 354 gigabytes (GB)/s of IOR bandwidth. It is intended to support intensive I/O and we recommend running jobs out of ScratchFS for the best performance. 
