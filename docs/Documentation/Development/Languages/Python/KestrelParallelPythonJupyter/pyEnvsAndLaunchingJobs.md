@@ -36,6 +36,10 @@ $ module load anaconda3/2024.06.1
 ```
 
 Create a new environment named ‘myEnv’ in the current directory
+
+!!! Warning
+    Conda environments should be *always* be installed outside of your home directory for storage and performance reasons. **This is especially important for frameworks like Dask**, whose parallel processes can particularly strain the `/home` filesystem. Please refer to our dedicated [conda documentation](../../../../Environment/Customization/conda.md#creating-environments-by-location) for more information on how to setup your conda environments to redirect the installation outside of `/home` by default.
+
 ```
 $ conda create --prefix ./myEnv
 ```
