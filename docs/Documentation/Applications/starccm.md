@@ -37,8 +37,8 @@ Then you need to create a Slurm script `<your_scriptfile>` as shown below to sub
     #!/bin/bash -l
     #SBATCH --time=2:00:00             # walltime limit of 2 hours
     #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=104       # number of tasks per node (<=104 on Kestrel)
-    #SBATCH --ntasks=72                # total number of tasks
+    #SBATCH --ntasks-per-node=96       # number of tasks per node (<=104 on Kestrel)
+    #SBATCH --ntasks=192                # total number of tasks
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
     
@@ -68,8 +68,8 @@ STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script s
     #!/bin/bash -l
     #SBATCH --time=2:00:00             # walltime limit of 2 hours
     #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=104       # number of tasks per node (<=104 on Kestrel)
-    #SBATCH --ntasks=72                # total number of tasks
+    #SBATCH --ntasks-per-node=96       # number of tasks per node (<=104 on Kestrel)
+    #SBATCH --ntasks=192                # total number of tasks
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
     
@@ -102,8 +102,8 @@ STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ jo
     #!/bin/bash -l
     #SBATCH --time=2:00:00             # walltime limit of 2 hours
     #SBATCH --nodes=2                  # number of nodes
-    #SBATCH --ntasks-per-node=104       # number of tasks per node (<=104 on Kestrel)
-    #SBATCH --ntasks=72                # total number of tasks
+    #SBATCH --ntasks-per-node=96       # number of tasks per node (<=104 on Kestrel)
+    #SBATCH --ntasks=192                # total number of tasks
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
     

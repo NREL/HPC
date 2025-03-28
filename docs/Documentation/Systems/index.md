@@ -19,8 +19,8 @@ NREL operates three on-premises systems for computational work.
 | Interconnect | HPE Slingshot 11 | InfiniBand HDR| 25GbE |
 | HPC scheduler | Slurm | Slurm | Slurm |
 | Network Storage | 95PB Lustre | 3PB NFS | 440 TB
-| GPU         | 132 4x NVIDIA H100 SXM GPUs | 10 4x NVIDIA A100 40GB GPUs | 5 nodes Single A100
-| Memory      | 256GB, 384GB, 2TB | 256GB(CPU) 1T(GPU) | 256GB (base)
-| Number of Nodes| 2454 | 484 | 133 virtual |
+| GPU         | 156 4x NVIDIA H100 SXM GPUs | 10 4x NVIDIA A100 40GB GPUs | 5 nodes Single A100
+| Memory      | 256GB, 384GB, 700GB, 2TB | 256GB(CPU) 1T(GPU) | 256GB (base)
+| Number of Nodes| 2478 | 484 | 133 virtual |
 
 

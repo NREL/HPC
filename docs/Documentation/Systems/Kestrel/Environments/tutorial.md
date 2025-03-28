@@ -57,8 +57,7 @@ git clone https://github.com/intel/mpi-benchmarks.git
 cd mpi-benchmarks
 ```
 
-PrgEnv-cray is the default environment on Kestrel, so it should already be loaded upon login to Kestrel. To check, type `module list` and make sure you see `PrgEnv-cray` somewhere in the module list. If you don't, you can restore the default environment (PrgEnv-cray) by simply running `module restore`.
-
+PrgEnv-cray was formally the default environment on Kestrel. Now, PrgEnv-gnu is the default. So, first we want to run the command `module swap PrgEnv-gnu PrgEnv-cray` to load the environment. To check, type `module list` and make sure you see `PrgEnv-cray` somewhere in the module list.
 Now, we can build the code. Run the command:
 
 `CC=cc CXX=CC CXXFLAGS="-std=c++11" make IMB-MPI1`
@@ -126,7 +125,7 @@ If you'd like, you can also submit this as a slurm job. Make a file `submit-IMB.
 
 #!/bin/bash
 
-srun -N 1 --tasks-per-node=104 --mpi=pmi2 your/path/to/IMB-tutorial/PrgEnv-cray/mpi-benchmarks/IMB-MPI1 Allreduce > out
+srun -N 1 --tasks-per-node=104 your/path/to/IMB-tutorial/PrgEnv-cray/mpi-benchmarks/IMB-MPI1 Allreduce > out
 ```
 
 Don't forget to update `your/path/to/IMB-tutorial/PrgEnv-cray/mpi-benchmarks/IMB-MPI1` to the actual path to your IMB-MPI1 executable.  
@@ -140,12 +139,11 @@ We'll now repeat all the above steps, except now with PrgEnv-intel. Return to yo
 Now, load the PrgEnv-intel environment:
 
 ```
-module restore
 module swap PrgEnv-cray PrgEnv-intel
-module unload cray-libsci
+module load gcc-stdalone/12.3.0
 ```
 
-Note that where possible, we want to avoid using `module purge` because it can unset some environment variables that we generally want to keep. So, instead we run `module restore` to restore the default environment (PrgEnv-cray) and then swap from PrgEnv-cray to PrgEnv-intel with `module swap PrgEnv-cray PrgEnv-intel`. Finally, we unload the `cray-libsci` package for the sake of simplicity (as of 4/23/24, we are working through resolving a default versioning conflict between cray-libsci and PrgEnv-intel. If you need to use cray-libsci within PrgEnv-intel, please reach out to hpc-help@nrel.gov)
+Note that where possible, we want to avoid using `module purge` because it can unset some environment variables that we generally want to keep. We unload the `cray-libsci` package for the sake of simplicity (we are working through resolving a default versioning conflict between cray-libsci and PrgEnv-intel. If you need to use cray-libsci within PrgEnv-intel, please reach out to hpc-help@nrel.gov).
 
 Again, we can test which C compiler we're using with:
 `cc --version`
@@ -179,7 +177,7 @@ Note that we specify the same compiler wrapper, cc, to be the C compiler (the `C
 
 Again, we can run with:
 
-`srun -N 1 -n 104 --mpi=pmi2 ./IMB-MPI1 AllReduce > out`
+`srun -N 1 -n 104 ./IMB-MPI1 AllReduce > out`
 
 Or check which libraries are dynamically linked:
 
@@ -209,7 +207,7 @@ module restore
 module swap PrgEnv-cray PrgEnv-intel
 module unload cray-libsci
 
-srun -N 1 --tasks-per-node=104 --mpi=pmi2 your/path/to/IMB-tutorial/PrgEnv-intel/mpi-benchmarks/IMB-MPI1 Allreduce > out
+srun -N 1 --tasks-per-node=104 your/path/to/IMB-tutorial/PrgEnv-intel/mpi-benchmarks/IMB-MPI1 Allreduce > out
 ```
 
 Note that the only difference between this submit script and the one for Environment 1 is that we exchange `PrgEnv-cray` for `PrgEnv-intel`.
@@ -230,11 +228,10 @@ cd mpi-benchmarks
 
 Then, load the NREL environment. To do this, first run:
 ```
-module restore
-module unload PrgEnv-cray
+module unload PrgEnv-intel
 ```
 
-Again, we want to avoid `module purge` where possible, so we restore the environment to default (PrgEnv-cray) and then unload the default environment, in order to retain underlying environment variables.
+Again, we want to avoid `module purge` where possible, so we unload the previous environment (`PrgEnv-intel`) in order to retain underlying environment variables.
 
 
 Let's check out our options for Intel compilers now:
@@ -257,7 +254,7 @@ Note that if we look back at `module avail intel` and look at the header above, 
 
 `CC=mpiicc CXX=mpiicpc CXXFLAGS="-std=c++11" make IMB-MPI1`
 
-Note that this command is slightly different than the make commands we saw in the PrgEnv-cray and PrgEnv-intel sections.
+Note that this command is different than the make commands we saw in the PrgEnv-cray and PrgEnv-intel sections.
 
 Instead of `CC=cc` and `CXX=CC` we have `CC=mpiicc` and `CXX=mpiicpc`. `mpiicc`, is the intel MPI wrapper around the intel C compiler, and `mpiicpc` is the same but for C++.
 
@@ -316,24 +313,25 @@ cd mpi-benchmarks
 Run:
 
 ```
-module restore
-module unload PrgEnv-cray
-module unload cce
+module unload intel-oneapi intel-oneapi-mpi intel-oneapi-compilers
+module load binutils/2.41
+module load gcc-stdalone/12.3.0
+module load openmpi/5.0.3-gcc
 ```
 
-Note that unlike the NREL-intel case, loading `gcc` doesn't automatically unload `cce` ("cray compiler environment") so we do it manually here with `module unload cce`
+We unload the intel environment we set up in the previous step, and load `gcc` and `openmpi5` instead. Note that there are a number of versions of `gcc` available. the `-stdalone` tag denotes that it will not cause a forced unloading of other environment modules, unlike `gcc` with no `-stdalone` tag, which can force-switch the environment to `PrgEnv-gnu`.
 
-Now, we can `module avail openmpi` to find openmpi-related modules. Then, load the version of openmpi that was built with gcc:
+Now, we can `module avail openmpi` to find openmpi-related modules. Note the version of openmpi we use:
 
-`module load openmpi/4.1.5-gcc`
+`module load openmpi/5.0.3-gcc`
 
-And finally, load gcc. To see which versions of gcc are available, type `module avail gcc`. We'll use GCC 10: `module load gcc/10.1.0`
+OpenMPI5 is more compatible with Kestrel's Cray Slingshot network than older versions of OpenMPI. While we do not generally recommend using OpenMPI, if you must use it, it is best to use OpenMPI5.
 
 Now, we can build the code. Run the command:
 
 `CC=mpicc CXX=mpic++ CXXFLAGS="-std=c++11" make IMB-MPI1`
 
-Similar to using mpiicc and mpiicpc in the Environment 3 section, now we use mpicc and mpic++, because these are the Open MPI wrappers around the GCC C and C++ compilers (respectively). We are not using the `cc` and `CC` wrappers now because we are not using a `PrgEnv`. 
+Similar to using mpiicc and mpiicpc in the intel section, now we use mpicc and mpic++, because these are the Open MPI wrappers around the GCC C and C++ compilers (respectively). We are not using the `cc` and `CC` wrappers now because we are not using a `PrgEnv`. 
 
 Once the executable is built, check the mpi library it's using with ldd:
 

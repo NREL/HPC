@@ -44,17 +44,13 @@ Non-default locations of this file may be set through the `OMPI_TMPDIR` environm
 
 ### Supported Versions
 
-|Kestrel             | Eagle                                | Swift          | Vermilion |
-|:------------------:|:------------------------------------:|:--------------:|:----------------:|
-|openmpi/4.1.5-gcc    |openmpi/1.10.7/gcc-8.4.0               |openmpi/4.1.1-6vr2flz |openmpi/4.1.4-gcc |   
-|openmpi/4.1.5-intel  |openmpi/3.1.6/gcc-8.4.0                |                |                  |
-|                     |openmpi/4.0.4/gcc-8.4.0                |                |                  |
-|                     |openmpi/4.1.1/gcc+cuda                 |||
-|                     |openmpi/4.1.2/gcc                      |||
-|                     |openmpi/4.1.2/intel                    |||
-|                     |openmpi/4.1.3/gcc-11.3.0-cuda-11.7     |||
-|                     |openmpi/4.1.0/gcc-8.4.0                |||
-
+|Kestrel                   | Swift          | Vermilion |
+|:------------------------:|:--------------:|:----------------:|
+|openmpi/4.1.6-gcc  (CPU)  |openmpi/4.1.1-6vr2flz |openmpi/4.1.4-gcc |
+|openmpi/4.1.6-intel(CPU)  |||  
+|openmpi/5.0.1-gcc  (CPU)  |||
+|openmpi/5.0.3-gcc  (CPU)  ||| 
+|openmpi/4.1.6-gcc (GPU)   |||
 
 ## IntelMPI
 **Documentation:** [IntelMPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html)
@@ -65,27 +61,14 @@ Intel's MPI library enables tight interoperability with its processors and softw
 
 ### Supported Versions
 
-|Kestrel                          | Eagle                                | Swift          | Vermilion |
-|--------------------------------:|:------------------------------------:|:--------------:|:----------------:|
-|intel-oneapi-mpi/2021.10.0-intel |intel-mpi/2020.1.217                  |intel-oneapi-mpi/2021.3.0-hcp2lkf  |intel-oneapi-mpi/2021.7.1-intel |   
+|Kestrel                          | Swift          | Vermilion |
+|--------------------------------:|:--------------:|:----------------:|
+|intel-oneapi-mpi/2021.10.0-intel (CPU) |intel-oneapi-mpi/2021.3.0-hcp2lkf  |intel-oneapi-mpi/2021.7.1-intel |   
+|intel-oneapi-mpi/2021.11.0-intel (CPU) |||   
+|intel-oneapi-mpi/2021.12.1-intel (CPU) |||
+|intel-oneapi-mpi/2021.13.0-intel (GPU) |||
 
 
-## MPT
-**Documentation:** [MPT](https://support.hpe.com/hpesc/public/docDisplay?docId=a00105727en_us&docLocale=en_US)
-
-*HPE's Message Passing Interface (MPI) is a component of the HPE Message Passing Toolkit (MPT), a software package that supports parallel programming across a network of computer systems through a technique known as message passing.*
-
-Hewlett-Packard Enterprise (HPE)—Eagle's creator—offers a very performant MPI library as well, built on top of and colloquially known via its underlying Message Passing Toolkit high-performance communications component as "MPT."
-### Supported Versions
-
-| Eagle                                |
-|:------------------------------------:|
-|mpt/2.23                              |   
-|mpt/2.22                              |
-
-Note: 
-
-MPT is only installed on Eagle.
 ## MPICH
 **Documentation:** [MPICH](https://www.mpich.org)
 
@@ -94,16 +77,17 @@ MPICH and its derivatives form the most widely used implementations of MPI in th
 
 ### Supported Versions
 
-|Kestrel                          | Eagle                                | Swift          | Vermilion |
-|--------------------------------:|:------------------------------------:|:--------------:|:----------------:|
-|mpich/4.1-gcc                    |                                      |mpich/3.4.2-h2s5tru | mpich/4.0.2-gcc  |   
-|mpich/4.1-intel                  | ||| 
+|Kestrel                          | Swift          | Vermilion |
+|--------------------------------:|:--------------:|:----------------:|
+|mpich/4.1-gcc   (CPU)                 |mpich/3.4.2-h2s5tru | mpich/4.0.2-gcc  |   
+|mpich/4.1-intel (CPU)                 | || 
+|mpich/4.1-gcc (GPU)                   |||
 
 ## Running MPI Jobs on Eagle GPUs
 
-To run MPI (message-passing interface) jobs on the Eagle system's NVidia GPUs, the MPI library must be "CUDA-aware."
-A suitable OpenMPI build has been made available via the openmpi/4.0.4/gcc+cuda module. 
-This module is currently in test.
+To run MPI (message-passing interface) jobs on Kestrel system's NVidia GPUs, the MPI library must be "CUDA-aware."
+All modules with `(GPU)` are gpu aware and built with `CUDA`. 
+
 
 ### Interactive Use
 
@@ -145,8 +129,7 @@ An example batch script to run 4 MPI ranks across two nodes is as follows.
      #SBATCH --error=%x-%j.err
      #SBATCH --output=%x-%j.out
      
-     ml use -a /nopt/nrel/apps/modules/test/modulefiles
-     ml gcc/8.4.0 cuda/10.2.89 openmpi/4.0.4/gcc+cuda
+     ml gcc cuda openmpi
      
      cd $SLURM_SUBMIT_DIR
      srun ./jacobi

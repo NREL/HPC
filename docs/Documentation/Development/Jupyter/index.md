@@ -100,7 +100,7 @@ The JupyterHub service is accessible via web browser at [https://kestrel-jhub.hp
 
 * Limited resources: KJHub is a single node with 128 CPU cores and 512GB RAM.
 * Managed usage: Up to 8 cores/100GB RAM per user before automatic throttling will greatly slow down processing.
-* Competition: Your notebook competes with other users for CPU and RAM on the KJHub nod.
+* Competition: Your notebook competes with other users for CPU and RAM on the KJHub node.
 * Slow updates: A limited list of basic scientific libraries are available in the default notebook kernel/environment.
    
 ### Simple Instructions to access JupyterHub:

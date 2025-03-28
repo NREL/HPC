@@ -140,35 +140,59 @@ Use ```sinfo``` to view cluster information:
 ```
 $ sinfo -o %A
 NODES(A/I)
-1580/514
+2299/140
 ```
 Above, ```sinfo``` shows nodes Allocated (A) and nodes idle (I) in the entire cluster.
 
-To see specific node information use ```sinfo -n <node id>``` to show information about a single or list of nodes. You will see the partition to which the node can allocate as well as the node STATE.
+To check the state of nodes in a partition (for example, 'gpu-h100' on Kestrel), you can run:
+
 ```
-$ sinfo -n r105u33,r2i4n27
-PARTITION  AVAIL   TIMELIMIT NODES  STATE  NODELIST
-short      up        4:00:00     1  drain   r2i4n27
-short      up        4:00:00     1   down   r105u33
-standard   up     2-00:00:00     1  drain   r2i4n27
-standard   up     2-00:00:00     1   down   r105u33
-long       up     10-00:00:0     1  drain   r2i4n27
-long       up     10-00:00:0     1   down   r105u33
-bigmem     up     2-00:00:00     1   down   r105u33
-gpu        up     2-00:00:00     1   down   r105u33
-bigscratch up     2-00:00:00     0    n/a
-ddn        up     2-00:00:00     0    n/a
+$ sinfo -o "%A %t" -p gpu-h100
+
+```
+This will return the number of nodes associated with a given state ('idle', 'mix', 'alloc', etc.) at that moment. 'Idle' indicates nodes that are free, 'alloc' refers to fully allocated nodes, and 'mix' represents nodes that are not fully allocated and could accept jobs requesting less than a full node’s resources. *Note*: a 'mix' node state is only valid for shareable partitions. 
+
+To see specific node information use ```sinfo -n <node id>``` to show information about a single or comma-separated list of nodes. You will see the partition to which the node can allocate as well as the node STATE.
+```
+$ sinfo -n x3100c0s17b0n0
+PARTITION       AVAIL  TIMELIMIT  NODES  STATE NODELIST
+bigmem             up 2-00:00:00      0    n/a
+bigmem-stdby       up 2-00:00:00      0    n/a
+bigmeml            up 10-00:00:0      0    n/a
+bigmeml-stdby      up 10-00:00:0      0    n/a
+short*             up    4:00:00      0    n/a
+short-stdby        up    4:00:00      0    n/a
+standard           up 2-00:00:00      0    n/a
+standard-stdby     up 2-00:00:00      0    n/a
+long               up 10-00:00:0      0    n/a
+hbw                up 2-00:00:00      0    n/a
+hbwl               up 10-00:00:0      0    n/a
+hbw-stdby          up 2-00:00:00      0    n/a
+debug              up    1:00:00      0    n/a
+debug-stdby        up    1:00:00      0    n/a
+shared             up 2-00:00:00      0    n/a
+shared-stdby       up 2-00:00:00      0    n/a
+sharedl            up 10-00:00:0      0    n/a
+sharedl-stdby      up 10-00:00:0      0    n/a
+debug-gpu          up    1:00:00      0    n/a
+debug-gpu-stdby    up    1:00:00      0    n/a
+gpu-h100s          up    4:00:00      1    mix x3100c0s17b0n0
+gpu-h100s-stdby    up    4:00:00      1    mix x3100c0s17b0n0
+gpu-h100           up 2-00:00:00      1    mix x3100c0s17b0n0
+gpu-h100-stdby     up 2-00:00:00      1    mix x3100c0s17b0n0
+gpu-h100l          up 10-00:00:0      1    mix x3100c0s17b0n0
+vto                up 2-00:00:00      1    mix x3100c0s17b0n0
 ```
 ### sacct
 Use ```sacct``` to view accounting information about jobs AND job steps:
 ```
-$ sacct -j 525198 --format=User,JobID,Jobname,partition,state,time,start,elapsed,nnodes,ncpus
-     User        JobID    JobName  Partition      State  Timelimit               Start    Elapsed  NNodes    NCPUS
---------- ------------ ---------- ---------- ---------- ---------- ------------------- ---------- ------- --------
-  hpcuser 525198        acct_test      short  COMPLETED   00:01:00 2018-12-19T16:09:34   00:00:54       4      144
-          525198.batch      batch             COMPLETED            2018-12-19T16:09:34   00:00:54       1       36
-          525198.exte+     extern             COMPLETED            2018-12-19T16:09:34   00:00:54       4      144
-          525198.0           bash             COMPLETED            2018-12-19T16:09:38   00:00:00       4        4
+$ sacct -j 7379855 --format=User,JobID,Jobname,partition,state,time,start,elapsed,nnodes,ncpus
+     User JobID           JobName  Partition      State  Timelimit               Start    Elapsed   NNodes      NCPUS
+--------- ------------ ---------- ---------- ---------- ---------- ------------------- ---------- -------- ----------
+ hpcuser  7379855      AllReduce_   gpu-h100  COMPLETED   00:01:00 2025-03-05T18:22:43   00:00:43        4         16
+          7379855.bat+      batch             COMPLETED            2025-03-05T18:22:43   00:00:43        1          4
+          7379855.ext+     extern             COMPLETED            2025-03-05T18:22:43   00:00:43        4         16
+          7379855.0    all_reduc+             COMPLETED            2025-03-05T18:22:51   00:00:35        4         16
 ```
 Use ```sacct -e``` to print a list of fields that can be specified with the ```--format``` option.
 ### sprio 

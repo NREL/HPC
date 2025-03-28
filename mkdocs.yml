@@ -14,6 +14,8 @@ nav:
       - Documentation Home: Documentation/index.md
       - Getting Started: Documentation/getting_started.md
       - Help and Support: Documentation/help.md
+      - Allocation Management System:
+        - Documentation/Resource_Management_System/index.md
       - Systems: 
         - Systems: Documentation/Systems/index.md
         - Kestrel: 
@@ -32,6 +34,7 @@ nav:
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
+              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/others.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
             - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Swift:
@@ -62,9 +65,7 @@ nav:
           - Shell Startup: Documentation/Environment/shell.md
           - Lmod: Documentation/Environment/lmod.md
           # - Customization:
-              #  - Spack Environments: Documentation/Environment/Customization/spack.md
           - Conda: Documentation/Environment/Customization/conda.md
-              #  - Container Environments: Documentation/Environment/Customization/containers.md
           - Building an Application: 
             - Documentation/Environment/Building_Packages/index.md
             - Documentation/Environment/Building_Packages/acquire.md
@@ -75,20 +76,26 @@ nav:
           #   - Example Page: Documentation/Applications/Templates/berkeleygw_example.md
           #   - Blank Template: Documentation/Applications/Templates/applications_template.md
           - Documentation/Applications/index.md
+          - AlphaFold:  Documentation/Applications/alphafold.md
           - ANSYS CFD:  Documentation/Applications/ansys.md
           - AMR-Wind:  Documentation/Applications/amrwind.md
+          - Chemical Kinetics: Documentation/Applications/chemicalKinetics.md
           - COMSOL:     Documentation/Applications/comsol.md
           - FEniCS:     Documentation/Applications/fenics.md
           - GAMS:       Documentation/Applications/gams.md
           - Gaussian:   Documentation/Applications/gaussian.md
           - Gurobi:     Documentation/Applications/gurobi.md
+          - IDAES Solvers : Documentation/Applications/idaes_solvers.md
+          - IPOPT:      Documentation/Applications/ipopt.md
           - LAMMPS:     Documentation/Applications/lammps.md
+          - MACE:     Documentation/Applications/mace.md
           - MATLAB:
             - Documentation/Applications/Matlab/index.md
             - Batch Mode: Documentation/Applications/Matlab/batch.md
             - Interactive Mode: Documentation/Applications/Matlab/interactive.md
             - Parallel Computing Toolbox: Documentation/Applications/Matlab/parallel.md
             - Versions and Licenses: Documentation/Applications/Matlab/versions.md
+          - OpenFAST/FAST.Farm: Documentation/Applications/openfast.md
           - OpenFOAM: Documentation/Applications/openfoam.md
           - PLEXOS:
             - Documentation/Applications/Plexos/index.md
@@ -98,6 +105,7 @@ nav:
           - STAR-CCM+:  Documentation/Applications/starccm.md
           - VASP:       Documentation/Applications/vasp.md
           - WRF:        Documentation/Applications/wrf.md
+          - Xpress:     Documentation/Applications/xpressmp.md
       - Development:
          - Languages:
              - Julia:
@@ -114,11 +122,11 @@ nav:
                - Advanced: Documentation/Development/Languages/Fortran/f90_advanced.md
              - Python:
                   - Documentation/Development/Languages/Python/index.md
+                  - Documentation/Development/Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md
                   - Documentation/Development/Languages/Python/dask.md
          - Jupyter: 
              - Documentation/Development/Jupyter/index.md
          - Programming Models:
-              # - Documentation/Development/Programming_Models/index.md
               - MPI: Documentation/Development/Programming_Models/mpi.md
               - Using GPUs for HPC: Documentation/Development/Programming_Models/gpu_hpc.md 
               # - OpenMP: Documentation/Development/Programming_Models/openmp.md
@@ -130,7 +138,6 @@ nav:
               # - NVHPC: Documentation/Development/Compilers/nvhpc.md
               # - AOCC : Documentation/Development/Compilers/aocc.md
               # - Cray : Documentation/Development/Compilers/cray.md
-              # - Rosetta Stone<br> of Compilers : Documentation/Development/Compilers/rosetta_stone.md
          - Build Tools:
               - CMake : Documentation/Development/Build_Tools/cmake.md
               - Spack : Documentation/Development/Build_Tools/spack.md
@@ -141,7 +148,6 @@ nav:
               - FFTW:   Documentation/Development/Libraries/fftw.md
               - HDF5:   Documentation/Development/Libraries/hdf5.md
               - HSL:  Documentation/Development/Libraries/hsl.md
-              - IPOPT: Documentation/Development/Libraries/ipopt.md
               - LAPACK and ScaLAPACK: Documentation/Development/Libraries/lapack.md
               - LibSci: Documentation/Development/Libraries/libsci.md
               - MKL:    Documentation/Development/Libraries/mkl.md
@@ -152,19 +158,15 @@ nav:
                - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
                - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
                - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
-             - Intel Parallel Studio:
+             - oneAPI Tools:
                - Documentation/Development/Performance_Tools/Intel/index.md
               #  - Trace Analyzer: Documentation/Development/Performance_Tools/Intel/trace.md
               #  - VTune : Documentation/Development/Performance_Tools/Intel/vtune.md
             #  - CrayPat: Documentation/Development/Performance_Tools/craypat.md
             #  - HPCToolkit: Documentation/Development/Performance_Tools/hpctoolkit.md
          - Debug Tools:
-            #  - ARM:
-            #    - Documentation/Development/Debug_Tools/ARM/index.md
-            #    - DDT: Documentation/Development/Debug_Tools/ARM/ddt.md
+             - DDT: Documentation/Development/Debug_Tools/ddt.md
              - GDB: Documentation/Development/Debug_Tools/gdb.md
-               #- Inspector: Documentation/Development/Debug_Tools/Debug/inspector.md
-               #- Valgrind:  Documentation/Development/Debug_Tools/Debug/valgrind.md
          - Visual Studio Code:
             - Documentation/Development/VSCode/vscode.md
          - Containers:
@@ -200,6 +202,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
+  - footnotes
 extra:
   analytics:
     provider: google

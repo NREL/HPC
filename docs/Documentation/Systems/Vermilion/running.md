@@ -22,7 +22,7 @@ Vermilion's home directories are shared across all nodes. Each user has a quota 
 
 ### Partitions
 
-Partitions are flexible and fluid on Vermilion.  A list of partitions can be found by running the `sinfo` command.  Here are the partitions as of 10/20/2022.
+Partitions are flexible and fluid on Vermilion.  A list of partitions can be found by running the `sinfo` command.  Here are the partitions as of 3/27/2025.
 
 | Partition Name                          | Qty | RAM    | Cores/node | /var/scratch <br>1K-blocks | AU Charge Factor | 
 | :--:                               | :--: | :--:    | :--:             | :--:   | :--: |                         

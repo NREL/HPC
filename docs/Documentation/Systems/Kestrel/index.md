@@ -9,7 +9,7 @@ hide:
 
 # About the Kestrel Cluster
 
-Kestrel is configured to run compute-intensive and parallel computing jobs. It is a heterogeneous system comprised of 2,314 CPU-only nodes, and 132 GPU-accelerated nodes that run the Linux operating system (Red Hat Enterprise Linux), with a peak performance of 44 PetaFLOPS.
+Kestrel is configured to run compute-intensive and parallel computing jobs. It is a heterogeneous system comprised of 2,314 CPU-only nodes, and 156 GPU-accelerated nodes that run the Linux operating system (Red Hat Enterprise Linux), with a peak performance of 44 PetaFLOPS.
 
 Please see the [System Configurations](../index.md) page for more information about hardware, storage, and networking.
 

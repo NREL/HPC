@@ -50,3 +50,71 @@ In order to build OpenFOAM with cray-mpich, two files need to be edited.
 Before you install OpenFOAM, make sure to load `Prgenv-gnu`.
 This will load gcc and cray-mpich. 
 Make sure the same module is loaded at runtime.
+
+<!-- ## OpenFOAM on Kestrel -->
+
+## Running OpenFOAM cases using Modules
+
+There are several modules for builds of OpenFOAM. After logging in to a CPU node on Kestrel, please use the `module avail` command to view available versions. 
+
+```
+CPU $ module avail openfoam
+----------------------------- /nopt/nrel/apps/cpu_stack/modules/default/application -----------------------------
+   openfoam/v2306-openmpi-gcc      openfoam/9-craympich (D)    openfoam/11-craympich
+   openfoam/v2406-craympich-gcc    openfoam/9-ompi             openfoam/12-intelmpi
+```
+
+**We encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) for their setup when submitting a new large job. According to some user reports, the application has shown to scale very poorly beyond 2 nodes.**
+
+??? example "Sample job script: Kestrel"
+
+
+    ```
+    #!/bin/bash
+    #SBATCH --job-name=myOpenFOAMjob
+    #SBATCH --account=<your-account-name>
+    #SBATCH --output=foamOutputLog.out
+    #SBATCH --error=foamErrorLog.out
+    #SBATCH --mail-user=<yourEmailAddress>@nrel.gov 
+    #SBATCH --nodes=2
+    #SBATCH --ntasks-per-node=104 # set number of MPI ranks per node
+    #SBATCH --cpus-per-task=1 # set number of OpenMP threads per MPI rank
+    #SBATCH --time=04:00:00
+    
+    
+    module load openfoam/<version>
+
+    decomposePar
+
+    srun -n 200 rhoReactingBuoyantFoam -parallel >> log.h2
+
+    reconstructPar -time 0:5000  -fields '(H2 X_H2)'
+    ```
+
+### Installing additional OpenFOAM packages
+
+Additional packages built on top of the OpenFOAM API can be installed after loading a compatible module. As an example, we show the process to install the [OpenFuelCell2](https://github.com/openFuelCell2/openFuelCell2) package.
+```
+# Download or clone the required package
+$ git clone https://github.com/openFuelCell2/openFuelCell2.git
+
+$ cd openFuelCell2
+
+# Request an interactive node for compiling in parallel
+$ salloc --account=<your-account-name> --time=00:30:00 --nodes=1 --ntasks-per-core=1 --ntasks-per-node=104 --cpus-per-task=1 --partition=debug
+
+# Load the module compatible with your package
+$ module load openfoam/v2306-openmpi-gcc
+
+# Compile the application with the official instructions from the developers, e.g.
+$ cd src
+$ ./Allwmake  -j -prefix=${PWD}
+
+# Test
+$ cd ../run/SOFC/
+$ make mesh
+$ export NPROCS=4
+$ make decompose
+$ make parallel
+$ make run
+```

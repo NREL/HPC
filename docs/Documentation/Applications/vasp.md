@@ -49,21 +49,18 @@ NREL offers modules for VASP 5 and VASP 6 on CPUs as well as GPUs on certain sys
 
 #### CPU
 
-There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 we have released new modules for VASP on Kestrel CPUs: 
+There are several modules for CPU builds of VASP 5 and VASP 6.
 
 ```
------------- /nopt/nrel/apps/cpu_stack/modules/default/application -------------
-   #new modules:
-   vasp/5.4.4+tpc     vasp/6.3.2_openMP+tpc    vasp/6.4.2_openMP+tpc
-   vasp/5.4.4_base    vasp/6.3.2_openMP        vasp/6.4.2_openMP
-   
-   #legacy modules will be removed during next system time:
-   vasp/5.4.4         vasp/6.3.2               vasp/6.4.2            (D)
+CPU $ module avail vasp
+------------- /nopt/nrel/apps/cpu_stack/modules/default/application -------------
+   vasp/5.4.4+tpc    vasp/6.3.2_openMP+tpc    vasp/6.4.2_openMP+tpc
+   vasp/5.4.4        vasp/6.3.2_openMP        vasp/6.4.2_openMP     (D)
 ```
 
- What’s new: 
+ Notes:
  
- * New modules have been rebuilt with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
+ * These modules have been built with the latest Cray Programming Environment (cpe23), updated compilers, and math libraries.
  * OpenMP capability has been added to VASP 6 builds.
  * Modules that include third-party codes (e.g., libXC, libBEEF, VTST tools, and VASPsol) are now denoted with +tpc. Use `module show vasp/<version>` to see details of a specific version.
 
@@ -72,7 +69,9 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
 !!! tip "Important: Conserving your AUs on Kestrel"
 	Kestrel nodes have nearly 3x as many cores as Eagle's did. Our testing has indicated VASP DFT jobs up to 200 atoms run more efficiently on a fraction of a node (see performance notes below). We therefore highly recommend that VASP DFT users check the efficiency of their calculations and consider using the shared partition to get the most out of their allocations. Please see the sample shared job script provided below and the [Shared partition documentation](../Systems/Kestrel/Running/index.md#shared-node-partition).
 
-??? example "Sample job script: Kestrel - Full node w/ OpemMP"
+??? example "Sample job script: Kestrel - Full node w/ OpenMP"
+
+    Note: (--ntasks-per-node) x (--cpus-per-task) = total number of physical cores you want to use per node. Here 4x26=104, all cores/node.
 
     ```
     #!/bin/bash
@@ -139,6 +138,17 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
 
 !!! tip "Important"
 	Submit GPU jobs from a [GPU login node](../Systems/Kestrel/index.md).
+    $ ssh <username>@kestrel-gpu.hpc.nrel.gov
+
+There are several modules for GPU builds of VASP 5 and VASP 6: 
+
+```
+GPU $ module avail vasp
+
+------------ /nopt/nrel/apps/gpu_stack/modules/default/application -------------
+   vasp/6.3.2_openMP    vasp/6.3.2    vasp/6.4.2_openMP    vasp/6.4.2 (D)
+
+```
 
 ??? example "Sample job script: Kestrel - Full GPU node"
 
@@ -148,14 +158,14 @@ There are several modules for CPU builds of VASP 5 and VASP 6. As of 08/09/2024 
     #SBATCH --nodes=1
     #SBATCH --gpus=4 
     #SBATCH --ntasks-per-node=4
-    #SBATCH --cpus-per-task=1
+    #SBATCH --cpus-per-task=1 #The GPU partition is shared :. you must specify cpus needed even when requesting all the GPU resources
     #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
-    #SBATCH --mem=0 #Since the GPU partition is entirely shared, you must specify you want all the memory even when requesting all the GPU resources
+    #SBATCH --mem=0 #The GPU partition is shared :. you must specify memory needed even when requesting all the GPU resources
 
     export MPICH_GPU_SUPPORT_ENABLED=1
 
-    module load vasp/6.3.2
+    module load vasp/<version>
 
     srun vasp_std &> out
 
@@ -178,7 +188,7 @@ GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When
 
     export MPICH_GPU_SUPPORT_ENABLED=1
 
-    module load vasp/6.3.2
+    module load vasp/<version>
 
     srun vasp_std &> out
     ```
@@ -253,12 +263,10 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     ```
     # Load appropriate modules for your build. For our example these are:
-    module restore
-    ml gcc
-    ml PrgEnv-nvhpc
+    ml gcc-stdalone/13.1.0
+    ml PrgEnv-nvhpc/8.5.0
     ml nvhpc/23.9   #do not use the default nvhpc/24.1
     ml cray-libsci/23.05.1.4
-    ml craype-x86-genoa
 
     make DEPS=1 -j8 all
     ```
@@ -271,12 +279,10 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     ```
     # Load modules appropriate for your build. For ours these are:
-    module restore
-    ml gcc
-    ml PrgEnv-nvhpc
+    ml gcc-stdalone/13.1.0
+    ml PrgEnv-nvhpc/8.5.0
     ml nvhpc/23.9   #do not use the default nvhpc/24.1
     ml cray-libsci/23.05.1.4
-    ml craype-x86-genoa
 
     # Export path to your buid
     export VASP_PATH=/PATH/TO/YOUR/BUILD/bin

@@ -70,3 +70,11 @@ Your project allocation will be charged for the entire time you have the nodes r
 
 To request a reservation, contact [HPC Help](mailto://hpc-help@nrel.gov).
 
+## How to Get Standby Priority for a Job
+
+All partitions have a matching `-standby` partition, which has *lower* priority. You can always opt to run jobs in standby at no cost towards your project’s AU consumption. To submit a standby job to any partition, simply add `#SBATCH --qos=standby` to your job submission script. Standby jobs only run when nodes are otherwise idle (i.e., regular AU-charged jobs will always take priority over standby jobs). Submitting jobs with `--qos=standby` can be a good option if: 
+    1) Wait time is not a concern for your jobs, and/or
+    2) Your desired Slurm partition is relatively open, and you want to save AUs for other jobs. Please [see here](../../../Slurm/monitor_and_control.md#sinfo) for instructions on how to estimate a partition's availability.
+
+Note that `standby` is the default QoS for allocations which have already consumed all awarded AUs for the year.
+

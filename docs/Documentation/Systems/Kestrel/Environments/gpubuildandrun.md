@@ -1,6 +1,8 @@
 # Building and Running on Kestrel's H100 GPU nodes.
 This page describes how to build and run on Kestrel's GPU nodes using several programming paradigms.  There are pure Cuda programs, Cuda aware MPI programs, MPI programs without Cuda, MPI programs with Cuda, MPI programs with Openacc, and pure Openacc programs. 
 
+
+
 The examples are contained in a tarball available on Kestrel via the command:
 
 ```bash
@@ -20,6 +22,42 @@ cd h100
 sbatch --account=MYACCOUNT script
 ```
 where you need to provide your account name.  This will run in about 22 minutes using 2 GPU nodes.  Some of the examples require 2 nodes but most will run on a single node.
+
+## Note about gcc/gfortran
+
+Almost all compiling/running on a linux system will at some point reference or in some way use some portion of the GNU (gcc/gfortran/linker) system.  Kestrel has many versions of gcc.  These fall into three categories:
+
+* Native to the Operating system
+* Built by Cray
+* Built by NREL
+
+You will also see modules for "mixed" versions.  These are just duplicates of others and should not be loaded.
+
+Here are some of the options:  
+
+#### module load  gcc-native/12.1
+* which gcc
+	* /opt/rh/gcc-toolset-12/root/usr/bin/gcc
+* Native to the operating system
+
+#### module load gcc/12.2.0
+* which gcc
+	* /opt/cray/pe/gcc/12.2.0/bin/gcc
+* Built by the vendor
+
+#### module load gcc-standalone/13.1.0
+* which gcc
+	* /nopt/nrel/apps/gpu_stack/compilers/03-24/.../gcc-13.1.0.../bin/gcc
+* Built by NREL
+
+#### module load gcc-standalone/12.3.0 
+* which gcc
+	* /nopt/nrel/apps/cpu_stack/compilers/06-24/.../gcc-12.3.0.../bin/gcc
+* Built by NREL
+ 
+
+
+
 
 ## Helper files
 
@@ -85,11 +123,19 @@ There are a number of "helper" files  shipped with the examples.  The script *on
     [tkaiser2@kl6 h100]$
     ```
 
-The file *whack.sh* defines a function myrestore.  This function is a replacement for the command `module restore`.  The default `module restore` command has some issues which cause some things to not findable after it is called.  The "fix" is to unset some environmental variables, call the original module reset and finally repair your PATH variable; moving paths in your home directory to the front of the list.  The function `myrestore` can be added to your environment by sourcing the file whack.sh
+There is a function *module_restore* defined in /nopt/nrel/apps/env.sh.
+Sourcing /nopt/nrel/apps/env.sh sets modules back to the original state.
+module_restore also modifies $PATH and $LD_LIBRARY_PATH putting paths with your 
+home directory at the beginning.
+
 
 ```
-. whack.sh
+. /nopt/nrel/apps/env.sh
+module_restore
 ```
+
+As of October 2024, /nopt/nrel/apps/env.sh is sourced automatically when you login so the
+function module_restore should be in you path.
 
 
 ### Just MPI
@@ -154,11 +200,16 @@ export doits="./cudalib/factor/doit ./cudalib/fft/doit ./mpi/cudaaware/doit"
 
 ## General notes for all examples
 
-* All examples run myrestore to set the environment to a know state.  See above.
+* All examples run module_restore to set the environment to a know state.  See above.
 * Many of the examples unload  PrgEnv-cray/8.5.0 and nvhpc/24.1 to prevent conflicts with other modules.
 * There is a compile and run of one or more programs.  
 * MPI programs are run with srun or mpirun on one or two nodes.  Mpirun is used with some versions of NVIDIA's environment because srun is not supported.
 * GPU programs that use a single GPU are run on each GPU in turn.
+
+
+
+  
+
 
 
 
@@ -169,7 +220,7 @@ Our script, shown below does the following:
 1. Test to make sure we are starting from a GPU node.
 1. Define a simple timer.
 1. Save our environment and a copy of the script.
-1. Bring the function myrestore into our environment (see above).
+1. Bring the function module_restore into our environment (see above).
 1. Set our default version of gcc.
 1. Find our examples if the user has not set a list beforehand and echo our list.
 1. Go into each directory and run the test.
@@ -177,145 +228,171 @@ Our script, shown below does the following:
 
 
 ??? example "script"
-    ```bash
-    #!/bin/bash
-    #SBATCH --time=0:30:00
-    #SBATCH --partition=gpu-h100
-    #SBATCH --nodes=2
-    #SBATCH --gres=gpu:h100:4
-    #SBATCH --exclusive
-    #SBATCH --output=output-%j.out
-    #SBATCH --error=infor-%j.out
-    if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; then : ; else echo Run script from a GPU node; exit ; fi
-    # a simple timer
-    dt ()
-    {
-        now=`date +"%s.%N"`;
-        if (( $# > 0 )); then
-            rtn=$(printf "%0.3f" `echo $now - $1 | bc`);
-        else
-            rtn=$(printf "%0.3f" `echo $now`);
-        fi;
-        echo $rtn
-    }
-    printenv > env-$SLURM_JOB_ID.out
-    cat $0 > script-$SLURM_JOB_ID.out
-    #runs script to put our restore function in our environment
-    . whack.sh
-    myrestore
-    #some possible values for gcc module
-    #export MYGCC=gcc-native/12.1
-    #export MYGCC=gcc-stdalone/10.1.0
-    #export MYGCC=gcc-stdalone/12.3.0 
-    #export MYGCC=gcc-stdalone/13.1.0
-    if [ -z ${MYGCC+x} ]; then export MYGCC=gcc-native/12.1  ; else echo MYGCC already set ; fi
-    echo MYGCC=$MYGCC
-    if [ -z ${doits+x} ]; then 
-        doits=`find . -name doit | sort -t/ -k2,2`
-    else 
-        echo doits already set 
-    fi
-    for x in $doits ; do
-        echo running example in `dirname $x`
-    done
-    startdir=`pwd`
-    t1=`dt`
-    for x in $doits ; do
-    dir=`dirname $x`
-    echo ++++++++ $dir >&2 
-    echo ++++++++
-    echo $dir
-    cd $dir
-    tbegin=`dt`
-    . doit | tee  $SLURM_JOB_ID
-    echo Runtime `dt $tbegin` $dir `dt $t1` total
-    cd $startdir
-    done
-    echo FINISHED `dt $t1`
-    # post  (this is optional)
-    mkdir -p /scratch/$USER/gputest/$SLURM_JOB_ID
-    cp *out  /scratch/$USER/gputest/$SLURM_JOB_ID
-    # . cleanup
-    ```
-
-
-## cuda/cray
-Here we build and run a single GPU code stream.cu.  This code is a standard benchmark that measures the floating point performance for a GPU.
-
-In this case we are loading PrgEnv-nvhpc/8.4.0 which requires cray-libsci/23.05.1.4.  We compile with the "wrapper" compiler CC which, in this case builds with NVIDIA's backend compiler.  CC would "pull in" Cray's MPI it it was required.
-
-We run on each GPU of each Node in our allocation.
-
-??? example "cuda/cray"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml PrgEnv-nvhpc/8.4.0
-    ml cray-libsci/23.05.1.4
-    : << ++++ 
-    Compile our program
-    CC as well as cc, and ftn are wrapper compilers. Because
-    we have PrgEnv-nvidia loaded they map to Nvidia's compilers
-    but use would use Cray MPI if this was an MPI program.
-    Note we can also use nvcc since this is not an MPI program.
-    ++++
-    rm -rf ./stream.sm_90
-    CC -gpu=cc90  -cuda -target-accel=nvidia90  stream.cu  -o stream.sm_90
-    # nvcc -std=c++11 -ccbin=g++ stream.cu -arch=sm_90 -o stream.sm_90
-    : Run on all of our nodes
-    nlist=`scontrol show hostnames | sort -u`
-    for l in $nlist ; do   
-    echo $l
-    for GPU in 0 1 2 3 ; do
-    : stream.cu will read the GPU on which to run from the command line
-        srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
-    done
-    echo
-    done
-    ```
-
+	```bash
+	#!/bin/bash
+	#SBATCH --time=0:30:00
+	#SBATCH --partition=gpu-h100
+	#SBATCH --nodes=2
+	#SBATCH --gres=gpu:h100:4
+	#SBATCH --exclusive
+	#SBATCH --output=output-%j.out
+	#SBATCH --error=infor-%j.out
+	
+	func () { typeset -f $1 || alias $1; }
+	func module > module.$SLURM_JOB_ID
+	
+	# we "overload" srun here to not allow any one subjob has 
+	# a problem and to runs too long.  this should not happen.
+	alias srun="/nopt/slurm/current/bin/srun --time=00:05:00 $@"
+	if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; then : ; else echo Run script from a GPU node; exit ; fi
+	# a simple timer
+	dt ()
+	{
+		now=`date +"%s.%N"`;
+		if (( $# > 0 )); then
+			rtn=$(printf "%0.3f" `echo $now - $1 | bc`);
+		else
+			rtn=$(printf "%0.3f" `echo $now`);
+		fi;
+		echo $rtn
+	}
+	
+	printenv > env-$SLURM_JOB_ID.out
+	cat $0 > script-$SLURM_JOB_ID.out
+	
+	#runs script to put our restore function in our environment
+	. whack.sh
+	module_restore
+	
+	#some possible values for gcc module
+	#export MYGCC=gcc-native/12.1
+	#export MYGCC=gcc-stdalone/10.1.0
+	#export MYGCC=gcc-stdalone/12.3.0 
+	#export MYGCC=gcc-stdalone/13.1.0
+	
+	if [ -z ${MYGCC+x} ]; then export MYGCC=gcc-native/12.1  ; else echo MYGCC already set ; fi
+	echo MYGCC=$MYGCC
+	
+	if [ -z ${doits+x} ]; then 
+		doits=`find . -name doit | sort -t/ -k2,2`
+	else 
+		echo doits already set 
+	fi
+	
+	for x in $doits ; do
+		echo running example in `dirname $x`
+	done
+	
+	startdir=`pwd`
+	t1=`dt`
+	for x in $doits ; do
+	 dir=`dirname $x`
+	 echo ++++++++ $dir | tee >(cat 1>&2)
+	 echo $dir
+	 cd $dir
+	 tbegin=`dt`
+	 . doit | tee  $SLURM_JOB_ID
+	 echo Runtime `dt $tbegin` $dir `dt $t1` total | tee >(cat 1>&2)
+	 cd $startdir
+	done
+	echo FINISHED `dt $t1`
+	
+	# post  (this is optional)
+	mkdir -p /scratch/$USER/gputest/$SLURM_JOB_ID
+	cp *out  /scratch/$USER/gputest/$SLURM_JOB_ID
+	# . cleanup
+		
+		```
+	
+	
+	## cuda/cray
+	Here we build and run a single GPU code stream.cu.  This code is a standard benchmark that measures the floating point performance for a GPU.
+	
+	In this case we are loading PrgEnv-nvhpc/8.4.0 which requires cray-libsci/23.05.1.4.  We compile with the "wrapper" compiler CC which, in this case builds with NVIDIA's backend compiler.  CC would "pull in" Cray's MPI it it was required.
+	
+	We run on each GPU of each Node in our allocation.
+	
+	??? example "cuda/cray"
+		```bash
+		: Start from a known module state, the default
+		module_restore
+		
+		: Load modules
+		#module unload PrgEnv-cray/8.5.0
+		#module unload nvhpc/24.1
+		
+		
+		if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+		ml PrgEnv-nvhpc/8.4.0
+		ml cray-libsci/23.05.1.4
+		ml binutils
+		: << ++++ 
+		 Compile our program
+		 CC as well as cc, and ftn are wrapper compilers. Because
+		 we have PrgEnv-nvidia loaded they map to Nvidia's compilers
+		 but use would use Cray MPI if this was an MPI program.
+		 Note we can also use nvcc since this is not an MPI program.
+		++++
+		
+		rm -rf ./stream.sm_90
+		CC -gpu=cc90  -cuda -target-accel=nvidia90  stream.cu  -o stream.sm_90
+		# nvcc -std=c++11 -ccbin=g++ stream.cu -arch=sm_90 -o stream.sm_90
+		
+		: Run on all of our nodes
+		nlist=`scontrol show hostnames | sort -u`
+		for l in $nlist ; do   
+		  echo $l
+		  for GPU in 0 1 2 3 ; do
+		: stream.cu will read the GPU on which to run from the command line
+			  srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
+		  done
+		  echo
+		done
+	```
 
 ## cuda/gccalso
 
 Here we build and run a single GPU code stream.cu. This code is a standard benchmark that measures the floating point performance for a GPU.  In this case we break the compile into two parts; compiling the "normal" C portions with gcc and the Cuda portions with compilers enabled via the load nvhpc-nompi.  This is NVIDIA's compilers without MPI.
 
 ??? example "cuda/gccalso"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml nvhpc-nompi/24.1
-    ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0  ; fi
-    : << ++++ 
-    Compile our program
-    The module nvhpc-nompi gives us access to Nvidia's compilers
-    nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
-    compilers which are actually links to these.  We do not
-    have direct access to MPI with this set of modules loaded.
-    Here we compile routines that do not contain cuda with g++.
-    ++++
-    g++ -c normal.c 
-    nvcc -std=c++11 -arch=sm_90 cuda.cu normal.o -o stream.sm_90
-    : Run on all of our nodes
-    nlist=`scontrol show hostnames | sort -u`
-    for l in $nlist ; do   
-    echo $l
-    for GPU in 0 1 2 3 ; do
-    : stream.cu will read the GPU on which to run from the command line
-        srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
-    done
-    echo
-    done
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload  PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml nvhpc-nompi/24.1
+	ml binutils
+	
+	ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0  ; fi
+	
+	: << ++++ 
+	 Compile our program
+	 The module nvhpc-nompi gives us access to Nvidia's compilers
+	 nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+	 compilers which are actually links to these.  We do not
+	 have direct access to MPI with this set of modules loaded.
+	 Here we compile routines that do not containe cuda with g++.
+	++++
+	
+	
+	g++ -c normal.c 
+	nvcc -std=c++11 -arch=sm_90 cuda.cu normal.o -o stream.sm_90
+	
+	: Run on all of our nodes
+	nlist=`scontrol show hostnames | sort -u`
+	for l in $nlist ; do   
+	  echo $l
+	  for GPU in 0 1 2 3 ; do
+	: stream.cu will read the GPU on which to run from the command line
+		  srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
+	  done
+	  echo
+	done
+	```
 
 ## cuda/nvidia
 
@@ -324,33 +401,37 @@ Steam.cu runs a standard benchmark showing the computational speed of the gpu fo
 We use nvhpc-nompi which is a NREL written environment that builds cuda programs without MPI and run on each of the GPUs one at a time.
 
 ??? example "cuda/nvidia"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    ml nvhpc-nompi/24.1
-    : << ++++ 
-    Compile our program
-    The module nvhpc-nompi gives us access to Nvidia's compilers
-    nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
-    compilers which are actually links to these.  We do not
-    have direct access to MPI with this set of modules loaded.
-    ++++
-    nvcc -std=c++11 -arch=sm_90 stream.cu -o stream.sm_90
-    : Run on all of our nodes
-    nlist=`scontrol show hostnames | sort -u`
-    for l in $nlist ; do   
-    echo $l
-    for GPU in 0 1 2 3 ; do
-    : stream.cu will read the GPU on which to run from the command line
-        srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
-    done
-    echo
-    done
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload  PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	ml nvhpc-nompi/24.1
+	: << ++++ 
+	 Compile our program
+	 The module nvhpc-nompi gives us access to Nvidia's compilers
+	 nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+	 compilers which are actually links to these.  We do not
+	 have direct access to MPI with this set of modules loaded.
+	++++
+	
+	
+	nvcc -std=c++11 -arch=sm_90 stream.cu -o stream.sm_90
+	
+	: Run on all of our nodes
+	nlist=`scontrol show hostnames | sort -u`
+	for l in $nlist ; do   
+	  echo $l
+	  for GPU in 0 1 2 3 ; do
+	: stream.cu will read the GPU on which to run from the command line
+		  srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
+	  done
+	  echo
+	done
+	```
 
 
 
@@ -359,68 +440,78 @@ We use nvhpc-nompi which is a NREL written environment that builds cuda programs
 We are building MPI programs that do not contain Cuda.  We unload nvhpc and load an older version to prevent compile issues.  We need to load cuda because Cray's MPI expects it, even for nonCuda programs.  We compile with ftn and cc which are "replacements" for the more traditional mpicc and mpifort.  These will pull in MPI as needed.  These should be used for codes even if they don't contain MPI.  Parallel programs built with PrgEnv-* should be launched with srun as shown here.
 
 ??? example "mpi/normal/cray"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload nvhpc/24.1
-    ml PrgEnv-cray/8.4.0 
-    ml cuda
-    : << ++++ 
-    Compile our program.
-    
-    Here we use cc and ftn.  These are wrappers
-    that point to Cray C (clang) Cray Fortran
-    and Cray MPI. cc and ftn are part of PrgEnv-cray
-    with is part of the default setup.
-    ++++
-    cc helloc.c -o helloc
-    ftn hellof.f90 -o hellof
-    : We run with two tasks per nodes an two tasks on one node.
-    for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-    echo running Fortran version
-    srun $arg hellof
-    echo
-    echo running C version
-    srun $arg helloc
-    echo
-    done
-    : With PrgEnv-intel we get the Intel backend compilers
-    ml PrgEnv-intel
-    ml cray-libsci/23.05.1.4
-    #ml gcc-stdalone/13.1.0
-    ml binutils
-    cc helloc.c -o helloc.i
-    ftn hellof.f90 -o hellof.i
-    : We run with two tasks per nodes an two tasks on one node.
-    for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-    echo running Fortran version with Intel backend
-    srun $arg hellof.i
-    echo
-    echo running C version with Intel backend
-    srun $arg helloc.i
-    echo
-    done
-    : With PrgEnv-gnu we get the gnu backend compilers
-    : As of 04/04/24 the -march=znver3 flag is required
-    : because the default version of gcc does not support the
-    : current CPU on the GPU nodes.  Or you could
-    : ml craype-x86-milan
-    ml PrgEnv-gnu
-    ml cray-libsci/23.05.1.4
-    cc  -march=znver3 helloc.c -o helloc.g
-    ftn -march=znver3 hellof.f90 -o hellof.g
-    : We run with two tasks per nodes an two tasks on one node.
-    for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-    echo running Fortran version with gnu backend
-    srun $arg hellof.g
-    echo
-    echo running C version with gnu backend
-    srun $arg helloc.g
-    echo
-    done
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	
+	: Load modules
+	#module unload nvhpc/24.1
+	ml PrgEnv-cray/8.4.0 
+	
+	ml cuda
+	: << ++++ 
+	 Compile our program.
+	 
+	 Here we use cc and ftn.  These are wrappers
+	 that point to Cray C (clang) Cray Fortran
+	 and Cray MPI. cc and ftn are part of PrgEnv-cray
+	 with is part of the default setup.
+	++++
+	
+	cc helloc.c -o helloc
+	ftn hellof.f90 -o hellof
+	
+	: We run with two tasks per nodes an two tasks on one node.
+	for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+	   echo running Fortran version
+	   srun $arg hellof
+	   echo
+	   echo running C version
+	   srun $arg helloc
+	   echo
+	done
+	
+	: With PrgEnv-intel we get the Intel backend compilers
+	ml PrgEnv-intel
+	ml cray-libsci/23.05.1.4
+	#ml gcc-stdalone/13.1.0
+	ml binutils
+	
+	cc helloc.c -o helloc.i
+	ftn hellof.f90 -o hellof.i
+	
+	: We run with two tasks per nodes an two tasks on one node.
+	for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+	   echo running Fortran version with Intel backend
+	   srun $arg hellof.i
+	   echo
+	   echo running C version with Intel backend
+	   srun $arg helloc.i
+	   echo
+	done
+	
+	: With PrgEnv-gnu we get the gnu backend compilers
+	: As of 04/04/24 the -march=znver3 flag is required
+	: because the default version of gcc does not support the
+	: current CPU on the GPU nodes.  Or you could
+	: ml craype-x86-milan
+	ml PrgEnv-gnu
+	ml cray-libsci/23.05.1.4
+	cc  -march=znver3 helloc.c -o helloc.g
+	ftn -march=znver3 hellof.f90 -o hellof.g
+	
+	: We run with two tasks per nodes an two tasks on one node.
+	for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+	   echo running Fortran version with gnu backend
+	   srun $arg hellof.g
+	   echo
+	   echo running C version with gnu backend
+	   srun $arg helloc.g
+	   echo
+	done
+	
+	```
 
 ## mpi/normal/intel+abi
 
@@ -431,118 +522,134 @@ These hello world programs will report the version of the MPI library used.  The
 However, if we load the modules craype and cray-mpich-abi the Intel MPI library gets replaced with Cray MPI at runtime.  This is reported in the program output.  the advantage is better performance for off node communication.  Cray-mpich-abi will not work if the program contains C++ MPI calls but will work if C++ calls normal C MPI routines as dictated by the standard.
 
 ??? example "mpi/normal/intel+abi"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    ml unload PrgEnv-cray/8.5.0
-    ml unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml intel-oneapi-mpi
-    ml intel-oneapi-compilers
-    : << ++++ 
-    Compile our program.
-    
-    There are many ways to compile using Intel MPI.
-    Here we use the "Intel Suggested" way using mpiicx
-    and mpifc.  This gives us new Intel backend compilers
-    with Intel MPI. mpif90 and mpicc would give us gcc
-    and gfortan instead
-    ++++
-    mpiicx helloc.c -o helloc
-    mpifc hellof.f90 -o hellof
-    : We run with two tasks per nodes an two tasks on one node.
-    for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-    echo running Fortran version
-    srun $arg hellof
-    echo
-    echo running C version
-    srun $arg helloc
-    echo
-    done
-    : Finally we module load cray-mpich-abi.  With this module
-    : loaded Intel MPI is replaced with Cray MPI without needing
-    : to recompile. After the load we rerun and see Cray MPI
-    : in the output
-    ml craype
-    ml cray-mpich-abi
-    for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-    echo running Fortran version
-    srun $arg hellof
-    echo
-    echo running C version
-    srun $arg helloc
-    echo
-    done
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml intel-oneapi-mpi
+	ml intel-oneapi-compilers
+	ml binutils
+	
+	: << ++++ 
+	 Compile our program.
+	 
+	 There are many ways to compile using Intel MPI.
+	 Here we use the "Intel Suggested" way using mpiicx
+	 and mpifc.  This gives us new Intel backend compilers
+	 with Intel MPI. mpif90 and mpicc would give us gcc
+	 and gfortan instead
+	++++
+	
+	mpiicx helloc.c -o helloc
+	mpifc hellof.f90 -o hellof
+	
+	: We run with two tasks per nodes an two tasks on one node.
+	for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+	   echo running Fortran version
+	   srun $arg hellof
+	   echo
+	   echo running C version
+	   srun $arg helloc
+	   echo
+	done
+	
+	: Finally we module load cray-mpich-abi.  With this module
+	: loaded Intel MPI is replaced with Cray MPI without needing
+	: to recompile. After the load we rerun and see Cray MPI
+	: in the output
+	
+	ml craype
+	ml cray-mpich-abi
+	
+	for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+	   echo running Fortran version
+	   srun $arg hellof
+	   echo
+	   echo running C version
+	   srun $arg helloc
+	   echo
+	done
+	```
 
 ## mpi/normal/nvidia/nrelopenmpi
 
 In this case we are building normal MPI programs but using a NREL built OpenMPI and a NREL installed version of NVIDIA's environment.  This particular OpenMPI was built using NVIDIA's compilers and thus is more compatible with other NVIDIA packages.  NREL's MPI versions are built with slurm support so these programs are launched with srun.
 
 ??? example "mpi/normal/nvidia/nrelopenmpi"
-    ```bash
-    : Start from a known module state, the default
-    module purge
-    myrestore
-    :  Enable a newer environment
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml openmpi/4.1.6-nvhpc
-    ml nvhpc-nompi/24.1
-    : << ++++ 
-    Compile our program
-    Here we use mpicc and mpif90.  There is support for Cuda
-    but we are not using it in this case.
-    ++++
-    mpicc helloc.c -o helloc
-    mpif90 hellof.f90 -o hellof
-    : We run with two tasks per nodes an two tasks on one node.
-    for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
-    echo running Fortran version
-    srun $arg hellof
-    echo
-    echo running C version
-    srun $arg helloc
-    echo
-    done
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml openmpi/4.1.6-nvhpc
+	ml nvhpc-nompi/24.1
+	ml binutils
+	
+	: << ++++ 
+	 Compile our program
+	 Here we use mpicc and mpif90.  There is support for Cuda
+	 but we are not using it in this case.
+	++++
+	
+	mpicc helloc.c -o helloc
+	mpif90 hellof.f90 -o hellof
+	
+	: We run with two tasks per nodes an two tasks on one node.
+	for arg in "--tasks-per-node=2" "-n 2 --nodes=1" ; do 
+	   echo running Fortran version
+	   srun $arg hellof
+	   echo
+	   echo running C version
+	   srun $arg helloc
+	   echo
+	done
+	```
 
 ## mpi/normal/nvidia/nvidiaopenmpi
 
 In this case we are building normal MPI programs but using a nvhpc/24.1.  This particular MPI was built using NVIDIA's compilers and thus is more compatible with other NVIDIA packages.  This version of MPI does not support slurm's srun command so we launch with mpirun.
 
 ??? example "mpi/normal/nvidia/nvidiaopenmpi"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    #module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    #ml nvhpc-hpcx-cuda12/24.1
-    : << ++++ 
-    Compile our program
-    Here we use mpicc and mpif90.  There is support for Cuda
-    but we are not using it in this case.
-    ++++
-    mpicc helloc.c -o helloc
-    mpif90 hellof.f90 -o hellof
-    : This version of MPI does not support srun so we use mpirun
-    : We run with two tasks per nodes an two tasks on one node.
-    for arg in "-N 2" "-n 2" ; do 
-    echo running Fortran version
-    mpirun $arg hellof
-    echo
-    echo running C version
-    mpirun $arg helloc
-    echo
-    done
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml  nvhpc-stdalone/24.1
+	
+	: << ++++ 
+	 Compile our program
+	 Here we use mpicc and mpif90.  There is support for Cuda
+	 but we are not using it in this case.
+	++++
+	
+	mpicc helloc.c -o helloc
+	mpif90 hellof.f90 -o hellof
+	
+	: This version of MPI does not support srun so we use mpirun
+	: We run with two tasks per nodes an two tasks on one node.
+	for arg in "-N 2" "-n 2" ; do 
+	   echo running Fortran version
+	   mpirun $arg hellof
+	   echo
+	   echo running C version
+	   mpirun $arg helloc
+	   echo
+	done
+	```
 
 ## mpi/withcuda/cray
 This example is a MPI ping-pong test where the data starts and ends up on a GPU but passes through CPU memory. Here are the Cuda copy routines and MPI routines. d_A is a GPU (device) array.  It is copied to/from A a CPU array using cudaMemcpy.  A is sent/received via the MPI calls.
@@ -574,41 +681,49 @@ We also build and run a multi-GPU version of stream which measures numerical per
 Since PrgEnv-* is compatible with slurm we launch using srun. We do a on-node and off-node test.
 
 ??? example "mpi/withcuda/cray"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    ml >&2
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    #######
-    ml 2>&1 | grep gcc-native/12.1 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-native/12.1 ; ml gcc-stdalone/13.1.0 ; fi
-    #######
-    ml >&2
-    ml PrgEnv-nvhpc
-    ml cray-libsci/23.05.1.4
-    : << ++++ 
-    Compile our program.
-    
-    Here we use CC. If we were compiling Fortran
-    then ftn instead of CC.  These are wrappers
-    that point to Cray MPI and with PrgEnv-nvhpc
-    we get Nvidia's back end compilers.  
-    ++++
-    CC -gpu=cc90   ping_pong_cuda_staged.cu -o staged
-    : We run with 2 tasks total. One 1 and two nodes
-    echo running staged on node
-    srun  --nodes=1 --tasks-per-node=2 ./staged
-    echo running staged off node
-    srun  --nodes=2 --tasks-per-node=1 ./staged
-    echo running multi-gpu stream
-    CC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
-    export VSIZE=3300000000
-    export VSIZE=330000000
-    srun --tasks-per-node=4  ./mstream -n $VSIZE
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	ml >&2
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	#######
+	ml 2>&1 | grep gcc-native/12.1 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-native/12.1 ; ml gcc-stdalone/13.1.0 ; fi
+	#######
+	ml >&2
+	
+	ml PrgEnv-nvhpc
+	ml cray-libsci/23.05.1.4
+	ml binutils
+	: << ++++ 
+	 Compile our program.
+	 
+	 Here we use CC. If we were compiling Fortran
+	 then ftn instead of CC.  These are wrappers
+	 that point to Cray MPI and with PrgEnv-nvhpc
+	 we get Nvidia's back end compilers.  
+	++++
+	
+	CC -gpu=cc90   ping_pong_cuda_staged.cu -o staged
+	
+	
+	: We run with 2 tasks total. One 1 and two nodes
+	echo running staged on node
+	srun  --nodes=1 --tasks-per-node=2 ./staged
+	
+	echo running staged off node
+	srun  --nodes=2 --tasks-per-node=1 ./staged
+	
+	echo running multi-gpu stream
+	CC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
+	export VSIZE=3300000000
+	export VSIZE=330000000
+	srun --tasks-per-node=4  ./mstream -n $VSIZE
+	```
 
 
 ## mpi/withcuda/nvidia/nrelopenmpi
@@ -624,34 +739,42 @@ We also build and run a multi-GPU version of stream which measures numerical per
 Since PrgEnv-* is compatible with slurm we launch using srun. We do a on-node and off-node test.
 
 ??? example "mpi/withcuda/nvidia/nrelopenmpi"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml openmpi/4.1.6-nvhpc
-    ml nvhpc-nompi/24.1
-    : << ++++ 
-    Compile our program
-    Here we use mpiCC which uses, in this case a NREL built  version
-    of MPI and Nvidia's backend compiler. 
-    ++++
-    mpiCC ping_pong_cuda_staged.cu -o staged
-    : We run with 2 tasks total.
-    : This version of MPI does not support srun so we use mpirun
-    echo Run on a single node
-    srun --tasks-per-node=2 --nodes=1 ./staged
-    echo Run on two nodes 
-    srun --tasks-per-node=1 --nodes=2 ./staged
-    echo running multi-gpu stream
-    mpiCC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
-    export VSIZE=3300000000
-    export VSIZE=330000000
-    srun --tasks-per-node=4  ./mstream -n $VSIZE
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml openmpi/4.1.6-nvhpc
+	ml nvhpc-nompi/24.1
+	ml binutils
+	
+	: << ++++ 
+	 Compile our program
+	 Here we use mpiCC which uses, in this case a NREL built  version
+	 of MPI and Nvidia's backend compiler. 
+	++++
+	
+	mpiCC ping_pong_cuda_staged.cu -o staged
+	
+	: We run with 2 tasks total.
+	: This version of MPI does not support srun so we use mpirun
+	
+	echo Run on a single node
+	srun --tasks-per-node=2 --nodes=1 ./staged
+	
+	echo Run on two nodes 
+	srun --tasks-per-node=1 --nodes=2 ./staged
+	
+	echo running multi-gpu stream
+	mpiCC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
+	export VSIZE=3300000000
+	export VSIZE=330000000
+	srun --tasks-per-node=4  ./mstream -n $VSIZE
+	```
 
 ## mpi/withcuda/nvidia/nvidiaopenmpi
 This example is a MPI ping-pong test where the data starts and ends up on a GPU but passes through CPU memory.  See the explanation two examples previous.
@@ -662,35 +785,43 @@ Here we use nvhpc/24.1.  (Note we actually unload this module and then reload it
 We compile with mpiCC.  Since NVIDIA's MPI does not support srun we launch with mpirun.  
 
 ??? example "mpi/withcuda/nvidia/nvidiaopenmpi"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0 ; fi
-    #ml nvhpc-hpcx-cuda12/24.1
-    ml nvhpc/24.1
-    : << ++++ 
-    Compile our program
-    Here we use mpiCC which uses Nvidia's version of MPI and
-    their backend compiler. The "hpcx" has a few more optimizations.
-    ++++
-    mpiCC ping_pong_cuda_staged.cu -o staged
-    : We run with 2 tasks total.
-    : This version of MPI does not support srun so we use mpirun
-    echo Run on a single node
-    mpirun -n 2 -N 2 ./staged
-    echo Run on two nodes 
-    mpirun -n 2 -N 1 ./staged
-    echo running multi-gpu stream
-    mpiCC -gpu=cc80  -DNTIMES=1000  mstream.cu -o mstream
-    export VSIZE=3300000000
-    export VSIZE=330000000
-    mpirun -n 8 -N 4  ./mstream -n $VSIZE
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0 ; fi
+	
+	ml nvhpc-stdalone/24.1
+	
+	: << ++++ 
+	 Compile our program
+	 Here we use mpiCC which uses Nvidia's version of MPI and
+	 their backend compiler. The "hpcx" has a few more optimizations.
+	++++
+	
+	mpiCC ping_pong_cuda_staged.cu -o staged
+	
+	: We run with 2 tasks total.
+	: This version of MPI does not support srun so we use mpirun
+	
+	echo Run on a single node
+	mpirun -n 2 -N 2 ./staged
+	
+	echo Run on two nodes 
+	mpirun -n 2 -N 1 ./staged
+	
+	
+	echo running multi-gpu stream
+	mpiCC -gpu=cc80  -DNTIMES=1000  mstream.cu -o mstream
+	export VSIZE=3300000000
+	export VSIZE=330000000
+	mpirun -n 8 -N 4  ./mstream -n $VSIZE
+	```
 
 ## mpi/cudaaware
 
@@ -712,34 +843,39 @@ Here we use PrgEnv-nvhpc and also need to load a specific version cray-libsci/23
 
 We need to  MPICH_GPU_SUPPORT_ENABLED=1 to make this work.  Depending on the code setting MPICH_OFI_NIC_POLICY=GPU may improve performance.
 
-??? example "mpi/cudaaware"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload nvhpc/24.1
-    module unload PrgEnv-cray/8.5.0
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml PrgEnv-nvhpc
-    ml cray-libsci/23.05.1.4  
-    ml
-    : << ++++ 
-    Compile our program.
-    
-    Here we use cc and CC.  These are wrappers
-    that point to Cray MPI but use Nvidia backend 
-    compilers.
-    ++++
-    CC -gpu=cc90  -cuda -target-accel=nvidia90  -c ping_pong_cuda_aware.cu
-    cc -gpu=cc90  -cuda -target-accel=nvidia90 -lcudart -lcuda ping_pong_cuda_aware.o -o pp_cuda_aware
-    export MPICH_GPU_SUPPORT_ENABLED=1
-    export MPICH_OFI_NIC_POLICY=GPU
-    srun -n 2 --nodes=1 ./pp_cuda_aware
-    srun --tasks-per-node=1 --nodes=2 ./pp_cuda_aware
-    unset MPICH_GPU_SUPPORT_ENABLED
-    unset MPICH_OFI_NIC_POLICY
-    ```
+	??? example "mpi/cudaaware"
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload nvhpc/24.1
+	#module unload PrgEnv-cray/8.5.0
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml PrgEnv-nvhpc
+	ml cray-libsci/23.05.1.4  
+	ml binutils
+	
+	: << ++++ 
+	 Compile our program.
+	 
+	 Here we use cc and CC.  These are wrappers
+	 that point to Cray MPI but use Nvidia backend 
+	 comilers.
+	++++
+	
+	CC -gpu=cc90  -cuda -target-accel=nvidia90  -c ping_pong_cuda_aware.cu
+	cc -gpu=cc90  -cuda -target-accel=nvidia90 -lcudart -lcuda ping_pong_cuda_aware.o -o pp_cuda_aware
+	
+	export MPICH_GPU_SUPPORT_ENABLED=1
+	export MPICH_OFI_NIC_POLICY=GPU
+	srun -n 2 --nodes=1 ./pp_cuda_aware
+	srun --tasks-per-node=1 --nodes=2 ./pp_cuda_aware
+	unset MPICH_GPU_SUPPORT_ENABLED
+	unset MPICH_OFI_NIC_POLICY
+	
+	```
 
 Here is a plot comparing the bandwidth using Staged and Cuda aware MPI.
 ![Bandwidth comparison between Staged and Aware MPI](../../../../../assets/images/bw.png)
@@ -756,39 +892,48 @@ We run on each GPU of each node in turn.  The variable CUDA_VISIBLE_DEVICES sets
 Since this is not a MPI program we don't actually need srun.  However, we use it in this case with the -w option to select the node on which we will launch the application.
 
 ??? example "openacc/cray"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml PrgEnv-nvhpc/8.5.0
-    : << ++++ 
-    Compile our program
-    The module PrgEnv-nvhpc/8.5.0 gives us access to Nvidia's 
-    compilers nvc, nvc++, nvcc, nvfortran as well as the Portland 
-    Group compilers which are actually links to these.  Since we 
-    are not using MPI we could have also used nvhpc-nompi/24.1 or
-    even nvhpc-native/24.1.
-    ++++
-    nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
-    : Run on all of our nodes
-    nlist=`scontrol show hostnames | sort -u`
-    for l in $nlist ; do   
-    echo $l
-    for GPU in 0 1 2 3 ; do
-    : This is one way to set the GPU on which a openacc program runs.
-        export CUDA_VISIBLE_DEVICES=$GPU
-        echo running on gpu $CUDA_VISIBLE_DEVICES
-    : Since we are not running MPI we actually do not need srun here.
-        srun -n 1 --nodes=1 -w $l ./nbody
-    done
-    echo
-    done
-    unset CUDA_VISIBLE_DEVICES
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	module load binutils
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml PrgEnv-nvhpc/8.5.0
+	
+	
+	: << ++++ 
+	 Compile our program
+	 The module PrgEnv-nvhpc/8.5.0 gives us access to Nvidia's 
+	 compilers nvc, nvc++, nvcc, nvfortran as well as the Portland 
+	 Group compilers which are actually links to these.  Since we 
+	 are not using MPI we could have also used nvhpc-nompi/24.1 or
+	 even nvhpc-native/24.1.
+	++++
+	
+	
+	nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
+	
+	
+	
+	: Run on all of our nodes
+	nlist=`scontrol show hostnames | sort -u`
+	for l in $nlist ; do   
+	  echo $l
+	  for GPU in 0 1 2 3 ; do
+	: This is one way to set the GPU on which a openacc program runs.
+		  export CUDA_VISIBLE_DEVICES=$GPU
+		  echo running on gpu $CUDA_VISIBLE_DEVICES
+	: Since we are not running MPI we actaully do not need srun here.
+		  srun -n 1 --nodes=1 -w $l ./nbody
+	  done
+	  echo
+	done
+	
+	unset CUDA_VISIBLE_DEVICES
+	```
 
 
 ## openacc/nvidia
@@ -803,39 +948,47 @@ Since this is not a MPI program we don't actually need srun.  However, we use it
 
 
 ??? example "openacc/nvidia"
-    ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml nvhpc/24.1
-    : << ++++ 
-    Compile our program
-    The module nvhpc-native gives us access to Nvidia's compilers
-    nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
-    compilers which are actually links to these.  Since we are
-    not using MPI we could have also used nvhpc-nompi/24.1 or
-    even PrgEnv-nvhpc/8.5.0.
-    ++++
-    nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
-    : Run on all of our nodes
-    nlist=`scontrol show hostnames | sort -u`
-    for l in $nlist ; do   
-    echo $l
-    for GPU in 0 1 2 3 ; do
-    : This is one way to set the GPU on which a openacc program runs.
-        export CUDA_VISIBLE_DEVICES=$GPU
-        echo running on gpu $CUDA_VISIBLE_DEVICES
-    : Since we are not running MPI we actually do not need srun here.
-        srun -n 1 --nodes=1 -w $l ./nbody
-    done
-    echo
-    done
-    unset CUDA_VISIBLE_DEVICES
-    ```
+	```bash
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml nvhpc-stdalone/24.1
+	
+	
+	: << ++++ 
+	 Compile our program
+	 The module nvhpc-stdalone gives us access to Nvidia's compilers
+	 nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+	 compilers which are actually links to these.  Since we are
+	 not using MPI we could have also used nvhpc-nompi/24.1 or
+	 even PrgEnv-nvhpc/8.5.0.
+	++++
+	
+	
+	nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
+	
+	
+	: Run on all of our nodes
+	nlist=`scontrol show hostnames | sort -u`
+	for l in $nlist ; do   
+	  echo $l
+	  for GPU in 0 1 2 3 ; do
+	: This is one way to set the GPU on which a openacc program runs.
+		  export CUDA_VISIBLE_DEVICES=$GPU
+		  echo running on gpu $CUDA_VISIBLE_DEVICES
+	: Since we are not running MPI we actaully do not need srun here.
+		  srun -n 1 --nodes=1 -w $l ./nbody
+	  done
+	  echo
+	done
+	
+	unset CUDA_VISIBLE_DEVICES
+	```
 
 ## mpi/openacc/cray
 This is a somewhat contrived example.  If does, in fact combine MPI and OpenACC but the MPI does almost nothing.  At the MPI level it is embarrassingly parallel and each MPI task does the same calculation which is enhanced via OpenACC.  MPI starts the tasks and reports a summary of timings.  However, MPI combined with OpenACC is a important paradigm.  The GPU version of VASP can combine MPI and OpenACC.
@@ -846,26 +999,31 @@ We launch with srun since PrgEnv-* supports the slurm scheduler.
 
 ??? example "mpi/openacc/cray"
     ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml PrgEnv-nvhpc
-    ml cray-libsci/23.05.1.4
-    : << ++++ 
-    Compile our program.
-    
-    Here we use cc and ftn.  These are wrappers
-    that point to Cray C (clang) Cray Fortran
-    and Cray MPI. cc and ftn are part of PrgEnv-cray
-    which is part of the default setup.
-    ++++
-    cc -acc -Minfo=accel -fast acc_c3.c  -o jacobi
-    : We run with 4 tasks per nodes.
-    srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml PrgEnv-nvhpc
+	ml cray-libsci/23.05.1.4
+	ml binutils
+	
+	: << ++++ 
+	 Compile our program.
+	 
+	 Here we use cc and ftn.  These are wrappers
+	 that point to Cray C (clang) Cray Fortran
+	 and Cray MPI. cc and ftn are part of PrgEnv-cray
+	 which is part of the default setup.
+	++++
+	
+	cc -acc -Minfo=accel -fast acc_c3.c  -o jacobi
+	
+	: We run with 4 tasks per nodes.
+	srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
     ```
 
 ## mpi/openacc/nvidia/nrelopenmpi
@@ -878,24 +1036,31 @@ We launch with srun since NREL's OpenMPI supports the slurm scheduler.
 
 ??? example "mpi/openacc/nvidia/nrelopenmpi"
     ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    module unload nvhpc/24.1
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml openmpi/4.1.6-nvhpc
-    ml nvhpc-nompi/24.1
-    : << ++++ 
-    Compile our program
-    Here we use mpicc and mpif90.  There is support for Cuda
-    but we are not directly using it in this case, just openacc.
-    ++++
-    mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
-    : We run with 4 tasks per nodes.
-    srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
-    ```
+	cat doit
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml openmpi/4.1.6-nvhpc
+	ml nvhpc-nompi/24.1
+	ml binutils
+	
+	: << ++++ 
+	 Compile our program
+	 Here we use mpicc and mpif90.  There is support for Cuda
+	 but we are not directly using it in this case, just openacc.
+	++++
+	
+	mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
+	
+	: We run with 4 tasks per nodes.
+	srun --tasks-per-node=4 ./jacobi 46000 46000 5 nvidia
+	```
+
 ## mpi/openacc/nvidia/nvidiaopenmpi
 
 As discussed above this is a somewhat contrived example.  If does, in fact combine MPI and OpenACC but the MPI does almost nothing.  At the MPI level it is embarrassingly parallel and each MPI task does the same calculation which is enhanced via OpenACC.  MPI starts the tasks and reports a summary of timings.  However, MPI combined with OpenACC is a important paradigm.  The GPU version of VASP can combine MPI and OpenACC.
@@ -906,23 +1071,27 @@ We launch with mpirun since NVIDIA's MPI lacks support for the slurm scheduler.
 
 ??? example "mpi/openacc/nvidia/nvidiaopenmpi"
     ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    module unload  PrgEnv-cray/8.5.0
-    #module unload nvhpc/24.1  KEEP THIS LOADED
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    : << ++++ 
-    Compile our program
-    Here we use mpicc and mpif90.  There is support for Cuda
-    but we are not using it in this case but we are using 
-    openacc.
-    ++++
-    mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
-    : We run with 4 tasks per nodes.
-    : This version of MPI does not support srun so we use mpirun
-    mpirun -N 4 ./jacobi 46000 46000 5 nvidia
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml nvhpc-stdalone/24.1
+	
+	
+	: << ++++ 
+	 Compile our program
+	 Here we use mpicc and mpif90.  There is support for Cuda
+	 but we are not using it in this case but we are using 
+	 openacc.
+	++++
+	
+	mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
+	
+	: We run with 4 tasks per nodes.
+	: This version of MPI does not support srun so we use mpirun
+	mpirun -N 4 ./jacobi 46000 46000 5 nvidia
+
     ```
 
 ## cudalib/factor
@@ -946,67 +1115,82 @@ build and run.
 
 ??? example "cudalib/factor"
     ```bash
-    : Size of our matrix to solve
-    export MSIZE=4500
-    : Start from a known module state, the default
-    : We are going to Cray libsci version with the GPU
-    : environment even though it does not use GPUs
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    ml unload PrgEnv-cray/8.5.0
-    ml unload nvhpc/24.1
-    ml PrgEnv-gnu/8.4.0 
-    ml cuda
-    # Here we build the CPU version with libsci We don't actually use Cuda but the compiler wants it
-    CC  -DMINE=$MSIZE  -fopenmp -march=native cpu.C -o invert.libsci
-    : << ++++
-    Compile our GPU programs.
-    The module nvhpc-native gives us access to Nvidia's compilers
-    nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
-    compilers which are actually links to these.
-    ++++
-    #ml nvhpc-native
-    ml nvhpc-stdalone
-    : GPU version with libcusolver
-    export L1=$NVHPC_ROOT/math_libs/lib64
-    export L3=$NVHPC_ROOT/REDIST/cuda/12.3/targets/x86_64-linux/lib
-    nvcc  -DMINE=$MSIZE -L$L1 -lcusolver -L$L3 -lnvJitLink cusolver_getrf_example.cu -o invert.gpu
-    export OMP_NUM_THREADS=32
-    echo 
-    echo 
-    echo ++++++++++++++++++++++
-    echo running libsci version 
-    echo ++++++++++++++++++++++
-    ./invert.libsci
-    for GPU in 0 1 2 3 ; do
-    echo 
-    echo 
-    echo ++++++++++++++++++++++
-    echo running gpu version on GPU $GPU
-    echo ++++++++++++++++++++++
-    : invert.gpu will read the GPU on which to run from the command line
-    ./invert.gpu $GPU
-    done
-    : We are going to compile the Intel version using 
-    : the CPU environment
-    myrestore
-    ml intel-oneapi-mkl
-    ml intel-oneapi-compilers
-    icpx  -DMINE=$MSIZE -qopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl
-    echo 
-    echo 
-    echo ++++++++++++++++++++++
-    echo running MKL version
-    echo ++++++++++++++++++++++
-    ./invert.mkl
-    module unload  intel-oneapi-compilers
-    module unload intel-oneapi-mkl
-    unset L1
-    unset L3
-    unset OMP_NUM_THREADS
-    unset MSIZE
+	cat doit
+	: Size of our matrix to solve
+	export MSIZE=4500
+	
+	: Start from a known module state, the default
+	: We are going to Cray libsci version with the GPU
+	: environment even though it does not use GPUs
+	: Start from a known module state, the default
+	module_restore
+	
+	: Load modules
+	#module unload PrgEnv-cray/8.5.0
+	#module unload nvhpc/24.1
+	
+	ml PrgEnv-gnu/8.4.0 
+	ml cuda
+	
+	# Here we build the CPU version with libsci We don't actaully use Cuda but the compiler wants it
+	CC  -DMINE=$MSIZE  -fopenmp -march=native cpu.C -o invert.libsci
+	
+	: << ++++
+	 Compile our GPU programs.
+	 The module nvhpc-native gives us access to Nvidia's compilers
+	 nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+	 compilers which are actually links to these.
+	++++
+	#ml nvhpc-native
+	ml nvhpc-stdalone
+	: GPU version with libcusolver
+	export L1=$NVHPC_ROOT/math_libs/lib64
+	export L3=$NVHPC_ROOT/REDIST/cuda/12.3/targets/x86_64-linux/lib
+	nvcc  -DMINE=$MSIZE -L$L1 -lcusolver -L$L3 -lnvJitLink cusolver_getrf_example.cu -o invert.gpu
+	
+	
+	export OMP_NUM_THREADS=32
+	echo 
+	echo 
+	echo ++++++++++++++++++++++
+	echo running libsci version 
+	echo ++++++++++++++++++++++
+	./invert.libsci
+	
+	for GPU in 0 1 2 3 ; do
+	echo 
+	echo 
+	echo ++++++++++++++++++++++
+	echo running gpu version on GPU $GPU
+	echo ++++++++++++++++++++++
+	: invert.gpu will read the GPU on which to run from the command line
+	./invert.gpu $GPU
+	done
+	
+	: We are going to compile the Intel version using 
+	: the CPU environment
+	module_restore
+	ml intel-oneapi-mkl
+	ml intel-oneapi-compilers
+	icpx  -DMINE=$MSIZE -qopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl
+	
+	echo 
+	echo 
+	echo ++++++++++++++++++++++
+	echo running MKL version
+	echo ++++++++++++++++++++++
+	
+	./invert.mkl
+	
+	module unload  intel-oneapi-compilers
+	module unload intel-oneapi-mkl
+	
+	unset L1
+	unset L3
+	unset OMP_NUM_THREADS
+	unset MSIZE
+
+
     ```
 
 ## cudalib/fft
@@ -1027,56 +1211,67 @@ Again we run on a cube of size 512.
 
 ??? example "cudalib/fft"
     ```bash
-    : Start from a known module state, the default
-    module purge 
-    myrestore
-    : Load modules
-    ml unload nvhpc/24.1
-    ml unload PrgEnv-cray/8.5.0
-    if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-    ml nvhpc-stdalone
-    ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0 ; fi
-    : << ++++ 
-    Compile our GPU programs.
-    The module nvhpc-stdalone gives us access to Nvidia's compilers
-    nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
-    compilers which are actually links to these.
-    ++++
-    nvcc -O3 -forward-unknown-to-host-compiler  --generate-code=arch=compute_90,code=[compute_90,sm_90] -std=c++11 -x cu 3d_mgpu_c2c_example.cpp -c
-    export L1=$NVHPC_ROOT/REDIST/math_libs/12.3/targets/x86_64-linux/lib
-    nvcc  -o 3dfft 3d_mgpu_c2c_example.o -L$L1 -lcufft
-    : Run our program on a cube. The first parameter gives our cube size.
-    : 2048 should work on the H100s.
-    : Second parameter determines which algorithm runs first 1 GPU version or 4 GPU version
-    echo
-    echo
-    for DOIT in `seq 1 4` ; do
-    echo set $DOIT
-    echo ++++++++++++++
-    echo RUN SINGLE GPU VERSION FIRST
-    ./3dfft 512 1
-    echo
-    echo
-    echo ++++++++++++++
-    echo RUN FOUR GPU VERSION FIRST
-    ./3dfft 512 2
-    echo
-    echo
-    done
-    : Build and run a fftw version
-    module purge
-    myrestore
-    ml unload nvhpc/24.1
-    ml unload PrgEnv-cray/8.5.0
-    ml  PrgEnv-cray/8.4.0 
-    ml cray-fftw
-    ml cuda
-    cc -O3 fftw3d.c -o fftw3.exe
-    echo
-    echo
-    echo ++++++++++++++
-    echo run fftw libsci version
-    ./fftw3.exe 512
+	: Start from a known module state, the default
+	module_restore
+	
+	
+	
+	: Load modules
+	#module unload nvhpc/24.1
+	#module unload PrgEnv-cray/8.5.0
+	
+	if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+	ml nvhpc-stdalone
+	ml binutils
+	
+	ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0 ; fi
+	
+	: << ++++ 
+	 Compile our GPU programs.
+	 The module nvhpc-stdalone gives us access to Nvidia's compilers
+	 nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
+	 compilers which are actually links to these.
+	++++
+	
+	nvcc -O3 -forward-unknown-to-host-compiler  --generate-code=arch=compute_90,code=[compute_90,sm_90] -std=c++11 -x cu 3d_mgpu_c2c_example.cpp -c
+	export L1=$NVHPC_ROOT/REDIST/math_libs/12.3/targets/x86_64-linux/lib
+	nvcc  -o 3dfft 3d_mgpu_c2c_example.o -L$L1 -lcufft
+	
+	: Run our program on a cube. The first parameter gives our cube size.
+	: 2048 should work on the H100s.
+	: Second parameter determines which algorithm runs first 1 GPU version or 4 GPU version
+	echo
+	echo
+	for DOIT in `seq 1 4` ; do
+	  echo set $DOIT
+	  echo ++++++++++++++
+	  echo RUN SINGLE GPU VERSION FIRST
+	  ./3dfft 512 1
+	  echo
+	  echo
+	  echo ++++++++++++++
+	  echo RUN FOUR GPU VERSION FIRST
+	  ./3dfft 512 2
+	  echo
+	  echo
+	done
+	
+	: Build and run a fftw version
+	module_restore
+	#module unload nvhpc/24.1
+	#module unload PrgEnv-cray/8.5.0
+	ml  PrgEnv-cray/8.4.0 
+	
+	ml cray-fftw
+	ml cuda
+	cc -O3 fftw3d.c -o fftw3.exe
+	
+	echo
+	echo
+	echo ++++++++++++++
+	echo run fftw libsci version
+	./fftw3.exe 512
+
     ```
 
 
