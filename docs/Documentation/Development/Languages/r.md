@@ -10,31 +10,24 @@ For more information related to the R project, see the [R website](http://www.r-
 
 ## Accessing R
 
-The supported method for using R on the HPC systems is via Anaconda.  In order to access R, first load the anaconda module (on Kestrel, this is `module load anaconda3`).  Then, create a new conda environment that contains at least the `r-base` package.  Optionally, install the `r-essentials` bundle, which provides many of the most popular R packages for data science.
+The supported method for using R on NREL HPC systems is via Anaconda/mamba. In order to install R, first load the mamba module. On Kestrel or Swift, this is `module load mamba`. Next, create a new conda environment that contains at least the `r-base` package, which installs R itself. Optionally, install the `r-essentials` bundle, which provides many of the most popular R packages for data science, such as the [tidyverse](https://www.tidyverse.org) family of packages.
 
-For example, to create and activate a new environment named `r_env` on Kestrel that includes the `r-essentials` bundle:
+For example, to create and activate a new environment named `r_env` in your current directory that includes the `r-essentials` bundle:
 
 ```bash
-module load anaconda3
-conda create -n r_env r-essentials r-base
-conda activate r_env
+module load mamba
+conda create --prefix=./r_env r-essentials r-base
+conda activate ./r_env
 ```
+
+!!! note
+    We install the `r_env` conda environment in our current directory with the `--prefix` option for a number of reasons. Note that if you create an environment with the `-n` or `--name` option, it will install into your home directory by default, which is not ideal due to its limited storage. The `--prefix` option can also accept an absolute path, such as a dedicated `/projects` directory. Please see our dedicated [conda documentation](../../Environment/Customization/conda.md#creating-environments-by-location) for more information.
 
 For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://docs.anaconda.com/free/anaconda/packages/using-r-language/).
 
-!!! note
-
-    To avoid possible conflicts, remove any Intel compiler modules before loading R. One way to do this is via the following: 
-
-    ```
-    $ module purge
-    $ module load anaconda3
-    ```
-
-
 ## Running R Interactively
 
-R is most commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Slurm/interactive_jobs.md)) using the `srun` command. Alternatively, R can be used through [Jupyterhub](../Jupyter/index.md).
+R is most commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Slurm/interactive_jobs.md)) using the `salloc` command. Alternatively, R can be used through [Jupyterhub](../Jupyter/index.md).
 
 Once on a compute node, R environments can be accessed through Anaconda as described above. To access the R interactive console, type R at the command line. You will be prompted with the familiar R console in your terminal window: 
 
@@ -43,15 +36,15 @@ Once on a compute node, R environments can be accessed through Anaconda as descr
     ```
     $ R
 
-    R version 4.0.5 (2021-03-31) -- "Shake and Throw"
-    Copyright (C) 2021 The R Foundation for Statistical Computing
-    Platform: x86_64-conda-linux-gnu (64-bit)
+    R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+    Copyright (C) 2024 The R Foundation for Statistical Computing
+    Platform: x86_64-conda-linux-gnu
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
     You are welcome to redistribute it under certain conditions.
     Type 'license()' or 'licence()' for distribution details.
 
-      Natural language support but running in an English locale
+    Natural language support but running in an English locale
 
     R is a collaborative project with many contributors.
     Type 'contributors()' for more information and
@@ -61,6 +54,9 @@ Once on a compute node, R environments can be accessed through Anaconda as descr
     'help.start()' for an HTML browser interface to help.
     Type 'q()' to quit R.
     ```
+
+!!! note
+    You can run individual R commands directly from the command line via `R -e 'COMMAND'`, such as `R -e 'print("Hello, world")'`.
 
 ## Running R Scripts
 
@@ -121,20 +117,24 @@ There are several options for running R scripts:
     
 ## Submitting Jobs
 
-Another option for using R on the HPC systems is to submit batch jobs to be run on non-interactive nodes. 
+Another option for using R on the HPC systems is to submit batch jobs to be run on non-interactive nodes. An example job script for running the hello_world.R example is below. Ensure you update your allocation name as well as the path of the conda environment where R has been installed. 
 
-An example job script for running the hello_world.R example is below (make sure to update your allocation name as well as the name of the conda environment where R has been installed):
+!!! note
+    The following example script is submitted to the [shared partition](../../Systems/Kestrel/Running/index.md#shared-node-partition) on Kestrel, which allows nodes to run multiple jobs at once. This is because without invoking any special parallel packages in the `hello_world.R` script, R is limited to using a single core. Refer to the [Parallel Programming in R](#parallel-programming-in-r) section below for information on how to use more than one core from your R code.
 
 ```bash
 #! /bin/bash
 #SBATCH --job-name=helloworld
 #SBATCH --nodes=1
-#SBATCH --time=60
+#SBATCH --partition=shared
+#SBATCH -n 1 
+#SBATCH -N 1
+#SBATCH --mem-per-cpu=1G
+#SBATCH --time=00:05:00
 #SBATCH --account=<your_allocation_id>
   
-module purge
-module load anaconda3
-conda activate <r_env>
+module load mamba
+conda activate /path/to/r_env
 Rscript hello_world.R
 ```
     
@@ -145,47 +145,39 @@ R is a popular open-source language with an active development community. New ve
 ??? example "Custom Installation with Conda"
 
     ```
-    $ conda search r-essentials
+    $ mamba search r-essentials
     Loading channels: done
-    # Name                  Version           Build  Channel
-    r-essentials                1.0        r3.2.1_0  pkgs/r
-    r-essentials                1.0       r3.2.1_0a  pkgs/r
-    r-essentials                1.1        r3.2.1_0  pkgs/r
-    r-essentials                1.1       r3.2.1_0a  pkgs/r
-    r-essentials                1.1        r3.2.2_0  pkgs/r
-    r-essentials                1.1       r3.2.2_0a  pkgs/r
-    r-essentials                1.1        r3.2.2_1  pkgs/r
-    r-essentials                1.1       r3.2.2_1a  pkgs/r
-    r-essentials                1.4               0  pkgs/r
-    r-essentials              1.4.1        r3.3.1_0  pkgs/r
-    r-essentials              1.4.2               0  pkgs/r
-    r-essentials              1.4.2        r3.3.1_0  pkgs/r
-    r-essentials              1.4.3        r3.3.1_0  pkgs/r
-    r-essentials              1.5.0               0  pkgs/r
-    r-essentials              1.5.1               0  pkgs/r
-    r-essentials              1.5.2        r3.3.2_0  pkgs/r
-    r-essentials              1.5.2        r3.4.1_0  pkgs/r
-    r-essentials              1.6.0        r3.4.1_0  pkgs/r
-    r-essentials              1.7.0  r342hf65ed6a_0  pkgs/r
-    r-essentials              3.4.3        mro343_0  pkgs/r
-    r-essentials              3.4.3          r343_0  pkgs/r
-    r-essentials              3.5.0        mro350_0  pkgs/r
-    r-essentials              3.5.0          r350_0  pkgs/r
-    r-essentials              3.5.1        mro351_0  pkgs/r
-    r-essentials              3.5.1          r351_0  pkgs/r
-    $ conda create -n otherr r-essentials==3.5.1
+    # Name                       Version           Build  Channel
+    r-essentials                   1.5.2        r3.3.2_0  conda-forge
+    r-essentials                   3.4.1        r3.4.1_0  conda-forge
+    r-essentials                   3.5.1       r351_1000  conda-forge
+    r-essentials                   3.5.1       r351_2000  conda-forge
+    r-essentials                   3.5.1        r35_2001  conda-forge
+    r-essentials                     3.6        r36_2001  conda-forge
+    r-essentials                     3.6        r36_2002  conda-forge
+    r-essentials                     4.0        r40_2002  conda-forge
+    r-essentials                     4.0 r40hd8ed1ab_2002  conda-forge
+    r-essentials                     4.1 r41hd8ed1ab_2002  conda-forge
+    r-essentials                     4.1 r41hd8ed1ab_2003  conda-forge
+    r-essentials                     4.2 r42hd8ed1ab_2003  conda-forge
+    r-essentials                     4.2 r42hd8ed1ab_2004  conda-forge
+    r-essentials                     4.3 r43hd8ed1ab_2004  conda-forge
+    r-essentials                     4.3 r43hd8ed1ab_2005  conda-forge
+    r-essentials                     4.4 r44hd8ed1ab_2005  conda-forge
+    
+    $ mamba create --prefix=./test-R r-essentials==4.3
     <Text>
-    $ . activate otherr
-    (otherr) $ R --version
-    R version 3.5.1 (2018-07-02) -- "Feather Spray"
-    Copyright (C) 2018 The R Foundation for Statistical Computing
-    Platform: x86_64-pc-linux-gnu (64-bit)
+    $ conda activate ./test-R
+    (test-R) $ R --version
+    R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+    Copyright (C) 2024 The R Foundation for Statistical Computing
+    Platform: x86_64-conda-linux-gnu
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
     You are welcome to redistribute it under the terms of the
     GNU General Public License versions 2 or 3.
     For more information about these matters see
-    http://www.gnu.org/licenses/.
+    https://www.gnu.org/licenses/.
     ```
 
 ### Installing New Packages
@@ -232,7 +224,7 @@ R is commonly used to produce high-quality graphics based on data. This capabili
 
 Programming in R on the HPC systems has two distinct advantages. First, running jobs on a remote system means you do not have to tie up your local machine. This can be particularly useful for jobs that take considerable time and resources to run. Secondly, the increased computational capabilities of the HPC system provide an opportunity to improve performance through parallel processing. R code, like many programming languages, is typically written and executed serially. This means that the added benefits of having multiple processing cores available are typically lost.
 
-A major goal of the R community in recent years has been the development of specialized libraries and programming paradigms to better leverage modern HPC systems. The CRAN task view for High Performance Computing and Parallel Programming contains a detailed list of packages that address various aspects of these problems. For more information, see CRAN Task View: High-Performance and Parallel Computing with R. 
+A major goal of the R community in recent years has been the development of specialized libraries and programming paradigms to better leverage modern HPC systems. The [CRAN Task View: High-Performance and Parallel Computing with R](https://cran.r-project.org/web/views/HighPerformanceComputing.html) contains a detailed list of packages that address various aspects of these problems. 
 
 Notable examples are:
 
@@ -247,14 +239,14 @@ Each package includes in-depth documentation and examples for how to implement p
 
 Most of these packages will have to be installed in a custom environment as many dependencies are incompatible with the version of openmpi installed in conda. 
 
-??? note "Using the pbdR Project"
+??? note "Using the pbdR Project on Kestrel"
 
     The [pbdR project](http://r-pbd.org/) "enables high-level distributed data parallelism in R, so that it can easily utilize large HPC platforms with thousands of cores, making the R language scale to unparalleled heights." There are several packages within this project: pbdMPI for easy MPI work, pbdDMAT for distributed data matrices and associated functions, and pbdDEMO for a tutorial/vignette describing most of the project's details.
     
-    The `pbdMPI` package provides the MPI interface, which requires Open MPI.  Note that Open MPI must be loaded prior to installing the package.  For example, on Kestrel:
+    The `pbdMPI` package provides the MPI interface, which requires Open MPI.  Note that the Open MPI module must be loaded prior to installing the package. For example, on Kestrel:
     
     ```
-    $ module load openmpi/4.1.5-gcc
+    $ module load openmpi/5.0.3-gcc
     $ R
     > install.packages("pbdMPI")
     ```
@@ -274,19 +266,20 @@ Most of these packages will have to be installed in a custom environment as many
     finalize()
     ```
     
-    You could run this interactively from a compute node or by submitting it to the job scheduling using a shell script similar to the one given below. For example, you would submit using sbatch ranknode.sh from a login node provided you name the script appropriately: 
+    You could run this interactively from a compute node or by submitting it to the job scheduling using a shell script similar to the one given below. For example, you would submit this job to a [shared node on Kestrel](../../Systems/Kestrel/Running/index.md#shared-node-partition) via `sbatch ranknode.sh` from a login node provided you name the script appropriately: 
 
     ```bash
     #!/bin/bash
     #SBATCH --nodes=2
     #SBATCH --ntasks-per-node=24
-    #SBATCH --time=5
+    #SBATCH --mem-per-cpu=1G
+    #SBATCH --time=00:05:00
+    #SBATCH --partition=shared
     #SBATCH --account=<your_allocation_id>
 
-    module purge
-    module load anaconda3
-    module load openmpi/4.1.5-gcc
-    conda activate <r_env>
+    module load mamba
+    module load openmpi/5.0.3-gcc
+    conda activate /path/to/renv
 
     INPUT_BASENAME=ranknode # JOB NAME - USER INPUT PARAMETER
     JOB_FILE=$INPUT_BASENAME.R
@@ -309,7 +302,7 @@ Most of these packages will have to be installed in a custom environment as many
 
 ## Contacts
 
-For questions on statistics, the R software environment itself, or advanced R package questions, please contact [Lindy Williams](mailto:Lindy.Williams@nrel.gov).
+For questions on the R software environment itself or advanced R package questions, please contact [HPC-Help@nrel.gov](mailto:HPC-Help@nrel.gov).
 
 Additionally, NREL has an internal R Users Group that meets periodically to highlight interesting packages, problems, and share experiences related to R programming. For more details, contact [Daniel Inman](mailto:daniel.inman@nrel.gov). 
 
