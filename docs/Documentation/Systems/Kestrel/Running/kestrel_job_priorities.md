@@ -46,7 +46,7 @@ $$S = \frac{Sraw_{self}}{Sraw_{self+siblings}}, \quad U = \frac{Uraw_{self}}{Ura
 
 This is repeated at each level of the fairtree, and a ranked list is built using a depth first traversal of the fairshare tree.  A projects fairshare priority is proportional to its' position on this list.  
 
-The list is descended depth first in part to prioritize the higher level assigned percentages (e.g.,  the EERE and NREL utilization is balanced first, then individual offices within EERE and NREL, and so on).  Due to the depth first traversal it is hypothetically possible that an underserved allocation exists with a high level fairshare value, but is lower on the ranked list as the order of traversal is determined from its siblings and parents usage.   
+The list is descended depth first in part to prioritize the higher level assigned percentages (e.g.,  the EERE and NREL utilization is balanced first, then individual offices within EERE and NREL, and so on).  Due to the depth first traversal it is hypothetically possible that an underserved allocation exists with a high level fairshare value, but is lower on the ranked list as the order of traversal is determined from its siblings and parents' usage.   
 
 As additional complexity, the above usage calculations are modified by a half-decay system that emphasizes more recent usage and de-emphasizes historical usage:
 
