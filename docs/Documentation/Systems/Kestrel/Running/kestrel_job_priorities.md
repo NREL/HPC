@@ -1,22 +1,59 @@
 # Job Priorities on Kestrel
-*Job priority on Kestrel is determined by a number of factors including queue wait time (AGE), job size, the need for limited resources (PARTITION), specific priority requests (QOS), and Fair-Share.*
+*Job priority on Kestrel is determined by a number of factors including time the job is eligible to run in the queue (age),
+the size of the job (jobsize), resources requested and their partition (partition), quality of service and the 
+associated priority (qos), and the relative fair-share of the individual allocation.*
 
 Learn about [job partitions and scheduling policies](./index.md).
 
-## How to View Your Job's Priority 
-The ```sprio``` command may be used to look at your job's priority. Priority for a job in the queue is calculated as the sum of these components:
+## Job Priority & Scheduling
 
-| Component | Contribution |
-| ----------| ------------ | 
-| AGE       | Jobs accumulate priority points per minute the job spends eligible in the queue.|
-| JOBSIZE   | Larger jobs have some priority advantage to allow them to accumulate needed nodes faster.|
-| PARTITION | Jobs routed to partitions with special features (memory, disk, GPUs) have priority to use nodes equipped with those features.|
-| QOS       | Jobs associated with projects that have exceeded their annual allocation are assigned low priority.<br>Jobs associated with projects that have an allocation remaining are assigned normal priority. These jobs start before jobs with a low priority.<br>A job may request high priority using --qos=high. Jobs with high priority start before jobs with low or normal priority. Jobs with qos=high use allocated hours at 2x the normal rate.|
-| FAIR-SHARE| Each projects Fair-Share value will be (Project Allocation) / (Total Kestrel Allocation).  Those using less than their fair share in the last 2 weeks will have increased priority.  Those using more than their fair share in the last 2 weeks will have decreased priority. | 
+The Slurm scheduler has two scheduling loops: 
 
-The ```squeue --start <JOBID>```  command can be helpful in estimating when a job will run.
+1. **Main scheduling loop**, which schedules jobs in strict priority order, 
+2. **Backfill scheduling loop**, that allows lower priority jobs to be scheduled (as long as the expected start time of higher priority jobs is not affected).  
 
-The ```scontrol show job <JOBID>``` command can be useful for troubleshooting why a job is not starting.
+In both cases, Slurm schedules in strict priority, with higher priority jobs being considered first for scheduling; however, due to the resources requested or other configuration options, there may be availability for backfill to schedule lower priority jobs (with the same caveat as before, that lower priority jobs can not affect the expected start time of higher priority jobs).  The backfill scheduler uses the user defined wallclock during submission for scheduling, which can result in scheduler inefficiencies as the estimates diverge from actual wallclock.
+
+An individual job's priority is a combination of multiple factors: (1) age, (2) nodes requested or jobsize, (3) partition
+factor, (4) quality of service (qos), and (5) the relative fair-share of the individual allocation.  There is a weighting
+factor associated with each of these components (shown below) that determines the relative contribution of each factor:
+
+| Component | Weighting Factor | Nominal Weight| Note |
+| :---| :---: | :---: | :--- | 
+| age | 30,589,200 |4% | Jobs accumulate AGE priority while in the queue and eligible to run (up to a maximum of 14 days) |
+| jobsize | 221,771,700 | 29%| Jobs receive increasing size priority as number of nodes requested increases.
+| partition | 38,236,500 | 5% | Additional boost for certain partitions (e.g., nvme), so that jobs requesting specific resources receive priority.|
+| qos | 76,473,000 | 10%| A job may request high-priority using --qos=high and receive the full qos priority.  Jobs without this flag receive no qos priority.
+| fairshare| 397,659,600 | 52% |  A project is under-served (and receives a higher fair-share priority) if the project's usage is low relative to the size of its allocation.  There is additional complexity discussed below.|
+
+## Fairshare
+
+Fairshare is a scheduling system where the size of a project's allocation relative to the size of the machine determines their relative fairshare.  A project's fairshare priority would be elevated if the utilization is low relative to their fairshare, where utilization is a function of sibling projects (same office).  Similarily, a project's fairshare priority would be lower if the utilization is high relative to the allocation.  
+
+A fairtree with a hypothetical allocation is illustrated below:
+
+<img src="../../../../../assets/images/Slurm/Fairtree.png" width="400">
+
+In this hypothetical scenario, fairshare values would be calculated at each point in the fairtree.  The fairshare calculations are a function of: (1) the allocation, (2) the sum of the sibling allocations, and (3) recent usage of both the allocation and the siblings.  For example, the utilization and allocations of all projects in **EERE / Office 2** would be used to calculate the individual level fairshare value for the individual projects contained in that office.  Similarly, the fairshare values for all offices within EERE would be used to calculate the fairshare values for **EERE / Office 1** and **EERE / Office 2**.
+
+The level fairshare values are calculated as follows:
+
+$$Level Fairshare = \frac{S}{U}$$
+
+where 
+
+$$S = \frac{Sraw_{self}}{Sraw_{self+siblings}}, \quad U = \frac{Uraw_{self}}{Uraw_{self+siblings}}$$
+
+This is repeated at each level of the fairtree, and a ranked list is built using a depth first traversal of the fairshare tree.  A project's fairshare priority is proportional to its position on this list.  
+
+The list is descended depth first in part to prioritize the higher level assigned percentages (e.g.,  the EERE and NREL utilization is balanced first, then individual offices within EERE and NREL, and so on).  Due to the depth first traversal it is hypothetically possible that an underserved allocation exists with a high level fairshare value, but is lower on the ranked list as the order of traversal is determined from its siblings and parents' usage.   
+
+As additional complexity, the above usage calculations are modified by a half-decay system that emphasizes more recent usage and de-emphasizes historical usage:
+
+$$ U = U_{currentperiod} + ( D * U_{lastperiod}) + (D * D * U_{period-2}) + ...$$
+
+The decay factor, *D*, is a number between 0 and 1 that achieves the half-decay rate specified by the Slurm configruation files (14 day on Kestrel).
+
 
 ## How to Get High Priority for a Job
 You can submit your job to run at high priority or you can request a node reservation.
@@ -40,3 +77,4 @@ All partitions have a matching `-standby` partition, which has *lower* priority.
     2) Your desired Slurm partition is relatively open, and you want to save AUs for other jobs. Please [see here](../../../Slurm/monitor_and_control.md#sinfo) for instructions on how to estimate a partition's availability.
 
 Note that `standby` is the default QoS for allocations which have already consumed all awarded AUs for the year.
+
