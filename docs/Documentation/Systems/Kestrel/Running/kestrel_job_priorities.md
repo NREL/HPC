@@ -24,7 +24,7 @@ factor associated with each of these components (shown below) that determines th
 | jobsize | 221,771,700 | 29%| Jobs receive increasing size priority as number of nodes requested increases.
 | partition | 38,236,500 | 5% | Additional boost for certain partitions (e.g., nvme), so that jobs requesting specific resources receive priority.|
 | qos | 76,473,000 | 10%| A job may request high-priority using --qos=high and receive the full qos priority.  Jobs without this flag receive no qos priority.
-| fairshare| 397,659,600 | 52% |  A project is under-served (and receives a higher fair-share priority) if the projects' usage is low relative to the size of its' allocation.  There is additional complexity discussed below.|
+| fairshare| 397,659,600 | 52% |  A project is under-served (and receives a higher fair-share priority) if the project's usage is low relative to the size of its allocation.  There is additional complexity discussed below.|
 
 ## Fairshare
 
