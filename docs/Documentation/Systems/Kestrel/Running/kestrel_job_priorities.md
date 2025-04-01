@@ -12,7 +12,7 @@ The Slurm scheduler has two scheduling loops:
 1. **Main scheduling loop**, which schedules jobs in strict priority order, 
 2. **Backfill scheduling loop**, that allows lower priority jobs to be scheduled (as long as the expected start time of higher priority jobs is not affected).  
 
-In both cases, Slurm schedules in strict priority, with higher priority jobs being considered first for scheduling; however, due to the resources requested or other configuration options, there may be availability for backfill to schedule lower priority jobs (with the same caveat as before, that lower priority jobs can not affect the expected start time of higher priority jobs).  The backfill scheduler uses the user defined wallclock during submission for scheduling, which can result in scheduler inefficineces as the estimates diverge from actual wallclock.
+In both cases, Slurm schedules in strict priority, with higher priority jobs being considered first for scheduling; however, due to the resources requested or other configuration options, there may be availability for backfill to schedule lower priority jobs (with the same caveat as before, that lower priority jobs can not affect the expected start time of higher priority jobs).  The backfill scheduler uses the user defined wallclock during submission for scheduling, which can result in scheduler inefficiencies as the estimates diverge from actual wallclock.
 
 An individual job's priority is a combination of multiple factors: (1) age, (2) nodes requested or jobsize, (3) partition
 factor, (4) quality of service (qos), and (5) the relative fair-share of the individual allocation.  There is a weighting
