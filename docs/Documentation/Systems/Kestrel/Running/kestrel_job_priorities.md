@@ -34,7 +34,7 @@ A fairtree with a hypothetical allocation is illustrated below:
 
 <img src="../../../../../assets/images/Slurm/Fairtree.png" width="400">
 
-In this hypothetical scenario, fairshare values would be calculated at each point in the fairtree.  The fairshare calculations are a function of: (1) the allocation, (2) the sum of the siblings allocations, and (3) recent usage of both the allocation and the siblings.  For example, the utilization and allocations of all projects in **EERE / Office 2** would be used to calculate the individual level fairshare value for the individual projects contained in that office.  Similarly, the fairshare values for all offices within EERE would be used to calculate the fairshare values for **EERE / Office 1** and **EERE / Office 2**.
+In this hypothetical scenario, fairshare values would be calculated at each point in the fairtree.  The fairshare calculations are a function of: (1) the allocation, (2) the sum of the sibling allocations, and (3) recent usage of both the allocation and the siblings.  For example, the utilization and allocations of all projects in **EERE / Office 2** would be used to calculate the individual level fairshare value for the individual projects contained in that office.  Similarly, the fairshare values for all offices within EERE would be used to calculate the fairshare values for **EERE / Office 1** and **EERE / Office 2**.
 
 The level fairshare values are calculated as follows:
 
