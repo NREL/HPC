@@ -15,7 +15,7 @@ Dask is a framework for parallelizing Python code. The most common use case is t
 ## Installation
 
 !!! Warning
-    Conda environments should be *always* be installed outside of your home directory for storage and performance reasons. **This is especially important for frameworks like Dask**, whose parallel processes can particularly strain the `/home` filesystem. Please refer to our dedicated [conda documentation](../../../Environment/Customization/conda.md#reduce-home-directory-usage) for more information on how to setup your conda environments to redirect the installation outside of `/home` by default.
+    Conda environments should be *always* be installed outside of your home directory for storage and performance reasons. **This is especially important for frameworks like Dask**, whose parallel processes can particularly strain the `/home` filesystem. Please refer to our dedicated [conda documentation](../../../Environment/Customization/conda.md#creating-environments-by-location) for more information on how to setup your conda environments to redirect the installation outside of `/home` by default.
 
 Dask can be installed via Conda/Mamba. For example, to install Dask into a new environment from `conda-forge` into your `/projects` allocation folder, first load the appropriate conda (or mamba) module (e.g., `module load mamba` on Kestrel), and then run the following on a compute node.
 
