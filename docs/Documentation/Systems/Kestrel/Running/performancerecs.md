@@ -2,6 +2,49 @@
 
 Please note that all of these recommendations are subject to change as we continue to improve the system.
 
+## MPI
+
+Applications running across multiple CPU nodes on Kestrel might experience performance problems. Following your scaling tests, if your application underperforms, consider these performance improvement suggestions.
+
+- For **any application**, use `Cray-MPICH` instead of `OpenMPI` because `Cray-MPICH` is highly optimized to leverge the [interconnect](../../index.md) used on Kestrel. For OpenMPI to Cray MPICH code rebuilding assistance, please contact hpc-help@nrel.gov. If your application was built with an [MPICH ABI-compatible MPI library](https://github.com/pmodels/mpich/blob/main/doc/wiki/testing/ABI_Compatibility_Initiative.md), use `cray-mpich-abi` for optimal performance. The cray-mpich-abi usage involves these steps: load the programming environment module (`PrgEnv-*`) that matches your application's compiler; load the `cray-mpich-abi` module; and run your application with `Slurm` (see example below).
+   ```
+   $ module load PrgEnv-gnu or module load PrgEnv-intel
+   $ module swap cray-mpich/8.1.28 cray-mpich-abi/8.1.28
+   $ srun -N $SLURM_NNODES -n $SLURM_NTASKS --distribution=block:block --cpu_bind=rank_ldom ./<application executable>
+   ```
+
+- The performance of __latency-sensitive applications__, such as AMR-Wind, Nalu-Wind, and LAMMPS with medium-size input, is impacted by message communication congestion in the interconnect when running jobs on over 8 CPU-nodes using `cray-mpich/8.1.28`. Higher congestion is observed using the standard CPU nodes which each have one NIC, than using the nodes in the `hbw` partition, which each have two NICs per node. The stall feature in `CRAY MPICH version 8.1.30.1` boosts application performance by regulating message injection into the interconnect. To utilize this library, applications must be built using either the `PrgEnv-gnu`, `PrgEnv-cray`, or `PrgEnv-intel` programming environment modules, or an MPICH ABI-compatible MPI library. Your job script needs one of these script snippets: use the first for programming environment builds; the second for MPICH-ABI-compatible builds.
+   ```
+   # Set the number of NICs to 2 for `hbw`
+   export NIC=1
+   
+   # Load the shared libraries
+   export LD_LIBRARY_PATH=/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_*:$LD_LIBRARY_PATH
+   
+   # Enable the stall mechanism
+   export MPICH_OFI_CQ_STALL=1
+
+   # Activate the stall library
+   export MPICH_OFI_CQ_MIN_PPN_PER_NIC=($SLURM_NTASKS_PER_NODE/NIC)
+
+   # Tune the stall value
+   export MPICH_OFI_CQ_STALL_USECS=26
+   ```   
+   ```
+   # Set the number of NIC to 2 for `hbw`
+   export NIC=1
+   export LD_LIBRARY_PATH=/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_*_adj:$LD_LIBRARY_PATH
+   export MPICH_OFI_CQ_STALL=1
+   export MPICH_OFI_CQ_MIN_PPN_PER_NIC=($SLURM_NTASKS_PER_NODE/NIC)
+   export MPICH_OFI_CQ_STALL_USECS=1
+
+   ```
+Substitute `*` with the compiler name (e.g., `cray`, `intel`, or `gnu`) used to compile your application. For best performance, experiment with stall (`MPICH_OFI_CQ_STALL_USECS`) values of between 1 and 26 microseconds; the default is 12 microseconds. For example, you may run your application using a stall value from this list: [1, 3, 6, 9, 12, 16, 20, 26]. If you need assistance in using this stall library, please email hpc-help@nrel.gov.
+!!! Note
+      `Spack`-built applications have hardcoded runtime paths in their executables, necessitating the use of `LD_PRELOAD`. For example, the PrgEnv-intel shared libraries can be loaded as follows: `export LD_PRELOAD=/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel/libmpi_intel.so.12:/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel/libmpifort_intel.so.12`
+
+- For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
+
 ## OpenMP
 
 If you are running a code with OpenMP enabled, we recommend manually setting one of the following environment variables:
@@ -13,33 +56,3 @@ export KMP_AFFINITY=balanced # for codes built with intel compilers
 ```
 
 You may need to export these variables even if you are not running your job with threading, i.e., with `OMP_NUM_THREADS=1`
-
-## MPI
-
-Currently, some applications on Kestrel are not scaling with the expected performance. We are actively working with the vendor's engineers to resolve these issues. For now, for these applications, we have compiled a set of recommendations that may help with performance. Note that any given recommendation may or may not apply to your specific application. We strongly recommend conducting your own performance and scalability tests on your performance-critical codes.
-
-1. Use Cray MPICH over OpenMPI or Intel MPI. If you need help rebuilding your code so that it uses Cray MPICH, please reach out to hpc-help@nrel.gov
-
-2. For MPI collectives-heavy applications, setting the following environment variables (for Cray MPICH):
-```
-export MPICH_SHARED_MEM_COLL_OPT=mpi_bcast,mpi_barrier 
-export MPICH_COLL_OPT_OFF=mpi_allreduce 
-```
-These environment variables turn off some collective optimizations that we have seen can cause slowdowns. For more information on these environment variables, visit HPE's documentation site [here](https://cpe.ext.hpe.com/docs/mpt/mpich/intro_mpi_ucx.html).
-
-4. For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
-  
-### MPI Stall Library
-For calculations requesting more than ~10 nodes, you can use the cray mpich stall library. This library can help reduce slowdowns in your calculation runtime caused by congestion in MPI communication, a possible performance bottleneck on Kestrel for calculations using ~10 nodes or more.  To use the library, you must first make sure your code has been compiled within one of the `PrgEnv-gnu`, `PrgEnv-cray`, or  `PrgEnv-intel` programming environments. Then, add the following lines to your sbatch submit script:
-   ```
-   stall_path=/nopt/nrel/apps/cray-mpich-stall
-   export LD_LIBRARY_PATH=$stall_path/libs_mpich_nrel_{PRGENV-NAME}:$LD_LIBRARY_PATH
-   export MPICH_OFI_CQ_STALL=1
-   ```
-  Where {PRGENV-NAME} is replaced with one of `cray`, `intel`, or `gnu`. For example, if you compiled your code within the default `PrgEnv-gnu` environment, then you would export the following lines:
-   ```
-   stall_path=/nopt/nrel/apps/cray-mpich-stall
-   export LD_LIBRARY_PATH=$stall_path/libs_mpich_nrel_gnu:$LD_LIBRARY_PATH
-   export MPICH_OFI_CQ_STALL=1
-   ```
-The default "stall" of the MPI tasks is 12 microseconds, which we recommend trying before manually adjusting the stall time. You can adjust the stall to be longer or shorter with `export MPICH_OFI_CQ_STALL_USECS=[time in microseconds]` e.g. for 6 microseconds, `export MPICH_OFI_CQ_STALL_USECS=6`. A stall time of 0 would be the same as "regular" MPI. As stall time increases, the amount of congestion decreases, up to a calculation-dependent "optimal" stall time. If you need assistance in using this stall library, please email hpc-help@nrel.gov.
