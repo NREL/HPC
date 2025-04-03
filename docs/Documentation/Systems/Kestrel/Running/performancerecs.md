@@ -40,7 +40,7 @@ Applications running across multiple CPU nodes on Kestrel might experience perfo
 
    ```
 Substitute `*` with the compiler name (e.g., `cray`, `intel`, or `gnu`) used to compile your application. For best performance, experiment with stall (`MPICH_OFI_CQ_STALL_USECS`) values of between 1 and 26 microseconds; the default is 12 microseconds. For example, you may run your application using a stall value from this list: [1, 3, 6, 9, 12, 16, 20, 26]. If you need assistance in using this stall library, please email hpc-help@nrel.gov.
-!!!Note
+!!! Note
       `Spack`-built applications have hardcoded runtime paths in their executables, necessitating the use of `LD_PRELOAD`. For example, the PrgEnv-intel shared libraries can be loaded as follows: `export LD_PRELOAD=/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel/libmpi_intel.so.12:/nopt/nrel/apps/cray-mpich-stall/libs_mpich_nrel_intel/libmpifort_intel.so.12`
 
 - For hybrid MPI/OpenMP codes, requesting more threads per task than you tend to request on Eagle. This may yield performance improvements.
