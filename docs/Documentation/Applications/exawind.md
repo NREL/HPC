@@ -2,7 +2,7 @@
 [`ExaWind`](https://www.nrel.gov/docs/fy21osti/80401.pdf) is a suite of applications that simulate wind turbines and wind farms on accelerated systems. The applications include AMR-Wind, Nalu-Wind, TIOGA, and OpenFAST. [`AMR-Wind`](https://github.com/Exawind/amr-wind) is a massively parallel, block-structured adaptive-mesh, incompressible flow solver for wind turbine and wind farm simulations. [`Nalu-Wind`](https://exawind.github.io/nalu-wind/index.html) is a generalized, unstructured, massively parallel, incompressible flow solver for wind turbine and wind farm simulations. [`TIOGA`](https://github.com/jsitaraman/tioga) is a library for overset grid assembly on parallel distributed systems. [`OpenFAST`](https://openfast.readthedocs.io/en/main/) is a multi-physics, multi-fidelity tool for simulating the coupled dynamic response of wind turbines.
 
 ## Building ExaWind 
-We recommend installing ExaWind packages, either coupled or standalone, via [`exawind-manager`](https://github.com/Exawind/exawind-manager). While ExaWind-manager is recommended, CMake could be used as a substitute for installing the necessary packages. Instructions for building ExaWind packages with ExaWind-manager and AMR-Wind/OpenFAST with CMake are described below.
+We recommend installing ExaWind packages, either coupled or standalone, via [`ExaWind-manager`](https://github.com/Exawind/exawind-manager). While ExaWind-manager is recommended, CMake could be used as a substitute for installing the necessary packages. Instructions for building ExaWind packages with ExaWind-manager and AMR-Wind/[OpenFAST](openfast.md) with CMake are described below.
 
 ### Building ExaWind using ExaWind-manager on Kestrel-CPU
 The following examples demonstrate how to use ExaWind-manager for building common ExaWind applications on Kestrel. The build requires a compute node having at least 36 cores and using Intel or GNU compiler. To avoid space and speed issues, clone ExaWind-manager to scratch, not your home directory; then activate it, create and activate a Spack environment, and finally concretize and build. When making a Spack environment, you can add (+) or remove (-) specs, and adjust versions (@) for the main and dependent (^) applications. The first example outlines the process of building ExaWind using the master branch, omitting GPU functionalities and the AMR-Wind and Nalu-Wind as its dependencies. The second example outlines the process of building a coupled release of AMR-Wind and OpenFAST from the develop branch. The final two examples illustrate how to build the released AMR-Wind and Nalu-Wind versions.
@@ -29,7 +29,7 @@ The following examples demonstrate how to use ExaWind-manager for building commo
     # Create Spack environment and change the software versions if needed
     $ mkdir environments
     $ cd environments
-    $ spack manager create-env --name exawind-cpu --spec 'exawind@master~amr_wind_gpu~cuda~gpu-aware-mpi~nalu_wind_gpu ^amr-wind@main~cuda~gpu-aware-mpi+hypre+mpi+netcdf+openmp+shared ^nalu-wind@master~cuda~fftw~gpu-aware-mpi+hypre+shared ^tioga@develop %oneapi'
+    $ spack manager create-env --name exawind-cpu --spec 'exawind@master~amr_wind_gpu~cuda~gpu-aware-mpi~nalu_wind_gpu ^amr-wind@main~cuda~gpu-aware-mpi+hypre+mpi+netcdf+shared ^nalu-wind@master~cuda~fftw~gpu-aware-mpi+hypre+shared ^tioga@develop %oneapi'
 
     # Activate the environment
     $ spack env activate -d ${EXAWIND_MANAGER}/environments/exawind-cpu
@@ -64,7 +64,7 @@ The following examples demonstrate how to use ExaWind-manager for building commo
     # Create Spack environment and change the software versions if needed
     $ mkdir environments
     $ cd environments
-    $ spack manager create-env --name amrwind-openfast-cpu --spec 'amr-wind+hypre+netcdf+openfast+openmp ^openfast@develop+openmp+rosco %oneapi'
+    $ spack manager create-env --name amrwind-openfast-cpu --spec 'amr-wind+hypre+netcdf+openfast ^openfast@develop+openmp+rosco %oneapi'
 
     # Activate the environment
     $ spack env activate -d ${EXAWIND_MANAGER}/environments/amrwind-openfast-cpu
@@ -99,7 +99,7 @@ The following examples demonstrate how to use ExaWind-manager for building commo
     # Create Spack environment and change the software versions if needed
     $ mkdir environments
     $ cd environments
-    $ spack manager create-env --name amrwind-cpu --spec 'amr-wind+hypre+netcdf+openmp %oneapi'
+    $ spack manager create-env --name amrwind-cpu --spec 'amr-wind+hypre+netcdf %oneapi'
 
     # Activate the environment
     $ spack env activate -d ${EXAWIND_MANAGER}/environments/amrwind-cpu
@@ -134,7 +134,7 @@ The following examples demonstrate how to use ExaWind-manager for building commo
     # Create Spack environment and change the software versions if needed
     $ mkdir environments
     $ cd environments
-    $ spack manager create-env --name naluwind-cpu --spec 'nalu-wind+hypre+netcdf+openmp %oneapi'
+    $ spack manager create-env --name naluwind-cpu --spec 'nalu-wind+hypre+netcdf %oneapi'
       
     # Activate the environment
     $ spack env activate -d ${EXAWIND_MANAGER}/environments/naluwind-cpu
