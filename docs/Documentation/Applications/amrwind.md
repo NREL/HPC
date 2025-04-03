@@ -9,7 +9,7 @@ The following examples demonstrate how to use ExaWind-manager for building commo
 
 ??? example "Building `ExaWind`"
     ```
-    $ salloc --time=01:00:00 --account= <project account> --partition=shared --nodes=1 --ntasks-per-node=36
+    $ salloc --time=01:00:00 --account=<project account> --partition=shared --nodes=1 --ntasks-per-node=36
 
     # Intel
     $ module load PrgEnv-intel
