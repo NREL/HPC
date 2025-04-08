@@ -71,7 +71,7 @@ A template Slurm script to run Q-Chem with 104 threads is:
 
 To run this script on systems other than Kestrel, the number of threads should be changed accordingly. In addition, the scratch directory will set to the local disk if a local disk is available.
 
-For large size jobs, which may have extensive I/O for reading and writing scratch files, using nodes with a local disk would improve job performance. To request nodes with local disk, use the --tmp option in the job submission script (e.g. --tmp=1600000). Note that all of the Bigmem nodes and H100 GPU nodes have local disks.
+For large size jobs, which may have extensive I/O for reading and writing scratch files, using nodes with a local disk would improve job performance. To request standard CPU nodes with local disk, use the `nvme` partition (e.g. `--partition=nvme`). Note that all of the Bigmem nodes and H100 GPU nodes have local disks.
 
 A large number of example Q-Chem input examples are available in `/nopt/nrel/apps/q-chem/<version>/samples`.
 
