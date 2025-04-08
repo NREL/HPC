@@ -83,4 +83,5 @@ To submit a job with the example script, named g16.slurm, one would type:
 
 `sbatch g16.slurm`
 
-For large size jobs, which may have extensive I/O for reading and writing scratch files, using nodes with a local disk would improve job performance. To request nodes with local disk, use the --tmp option in the job submission script (e.g. --tmp=1600000). Note that all of the Bigmem nodes have a local disk.
+For large size jobs, which may have extensive I/O for reading and writing scratch files, using nodes with a local disk would improve job performance. To request standard CPU nodes with local disk, use the `nvme` partition by adding `--partition=nvme` to your job script.  Note that all of the Bigmem nodes have a local disk.
+
