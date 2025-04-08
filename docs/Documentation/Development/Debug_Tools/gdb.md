@@ -17,15 +17,13 @@ For links to in-depth tutorials and walkthroughs of GDB features, please see [Re
 
 ## Availability
 
-|Kestrel| Eagle | Swift | Vermilion |
-|:-----:|:-------:|:-----:|:-----------|
-| gdb/12.1 | gdb/7.6.1\*| gdb/8.2\*  |gdb/12.1, gdb/8.2\*  |
+|Kestrel| Swift | Vermilion |
+|:-----:|:-----:|:-----------|
+| gdb/12.1, gdb/11.2\* | gdb/7.12.1, gdb/14.2, gdb/8.2\*  | gdb/8.2\*  |
 
-\* Located in `/usr/bin`. Do not need to use `module load`.
+\* In path by default. Do not need to use `module load`.
 
 ## Resources
-
-* [Introduction to GDB](https://www.cs.umd.edu/~srhuang/teaching/cmsc212/gdb-tutorial-handout.pdf)
 
 * [Sample GDB session](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Sample-Session.html#Sample-Session)
 
