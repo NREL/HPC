@@ -82,7 +82,7 @@ BrianQC is the GPU version of Q-Chem and can perform Q-Chem calculations on GPUs
 	#SBATCH --job-name=my_qchem_job
 	#SBATCH --account=[my_allocation_ID]
 	#SBATCH --nodes=1
- 	#SBATCH --tasks-per-node=104
+ 	#SBATCH --tasks-per-node=<ntasks per node> 
   	#SBATCH --time=01:00:00
    	#SBATCH --gres=gpu:[number of gpu]
 	#SBATCH --mem=[requested memory]
