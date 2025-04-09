@@ -4,7 +4,7 @@
 
 GAMS includes a DSL compiler and also a stable of integrated high-performance solvers. GAMS is able to solve complex, large-scale modeling problems. For documentation, forums, and FAQs, see the [GAMS website](https://www.gams.com/).
 
-A 60-user license of GAMS is made available to NREL users. This GAMS license requires users to be a member of the "gams workgroup." If you need the GAMS software package or a specific solver from GAMS, or if you have trouble running GAMS, please [contact us](https://www.nrel.gov/hpc/contact-us.html).
+A 80-user license of GAMS is made available to NREL users. This GAMS license requires users to be a member of the "gams workgroup." If you need the GAMS software package or a specific solver from GAMS, or if you have trouble running GAMS, please [contact us](https://www.nrel.gov/hpc/contact-us.html).
 
 ## Initializing Your Environment
 
@@ -54,7 +54,7 @@ A sample script for batch submission is provided here:
 #!/bin/bash --login
 #SBATCH --name gams_run
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-node=104
 #SBATCH --time=00:05:00
 #SBATCH --account=<allocation-id>
 #SBATCH --error=gams-%j.err
