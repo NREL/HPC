@@ -24,10 +24,9 @@ If you have an existing allocation that you need to continue for the next fiscal
 !!! info 
     You should submit one allocation request per funded project. Do not split projects up into multiple allocations.
 
-
 ### Request Type
 
-If your request is for 150,000 AUs or less, check the "Pilot Request" option. Fewer fields are required for pilot requests, so be sure to select this option before filling out the rest of the form. If approved, pilots are granted 150,000 AUs on Kestrel and 10TB of /projects storage by default. Pilot projects can be granted at anytime throughout the year. 
+If your request is for 150,000 AUs or less, check the **Pilot Request** option. Fewer fields are required for pilot requests, so be sure to select this option before filling out the rest of the form. If approved, pilots are granted 150,000 AUs on Kestrel and 10TB of /projects storage by default. Pilot projects can be granted at anytime throughout the year. 
 
 ![image](../../assets/images/Lex/request_type.png)
 
@@ -38,17 +37,20 @@ A **project handle** other than the default is required. It is used for director
     Use the info buttons next to the fields for more information on the question's requirements.
     ![image](../../assets/images/Lex/tooltip.png)
 
-The **HPC Lead** is the person with primary responsibility for the computational work of the allocation. They are the lead on managing user access to the allocation and permissions for the /projects storage allocation. The **HPC Lead** and **HPC Alternate Lead** are required to have NREL HPC accounts and will be contacted for approving changes to the allocation's user list.
+The **HPC Lead** is the person with primary responsibility for the computational work of the allocation. They are the lead on managing user access to the allocation and permissions for the /projects storage directory. The **HPC Lead** and **HPC Alternate Lead** are **required to have NREL HPC accounts** and will be contacted for approving changes to the allocation's user list.
 
 ![image](../../assets/images/Lex/contacts.png)
 
 ### Computational Resources and Readiness
 
-To calculate the AU request for the allocation, input the software that you will be using and information about the runs that will be using that software. You should add an entry for each major application that you will be running. If there's a software that you will be using but the runs for your allocation won't mainly be using it, or it is insubstantial to the AUs, you don't need to add it. Fractional node values are allowed and should be used if your runs don't require a full node's resources.  You can assign GPU and/or CPU hours to a software. The total AU calculation for all of the software entries is used to automatically populate the resource request for the allocation. 
+To calculate the AU request for the allocation, input the software that you will be using and information about the runs that will be using that software. You should add an entry for each major application that you will be running. Fractional node values are allowed and can be used if your runs don't require a full node's resources.  You can assign GPU and/or CPU hours to a software. The total AU calculation for all of the software entries is used to automatically populate the resource request for the allocation. 
+
 
 ![image](../../assets/images/Lex/computational_request.png)
 
-Note that awarded AUs can be used on either CPUs or GPUs, but we split them during the request for informational and planning purposes. 
+Note that all awarded AUs can be used on either CPUs or GPUs, but we have them split in the request for informational and planning purposes. 
+
+The **Data Storage** request is the amount of data in terabytes that you need on the /projects filesystem. This space is the primary persistent store of data for the project. If your request is over 10TB, you also need to fill out the **Storage Request Explanation** field with a high-level, quantitative breakdown of what you are estimating to store and the size. 
 
 The **Use Pattern** describes how you will use your AUs throughout the year. The closer the pattern matches your actual use, the better priority you will have and the less likely you are to lose unused AUs. 
 
@@ -70,7 +72,7 @@ The **Computational Approach** should be a high-level description of the computa
 
 You can save your request as many times as needed, but once it's submitted you will need to contact HPC Operations to change it. Be sure that you selected the **Pilot Request** option if your request is under 150,000 AUs. 
 
-After you have submitted your project, it will undergo an initital screening and a Technical Readiness Review. You may be contacted by the NREL HPC team with questions, please resond to these emails as soon as possible to ensure your request can be processeed as soon as possible. 
+After you have submitted your project, it will undergo an initital screening and a Technical Readiness Review. You may be contacted by the NREL HPC team with questions; please resond to these emails as soon as possible to ensure your request can be processed on time. 
 
 For further information on allocations and how to request one, please visit the [Resource Allocations page.](https://www.nrel.gov/hpc/resource-allocation-requests.html)  
 
