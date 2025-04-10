@@ -46,12 +46,13 @@ The following table summarizes the partitions on Kestrel:
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.6 TB NVMe local disk. | 10 nodes total.<br> 4 nodes per user. | ```--mem > 246064```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 2 nodes total.<br> 2 nodes per user. | ```--mem > 246064```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
 |```hbw```    | CPU compute nodes with dual network interface cards. | 512 nodes total.<br> 256 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time <= 10-00``` <br> ```--nodes >= 2```| 
+|```hbwl```    | HBW nodes that prefer jobs with walltimes > 2 days. | 128 nodes total.<br> 64 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time > 2-00``` <br> ```--nodes >= 2```|
 |```nvme```    | CPU compute nodes with 1.7TB NVMe local drives. | 256 nodes total.<br> 128 nodes per user. | ```-p nvme``` <br>```--time <= 2-00```| 
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
-| ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
-| ```gpu-h100s```|  Shareable GPU nodes that prefer jobs with walltimes <= 4 hours. | 130 nodes total. <br> 65 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 4:00:00```| 
-| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 26 GPU nodes total. <br>  13 GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
+| ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 154 nodes total. <br> 78 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
+| ```gpu-h100s```|  Shareable GPU nodes that prefer jobs with walltimes <= 4 hours. | 154 nodes total. | ```1 <= --gpus <= 4``` <br>  ```--time <= 4:00:00```| 
+| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 39 GPU nodes total. <br>  19 GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
