@@ -50,7 +50,7 @@ If throughput is not a concern, running AlphaFold on several JSON files is strai
     #!/bin/bash
     #SBATCH -A hpcapps # Replace with your HPC account
     #SBATCH -t 00:30:00
-    #SBATCH -n 8 # note that genetic searches run on the CPUs
+    #SBATCH -n 32 # note that genetic searches run on the CPUs
     #SBATCH -N 1
     #SBATCH --job-name=af3
     #SBATCH --gres=gpu:1 # Alphafold inference cannot use more than one GPU
@@ -74,7 +74,7 @@ If you need to run AlphaFold on many (e.g., dozens to hundreds) of JSON files, i
     #!/bin/bash
     #SBATCH -A hpcapps # Replace with your HPC account
     #SBATCH -t 00:30:00
-    #SBATCH -n 8 # note that genetic searches run on the CPUs
+    #SBATCH -n 32 # note that genetic searches run on the CPUs
     #SBATCH -N 1
     #SBATCH --job-name=af3
     #SBATCH --array=0-9 # length of the array corresponds to how many inputs you have (10 in this example)
@@ -112,7 +112,7 @@ As with the `af3_sequential.sh` example, each output will be found as a subfolde
 
 #### Genetic search stage
 
-AlphaFold3 queries genetic/peptide databases found in `/kfs2/shared-projects/alphafold3` before it runs the structure prediction stage. Sequeunce querying with `jackhmmer` in the AlphaFold3 pipeline can currently only run on CPUs. As such, it benefits you to request 8 tasks on the requested node to speed up `jackhmmer`. This is because `jackhmmer` reaches peak performance on 8 CPUs in this pipeline (i.e., simply giving it more tasks will not make it run faster). Since requesting 8 CPUs is well below 1/4th of the CPUs available on a GPU node, this does not affect how AUs are charged.
+AlphaFold3 queries genetic/peptide databases found in `/kfs2/shared-projects/alphafold3` before it runs the structure prediction stage. Sequeunce querying with `jackhmmer` in the AlphaFold3 pipeline can currently only run on CPUs. As such, it benefits you to request up to 32 tasks on the requested node to speed up `jackhmmer` and other CPU-only packages. Since requesting 32 CPUs is 1/4th of the CPUs available on a GPU node, this does not affect how [AUs are charged](../Systems/Kestrel/Running/index.md#allocation-unit-au-charges).
 
 Sequence querying can also consume a significant amount of system RAM. The AlphaFold [documentation](https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md) states that longer queries can use up to 64G of system (i.e., CPU) memory. As such, you should start with requesting 80G of system RAM via `#SBATCH --mem=80G`. This is below 1/4th of a GPU node's available system RAM and should be plenty for most queries. If you receive an "out of memory" error from Slurm, try increasing `--mem`, but keep in mind that if you exceed 1/4th of the system RAM on the node, you will be charged more AUs for that fraction of the node. Alternatively, you could reduce the number of CPU tasks with `#SBATCH -n` while keeping `#SBATCH --mem=80G` constant to increase the amount of effective RAM per CPU. However, keep in mind that with this approach, sequence querying will likely take longer, which will also increase the number of AUs charged for the job.
 
