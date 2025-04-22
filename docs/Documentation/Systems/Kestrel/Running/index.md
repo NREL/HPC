@@ -45,7 +45,7 @@ The following table summarizes the partitions on Kestrel:
 | ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days*| 430 nodes total.<br> 215 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 246064```<br>```--tmp <= 1700000  (256 nodes)```|
 |```bigmem```    | Nodes that have 2 TB of RAM and 5.6 TB NVMe local disk. | 10 nodes total.<br> 4 nodes per user. | ```--mem > 246064```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
 |```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 2 nodes total.<br> 2 nodes per user. | ```--mem > 246064```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
-|```hbw```    | CPU compute nodes with dual network interface cards. | 512 nodes total.<br> 256 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time <= 10-00``` <br> ```--nodes >= 2```| 
+|```hbw```    | CPU compute nodes with dual network interface cards. | 512 nodes total.<br> 256 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time <= 2-00``` <br> ```--nodes >= 2```| 
 |```hbwl```    | HBW nodes that prefer jobs with walltimes > 2 days. | 128 nodes total.<br> 64 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time > 2-00``` <br> ```--nodes >= 2```|
 |```nvme```    | CPU compute nodes with 1.7TB NVMe local drives. | 256 nodes total.<br> 128 nodes per user. | ```-p nvme``` <br>```--time <= 2-00```| 
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
