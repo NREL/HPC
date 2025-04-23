@@ -54,6 +54,9 @@ $$ U = U_{currentperiod} + ( D * U_{lastperiod}) + (D * D * U_{period-2}) + ...$
 
 The decay factor, *D*, is a number between 0 and 1 that achieves the half-decay rate specified by the Slurm configruation files (14 day on Kestrel).
 
+## How to View Slurm Job Priority
+
+Once jobs are submitted to Kestrel, Slurm will periodically evaluate and assign jobs priority. As a user, you can view the current priority assigned by Slurm with the use of the `sprio` command. Please [see here](../../../Slurm/monitor_and_control.md#sprio) for instructions on how to view the priority of Slurm-submitted jobs.
 
 ## How to Get High Priority for a Job
 You can submit your job to run at high priority or you can request a node reservation.
