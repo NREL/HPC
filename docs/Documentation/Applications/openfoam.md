@@ -78,7 +78,6 @@ CPU $ module avail openfoam
     #SBATCH --mail-user=<yourEmailAddress>@nrel.gov 
     #SBATCH --nodes=2
     #SBATCH --ntasks-per-node=104 # set number of MPI ranks per node
-    #SBATCH --cpus-per-task=1 # set number of OpenMP threads per MPI rank
     #SBATCH --time=04:00:00
     
     
