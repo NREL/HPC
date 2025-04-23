@@ -199,14 +199,14 @@ Use ```sacct -e``` to print a list of fields that can be specified with the ```-
 By default, ```sprio``` returns information for all pending jobs. Options exist to display specific jobs by JOBID and USER.
 ```
 $ sprio -u hpcuser
-  JOBID  PARTITION     USER  PRIORITY   AGE  JOBSIZE PARTITION       QOS
- 526752      short  hpcuser  43383470  3733   179737         0  43200000
+  JOBID PARTITION     USER  PRIORITY       SITE        AGE  FAIRSHARE    JOBSIZE  PARTITION        QOS
+8571640     short  hpcuser  38940102          0          0   35071134      45319    3823650          0
 
 Use the `-n` flag to provide a normalized priority weighting with a value between 0-1:
 
 $ sprio -u hpcuser -n
-  JOBID  PARTITION     USER    PRIORITY        AGE    JOBSIZE  PARTITION        QOS
- 526752      short  hpcuser  0.01010100  0.0008642  0.0009747  0.0000000  0.1000000
+  JOBID PARTITION     USER    PRIORITY       AGE  FAIRSHARE    JOBSIZE  PARTITION        QOS       
+8571680     short  hpcuser  0.00906644 0.0000000  0.0881939  0.0002043  0.1000000  0.0000000
 ```
 
 The `sprio` command also has some options that can be used to view the entire queue by priority order. The following command will show the "long" (`-l`) format sprio with extended information, sorted by priority in descending order (`-S -Y`), and piped through the `less` command with line numbers shown on the far left (`less -N`):
