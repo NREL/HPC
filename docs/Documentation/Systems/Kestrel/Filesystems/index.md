@@ -7,7 +7,7 @@ title: Filesystems
 
 ## Home File System
 
-The Home File System (HFS) on Kestrel is part of the ClusterStor used for the Parallel File System (PFS), providing highly reliable storage for user home directories and NREL-specific software. HFS has 1.2 petabytes (PB) of capacity. Snapshots of files on the HFS are available up to 30 days after change/deletion. 
+The Home File System (HFS) on Kestrel is part of the ClusterStor used for the Parallel File System (PFS), providing highly reliable storage for user home directories and NREL-specific software. HFS has 1.2 petabytes (PB) of capacity.
 
 **/home**
 
