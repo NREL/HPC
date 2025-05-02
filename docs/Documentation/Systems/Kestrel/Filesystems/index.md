@@ -116,6 +116,6 @@ To request nodes with local disk, use the `--tmp` option in your job submission 
 
 ## Backups and Snapshots
 
-There are no backups nor snapshots of the Kestrel FS. Though the system is protected from hardware failure by multiple layers of redundancy, please regularly back up important data put on Kestrel, and consider using a Version Control System (such as Git) for important code.
+There are no backups nor snapshots of the Kestrel filesystems. Though the system is protected from hardware failure by multiple layers of redundancy, please regularly back up important data put on Kestrel, and consider using a Version Control System (such as Git) for important code.
 
 
