@@ -39,7 +39,7 @@ conda activate /projects/YOUR_PROJECT/YOUR_USER_NAME_HERE/FOLDER_FOR_CONDA_ENVIR
 pip install --upgrade pip
 pip install tensorflow-cpu
 ```
-You should now be up and running with a TensorFlow! Similar to PyTorch, the [TensorFlow webpage](https://www.tensorflow.org/learn) has lots of great resources for getting started, including turotials, basic examples, and more! 
+You should now be up and running with a TensorFlow! Similar to PyTorch, the [TensorFlow webpage](https://www.tensorflow.org/learn) has lots of great resources for getting started, including tutorials, basic examples, and more! 
 
 
 ### Example Job Script
