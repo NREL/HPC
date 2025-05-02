@@ -388,12 +388,12 @@ def step(self, action):
 ```
 That's it, the new Gym environment is ready! Make note that there is one more function usually found on Gym environments. This is the `def render(self)` function, and is called in random intervals throughout training returning a "snapshot" of the environment at that time. While this is helpful for evaluating the agent training process, it is not necessary for the actual training process. OpenAI documentation [provides](https://gym.openai.com/docs/#environments) details for every one of these functions.
 
-You can find the [full script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env.py) of this environment in the repo.
+You can find the [full script](https://github.com/NREL/HPC/tree/master/languages/python/openai_rllib) of this environment in the repo.
 
 ### Run experiments on RLlib
-Let's now train the agent with RLlib. The [full trainer script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env_trainer.py) is given at the repo.
+Let's now train the agent with RLlib. The [full trainer script](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/custom_gym_env/custom_env_trainer.py) is given at the repo.
 
-The trainer is almost identical to [the one used before](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py), with few additions that are necessary to register the new environment.
+The trainer is almost identical to [the one used before](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/simple-example/simple_trainer.py), with few additions that are necessary to register the new environment.
 
 At first, along with `ray` and `tune`, import:
 ```python
