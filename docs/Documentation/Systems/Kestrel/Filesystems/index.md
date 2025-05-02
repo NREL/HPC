@@ -114,5 +114,8 @@ The local disk on nodes that have one is mounted at `/tmp/scratch`. To write to 
 
 To request nodes with local disk, use the `--tmp` option in your job submission script. (e.g. `--tmp=1600000`). For more information about requesting this feature, please see the [Running on Kestrel page](../Running/index.md).
 
+## Backups and Snapshots
+
+There are no backups nor snapshots of the Kestrel FS. Though the system is protected from hardware failure by multiple layers of redundancy, please regularly back up important data put on Kestrel, and consider using a Version Control System (such as Git) for important code.
 
 
