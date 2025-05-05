@@ -10,7 +10,7 @@ Welcome to the first NREL HPC tutorial for Reinforcement Learning (RL)!
 
 This tutorial covers an extended, albeit simplified, introduction of OpenAI Gym and Ray/RLlib which you can use to effortlessly design, create, and run your own RL experiments on Eagle. 
 
-You can find the full material of this tutorial in the [NREL/HPC GitHub repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib).
+You can find the full material of this tutorial in the [NREL/HPC GitHub repo](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib).
 
 The tutorial covers the following:
 
@@ -25,7 +25,7 @@ The tutorial covers the following:
 
 ## Run OpenAI Gym on a single node/single core
 
-Login on your Eagle account, create a new Anaconda environment as described in the [tutorial repo](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/README.md), and test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
+Login on your Eagle account, create a new Anaconda environment as described in the [tutorial repo](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/README.md), and test your installation by running a small example using one of the standard Gym environments (e.g. `CartPole-v0`).
 
 Activate the Anaconda enironment and start a Python session
 ```
@@ -146,12 +146,12 @@ The RLlib trainer is ready!
 
 Except the aforementioned default hyperparameters, [every RL algorithm](https://docs.ray.io/en/master/rllib-algorithms.html#available-algorithms-overview) provided by RLlib has its own hyperparameters and their default values that can be tuned in advance.
 
-The code of the trainer in this example can be found [in the tutorial repo](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py).
+The code of the trainer in this example can be found [in the tutorial repo](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/simple-example/simple_trainer.py).
 
 
 ## Run experiments on Eagle
 
-Follow the steps in the [tutorial repo](https://github.com/erskordi/HPC/tree/HPC-RL/languages/python/openai_rllib/simple-example) carefully.
+Follow the steps in the [tutorial repo](https://github.com/NREL/HPC/tree/master/languages/python/openai_rllib/simple-example) carefully.
 
 ### Run multi-core experiments
 
@@ -175,7 +175,7 @@ Let's focus now on cases where the problem under consideration is highly complex
 As explained above, CartPole is a rather simple environment and solving it using multiple cores on a single node feels like an overkill, let alone multiple nodes! However, it is a good example for giving you an experience on running RL experiments using RLlib.
 
 For multiple nodes it is more convenient to use a slurm script instead of an interactive node. Slurm files are submitted as `sbatch <name_of_your_batch_script>`, and the results are exported in an `slurm-<job_id>.out` file. The `.out` file can be interactively accessed during training using the `tail -f slurm-<job_id>.out` command. Otherwise, after training, open it using a standard text editor (e.g. `nano`).
-Next, the basic parts of the slurm script file are given. The repo also provides [the complete script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/multi_node_trainer.sh).
+Next, the basic parts of the slurm script file are given. The repo also provides [the complete script](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/simple-example/multi_node_trainer.sh).
 
 The slurm file begins with defining some basic `SBATCH` options, including the desired training time, number of nodes, tasks per node, etc.
 
@@ -328,7 +328,7 @@ python -u simple_trainer.py --redis-password $redis_password --num-cpus $rollout
 ```
 to begin training. Add the `---num-gpus` argument to include the requested GPU node (or nodes in case of `--gres=gpu:2`) for policy training. There is no need to manually declare the GPU for policy training in the `simple_trainer.py`, RLlib will automatically recognize the available GPU and use it accordingly.
 
-The repo contains the complete slurm file versions for both [`env_example_gpu`](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/gpu_trainer.sh) and [`env_gpu_optimized_tf`](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml), and they can be used as templates for future projects.
+The repo contains the complete slurm file versions for both [`env_example_gpu`](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/simple-example-gpu/gpu_trainer.sh) and [`env_gpu_optimized_tf`](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/simple-example-gpu/env_example_optimized_tf.yml), and they can be used as templates for future projects.
 
 
 ### Create Gym environments from scratch
@@ -388,12 +388,12 @@ def step(self, action):
 ```
 That's it, the new Gym environment is ready! Make note that there is one more function usually found on Gym environments. This is the `def render(self)` function, and is called in random intervals throughout training returning a "snapshot" of the environment at that time. While this is helpful for evaluating the agent training process, it is not necessary for the actual training process. OpenAI documentation [provides](https://gym.openai.com/docs/#environments) details for every one of these functions.
 
-You can find the [full script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env.py) of this environment in the repo.
+You can find the [full script](https://github.com/NREL/HPC/tree/master/languages/python/openai_rllib) of this environment in the repo.
 
 ### Run experiments on RLlib
-Let's now train the agent with RLlib. The [full trainer script](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/custom_gym_env/custom_env_trainer.py) is given at the repo.
+Let's now train the agent with RLlib. The [full trainer script](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/custom_gym_env/custom_env_trainer.py) is given at the repo.
 
-The trainer is almost identical to [the one used before](https://github.com/erskordi/HPC/blob/HPC-RL/languages/python/openai_rllib/simple-example/simple_trainer.py), with few additions that are necessary to register the new environment.
+The trainer is almost identical to [the one used before](https://github.com/NREL/HPC/blob/master/languages/python/openai_rllib/simple-example/simple_trainer.py), with few additions that are necessary to register the new environment.
 
 At first, along with `ray` and `tune`, import:
 ```python
@@ -436,7 +436,7 @@ For the purpose of this tutorial, `cd` to the `CartPole-v0` subdirectory and act
 module purge
 conda activate <your_environment>
 ```
-Initialize Tensorboard following the [steps in this tutorial](https://github.com/erskordi/HPC/blob/ml-rl/MachineLearning/tensorboard.md). Open the localhost url in a browser, and all plots for rewards, iterations and other metrics will be demonstrated as:
+Initialize Tensorboard following the [steps in this tutorial](../tensorboard/index.md). Open the localhost url in a browser, and all plots for rewards, iterations and other metrics will be demonstrated as:
 
 <p float="left">
   <img src="images/tensorboard-initpag-2.png" width="400" />
