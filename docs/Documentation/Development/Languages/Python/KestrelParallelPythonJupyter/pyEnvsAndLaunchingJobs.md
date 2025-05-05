@@ -98,6 +98,14 @@ $ conda install ipycytoscape
 $ conda install matplotlib
 ```
 
+??? example Quickstart: Install all of the above packages from our pre-built environment file.   
+    ```
+    $ wget https://github.com/NREL/HPC/blob/gh-pages/docs/Documentation/Development/Languages/Python/KestrelParallelPythonJupyter/metadata/myEnv.yml
+    $ conda env create --prefix=/projects/<projectname>/<username>/myEnv  --file=myEnv.yml
+    $ conda activate /projects/<projectname>/<username>/myEnv
+    $ python -m ipykernel install --user --name=myEnvJupyter 
+    ```
+
 ## Launching jobs
 
 A general guide to running jobs on Kestrel can be found in the [official documentation](../../../../Systems/Kestrel/Running/index.md). Below are example procedures suitable for running jobs involving specific python modules, depending on their parallelization capability.
