@@ -98,7 +98,7 @@ $ conda install ipycytoscape
 $ conda install matplotlib
 ```
 
-??? example Quickstart: Install all of the above packages from our pre-built environment file.   
+??? example "Quickstart: Install all of the above packages from our pre-built environment file."
     ```
     $ wget https://github.com/NREL/HPC/blob/gh-pages/docs/Documentation/Development/Languages/Python/KestrelParallelPythonJupyter/metadata/myEnv.yml
     $ conda env create --prefix=/projects/<projectname>/<username>/myEnv  --file=myEnv.yml
