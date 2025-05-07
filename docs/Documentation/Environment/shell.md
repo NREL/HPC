@@ -185,7 +185,7 @@ alias mlist='module list 2>&1 |  egrep -v "Current|No modules loaded" | sed "s/.
 
 
 #### Loading modules
-Most HPC platforms run module systems.  When you load a module changes some environmental variable setting.  Often PATH and LD_LIBARAY_PATH are changed.  In general loading a module will allow you to use a particular application or library.  
+Most HPC platforms run module systems.  When you load a module, it will change some environmental variable setting.  Often, PATH and LD_LIBARAY_PATH are changed.  In general, loading a module will allow you to use a particular application or library.  
 
 If you always want gcc version 12 and python 3.10 in you path then you could add the following to your ~/MYENV/mymods file
 
