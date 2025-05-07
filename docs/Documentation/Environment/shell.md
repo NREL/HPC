@@ -159,11 +159,11 @@ export LSERVER=license-1.hpc.nrel.gov:4691
 
 
 #### Creating aliases
-Aliases are command short cuts.  If there is a complicated command that you often you might want to crate an alias for it.  You can get a list of aliases defined for you by just running the command alias.  The syntax for an alias is:
-
+Aliases are command shortcuts.  If there is a complicated command that you often use, you might want to crate an alias for it.  You can get a list of aliases defined for you by just running the command alias.  The syntax for an alias is:
+```
 alias NAME="what you want to do"
-
-Here are a few examples that you could add to your ~/MYENV/myalias file.
+```
+Here are a few examples that you could add to your ~/MYENV/myalias file:
 
 ```
 #Show my running and queued jobs in useful format
