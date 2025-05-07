@@ -125,7 +125,7 @@ We'll discuss each. We're going to assume that you created a directory **~/MYENV
 * mymods
 * myfuncs
 
-Then to enable all of your additions you can add the following lines to your .bashrc file
+Then, to enable all of your additions you can add the following lines to your .bashrc file:
 
 ```
 if [ -f ~/MYENV/myvars ];    then . ~/MYENV/myvars ;    fi
@@ -134,7 +134,7 @@ if [ -f ~/MYENV/mymods ];    then . ~/MYENV/mymods ;    fi
 if [ -f ~/MYENV/myfuncs ];   then . ~/MYENV/myfuncs ;   fi
 ```
 
-Note the additions will not take effect until you logout/login or until you run the command **source ~/.bashrc**   Before going through the logout/login process you should test your additions by manually running these commands in the terminal window.
+Note the additions will not take effect until you logout/login or until you run the command **source ~/.bashrc**   Before going through the logout/login process, you should test your additions by manually running these commands in the terminal window.
 
 #### Setting variables
 We have discussed the PATH variable.  It points to directories which contain programs.  If you have an application that you built, say myapp in /projects/mystuff/apps you can add the line 
