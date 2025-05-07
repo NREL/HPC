@@ -184,6 +184,14 @@ nav:
            - Reinforcement Learning: Documentation/Machine_Learning/Reinforcement_Learning/index.md
            - TensorBoard: Documentation/Machine_Learning/TensorBoard/index.md
            - Containerized TensorFlow: Documentation/Machine_Learning/Containerized_TensorFlow/index.md
+  - Tutorials:
+    - Tutorials Home: Tutorials/index.md
+    - Getting Started on HPC: Tutorials/Getting_Started_HPC/index.md
+    - Environments of HPC: Tutorials/Environments_HPC/index.md
+    - Familiarizing HPC: Tutorials/Familiarizing_HPC/index.md
+    - GPUs for HPC: Tutorials/GPUs_HPC/index.md
+    - Applications of HPC: Tutorials/Applications_HPC/index.md
+    - Use Cases of HPC: Tutorials/Use_Cases_HPC/index.md
 theme:
   name: material
   custom_dir: overrides
