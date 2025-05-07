@@ -1,17 +1,17 @@
 # Shell Startup
 
-*When you login to a linux based machine you interact with the operating system via a program called a shell.  There are various types of shell programs.  One of the more common is **bash**.  Bash is the default shell on NREL's HPC platforms.  This document describes ways you can customize your shell's, in particular, bash's behavior.*
+*When you login to a linux-based machine you interact with the operating system via a program called a shell.  There are various types of shell programs.  One of the more common is **bash**.  Bash is the default shell on NREL's HPC platforms.  This document describes ways you can customize your shell's &#151; in particular, bash's &#151; behavior.*
 
 
 
 ## Getting Started
-When you have a window open attached to a platform you are actually running a program on the remote computer, called a shell.  There are various types of shell programs.  One of the more common is *bash*.  
+When you have a window open attached to a platform, you are actually running a program on the remote computer called a shell.  There are various types of shell programs.  One of the more common is *bash*.  
 
-The shell program provides your link to the machine's operating system (OS).  It is the interface between a user and the computer. It controls the computer and provides output to the user.  There are various types of interfaces but here we discuss the command line interface. That is, you type commands and the computer responds.
+The shell program provides your link to the machine's operating system (OS).  It is the interface between a user and the computer. It controls the computer and provides output to the user.  There are various types of interfaces but here we discuss the command-line interface. That is, you type commands and the computer responds.
 
 ### What happens on login
 
-When you login to a machine you are put in your home directory.  You can see this by running the command **pwd**.  Run the command **ls -a** to get a listing of the files.  The **-a** option for the ls commands enables it to show files that are normally hidden.  You'll see two important files that are used for setting up your environment.
+When you login to a machine, you are put in your home directory.  You can see this by running the command **pwd**.  Run the command **ls -a** to get a listing of the files.  The **-a** option for the ls commands enables it to show files that are normally hidden.  You'll see two important files that are used for setting up your environment.
 
 * .bash_profile
 * .bashrc
@@ -19,29 +19,25 @@ When you login to a machine you are put in your home directory.  You can see thi
 
 These files are added to your home directory when your account is created.  
 
-When you login the file .bash_profile is sourced (run) to set up your environment.  The environment includes settings for important variables, command aliases, and functions.  
+When you login, the file .bash_profile is sourced (run) to set up your environment.  The environment includes settings for important variables, command aliases, and functions.  
 
-Here is the default version of .bash_profile.  
+Here is the default version of .bash_profile:  
 
 ```
-[nreluser@el3 ~]$ cat ~/.bash_profile
+[nreluser@kl2 ~] CPU $ cat /etc/skel/.bash_profile
 # .bash_profile
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+	. ~/.bashrc
 fi
 
 # User specific environment and startup programs
-
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
-
-export PATH
 ```
 
 We'll discuss this file starting at the bottom. The environmental variable PATH is set.  PATH points to directories where the computer will look for commands to run.  You can append directories as show here.  The "new" PATH will be the PATH set at the system level plus the directories $HOME/.local/bin and $HOME/bin where $HOME is your home directory.
 
-Notice the lines
+Notice the lines:
 
 ```
 if [ -f ~/.bashrc ]; then
@@ -49,19 +45,26 @@ if [ -f ~/.bashrc ]; then
 fi
 ```
 
-The "if" statement says that if you have a file .bashrc in your home directory then run it.  The dot is shorthand for "source" and ~/  is shorthand for your home directory.
+The "if" statement says that if you have a file .bashrc in your home directory, then run it.  The . by itself is shorthand for "source" and ~/  is shorthand for your home directory.
 
-So lets look at the default ~/.bashrc file
+Now, let's look at the default ~/.bashrc file:
 
 
 ```
-[nreluser@el3 ~]$ cat /etc/skel/.bashrc
+[nreluser@kl2 ~] CPU $ cat /etc/skel/.bashrc
 # .bashrc
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
