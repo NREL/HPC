@@ -137,21 +137,25 @@ if [ -f ~/MYENV/myfuncs ];   then . ~/MYENV/myfuncs ;   fi
 Note the additions will not take effect until you logout/login or until you run the command **source ~/.bashrc**   Before going through the logout/login process, you should test your additions by manually running these commands in the terminal window.
 
 #### Setting variables
-We have discussed the PATH variable.  It points to directories which contain programs.  If you have an application that you built, say myapp in /projects/mystuff/apps you can add the line 
+We have discussed the PATH variable.  It points to directories which contain programs.  If you have an application that you built, such as myapp in /projects/mystuff/apps, you can add the line
 
+```
 export PATH=/projects/mystuff/apps:$PATH
+```
 
-to your ~/MYENV/myvars file.  Then when you login the system will be able to find your application.  The directories in path variables are seperated by a ":". If you forget to add $PATH to the export line the new PATH variable will be truncated and you will not see many "system" commands.  
+to your ~/MYENV/myvars file.  Then when you login, the system will be able to find your application.  The directories in path variables are seperated by a ":". If you forget to add $PATH to the export line the new PATH variable will be truncated and you will not see many "system" commands.  
 
-Another important variable is LD_LIBRARY_PATH.  This points to directories containing libraries your applications need that are not "bundled" with your code.  Assuming the libraries are in projects/mystuff/lib you would add the following line:
+Another important variable is LD_LIBRARY_PATH.  This points to directories containing libraries your applications need that are not "bundled" with your code.  Assuming the libraries are in projects/mystuff/lib, you would add the following line:
 
+```
 export LD_LIBRARY_PATH=/projects/mystuff/lib:$LD_LIBRARY_PATH
+```
 
+If you have a commercial application that requires a license server you may need to set a variable to point to it.  For example:
 
-If you have a commercial application that requires a license server you may need to set a variable to point to it.  For example
-
+```
 export LSERVER=license-1.hpc.nrel.gov:4691
-
+```
 
 
 #### Creating aliases
