@@ -187,7 +187,7 @@ alias mlist='module list 2>&1 |  egrep -v "Current|No modules loaded" | sed "s/.
 #### Loading modules
 Most HPC platforms run module systems.  When you load a module, it will change some environmental variable setting.  Often, PATH and LD_LIBARAY_PATH are changed.  In general, loading a module will allow you to use a particular application or library.  
 
-If you always want gcc version 12 and python 3.10 in you path then you could add the following to your ~/MYENV/mymods file
+If you always want gcc version 12 and python 3.10 in you path, you could add the following to your ~/MYENV/mymods file:
 
 ```
 module load gcc/12.1.0  
@@ -196,9 +196,11 @@ module load python/3.10.2
 
 Running the command **module avail** will show the modules installed on the system.
 
-If you have modules that you created you can make them available to the load command by adding a command like the following in your ~/MYENV/mymods file.
+If you have modules that you created, you can make them available to the load command by adding a command like the following in your ~/MYENV/mymods file:
 
-module use /projects//mystuff/mods
+```
+module use /projects/mystuff/mods
+```
 
 The "module use" command needs to be before any module load command that loads your coustom modules.
 
