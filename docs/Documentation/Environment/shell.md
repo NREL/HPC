@@ -207,7 +207,7 @@ The "module use" command needs to be before any module load command that loads y
 
 
 #### Adding functions
-Functions are like aliases but in general multiline and more complex. You can run the command **compgen -A function ** to see a list of defined functions.  Here are a few functions you might want to add to your environment
+Functions are like aliases but generally multiline and more complex. You can run the command **compgen -A function ** to see a list of defined functions.  Here are a few functions you might want to add to your environment:
 
 ```
 # given a name of a function or alias show its definition
@@ -237,7 +237,7 @@ today ()
 Most people who have worked in HPC for some time have collected many functions and alias they would be willing to share with you.
 
 
-If you have a number of files in your ~/MYENV directory you want sourced at startup you can replace the  set of 4 "if" lines shown above with a "for list" statemnet.  The following will source every file in the directory.  It will not source files in subdirectories within ~/MYENV.  If you want to temporarly turn off additions you can put them in a subdirectory ~/MYENV/OFF.  The find command shown here will return a list of files in the directory but not subdirectories.  Again, recall that the changes will not be in effect until you logout/login.
+If you have a number of files in your ~/MYENV directory you want sourced at startup, you can replace the set of 4 "if" lines shown above with a "for list" statement.  The following will source every file in the directory.  It will not source files in subdirectories within ~/MYENV.  If you want to temporarly turn off additions, you can put them in a subdirectory ~/MYENV/OFF.  The find command shown here will return a list of files in the directory but not subdirectories.  Again, recall that the changes will not be in effect until you logout/login.
 
 ```
 for x in `find ~/MYENV  -type f` ; do
