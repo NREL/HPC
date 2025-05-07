@@ -81,8 +81,8 @@ Note in both of these files we have a place where you are encouraged to add user
 We're going to discuss customizing your environment. This is done by editing these two files. Before we do that here are three suggestions:  
 
 1. 	If you are new to linux use the **nano** editor
-2. 	Make a backup of your current versions of the two files
-3. 	Make additions in external files
+1. 	Make a backup of your current versions of the two files
+1. 	Make additions in external files
 
 Nano is an easy to learn and use text editor.  The official web page for nano is [https://www.nano-editor.org](https://www.nano-editor.org).  There are many online tutorials.  There are other editors available, but nano is a good starting point.
 
@@ -107,7 +107,7 @@ bash_profile.2303221513  bashrc.2303221513
 
 In most cases, you won't need to edit both .bashrc and .bash_profile.  Since running .bash_profile runs .bashrc you can usually just edit .bashrc.  (See the section [*Difference between login and interactive shells*](./#difference-between-login-and-interactive-shells) which describes cases where .bashrc is run even if .bash_profile is not.)
 
-Instead of adding a bunch of text to .bashrc make your additions in an external file(s) and just source those files inside of .bashrc.  The you can "turn off" additions by just commenting out the source lines.  Also, you can test additions by sourcing the file from the command lines.
+Instead of adding a bunch of text to .bashrc, make your additions in an external file(s) and just source the file(s) inside of .bashrc.  Then, you can "turn off" additions by just commenting out the source lines.  Also, you can test additions by sourcing the file from the command lines.
 
 ### Additions
 
