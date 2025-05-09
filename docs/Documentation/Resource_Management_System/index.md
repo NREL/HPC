@@ -33,6 +33,7 @@ If your request is for 150,000 AUs or less, check the **Pilot Request** option. 
 ### Project Information
 
 A **project handle** other than the default is required. It is used for directory names and for the account used to submit jobs under the allocation. Years and names are not allowed in the handle, as it will be carried over from year to year if your allocation continues. 
+
 !!! tip
     Use the info buttons next to the fields for more information on the question's requirements.
     ![image](../../assets/images/Lex/tooltip.png)
@@ -43,10 +44,14 @@ The **HPC Lead** is the person with primary responsibility for the computational
 
 ### Computational Resources and Readiness
 
-To calculate the AU request for the allocation, input the software that you will be using and information about the runs that will be using that software. You should add an entry for each major application that you will be running. Fractional node values are allowed and can be used if your runs don't require a full node's resources.  You can assign GPU and/or CPU hours to a software. The total AU calculation for all of the software entries is used to automatically populate the resource request for the allocation. 
+To calculate the AU request for the allocation, input the software that you will be using and information about the runs that will be using that software. You should add an entry for each major application that you will be running. Fractional node values are allowed and can be used if your runs don't require a full node's resources. You can assign GPU and/or CPU hours to a software record. The total AU calculation for all of the software entries is used to automatically populate the resource request for the allocation. Please see the image below for an example computational request. 
 
 
-![image](../../assets/images/Lex/computational_request.png)
+![image](../../assets/images/Lex/computational_request_example.png)
+
+!!! tip
+    Kestrel's GPU nodes are all shared and have 4 GPUs per node. You can use fractional values for the **GPU Nodes** field to reflect the number of GPUs per node that your runs will be using.
+
 
 Note that all awarded AUs can be used on either CPUs or GPUs, but we have them split in the request for informational and planning purposes. 
 
