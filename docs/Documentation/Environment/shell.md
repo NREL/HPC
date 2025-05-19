@@ -268,15 +268,19 @@ the file .bashrc is sourced.
 
 ## Troubleshooting
 
-The most common issue when modifying your environment is forgetting to add the previous version of PATH when you set a new one.  For example
+The most common issue when modifying your environment is forgetting to add the previous version of PATH when you set a new one.  For example,
 
 Do this:
 
+```
 export PATH=/projects/myapps:$PATH
+```
 
 Don't do this:
 
+```
 export PATH=/projects/myapps
+```
 
 If you do the second command you will lose access to most commands and you'll need to logout/login to restore access.
 
@@ -289,7 +293,7 @@ if [ -f ~/MYENV/mymods ];    then . ~/MYENV/mymods ;    fi
 if [ -f ~/MYENV/myfuncs ];   then . ~/MYENV/myfuncs ;   fi
 ```
 
-to test things.  After they are working as desired then add this lines to your .bashrc file.  You can add a # to the lines in your .bashrc file to disable them.  
+to test things.  After they are working as desired then add these lines to your .bashrc file.  You can add a # to the lines in your .bashrc file to disable them.  
 
 There are copies of the default .bashrc and .bash_profile files in
 
