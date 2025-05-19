@@ -247,15 +247,15 @@ done
 
 
 ## Difference between login and interactive shells
-This section is based in part on on [https://stackoverflow.com/questions/18186929/what-are-the-differences-between-a-login-shell-and-interactive-shell](https://stackoverflow.com/questions/18186929/what-are-the-differences-between-a-login-shell-and-interactive-shell)
+This section is based in part on Stack Overflow question [What are the differences between a login shell and interactive shell?](https://stackoverflow.com/questions/18186929/what-are-the-differences-between-a-login-shell-and-interactive-shell)
 
 The shell that gets started when you open a window on a HPC is called a login shell.  It is also an interactive shell in that you are using it to interact with the computer.  Bash can also be run as a command.  That is, if you enter bash as a command you will start a new instance of the bash shell.  This new shell is an interactive shell but not a login shell because it was not used to do the login to the platform.   
 
 When you start a new interactive shell the file .bashrc is sourced.  When you start a login shell the file .bash_profile is sourced. However, most versions of .bash_profile have a line that will also source .bashrc.
 
-When you submit a slurm batch job with the command **sbatch** neither of the two files .bashrc or .bash_profile are sourced.  Note, by default, the environment you have set up at the time you run sbatch is passed to the job. 
+When you submit a slurm batch job with the command **sbatch** neither of the two files .bashrc or .bash_profile are sourced.  Note that, by default, the environment you have set up at the time you run sbatch is passed to the job. 
 
-When you start a slurm interactive session, for example using the command
+When you start a slurm interactive session, for example, using the command
 
 ```
 salloc --nodes=1 --time=01:00:00 --account=$MYACCOUNT --partition=debug
