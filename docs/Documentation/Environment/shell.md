@@ -35,8 +35,6 @@ fi
 # User specific environment and startup programs
 ```
 
-We'll discuss this file starting at the bottom. The environmental variable PATH is set.  PATH points to directories where the computer will look for commands to run.  You can append directories as show here.  The "new" PATH will be the PATH set at the system level plus the directories $HOME/.local/bin and $HOME/bin where $HOME is your home directory.
-
 Notice the lines:
 
 ```
