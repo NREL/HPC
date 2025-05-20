@@ -68,7 +68,7 @@ Nodes in the shared partition can be shared by multiple users or jobs. This part
 
 #### Usage
 
-Currently, there are 64 standard compute nodes available in the shared partition. These nodes have about 240G of usable RAM and 104 cores. By default, your job will be allocated about 1G of RAM per core requested. To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. To allocate all of the memory available on a node, use the `--mem=0` flag. 
+Currently, there are 64 standard compute nodes available in the shared partition. These nodes have about 240G of usable RAM and 104 cores. By default, your job will be allocated about 1G of RAM per core requested. To change this amount, you can use the ```--mem``` or ```--mem-per-cpu``` flag in your job submission. 
 
 ??? info "Sample batch script for a job in the shared partition"
     ```
@@ -95,22 +95,18 @@ can alleviate such congestion during runtime. Some common examples of communicat
 To request nodes with two NICs, specify `--partition=hbw` in your job submissions. Because the purpose of the high bandwidth nodes is to optimize communication in multi-node jobs, it is not permitted to submit single-node jobs to the `hbw` partition.
 If you would like assistance with determining whether your workflow could benefit from running in the `hbw` partition, please reach out to [HPC-Help@nrel.gov](mailto:HPC-Help).
 
-!!! info
-    We'll be continuing to update documentation with use cases and recommendations for the dual NIC nodes, including specific examples on the AMRWind page. 
-
-
 ### GPU Jobs
 
 Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and at least 350GB of useable RAM. 24 of the GPU nodes have about 700G of RAM. All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
 
 To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. All of the GPU memory for each GPU allocated will be available to the job (80 GB per GPU).
 
-**If your job will require more than the default 1 CPU core and 1G of CPU RAM per core allocated**, you must request the quantity of cores and/or RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`. To request all of the memory available on the GPU node, use `--mem=0`. 
+**If your job will require more than the default 1 CPU core and 1G of system RAM per core allocated**, you must request the quantity of cores and/or system RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`.
 
 The GPU nodes also have 3.4 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
 
 !!! warning
-    A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs on a node, but is only allocated as much memory as requested. Use the flag `--mem=0` to request all of the CPU RAM on the node. 
+    A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs, and GPU memory on a node, but is only allocated as much system RAM as requested. Use the flag `--mem=<RAM amount>` to request system RAM. The GPU nodes have up to 720000M of RAM, but please request only as much RAM as you need in order to efficiently use the nodes and minimize your jobs' wait times. 
 
 #### GPU Debug Jobs
 
