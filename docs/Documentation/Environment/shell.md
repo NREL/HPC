@@ -24,7 +24,7 @@ When you login, the file .bash_profile is sourced (run) to set up your environme
 Here is the default version of .bash_profile:  
 
 ```
-[nreluser@kl2 ~] CPU $ cat /etc/skel/.bash_profile
+[nreluser@kl2 ~] CPU $ cat ~/.bash_profile
 # .bash_profile
 
 # Get the aliases and functions
@@ -49,7 +49,7 @@ Now, let's look at the default ~/.bashrc file:
 
 
 ```
-[nreluser@kl2 ~] CPU $ cat /etc/skel/.bashrc
+[nreluser@kl2 ~] CPU $ cat ~/.bashrc
 # .bashrc
 
 # Source global definitions
