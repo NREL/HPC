@@ -138,7 +138,7 @@ CPU $ module avail vasp
 
 !!! tip "Important"
 	Submit GPU jobs from a [GPU login node](../Systems/Kestrel/index.md).
-    $ ssh <username>@kestrel-gpu.hpc.nrel.gov
+    `$ ssh <username>@kestrel-gpu.hpc.nrel.gov`
 
 There are several modules for GPU builds of VASP 5 and VASP 6: 
 
@@ -158,7 +158,7 @@ GPU $ module avail vasp
     #SBATCH --nodes=1
     #SBATCH --gpus=4 
     #SBATCH --ntasks-per-node=4
-    #SBATCH --cpus-per-task=1 #The GPU partition is shared :. you must specify cpus needed even when requesting all the GPU resources
+    #SBATCH --cpus-per-task=1 #The GPU partition is shared: You must specify CPUs needed even when requesting all the GPU resources
     #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
     #SBATCH --mem=350G # The GPU partition is shared: you must specify memory needed even when requesting all the GPU resources

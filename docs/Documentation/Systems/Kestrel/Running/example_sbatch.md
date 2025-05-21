@@ -116,7 +116,7 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     #SBATCH --ntasks-per-node=128           # Maximum CPU cores for job 
     #SBATCH --gpus=4                        # GPU request 
     #SBATCH --exclusive                     # Request exclusive access to node. Allocates all CPU cores and GPUs by default.  
-    #SBATCH --mem=360000                    # Request system RAM. If you need more memory, request 720000 to use the larger mem GPU nodes.
+    #SBATCH --mem=360000                    # Request system RAM. If you need more memory, request up to 720000 to use the larger mem GPU nodes.
 
     # Load modules
     module load vasp
