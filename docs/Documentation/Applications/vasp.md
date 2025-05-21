@@ -161,7 +161,7 @@ GPU $ module avail vasp
     #SBATCH --cpus-per-task=1 #The GPU partition is shared :. you must specify cpus needed even when requesting all the GPU resources
     #SBATCH --time=02:00:00
     #SBATCH --job-name=<your-job-name>
-    #SBATCH --mem=0 #The GPU partition is shared :. you must specify memory needed even when requesting all the GPU resources
+    #SBATCH --mem=350G # The GPU partition is shared: you must specify memory needed even when requesting all the GPU resources
 
     export MPICH_GPU_SUPPORT_ENABLED=1
 

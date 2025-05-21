@@ -124,7 +124,7 @@ In the slurm script, `ansys241` starts the Ansys mechanical module, `-dis` enabl
 
 When running an Ansys job, the out of memory error (OOM) is commonly encountered. To overcome the out of memory issue, you can try the following:
 
-If you are running on shared nodes, by default, your job will be allocated about 1G of RAM per core requested. To change this amount, you can use the `--mem` or `--mem-per-cpu` flag in your job submission. To allocate all of the memory available on a node, use the `--mem=0` flag (https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/).
+If you are running on shared nodes, by default, your job will be allocated about 1G of RAM per core requested. To change this amount, you can use the `--mem` or `--mem-per-cpu` flag in your job submission.
 
 Try to run the job on nodes with local disk by using the `--tmp` option in your job submission script (e.g. `--tmp=1600000` https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/)
 
