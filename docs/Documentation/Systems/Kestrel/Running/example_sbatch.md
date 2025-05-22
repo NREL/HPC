@@ -105,7 +105,7 @@ For a walkthrough of the elements of an sbatch script, please see [Submitting Ba
     srun ./my_program.sh
     ```
 ??? example "Sample batch script for a full GPU node"
-    Kestrel GPU nodes have 4 H100 GPUs. To run jobs on GPUs, your script should contain the `--gpus=<NUM_GPUS>` flag in the SBATCH directives.
+    Kestrel GPU nodes have 4 H100 GPUs. To run jobs on GPUs, your script should contain the `--gpus=<NUM_GPUS>` flag in the SBATCH directives. Even when requesting all GPUs, you must request the system memory with `--mem` or `--mem-per-cpu`. 
     Submit GPU jobs from the [GPU login nodes](../index.md).
 
     ```
