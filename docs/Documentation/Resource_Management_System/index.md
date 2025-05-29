@@ -22,7 +22,7 @@ If you have an existing allocation that you need to continue for the next fiscal
     An allocation request is required each fiscal year, even if your project is continuing.  
 
 !!! info 
-    You should submit one allocation request per funded project. Do not split projects up into multiple allocations.
+    You should submit one allocation request per funded project. Do not split projects up into multiple allocations or use one large allocation for multiple projects.
 
 ### Request Type
 
