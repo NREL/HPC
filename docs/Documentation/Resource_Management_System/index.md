@@ -8,7 +8,85 @@ An [NREL HPC account](https://www.nrel.gov/hpc/user-accounts.html) is required t
 
 ## Requesting an Allocation
 
-The system resource allocation request form is available on Lex. For further information on allocations and how to request one, please visit the [Resource Allocations page.](https://www.nrel.gov/hpc/resource-allocation-requests.html)  
+The system resource allocation request form is available on Lex. 
+
+Once logged in, the request form buttons will be on the home page. To request an allocation for an out-of-cycle/pilot allocation for use in the current fiscal year, click the current year's button. When the allocation cycle is open, a button will be available for the next fiscal year. 
+
+![image](../../assets/images/Lex/request_buttons.png)
+
+If you have an existing allocation that you need to continue for the next fiscal year and you are one of the leads on it, there is an option to copy the information over to a new request form as a starting point. 
+
+![image](../../assets/images/Lex/copy_to.png)
+
+!!! warning
+    An allocation request is required each fiscal year, even if your project is continuing.  
+
+!!! info 
+    You should submit one allocation request per funded project. Do not split projects up into multiple allocations or use one large allocation for multiple projects.
+
+### Request Type
+
+If your request is for 150,000 AUs or less, check the **Pilot Request** option. Fewer fields are required for pilot requests, so be sure to select this option before filling out the rest of the form. If approved, pilots are granted 150,000 AUs on Kestrel and 10TB of /projects storage by default. Pilot projects can be granted at anytime throughout the year. 
+
+![image](../../assets/images/Lex/request_type.png)
+
+!!! info
+    Once submitted, the pilot request will automatically put the 150,000 AU request in the CPU AUs section. **Note that once awarded, these AUs can be used on CPUs and GPUs.** 
+
+
+### Project Information
+
+A **project handle** other than the default is required. It is used for directory names and for the account used to submit jobs under the allocation. Years and names are not allowed in the handle, as it will be carried over from year to year if your allocation continues. 
+
+!!! tip
+    Use the info buttons next to the fields for more information on the question's requirements.
+    ![image](../../assets/images/Lex/tooltip.png)
+
+The **HPC Lead** is the person with primary responsibility for the computational work of the allocation. They are the lead on managing user access to the allocation and permissions for the /projects storage directory. The **HPC Lead** and **HPC Alternate Lead** are **required to have NREL HPC accounts** and will be contacted for approving changes to the allocation's user list.
+
+![image](../../assets/images/Lex/contacts.png)
+
+### Computational Resources and Readiness
+
+To calculate the AU request for the allocation, input the software that you will be using and information about the runs that will be using that software. You should add an entry for each major application that you will be running. Fractional node values are allowed and can be used if your runs don't require a full node's resources. You can assign GPU and/or CPU hours to a software record. The total AU calculation for all of the software entries is used to automatically populate the resource request for the allocation. Please see the image below for an example computational request. 
+
+
+![image](../../assets/images/Lex/computational_request_example.png)
+
+!!! tip
+    Kestrel's GPU nodes are all shared and have 4 GPUs per node. You can use fractional values for the **GPU Nodes** field to reflect the number of GPUs per node that your runs will be using.
+
+!!! info
+    Note that all awarded AUs can be used on either CPUs or GPUs, but we have them split in the request for informational and planning purposes. 
+
+The **Data Storage** request is the amount of data in terabytes that you need on the /projects filesystem. This space is the primary persistent store of data for the project. If your request is over 10TB, you also need to fill out the **Storage Request Explanation** field with a high-level, quantitative breakdown of what you are estimating to store and the size. 
+
+The **Use Pattern** describes how you will use your AUs throughout the year. The closer the pattern matches your actual use, the better priority you will have and the less likely you are to lose unused AUs. 
+
+!!! info "Spread Options"
+
+    **Distribute equally across 4 quarters**: even AU split across quarters. Designed for ongoing projects.
+
+    **Development in Q1, production in Q2 or later**: 10% Q1, 30% in remaining quarters. Designed for projects starting off and need time to develop code and workflow.
+
+    **Start in 2nd Quarter**: 33% in Q2-Q4. Designed for projects with late starts.
+
+    **Use in first half of FY**: 45% in Q1 and Q2, 5% in Q3 and Q4. Designed for projects with mid-year end dates or early milestones.
+
+    **Use in second half of FY**: 5% in Q1 and Q2, and 45% in Q3 and Q4. Designed for projects with mid-year star dates or late milestones.
+
+The **Computational Approach** should be a high-level HPC-centric abstract of the computational method that the project will use, including what software and what types of calculations you will be doing. 
+
+### Submitting your Request
+
+You can save your request as many times as needed, but once it's submitted you will need to contact HPC Operations to change it. Be sure that you selected the **Pilot Request** option if your request is under 150,000 AUs. 
+
+After you have submitted your project, it will undergo an initital screening and a Technical Readiness Review. You may be contacted by the NREL HPC team with questions; please resond to these emails as soon as possible to ensure your request can be processed on time. 
+
+For further information on allocations and how to request one, please visit the [Resource Allocations page.](https://www.nrel.gov/hpc/resource-allocation-requests.html)  
+
+!!! tip
+    Please contact [HPC-Requests@nrel.gov](mailto:HPC-Requests@nrel.gov) for any questions about the allocation request process. 
 
 ## Managing Users
 
