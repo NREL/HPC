@@ -30,6 +30,10 @@ If your request is for 150,000 AUs or less, check the **Pilot Request** option. 
 
 ![image](../../assets/images/Lex/request_type.png)
 
+!!! info
+    Once submitted, the pilot request will automatically put the 150,000 AU request in the CPU AUs section. **Note that once awarded, these AUs can be used on CPUs and GPUs.** 
+
+
 ### Project Information
 
 A **project handle** other than the default is required. It is used for directory names and for the account used to submit jobs under the allocation. Years and names are not allowed in the handle, as it will be carried over from year to year if your allocation continues. 
@@ -52,8 +56,8 @@ To calculate the AU request for the allocation, input the software that you will
 !!! tip
     Kestrel's GPU nodes are all shared and have 4 GPUs per node. You can use fractional values for the **GPU Nodes** field to reflect the number of GPUs per node that your runs will be using.
 
-
-Note that all awarded AUs can be used on either CPUs or GPUs, but we have them split in the request for informational and planning purposes. 
+!!! info
+    Note that all awarded AUs can be used on either CPUs or GPUs, but we have them split in the request for informational and planning purposes. 
 
 The **Data Storage** request is the amount of data in terabytes that you need on the /projects filesystem. This space is the primary persistent store of data for the project. If your request is over 10TB, you also need to fill out the **Storage Request Explanation** field with a high-level, quantitative breakdown of what you are estimating to store and the size. 
 
@@ -71,7 +75,7 @@ The **Use Pattern** describes how you will use your AUs throughout the year. The
 
     **Use in second half of FY**: 5% in Q1 and Q2, and 45% in Q3 and Q4. Designed for projects with mid-year star dates or late milestones.
 
-The **Computational Approach** should be a high-level description of the computational method that the project will use, including what software and what types of calculations you will be doing. 
+The **Computational Approach** should be a high-level HPC-centric abstract of the computational method that the project will use, including what software and what types of calculations you will be doing. 
 
 ### Submitting your Request
 
@@ -80,6 +84,9 @@ You can save your request as many times as needed, but once it's submitted you w
 After you have submitted your project, it will undergo an initital screening and a Technical Readiness Review. You may be contacted by the NREL HPC team with questions; please resond to these emails as soon as possible to ensure your request can be processed on time. 
 
 For further information on allocations and how to request one, please visit the [Resource Allocations page.](https://www.nrel.gov/hpc/resource-allocation-requests.html)  
+
+!!! tip
+    Please contact [HPC-Requests@nrel.gov](mailto:HPC-Requests@nrel.gov) for any questions about the allocation request process. 
 
 ## Managing Users
 
