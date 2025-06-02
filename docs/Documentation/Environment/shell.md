@@ -301,94 +301,33 @@ There are copies of the default .bashrc and .bash_profile files in
 
 
 ## Some commands
-
-
-
-```
-man — Print manual or get help for a command  EXAMPLE: man ls
-man bash will show many "built in" commands in the shell
-
-ls — List directory contents
-  ls -a      Show all files, including hidden files
-  ls -l      Do a detailed listing
-  ls -R      Recursive listing, current directories subdirectories
-  ls  *.c    List files that end in "c"
-  
-echo  - Prints text to the terminal window 
-
-mkdir — Create a directory
-
-pwd — Print working directory, that is give the name of your 
-      current directory.
-
-cd — Change directory
-  cd ~  Go to your home directory
-  cd .. Go up one level in the directory tree
-
-mv — Move or rename a file or directory directory
-
-nano - Edit a file. See above. 
-
-rm - Remove a file
-rm -r DIRECTORY will recursively remove a directory.
-      Use rm -rf very carefully !DO NOT! rm -rf ~  it will wipe out 
-      your home directory. 
-
-rmdir — Remove a directory. It must be empty to be removed. It's 
-        safer than rm -rf.
-
-less — view the contents of a text file
-
-> — redirect output from a command to a file.  Example ls > myfiles
->> - same as > except it appends to the file
-> /dev/null A special case of > suppress normal output by sending 
-            it the the "null file"
-2> err 1> out    Send errors from a command to the file err and normal
-                 output to out
-
-1>both 2>&1 Send output and errors to the file "both"
-
-sort - Output a sorted version of a file.  Has many options.
-
-|  A pipe takes the standard output of one command and passes it as 
-   the input to another.  Example  cat mydata | sort
-
-cat — Read a file and send output to the terminal.  To concatenate files        
-      cat one two > combined
-
-head — Show the start of a file
-
-tail — Show the end of a file
-
-which - Show the location of a command.  EXAMPLE: which ls
-        Which will not show bash built in commands
-
-exit — Exit out of a shell, normally used to logout
-
-grep - search for a string in a file(s) or output
-
-history -  display the command history
-
-source  -  Read  and  execute  commands  from a file
-
-find - locate files/directories with particular characteristics.  Find 
-       has many options and capabilities.  "man find"will show all the
-       options.  However, an online search might be the best way to 
-       deterinine the options you want.
-
-find . -name "*xyz*"    Find all files, in the current directory and below that 
-                        have names that contain xyz.
-find .  -type f         Find all files, in the current directory and below.
-find .  -type d         Find all directories, in the current directory and below.
-find . -newermt `date +"%Y-%m-%d"` 
-                        Find files that have changed today.
-
-compgen                 Show various sets of commands
-compgen -a              list all bash aliases
-compgen -b              list bash builtin commands
-compgen -A function     list all the bash functions.
-compgen -k              list all the bash keywords
-compgen -c              list all commands available to you 
-compgen -c | grep file  Show commands that have "file" as part of the
-                        name
-```
+| Command | Explanation |
+| --- | --- |
+| `man` | Print manual or get help for a command. Examples: <ul> <li> `man ls`: Shows an explanation of the ls command </li> <li> `man bash`: Shows many built-in commands </li> </ul> |
+| `ls` | List directory contents. Note: <ul> <li> `ls -a`: Show all files, including hidden files </li> <li> `ls -l`: Do a detailed listing </li> <li> `ls -R`: Recursive listing, current directories subdirectories </li> <li> `ls  *.c`: List files that end in "c" </li> </ul>|
+| `echo` | Prints text to the terminal window |
+| `mkdir` | Creates a directory |
+| `pwd` | Prints working directory; that is, gives the name of the directory you are currently in. |
+| `cd` | Changes directory. Note: <ul> <li> `cd ~`:  Go to your home directory </li> <li> `cd ..`: Go up one level in the directory tree </li> </ul> |
+| `mv` | Moves or renames a file or directory |
+| `nano` | Opens a simple text editor. See above. |
+| `rm` | Removes a file. Note: <ul> <li> `rm -r [DIRECTORY]`: Recursively removes a directory. </li> </ul> **DO NOT** `rm -rf ~` as this will completely delete your home directory. |
+| `rmdir` | Removes an empty directory. It's safer than `rm -rf` |
+| `less` | Views the contents of a text file |
+| `>` | Redirects output from a command to a file. Example: <ul> <li> `ls > myfiles.txt`: Redirects the output of the ls command into a text file called "myfiles" </li> </ul> |
+| `> /dev/null` |  A special case of `>` suppress normal output by sending it the the "null file" |
+| `2> err 1> out` | Sends errors from a command to the file err and normal output to out. Note: <ul> <li> `1> both 2>&1`: Sends output and errors to the file "both" </li> </ul>|
+| `>>` | similar to `>` but appends to the file |
+| `cat` | Read a file and send output to the terminal. Note: <ul> <li> `cat file1 file2 > combined`: Concatenates the two files together </li> </ul>|
+| `sort` | Outputs a sorted version of a file |
+| `|` | A pipe takes the standard output of one command and passes it as the input to another. Example: <ul> <li> `cat myData | sort`: Outputs the contents of "myData" to the sort command </li> </ul> |
+| `head` | Shows the start of a file |
+| `tail` | Shows the end of a file |
+| `which` | Shows the location of a command. Of note, you cannot use `which` with builtin shell commands. |
+| `exit` | Exits out of a shell. Can be used to logout. |
+| `logout` | Logs out of a shell. |
+| `grep` | Searches for a string in output or file(s) |
+| `history` | Displays the command history |
+| `source` | Read  and  execute  commands  from a script and executes it in the current shell. Note: <ul> <li> `.` by itself is a synonym of `source` </li> </ul> |
+| `find` | Locates files/directories with particular characteristics; a very useful command. Examples: <ul> <li> `find . -name "\*xyz\*"`: Finds all files in current the directory and below that have names that contain "xyz" </li> <li> `find . -type f`: Finds all files in current the directory and below </li> <li> `find . -type d `: Finds all directories in current the directory and below </li> <li> `` find . -newermt `date +"%Y-%m-%d"` ``: Finds files that have changed today </li> </ul> |
+| `compgen` | Shows various sets of commands. Examples: <ul> <li> `compgen -a`: Lists all bash aliases </li> <li> `compgen -b`: Lists all built-in commands </li> <li> `compgen -A function`: Lists all bash functions </li> <li> `compgen -k`: Lists all bash keywords </li> <li> `compgen -c`: Lists all commands available to you </li> </ul> |
