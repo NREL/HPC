@@ -70,7 +70,9 @@ export PATH
 # User specific aliases and functions
 ```
 
-First, you will see that this runs the system's version of the bashrc from /etc/; the purpose is to initialize system-wide functions and aliases. Second, note that it sets up the user specific environment by setting PATH to `$HOME/.local/bin:$HOME/bin:$PATH`; in short, this adds the user's executables to the PATH if those executables are in either `$HOME/.local/bin` or `$HOME/bin`.
+First, you will see that this runs the system's version of the bashrc from /etc/; the purpose is to initialize system-wide functions and aliases. 
+
+Second, note that it sets up the user specific environment by updating the PATH environment variable. The PATH environment variable contains the file directory paths a computer will look for commands to run. You can append or, like in this case, prepend directories to it; the PATH is set to `$HOME/.local/bin:$HOME/bin:$PATH`, `$HOME` being another environment variable that points to your home directory. This adds the user's commands to the PATH if those commands are in either `$HOME/.local/bin` or `$HOME/bin`.
 
 Note in both of these files we have a place where you are encouraged to add user defined aliases and functions.  You can also set environmental variables, such as PATH and a related variable LD_LIBRARY_PATH.  You may want to load modules which also set environmental variables. 
 
