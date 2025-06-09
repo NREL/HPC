@@ -169,6 +169,7 @@ nav:
              - GDB: Documentation/Development/Debug_Tools/gdb.md
          - Visual Studio Code:
             - Documentation/Development/VSCode/vscode.md
+            - Documentation/Development/VSCode/jupyter_in_vscode.md
          - Containers:
             - Documentation/Development/Containers/index.md
             - Documentation/Development/Containers/registries.md
