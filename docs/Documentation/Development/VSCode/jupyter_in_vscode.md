@@ -8,7 +8,7 @@ To begin, proceed to VSCode and install the following extensions, if you have no
 
 ## Setting Up SSH-Connect
 
-Before work can begin, the first step must be to connect to a compute node to run the code. Like in the [Connecting With VS Code](./vscode.md#ssh-key-setup), you must have an SSH key linked to the Kestrel and have the SSH config properly set up. Please see the aforementioned documentation for further details.
+Before work can begin, the first step is to setup VS Code to be able to connect to a compute node. Like in the [Connecting With VS Code](./vscode.md#ssh-key-setup), you must have an SSH key linked to the Kestrel and have the SSH config properly set up. Please see the aforementioned documentation for further details.
 
-# Setting Up Conda Environment.
-In addition, you will also need to set up a Python Environment as per the [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#install-packages) documentation.
+## Setting Up Conda Environment.
+In addition, you will also need to set up a Python Environment on Kestrel as per the [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#install-packages) documentation. Please note that you do not need a python environment on your local machine for this.
