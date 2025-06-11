@@ -30,5 +30,5 @@ Note the node you have connected so you can connect to it via VS Code in a momen
 
 First, open VS Code and hit F1 to run a command. Step through the process of connecting to a compute node. Once connected to the compute node, hit F1 again to search for Jupyter. Select the "Select Interpreter to Start Jupyter Server" option and select the Python Environment made for this example
 
-Once an interpreter has been selected, the code will be able to run via Jupyter in VS Code. 
+Once an interpreter has been selected, the code will be able to run via Jupyter in VS Code. If all is working, both nodes should be listed in the code, and it will run to completion swiftly.
 
