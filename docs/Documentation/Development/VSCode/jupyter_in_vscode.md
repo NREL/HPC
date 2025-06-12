@@ -11,7 +11,7 @@ To begin, proceed to VSCode and install the following extensions, if you have no
 Before work can begin, the first step is to setup VS Code to be able to connect to a compute node. Like in the [Connecting With VS Code](./vscode.md#ssh-key-setup), you must have an SSH key linked to the Kestrel and have the SSH config properly set up. Please see the aforementioned documentation for further details.
 
 ## Setting Up Conda Environment.
-In addition, you will also need to set up a Python Environment on Kestrel as per the [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#install-packages) documentation. Please note that you do not need a python environment on your local machine for this. 
+In addition, you will also need to set up a Python Environment on Kestrel as per the [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#setting-up-your-account) documentation. Please note that you do not need a python environment on your local machine for this. 
 
 ## VS Code Jupyter on Kestrel
 
@@ -28,7 +28,9 @@ Note the node you have connected so you can connect to it via VS Code in a momen
 
 ### Running the Code
 
-First, open VS Code and hit F1 to run a command. Step through the process of connecting to a compute node. Once connected to the compute node, hit F1 again to search for Jupyter. Select the "Select Interpreter to Start Jupyter Server" option and select the Python Environment made for this example
+To begin, open VS Code and hit F1 to run a command. Step through the process of connecting to a compute node. Once connected to the compute node, go to the left side of the screen and open your home directory on Kestrel (also, you may trust your own home directory, but do not click the check box). 
 
-Once an interpreter has been selected, the code will be able to run via Jupyter in VS Code. If all is working, both nodes should be listed in the code, and it will run to completion swiftly.
+Then, open the "cupyAndIpyparallel.ipynb" file in VS Code. Go to the top right corner and select the Python Kernel created earlier. VS Code may prompt for installing some Python packages; please allow these or the process will not work.
+
+Once an interpreter has been selected (and it has finished installing anything needed), the code will be able to be opened and run via Jupyter in VS Code. If all is working, both nodes should be listed in the code, and it will run to completion swiftly.
 
