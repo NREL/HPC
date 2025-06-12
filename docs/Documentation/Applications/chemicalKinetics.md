@@ -96,7 +96,7 @@ $ conda create --prefix ./ct-dev --channel cantera libcantera-devel
 $ conda activate ./ct-dev
 $ conda install cmake scons pkg-config
 
-$ cd /home/username/.conda-envs/ct-dev/share/cantera/samples/cxx/demo
+$ cd /projects/<projectname>/<username>/ct-dev/share/cantera/samples/cxx/demo
 $ scons && ./demo
 $ cmake . && cmake --build . && ./demo
 $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
