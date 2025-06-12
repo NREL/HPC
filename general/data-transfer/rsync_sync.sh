@@ -1,0 +1,6 @@
+FILE_TO_SYNC=$1
+SYNC_TO_LOCATION=$2
+rsync -chavzP --no-g \
+	${FILE_TO_SYNC} \
+	${SYNC_TO_LOCATION}
+
