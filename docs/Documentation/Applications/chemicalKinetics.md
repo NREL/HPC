@@ -26,33 +26,37 @@ A typical workflow could look as follows:
 
 1. Create mechanisms and validate with Cantera:
 
-	👍 Feature rich, multi language, very [well documented](https://cantera.org/documentation/index.html), large [support forum](https://groups.google.com/g/cantera-users).
+	🔼 Feature rich, multi language, very [well documented](https://cantera.org/documentation/index.html), large [support forum](https://groups.google.com/g/cantera-users).
 
-	👎 Slower than competition, no GPU support.
+	🔽 Slower than competition, no GPU support.
 
 
 2. Perform model reduction with zero-RK if necessary:
 
-	👍  Faster than Cantera & Chemkin for [more than 100 species](https://ipo.llnl.gov/sites/default/files/2019-09/zork.pdf), some [GPU support](https://doi.org/10.1115/ICEF2017-3631).
+	🔼  Faster than Cantera & Chemkin for [more than 100 species](https://ipo.llnl.gov/sites/default/files/2019-09/zork.pdf), some [GPU support](https://doi.org/10.1115/ICEF2017-3631).
 
-	👎 Fewer features, sparse documentation, C++ only.
+	🔽 Fewer features, sparse documentation, C++ only.
 
 3. Convert to a high performance C++ code with PelePhysics and link to a CFD solver: 
 
-	👍  [GPU](https://amrex-combustion.github.io/PelePhysics/CvodeInPP.html#cvode-implementation-in-pelephysics-on-gpu), [well documented](https://amrex-combustion.github.io/PelePhysics/index.html), [amrex/Pele CFD](https://amrex-combustion.github.io/) & Cantera mechanisms compatible.
+	🔼  [GPU](https://amrex-combustion.github.io/PelePhysics/CvodeInPP.html#cvode-implementation-in-pelephysics-on-gpu), [well documented](https://amrex-combustion.github.io/PelePhysics/index.html), [amrex/Pele CFD](https://amrex-combustion.github.io/) & Cantera mechanisms compatible.
 	
-	👎 Fewer features than Cantera & Chemkin, C++ only. 
+	🔽 Fewer features than Cantera & Chemkin, C++ only. 
 
 ## Installation and testing on Kestrel
 !!! note
 	Cantera can also be [installed from source](https://cantera.org/install/compiling-install.html#sec-compiling) apart from the conda method explained below.
 	The performance of packages mentioned on this page can vary depending on the choice of dependency library variants and optimization flags while compiling from source. We are more than happy to learn from power users about choices which lead to the best performance. Please report your experiences by [email](mailto:hpc-help@nrel.gov).
+
+!!! Warning
+	Conda environments should be *always* be installed outside of your home directory for storage and performance reasons. This is especially important if linking a chemical kinetics package with a C++ code whose parallel processes can strain the `/home` filesystem. Please refer to our dedicated [conda documentation](../../../../Environment/Customization/conda.md#creating-environments-by-location) for more information on how to setup your conda environments to redirect the installation outside of `/home` by default.
+
 ### Cantera
  [Installation: Python version](https://cantera.org/install/conda-install.html#sec-install-conda)
 ```
-$ module load conda
-$ conda create --name ct-env --channel cantera cantera ipython matplotlib jupyter
-$ conda activate ct-env
+$ module load anaconda3/2024.06.1
+$ conda create --prefix ./ct-env --channel cantera cantera ipython matplotlib jupyter
+$ conda activate ./ct-env
 
 $ python3
 >>> import cantera as ct
@@ -70,8 +74,8 @@ $ conda deactivate
 	$ ln -s /scratch/username scratch
 	```
 	```
-	$ module load conda
-	$ conda activate ct-env
+	$ module load anaconda3/2024.06.1
+	$ conda activate ./ct-env
 	```
 	Create a jupyter kernel from ct-env
 	```
@@ -87,9 +91,9 @@ $ conda deactivate
 
 [Installation: C++ version](https://cantera.org/install/conda-install.html#sec-conda-development-interface)
 ```
-$ module load conda
-$ conda create --name ct-dev --channel cantera libcantera-devel
-$ conda activate ct-dev
+$ module load anaconda3/2024.06.1
+$ conda create --prefix ./ct-dev --channel cantera libcantera-devel
+$ conda activate ./ct-dev
 $ conda install cmake scons pkg-config
 
 $ cd /home/username/.conda-envs/ct-dev/share/cantera/samples/cxx/demo
@@ -108,12 +112,12 @@ $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
 	```
 	Load Cantera
 	```
-	module load conda
-	conda activate ct-dev
+	module load anaconda3/2024.06.1
+	conda activate ./ct-dev
 	```
 	Compile your code
 	```
-	CC -DEIGEN_USE_LAPACKE -DEIGEN_USE_BLAS -fopenmp -O3 -march=native -std=c++17 -I /home/username/.conda-envs/ct-dev/include/cantera/ext -I . mainYourCode.C $(pkg-config --cflags --libs cantera) -o flame.out
+	CC -DEIGEN_USE_LAPACKE -DEIGEN_USE_BLAS -fopenmp -O3 -march=native -std=c++17 -I /projects/<projectname>/<username>/ct-dev/include/cantera/ext -I . mainYourCode.C $(pkg-config --cflags --libs cantera) -o flame.out
 	```
 	Execute
 	``` 
