@@ -64,7 +64,6 @@ CPU $ module avail openfoam
    openfoam/v2406-craympich-gcc    openfoam/9-ompi             openfoam/12-intelmpi
 ```
 
-**We encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) for their setup when submitting a new large job. According to some user reports, the application has shown to scale very poorly beyond 2 nodes.**
 
 ??? example "Sample job script: Kestrel"
 
@@ -85,7 +84,7 @@ CPU $ module avail openfoam
 
     decomposePar
 
-    srun -n 200 rhoReactingBuoyantFoam -parallel >> log.h2
+    srun -n 200 --cpu-bind=v,rank_ldom rhoReactingBuoyantFoam -parallel >> log.h2
 
     reconstructPar -time 0:5000  -fields '(H2 X_H2)'
     ```
@@ -117,3 +116,10 @@ $ make decompose
 $ make parallel
 $ make run
 ```
+
+### Benchmarks
+
+OpenFOAM v2412 compiled with cray-mpich has been used to perform [strong scaling tests](https://develop.openfoam.com/committees/hpc/-/tree/develop/incompressible/simpleFoam/occDrivAerStaticMesh) of the [DrivAer automobile model](https://www.epc.ed.tum.de/aer/forschungsgruppen/automobilaerodynamik/drivaer/) on Kestrel. The results are shown below for three levels of mesh resolution. For this particular setup, the application has shown to scale poorly beyond 2 nodes. Since the behaviour is consistent with some user reports about their own setups, we encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) on their own before submitting a new large job.
+
+![<strongScaling>](openfoam_metadata/DrivAerScaling.png "strongScaling"){width=1000}
+![<model>](openfoam_metadata/DrivAerModel.png "model"){width=1000}
