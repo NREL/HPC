@@ -46,6 +46,8 @@ $ curl -O https://URL
 $ wget https://URL
 ```
 
+Additional rsync examples are available [here](https://github.com/NREL/HPC/tree/master/general/data-transfer).
+
 #### Large Transfers (>100GB) outside of the NREL network
 
 Globus is optimized for file transfers between data centers and anything outside of the NREL network. It will be several times faster than any other tools you will have available. Documentation about requesting a HPC Globus account is available on the [Globus Services page on the HPC website](https://www.nrel.gov/hpc/globus-file-transfer.html).  See [Transfering files using Globus](globus.md) for instructions on transfering files with Globus.
