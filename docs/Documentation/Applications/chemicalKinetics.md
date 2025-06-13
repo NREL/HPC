@@ -55,6 +55,7 @@ A typical workflow could look as follows:
  [Installation: Python version](https://cantera.org/install/conda-install.html#sec-install-conda)
 ```
 $ module load anaconda3/2024.06.1
+$ cd /projects/<projectname>/<username>
 $ conda create --prefix ./ct-env --channel cantera cantera ipython matplotlib jupyter
 $ conda activate ./ct-env
 
@@ -75,7 +76,7 @@ $ conda deactivate
 	```
 	```
 	$ module load anaconda3/2024.06.1
-	$ conda activate ./ct-env
+	$ conda activate /projects/<projectname>/<username>/ct-env
 	```
 	Create a jupyter kernel from ct-env
 	```
@@ -92,6 +93,7 @@ $ conda deactivate
 [Installation: C++ version](https://cantera.org/install/conda-install.html#sec-conda-development-interface)
 ```
 $ module load anaconda3/2024.06.1
+$ cd /projects/<projectname>/<username>
 $ conda create --prefix ./ct-dev --channel cantera libcantera-devel
 $ conda activate ./ct-dev
 $ conda install cmake scons pkg-config
@@ -113,7 +115,7 @@ $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
 	Load Cantera
 	```
 	module load anaconda3/2024.06.1
-	conda activate ./ct-dev
+	conda activate /projects/<projectname>/<username>/ct-dev
 	```
 	Compile your code
 	```
@@ -128,6 +130,7 @@ $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
 ### zero-RK
 Please follow the [official installation instructions](https://github.com/LLNL/zero-rk). The procedure has been tested successfully on the Kestrel and repeated below from the official instructions for convenience.
 ```
+$ cd /projects/<projectname>/<username>
 $ git clone https://github.com/llnl/zero-rk   #git
 $ cd zero-rk
 $ mkdir build
@@ -143,6 +146,7 @@ $ make install                                #install
 	Please mind the amrex dependency and remember to set the `AMREX_HOME` environment variable to your amrex location before beginning to compile PelePhysics.
 Please follow the [official instructions](https://amrex-combustion.github.io/PelePhysics/GettingStarted.html#building-and-running-test-cases) for obtaining the PelePhysics library and compiling examples. The procedure has been tested successfully on the Kestrel. The process for obtaining PelePhysics and compiling the ReactEval example is repeated below from the official instructions for convenience.
 ```
+$ cd /projects/<projectname>/<username>
 $ git clone --recursive https://github.com/AMReX-Combustion/PelePhysics.git
 $ cd PelePhysics
 $ git pull && git submodule update
