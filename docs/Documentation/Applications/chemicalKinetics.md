@@ -49,7 +49,7 @@ A typical workflow could look as follows:
 	The performance of packages mentioned on this page can vary depending on the choice of dependency library variants and optimization flags while compiling from source. We are more than happy to learn from power users about choices which lead to the best performance. Please report your experiences by [email](mailto:hpc-help@nrel.gov).
 
 !!! Warning
-	Conda environments should be *always* be installed outside of your home directory for storage and performance reasons. This is especially important if linking a chemical kinetics package with a C++ code whose parallel processes can strain the `/home` filesystem. Please refer to our dedicated [conda documentation](../../../../Environment/Customization/conda.md#creating-environments-by-location) for more information on how to setup your conda environments to redirect the installation outside of `/home` by default.
+	Conda environments should *always* be installed outside of your home directory for storage and performance reasons. This is especially important if linking a chemical kinetics package with a C++ code whose parallel processes can strain the `/home` filesystem. Please refer to our dedicated [conda documentation](../Environment/Customization/conda.md#creating-environments-by-location) for more information on how to setup your conda environments to redirect the installation outside of `/home` by default.
 
 ### Cantera
  [Installation: Python version](https://cantera.org/install/conda-install.html#sec-install-conda)
