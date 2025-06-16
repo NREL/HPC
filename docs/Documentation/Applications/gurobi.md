@@ -12,7 +12,7 @@
     Gurobi will fail in the future if you do not add the above to your job submission.
     ```
     
-    You must add the license request to your job submission using the `-L` flag. See the sbatch example [below](#requesting-gurobi-licenses-in-job-submissions)
+    You must add the license request to your job submission using the `-L` flag. See the sbatch example [below](#requesting-gurobi-licenses-in-job-submissions).
 
 Gurobi includes a linear programming solver (LP), quadratic programming solver
 (QP), quadratically constrained programming solver (QCP), mixed-integer linear
