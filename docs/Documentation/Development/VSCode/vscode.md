@@ -77,3 +77,31 @@ Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the 
 
 This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
 
+## Jupyter Notebook in VS Code
+Before proceeding with this section, please read [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md) as this document will be using its process as a reference.
+
+### Setting Up VS Code
+To begin, proceed to VSCode and install these additional extensions, if you do not already have them: [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
+
+### Setting Up Conda Environment
+In addition, you will also need to set up a Python Environment on Kestrel as per the [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#setting-up-your-account) documentation. Please note that you do not need a python environment on your local machine for this. 
+
+### VS Code Jupyter on Kestrel
+
+With the Conda environment set up, the process will be following [multinode Jupyter job example](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#multinode-capable-job-eg-mpi4py-through-ipyparallel) through VS Code on the compute. Download the [example Jupyter script](../Languages/Python/KestrelParallelPythonJupyter/exampleNotebooks/cupyAndIpyparallel.ipynb) onto Kestrel to load it into VS Code later.
+
+### Intializing Environment
+
+Before using VS Code to connect to a compute, the compute node has to be allocated. Log onto Kestrel via a terminal and allocate 2 nodes by using this line:
+```
+salloc -A <projectname> -t 00:30:00 --nodes=2 --ntasks-per-node=1 --partition=short
+```
+
+### Running the Code
+
+To begin, open VS Code and hit F1 to run a command. Step through the process of connecting to a compute node. Once connected to the compute node, go to the left side of the screen and open your home directory on Kestrel (also, you may trust your own home directory, but do not click the check box). 
+
+Then, open the "cupyAndIpyparallel.ipynb" file in VS Code. Go to the top right corner and select the Python Kernel created earlier. VS Code may prompt for installing some Python packages; please allow these or the process will not work.
+
+Once an interpreter has been selected (and it has finished installing anything needed), the code will be able to be opened and run via Jupyter in VS Code. If all is working, both nodes should be listed in the code, and it will run to completion swiftly.
+
