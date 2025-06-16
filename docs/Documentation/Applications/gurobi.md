@@ -2,8 +2,17 @@
 
 *Gurobi Optimizer is a suite of solvers for mathematical programming.*
 
-For documentation, forums, and FAQs, see the [Gurobi
-website](https://www.gurobi.com/products/gurobi-optimizer/).
+!!! warning "License Request Required"
+    Starting soon, Gurobi jobs will require explicit license requests in your job submission. 
+    If you see the following warning message:
+    
+    ```
+    WARNING: SLURM_JOB_LICENSES is not set.
+    Please request a license with your job submission using '-L gurobi:numberoflicenses'.
+    Gurobi will fail in the future if you do not add the above to your job submission.
+    ```
+    
+    You must add the license request to your job submission using the `-L` flag. See the sbatch example [below](#requesting-gurobi-licenses-in-job-submissions).
 
 Gurobi includes a linear programming solver (LP), quadratic programming solver
 (QP), quadratically constrained programming solver (QCP), mixed-integer linear
@@ -17,13 +26,6 @@ onto the appropriate cluster, load the default Gurobi module using
 `module load gurobi`.  The Gurobi interactive shell is run by typing 
 "`gurobi.sh`". Gurobi can also be interfaced with C/C++/Java/MATLAB/R codes by 
 linking with the Gurobi libraries.
-
-!!! tip
-    You can check how many Gurobi licenses are available for use by running the following command
-    after loading the Gurobi module
-    ```bash
-    gurobi_cl -t
-    ```
 
 For details on Gurobi programming, see the [Gurobi Resource
 Center](https://www.gurobi.com/resource-center/) and [Gurobi
@@ -39,6 +41,34 @@ documentation](https://www.gurobi.com/documentation/).
 | gurobi/10.0.1   ||
 | gurobi/9.5.1    | gurobi/9.5.1    |
 
+!!! tip
+    You can check how many Gurobi licenses are available for use by running the following command
+    after loading the Gurobi module
+    ```bash
+    gurobi_cl -t
+    ```
+
+## Requesting Gurobi Licenses in Job Submissions
+
+When submitting jobs that use Gurobi, you need to request the appropriate number of licenses. Here's an example sbatch script:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=gurobi_job
+#SBATCH --time=01:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=8GB
+#SBATCH -L gurobi:1
+
+module load gurobi
+
+# Your Gurobi commands here
+gurobi.sh your_model.lp
+```
+
+The `-L gurobi:1` flag requests 1 Gurobi license token. Adjust the number based on your needs, keeping in mind that there are 24 license tokens available for concurrent use.
+
 
 ## Gurobi and MATLAB
 
@@ -51,7 +81,7 @@ MATLAB prompt or your script:
 >> path(path,grb)
 ```
 
-## Gurobi and General Algebraic Modeling System
+## Gurobi and General Algebraic Modeling System (GAMS)
 
 The General Algebraic Modeling System (GAMS) is a high-level modeling system for
 mathematical programming and optimization. The GAMS package installed at NREL
