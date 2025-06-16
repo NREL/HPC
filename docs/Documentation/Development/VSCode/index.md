@@ -1,4 +1,4 @@
-# Connecting With VS Code 
+# Visual Studio Code
 
 [Microsoft Visual Studio Code (VS Code)](https://code.visualstudio.com/) is a popular tool for development in many programming languages, and may be used on HPC systems. However, there are some caveats to be aware of when running it remotely.
 
