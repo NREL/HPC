@@ -77,6 +77,8 @@ Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the 
 
 This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
 
+## Jupyter in VS Code on Kestrel
+
 ### Setting Up VS Code
 To begin, proceed to VSCode and install these additional extensions, if you do not already have them: [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
 
