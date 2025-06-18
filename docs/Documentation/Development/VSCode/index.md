@@ -34,11 +34,11 @@ Please be aware that the Remote SSH extension runs processes on the remote host.
 
 This problem can be circumvented by using a compute node to run VS Code. This will cost AU, but will allow for full resource usage of CPU and/or RAM. 
 
-### Kestrel
+## Connecting to Kestrel
 
 Using VS Code on a compute node will require adding an ssh key.
 
-#### SSH Key Setup
+### SSH Key Setup
 
 You may use an existing key pair on your local computer/laptop, or create one with `ssh-keygen` (adding `-t ed25519` is optional, but recommended.) 
 
@@ -52,7 +52,7 @@ We recommend choosing a strong passphrase and storing it in a password manager. 
 
 Once you have a key pair on your local computer, use the `ssh-copy-id <username>@kestrel.hpc.nrel.gov` command to copy the public portion to Kestrel. This will add your public key to the ~/.ssh/authorized_keys file in your Kestrel home directory. Alternatively, you may manually add the contents of your PUBLIC key file (for example, the contents of ~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub) onto the end of this file. **Do not delete the existing entries in these files on Kestrel.**
 
-#### Editing the VS Code SSH Config File
+### Editing the VS Code SSH Config File
 
 We will now create a host entry in your local ssh config file to make connecting to Kestrel compute nodes easier. 
 
@@ -67,7 +67,7 @@ This create a "wildcard" entry that should match Kestrel compute node names. Any
 
 If your allocation is finished on Kestrel (e.g. at the end of the FY and your allocation will not be continuing to the next) or you otherwise anticipate no further need to use VS Code with Kestrel in this fashion, you may delete this entry from your SSH config file.
 
-#### Start a Job and Connect VS Code
+### Start a Job and Connect VS Code
 
 SSH to Kestrel as usual (outside of VS Code) and use [sbatch](/Documentation/Slurm/batch_jobs/) or [salloc](/Documentation/Slurm/interactive_jobs) to start a job. (An interactive job with `salloc` is suggested, using a `--time` limited to only the expected duration of your working session with VS Code.)
 
