@@ -42,7 +42,11 @@ For command line access, you may login directly to **kestrel.nrel.gov**.  Altern
 To access the GPU login nodes, first connect with one of the methods described above, and then ssh to **kestrel-gpu.hpc.nrel.gov**. 
 
 !!! warning "Windows SSH "Corrupted MAC on input" Error"
-    When attempting to SSH, some Windows users experience an error message stating "Corrupted MAC on input" or "message authentication code incorrect." To solve the error, run the ssh command with the flag `-m hmac-sha2-512`.
+    When attempting to SSH, some Windows users experience an error message stating "Corrupted MAC on input" or "message authentication code incorrect." To solve the error, run the ssh command with the flag `-m hmac-sha2-512`. Example below:
+
+    ```
+    ssh -m hmac-sha2-512 username@kestrel.hpc.nrel.gov
+    ```
 
     See the [Workaround blog post](https://nrel.github.io/HPC/blog/2022-12-19-windows_ssh/) for further details and information.
 
