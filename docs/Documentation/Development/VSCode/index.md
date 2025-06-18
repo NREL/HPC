@@ -1,4 +1,4 @@
-# Connecting With VS Code 
+# Visual Studio Code
 
 [Microsoft Visual Studio Code (VS Code)](https://code.visualstudio.com/) is a popular tool for development in many programming languages, and may be used on HPC systems. However, there are some caveats to be aware of when running it remotely.
 
@@ -34,11 +34,11 @@ Please be aware that the Remote SSH extension runs processes on the remote host.
 
 This problem can be circumvented by using a compute node to run VS Code. This will cost AU, but will allow for full resource usage of CPU and/or RAM. 
 
-### Kestrel
+## Connecting to Kestrel
 
 Using VS Code on a compute node will require adding an ssh key.
 
-#### SSH Key Setup
+### SSH Key Setup
 
 You may use an existing key pair on your local computer/laptop, or create one with `ssh-keygen` (adding `-t ed25519` is optional, but recommended.) 
 
@@ -52,7 +52,7 @@ We recommend choosing a strong passphrase and storing it in a password manager. 
 
 Once you have a key pair on your local computer, use the `ssh-copy-id <username>@kestrel.hpc.nrel.gov` command to copy the public portion to Kestrel. This will add your public key to the ~/.ssh/authorized_keys file in your Kestrel home directory. Alternatively, you may manually add the contents of your PUBLIC key file (for example, the contents of ~/.ssh/id_ed25519.pub or ~/.ssh/id_rsa.pub) onto the end of this file. **Do not delete the existing entries in these files on Kestrel.**
 
-#### Editing the VS Code SSH Config File
+### Editing the VS Code SSH Config File
 
 We will now create a host entry in your local ssh config file to make connecting to Kestrel compute nodes easier. 
 
@@ -67,7 +67,7 @@ This create a "wildcard" entry that should match Kestrel compute node names. Any
 
 If your allocation is finished on Kestrel (e.g. at the end of the FY and your allocation will not be continuing to the next) or you otherwise anticipate no further need to use VS Code with Kestrel in this fashion, you may delete this entry from your SSH config file.
 
-#### Start a Job and Connect VS Code
+### Start a Job and Connect VS Code
 
 SSH to Kestrel as usual (outside of VS Code) and use [sbatch](/Documentation/Slurm/batch_jobs/) or [salloc](/Documentation/Slurm/interactive_jobs) to start a job. (An interactive job with `salloc` is suggested, using a `--time` limited to only the expected duration of your working session with VS Code.)
 
@@ -76,4 +76,27 @@ Wait until the job has started running, and take note of the node assigned to th
 Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the hostname of the node that your job was assigned. For example, `<username>@x1000c0s0b0n1`. 
 
 This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
+
+## Jupyter in VS Code on Kestrel
+
+### Setting Up VS Code
+To begin, proceed to VSCode and install these additional extensions, if you do not already have them: [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
+
+### Setting Up Conda Environment
+In addition, you will also need to set up a Python Environment on Kestrel. At a minimum, you must perform the following commands:
+
+```
+module load anaconda3
+conda create -n myJupEnv
+conda activate myJupEnv
+conda install Jupyter
+```
+
+### Running the Code
+
+To begin, refer to the above section [Connecting with VS Code](./index.md#connecting-with-vs-code) to connect to a compute node.
+
+Then, open or create an .ipynb file in VS Code. Go to the top right corner and select the Python Kernel created earlier. VS Code may prompt for installing some Python packages; please allow these or the process will not work.
+
+Once an interpreter has been selected (and it has finished installing anything needed), you will have a working Jupyter Notebook open in VS Code running on a Kestrel compute node.
 
