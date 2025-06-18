@@ -92,13 +92,6 @@ conda activate myJupEnv
 conda install Jupyter
 ```
 
-### Intializing Environment
-
-Before using VS Code to connect to a compute, the compute node has to be allocated. Log onto Kestrel via a terminal and allocate 2 nodes by using this line:
-```
-salloc -A <projectname> -t 00:30:00 --partition=shared
-```
-
 ### Running the Code
 
 To begin, open VS Code and hit F1 to run a command. Step through the process of connecting to a compute node. Once connected to the compute node, go to the left side of the screen and open your home directory on Kestrel (also, you may trust your own home directory, but do not click the check box). 
