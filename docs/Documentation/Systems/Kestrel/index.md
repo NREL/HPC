@@ -41,6 +41,9 @@ For command line access, you may login directly to **kestrel.nrel.gov**.  Altern
 
 To access the GPU login nodes, first connect with one of the methods described above, and then ssh to **kestrel-gpu.hpc.nrel.gov**. 
 
+!!! warning "Windows SSH "Corrupted MAC on input" Error"
+    When attempting to SSH, some Windows users experience an error message stating "Corrupted MAC on input" or "message authentication code incorrect." To solve the error, run the ssh command with the flag `-m hmac-sha2-512`.
+
 !!! warning "Login Node Policies"
     Kestrel login nodes are shared resources, and because of that are subject to process limiting based on usage to ensure that these resources aren't being [used inappropriately](https://www.nrel.gov/hpc/inappropriate-use-policy.html). Each user is permitted up to 8 cores and 100GB of RAM at a time, after which the Arbiter monitoring software will begin moderating resource consumption, restricting further processes by the user until usage is reduced to acceptable limits.
 
