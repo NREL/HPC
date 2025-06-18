@@ -94,9 +94,9 @@ conda install Jupyter
 
 ### Running the Code
 
-To begin, open VS Code and hit F1 to run a command. Step through the process of connecting to a compute node. Once connected to the compute node, go to the left side of the screen and open your home directory on Kestrel (also, you may trust your own home directory, but do not click the check box). 
+To begin, refer to the above section [Connecting with VS Code](./index.md#connecting-with-vs-code) to connect to a compute node.
 
-Then, open the "cupyAndIpyparallel.ipynb" file in VS Code. Go to the top right corner and select the Python Kernel created earlier. VS Code may prompt for installing some Python packages; please allow these or the process will not work.
+Then, open or create an .ipynb file in VS Code. Go to the top right corner and select the Python Kernel created earlier. VS Code may prompt for installing some Python packages; please allow these or the process will not work.
 
-Once an interpreter has been selected (and it has finished installing anything needed), the code will be able to be opened and run via Jupyter in VS Code. If all is working, both nodes should be listed in the code, and it will run to completion swiftly.
+Once an interpreter has been selected (and it has finished installing anything needed), you will have a working Jupyter Notebook open in VS Code running on a Kestrel compute node.
 
