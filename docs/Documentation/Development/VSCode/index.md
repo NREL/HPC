@@ -77,24 +77,24 @@ Now use the Remote-SSH extension in VS Code to `Connect to Host...` and use the 
 
 This should open a new VS Code window that will connect to the compute node automatically. You may begin browsing your home directory and editing files in the VS Code window.
 
-## Jupyter Notebook in VS Code
-Before proceeding with this section, please read [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md) as this document will be using its process as a reference.
-
 ### Setting Up VS Code
 To begin, proceed to VSCode and install these additional extensions, if you do not already have them: [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
 
 ### Setting Up Conda Environment
-In addition, you will also need to set up a Python Environment on Kestrel as per the [Interactive Parallel Python with Jupyter](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#setting-up-your-account) documentation. Please note that you do not need a python environment on your local machine for this. 
+In addition, you will also need to set up a Python Environment on Kestrel. At a minimum, you must perform the following commands:
 
-### VS Code Jupyter on Kestrel
-
-With the Conda environment set up, the process will be following [multinode Jupyter job example](../Languages/Python/KestrelParallelPythonJupyter/pyEnvsAndLaunchingJobs.md#multinode-capable-job-eg-mpi4py-through-ipyparallel) through VS Code on the compute. Download the [example Jupyter script](../Languages/Python/KestrelParallelPythonJupyter/exampleNotebooks/cupyAndIpyparallel.ipynb) onto Kestrel to load it into VS Code later.
+```
+module load anaconda3
+conda create -n myJupEnv
+conda activate myJupEnv
+conda install Jupyter
+```
 
 ### Intializing Environment
 
 Before using VS Code to connect to a compute, the compute node has to be allocated. Log onto Kestrel via a terminal and allocate 2 nodes by using this line:
 ```
-salloc -A <projectname> -t 00:30:00 --nodes=2 --ntasks-per-node=1 --partition=short
+salloc -A <projectname> -t 00:30:00 --partition=shared
 ```
 
 ### Running the Code
