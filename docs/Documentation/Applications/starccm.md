@@ -4,11 +4,10 @@
 Simcenter STAR-CCM+ is a multiphysics CFD software that enables CFD engineers to model the complexity and explore the possibilities of products operating under real-world conditions. For information about the software's features, see the [STAR-CCM+
 website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
 
-STAR-CCM+ is installed on Kestrel but it is not supported on Vermilion or Swift. The network
-licenses are checked out from the license server running on 1wv11lic02.nrel.gov. 
+STAR-CCM+ is installed on Kestrel but it is not supported on Vermilion or Swift. 
 
 !!! tip "Important"
-	 To run STAR-CCM+, users must be a member of the STAR-CCM+ user group. To be added to the group, contact [HPC-Help](mailto:hpc-help@nrel.gov).
+	 NREL does not have general use STAR-CCM+ licenses available. Users must have their own STAR-CCM+ license. For help with using your 		 license on NREL HPC, please contact [HPC-Help](mailto:hpc-help@nrel.gov).
 
 ## Running STAR-CCM+ in GUI
 
