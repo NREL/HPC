@@ -76,6 +76,7 @@ CPU $ module avail openfoam
     #SBATCH --error=foamErrorLog.out
     #SBATCH --mail-user=<yourEmailAddress>@nrel.gov 
     #SBATCH --nodes=2
+    #SBATCH --partition=hbw
     #SBATCH --ntasks-per-node=104 # set number of MPI ranks per node
     #SBATCH --time=04:00:00
     
@@ -119,7 +120,8 @@ $ make run
 
 ### Benchmarks
 
-OpenFOAM v2412 compiled with cray-mpich has been used to perform [strong scaling tests](https://develop.openfoam.com/committees/hpc/-/tree/develop/incompressible/simpleFoam/occDrivAerStaticMesh) of the [DrivAer automobile model](https://www.epc.ed.tum.de/aer/forschungsgruppen/automobilaerodynamik/drivaer/) on Kestrel. The results are shown below for three levels of mesh resolution. For this particular setup, the application has shown to scale poorly beyond 2 nodes. Since the behaviour is consistent with some user reports about their own setups, we encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) on their own before submitting a new large job.
+OpenFOAM v2412 compiled with cray-mpich has been used to perform [strong scaling tests](https://develop.openfoam.com/committees/hpc/-/tree/develop/incompressible/simpleFoam/occDrivAerStaticMesh) of the [DrivAer automobile model](https://www.epc.ed.tum.de/aer/forschungsgruppen/automobilaerodynamik/drivaer/) on Kestrel. The results are shown below for three levels of mesh resolution. For this particular setup, the application has shown to scale poorly beyond 2 nodes. However, for jobs requiring more than 1 node, using high bandwith nodes with `#SBATCH --partition=hbw` in your job script might yield better performance. Since the behaviour is consistent with some user reports about their own setups, we encourage users to switch to newer versions and perform strong & weak scaling [tests](https://hpc-wiki.info/hpc/Scaling) on their own before submitting a new large job.
 
 ![<strongScaling>](openfoam_metadata/DrivAerScaling.png "strongScaling"){width=1000}
+![<strongScaling>](openfoam_metadata/hbwDrivAerScaling.png "strongScaling"){width=1000}
 ![<model>](openfoam_metadata/DrivAerModel.png "model"){width=1000}
