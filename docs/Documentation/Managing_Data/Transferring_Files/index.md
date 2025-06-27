@@ -9,6 +9,8 @@ parent: Transferring Data
 
 *Learn how to transfer data within, to and from NREL's high-performance computing (HPC) systems.*
 
+For a video presentation on this topic, please see [Transfering data to and from Kestrel](https://nrel-my.sharepoint.com/:v:/r/personal/chschwin_nrel_gov/Documents/Recordings/Tutorials/Transferring%20Data%20to%20and%20from%20Kestrel.mov?csf=1&web=1&e=hagS2w&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) by Matt Selensky.
+
 For further information about invidiual systems' filesystem architecture and quotas, please see the [Systems section](../../Systems/). 
 
 ## Best Practices for Transferring Files
