@@ -83,7 +83,7 @@ MPICH and its derivatives form the most widely used implementations of MPI in th
 |mpich/4.1-intel (CPU)                 | || 
 |mpich/4.1-gcc (GPU)                   |||
 
-## Running MPI Jobs on Eagle GPUs
+## Running MPI Jobs on Kestrel GPUs
 
 To run MPI (message-passing interface) jobs on Kestrel system's NVidia GPUs, the MPI library must be "CUDA-aware."
 All modules with `(GPU)` are gpu aware and built with `CUDA`. 
