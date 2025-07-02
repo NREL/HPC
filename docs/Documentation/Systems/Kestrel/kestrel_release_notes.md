@@ -2,6 +2,15 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
+## July 2nd, 2025
+
+1. Slurm was upgraded to 24.11.05. 
+1. The default version of Ansys was changed to 2025R1. The old version (2024R1) is still available by using `module load ansys/2024R1`. 
+1. The default version of STAR-CCM+ was changed to 20.02.007. Version 19.02.009 will no longer be available. 
+1. The VASP 6.5.1 CPU modules have been updated with hdf5 support.
+1. A MACE enabled version of LAMMPS has been added to the GPU modules. This can be loaded
+using `ml mace/lammps-mace` and run with `srun -n 1 lmp -in lammps.inp`. Use `module show mace/lammps-mace` for more information. 
+
 ## December 13, 2024
 
 1.  Two new racks of GPU nodes were integrated into the system.
