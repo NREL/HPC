@@ -2,7 +2,7 @@
 
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
-## July 2nd, 2025
+## July 2, 2025
 
 1. Slurm was upgraded to 24.11.05. 
 1. The default version of Ansys was changed to 2025R1. The old version (2024R1) is still available by using `module load ansys/2024R1`. 
