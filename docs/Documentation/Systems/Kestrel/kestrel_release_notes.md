@@ -3,6 +3,7 @@
 *We will update this page with Kestrel release notes after major Kestrel upgrades.*
 
 ## July 2nd, 2025
+
 1. Slurm was upgraded to 24.11.05. 
 1. The default version of Ansys was changed to 2025R1. The old version (2024R1) is still available by using `module load ansys/2024R1`. 
 1. The default version of STAR-CCM+ was changed to 20.02.007. Version 19.02.009 will no longer be available. 
