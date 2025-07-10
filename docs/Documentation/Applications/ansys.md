@@ -131,7 +131,7 @@ If only 1 GPU is available, 1 GPU + n CPUs;
     
 If multiple GPUs are available and n is less than the number of available GPUs, n CPU processes and n GPUs.
     
-If multiple GPUs are avilable and the value of n is greater than or equal to the number of available GPUs,  n CPUs + all of the GPUs.
+If multiple GPUs are avilable and the value of n is greater than or equal to the number of available GPUs, n CPUs + all of the GPUs.
 
 
 ### Ansys Mechanical
