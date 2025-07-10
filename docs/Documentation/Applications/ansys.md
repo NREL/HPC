@@ -28,14 +28,15 @@ module load ansys/<version>
 vglrun runwb2
 ```
 
-where `<version>` will be replaced with an Ansys version/release e.g., `2024R1`. Press `tab` to auto-suggest all available versions. Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs.
+where `<version>` will be replaced with an Ansys version/release e.g., `2025R1`. Press `tab` to auto-suggest all available versions. If no version is specified, it will load the default version which is 2025R1 at this moment. Because FastX desktop sessions are supported from DAV nodes shared between multiple HPC users, limits are placed on how much memory and compute resources can be consumed by a single user/job. For this reason, it is recommended that the GUI be primarily used to define the problem and run small-scale tests to validate its operation before moving the model to a compute node for larger-scale runs.
 
 ## Running Ansys Model in Parallel Batch Mode
 
 ### Ansys Fluent
 Ansys Fluent is a general-purpose computational fluid dynamics (CFD) software used to model fluid flow, heat and mass transfer, chemical reactions, and more. It comes with the features of advanced physics modeling, turbulence modeling, single and multiphase flows, combustion, battery modeling, fluid-structure interaction.
 
-To launch Ansys Fluent jobs in parallel batch mode, you can build on the batch script presented below.
+#### CPU Solver
+To launch Ansys Fluent jobs in parallel batch mode on CPU nodes, you can build on the batch script presented below.
 
 ```
 bash
@@ -55,6 +56,7 @@ module load ansys/<version>
 export FLUENT_AFFINITY=0
 export SLURM_ENABLED=1
 export SCHEDULER_TIGHT_COUPLING=13
+export I_MPI_HYDRA_BOOTSTRAP=slurm
 
 scontrol show hostnames > nodelist
 
@@ -85,11 +87,59 @@ In addition, the following commands in the slurm script are included to make sur
 export FLUENT_AFFINITY=0
 export SLURM_ENABLED=1
 export SCHEDULER_TIGHT_COUPLING=13
+export I_MPI_HYDRA_BOOTSTRAP=slurm
 ```
+#### GPU Solver
+Ansys Fluent supports native GPU solver which is a solver architecture specifically designed to run on GPUs. With native GPU solver, the pre-processing (meshing, defining BCs, etc.) and post-processing are usually still done on the CPU while the solver takes over and runs almost entirely on the GPU. 
+
+Note that, not all Fluent features support GPU solver. Specifically, the GPU solver is not available in the Ansys Workbench environment and profiles in cylindrical coordinate systems, which includes those used for swirl inlets, are not supported. For more information about GPU solver limitation, please refer to Ansys documentation.
+
+To launch Ansys Fluent jobs in parallel batch mode with GPU solver, you can build on the batch script presented below.
+
+```
+#!/bin/bash
+#SBATCH --job-name=fluent_GPU
+#SBATCH --account=<your_account>
+#SBATCH -o fluent_GPU_%j.out
+#SBATCH -e fluent_GPU_%j.err
+#SBATCH --nodes=2
+#SBATCH --time=2:00:00
+#SBATCH --ntasks-per-node=1
+#SBATCH --gres=gpu:1
+#SBATCH --mem-per-cpu=4G
+ 
+module load ansys/<version>
+export FLUENT_AFFINITY=0
+export SLURM_ENABLED=1
+export SCHEDULER_TIGHT_COUPLING=13
+export I_MPI_HYDRA_BOOTSTRAP=slurm
+ 
+scontrol show hostnames > nodelist
+ 
+FLUENT=`which fluent`
+VERSION=3ddp
+JOURNAL=inputjournal.jou
+LOGFILE=fluent_GPU.log
+MPI=openmpi
+ 
+OPTIONS="-i$JOURNAL -t$SLURM_NTASKS -gpu -mpi=$MPI -cnf=$PWD/nodelist"
+$FLUENT $VERSION -g $OPTIONS > $LOGFILE 2>&1
+```
+In this case, we are running this GPU job on 2 GPU nodes, 1 GPU per node, and 1 CPU per node. The `-gpu` flag in the lauch command enables the GPU solver. `-t` specifies the CPU and GPU configurations for the GPU solver as follows (for `-tn`):
+
+If only 1 GPU is available, 1 GPU + n CPUs;
+    
+If multiple GPUs are available and n is less than the number of available GPUs, n CPU processes and n GPUs.
+    
+If multiple GPUs are avilable and the value of n is greater than or equal to the number of available GPUs, n CPUs + all of the GPUs.
 
 
 ### Ansys Mechanical
-Ansys Mechanical is a finite element analysis (FEA) software used to perform structural analysis using advanced solver options, including linear dynamics, nonlinearities, thermal analysis, materials, composites, hydrodynamic, explicit, and more. The slurm script for Ansys Mechanical jobs is presented as follows.
+Ansys Mechanical is a finite element analysis (FEA) software used to perform structural analysis using advanced solver options, including linear dynamics, nonlinearities, thermal analysis, materials, composites, hydrodynamic, explicit, and more. 
+
+#### CPU Job
+
+The slurm script for Ansys Mechanical CPU jobs is presented as follows.
 
 ```
 #!/bin/bash
@@ -107,6 +157,9 @@ cd $SLURM_SUBMIT_DIR
 
 module load ansys
 
+export ANSYS_LOCK=OFF
+export I_MPI_HYDRA_BOOTSTRAP=slurm
+
 unset HYDRA_LAUNCHER_EXTRA_ARGS
 unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
 unset OMPI_MCA_plm_slurm_args
@@ -115,10 +168,49 @@ unset PRTE_MCA_plm_slurm_args
 machines=$(srun hostname | sort | uniq -c | awk '{print $2 ":" $1}' | paste -s -
 d ":" -)
 
-ansys241 -dis -mpi intelmpi2018 -machines $machines -i inputfilename.
+ansys251 -dis -mpi intelmpi2018 -machines $machines -i inputfilename.
 dat -o joboutput.out
 ```
-In the slurm script, `ansys241` starts the Ansys mechanical module, `-dis` enables distributed-memory parallel processing, `-mpi` specifies the mpi to be used (intelmpi2018 or openmpi), `-machine` specifies the host names, `-i` is used to specify the job input file, and `-o` is used to specify the job output file.
+In the slurm script, `ansys251` starts the Ansys mechanical module, `-dis` enables distributed-memory parallel processing, `-mpi` specifies the mpi to be used (intelmpi2018 or openmpi), `-machine` specifies the host names, `-i` is used to specify the job input file, and `-o` is used to specify the job output file.
+
+#### GPU Acceleration
+Ansys Mechanical supports GPU acceleration in which GPUs are used to assist the CPUs in solving parts of the simulation — it’s still mostly a CPU-based solver, but the GPU helps offload some of the heavy linear algebra (like matrix operations). In situations where the analysis type is not supported by the GPU accelerator capability, the solution will continue but GPU acceleration will not be used.
+
+The slurm script for Ansys Mechanical with GPU acceleration is presented as follows.
+
+```
+#!/bin/bash
+#SBATCH --job-name=jobname
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=2
+#SBATCH --time=4:00:00
+#SBATCH --gres=gpu:2
+#SBATCH --mem-per-cpu=2G
+#SBATCH --account=<your account>
+#SBATCH --output=mechanical_GPGPU_%j.out
+#SBATCH --error=mechanical_GPGPU_%j.err
+
+module load ansys
+
+export ANSYS_LOCK=OFF
+export I_MPI_HYDRA_BOOTSTRAP=slurm
+
+unset HYDRA_LAUNCHER_EXTRA_ARGS
+unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS
+unset OMPI_MCA_plm_slurm_args
+unset PRTE_MCA_plm_slurm_args
+
+machines=$(srun hostname | sort | uniq -c | awk '{print $2 ":" $1}' | paste -s -d ":" -)
+
+input_file=test_mech.inp
+output_file=test_mech_GPGPU.out
+
+ansys251 -dis -mpi intelmpi2021 -acc nvidia -na 2 -machines $machines -i $input_file -o $output_file
+
+```
+
+In this example, the job will run on 2 GPU nodes with 2 GPUs per node and 2 CPUs per node. In the launching command, the flag `-acc nvidia` is an openacc flag to indicate Ansys Mechanical to compile and run on Nvidia GPUs. The flag `-na` specifies the number of GPU accelerator devices to use per node. 
+
 
 ### A Few Nodes
 
