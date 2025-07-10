@@ -212,13 +212,13 @@ ansys251 -dis -mpi intelmpi2021 -acc nvidia -na 2 -machines $machines -i $input_
 In this example, the job will run on 2 GPU nodes with 2 GPUs per node and 2 CPUs per node. In the launching command, the flag `-acc nvidia` is an openacc flag to indicate Ansys Mechanical to compile and run on Nvidia GPUs. The flag `-na` specifies the number of GPU accelerator devices to use per node. 
 
 
-### A Few Nodes
+### A Few Notes
 
 When running an Ansys job, the out of memory error (OOM) is commonly encountered. To overcome the out of memory issue, you can try the following:
 
 If you are running on shared nodes, by default, your job will be allocated about 1G of RAM per core requested. To change this amount, you can use the `--mem` or `--mem-per-cpu` flag in your job submission.
 
-Try to run the job on nodes with local disk by using the `--tmp` option in your job submission script (e.g. `--tmp=1600000` https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/)
+Try to run the job on nodes with [local disk](https://nrel.github.io/HPC/Documentation/Systems/Kestrel/Running/) by using the `--tmp` option in your job submission script (e.g. `--tmp=1600000` ).
 
 
 ## Connect to Your Own License
