@@ -125,7 +125,7 @@ MPI=openmpi
 OPTIONS="-i$JOURNAL -t$SLURM_NTASKS -gpu -mpi=$MPI -cnf=$PWD/nodelist"
 $FLUENT $VERSION -g $OPTIONS > $LOGFILE 2>&1
 ```
-In this case, we are running this GPU jon on 2 GPU nodes, 1 GPU per node, and 1 CPU per node. The `-gpu` flag in the lauch command enables the GPU solver. `-t` specifies the CPU and GPU configurations for the GPU solver as follows (for `-tn`):
+In this case, we are running this GPU job on 2 GPU nodes, 1 GPU per node, and 1 CPU per node. The `-gpu` flag in the lauch command enables the GPU solver. `-t` specifies the CPU and GPU configurations for the GPU solver as follows (for `-tn`):
 
 If only 1 GPU is available, 1 GPU + n CPUs;
     
