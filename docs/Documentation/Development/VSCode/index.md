@@ -94,7 +94,7 @@ conda install Jupyter
 
 ### Running the Code
 
-To begin, refer to the above section [Connecting with VS Code](./index.md#connecting-with-vs-code) to connect to a compute node.
+To begin, refer to the above section [Connecting to Kestrel](./index.md#connecting-to-kestrel) to connect to a compute node.
 
 Then, open or create an .ipynb file in VS Code. Go to the top right corner and select the Python Kernel created earlier. VS Code may prompt for installing some Python packages; please allow these or the process will not work.
 
