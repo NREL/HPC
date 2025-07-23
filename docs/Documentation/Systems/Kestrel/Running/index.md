@@ -40,8 +40,6 @@ Kestrel nodes are associated with one or more partitions. Each partition is asso
 
 Excluding the shared and debug partitions, jobs will be automatically routed to the appropriate partitions by Slurm based on node quantity, walltime, hardware features, and other aspects specified in the submission. Jobs will have access to the largest number of nodes, thus shortest wait, **if the partition is not specified during job submission.**.
 
-x1004c0s3b1n0
-
 The following table summarizes the partitions on Kestrel:
 
 | Partition Name | Description   | Limits | Placement Condition |
