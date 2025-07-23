@@ -7,21 +7,27 @@ title: Running on Kestrel
 
 ## Kestrel Compute Nodes
 
-There are two general types of compute nodes on Kestrel: CPU nodes and GPU nodes. These nodes can be further broken down into four categories, listed on the [Kestrel System Configuration Page](https://www.nrel.gov/hpc/kestrel-system-configuration.html).
-
+There are two general types of compute nodes on Kestrel: CPU nodes and GPU nodes.
 
 ### CPU Nodes
-Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. 256 of those nodes have a 1.7TB NVMe local disk. There are also 10 bigmem nodes with 2TB of RAM and 5.6TB NVMe local disk. Two racks of the CPU compute nodes have dual network interface cards (NICs) which may increase performance for certain types of multi-node jobs. 
+Standard CPU-based compute nodes on Kestrel have 104 cores and 240G of usable RAM. Additional node types are as follows:
 
+* 512 nodes have dual network interface cards (NICs) which may increase performance for certain types of multi-node jobs. 32 of these nodes have 1TB of RAM. (hbw partition)
+* 32 single NIC nodes have 1TB of RAM. (medmem partition)
+* 10 nodes with 2TB of RAM and 5.6TB NVMe local disk. (bigmem partition)
+* 256 nodes have 1.7TB NVMe local disk. (nvme partition)
 
 ### GPU Nodes
-Kestrel has 156 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total) with 132 nodes having about 350G of usable RAM and 24 nodes having about 700G. The GPU nodes also have 3.4TB of NVMe local disk. 
+Kestrel has 156 GPU nodes with 4 NVIDIA H100 GPUs, each with 80GB memory. These have Dual socket AMD Genoa 64-core processors (128 cores total). The breakdown of GPU node architecture is as follows:
+
+* 108 nodes having about 384G of usable system RAM, 3.4TB of NVMe local disk.
+* 24 nodes having about 768G of system RAM, 3.4TB of NVMe local disk.
+* 24 have 1.5T of system RAM, and 14T of NVMe local disk.
 
 !!! warning
     You should use a [login node](../index.md) that matches the architecture of the compute nodes that your jobs will be running on for compiling software and submitting jobs. 
 
 ### Using Node Local Storage
-
 
 The majority of CPU nodes do not have local disk storage, but there are 256 nodes with fast local NVMe drives for temporary storage by jobs with high disk I/O requirements. To request the standard CPU nodes with local disk, specify the `nvme` partition (`-p nvme` or `--partition=nvme`) in your job submission script. When your job is allocated nodes with local disk, the storage may then be accessed inside the job by using the `$TMPDIR` environment variable as the path. Be aware that on nodes without local disk, writing to `$TMPDIR` will consume RAM, reducing the available memory for running processes.  
 
@@ -34,25 +40,27 @@ Kestrel nodes are associated with one or more partitions. Each partition is asso
 
 Excluding the shared and debug partitions, jobs will be automatically routed to the appropriate partitions by Slurm based on node quantity, walltime, hardware features, and other aspects specified in the submission. Jobs will have access to the largest number of nodes, thus shortest wait, **if the partition is not specified during job submission.**.
 
+x1004c0s3b1n0
 
 The following table summarizes the partitions on Kestrel:
 
 | Partition Name | Description   | Limits | Placement Condition |
 | -------------- | ------------- | ------ | ------------------- | 
 | ```debug```    | Nodes dedicated to developing <br> and troubleshooting jobs. Debug nodes with each of the non-standard hardware configurations are available. | - 1 job with a max of 2 nodes per user. <br> - 2 GPUs per user.<br> - 1/2 GPU node resources per user (Across 1-2 nodes). <br> - 01:00:00 max walltime. | ```-p debug``` <br>   or<br>   ```--partition=debug``` |
-|```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2016 nodes total. <br> No limit per user. | ```--time <= 4:00:00```<br>```--mem <= 246064```<br> ```--tmp <= 1700000 (256 nodes)```| 
-| ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2106 nodes total. <br> 1050 nodes per user. | ```--mem <= 246064```<br> ```--tmp <= 1700000```|
-| ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.* | 430 nodes total.<br> 215 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 246064```<br>```--tmp <= 1700000  (256 nodes)```|
-|```bigmem```    | Nodes that have 2 TB of RAM and 5.6 TB NVMe local disk. | 10 nodes total.<br> 4 nodes per user. | ```--mem > 246064```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
-|```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 2 nodes total.<br> 2 nodes per user. | ```--mem > 246064```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
-|```hbw```    | CPU compute nodes with dual network interface cards. | 512 nodes total.<br> 256 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time <= 2-00``` <br> ```--nodes >= 2```| 
-|```hbwl```    | HBW nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.* | 128 nodes total.<br> 64 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time > 2-00``` <br> ```--nodes >= 2```|
+|```short```     |  Nodes that prefer jobs with walltimes <br> <= 4 hours. | 2240 nodes total.| ```--time <= 4:00:00```<br>```--mem <= 984256```<br> ```--tmp <= 1700000 (256 nodes)```| 
+| ```standard``` | Nodes that prefer jobs with walltimes <br> <= 2 days. | 2240 nodes total. <br> 1050 nodes per user. | ```--mem <= 984256```<br> ```--tmp <= 1700000```|
+| ```long```     | Nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.* | 430 nodes total.<br> 215 nodes per user.|  ```--time <= 10-00```<br>```--mem <= 984256```<br>```--tmp <= 1700000  (256 nodes)```|
+| ```medmem```     | Nodes that have 1TB of RAM.  | 64 nodes total.<br> 32 nodes per user.|  ```--time <= 10-00```<br>```246064 < mem <= 984256```<br>|
+|```bigmem```    | Nodes that have 2 TB of RAM and 5.6 TB NVMe local disk. | 10 nodes total.<br> 4 nodes per user. | ```--mem > 984256```<br> ```--time <= 2-00```<br>```--tmp > 1700000 ``` |
+|```bigmeml```    | Bigmem nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.*  | 4 nodes total.<br> 2 nodes per user. | ```--mem > 984256```<br>```--time > 2-00```<br>```--tmp > 1700000 ``` | 
+|```hbw```    | CPU compute nodes with dual network interface cards. | 512 nodes total.<br> 256 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time <= 2-00``` <br> ```--nodes >= 2``` <br> ```--mem <= 984256``` | 
+|```hbwl```    | HBW nodes that prefer jobs with walltimes > 2 days.<br>*Maximum walltime of any job is 10 days.* | 128 nodes total.<br> 64 nodes per user. <br> Minimum 2 nodes per job. | ```-p hbw``` <br>```--time > 2-00``` <br> ```--nodes >= 2``` <br> ```--mem <= 984256```|
 |```nvme```    | CPU compute nodes with 1.7TB NVMe local drives. | 256 nodes total.<br> 128 nodes per user. | ```-p nvme``` <br>```--time <= 2-00```| 
 | ```shared```|  Nodes that can be shared by multiple users and jobs. | 64 nodes total. <br> Half of partition per user. <br> 2 days max walltime.  | ```-p shared``` <br>   or<br>  ```--partition=shared```| 
 | ```sharedl```|  Nodes that can be shared by multiple users and prefer jobs with walltimes > 2 days. | 16 nodes total. <br> 8 nodes per user. | ```-p sharedl``` <br>   or<br>  <nobr>```--partition=sharedl```</nobr>| 
-| ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 154 nodes total. <br> 78 nodes per user. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
-| ```gpu-h100s```|  Shareable GPU nodes that prefer jobs with walltimes <= 4 hours. | 154 nodes total. | ```1 <= --gpus <= 4``` <br>  ```--time <= 4:00:00```| 
-| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 39 GPU nodes total. <br>  19 GPU nodes per user. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
+| ```gpu-h100```|  Shareable GPU nodes with 4 NVIDIA H100 SXM 80GB Computational Accelerators. | 156 nodes total. | ```1 <= --gpus <= 4``` <br>  ```--time <= 2-00```| 
+| ```gpu-h100s```|  Shareable GPU nodes that prefer jobs with walltimes <= 4 hours. | 156 nodes total. | ```1 <= --gpus <= 4``` <br>  ```--time <= 4:00:00```| 
+| ```gpu-h100l```|  Shareable GPU nodes that prefer jobs with walltimes > 2 days. | 39 GPU nodes total. | ```1 <= --gpus <= 4```<br> ```--time > 2-00```| 
 
 
 Use the option listed above on the ```srun```, ```sbatch```, or ```salloc``` command or in your job script to specify what resources your job requires.  
@@ -86,7 +94,7 @@ Currently, there are 64 standard compute nodes available in the shared partition
 
 ### High Bandwidth Partition
 
-In December 2024, Kestrel had two racks of CPU nodes reconfigured with an extra network interface card, which can greatly benefit communication-bound HPC software.
+In December 2024, Kestrel had two racks of CPU nodes reconfigured with an extra network interface card, which can greatly benefit communication-bound HPC software. 32 of these nodes have 1TB of memory. 
 A NIC is a hardware component that enables inter-node (i.e., *network*) communication as multi-node jobs run. 
 On Kestrel, most CPU nodes include a single NIC. Although having one NIC per node is acceptable for the majority of workflows run on Kestrel, it can lead to communication congestion 
 when running multi-node applications that send significant amounts of data over Kestrel's network. When this issue is encountered, increasing the number of available NICs 
@@ -97,13 +105,13 @@ If you would like assistance with determining whether your workflow could benefi
 
 ### GPU Jobs
 
-Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and at least 350GB of useable RAM. 24 of the GPU nodes have about 700G of RAM. All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
+Each GPU node has 4 NVIDIA H100 GPUs (80 GB), 128 CPU cores, and at least 350GB of useable RAM. 24 of the GPU nodes have about 700G of RAM and 24 have 1.5TB of RAM (1440000M usable). All of the GPU nodes are shared. We highly recommend considering the use of partial GPU nodes if possible in order to efficiently use the GPU nodes and your AUs. 
 
 To request use of a GPU, use the flag `--gpus=<quantity>` with sbatch, srun, or salloc, or add it as an `#SBATCH` directive in your sbatch submit script, where `<quantity>` is a number from 1 to 4. All of the GPU memory for each GPU allocated will be available to the job (80 GB per GPU).
 
 **If your job will require more than the default 1 CPU core and 1G of system RAM per core allocated**, you must request the quantity of cores and/or system RAM that you will need, by using additional flags such as `--ntasks=` or `--mem=`.
 
-The GPU nodes also have 3.4 TB of local disk space. Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
+Most of the GPU nodes also have 3.4 TB of local disk space, and 24 of them have 14TB of space (13000000M useable). Note that other jobs running on the same GPU node could also be using this space. Slurm is unable to divide this space to separate jobs on the same node like it does for memory or CPUs. If you need to ensure that your job has exclusive access to all of the disk space, you'll need to use the `--exclusive` flag to prevent the node from being shared with other jobs.
 
 !!! warning
     A job with the ` --exclusive` flag will be allocated all of the CPUs and GPUs, and GPU memory on a node, but is only allocated as much system RAM as requested. Use the flag `--mem=<RAM amount>` to request system RAM. The GPU nodes have up to 720000M of RAM, but please request only as much RAM as you need in order to efficiently use the nodes and minimize your jobs' wait times. 
