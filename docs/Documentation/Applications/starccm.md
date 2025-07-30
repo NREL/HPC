@@ -4,7 +4,7 @@
 Simcenter STAR-CCM+ is a multiphysics CFD software that enables CFD engineers to model the complexity and explore the possibilities of products operating under real-world conditions. For information about the software's features, see the [STAR-CCM+
 website](https://mdx.plm.automation.siemens.com/star-ccm-plus).
 
-STAR-CCM+ is installed on Kestrel but it is not supported on Vermilion or Swift. 
+STAR-CCM+ is installed on Kestrel but it is not supported on Vermilion or Swift. The only available version is starccm/20.02.007.
 
 !!! tip "Important"
 	 NREL does not have general use STAR-CCM+ licenses available. Users must have their own STAR-CCM+ license. For help with using your 		 license on NREL HPC, please contact [HPC-Help](mailto:hpc-help@nrel.gov).
@@ -55,11 +55,11 @@ Then you need to create a Slurm script `<your_scriptfile>` as shown below to sub
 
 Note that you must give the full path of your input file in the script.
 
-By default, STAR-CCM+ uses OpenMPI. However, the performance of OpenMPI on Kestrel is poor when running on multiple nodes. Intel MPI and Cray MPI are recommended for STAR-CCM+ on Kestrel.  Cray MPI is expected to have a better performance than Intel MPI. 
+By default, STAR-CCM+ uses OpenMPI. However, the performance of OpenMPI on Kestrel is poor when running on multiple nodes. Intel MPI and Cray MPI are recommended for STAR-CCM+ on Kestrel. Cray MPI is expected to have a better performance than Intel MPI. 
 
 ### Running STAR-CCM+ with Intel MPI
 
-STAR-CCM+ comes with its own Intel MPI. To use the Intel MPI, the Slurm script should be modified to be:
+STAR-CCM+ comes with its own Open MPI and Intel MPI. To use the Intel MPI, the Slurm script should be modified to be:
 
 ???+ example "Example Intel MPI Submission Script"
 
@@ -93,7 +93,7 @@ To modify the settings for built-in Intel MPI, users can refer to the documentat
 
 ### Running STAR-CCM+ with Cray MPI
 
-STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ job to run with Cray MPI.
+STAR-CCM+ does not come with its own Cray MPI, but it can run using the one installed on Kestrel. In the current Starccm version, there is a bug that it clears all loaded modules if Crayex is specified. To overcome this, we devised a solution by reloading the required modules in the wrapper. However, this will break the Open MPI and Intel MPI. In this case, we installed two starccm versions: one for Open MPI and Intel MPI (default starccm module), and the other one for Cray MPI (starccm/20.02.007_crayex). The following Slurm script submits STAR-CCM+ job to run with Cray MPI. The craympich module is not loaded in the slurm script as it has been loaded from the wrapper.
 
 ???+ example "Example Cray MPI Script"
 
@@ -106,7 +106,7 @@ STAR-CCM+ can run with Cray MPI. The following Slurm script submits STAR-CCM+ jo
     #SBATCH --job-name=your_simulation # name of job
     #SBATCH --account=<allocation-id>  # name of project allocation
     
-    module load starccm                # load starccm module
+    module load starccm/20.02.007_crayex                # load starccm module
     
     rm -rf /projects/<your_project>/sim_dir/simulation.log   # remove the log file from last run
     # Run Job
