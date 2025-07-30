@@ -93,7 +93,7 @@ To modify the settings for built-in Intel MPI, users can refer to the documentat
 
 ### Running STAR-CCM+ with Cray MPI
 
-STAR-CCM+ does not come with its own Cray MPI, but it can run using the one installed on Kestrel. In the current Starccm version, there is a bug that it clears all loaded modules if Crayex is specified. To overcome this, we devised a solution by reloading the required modules in the wrapper. However, this will break the Open MPI and Intel MPI. In this case, we installed two starccm versions: one for Open MPI and Intel MPI (default starccm module), and the other one for Cray MPI (starccm/20.02.007_crayex). The following Slurm script submits STAR-CCM+ job to run with Cray MPI. The craympich module is not loaded in the slurm script as it has been loaded from the wrapper.
+STAR-CCM+ does not come with its own Cray MPI, but it can run using the one installed on Kestrel. In the current STAR-CCM+ version, there is a bug that it clears all loaded modules if Crayex is specified. To overcome this, we devised a solution by reloading the required modules in the wrapper. However, this will break the Open MPI and Intel MPI. In this case, we installed two starccm versions: one for Open MPI and Intel MPI (default starccm module), and the other one for Cray MPI (starccm/20.02.007_crayex). The following Slurm script submits a STAR-CCM+ job to run with Cray MPI. The craympich module is not loaded in the slurm script as it has been loaded from the wrapper.
 
 ???+ example "Example Cray MPI Script"
 
