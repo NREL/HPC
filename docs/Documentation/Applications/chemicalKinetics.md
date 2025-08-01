@@ -155,6 +155,34 @@ $ make TPL
 $ make
 ``` 
 
+###Chemkin
+
+Chemkin GUI can be accessed though a [FastX virtual desktop](https://nrel.github.io/HPC/Documentation/Viz_Analytics/virtualgl_fastx/). To use Chemkin Reaction Workbench in a FastX session, open a terminal within the FastX desktop and execute the following:
+```
+$ module load ansys/2025R1
+$ run_rdworkbench.sh
+```
+For resourse intensive operations, please run Chemkin through a dedicated compute node. The steps are as follows:
+
+1. Open a terminal in a FastX session and ask for an [allocation](https://nrel.github.io/HPC/Documentation/Slurm/interactive_jobs/). For example,
+```
+$ salloc -A <projectname> -t 02:00:00 --nodes=1 --ntasks-per-node=20 --gres=gpu:1
+```
+2. Wait until you obtain an allocation, The terminal will display `<username>@<nodename>` when successful.
+3. Open a new terminal tab by right clicking on empty in the terminal. In the new terminal tab, execute the following to connect to the node you have been allocated.
+```
+$ ssh -X <nodename>
+```
+4. You are now on a compute node with [X forwarding](https://en.wikipedia.org/wiki/X_Window_System) to FastX desktop session, ready to run GUI applications. To run Chemkin, execute the following in this new terminal tab:
+```
+$ module load ansys/2025R1
+$ run_rdworkbench.sh
+```
+
+Your GUI enabled applications in general and Chemkin in this specific case, can now utilize 20 cores and 1 GPU for 2 hours, as requested in the `salloc` command above.
+
+
+
 ## Footnotes
 
 [^1]: Not clear from the documentation but ‘gpu’ exists in the code in several places. No actual GPU users amongst those surveyed at the NREL.
