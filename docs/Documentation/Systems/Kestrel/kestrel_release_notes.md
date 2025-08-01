@@ -10,6 +10,11 @@
 1. The VASP 6.5.1 CPU modules have been updated with hdf5 support.
 1. A MACE enabled version of LAMMPS has been added to the GPU modules. This can be loaded
 using `ml mace/lammps-mace` and run with `srun -n 1 lmp -in lammps.inp`. Use `module show mace/lammps-mace` for more information. 
+1. 32 CPU nodes received a RAM upgrade from 256GB to 1TB. Access them by requesting the amount of memory you need with the ```--mem``` flag.
+1. 32 additional CPU nodes in the ```hbw``` partition received a RAM upgrade from 256GB to 1TB. Use the ```hbw``` partition and request additional memory to access them.
+1. 24 GPU nodes received a RAM upgrade from 384GB to 1.5TB. Access them by requesting a GPU node with the amount of memory you need with the ```--mem``` flag.
+1. The same 24 GPU nodes also received a local disk upgrade to 14TB. Use the GPU partition and the ```--tmp``` flag to request the space you need.
+
 
 ## December 13, 2024
 
