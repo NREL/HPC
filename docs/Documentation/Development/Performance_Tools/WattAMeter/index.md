@@ -8,7 +8,7 @@ WattAMeter is a Python library developed for tracking and analyzing time series 
 
 ## WattAMeter as a module
 
-In the NREL HPC systems, WattAMeter is a module that can be loaded using `module load wattameter`. The module loads a few commands in your environment:
+In the NLR HPC systems, WattAMeter is a module that can be loaded using `module load wattameter`. The module loads a few commands in your environment:
 
 - `start_wattameter`: Start a WattAMeter tracking session in a SLURM job.
 
