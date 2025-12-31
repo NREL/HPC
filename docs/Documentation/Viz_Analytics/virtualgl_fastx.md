@@ -207,7 +207,7 @@ Connections to the DAV nodes via kestrel-dav.hpc.nrel.gov will connect you to a 
 
 ## Compute Intensive GUI Applications
 
-Compute intensive applicatons can be used through a FastX session if GUI assisted operation is unavoidable. For such use cases and resource intensive operations, please run them on a dedicated compute node and interact with them through a FastX session. The steps are as follows:
+Compute intensive applications can be used through a FastX session if GUI assisted operation is unavoidable. For such use cases and resource intensive operations, please run them on a dedicated compute node and interact with them through a FastX session. The steps are as follows:
 
 1. Open a terminal in a FastX session and ask for an [allocation](../Slurm/interactive_jobs.md). For example,
 ```
