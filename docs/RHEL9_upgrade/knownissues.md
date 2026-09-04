@@ -27,6 +27,6 @@ Other CUDA versions are available under Core modules. Contact [hpc-help@nlr.gov]
 
 Lua modulefiles are recommended, but Tcl modulefiles should also work.
 
-### Why doesn't `ml conda`, `ml mamba`, `ml anaconda3` work?
+### Why doesn't `ml conda` or `ml mamba` work?
 
-Use `ml miniforge3` to enable conda and mamba.
+Use `ml miniforge3` or `ml anaconda3` to enable conda and mamba.

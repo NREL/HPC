@@ -53,6 +53,22 @@ Example output:
    zlib/1.3.2
 ```
 
+### Accessing GPU-enabled software compiled with GCC
+
+To access prebuilt GPU-aware modules (and dependencies) that were compiled with `gcc/14.2.0` and `cuda/13.2`, explicitly load these modules first:
+
+```bash
+module load gcc/14.2.0 cuda/13.2
+```
+
+Example output:
+
+```bash
+-------------------------------------------------------- [ gcc/14.2.0, cuda/13.2 ] ---------------------------------------------------------
+   hwloc/2.12.2 (D)    mpich/5.0.0 (D)    nccl/v2.27.7-1 (D)    nccl/v2.29.2-1    openmpi/5.0.3 (D)    shs-libfabric/shs-12.0.2
+```
+
+
 ## Loading a oneAPI Toolchain
 
 ### Discover available oneAPI versions

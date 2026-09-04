@@ -7,20 +7,14 @@ The migration from RHEL8 to RHEL9 provides the system with necessary security up
 !!! Note
     The experience of loading and using application modules that are maintained under `/nopt` is *not* expected to change between RHEL8 and RHEL9 on Kestrel. However, **users who compile their own software should especially familiarize themselves with how to navigate the [new RHEL9 module stack](./modules/index.md)**.
  
-## Software Release
+## RHEL9 System Software Reference
 
-| Item | Value |
-| --- | --- |
-| Software Product | RHEL Compute |
-| Red Hat Enterprise Linux | 9.4 (ESR) |
-| Kernel Release | 5.14.0-427.13.1 |
+| Software                | Version(s) |
+| ---                     | --- |
+| Red Hat Enterprise Linux (RHEL) | 9.4 (ESR) |
+| Kernel Release          | 5.14.0-427.13.1 |
 | HPE Cray Programming Environment | 25.3 |
-| NVIDIA Driver | 595.58.03 |
-| Slurm | 25.05.6 |
-
-## Notes
-
-- On RHEL8, applications were installed under `/nopt/nrel/apps/`. A new directory, `/nopt/nlr/apps`, has been created for this transition.
-- Slurm for RHEL9 is installed under `/nopt/slurm/latest` instead of `/nopt/slurm/current`.
-- The latest FastX server is running on `kd7.hpc.nlr.gov` and can be accessed with the FastX client or at <https://kd7.hpc.nlr.gov>.
+| NVIDIA GPU Driver       | 595.58.03 |
+| Provided CUDA modules   | 12.8.1 and 13.2 |
+| Slurm                   | 25.05.6 |
 

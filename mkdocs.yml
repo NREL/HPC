@@ -199,6 +199,7 @@ nav:
            - LLM: Documentation/Machine_Learning/LLM/index.md
   - Kestrel RHEL9 Upgrade:
       - RHEL9_upgrade/index.md 
+      - RHEL9_upgrade/quick_start.md
       - RHEL9_upgrade/access.md 
       - Modules organization: 
           - RHEL9_upgrade/modules/index.md 
