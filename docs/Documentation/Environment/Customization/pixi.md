@@ -80,10 +80,47 @@ Note that the Python script intended to be run by this environment (`numpy-test.
 
 ## Minimal environment example on Kestrel - GPU
 
-The following script represents a minimal example of using the Pixi module to 1. create a simple Pixi environment containing a GPU-enabled version of `torch` (named `cuda-workspace`) and then 2. run a simple Python command that verifies whether this environment's `torch` can see a GPU device. **Be sure to run this on a GPU node:**
+The following examples represent a minimal example of using the Pixi module to 1. create a simple Pixi environment containing a GPU-enabled version of `torch` (named `cuda-workspace`) and then 2. run a simple Python command that verifies whether this environment's `torch` can see a GPU device. **Be sure to run this on a GPU node.**
 
-??? "Example: Using Pixi to create a GPU-enabled PyTorch environment on Kestrel"
+### RHEL9
+
+This example uses `cuda/13.2` on [Kestrel nodes upgraded to RHEL9](../../../RHEL9_upgrade/index.md).
+
+??? "Example: Using Pixi to create a GPU-enabled PyTorch environment on Kestrel (RHEL9)"
+
+    ```bash
+    #!/bin/bash
+    # Load Pixi module
+    ml pixi
+    # Initialize Pixi environment
+    pixi init cuda-workspace
+    # Note that we navigate to the Pixi environment folder to add packages and eventually execute the Python script
+    cd cuda-workspace
+
+    # Manually create pixi.toml
+    cat <<EOF > pixi.toml
+    [workspace]
+    channels = ["https://prefix.dev/conda-forge"]
+    name = "pytorch-conda-forge"
+    platforms = [ {platform = "linux-64", cuda = "13.2"} ]
+
+    [dependencies]
+    pytorch-gpu = "*"
+    cowpy = "*"
+    python = "3.11.*"
+    EOF
+    pixi run cowpy "MUUUUUUDA!"
+    pixi run python -c "import torch; print('Can pixi find a GPU? -->', torch.cuda.is_available(), '\n', 'Using CUDA version:', torch.version.cuda)"
     ```
+
+
+### RHEL8
+
+This example uses `cuda/12.4` on "regular" Kestrel GPU nodes that have not been [upgraded to RHEL9](../../../RHEL9_upgrade/index.md) yet. Note that the toml file syntax is different from the RHEL9 example above due to the difference in default `pixi` versions between RHEL8 and RHEL9.
+
+??? "Example: Using Pixi to create a GPU-enabled PyTorch environment on Kestrel (RHEL8)"
+
+    ```bash
     #!/bin/bash
     # Load Pixi module
     ml pixi
