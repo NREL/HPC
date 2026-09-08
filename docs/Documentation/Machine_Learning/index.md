@@ -70,7 +70,7 @@ or using ```conda,```
 
 ??? example "Experimental: Pre-built pytorch/2.10.0 module"
 
-    A pre-built `pytorch` module is available on Kestrel as an experimental alternative to the conda-unpack based approach below. It provides PyTorch 2.10.0 with CUDA 12.4, NCCL 2.23.4, and Python 3.11. It is for **GPUs nodes only**.
+    A pre-built `pytorch` module is available on Kestrel as an experimental alternative to the conda-unpack based approach below. It provides PyTorch 2.10.0 with CUDA 12.4, NCCL 2.23.4, and Python 3.11. It is for **GPU nodes only**.
 
     Load it with:
     ```
