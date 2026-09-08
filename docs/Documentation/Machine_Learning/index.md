@@ -96,6 +96,65 @@ You can install TensorFlow using the ```pip``` based approach described in [Tens
 	pip install tensorflow[and-cuda]==2.18.0
 	```
 
+??? example "Experimental: Pre-built tensorflow/2.21.0 module (RHEL 9 GPU)"
+
+    A pre-built `tensorflow` module is available on Kestrel's **RHEL 9 GPU
+    nodes** as an alternative to building your own environment. It provides
+    TensorFlow 2.21.0 with Python 3.12 and GPU support for H100 (sm_90).
+    CUDA 12.9 and cuDNN come from the `tensorflow[and-cuda]` pip
+    wheels, while the on-node Slingshot-tuned NCCL 2.27.7 (libfabric-CXI) and
+    system cuDNN 9.17 are layered in for correct multi-node collectives and to
+    avoid an H100 conv-backprop regression under `MirroredStrategy`.
+
+    The module is reachable from the **RHEL 9 GPU login node `kl5`** (log in
+    there, or `ssh kl5` from a RHEL 9 login). Load it with:
+
+    ```
+    module load tensorflow
+    ```
+
+    which prints usage instructions:
+
+    ```
+    TensorFlow 2.21.0 loaded (CUDA 12.9-bundled | Python 3.12 | H100/sm_90 only)
+    NCCL:  Kestrel Slingshot 2.27.7 (overrides bundled 2.30.7 for fabric perf)
+    cuDNN: system 9.17 (overrides bundled 9.24 - avoids "No algorithm worked"
+           regression on H100 conv-backprop under MirroredStrategy)
+    ```
+
+    Use it directly, or build a lightweight personal venv on top when you need
+    extra packages:
+
+    ```
+    # Use directly
+    python3 your_script.py
+
+    # Personal venv on top (recommended for extra pip packages)
+    python3 -m venv /scratch/$USER/tf_env --system-site-packages
+    source /scratch/$USER/tf_env/bin/activate
+    pip install <your-extras>
+    ```
+
+    !!! Note
+        Do **not** combine `--system-site-packages` with a conda environment,
+        and do not `conda install` Python packages on top of the module — use
+        the venv `pip` instead.
+
+    For multi-node MPI (the bundled `mpi4py` is built against Kestrel's MPICH
+    4.3.2), launch with `srun`:
+
+    ```
+    srun --mpi=pmi2 -n <N> python3 your_mpi_script.py
+    ```
+
+    Slurm auto-allocates a Slingshot VNI for `pmi2` jobs when `nodes >= 2`. To
+    force one explicitly (e.g. single-node MPI), add `--network=job_vni` (or
+    `--network=single_node_vni`) to `salloc`/`srun`. TensorFlow's own
+    `MultiWorkerMirroredStrategy` uses gRPC + NCCL and is unaffected.
+
+    Full details are in the guide at
+    `/nopt/nlr/apps/kestrel-gpu/software/tensorflow/tensorflow-2.21.0-guide.md`.
+
 
 ### Installing PyTorch on Kestrel
 
