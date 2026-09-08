@@ -9,6 +9,7 @@ The following are packages that the NLR Computational Science Center supports:
 | Name        | Description| 
 | :---------- | :--------- | 
 | [AlphaFold](./alphafold.md) | Open-source inference pipeline to predict three-dimensional protein structures from input biological sequence data |
+| [Amber](./amber.md) | Suite of biomolecular simulation programs; GPU- and MPI-accelerated `pmemd` molecular dynamics engine |
 | [Ansys](./ansys.md)       | Enables modeling, simulation, and visualization of flow, turbulence, heat transfer and reactions for industrial applications | 
 | [ExaWind](./exawind.md)       | A suite of applications that simulate wind turbines and wind farms on accelerated systems | 
 | [Bonmin](./idaes_solvers.md#bonmin) | Open-source solver that leverages CBC and IPOPT to solve general mixed integer nonlinear programs (MINLP) |
@@ -30,6 +31,7 @@ The following are packages that the NLR Computational Science Center supports:
 | [NAMD](./namd.md) | GPU-accelerated parallel molecular dynamics for large biomolecular systems |
 | [OpenFAST/FAST.Farm](./openfast.md) | Software for wind turbine aero-servo-elastic calculations and wind farm load and performance analysis | 
 | [OpenFOAM](./openfoam.md) | Software for computational fluid dynamics | 
+| [PFLOTRAN](./pflotran.md) | Massively parallel subsurface flow and reactive transport code |
 | [PLEXOS](./Plexos/index.md) | Simulation software for modeling electric, gas, and water systems for optimizing energy markets | 
 | [Q-Chem](./qchem.md)    |  *ab initio* quantum chemistry package for predicting molecular structures, reactivities, and vibrational, electronic and NMR spectra | 
 | [Quantum Computing](./quantum_computing.md) | GPU-accelerated quantum circuit simulation via Qiskit Aer, CUDA-Q, and cuQuantum (cuStateVec) |

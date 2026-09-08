@@ -126,6 +126,154 @@ OpenFOAM v2412 compiled with cray-mpich has been used to perform [strong scaling
 ![<strongScaling>](openfoam_metadata/hbwDrivAerScaling.png "strongScaling"){width=1000}
 ![<model>](openfoam_metadata/DrivAerModel.png "model"){width=1000}
 
+## OpenFOAM on Kestrel (RHEL 9)
+
+On Kestrel's RHEL 9 CPU nodes, `module avail openfoam` shows a different set of
+modules built against the RHEL 9 software stack:
+
+```
+CPU $ module avail openfoam
+
+-------------------------- [ Research Applications ] --------------------------
+   openfoam/v2512-craympich-gcc    openfoam/13-craympich (D)
+   openfoam/v2512-openmpi-gcc
+```
+
+Three modules are available on RHEL 9. All are built with GCC 14.2.0 and place
+the OpenFOAM solvers and utilities (`simpleFoam`, `blockMesh`, `decomposePar`,
+`reconstructPar`, ...) on `PATH`, and set `$WM_PROJECT_DIR`,
+`$WM_PROJECT_VERSION`, `$FOAM_MPI`, and `$WM_MPLIB`.
+
+| Module | Distribution / version | MPI (`FOAM_MPI` / `WM_MPLIB`) | Parallel launch |
+|--------|------------------------|-------------------------------|-----------------|
+| `openfoam/13-craympich` (D) | OpenFOAM.org 13 | `mpich-8.1.32` / `MPICH` | `srun` |
+| `openfoam/v2512-craympich-gcc` | OpenFOAM.com v2512 | `cray-mpich` / `CRAY-MPICH` | `srun --mpi=cray_shasta` |
+| `openfoam/v2512-openmpi-gcc` | OpenFOAM.com v2512 | `sys-openmpi` / `SYSTEMOPENMPI` (OpenMPI 5.0.3) | `mpirun` (not `srun`) |
+
+`openfoam/13-craympich` is the default (`D`). For the OpenFOAM.com `v2512`
+release, choose the Cray MPICH build for best interconnect performance, or the
+OpenMPI build if your workflow requires OpenMPI. All three modules
+`conflict` with one another, so load only one at a time.
+
+```bash
+module load openfoam/v2512-craympich-gcc
+```
+
+!!! note "Solver names differ between distributions"
+    `openfoam/13-craympich` is the OpenFOAM Foundation (`.org`) release and uses
+    the modular `foamRun -solver <name>` driver. The `v2512` modules are the
+    OpenFOAM.com (ESI) release and use the classic dedicated solver executables
+    (`simpleFoam`, `pimpleFoam`, `rhoReactingBuoyantFoam`, ...) — there is **no
+    `foamRun`** in the `v2512` builds.
+
+RHEL 9 CPU nodes have 104 logical cores each. **Cray MPICH has no `mpirun`** —
+launch Cray MPICH builds with `srun --mpi=cray_shasta`; launch the OpenMPI
+build with `mpirun`.
+
+!!! tip "Prefer the Cray MPICH build for multi-node runs"
+    In the maintainer's `pitzDaily` smoke test (32 ranks across 4 nodes), the
+    Cray MPICH build ran in **~1.8 s** vs **~19.8 s** for the OpenMPI build
+    (~11× faster). Spack OpenMPI falls back to TCP transport on Slingshot,
+    whereas Cray MPICH uses the OFI/Slingshot fabric natively. Use the OpenMPI
+    build only if your workflow requires OpenMPI-specific `mpirun` features.
+
+??? example "Sample job script: Kestrel (RHEL 9) — Cray MPICH"
+
+    ```bash
+    #!/bin/bash
+    #SBATCH --job-name=myOpenFOAMjob
+    #SBATCH --account=<your-account-name>
+    #SBATCH --output=foamOutputLog.out
+    #SBATCH --error=foamErrorLog.out
+    #SBATCH --nodes=4
+    #SBATCH --ntasks-per-node=104
+    #SBATCH --time=04:00:00
+    #SBATCH --mem=220G
+
+    module load openfoam/v2512-craympich-gcc
+
+    cd $SLURM_SUBMIT_DIR
+
+    NRANKS=$SLURM_NTASKS            # 4 x 104 = 416
+
+    blockMesh
+    foamDictionary -entry numberOfSubdomains -set $NRANKS system/decomposeParDict
+    foamDictionary -entry method             -set scotch  system/decomposeParDict
+    decomposePar -force
+
+    srun --mpi=cray_shasta --cpu-bind=cores simpleFoam -parallel
+
+    reconstructPar -latestTime
+    ```
+
+    For the default `openfoam/13-craympich` module, load it instead and launch
+    with plain `srun` (no `--mpi=cray_shasta` required, though it is supported).
+    OpenFOAM 13 uses the modular driver, so replace the solver line with, e.g.:
+
+    ```bash
+    module load openfoam/13-craympich
+    srun --cpu-bind=cores foamRun -parallel
+    ```
+
+??? example "Sample job script: Kestrel (RHEL 9) — OpenMPI"
+
+    The OpenMPI build has no PMIx, so `srun` will **not** launch it correctly
+    (each rank reports world size = 1) — use `mpirun`. For multi-node runs the
+    OpenFOAM `WM_*`/`FOAM_*` environment must be forwarded to remote ranks with
+    `-x`, otherwise the ranks cannot find OpenFOAM's libraries.
+
+    ```bash
+    #!/bin/bash
+    #SBATCH --job-name=myOpenFOAMjob
+    #SBATCH --account=<your-account-name>
+    #SBATCH --output=foamOutputLog.out
+    #SBATCH --error=foamErrorLog.out
+    #SBATCH --nodes=4
+    #SBATCH --ntasks-per-node=104
+    #SBATCH --time=04:00:00
+    #SBATCH --mem=220G
+
+    module load openfoam/v2512-openmpi-gcc
+
+    cd $SLURM_SUBMIT_DIR
+
+    NRANKS=$SLURM_NTASKS            # 4 x 104 = 416
+
+    blockMesh
+    foamDictionary -entry numberOfSubdomains -set $NRANKS system/decomposeParDict
+    foamDictionary -entry method             -set scotch  system/decomposeParDict
+    decomposePar -force
+
+    mpirun -np $NRANKS \
+        --map-by ppr:$SLURM_NTASKS_PER_NODE:node \
+        -x PATH -x LD_LIBRARY_PATH \
+        -x WM_PROJECT_DIR -x WM_OPTIONS \
+        -x FOAM_LIBBIN -x FOAM_APPBIN \
+        -x FOAM_USER_LIBBIN -x FOAM_USER_APPBIN \
+        -x WM_PROJECT_USER_DIR \
+        simpleFoam -parallel
+
+    reconstructPar -latestTime
+    ```
+
+    On first contact with the Slingshot network you may see a benign
+    `Open MPI failed an OFI Libfabric library call (fi_domain)` warning; OpenMPI
+    falls back to a working transport and the run proceeds. It can be ignored.
+
+!!! note "Case must be on a shared filesystem"
+    For multi-node runs, every rank reads/writes the decomposed `processor*/`
+    directories, so the case directory must live on a shared filesystem
+    (`/scratch/$USER/...` or `/projects/<project>/...`), **not** `/tmp`.
+
+Make sure the same module is loaded at runtime as was used to prepare the case,
+and that the number of MPI ranks matches `numberOfSubdomains` in
+`system/decomposeParDict`. Each `v2512` module prints the path to its own
+`README.md` on load, which contains the full run instructions, `srun`/`mpirun`
+tuning knobs, and the validated benchmark configuration:
+
+- Cray MPICH: `/nopt/nlr/apps/kestrel-cpu/software/openfoam/openfoam_v2512/openfoam_v2512_craympich/README.md`
+- OpenMPI: `/nopt/nlr/apps/kestrel-cpu/software/openfoam/openfoam_v2512/openfoam_v2512_openmpi/README.md`
+
 ## OpenFOAM on Gila
 
 Two versions are available on Gila. OpenFOAM 11 is the default.

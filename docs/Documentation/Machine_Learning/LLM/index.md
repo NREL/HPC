@@ -25,35 +25,117 @@ There are five ways to use `ofa`:
 
 ### 1. Command line
 
+Run `ofa` with no arguments for an interactive chat, or pass a single quoted prompt for a one-shot answer. A mode flag selects the system prompt + RAG index:
+
 ```
 $ ofa                            # interactive chat, default --code mode
-$ ofa "explain this SLURM error"
+$ ofa "explain this SLURM error" # one-shot: answer and exit
+$ ofa --hpc "how do I request an H100 node?"
 $ ofa --openfoam --save ./mycase # OpenFOAM case generator, writes files to ./mycase
-$ ofa --hpc                      # Kestrel HPC / Slurm documentation assistant
-$ ofa --resume                   # resume the previous session
-$ ofa --list-models              # show the model registry
+$ ofa --amrex                    # AMReX C++ framework assistant
+$ ofa --marbles                  # MARBLES lattice-Boltzmann solver
+$ ofa --vasp                     # VASP assistant
+$ ofa --quantum-computing        # quantum-computing assistant
+$ ofa --rhel9_reframe            # ReFrame (RHEL9) testing assistant
 ```
 
-Type `quit` to leave interactive mode, or `/help` for the full list of slash commands. Run `ofa --help` to see every flag, including `--save`, `--fast`, `--model`, `--no-rag`, and the `--serve*` flags used below.
+Useful flags (see `ofa --help` for the complete list):
 
-### 2. VS Code Chat (BYOK)
+| Flag | Effect |
+| --- | --- |
+| `--resume` | Reload and continue your previous session. |
+| `--model <id>` | Use a specific model for this run (see `--list-models`). |
+| `--save <dir>` | Write any files the assistant produces into `<dir>`. |
+| `--fast` | OpenFOAM: skip the multi-file planning stage (single-shot). |
+| `--no-rag` | Skip retrieval; ask the base model directly. |
+| `--list-models` | Print the model registry and exit (runs on the login node, no GPU). |
 
-`ofa --serve` starts an OpenAI-compatible HTTP server (`/v1/chat/completions`) on your allocation. Paired with the [OnField Assistant VS Code extension](https://github.com/nileshsawant/onfield-assistant/tree/main/vscode-ext) (one-click SLURM allocation + login-node port bridge) or a manual `ssh -L` tunnel, this registers every `ofa` mode as a "Bring Your Own Key" model in VS Code Copilot Chat's model picker. Full walkthrough: [Use ofa from VS Code Chat (the OnField Assistant extension)](https://github.com/nileshsawant/onfield-assistant#use-ofa-from-vs-code-chat-the-onfield-assistant-extension).
+Inside an interactive session, type `quit` (or `exit`/`q`) to leave, and use these slash commands:
+
+| Command | Effect |
+| --- | --- |
+| `/help` | List all commands. |
+| `/clear` | Reset the conversation (keeps the system prompt). |
+| `/compact` | Compress history now to reclaim context space. |
+| `/history` | Show the current session size. |
+| `/memory`, `/remember <text>`, `/forget` | Inspect / add / clear long-term memory. |
+| `/skills`, `/skill <name>` | List and load skill files. |
+| `/models` | List pulled models and how to switch. |
+| `@<path>` | Inline a file's contents into your prompt. |
+| `$ <command>` | Run a shell command without leaving the chat. |
+| `save <dir>` | Save the last response into `<dir>`. |
+
+`ofa` remembers durable preferences you state in conversation (e.g. "always use 4-space indentation") across sessions, and auto-compresses long sessions so extended debugging runs don't lose earlier context.
+
+### 2. VS Code Chat
+
+The OnField Assistant VS Code extension puts every `ofa` mode directly in VS Code Copilot Chat's model picker. It handles the SLURM allocation, the compute-node connection, and the API key for you &mdash; there is nothing to configure on your laptop.
+
+Setup, once per machine:
+
+1. **Connect VS Code to Kestrel** using Remote-SSH (the standard "Connect to Host" flow &mdash; open a VS Code window attached to a Kestrel login node).
+2. **Install the extension on the Kestrel side.** Open the Extensions view (`Ctrl+Shift+X` / `Cmd+Shift+X`), click the `⋯` menu at the top &rarr; **Install from VSIX…**, and select:
+
+    ```
+    /nopt/nrel/apps/cpu_stack/software/openfoam/assistant/vscode-ext/ofa-vscode.vsix
+    ```
+
+    Reload the window when prompted. The extension appears under **SSH: KESTREL** as `ofa-vscode`.
+
+Each session:
+
+3. **Connect.** Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run **OFA: Connect**. This allocates a GPU node and starts the server; watch progress with **OFA: Show Logs**.
+4. **Chat.** Open Copilot Chat, open the model picker, and choose any `ofa · …` entry (e.g. `ofa · code`, `ofa · openfoam`). Ask mode answers questions; Agent mode can additionally apply edits and run commands.
+
+Run **OFA: Disconnect** to release the GPU allocation when you're done. If a previous allocation is still alive, the extension reconnects to it automatically on the next launch.
 
 ### 3. Python (`ofa_client`)
 
-A stdlib-only Python client talks to a running `ofa --serve` over HTTP &mdash; no extra packages needed:
+`ofa_client` is a stdlib-only Python module (no extra packages to install) that talks to a running `ofa --serve` over HTTP. Start the server once in your allocation, then call it from any Python process on the same node:
+
+```bash
+module load assistant
+ofa --serve            # leave running; auto-allocates a GPU node if needed
+```
 
 ```python
 from ofa_client import ask
+
+# One-shot question
 text = ask("what is a good turbulence model for cavity flow at Re=1e4?")
+
+# Pick a mode with model=, e.g. the OpenFOAM or HPC assistant
+text = ask("draft a controlDict for a 2s transient run", model="ofa-openfoam")
 ```
 
-It also supports attaching files/images, multi-turn `Session()` objects for client-side conversation history, and auto-detects the server URL/token from `$OFA_SCRATCH`. This is useful for having a running simulation ask `ofa` to summarize a plot or diagnose a crash mid-run &mdash; see the [`ofa_client` docs](https://github.com/nileshsawant/onfield-assistant#programmatic-use-from-python-ofa_client).
+The client auto-detects the server URL and API token from `$OFA_SCRATCH`, so no configuration is needed when it runs alongside the server. `ask()` also accepts optional context:
 
-### 4. Custom / third-party agents
+```python
+# Attach a text file (last 32 KB by default; full_file=True for all of it)
+ask("why did this solver diverge?", file="log.simpleFoam")
 
-Because `ofa --serve` speaks the standard OpenAI `/v1/chat/completions` API, any agent framework that supports pointing at a custom `base_url` + `api_key` can use `ofa` as its backend LLM. For example, [AMReX Agent](https://github.com/AMReX-Codes/amrex-agent) has a `litellm` provider for exactly this; pointed at `ofa`:
+# Attach an image — great for having a running job summarise a plot mid-run
+ask("summarise the pressure field", image="output/step_0100.png")
+
+# Inline arbitrary text context
+ask("is this residual trend converging?", context=my_residual_table)
+```
+
+For multi-turn conversations, use a `Session`, which keeps history client-side so follow-up questions see earlier turns:
+
+```python
+from ofa_client import Session
+
+sess = Session(model="ofa-code")
+sess.ask("what turbulence model for cavity flow?")
+sess.ask("now show me a controlDict for that")   # remembers the first answer
+```
+
+A common pattern is a long-running simulation that periodically asks `ofa` to interpret its own output &mdash; e.g. summarise a freshly written plot or diagnose a crash &mdash; and logs the reply, all without leaving the node.
+
+### 4. As the LLM backend for other agent frameworks
+
+Because `ofa --serve` speaks the standard OpenAI `/v1/chat/completions` API, any existing agent framework that supports a custom `base_url` + `api_key` can use `ofa` as its backend LLM. For example, [AMReX Agent](https://github.com/AMReX-Codes/amrex-agent) has a `litellm` provider for exactly this; pointed at `ofa`:
 
 ```bash
 module load assistant
@@ -64,6 +146,21 @@ export LITELLM_MODEL="ofa-code"
 ```
 
 See ofa's [Bring your own agent](https://github.com/nileshsawant/onfield-assistant#bring-your-own-agent) section for the full recipe and other integrations.
+
+### 5. Build your own agent (index your own data)
+
+You can point `ofa` at your **own** files &mdash; notes, papers, a codebase, documentation &mdash; and it will retrieve from them automatically in every mode, alongside the shared corpora. This effectively turns `ofa` into an assistant grounded in your material, and requires no write access to the shared install:
+
+```bash
+ofa --add-private ~/my-notes                 # index a directory
+ofa --add-private ~/papers --private-name lit-review   # give it a name
+ofa --list-private                           # see what you've indexed
+ofa --forget-private lit-review              # remove one (or 'all')
+```
+
+Then just ask `ofa` a question &mdash; from the command line, from VS Code, or through any of the other access methods above &mdash; and answers will draw on your indexed material where relevant.
+
+Supported inputs are text and code files, `.pdf`, and Office `.docx`/`.xlsx`. For scanned or equation-dense PDFs, `ofa` automatically re-reads hard-to-parse pages with the local vision model (rendering each page to an image and transcribing it, including equations) &mdash; on by default, using a vision-capable model such as the default Gemma 4. Your indexed data is stored per-user under `$OFA_SCRATCH` with owner-only permissions and never written to the shared install. Everything stays on Kestrel; as with any `ofa` use, keep in mind that answers (which may quote your indexed content) are returned to whichever client you're using.
 
 ## OpenCode
 

@@ -13,7 +13,8 @@ FAST.Farm is installed as a `cmake` option to the build of OpenFAST.
 
 You can clone your desired verstion of OpenFAST from [here](https://github.com/OpenFAST/openfast). Once cloned, `cd` into the OpenFAST directory and create a `build` directory. Use the scripts given below from within the `build` directory to build OpenFAST and FAST.Farm. On a Kestrel CPU node, build OpenFAST by executing the following script from within the `build` directory:
 
-??? example "Sample job script: Building OpenFAST and FAST.Farm using `cmake` on CPUs"
+??? example "Sample job script: Building OpenFAST and FAST.Farm using `cmake` on CPUs (RHEL 8)"
+
     ```
     #!/bin/bash
 
@@ -23,6 +24,41 @@ You can clone your desired verstion of OpenFAST from [here](https://github.com/O
     module load intel-oneapi
     module load binutils
     module load hdf5/1.14.3-intel-oneapi-mpi-intel
+
+    module list
+
+    cmake .. \
+        -DCMAKE_Fortran_COMPILER=ifx \
+        -DCMAKE_CXX_COMPILER=icpx \
+        -DCMAKE_C_COMPILER=icx \
+        -DCMAKE_CXX_FLAGS=-fPIC \
+        -DCMAKE_C_FLAGS=-fPIC \
+        -DBUILD_OPENFAST_CPP_API=ON \
+        -DBUILD_FASTFARM=ON \
+        -DDOUBLE_PRECISION:BOOL=ON \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DOPENMP=ON \
+        -DCMAKE_INSTALL_PREFIX:PATH=${PWD}/install
+
+    nice make -j48
+    make install
+    ```
+
+??? example "Sample job script: Building OpenFAST and FAST.Farm using `cmake` on CPUs (RHEL 9)"
+    `PrgEnv-intel` + `cray-mpich` does not provide a `netcdf-fortran` module on RHEL 9 —
+    use the `oneapi`/`intel-oneapi-mpi` toolchain shown here instead from `kl3` login node.
+
+    ```
+    #!/bin/bash
+
+    module purge
+    module load Core/26.05
+    module load libxml2/2.15.1
+    module load oneapi/2025.3.1
+    module load intel-oneapi-mpi/2021.17.2
+    module load netcdf-c/4.9.3-mpi
+    module load netcdf-fortran/4.6.2-mpi
+    module load hdf5/1.14.6-mpi
 
     module list
 
@@ -53,7 +89,7 @@ You can clone your desired verstion of OpenFAST from [here](https://github.com/O
 ## Running OpenFAST
 
 OpenFAST is a serial tool and can be executed by simply calling it directly
-??? example "Sample job script: Running OpenFAST on a dedicated node"
+??? example "Sample job script: Running OpenFAST on a dedicated node (RHEL 8)"
 ```
     #!/bin/bash
 
@@ -72,6 +108,27 @@ OpenFAST is a serial tool and can be executed by simply calling it directly
     openfast <your_turbine_input_file>.fst
 ```
 
+??? example "Sample job script: Running OpenFAST on a dedicated node (RHEL 9, submit from `kl3`)"
+```
+    #!/bin/bash
+
+    #SBATCH --account=<user-account> # Replace with your HPC account
+    #SBATCH --time=01:00:00
+    #SBATCH –-nodes=1
+    #SBATCH --partition=shared
+
+    module purge
+    module load Core/26.05
+    module load libxml2/2.15.1
+    module load oneapi/2025.3.1
+    module load intel-oneapi-mpi/2021.17.2
+    module load netcdf-c/4.9.3-mpi
+    module load netcdf-fortran/4.6.2-mpi
+    module load hdf5/1.14.6-mpi
+
+    openfast <your_turbine_input_file>.fst
+```
+
 Examples of turbine models are available in the regression tests repository, [here](https://github.com/OpenFAST/r-test/).
 
 !!! Note
@@ -82,7 +139,7 @@ Examples of turbine models are available in the regression tests repository, [he
 
 FAST.Farm is OpenMP-capable, but still runs within a node. Its execution is similar to OpenFAST.
 
-??? example "Sample job script: Running FAST.Farm on a dedicated node"
+??? example "Sample job script: Running FAST.Farm on a dedicated node (RHEL 8)"
 ```
     #!/bin/bash
 
@@ -96,6 +153,26 @@ FAST.Farm is OpenMP-capable, but still runs within a node. Its execution is simi
     module load intel-oneapi
     module load binutils
     module load hdf5/1.14.3-intel-oneapi-mpi-intel
+
+    FAST.Farm <your_fastfarm_input_file>.fstf
+```
+
+??? example "Sample job script: Running FAST.Farm on a dedicated node (RHEL 9, submit from `kl3`)"
+```
+    #!/bin/bash
+
+    #SBATCH --account=<user-account> # Replace with your HPC account
+    #SBATCH --time=01:00:00
+    #SBATCH –-nodes=1
+
+    module purge
+    module load Core/26.05
+    module load libxml2/2.15.1
+    module load oneapi/2025.3.1
+    module load intel-oneapi-mpi/2021.17.2
+    module load netcdf-c/4.9.3-mpi
+    module load netcdf-fortran/4.6.2-mpi
+    module load hdf5/1.14.6-mpi
 
     FAST.Farm <your_fastfarm_input_file>.fstf
 ```

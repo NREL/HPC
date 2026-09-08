@@ -15,16 +15,11 @@ NAMD is available through the module system on both GPU and CPU nodes.
 module load namd/3.0.2-mpi-smp-cuda
 ```
 
-Loading this module automatically pulls in the required dependencies:
-
-- `PrgEnv-gnu` (GCC compiler environment)
-- `cray-mpich/8.1.28` (MPI library with OFI/CXI transport)
-- `libfabric` (Slingshot-11 fabric interface)
-- `cuda/12.9`
+Loading this module automatically pulls in the required dependencies. Available on both RHEL8 and RHEL9 nodes.
 
 ### CPU modules
 
-For CPU-only runs (no GPU required), the following modules are available on standard compute nodes:
+For CPU-only runs, the following modules are available on RHEL8 standard compute nodes:
 
 ```
 namd/2.14

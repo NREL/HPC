@@ -54,7 +54,7 @@ A typical workflow could look as follows:
 ### Cantera
  [Installation: Python version](https://cantera.org/install/conda-install.html#sec-install-conda)
 ```
-$ module load anaconda3/2024.06.1
+$ module load anaconda3
 $ cd /projects/<projectname>/<username>
 $ conda create --prefix ./ct-env --channel cantera cantera ipython matplotlib jupyter
 $ conda activate ./ct-env
@@ -75,7 +75,7 @@ $ conda deactivate
 	$ ln -s /scratch/username scratch
 	```
 	```
-	$ module load anaconda3/2024.06.1
+	$ module load anaconda3
 	$ conda activate /projects/<projectname>/<username>/ct-env
 	```
 	Create a jupyter kernel from ct-env
@@ -92,7 +92,7 @@ $ conda deactivate
 
 [Installation: C++ version](https://cantera.org/install/conda-install.html#sec-conda-development-interface)
 ```
-$ module load anaconda3/2024.06.1
+$ module load anaconda3
 $ cd /projects/<projectname>/<username>
 $ conda create --prefix ./ct-dev --channel cantera libcantera-devel
 $ conda activate ./ct-dev
@@ -114,7 +114,7 @@ $ g++ demo.cpp -o demo $(pkg-config --cflags --libs cantera) && ./demo
 	```
 	Load Cantera
 	```
-	module load anaconda3/2024.06.1
+	module load anaconda3
 	conda activate /projects/<projectname>/<username>/ct-dev
 	```
 	Compile your code

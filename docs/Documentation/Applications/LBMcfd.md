@@ -43,17 +43,6 @@ $ cd /projects/<projectname>/<username>/
 $ mkdir marblesLBM
 ```
 
-Get the `amrex` dependency and set the environment variable `AMREX_HOME`
-```
-$ cd /projects/<projectname>/<username>/marblesLBM
-$ git clone https://github.com/AMReX-Codes/amrex.git
-$ cd amrex
-$ git checkout 25.11
-$ cd ..
-$ echo "export AMREX_HOME=/projects/<projectname>/<username>/marblesLBM/amrex" >> ~/.bash_profile
-$ bash
-```
-
 Get the stable and development version of MARBLES
 ```
 $ cd /projects/<projectname>/<username>/marblesLBM
@@ -61,29 +50,38 @@ $ git clone https://github.com/NatLabRockies/marbles.git
 $ git clone https://github.com/nileshsawant/marblesThermal
 ```
 
-To install the latest development version of MARBLES, the code has to be built on a GPU login node. Please do the following:
+!!! warning
+    Do **not** set `AMREX_HOME` in your environment. MARBLES ships AMReX as a git submodule pinned to a tested commit. Setting `AMREX_HOME` overrides this and will likely cause compile errors. If you have it set from another workflow, unset it before building:
+    ```
+    $ unset AMREX_HOME
+    ```
+
+To install the latest development version of MARBLES for RHEL9 nodes, the code has to be built on `kl5` GPU login node. Please do the following:
 ```
-$ ssh -X <username>@kestrel-gpu.hpc.nlr.gov
-$ module load PrgEnv-gnu/8.5.0
-$ module load cuda/12.3
-$ module load craype-x86-milan
+$ ssh -X <username>@kl5.hpc.nlr.gov
+$ module load cpe-stack
+$ module load PrgEnv-gnu
+$ module load cuda
 $ cd /projects/<projectname>/<username>/marblesLBM/marblesThermal
+$ git submodule update --init --recursive Submodules/AMReX
 $ cd Build
 $ make
 $ make USE_CUDA=TRUE
 $ ls -tr
-GNUmakefile  cmake.sh  tmp_build_dir  marbles3d.gnu.x86-milan.TPROF.MPI.ex  marbles3d.gnu.TPROF.MPI.CUDA.ex
+GNUmakefile  cmake.sh  tmp_build_dir  marbles3d.gnu.TPROF.MPI.ex  marbles3d.gnu.TPROF.MPI.CUDA.ex
 ```
-If the commands succeed, the `Build` directory should contain the MPI version `marbles3d.gnu.x86-milan.TPROF.MPI.ex` and the MPI + CUDA version `marbles3d.gnu.TPROF.MPI.CUDA.ex` of MARBLES. 
+If the commands succeed, the `Build` directory should contain the MPI version `marbles3d.gnu.TPROF.MPI.ex` and the MPI + CUDA version `marbles3d.gnu.TPROF.MPI.CUDA.ex` of MARBLES. 
 
-The test case for flow through fractures with heated isothermal walls can be tried out as follows:
+The test case for flow through fractures with heated isothermal walls can be tried out from `kl5` as follows:
 ```
 $ salloc -A <allocation handle> -t 00:30:00 --nodes=1 --ntasks-per-node=32 --mem=80G --gres=gpu:1 --partition=debug
-$ module load cuda/12.3
+$ module load cpe-stack
+$ module load PrgEnv-gnu
+$ module load cuda
 $ cd /projects/<projectname>/<username>/marblesLBM/marblesThermal/Build
 $ cp ../Tests/test_files/isothermal_cracks/* .
 # Test CPU version 
-$ srun -n 4 marbles3d.gnu.x86-milan.TPROF.MPI.ex isothermal_cracks.inp
+$ srun -n 4 marbles3d.gnu.TPROF.MPI.ex isothermal_cracks.inp
 # Test GPU version
 $ srun -n 1 marbles3d.gnu.TPROF.MPI.CUDA.ex isothermal_cracks.inp
 ```
@@ -93,7 +91,7 @@ Results can be viewed in [ParaView](../Viz_Analytics/paraview.md) or [VisIT](../
 ![Velocity Cracks Demo](LBMcfd_metadata/velocity_cracks.gif)
 *Animation credit: [@eyoung55](https://github.com/eyoung55)*
 
-[MARBLES](https://natlabrockies.github.io/marbles/VandV.html) is an in-house effort to make a free Lattice Boltzmann solver available to the community. We encourage users to contact us for help setting up your problem or to request additional features. Please visit the repository and create a [New issue](https://github.com/NatLabRockies/marbles/issues) or [email](mailto:nsawant@nlr.gov) us directly. A [machine learning framework](https://github.com/nileshsawant/mlForLBM) for using MARBLES in the loop as a data generator has also been created. Pre-built executibles, `marbles3d.gnu.x86-milan.TPROF.MPI.ex` and `marbles3d.gnu.TPROF.MPI.CUDA.ex`, can also be made available on request.
+[MARBLES](https://natlabrockies.github.io/marbles/VandV.html) is an in-house effort to make a free Lattice Boltzmann solver available to the community. We encourage users to contact us for help setting up your problem or to request additional features. Please visit the repository and create a [New issue](https://github.com/NatLabRockies/marbles/issues) or [email](mailto:nsawant@nlr.gov) us directly. A [machine learning framework](https://github.com/nileshsawant/mlForLBM) for using MARBLES in the loop as a data generator has also been created. Pre-built executibles, `marbles3d.gnu.TPROF.MPI.ex` and `marbles3d.gnu.TPROF.MPI.CUDA.ex`, can also be made available on request.
 
 ### M-Star
 
