@@ -17,13 +17,15 @@ installation, GPU installation, the pre-built GPU module, and a worked
 example. Shared [job scripts](#job-scripts) and [installing on Gila](#installing-pytorch-on-gila)
 are covered at the end.
 
+On most computing systems, these frameworks are often installed via Python virtual environments or package managers including [`conda`](../Environment/Customization/conda.md) or [`pixi`](../Environment/Customization/pixi.md). Although Kestrel users are able to manage these frameworks in the same manner, **it is strongly recommended that any Kestrel environments destined for running on multiple GPU nodes are built from NLR-managed modules** for either [PyTorch](#pre-built-pytorch-gpu-module) or [TensorFlow](#pre-built-tensorflow-gpu-module) so the framework can leverage the full speed offered by the Slingshot interconnect. In comparison to the equivalent software module, Kestrel users attempting to use `pip`-installed versions of PyTorch or TensorFlow will likely see signficant performance degradation when running across multiple nodes. `pip`-installed versions of these frameworks are expected to have the same performance as those from the software modules only when running on a single node.
+
 !!! note
 	This page is only scratching the surface of ML libraries and resources that can be used on Kestrel. Tools such as LightGBM, XGBoost, and scikit-learn work well with conda environments, and other tools such as Flux for the Julia Language can be used on Kestrel as well.
 
 !!! Note
 	We recommend installing software for GPU jobs using the GPU nodes. There are two [GPU login nodes](../Systems/Kestrel/index.md) available on Kestrel.
 
-To install either PyTorch or TensorFlow for use with GPUs on Kestrel, the first step is to load the anaconda module on the GPU node using ```module load conda```. Once the anaconda module has been loaded, create a new environment in which to install PyTorch or TensorFlow, e.g.,
+To install either PyTorch or TensorFlow for use with GPUs on Kestrel via Anaconda virtual environments, the first step is to load the anaconda module on the GPU node using ```module load conda```. Once this module has been loaded, create a new environment in which to install PyTorch or TensorFlow, e.g.,
 
 ??? example "Creating and activating a new conda environment"
         conda create --prefix /projects/<your-project-name>/<your-user-name>/<conda-env-dir>/pt python=3.9
@@ -68,7 +70,7 @@ or using ```conda,```
 
 ### Pre-built PyTorch GPU module
 
-??? example "Experimental: Pre-built pytorch/2.10.0 module"
+??? example "Experimental (RHEL8): Pre-built pytorch/2.10.0 module"
 
     A pre-built `pytorch` module is available on Kestrel as an experimental alternative to the conda-unpack based approach below. It provides PyTorch 2.10.0 with CUDA 12.4, NCCL 2.23.4, and Python 3.11. It is for **GPU nodes only**.
 
@@ -97,6 +99,41 @@ or using ```conda,```
       source ~/myenv/pyenv/bin/activate
       pip install <your-packages>
       NOTE: do NOT 'conda install' Python packages — use the venv pip instead.
+    ```
+
+??? example "RHEL9: Pre-built pytorch/2.12.0 module"
+
+    Several versions of pre-built `pytorch` modules are available on [Kestrel RHEL9 nodes](../../RHEL9_upgrade/index.md). The default version provides PyTorch 2.12.0 with CUDA 13.2, NCCL 2.27.7, and Python 3.12. It is for **GPU nodes only**.
+
+    Load it with:
+    ```
+    module load pytorch/2.12.0
+    ```
+
+    which will print usage instructions:
+    ```
+    PyTorch 2.12.0 loaded (CUDA 13.2 | Python 3.12.13 | H100/sm_90 only)
+
+    No extra packages needed? Use directly:
+        python3 your_script.py
+
+    Option 1 — venv (recommended when you need extra pip packages):
+        python3 -m venv /scratch/$USER/myenv --system-site-packages
+        source /scratch/$USER/myenv/bin/activate
+        pip install <your-packages>
+
+    Option 2 — conda env (only when you need non-Python deps like compiled libs or tools):
+        conda create -p ~/myenv <non-python-deps>
+        conda activate ~/myenv
+        /nopt/nlr/apps/kestrel-gpu/software/pytorch/shs-libfabric/2.12.0/bin/python3 -m venv ~/myenv/pyenv --system-site-packages
+        source ~/myenv/pyenv/bin/activate
+        pip install <your-packages>
+        NOTE: do NOT 'conda install' Python packages — use the venv pip instead.
+
+    Full documentation:
+        /nopt/nlr/apps/kestrel-gpu/software/pytorch/shs-libfabric/2.12.0/../USER_GUIDE.md
+
+    To suppress this message: module -q load pytorch/2.12.0
     ```
 
 ### Pre-built PyTorch environment with multi-node and GPU support
@@ -290,15 +327,15 @@ You can install TensorFlow using the ```pip``` based approach described in [Tens
 
 ??? example "Experimental: Pre-built tensorflow/2.21.0 module (RHEL 9 GPU)"
 
-    A pre-built `tensorflow` module is available on Kestrel's **RHEL 9 GPU
-    nodes** as an alternative to building your own environment. It provides
+    A pre-built `tensorflow` module is available on Kestrel's [**RHEL 9 GPU
+    nodes**](../../RHEL9_upgrade/index.md) as an alternative to building your own environment. It provides
     TensorFlow 2.21.0 with Python 3.12 and GPU support for H100 (sm_90).
     CUDA 12.9 and cuDNN come from the `tensorflow[and-cuda]` pip
     wheels, while the on-node Slingshot-tuned NCCL 2.27.7 (libfabric-CXI) and
     system cuDNN 9.17 are layered in for correct multi-node collectives and to
     avoid an H100 conv-backprop regression under `MirroredStrategy`.
 
-    The module is reachable from the **RHEL 9 GPU login node `kl5`** (log in
+    The module is reachable from the [**RHEL 9 GPU login node `kl5`**](../../RHEL9_upgrade/access.md) (log in
     there, or `ssh kl5` from a RHEL 9 login). Load it with:
 
     ```
