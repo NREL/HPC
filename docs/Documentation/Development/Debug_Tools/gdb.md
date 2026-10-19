@@ -17,11 +17,7 @@ For links to in-depth tutorials and walkthroughs of GDB features, please see [Re
 
 ## Availability
 
-|Kestrel| Swift | Vermilion |
-|:-----:|:-----:|:-----------|
-| gdb/12.1, gdb/11.2\* | gdb/7.12.1, gdb/14.2, gdb/8.2\*  | gdb/8.2\*  |
-
-\* In path by default. Do not need to use `module load`.
+gdb may be in path by default, or available as a module. You can check if gdb is already in your path with `which gdb`. Otherwise, you can check for available gdb modules using `module spider gdb`. 
 
 ## Resources
 
