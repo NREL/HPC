@@ -206,7 +206,7 @@ We’re ready to compile! In the case of VASP, the compile command is `make DEPS
 
 If you’re working with a code that has a testsuite, now is a good time to run the testsuite to make sure that your compile was successful. 
 
-##Summary of Steps
+## Summary of Steps
 
 1. Download the source code of the package you’re trying to build. This will generally be found on the website of the package. 
 2. Consult the documentation of the package to find out what scientific libraries are needed, and if the package developers provide guidance on what toolchains/libraries are best 
