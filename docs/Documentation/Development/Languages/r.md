@@ -10,24 +10,57 @@ For more information related to the R project, see the [R website](http://www.r-
 
 ## Accessing R
 
-The supported method for using R on NLR HPC systems is via Anaconda/mamba. In order to install R, first load the mamba module. On Kestrel or Swift, this is `module load mamba`. Next, create a new conda environment that contains at least the `r-base` package, which installs R itself. Optionally, install the `r-essentials` bundle, which provides many of the most popular R packages for data science, such as the [tidyverse](https://www.tidyverse.org) family of packages.
+### Pre-installed `cray-R` module (Kestrel only)
+
+Kestrel users can use a pre-installed version of R from the Cray Programming Environment (CPE). This version of R (and its base dependencies) can be accessed by first loading the `cpe-stack` module and then `cray-R`:
+
+```{bash}
+# Load the modules to access R
+ml cpe-stack cray-R
+# Check the version of R
+R --version
+```
+
+When installing user-defined packages via the `cray-R` module for the first time, note that you will be prompted to install them into a "personal library", which defaults to `/home/${USER}$/R/x86_64-redhat-linux-gnu-library/<R-version>` by default:
+
+```{R}
+$ R 
+> install.packages('tidyverse')
+Warning in install.packages("tidyverse") :
+  'lib = "/opt/cray/pe/R/4.4.0/lib64/R/library"' is not writable
+Would you like to use a personal library instead? (yes/No/cancel)
+```
+
+The default "personal library" folder can become quite large as you install packages over time; to avoid your home directory from filling up with unnecessary files, it is **strongly recommended** that you create a custom `~/.Renviron` file that defines a custom path to a folder that you own where you can manage your custom package installations. See the drop-down menu below for more information:
+
+??? example "Example `~/.Renviron` file"
+    In this `~/.Renviron` file, we set the `R_LIBS_USER` variable to install all R packages to a location in `/projects`. This is preferred over installing packages in `/scratch` or `/home`, because `/projects` has persistent storage (unlike `/scratch`) and has a much larger storage quota than a user's `/home` folder. Replace `<project-handle>` and `<user>` as necessary, but keep `%v` as-is, because that will auto-populate with the version of R that you are using for the given package installation:
+    ```{R}
+    R_LIBS_USER="/projects/<project-handle>/<user>/R/library/%v"
+    ```
+
+### Anaconda and Miniforge
+
+Users of any NLR HPC system may find they have finer control over managing their R environments via Anaconda/Miniforge. In order to install R in this manner, first load an appropriate module. On Kestrel or Gila, this could be `module load miniforge3`. Next, create a new conda environment that contains at least the `r-base` package, which installs R itself. Optionally, install the `r-essentials` bundle, which provides many of the most popular R packages for data science, such as the [tidyverse](https://www.tidyverse.org) family of packages.
 
 For example, to create and activate a new environment named `r_env` in your current directory that includes the `r-essentials` bundle:
 
-```bash
-module load mamba
+```{bash}
+module load miniforge3
 conda create --prefix=./r_env r-essentials r-base
 conda activate ./r_env
 ```
 
+When R packages are installed via conda/mamba following the example above, the packages themselves are installed within each environment in the location `<path/to/conda/environment>/lib/R/library`.
+
 !!! note
     We install the `r_env` conda environment in our current directory with the `--prefix` option for a number of reasons. Note that if you create an environment with the `-n` or `--name` option, it will install into your home directory by default, which is not ideal due to its limited storage. The `--prefix` option can also accept an absolute path, such as a dedicated `/projects` directory. Please see our dedicated [conda documentation](../../Environment/Customization/conda.md#creating-environments-by-location) for more information.
 
-For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://docs.anaconda.com/free/anaconda/packages/using-r-language/).
+For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://www.anaconda.com/docs/getting-started/working-with-conda/packages/using-r-language).
 
 ## Running R Interactively
 
-R is most commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Slurm/interactive_jobs.md)) using the `salloc` command. Alternatively, R can be used through [Jupyterhub](../Jupyter/index.md).
+R is commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Slurm/interactive_jobs.md)) using the `salloc` command. Alternatively, R can be used through [Jupyterhub](../Jupyter/index.md).
 
 Once on a compute node, R environments can be accessed through Anaconda as described above. To access the R interactive console, type R at the command line. You will be prompted with the familiar R console in your terminal window: 
 
@@ -36,8 +69,8 @@ Once on a compute node, R environments can be accessed through Anaconda as descr
     ```
     $ R
 
-    R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
-    Copyright (C) 2024 The R Foundation for Statistical Computing
+    R version 4.5.3 (2026-03-11) -- "Reassured Reassurer"
+    Copyright (C) 2026 The R Foundation for Statistical Computing
     Platform: x86_64-conda-linux-gnu
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -60,11 +93,11 @@ Once on a compute node, R environments can be accessed through Anaconda as descr
 
 ## Running R Scripts
 
-Since running R programs line by line in the interactive console can be a little tedious, it is often better to combine R commands into a single script and have R execute them all at once. R scripts are text files containing R commands with file extension .R: 
+Since running R programs line by line in the interactive console can be tedious, it is often better to combine R commands into a single script and have R execute them all at once. R scripts are text files containing R commands with file extension `.R`: 
 
 !!! example "hello_world.R"
 
-    ```
+    ```{R}
     message = "Hi there!"
     nums = sample(1:100, 5)
     cat(message, "\n")
@@ -75,9 +108,9 @@ There are several options for running R scripts:
 
 ??? example "source()"
 
-    The source()  function will execute R scripts from inside the interactive console.
+    The `source()` function will execute R scripts from inside the interactive console.
     
-    ```
+    ```{R}
     > source("hello_world.R")
       Hi there! 
       Here are some random numbers:  100 41 14 82 63 
@@ -85,7 +118,7 @@ There are several options for running R scripts:
 
 ??? example "Rscript"
 
-    The Rscript command can be used to run R scripts from the command line. Output is piped to the stdout.
+    The `Rscript` command can be used to run R scripts from the command line. Output is piped to the stdout.
 
     ```
     $ Rscript hello_world.R
@@ -95,7 +128,7 @@ There are several options for running R scripts:
     
 ??? example "R CMD BATCH"
 
-    R CMD BATCH is an older function that behaves similar to Rscript. All output is piped to a corresponding .Rout file.
+    `R CMD BATCH` is an older function that behaves similar to `Rscript`. All output is piped to a corresponding `.Rout` file.
 
     ```
     $ R CMD BATCH --no-site-file hello_world.R
@@ -133,45 +166,43 @@ Another option for using R on the HPC systems is to submit batch jobs to be run 
 #SBATCH --time=00:05:00
 #SBATCH --account=<your_allocation_id>
   
-module load mamba
+module load miniforge3
 conda activate /path/to/r_env
 Rscript hello_world.R
 ```
     
 ## Versions and Packages
 
-R is a popular open-source language with an active development community. New versions of R are frequently released. Any version can be installed into a custom anaconda environment. Commands for using other versions is shown below: 
+R is a popular open-source language with an active development community. New versions of R are frequently released. Any version can be installed into a custom environment. Commands for using other versions is shown below: 
 
 ??? example "Custom Installation with Conda"
 
     ```
     $ mamba search r-essentials
-    Loading channels: done
-    # Name                       Version           Build  Channel
-    r-essentials                   1.5.2        r3.3.2_0  conda-forge
-    r-essentials                   3.4.1        r3.4.1_0  conda-forge
-    r-essentials                   3.5.1       r351_1000  conda-forge
-    r-essentials                   3.5.1       r351_2000  conda-forge
-    r-essentials                   3.5.1        r35_2001  conda-forge
-    r-essentials                     3.6        r36_2001  conda-forge
-    r-essentials                     3.6        r36_2002  conda-forge
-    r-essentials                     4.0        r40_2002  conda-forge
-    r-essentials                     4.0 r40hd8ed1ab_2002  conda-forge
-    r-essentials                     4.1 r41hd8ed1ab_2002  conda-forge
-    r-essentials                     4.1 r41hd8ed1ab_2003  conda-forge
-    r-essentials                     4.2 r42hd8ed1ab_2003  conda-forge
-    r-essentials                     4.2 r42hd8ed1ab_2004  conda-forge
-    r-essentials                     4.3 r43hd8ed1ab_2004  conda-forge
-    r-essentials                     4.3 r43hd8ed1ab_2005  conda-forge
-    r-essentials                     4.4 r44hd8ed1ab_2005  conda-forge
+    Getting repodata from channels...
+
+    conda-forge/noarch                                  28.0MB @  40.4MB/s  0.6s
+    conda-forge/linux-64                                57.0MB @  45.7MB/s  1.2s
+    Name         Version Build                         Channel     Subdir
+    ─────────────────────────────────────────────────────────────────────────
+    r-essentials 4.5     r45hd8ed1ab_2006              conda-forge noarch
+    r-essentials 4.4     r44hd8ed1ab_2005 (+ 1 builds) conda-forge noarch
+    r-essentials 4.3     r43hd8ed1ab_2004 (+ 1 builds) conda-forge noarch
+    r-essentials 4.2     r42hd8ed1ab_2004 (+ 1 builds) conda-forge noarch
+    r-essentials 4.1     r41hd8ed1ab_2002 (+ 1 builds) conda-forge noarch
+    r-essentials 4.0     r40_2002         (+ 1 builds) conda-forge noarch
+    r-essentials 3.6     r36_2001         (+ 1 builds) conda-forge noarch
+    r-essentials 3.5.1   r351_1000        (+ 2 builds) conda-forge linux-64
+    r-essentials 3.4.1   r3.4.1_0                      conda-forge linux-64
+    r-essentials 1.5.2   r3.3.2_0                      conda-forge linux-64
     
     $ mamba create --prefix=./test-R r-essentials==4.3
-    <Text>
+    
     $ conda activate ./test-R
     (test-R) $ R --version
-    R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+    R version 4.3.3 (2024-02-29) -- "Angel Food Cake"
     Copyright (C) 2024 The R Foundation for Statistical Computing
-    Platform: x86_64-conda-linux-gnu
+    Platform: x86_64-conda-linux-gnu (64-bit)
 
     R is free software and comes with ABSOLUTELY NO WARRANTY.
     You are welcome to redistribute it under the terms of the
@@ -182,11 +213,11 @@ R is a popular open-source language with an active development community. New ve
 
 ### Installing New Packages
 
-The `install.packages()` command in R will download new packages from the CRAN source directory and install them for your account. If you are running R from within a custom Anaconda environment, they will be specific to that environment. In either case, these packages will not be visible to other users.
+The `install.packages()` command in R will download new packages from the CRAN source directory and install them for your account. See [Accessing R](#accessing-r) for more information about where R packages get installed based on how you launch R itself.
 
 ### Checking Installed Packages
 
-The command `installed.packages()` in R list details about all packages that are loaded and visible to current R session.
+Within an interactive session, the command `installed.packages()` in R list details about all packages that are loaded and visible to current R session. Users can also run `.libPaths()` to see the available path(s) from which R packages are installed.
 
 ### Loading Packages
 
@@ -194,7 +225,7 @@ Packages are loaded into the current R environment through the `library()` funct
 
 ## Graphics
 
-R is commonly used to produce high-quality graphics based on data. This capability is built-in and can be extended through the use of packages such as ggplot2. To produce graphics on the HPC systems, the easiest method is to output graphical displays to an appropriate filetype (pdf, jpeg, etc.). Then this file can be moved to your local machine using command line tools such as scp or rsync.
+R is commonly used to produce high-quality graphics based on data. This capability is built-in and can be extended through the use of packages such as `ggplot2`. To produce graphics on the HPC systems, the easiest method is to output graphical displays to an appropriate filetype (pdf, jpeg, etc.). Then this file can be moved to your local machine using command line tools such as `scp` or [`rsync`](../../Managing_Data/Transferring_Files/index.md).
 
 ??? example "Example R Script for Graphics Output"
 
@@ -246,8 +277,9 @@ Most of these packages will have to be installed in a custom environment as many
     The `pbdMPI` package provides the MPI interface, which requires Open MPI.  Note that the Open MPI module must be loaded prior to installing the package. For example, on Kestrel:
     
     ```
-    $ module load openmpi/5.0.3-gcc
-    $ R
+    # Be sure to change /path/to/r_env appropriately!
+    $ module load gcc openmpi/5.0.3 miniforge3
+    $ conda activate /path/to/r_env
     > install.packages("pbdMPI")
     ```
 
@@ -277,9 +309,10 @@ Most of these packages will have to be installed in a custom environment as many
     #SBATCH --partition=shared
     #SBATCH --account=<your_allocation_id>
 
-    module load mamba
-    module load openmpi/5.0.3-gcc
-    conda activate /path/to/renv
+    # Be sure to change /path/to/r_env appropriately!
+    module load miniforge3
+    module load gcc openmpi/5.0.3
+    conda activate /path/to/r_env
 
     INPUT_BASENAME=ranknode # JOB NAME - USER INPUT PARAMETER
     JOB_FILE=$INPUT_BASENAME.R
@@ -303,8 +336,6 @@ Most of these packages will have to be installed in a custom environment as many
 ## Contacts
 
 For questions on the R software environment itself or advanced R package questions, please contact [HPC-Help@nlr.gov](mailto:HPC-Help@nlr.gov).
-
-Additionally, NLR has an internal R Users Group that meets periodically to highlight interesting packages, problems, and share experiences related to R programming. For more details, contact [Daniel Inman](mailto:daniel.inman@nlr.gov). 
 
 ## References
 
