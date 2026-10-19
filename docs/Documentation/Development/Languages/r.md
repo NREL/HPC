@@ -58,6 +58,16 @@ When R packages are installed via conda/mamba following the example above, the p
 
 For more information about using R in the Anaconda framework, see [Using R language with Anaconda](https://www.anaconda.com/docs/getting-started/working-with-conda/packages/using-r-language).
 
+## Managing R Packages
+
+This table summarizes helpful R commands launched from [an interactive R session](#running-r-interactively) that users can leverage for managing their R packages on NLR HPC systems.
+
+| R Command              | Description |
+| :--                    | :--         |
+| `installed.packages()` | Lists details about all packages that are loaded and visible to current R session.                                   |
+| `.libPaths()`          | Lists the available path(s) into which R packages are installed.                                                     | 
+| `install.packages()`   | Downloads new packages from the CRAN source directory and installs them into a writable location from `.libPaths()`. |
+
 ## Running R Interactively
 
 R is commonly used via an interactive shell. To do this, first request an interactive compute node ([see running interactive jobs](../../Slurm/interactive_jobs.md)) using the `salloc` command. Alternatively, R can be used through [Jupyterhub](../Jupyter/index.md).
@@ -210,18 +220,6 @@ R is a popular open-source language with an active development community. New ve
     For more information about these matters see
     https://www.gnu.org/licenses/.
     ```
-
-### Installing New Packages
-
-The `install.packages()` command in R will download new packages from the CRAN source directory and install them for your account. See [Accessing R](#accessing-r) for more information about where R packages get installed based on how you launch R itself.
-
-### Checking Installed Packages
-
-Within an interactive session, the command `installed.packages()` in R list details about all packages that are loaded and visible to current R session. Users can also run `.libPaths()` to see the available path(s) from which R packages are installed.
-
-### Loading Packages
-
-Packages are loaded into the current R environment through the `library()` function.
 
 ## Graphics
 
