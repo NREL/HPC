@@ -102,7 +102,7 @@ FCL         = mpiifort
 
 The first line says that the compiler pre-processor will be fpp (try `which fpp` and you should get an output that shows `fpp` is in your path and coming from `oneapi`).
 
-The second and third lines say that we’ll be using Intel’s MPI (Try `which mpiifort` to confirm that it is in your path). FC is the “Fortran Compiler” and FCL is the corresponding linker. The `-qopenmp` flag additionally says we’ll be compiling with openmp. Different compilers have different executable names (e.g. mpiifort for Intel MPI fortran compiler, mpifort for GNU). See the [Fortran documentation page](Documentation/ProgrammingLanguages/fortran.md) for a complete list. 
+The second and third lines say that we’ll be using Intel’s MPI (Try `which mpiifort` to confirm that it is in your path). FC is the “Fortran Compiler” and FCL is the corresponding linker. The `-qopenmp` flag additionally says we’ll be compiling with openmp. Different compilers have different executable names (e.g. mpiifort for Intel MPI fortran compiler, mpifort for GNU). See the [Fortran documentation page](../../Languages/Fortran/) for a complete list. 
 
 The next important section is given below: 
 

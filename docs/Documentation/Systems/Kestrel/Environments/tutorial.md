@@ -16,7 +16,7 @@ Kestrel is a Cray machine whose nodes are connected by "Cray Slingshot" network 
 
 Most of us coming from Eagle are probably used to running our codes with Intel MPI or Open MPI, but not Cray MPICH.
 
-Using the cray-designed programming environments ("Prg-Envs") requires using special Cray compiler wrappers `cc` and `ftn`. These wrappers replace the MPI compiler wrappers you're used to, like `mpicc`, `mpiicc`, `mpiifort`, etc.  
+Using the cray-designed programming environments ("PrgEnvs") requires using special Cray compiler wrappers `cc` and `ftn`. These wrappers replace the MPI compiler wrappers you're used to, like `mpicc`, `mpiicc`, `mpiifort`, etc.  
 
 This guide will walk through how to utilize the Cray `PrgEnv-` environments with Cray MPICH, how to use "NLR-built" environments, and how to make sure your build is using the dependencies you expect.
 
