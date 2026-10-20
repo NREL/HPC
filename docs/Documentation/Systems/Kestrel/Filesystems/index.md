@@ -41,21 +41,14 @@ Directories in /projects have a quota assigned based on the project resource all
 
 ???+ info "To check your quota usage, run the following commands:"
     ```
-    # To determine your Project ID run:
-
-    [user@kl1 ~]$ lfs project -d /projects/csc000
-    110255 P /projects/csc000
-
-    # In this case, 110255 is the Project ID for project csc000.
-
     # To see usage towards your quota, run:
 
-    [user@kl1 ~]$ lfs quota -hp 110255 /projects/csc000
-
-    Disk quotas for prj 110255 (pid 110255):
-        Filesystem    used   quota   limit   grace   files   quota   limit   grace 
-    /projects/csc000    
-                    617.5G    100T    100T       -  636875       0       0       -
+    [user@kl1 ~]$ lfs quota -gh csc000 /projects
+    
+    Disk quotas for grp csc000 (gid 249914):
+         Filesystem    used   quota   limit   grace   files   quota   limit   grace
+          /projects  10.61T     20T   20.1T       - 1064760       0       0       -
+    gid 249914 is using default file quota setting
     # An asterisk(*) by the used value indicates the project has exceeded its quota of storage, and writes to the directory are not allowed.
     ```
 

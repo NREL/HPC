@@ -16,5 +16,5 @@ The migration from RHEL8 to RHEL9 provides the system with necessary security up
 | HPE Cray Programming Environment | 25.3 |
 | NVIDIA GPU Driver       | 595.58.03 |
 | Provided CUDA modules   | 12.8.1 and 13.2 |
-| Slurm                   | 25.05.6 |
+| Slurm                   | 25.11.8 |
 

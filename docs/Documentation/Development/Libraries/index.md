@@ -10,6 +10,7 @@ We support some of the most widely used scientific math libraries including:
 * LAPACK
 * scaLAPACK
 * HDF5 
+* Kokkos
 * PETSc
 
 For details on how to build an application with scientific libraries, see our [how-to guide](howto.md)

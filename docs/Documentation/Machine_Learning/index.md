@@ -58,19 +58,11 @@ Answer yes to proceed, and you should be up and running with PyTorch! The [PyTor
 
 ### Installing PyTorch (GPU)
 
-In an activated python environment, you can install PyTorch using the standard approach found under the Get Started tab of the [PyTorch](https://pytorch.org/) website, e.g., using ```pip```,
+Kestrel users are **strongly recommended to use the pre-built `pytorch` modules** directly or build from them based on the instructions below, depending on which [OS your target node is using](../../RHEL9_upgrade/index.md):
 
-??? example "Installing PyTorch using pip"
-	```pip3 install torch torchvision torchaudio```
+#### Pre-built PyTorch GPU module
 
-or using ```conda,```
-
-??? example "Installing PyTorch using conda specifying CUDA 12.4"
-	```conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia```
-
-### Pre-built PyTorch GPU module
-
-??? example "Experimental (RHEL8): Pre-built pytorch/2.10.0 module"
+??? example "RHEL8: Pre-built pytorch/2.10.0 module"
 
     A pre-built `pytorch` module is available on Kestrel as an experimental alternative to the conda-unpack based approach below. It provides PyTorch 2.10.0 with CUDA 12.4, NCCL 2.23.4, and Python 3.11. It is for **GPU nodes only**.
 
@@ -136,67 +128,18 @@ or using ```conda,```
     To suppress this message: module -q load pytorch/2.12.0
     ```
 
-### Pre-built PyTorch environment with multi-node and GPU support
+#### Generic PyTorch installation
 
-For training large datasets on multiple GPUs with NCCL and MPI support, please use our pre-built environment. The environment can be downloaded and installed in a directory of your choice by executing the following instructions after logging into a GPU node on Kestrel.
+Users can also install PyTorch in an activated python environment using the standard approach found under the Get Started tab of the [PyTorch](https://pytorch.org/) website, e.g., using ```pip```. **PyTorch installed in this manner is not expected to scale well on multiple GPU nodes**, but should have good performance within a single GPU node:
 
-??? example "Installing pre-built PyTorch MPI NCCL environment"
-	```
-       $ cp /nopt/nrel/apps/examples/python_envs/torchParallel.tar.gz . 
-       $ mkdir -p my_torch_MPI_NCCL
-       $ tar -xzf torchParallel.tar.gz -C my_torch_MPI_NCCL
-       $ source my_torch_MPI_NCCL/bin/activate
-       $ conda-unpack
-	   $ echo "import numpy; numpy.version.version" > ${CONDA_PREFIX}/lib/python3.13/site-packages/00-preload-numpy.pth
-    ```
-
-Once the environment has been installed, it can be tested with the following steps:
-
-??? example "Testing the pre-built PyTorch MPI NCCL environment"
-	```
-       $ wget https://raw.githubusercontent.com/NatLabRockies/HPC/gh-pages/docs/Documentation/Machine_Learning/metadata/testPytorchMPI.py
-       $ wget https://raw.githubusercontent.com/NatLabRockies/HPC/gh-pages/docs/Documentation/Machine_Learning/metadata/testNCCL.py
-       $ salloc -A <projectname> -t 00:15:00 --nodes=2 --ntasks-per-node=1 --gres=gpu:1
-       $ source my_torch_MPI_NCCL/bin/activate
-       $ srun -n 2 python testPytorchMPI.py
-       Hello from process 0 (out of 2)!
-       Hello from process 1 (out of 2)!
-       $ srun -n 2 python testNCCL.py
-       Successfully initialized process group with NCCL backend.
-       Successfully initialized process group with NCCL backend.
-    ```
-
-Users can also install additional packages on top of this environment. When installing additional packages, please be informed that this enviroment was produced by compiling ```pytorch v2.7.0``` from source using ```PrgEnv-gnu/8.5.0```, ```anaconda3/2024.06.1```, ```cuda/12.3```, ```gcc-native/11.2```, ```cray-mpich/8.1.28``` and the ```nccl/2.21.5``` modules. Loading these same modules before installing additional python packages is less likely to lead to conflicts. 
-
-If another version of pytorch is desired, users may compile and install it on their own by using the following steps used in building v2.7.0 as a guideline:
-
-??? example "Building PyTorch MPI NCCL from source"
-	```
-       $ module load PrgEnv-gnu/8.5.0
-       $ module load cuda/12.3
-       $ module load anaconda3/2024.06.1
-       $ conda create --prefix ./torchMPI
-       $ conda activate ./torchMPI
-       $ module load gcc-native/11.2
-       $ conda install python
-       $ conda install yaml
-       $ conda install pyyaml
-       $ conda install typing_extensions
-       $ conda install numactl
-       $ conda install scipy
-       $ module load nccl
-       $ export USE_SYSTEM_NCCL=1
-       $ export NCCL_ROOT_DIR=/nopt/nrel/apps/gpu_stack/software/nccl/2.21.5/install/
-       $ git clone --branch v2.7.0 https://github.com/pytorch/pytorch.git
-       $ cd pytorch
-       $ MAX_JOBS=20 python setup.py install
-    ```
+??? example "Installing PyTorch using pip"
+	```pip3 install torch torchvision torchaudio```
 
 ### PyTorch Example
 Below we present a simple convolutional neural network example for getting started using PyTorch with Kestrel GPUs. The original, more detailed version of this example can be found in the pytorch tutorials repo [here](https://github.com/pytorch/tutorials/blob/main/beginner_source/blitz/cifar10_tutorial.py).
 
 ??? example "CIFAR10 example"
-    ```
+    ```python
     import torch
     import torchvision
     import torchvision.transforms as transforms

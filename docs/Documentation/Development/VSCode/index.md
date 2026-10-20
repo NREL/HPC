@@ -69,7 +69,7 @@ If your allocation is finished on Kestrel (e.g. at the end of the FY and your al
 
 ### Start a Job and Connect VS Code
 
-SSH to Kestrel as usual (outside of VS Code) and use [sbatch](/Documentation/Slurm/batch_jobs/) or [salloc](/Documentation/Slurm/interactive_jobs) to start a job. (An interactive job with `salloc` is suggested, using a `--time` limited to only the expected duration of your working session with VS Code.)
+SSH to Kestrel as usual (outside of VS Code) and use [sbatch](../../Slurm/batch_jobs) or [salloc](../../Slurm/interactive_jobs) to start a job. (An interactive job with `salloc` is suggested, using a `--time` limited to only the expected duration of your working session with VS Code.)
 
 Wait until the job has started running, and take note of the node assigned to the job. Put the terminal aside, but leave the job running.
 

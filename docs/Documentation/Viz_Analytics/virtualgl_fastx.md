@@ -166,9 +166,11 @@ The following applications can be run on Kestrel DAV nodes through FastX session
 
 |Operating System |	Installer|
 |-----------------|----------|
-|Mac	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.3.18.dmg) |
-|Linux	          |[Download](https://www.starnet.com/files/private/FastX3/FastX3-3.2.32.rhel7.x86_64.tar.gz) |
-|Windows          |[Download](https://www.starnet.com/files/private/FastX3/FastX-3.3.18-setup.exe) |
+|Mac	          |[Download](https://www.starnet.com/files/private/FastX-client/FastX5-5.1.16.dmg) |
+|Linux	          |[Download](https://www.starnet.com/files/private/FastX-client/FastX5-5.1.14.rhel9.x86_64.tar.gz) |
+|Windows          |[Download](https://www.starnet.com/files/private/FastX-client/FastX-5.1.14-setup_nonroot.exe) |
+
+See the all client download options on the [Starnet Website's Download Page](https://www.starnet.com/download-fastx-client/).
 
 
 ## Multiple FastX Sessions

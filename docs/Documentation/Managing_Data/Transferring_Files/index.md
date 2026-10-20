@@ -44,8 +44,11 @@ $ rsync -aP --no-g /scratch/username/dataset1/ /mss/users/username/dataset1/
 If you're transferring many files then you should use rsync:
 
 ```bash
-$ rsync -azP --no-g /mss/users/username/dataset1/ user@desthost:/home/username/dataset1/
+$ rsync -aP --no-g /mss/users/username/dataset1/ user@desthost:/home/username/dataset1/
 ```
+
+!!! Note "Setting Network Bandwidth Limits"
+    For transfers over Wi-Fi, you may limit bandwidth with `--bwlimit=RATE`. For example, `--bwlimit=1.5M` sets a limit of 1.5 Megabytes per second.
 
 If you're transferring an individual file then use scp:
 
@@ -75,12 +78,15 @@ For Windows you will need to download WinSCP to transfer files to and from HPC s
 
 ### tar
 
-`tar`, along with [`zip`](#zip), is one of the basic commands to combine multiple individual files into a single file (called a "tarball"). `tar` requires at least one command line option. A typical usage would be:
+`tar`, along with `zip`, is one of the basic commands to combine multiple individual files into a single file (called a "tarball"). `tar` requires at least one command line option. A typical usage would be:
 ```bash
 $ tar -cf newArchiveName.tar file1 file2 file3
 # or
 $ tar -cf newArchiveName.tar /path/to/folder/
 ```
+
+!!! Warning "Disk Usage"
+    Please note that this process approximately doubles disk usage of your data, so you should ensure that creating the tarball will not hit the limit of your disk space.
 
 The `-c` flag denotes **c**reating an archive, and `-f` denotes that the next argument given will be the archive name&mdash;in this case it means the name you would prefer for the resulting archive file. 
 
@@ -92,7 +98,7 @@ $ tar -xvf existingArchiveName.tar
 
 ### Compressing
 
-`tar` can also generate compressed tarballs which reduce the size of the resulting archive. This can be done with the `-z` flag (which just calls [`gzip`](#gzip) on the resulting archive automatically, resulting in a `.tar.gz` extension) or `-j` (which uses [`bzip2`](#bzip2), creating a `.tar.bz2`).
+`tar` can also generate compressed tarballs which reduce the size of the resulting archive. This can be done with the `-z` flag (which just calls `gzip` on the resulting archive automatically, resulting in a `.tar.gz` extension) or `-j` (which uses `bzip2`, creating a `.tar.bz2`).
 
 For example:
 
