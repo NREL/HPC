@@ -8,113 +8,108 @@
 
 ## Environments
 
-There are three types of module-based Toolchains available on Kestrel:
+Kestrel runs Red Hat Enterprise Linux 9, and its module system is [Lmod](../../../Environment/lmod.md) 8.7.37, a Lua-based, hierarchical module system. At login, a minimal default set of modules is loaded (`Core/26.05` and `DefApps`).
 
-1. "PrgEnv-" Environments, shipped with Kestrel
-2. NLR-built Environments
-3. NLR-built Environments with `cray-mpich-abi`
+There are three distinct environment types on Kestrel. **Do not mix them in the same session** — always start with `module reset` before switching.
 
-The "PrgEnv-" environments are new on Kestrel. PrgEnv stands for "programming environment," and Kestrel ships with several of these. There are advantages to using a PrgEnv environment, as these environments are tailored for some of the Cray-specific features of Kestrel. For example, Cray MPICH utilizes Kestrel's Cray Slingshot network more effectively than OpenMPI or Intel MPI, so it runs noticeably faster than the other two for jobs that require two or more nodes. All `PrgEnv-` environments utilize Cray MPICH by default.
+1. **Cray Programming Environment (CPE)** — a complete, pre-validated software stack provided by HPE Cray, activated with `module load cpe-stack/25.03` followed by a `PrgEnv-*` module.
+2. **NLR-provided toolchains** — individual compiler toolchains (`gcc`, `oneapi`, `llvm`) that you load à la carte, then layer MPI and libraries on top.
+3. **Miniforge / Containers** — `miniforge3` for user-managed Conda/Mamba Python environments, and `apptainer` for running pre-built container images. These are independent of the compiler-based workflows above.
 
-The NLR-built environments function similarly to those on Eagle, and it is up to the user to load all necessary modules to build and run their applications.
+### 1. Cray Programming Environment (CPE)
 
-NLR-built environments can make use of Cray MPICH via the `cray-mpich-abi`. As long as program is compiled with an MPICH-based MPI (e.g., Intel MPI but *not* Open MPI), the `cray-mpich-abi` can be loaded at runtime, which causes the program to use Cray MPICH for dynamically built binaries.
+CPE bundles multiple compilers (Cray, GNU, Intel, AOCC, NVIDIA), a pre-integrated MPI (Cray-MPICH), and pre-tested libraries and tools. This is the closest analog to the "PrgEnv-" environments from Kestrel's RHEL8 days, but it must now be explicitly activated:
 
+```bash
+module reset
+module load cpe-stack/25.03
+module load PrgEnv-gnu      # or PrgEnv-cray, PrgEnv-intel, PrgEnv-aocc, PrgEnv-nvidia
+```
 
-## A note on OpenMPI
+Each `PrgEnv-*` includes a compiler suite, Cray-MPICH, Cray LibSci (a drop-in alternative to MKL), and additional communication/network libraries. Switch between compilers within CPE using `module swap PrgEnv-gnu PrgEnv-intel`, which preserves the rest of the CPE stack.
 
-Currently, OpenMPI does not run performantly or stably on Kestrel. You should do your best to avoid using OpenMPI. Please reach out to hpc-help@nlr.gov if you need help working around OpenMPI.
+Use the Cray compiler wrappers `cc`, `CC`, and `ftn` — they automatically invoke the correct underlying compiler and MPI for whichever `PrgEnv-*` is loaded.
 
-## Summary of available compiler environments
+### 2. NLR-Provided Toolchains
 
-* (Cray) denotes that the module belongs to the default Cray module set.
-* (NLR) denotes that the module belongs to the NLR-built module set. If a compiler module is denoted (NLR), then the corresponding MPI module is also (NLR).
+NLR-provided toolchains let you select a compiler and its associated libraries individually, similar to the old Eagle-style module experience. Loading a compiler base module reveals only the software built for that specific toolchain:
+
+```bash
+module reset
+module load gcc/14.2.0        # or oneapi/2025.3.1, or llvm
+module avail
+```
+
+MPI (OpenMPI, MPICH, or Intel oneAPI MPI) is then loaded on top of the compiler — see [MPI](../../../Development/Programming_Models/mpi.md) for details. GPU-enabled software is revealed by also loading a `cuda` module, e.g. `module load gcc/14.2.0 cuda/13.2`.
+
+### 3. Miniforge and Containers
+
+For user-managed Python/R/data-science stacks, use `module load miniforge3/26.1.1-3` and manage packages with `conda`/`mamba`. For portable, pre-built software stacks, use `module load apptainer/1.4.1-runonly` and run images with `apptainer exec`.
+
+## A Note on OpenMPI
+
+On Kestrel, Cray-MPICH (via CPE) generally offers the best performance and stability for multi-node jobs, since it is tuned for Kestrel's Slingshot network. OpenMPI is available via the NLR toolchain workflow, but `openmpi5` currently only works with `mpirun` (not `srun`), because Slurm is configured without PMIx support — see the [MPI](../../../Development/Programming_Models/mpi.md) page for the current workaround. If you have trouble with OpenMPI, please reach out to hpc-help@nlr.gov.
+
+## Summary of Available Compiler Environments
+
+* **CPE** compilers/MPI are activated with `cpe-stack` + `PrgEnv-*`.
+* **NLR toolchains** are activated by loading the compiler module directly (`gcc`, `oneapi`, `llvm`).
 
 ### GNU
 
-| PrgEnv|Compiler Module| MPI module |Language|Wrapper|Compiler|MPI|
+| Workflow | Compiler Module | MPI module |Language|Wrapper|Compiler|MPI|
 |-------|---------------|------------|--------|-------|--------|---|
-| gnu   | gcc (Cray)    | cray-mpich | Fortran| ftn   |gfortran| Cray MPICH |
-| gnu   | gcc (Cray)    | cray-mpich | C      | cc    | gcc    | Cray MPICH |
-| gnu   | gcc (Cray)    | cray-mpich | C++    | CC    | g++    | Cray MPICH |
-| n/a   | gcc (NLR)   | openmpi/4.1.5-gcc | Fortran| mpifort| gfortran| Open MPI|
-| n/a   | gcc (NLR)   | openmpi/4.1.5-gcc | C      | mpicc | gcc | Open MPI|
-| n/a   | gcc (NLR)   | openmpi/4.1.5-gcc | C++    | mpic++ | g++ | Open MPI|
+| CPE (`PrgEnv-gnu`) | gcc (Cray)    | cray-mpich | Fortran| ftn   |gfortran| Cray MPICH |
+| CPE (`PrgEnv-gnu`) | gcc (Cray)    | cray-mpich | C      | cc    | gcc    | Cray MPICH |
+| CPE (`PrgEnv-gnu`) | gcc (Cray)    | cray-mpich | C++    | CC    | g++    | Cray MPICH |
+| NLR toolchain   | gcc/14.2.0   | openmpi/5.0.5 | Fortran| mpifort| gfortran| Open MPI|
+| NLR toolchain   | gcc/14.2.0   | openmpi/5.0.5 | C      | mpicc | gcc | Open MPI|
+| NLR toolchain   | gcc/14.2.0   | openmpi/5.0.5 | C++    | mpic++ | g++ | Open MPI|
 
 ### Cray 
 
-| PrgEnv|Compiler Module| MPI module|Language|Wrapper|Compiler|MPI|
+| Workflow | Compiler Module | MPI module|Language|Wrapper|Compiler|MPI|
 |-------|---------------|-----------|--------|-------|--------|---|
-| cray  | cce (Cray)   |cray-mpich  |Fortran| ftn   | crayftn| Cray MPICH |
-| cray  | cce (Cray)   |cray-mpich  |C      | cc    | craycc | Cray MPICH |
-| cray  | cce (Cray)   |cray-mpich  |C++    | CC    | crayCC | Cray MPICH |
+| CPE (`PrgEnv-cray`)  | cce (Cray)   |cray-mpich  |Fortran| ftn   | crayftn| Cray MPICH |
+| CPE (`PrgEnv-cray`)  | cce (Cray)   |cray-mpich  |C      | cc    | craycc | Cray MPICH |
+| CPE (`PrgEnv-cray`)  | cce (Cray)   |cray-mpich  |C++    | CC    | crayCC | Cray MPICH |
 
 ### Intel
 
-| PrgEnv|Compiler Module| MPI Module|Language|Wrapper|Compiler|MPI|
+| Workflow | Compiler Module | MPI Module|Language|Wrapper|Compiler|MPI|
 |-------|---------------|------|--------|-------|--------|---|
-| intel | intel (Cray)  | cray-mpich    | Fortran| ftn   | ifort  | Cray MPICH |
-| intel | intel (Cray)  | cray-mpich    | C      | cc    | icc    | Cray MPICH |
-| intel | intel (Cray)  | cray-mpich    | C++    | CC    | icpc    | Cray MPICH |
-| n/a   | intel-oneapi (NLR) |intel-oneapi-mpi  | Fortran| mpiifort | ifort  | intel MPI|
-| n/a   | intel-oneapi (NLR) |intel-oneapi-mpi  | C      | mpiicc   | icc    | intel MPI|
-| n/a   | intel-oneapi (NLR) |intel-oneapi-mpi  | C++    | mpiicpc  | icpc   | intel MPI|
+| CPE (`PrgEnv-intel`) | intel (Cray)  | cray-mpich    | Fortran| ftn   | ifx  | Cray MPICH |
+| CPE (`PrgEnv-intel`) | intel (Cray)  | cray-mpich    | C      | cc    | icx    | Cray MPICH |
+| CPE (`PrgEnv-intel`) | intel (Cray)  | cray-mpich    | C++    | CC    | icpx    | Cray MPICH |
+| NLR toolchain   | oneapi/2025.3.1 |intel-oneapi-mpi/2021.17.2  | Fortran| mpiifort | ifx  | Intel oneAPI MPI|
+| NLR toolchain   | oneapi/2025.3.1 |intel-oneapi-mpi/2021.17.2  | C      | mpiicx   | icx    | Intel oneAPI MPI|
+| NLR toolchain   | oneapi/2025.3.1 |intel-oneapi-mpi/2021.17.2  | C++    | mpiicpx  | icpx   | Intel oneAPI MPI|
+
+!!! note
+    The Intel Classic compilers (`icc`, `ifort`) have been fully retired in favor of the oneAPI compilers (`icx`, `icpx`, `ifx`). See [MPI](../../../Development/Programming_Models/mpi.md) and the [oneAPI Toolchain tutorial](Toolchains/intel.md) for details.
 
 Note: 
 
-The `Cray MPICH` used for each different `PrgEnv-` is pointing to a different instance of MPICH, E.g. for `PrgEnv-intel` the MPICH used is located under `/opt/cray/pe/mpich/8.1.21/ofi/intel/19.0` and for `PrgEnv-cray` the MPICH used is located under `/opt/cray/pe/mpich/8.1.20/ofi/crayclang/10.0`.
+The `Cray MPICH` used for each different `PrgEnv-` is pointing to a different instance of MPICH; check `module show cray-mpich` after loading a given `PrgEnv-*` to see the exact path in use.
 
-## PrgEnv- Programming Environments
-
-!!! bug "Module Known Issues"
-    As of July 30th, 2024, there are some modules that do not work correctly. The following points describe the issues and workarounds. We are working on permanent fixes for these issues. <br>
-    * If using PrgEnv-intel, cray-libsci/23.12 is loaded by default. Load cray-libsci/22.12 instead. <br>
-    * If using PrgEnv-gnu with gcc version 10, load cray-libsci/22.12 instead of the default cray-libsci version. <br>
-    * On the GPU nodes, if using PrgEnv-nvhpc, you need to load nvhpc/23.9. nvhpc/24.1 is loaded by default and will not work. <br>
-    * The ```module restore``` command could cause an "Unable to find cray-mpich" libraries error when used with PrgEnv-intel. If this happens, remove ```module restore``` from the list of commands.
+## PrgEnv- Programming Environments (CPE)
 
 ### Introduction
 
 These environments come packaged with:
 
-1. A compiler, which corresponds to the name of the environment. E.g., `PrgEnv-intel` uses intel compilers
+1. A compiler, which corresponds to the name of the environment. E.g., `PrgEnv-intel` uses Intel compilers
 2. Cray MPICH
 3. Cray LibSci, which can be used in place of MKL
 4. Additional communication and network libraries
 
-Upon logging into the machine, the `PrgEnv-gnu` is loaded by default on both the CPU and GPU login nodes. If we `module list`, we can see the modules associated with `PrgEnv-gnu`.
-
-We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-gnu` is loaded but we want to use `PrgEnv-cray` instead, we can `module swap PrgEnv-gnu PrgEnv-cray`.
+To use a `PrgEnv-*`, you must first load `cpe-stack/25.03`. We can swap between programming environments using the `module swap` command. For example, if `PrgEnv-gnu` is loaded but we want to use `PrgEnv-cray` instead, we can `module swap PrgEnv-gnu PrgEnv-cray`.
 
 ### What is a PrgEnv module doing?
 
 PrgEnv modules can seem a bit mysterious. We can check out the inner workings of a PrgEnv module with the `module show` command. For example, for `PrgEnv-gnu` we can:
 
 `module show PrgEnv-gnu`
-
-Which outputs:
-
-```
-/opt/cray/pe/modulefiles/PrgEnv-gnu/8.3.3:
-
-conflict	 PrgEnv-amd 
-conflict	 PrgEnv-aocc 
-conflict	 PrgEnv-cray 
-conflict	 PrgEnv-gnu 
-conflict	 PrgEnv-intel 
-conflict	 PrgEnv-nvidia 
-setenv		 PE_ENV GNU 
-setenv		 gcc_already_loaded 1 
-module		 swap gcc/12.1.0 
-module		 switch cray-libsci cray-libsci/22.10.1.2 
-module		 switch cray-mpich cray-mpich/8.1.20 
-module		 load craype 
-module		 load cray-dsmml 
-module		 load craype-network-ofi 
-module		 load cray-mpich 
-module		 load cray-libsci 
-setenv		 CRAY_PRGENVGNU loaded 
-```
 
 This tells us that PrgEnv-gnu conflicts with all other PrgEnvs. The modulefile sets some environment variables (the `setenv` lines), and loads the modules associated with the programming environment.
 
@@ -141,78 +136,57 @@ we would expect `ftn` to wrap around gfortran, the GNU fortran compiler. We can 
 
 `ftn --version`
 
-Which outputs:
-
-```
-GNU Fortran (GCC) 12.1.0 20220506 (HPE)
-Copyright (C) 2022 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
-
-As expected. We can also `which ftn`:
-```
-/opt/cray/pe/craype/2.7.17/bin/ftn
-```
-Note1: In contrast with mpich, the location of the wrappers `cc`, `CC` and `ftn` is always the same `/opt/cray/pe/craype/2.7.17/bin/ftn` and does NOT depend on the loaded PrgEnv.
+Note1: In contrast with mpich, the location of the wrappers `cc`, `CC` and `ftn` is always the same regardless of the loaded PrgEnv (part of the `craype` module).
 
 Note2: `cc`, `CC` and `ftn` are also wrappers around their mpi couterparts. For mpi codes, the wrappers call the necessary mpi compilers depending on which PrgEnv is loaded. 
 
-Note3: When changing between PrgEnvs, it is better to use `module swap [current prgenv] [new prgenv]` instead of `module purge; module load [new prgenv]` due to the way the environments set some environment variables.
-
-`ftn` is part of the `craype` module. If we `module unload craype` and then type `which ftn` we find:
-```
-/usr/bin/which: no ftn in (/opt/cray/pe/mpich/8.1.20/ofi/gnu/9.1/bin:/opt/cray/pe/mpich/8.1.20/bin:/opt/cray/libfabric/1.15.2.0/bin:/opt/cray/pe/gcc/12.1.0/bin:/home/ohull/.local/bin:/home/ohull/bin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sbin:/opt/sgi/bin:/nopt/xalt/xalt/bin:/nopt/nrel/utils/bin:/nopt/slurm/current/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/c3/bin:/sbin:/bin)
-```
-
-I.e., it can't find the path to `ftn`, because `craype` is not loaded into the environment.
-
-What happens if we `module swap PrgEnv-gnu PrgEnv-cray`, so that we're now using PrgEnv-cray, and then check `ftn`?
-
-```
-[ohull@eyas1 ~]$ ftn --version
-Cray Fortran : Version 14.0.4
-```
-
-`ftn` is now using Cray Fortran under the hood.
+Note3: When changing between PrgEnvs, it is better to use `module swap [current prgenv] [new prgenv]` instead of `module reset; module load [new prgenv]` due to the way the environments set some environment variables.
 
 Note: you can still directly access the underlying compiler. For example, if we're using PrgEnv-gnu (so our compilers are the GCC compilers), we can use `ftn`, or we can use `gfortran` or `mpifort` directly. It is considered best practice to use the Cray wrappers (`ftn`, `cc`, `CC`) on a Cray machine like Kestrel.
 
-In fact, the use of `mpifort` can be quite confusing. Inside the PrgEnv-gnu environment, we might assume that `mpifort` is a wrapper around OpenMPI. This is not correct, as `mpifort` wraps around Cray MPICH inside PrgEnv-gnu. If we `module unload PrgEnv-gnu` and then `module load openmpi`, then `mpifort` will wrap around OpenMPI. Using the Cray wrappers (`ftn`, `cc`, `CC`) helps avoid this confusion.
+In fact, the use of `mpifort` can be quite confusing. Inside the PrgEnv-gnu environment, `mpifort` wraps around Cray MPICH, not OpenMPI. If instead you load the NLR `gcc` toolchain and then `openmpi`, `mpifort` will wrap around OpenMPI. Using the Cray wrappers (`ftn`, `cc`, `CC`) inside CPE helps avoid this confusion.
 
 ### Submitting a job within a PrgEnv
 
 Submitting a Slurm job using a PrgEnv environment is no different than how you would normally submit a job. In your slurm script, below the #SBATCH directives, include:
 
 ```
-module swap PrgEnv-cray [new PrgEnv]
+module reset
+module load cpe-stack/25.03
+module load PrgEnv-gnu   # or whichever PrgEnv you need
 ```
 
-We swap from `PrgEnv-cray` because this is the default PrgEnv that is loaded when logging onto Kestrel.
+Depending on the software you're trying to run, you may need to load additional modules like `cray-hdf5` or `cray-fftw` (these are bundled with `cpe-stack`).
 
-`[new PrgEnv]` can be `PrgEnv-gnu` or `PrgEnv-intel`.
+## NLR-Provided Toolchains
 
-Depending on the software you're trying to run, you may need to load additional modules like `cray-hdf5` or `cray-fftw`.
+NLR-provided toolchains function similarly to the old Eagle-style modules, where it is up to the user to load all necessary modules to build and run their applications. These are not CPE and should not be combined with `cpe-stack`/`PrgEnv-*` in the same session.
 
+```bash
+module reset
+module load gcc/14.2.0        # or oneapi/2025.3.1, or llvm
+module avail
+```
 
-## NLR-built environments
+The modules are optimized for Kestrel architecture and updated periodically. If there is a module you need but is not available, email hpc-help@nlr.gov.
 
-The NLR build modules are similar to Eagle, where the module are separate and no dependecy is created between modules. 
+### MPI-Enabled Software
 
-The modules are grouped by type `compilers_mpis` `utilities_libraries` and `applications`, and a module can be loaded using `module load $module_name`.
+MPI-enabled software modules use a `-mpi` suffix and, like compiler-dependent modules, are not visible until the relevant MPI implementation is loaded (`openmpi`, `mpich`, or `intel-oneapi-mpi`). See [MPI](../../../Development/Programming_Models/mpi.md) for details.
 
-The modules are optimized for Kestrel architecture and will be updated/upgraded every 6/12months or upon request. If there is a module you need but is not available, email hpc-help@nlr.gov
+### cray-mpich-abi
 
+For binaries dynamically built with an MPICH-based MPI (NLR toolchain, e.g. `intel-oneapi-mpi`), `cray-mpich-abi` can be used at runtime to leverage Cray-MPICH's optimization for Kestrel. Check `module spider cray-mpich-abi` to confirm current availability, since this is an advanced binary-compatibility feature.
 
-## NLR-built environments with cray-mpich-abi
+## Discovering Modules
 
-For binaries dyanamically built with an MPICH-based MPI such as intel-mpi, the user can choose to use `cray-mpich-abi` at runtime to leverage its optimization for Kestrel. To check if your executable was dynamically built with intel MPI, you can `ldd [your program name] | grep mpi`.
+Use `module avail` to see what's compatible with your currently loaded modules, and `module spider <name>` to search globally (including modules hidden by your current environment) and see what prerequisites are needed:
 
-the module `cray-mpich-abi` will cause the program to run with Cray MPICH at runtime instead of Intel MPI. In your slurm submit script, you must include the two lines:
+```bash
+module avail
+module spider fftw
+module spider fftw/3.3.10
+```
 
-`module load craype`
-`module load cray-mpich-abi`
+See [Module Commands](../../../../RHEL9_upgrade/modules/ml_commands.md) for a complete command reference, and the [Module Translation Table](../../../../RHEL9_upgrade/quick_start.md#rhel8-rhel9-module-translation-table-cpu-side) if you're migrating scripts from the earlier RHEL8 module names.
 
-in order for the Cray MPICH abi to work properly.
-
-**Note**: If your code depends on libmpicxx, the Cray MPICH ABI is unlikely to work. You can check this by `ldd [your program name] | grep mpicxx`.

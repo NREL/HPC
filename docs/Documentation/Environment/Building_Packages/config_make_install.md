@@ -13,18 +13,23 @@ Colloquially, this is the `configure; make; make install` process that is often 
 Other build systems like [CMake](../../Development/Build_Tools/cmake.md) (which differ primarily in the configuration steps) won't be covered. 
 If you need to build a package that relies on CMake, please contact hpc-help@nlr.gov for assistance.
 
-2. We'll use *GCC* version 8.4.0 for this illustration, so load the associated module first (_i.e._, `gcc/8.4.0`).
+2. We'll use *GCC* version 14.2.0 for this illustration, so load it first as the NLR toolchain base module (module reset to start clean, then load the compiler):
 
-???+ note "Building on Kestrel "
-     You can use any version of *GCC* available to you on Kestrel. 
-     The paths in step 3 are for Eagle, please make the necessary changes for Kestrel.
+	```bash
+	module reset
+	module load gcc/14.2.0
+	```
+
+???+ note "Building on Kestrel"
+     You can use any NLR-provided GCC version visible via `module spider gcc`, or the `oneapi`/`llvm` toolchains instead. 
+     Do not mix a loaded NLR toolchain (`gcc`, `oneapi`, `llvm`) with the Cray Programming Environment (`cpe-stack`) in the same session.
 
 3. Now that you've acquired and unpacked the package tarball and changed into the top-level directory of the package, you should see a script named "configure". 
 In order to see all available options to an autotools configure script, use `./configure -h` (don't forget to include the `./` explicit path, otherwise the script will not be found in the default Linux search paths, or worse, a different script will be found).
 
 	We will build with the following command: 
 	```
-	./configure --prefix=/scratch/$USER/openmpi/4.1.0-gcc-8.4.0 --with-slurm --with-pmi=/nopt/slurm/current --with-gnu-ld --with-lustre --with-zlib --without-psm --without-psm2 --with-ucx --without-verbs --with-hwloc=external --with-hwloc-libdir=/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-8.4.0/hwloc-1.11.11-mb5lwdajmllvrdtwltwe3r732aca76ny/lib --enable-cxx-exceptions --enable-mpi-cxx --enable-mpi-fortran --enable-static LDFLAGS="-L/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-8.4.0/11.0.2-4x2ws7fkooqbrerbsnfbzs6wyr5xutdk/lib64 -L/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-8.4.0/cuda-11.0.2-4x2ws7fkooqbrerbsnfbzs6wyr5xutdk/lib64 -Wl,-rpath=/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-8.4.0/hwloc-1.11.11-mb5lwdajmllvrdtwltwe3r732aca76ny/lib -Wl,-rpath=/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-8.4.0/cuda-11.0.2-4x2ws7fkooqbrerbsnfbzs6wyr5xutdk/lib64" CPPFLAGS=-I/nopt/nrel/apps/base/2020-05-12/spack/opt/spack/linux-centos7-x86_64/gcc-8.4.0/hwloc-1.11.11-mb5lwdajmllvrdtwltwe3r732aca76ny/include
+	./configure --prefix=/scratch/$USER/openmpi/5.0.5-gcc-14.2.0 --with-slurm --with-pmi=$(dirname $(dirname $(which srun))) --with-gnu-ld --with-lustre --with-zlib --without-psm --without-psm2 --with-ucx --without-verbs --with-hwloc=external --with-hwloc-libdir=$(dirname $(module show hwloc 2>&1 | grep -m1 LD_LIBRARY_PATH | awk -F'"' '{print $2}')) --enable-cxx-exceptions --enable-mpi-cxx --enable-mpi-fortran --enable-static
 	```
 	These options are given for the following reasons.
 
@@ -37,15 +42,10 @@ In order to see all available options to an autotools configure script, use `./c
 	* `--without-psm[2]` : Explicitly turn off interfaces to Intel's Performance Scaled Messaging for the now-defunct Omni-Path network
 	* `--with-ucx=` : Point to UCX, an intermediate layer between the network drivers and MPI
 	* `--without-verbs=` : For newer MPIs, communications go through UCX and/or libfabric, not directly to the Verbs layer
-	* `--with-hwloc[-libdir]=` : Point to a separately built hardware localization library for process pinning
+	* `--with-hwloc[-libdir]=` : Point to a separately built hardware localization library for process pinning. Use `module spider hwloc` to see which toolchains already provide one before building your own.
 	* `--enable-cxx-exceptions`, `--enable-mpi-cxx` : Build the C++ interface for the libraries
 	* `--enable-mpi-fortran` : Build the Fortran interface for the libraries
 	* `--enable-static` : Build the .a archive files for static linking of applications
-	* `LDFLAGS` : -L options point to non-standard library locations. -Wl,-rpath options embed paths into the binaries, so that having LD_LIBRARY_PATH set correctly is not necessary (i.e., no separate module for these components).
-	* `CPPFLAGS` : Point to header files in non-standard locations.
-
-	NOTE: The CUDA paths are not needed for CUDA function per se, but the resulting MPI errors out without setting them. 
-    There appears to be a lack of modularity that sets up a seemingly unneeded dependency.
 
 	After lots of messages scroll by, you should be returned to a prompt following a summary of options. 
     It's not a bad idea to glance through these, and make sure everything makes sense and is what you intended.
