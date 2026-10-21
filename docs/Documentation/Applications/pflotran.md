@@ -12,7 +12,6 @@ and the Cray PE toolchain (`PrgEnv-gnu`, `cray-mpich`, `hdf5`). All of these
 prerequisites are auto-loaded by the module.
 
 ```
-module use /nopt/nlr/apps/kestrel-cpu/software/pflotran/modules
 module load pflotran/6.0
 ```
 
@@ -39,7 +38,6 @@ module load pflotran/6.0
 	#SBATCH --mem=128G
 	#SBATCH --time=24:00:00
 
-	module use /nopt/nlr/apps/kestrel-cpu/software/pflotran/modules
 	module load pflotran/6.0
 
 	srun pflotran -pflotranin your_input.in
@@ -56,7 +54,6 @@ module load pflotran/6.0
 	#SBATCH --mem=128G
 	#SBATCH --time=24:00:00
 
-	module use /nopt/nlr/apps/kestrel-cpu/software/pflotran/modules
 	module load pflotran/6.0
 
 	srun pflotran -pflotranin your_input.in
