@@ -1,0 +1,37 @@
+# Start from a known module state, the default
+module_restore
+
+# Load modules
+#module unload PrgEnv-cray/8.5.0
+#module unload nvhpc/24.1
+
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+ module use /nopt/nrel/apps/gpu_stack/modules/old/compilers_mpi
+ml openmpi/4.1.6-nvhpc
+ml nvhpc-nompi/24.1
+ml binutils
+
+<< ++++ 
+ Compile our program
+ Here we use mpiCC which uses, in this case a NREL built  version
+ of MPI and Nvidia's backend compiler. 
+++++
+
+mpiCC ping_pong_cuda_staged.cu -o staged
+
+# We run with 2 tasks total.
+# This version of MPI does not support srun so we use mpirun
+
+echo Run on a single node
+srun --tasks-per-node=2 --nodes=1 ./staged
+
+echo Run on two nodes 
+srun --tasks-per-node=1 --nodes=2 ./staged
+
+echo running multi-gpu stream
+mpiCC -gpu=cc90  -DNTIMES=1000  mstream.cu -o mstream
+export VSIZE=3300000000
+export VSIZE=330000000
+srun --tasks-per-node=4  --nodes=2 ./mstream -n $VSIZE
+
+

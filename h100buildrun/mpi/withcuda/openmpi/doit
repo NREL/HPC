@@ -1,0 +1,45 @@
+# Start from a known module state, the default
+module reset
+
+# Load modules
+
+ml >&2
+if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
+
+ml gcc/14.2.0
+ml cuda/13.2
+ml openmpi/5.0.3
+
+<< ++++ 
+ Compile our program.
+ 
+ The mpi wrappers don't work for nvidia compilers.  
+ There are some flags they do not understand. So we
+ call nvcc with the required command line options.
+
+Here we find the include and lib paths.
+++++
+
+MYMPIPATH=$(dirname $(dirname $(which mpicc)))
+IPATH=$MYMPIPATH/include
+LPATH=$MYMPIPATH/lib
+
+nvcc -L$LPATH -I$IPATH -lmpi -arch=native ping_pong_cuda_staged.cu -o staged
+
+
+# We run with 2 tasks total. One 1 and two nodes
+echo running staged on node
+IRFLAG="-mca mtl ^ofi --mca btl ^ofi"
+mpirun $IRFLAG -n 2  ./staged
+
+echo running staged off node
+mpirun $IRFLAG -n 2 -N 1  ./staged
+
+echo running multi-gpu stream
+nvcc -L$LPATH -I$IPATH -lmpi  -arch=native  -lmpi -DNTIMES=1000  mstream.cu -o mstream
+
+export VSIZE=3300000000
+export VSIZE=330000000
+mpirun $IRFLAG -N 4  ./mstream -n $VSIZE
+
+

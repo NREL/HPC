@@ -1,16 +1,23 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
-: Load modules
-#module unload PrgEnv-cray/8.5.0
-#module unload nvhpc/24.1
+# Load modules
 
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
 ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0 ; fi
 
-ml nvhpc-stdalone/24.1
+ml  nvhpc/26.1
+#MPI is not in the module. We add it here.
+export MYMPIDIR=`dirname $(dirname $(dirname $(which nvcc)))`
+MPIH=$(dirname $(find $MYMPIDIR  -name mpi.h | sort | tail -1))
+MPIL=$(dirname $(find $MYMPIDIR  -name libmpi.so | sort | tail -1))
+MPIB=$(echo $MPIH | sed s/include/bin/)
+echo $MPIH
+echo $MPIL
+echo $MPIB
+export PATH=$MPIB:$PATH
 
-: << ++++ 
+<< ++++ 
  Compile our program
  Here we use mpiCC which uses Nvidia's version of MPI and
  their backend compiler. The "hpcx" has a few more optimizations.
@@ -18,20 +25,22 @@ ml nvhpc-stdalone/24.1
 
 mpiCC ping_pong_cuda_staged.cu -o staged
 
-: We run with 2 tasks total.
-: This version of MPI does not support srun so we use mpirun
+# We run with 2 tasks total.
+# This version of MPI does not support srun so we use mpirun
 
 echo Run on a single node
-mpirun -n 2 -N 2 ./staged
+mpirun  --mca coll ^hcoll  -n 2 -N 2 ./staged
 
 echo Run on two nodes 
-mpirun -n 2 -N 1 ./staged
+# --mca coll ^hcoll turn off a warning about not having InfiniBand
+mpirun  --mca coll ^hcoll -n 2 -N 1 ./staged
 
 
 echo running multi-gpu stream
-mpiCC -gpu=cc80  -DNTIMES=1000  mstream.cu -o mstream
+#mstream.cu is technically a C++ program and mpiCC does not work properly
+#so we compile with nvcc and add the MPI manually
+nvcc -I$MPIH -L$MPIL -lmpi -arch=native  -DNTIMES=1000  mstream.cu -o mstream
 export VSIZE=3300000000
 export VSIZE=330000000
-ml gcc
-mpirun -n 8 -N 4  ./mstream -n $VSIZE
+mpirun  --mca coll ^hcoll -n 8 -N 4  ./mstream -n $VSIZE
 

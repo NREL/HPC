@@ -1,8 +1,8 @@
 module restore
 
-:  Enable a newer environment
+#  Enable a newer environment
 source /nopt/nrel/apps/gpu_stack/env_cpe23.sh
-: Load modules
+# Load modules
 ml craype-x86-genoa 
 
 cc -g cpumod.c -o cray_cpu

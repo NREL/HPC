@@ -1,0 +1,1 @@
+for d in `find . -name doit | sort -t/ -k2,2` ; do echo $d ; export doits=$d  ;sbatch --account=hpcapps doall ; done

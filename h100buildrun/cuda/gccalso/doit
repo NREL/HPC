@@ -1,35 +1,33 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
-: Load modules
-#module unload  PrgEnv-cray/8.5.0
-#module unload nvhpc/24.1
+# Load modules
 
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-ml nvhpc-nompi/24.1
-ml binutils
+GCC=`which g++`
+ml nvhpc
 
 ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0  ; fi
 
-: << ++++ 
+<< ++++ 
  Compile our program
  The module nvhpc-nompi gives us access to Nvidia's compilers
  nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
  compilers which are actually links to these.  We do not
  have direct access to MPI with this set of modules loaded.
- Here we compile routines that do not containe cuda with g++.
+ Here we compile routines that do not contain cuda with g++.
 ++++
 
 
 g++ -c normal.c 
 nvcc -std=c++11 -arch=sm_90 cuda.cu normal.o -o stream.sm_90
 
-: Run on all of our nodes
+# Run on all of our nodes
 nlist=`scontrol show hostnames | sort -u`
 for l in $nlist ; do   
   echo $l
   for GPU in 0 1 2 3 ; do
-: stream.cu will read the GPU on which to run from the command line
+# stream.cu will read the GPU on which to run from the command line
       srun -n 1 --nodes=1 -w $l ./stream.sm_90 -g $GPU
   done
   echo
