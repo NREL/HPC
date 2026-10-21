@@ -1,34 +1,35 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
 
 
-: Load modules
-#module unload nvhpc/24.1
-#module unload PrgEnv-cray/8.5.0
+# Load modules
 
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-ml nvhpc-stdalone
-ml binutils
+ml nvhpc
 
 ml 2>&1 | grep gcc-stdalone/13.1.0 ; if [ $? -eq 0 ]  ; then echo REPLACING gcc-stdalone/13.1.0 ; ml gcc-stdalone/12.3.0 ; fi
 
-: << ++++ 
+<< ++++ 
  Compile our GPU programs.
  The module nvhpc-stdalone gives us access to Nvidia's compilers
  nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
  compilers which are actually links to these.
 ++++
 
+export MYMPIDIR=$(dirname $(dirname $(dirname  $dirname `which nvcc`)))
+export L1=$(dirname $(find $MYMPIDIR  -name "libcufft.so*" | sort | head -1))
+
 nvcc -O3 -forward-unknown-to-host-compiler  --generate-code=arch=compute_90,code=[compute_90,sm_90] -std=c++11 -x cu 3d_mgpu_c2c_example.cpp -c
-export L1=$NVHPC_ROOT/REDIST/math_libs/12.3/targets/x86_64-linux/lib
 nvcc  -o 3dfft 3d_mgpu_c2c_example.o -L$L1 -lcufft
 
-: Run our program on a cube. The first parameter gives our cube size.
-: 2048 should work on the H100s.
-: Second parameter determines which algorithm runs first 1 GPU version or 4 GPU version
+# Run our program on a cube. The first parameter gives our cube size.
+# 2048 should work on the H100s.
+# Second parameter determines which algorithm runs first 1 GPU version or 4 GPU version
 echo
 echo
+export OLDPATH=$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$L1:$LD_LIBRARY_PATH
 for DOIT in `seq 1 4` ; do
   echo set $DOIT
   echo ++++++++++++++
@@ -43,14 +44,13 @@ for DOIT in `seq 1 4` ; do
   echo
 done
 
-: Build and run a fftw version
-module_restore
-#module unload nvhpc/24.1
-#module unload PrgEnv-cray/8.5.0
-ml  PrgEnv-cray/8.4.0 
-
+# Build and run a fftw version
+module reset
+ml cpe-stack/25.03
+ml PrgEnv-gnu/8.6.0
+ml craype-x86-genoa
 ml cray-fftw
-ml cuda
+
 cc -O3 fftw3d.c -o fftw3.exe
 
 echo

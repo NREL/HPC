@@ -1,14 +1,20 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
-: Load modules
-#module unload PrgEnv-cray/8.5.0
-#module unload nvhpc/24.1
+# Load modules
 
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-ml  nvhpc-stdalone/24.1
 
-: << ++++ 
+ml  nvhpc/26.1
+#MPI is not in the module. We add it here.
+export MYMPIDIR=`dirname $(dirname $(dirname $(which nvcc)))`
+#export MYMPIDIR=$MYMPIDIR/comm_libs/hpcx/bin
+export MYMPIDIR=$(dirname `find $MYMPIDIR -name mpicc | grep 13 | grep -v "\.bin"`)
+export PATH=$MYMPIDIR:$PATH
+unset MYMPIDIR
+
+
+<< ++++ 
  Compile our program
  Here we use mpicc and mpif90.  There is support for Cuda
  but we are not using it in this case.
@@ -17,14 +23,14 @@ ml  nvhpc-stdalone/24.1
 mpicc helloc.c -o helloc
 mpif90 hellof.f90 -o hellof
 
-: This version of MPI does not support srun so we use mpirun
-: We run with two tasks per nodes an two tasks on one node.
+# This version of MPI does not support srun so we use mpirun
+# We run with two tasks per nodes an two tasks on one node.
 for arg in "-N 2" "-n 2" ; do 
    echo running Fortran version
-   mpirun $arg hellof
+   mpirun $arg --mca coll_hcoll_enable 0 hellof
    echo
    echo running C version
-   mpirun $arg helloc
+   mpirun $arg --mca coll_hcoll_enable 0 helloc
    echo
 done
 

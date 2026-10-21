@@ -1,16 +1,17 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
-: Load modules
-#module unload nvhpc/24.1
-#module unload PrgEnv-cray/8.5.0
+# Load modules
 
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-ml PrgEnv-nvhpc
-ml cray-libsci/23.05.1.4  
-ml binutils
 
-: << ++++ 
+ml cpe-stack
+ml PrgEnv-nvidia
+ml craype-x86-genoa 
+ml cudatoolkit
+ml craype-accel-nvidia90
+
+<< ++++ 
  Compile our program.
  
  Here we use cc and CC.  These are wrappers
@@ -18,8 +19,7 @@ ml binutils
  comilers.
 ++++
 
-CC -gpu=cc90  -cuda -target-accel=nvidia90  -c ping_pong_cuda_aware.cu
-cc -gpu=cc90  -cuda -target-accel=nvidia90 -lcudart -lcuda ping_pong_cuda_aware.o -o pp_cuda_aware
+CC  ping_pong_cuda_aware.cu -o pp_cuda_aware
 
 export MPICH_GPU_SUPPORT_ENABLED=1
 export MPICH_OFI_NIC_POLICY=GPU
@@ -29,12 +29,72 @@ unset MPICH_GPU_SUPPORT_ENABLED
 unset MPICH_OFI_NIC_POLICY
 
 
-: << SKIP
-ml openmpi/5.0.3-gcc
-nvcc -c ping_pong_cuda_aware.cu -I/nopt/nrel/apps/gpu_stack/mpi/04-24/openmpi-5.0.3/build_linkx_gpu/include 
-mpiCC -lcudart  -L/nopt/cuda/12.3/targets/x86_64-linux/lib   ping_pong_cuda_aware.o -o  ping_pong_cuda_aware.exe
+module reset
 
-mpirun -n 2 ./ping_pong_cuda_aware.exe
-mpirun -N 1 ./ping_pong_cuda_aware.exe
-SKIP
+ml gcc/14.2.0
+ml cuda/13.2
+ml openmpi/5.0.3-gpu
+
+<< ++++ 
+ Compile our program.
+ 
+ The mpi wrappers don't work for nvidia compilers.  
+ There are some flags they do not understand. So we
+ call nvcc with the required command line options.
+
+Here we find the include and lib paths.
+++++
+
+MYMPIPATH=$(dirname $(dirname $(which mpicc)))
+IPATH=$MYMPIPATH/include
+LPATH=$MYMPIPATH/lib
+
+nvcc -L$LPATH -I$IPATH -lmpi -arch=native  ping_pong_cuda_aware.cu -o pp_cuda_aware_openmpi
+ 
+IRFLAG="-mca mtl ^ofi --mca btl ^ofi"
+mpirun $IRFLAG -n 2 ./pp_cuda_aware_openmpi
+mpirun $IRFLAG -N 1 ./pp_cuda_aware_openmpi
+
+
+
+module reset
+
+ml nvhpc
+
+<< ++++
+
+here we compile with nvcc and nvidia's MPI.  However, 
+again their mpicc does not work corrrectly.  So we
+find nvcc, the lib, include,and bin .directories.  We
+compile with nvcc and their lib and include directories
+and run with their mpirun
+++++
+
+NVHPCDIR=$(dirname $(dirname $(dirname $(which nvcc))))
+MPIH=$(dirname $(find $NVHPCDIR -name mpi.h | head -1))
+MYMPIDIR=$(dirname $MPIH)
+IPATH=$MYMPIDIR/include
+LPATH=$MYMPIDIR/lib
+BPATH=$MYMPIDIR/bin
+
+nvcc -L$LPATH -I$IPATH -lmpi -arch=native ping_pong_cuda_aware.cu -o pp_nvhpc
+
+echo mpirun $BPATH/mpirun
+RTFLAG="--mca coll ^hcoll"
+$BPATH/mpirun $RTFLAG -n 2 pp_nvhpc 
+$BPATH/mpirun $RTFLAG -N 1 pp_nvhpc 
+
+
+
+. /nopt/nlr/apps/kestrel-cpu/software/intel/2026.1.0/setvars.sh
+MYMPIDIR=$I_MPI_ROOT
+IPATH=$MYMPIPATH/include
+LPATH=$MYMPIPATH/lib
+ml cuda/13.2 
+nvcc -lmpi -arch=native  ping_pong_cuda_aware.cu -o pp_cuda_aware_intel 
+export I_MPI_OFFLOAD_MODE=cuda  
+export I_MPI_OFFLOAD=1
+srun -n 2 --nodes=1 ./pp_cuda_aware_intel
+srun -n 2 --tasks-per-node=1 ./pp_cuda_aware_intel
+
 

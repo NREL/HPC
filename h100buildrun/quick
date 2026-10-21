@@ -2,11 +2,47 @@
 #SBATCH --time=0:10:00
 #SBATCH --partition=gpu-h100
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:h100:4
+##### Don't need gpus for this run
+##SBATCH --gres=gpu:h100:4
 #SBATCH --exclusive
 #SBATCH --output=quick.out
 #SBATCH --error=quick.out
 
+# set the optimization flag for Cray MPI compiles
+# check to see that the submit node and partition match
+if  cat /proc/cpuinfo | grep AMD >/dev/null  ; then 
+ ARCH=craype-x86-genoa
+ if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; 
+ then 
+ 	echo running on AMD node ARCH= $ARCH
+ else  
+   echo You submitted from a CPU login node to a GPU node.
+   echo Change the partition or run from login nodes "kl5 or kl6".
+   exit 
+ fi
+else
+ ARCH=craype-x86-spr
+ if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; 
+ then 
+   echo You submitted from a GPU login node to a CPU node.
+   echo Change the partition or run from login nodes "kl5 or kl6". 
+
+   exit 
+ else  
+ 	echo running on INTEL node ARCH= $ARCH
+ fi
+fi
+
+# RUN THE C VERSION OF OUR PROGRAM
+true ; TF=$?
+false ; TF=$?
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; echo running c; else echo skipping c ;fi
+
+cmd () 
+{ 
+    echo "***********************" " $@";
+    eval "$@"
+}
 
 cat > hellof.f90 << END
 !*********************************************
@@ -60,50 +96,137 @@ int main(int argc, char **argv)
     if (myid == 0 ) {
 	    MPI_Get_library_version(version, &vlan);
 	    printf("%s\n",version);
+            printf("compiler: %s\n", __VERSION__);
     }
     MPI_Finalize();
 }
 END
 
 
-echo our default modules
+
+
+echo For RHEL9 Cray ftn and cc are not in out path by default
+echo so this would not work so it is commented out
+<< A_COMMENT
+echo Compiling with default compilers
+cc helloc.c -o helloc.exe
+ftn hellof.f90 -o hellof.exe
+A_COMMENT
+
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with PrgEnv-cray
+module reset
+ml cpe-stack/25.03  PrgEnv-cray
+ml $ARCH
 ml
 
-echo This should work but does not
-echo Compiling C
-cc helloc.c -o helloc
-echo 
-echo Compiling Fortran
-ftn hellof.f90 -o hellof
+cc helloc.c -o crayc.exe
+ftn hellof.f90 -o crayf.exe
 
-echo 
-echo unloading nvhpc
-module unload nvhpc
-echo
-echo We need cuda to get this to work
-ml cuda
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; srun -n 2 ./crayc.exe;  fi
+srun -n 2 ./crayf.exe
 
-echo Compiling and running C
-cc helloc.c -o helloc
-srun -n 2 ./helloc
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with PrgEnv-gnu 
+module reset
+ml cpe-stack/25.03  PrgEnv-gnu
+ml $ARCH
+ml
 
-echo Compiling and running fortran
-ftn hellof.f90 -o hellof
-srun -n 2 ./hellof
+cc helloc.c -o gcc.exe
+ftn hellof.f90 -o gfortran.exe
 
-echo Similar for PrgEnv-gnu and PrgEnv-intel
-module unload nvhpc
-ml cuda
-ml PrgEnv-gnu
-cc -march=skylake helloc.c -o gcc.exe
-srun -n 2 ./gcc.exe
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; srun -n 2 ./gcc.exe ; fi
+srun -n 2 ./gfortran.exe
 
-module unload nvhpc
-ml cuda
-ml PrgEnv-intel
-ml cray-libsci/22.12.1.1
-ml binutils
-cc  helloc.c -o intel.exe
-srun -n 2 ./intel.exe
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with PrgEnv-intel
+module reset
+ml cpe-stack/25.03  PrgEnv-intel
+ml $ARCH
+ml
+
+cc helloc.c -o intelccray.exe
+ftn hellof.f90 -o intelfcray.exe
+
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ;  srun -n 2 ./intelccray.exe ; fi
+srun -n 2 ./intelfcray.exe
+
+# as of 08/27/2026 PrgEnv-nvidia is broken on kestrel
+# so we skip this
+<<A_COMMENT
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with PrgEnv-nvidia
+module reset
+ml cpe-stack/25.03  PrgEnv-nvidia
+ml $ARCH
+ml
+
+cc helloc.c -o nvidiac.exe
+ftn hellof.f90 -o nvidiaf.exe
+
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; srun -n 2 ./nvidiac.exe ; fi
+srun -n 2 ./nvidiaf.exe
+A_COMMENT
+
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with IntelMPI
+echo mpiicx mpiifx intel compilers with intel mpi
+module reset
+ml oneapi/2025.3.1  intel-oneapi-mpi
+ml
+
+mpiicx helloc.c -o intelc.exe
+mpiifx hellof.f90 -o intelf.exe
+
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ;  srun  -n 2 ./intelc.exe ; fi
+srun  -n 2 ./intelf.exe
 
 
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with OpenMPI with gcc
+
+module reset
+ml gcc/14.2.0
+ml openmpi/5.0.3
+ml
+
+mpif90 hellof.f90 -o opengfort.exe
+mpicc  helloc.c   -o opencgcc.exe
+# as of 08/27/2026 this flag is required to run
+IRFLAG="-mca mtl ^ofi --mca btl ^ofi"
+mpirun -n 2 $IRFLAG   opengfort.exe
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; mpirun -n 2 $IRFLAG   opencgcc.exe ; fi
+
+
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo Compiling and running with OpenMPI with Intel backend
+
+module reset
+ml oneapi/2025.3.1
+ml openmpi/5.0.3
+ml
+
+mpif90 hellof.f90 -o openfint.exe
+mpicc  helloc.c   -o opencint.exe
+# as of 08/27/2026 this flag is required to run
+IRFLAG="-mca mtl ^ofi --mca btl ^ofi"
+mpirun -n 2 $IRFLAG   openfint.exe
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; mpirun -n 2 $IRFLAG   opencint.exe ; fi
+
+module reset
+ml gcc
+ml mpich
+ml
+
+mpif90 hellof.f90 -o mpichf.exe
+mpicc  helloc.c   -o mpichc.exe
+srun -n 2 mpichf.exe
+if [ $TF == 0 ] ; then echo ; echo RUNNING C VERSION ; srun -n 2 mpichc.exe ; fi
+
+echo ; echo ; echo +_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+
+echo FOR CLEAN UP 
+echo rm crayc.exe crayf.exe gcc.exe gfortran.exe intelccray.exe intelc.exe  
+echo rm intelfcray.exe intelf.exe opencgcc.exe opencint.exe openfint.exe opengfort.exe mpichf.exe mpichc.exe
+echo rm helloc.c hellof.f90
+echo rm quick.out

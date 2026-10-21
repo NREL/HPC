@@ -1,36 +1,32 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
-: Load modules
-#module unload PrgEnv-cray/8.5.0
-#module unload nvhpc/24.1
 
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-ml nvhpc-stdalone/24.1
+ml nvhpc/26.1
 
 
-: << ++++ 
+<< ++++ 
  Compile our program
- The module nvhpc-stdalone gives us access to Nvidia's compilers
- nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
- compilers which are actually links to these.  Since we are
- not using MPI we could have also used nvhpc-nompi/24.1 or
- even PrgEnv-nvhpc/8.5.0.
+ The module nvhpc-  Nvidia's compilers nvc, nvc++, nvcc, 
+ nvfortran as well as the Portland Group  compilers which 
+ are actually links to these.  Since we are we could have 
+ also used PrgEnv-nvhpc.
 ++++
 
 
 nvc -fast -Minline -Minfo -acc -DFP64 nbodyacc2.c -o nbody
 
 
-: Run on all of our nodes
+# Run on all of our nodes
 nlist=`scontrol show hostnames | sort -u`
 for l in $nlist ; do   
   echo $l
   for GPU in 0 1 2 3 ; do
-: This is one way to set the GPU on which a openacc program runs.
+# This is one way to set the GPU on which a openacc program runs.
       export CUDA_VISIBLE_DEVICES=$GPU
       echo running on gpu $CUDA_VISIBLE_DEVICES
-: Since we are not running MPI we actaully do not need srun here.
+# Since we are not running MPI we actaully do not need srun here.
       srun -n 1 --nodes=1 -w $l ./nbody
   done
   echo

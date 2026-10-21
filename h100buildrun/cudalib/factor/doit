@@ -1,34 +1,38 @@
-: Size of our matrix to solve
+# Size of our matrix to solve
 export MSIZE=4500
 
-: Start from a known module state, the default
-: We are going to Cray libsci version with the GPU
-: environment even though it does not use GPUs
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+# We are going to Cray libsci version with the GPU
+# environment even though it does not use GPUs
+# Start from a known module state, the default
+module reset
 
-: Load modules
-#module unload PrgEnv-cray/8.5.0
-#module unload nvhpc/24.1
+ml cpe-stack
+ml PrgEnv-gnu
 
-ml PrgEnv-gnu/8.4.0 
-ml cuda
-
-# Here we build the CPU version with libsci We don't actaully use Cuda but the compiler wants it
+# Here we build the CPU version with libsci.
 CC  -DMINE=$MSIZE  -fopenmp -march=native cpu.C -o invert.libsci
 
-: << ++++
+<< ++++
  Compile our GPU programs.
- The module nvhpc-native gives us access to Nvidia's compilers
+ The module nvhpc gives us access to Nvidia's compilers
  nvc, nvc++, nvcc, nvfortran as well as the Portland Group 
  compilers which are actually links to these.
+ 
+ We need to find libcusolver.so  and libnvJitLink.so.
 ++++
-#ml nvhpc-native
-ml nvhpc-stdalone
-: GPU version with libcusolver
-export L1=$NVHPC_ROOT/math_libs/lib64
-export L3=$NVHPC_ROOT/REDIST/cuda/12.3/targets/x86_64-linux/lib
-nvcc  -DMINE=$MSIZE -L$L1 -lcusolver -L$L3 -lnvJitLink cusolver_getrf_example.cu -o invert.gpu
+ml cpe-stack
+ml nvhpc
+ml craype-x86-genoa
+# GPU version with libcusolver
+export MYMPIDIR=`dirname $(dirname $(dirname $(which nvcc)))`
+L1=`find $MYMPIDIR -name libcusolver.so | sort | head -1`
+L1=`dirname $L1`
+L2=`find $MYMPIDIR -name libnvJitLink.so | sort | head -1`
+L2=`dirname $L2`
+
+
+nvcc  -DMINE=$MSIZE -L$L1 -lcusolver -L$L2 -lnvJitLink cusolver_getrf_example.cu -o invert.gpu
 
 
 export OMP_NUM_THREADS=32
@@ -39,21 +43,25 @@ echo running libsci version
 echo ++++++++++++++++++++++
 ./invert.libsci
 
+OLDLPATH=$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=$L1:$L2:$LD_LIBRARY_PATH
 for GPU in 0 1 2 3 ; do
 echo 
 echo 
 echo ++++++++++++++++++++++
 echo running gpu version on GPU $GPU
 echo ++++++++++++++++++++++
-: invert.gpu will read the GPU on which to run from the command line
+# invert.gpu will read the GPU on which to run from the command line
 ./invert.gpu $GPU
 done
+export LD_LIBRARY_PATH=$OLDLPATH
 
-: We are going to compile the Intel version using 
-: the CPU environment
-module_restore
+# We are going to compile the Intel version using 
+# the CPU environment
+module reset
+ml oneapi
 ml intel-oneapi-mkl
-ml intel-oneapi-compilers
 icpx  -DMINE=$MSIZE -qopenmp -D__INTEL__ -march=native cpu.C -mkl -lmkl_rt -o invert.mkl
 
 echo 
@@ -64,11 +72,10 @@ echo ++++++++++++++++++++++
 
 ./invert.mkl
 
-module unload  intel-oneapi-compilers
-module unload intel-oneapi-mkl
+module reset
 
 unset L1
-unset L3
+unset L2
 unset OMP_NUM_THREADS
 unset MSIZE
 

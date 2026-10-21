@@ -15,6 +15,8 @@
   Written by: Massimiliano Fatica, NVIDIA Corporation
 
   Further modifications by: Ben Cumming, CSCS; Andreas Herten (JSC/FZJ)
+  https://github.com/bcumming/cuda-stream
+
   MPI - Tim Kaiser
 
   For Kestrel's 80 GB gpus...
@@ -199,7 +201,7 @@ int main(int argc, char** argv)
     // int NGPUS; cudaGetDeviceCount(&NGPUS);
 #ifndef SERIAL
     mpi_err=MPI_Bcast(&SGPU,1,MPI_INT,0,MPI_COMM_WORLD);
-    mpi_err=MPI_Bcast(&SI,1,MPI_INT,0,MPI_COMM_WORLD);
+    mpi_err=MPI_Bcast(&SI,1,MPI_C_BOOL,0,MPI_COMM_WORLD);
     mpi_err=MPI_Bcast(&N,1,MPI_LONG,0,MPI_COMM_WORLD);
     mpi_err=MPI_Bcast(&blockSize,1,MPI_INT,0,MPI_COMM_WORLD);
 #endif
@@ -213,8 +215,8 @@ int main(int argc, char** argv)
     fprintf(FOUT," STREAM Benchmark implementation in CUDA on device %d of %s\n",GPU,hostbuffer);
     fprintf(FOUT," Device name: %s\n", prop.name);
     fprintf(FOUT," Array elements %ld",N);
-    fprintf(FOUT," Array size (%s precision) =%7.2f MB\n", sizeof(double)==sizeof(real)?"double":"single", double(N)*double(sizeof(real))/1.e6);
-    fprintf(FOUT," Total memory for 3 arrays =%7.2f GB\n",3.0*double(N)*double(sizeof(real))/1.e9);
+    fprintf(FOUT," Array size (%s precision) =%12.6f MB\n", sizeof(double)==sizeof(real)?"double":"single", double(N)*double(sizeof(real))/1.e6);
+    fprintf(FOUT," Total memory for 3 arrays =%12.6f GB\n",3.0*double(N)*double(sizeof(real))/1.e9);
     fprintf(FOUT," NTIMES %d\n",NTIMES);
 
     /* Allocate memory on device */

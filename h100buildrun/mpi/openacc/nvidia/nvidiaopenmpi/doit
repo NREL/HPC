@@ -1,21 +1,29 @@
-: Start from a known module state, the default
-module_restore
+# Start from a known module state, the default
+module reset
 
-: Load modules
+# Load modules
 if [ -z ${MYGCC+x} ]; then module load gcc ; else module load $MYGCC ; fi
-ml nvhpc-stdalone/24.1
+ml nvhpc/26.1
 
 
-: << ++++ 
+#MPI is not in the module. We add it here.
+export MYMPIDIR=`dirname $(dirname $(dirname $(which nvcc)))`
+#export MYMPIDIR=$MYMPIDIR/comm_libs/hpcx/bin
+export MYMPIDIR=$(dirname `find $MYMPIDIR -name mpicc | grep 13 | grep -v "\.bin"`)
+export PATH=$MYMPIDIR:$PATH
+unset MYMPIDIR
+
+<< ++++ 
  Compile our program
  Here we use mpicc and mpif90.  There is support for Cuda
  but we are not using it in this case but we are using 
  openacc.
 ++++
 
-mpicc -acc -Minfo=accel -fast acc_c3.c -o jacobi
+mpicc -acc -Minfo  -fast acc_c3.c -o jacobi
 
-: We run with 4 tasks per nodes.
-: This version of MPI does not support srun so we use mpirun
-mpirun -N 4 ./jacobi 46000 46000 5 nvidia
+
+# We run with 4 tasks per nodes.
+# This version of MPI does not support srun so we use mpirun
+mpirun -mca coll_hcoll_enable 0 -N 4 ./jacobi 46000 46000 5 nvidia
 

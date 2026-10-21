@@ -1,0 +1,79 @@
+#!/bin/bash
+#SBATCH --time=0:30:00
+#SBATCH --partition=gpu-h100
+#SBATCH --nodes=2
+#SBATCH --gres=gpu:h100:4
+#SBATCH --exclusive
+#SBATCH --output=output-%j.out
+#SBATCH --error=infor-%j.out
+
+func () { typeset -f $1 || alias $1; }
+func module > module.$SLURM_JOB_ID
+
+alias srun="/nopt/slurm/current/bin/srun --time=00:05:00 $@"
+if echo $SLURM_SUBMIT_HOST | egrep "kl5|kl6" >> /dev/null  ; then : ; else echo Run script from a GPU node; exit ; fi
+
+# a simple timer
+dt ()
+{
+    now=`date +"%s.%N"`;
+    if (( $# > 0 )); then
+        rtn=$(printf "%0.3f" `echo $now - $1 | bc`);
+    else
+        rtn=$(printf "%0.3f" `echo $now`);
+    fi;
+    echo $rtn
+}
+
+printenv > env-$SLURM_JOB_ID.out
+cat $0 > script-$SLURM_JOB_ID.out
+
+#runs script to restore our environment
+module reset
+
+#some possible values for gcc module
+#export MYGCC=gcc-stdalone/13.1.0
+#export MYGCC=gcc/14.2.0
+
+if [ -z ${MYGCC+x} ]; then export MYGCC=gcc/14.2.0  ; else echo MYGCC already set ; fi
+echo MYGCC=$MYGCC
+
+if [ -z ${doits+x} ]; then 
+	doits=`find . -name doit | sort -t/ -k2,2`
+else 
+	echo doits already set 
+fi
+
+for x in $doits ; do
+	echo running example in `dirname $x`
+done
+
+startdir=`pwd`
+t1=`dt`
+export MYSAVEP=$PATH
+export MYSAVEL=$LD_LIBRARY_PATH
+for x in $doits ; do
+ dir=`dirname $x`
+ echo ++++++++ $dir >&2 
+ echo ++++++++ $dir
+ cd $dir
+ tbegin=`dt`
+ . doit | tee  $SLURM_JOB_ID
+ echo Runtime `dt $tbegin` $dir `dt $t1` total
+ cd $startdir
+ echo resting environment
+ module reset
+ export PATH=$MYSAVEP
+ export LD_LIBRARY_PATH=$MYSAVEL
+ ml 2>&1
+ echo PATH $PATH
+ echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
+done
+echo FINISHED `dt $t1`
+echo FINISHED `dt $t1` >&2
+
+# post  (this is optional)
+mkdir -p /scratch/$USER/gputest/$SLURM_JOB_ID
+cp *out  /scratch/$USER/gputest/$SLURM_JOB_ID
+# . cleanup
+
