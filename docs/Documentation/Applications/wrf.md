@@ -122,9 +122,18 @@ Four WRF modules are available on RHEL 9. Every module provides a complete
 | Module | WRF / WPS | Compiler / MPI | Notes |
 |--------|-----------|----------------|-------|
 | `wrf/4.8.0-craype-gnu` | WRF 4.8.0 / WPS 4.6.0 | gfortran 14.2.0 (spack) + Cray MPICH 8.1.32 |  Parallel netCDF I/O (PnetCDF 1.14.1, `io_form=11`) and parallel HDF5 1.14.6 linked in. |
-| `wrf/4.5.1-craype-gnu` | WRF 4.5.1 / WPS 4.5 | gfortran 13.3.1 (PrgEnv-gnu) + Cray MPICH 8.1.32 | Supports PnetCDF (`io_form=11`). |
-| `wrf/4.5.1-craype-gnu-wps-pnetcdf` | WRF 4.5.1 / WPS 4.5 | same as `4.5.1-craype-gnu` | Identical WRF binaries to `4.5.1-craype-gnu`; the **only** difference is the WPS `metgrid.exe`, a fork that writes `io_form_metgrid = 11` (parallel PnetCDF) across all MPI ranks. Use when metgrid I/O is a bottleneck at scale. |
+| `wrf/4.5.1-craype-gnu` | WRF 4.5.1 / WPS 4.5 | gfortran 13.3.1 (PrgEnv-gnu) + Cray MPICH 8.1.32 | Supports PnetCDF (`io_form=11`). `geogrid.exe` and `metgrid.exe` don't run (see note below). |
+| `wrf/4.5.1-craype-gnu-wps-pnetcdf` | WRF 4.5.1 / WPS 4.5 | same as `4.5.1-craype-gnu` | Identical WRF binaries to `4.5.1-craype-gnu`; the **only** difference is the WPS `metgrid.exe`, a fork that writes `io_form_metgrid = 11` (parallel PnetCDF) across all MPI ranks. Use when metgrid I/O is a bottleneck at scale. `geogrid.exe` doesn't run (see note below). |
 | `wrf/4.5.1-intel` | WRF 4.5.1 / WPS 4.5 | Intel oneAPI 2025.3 (`ifx`) + Intel MPI 2021.17.2 | Default (`D`) on RHEL 9 when no version is specified. Supports PnetCDF (`io_form=11`). Launches with `mpirun`, or `srun` with `I_MPI_PMI_LIBRARY=/nopt/slurm/current/lib/libpmi2.so`. |
+
+!!! warning "Known issue: WPS in the GNU 4.5.1 modules"
+	In `wrf/4.5.1-craype-gnu`, `geogrid.exe` and `metgrid.exe` fail to start
+	(`libnetcdff.so.7: cannot open shared object file`). In
+	`wrf/4.5.1-craype-gnu-wps-pnetcdf`, `geogrid.exe` fails the same way; its
+	PnetCDF `metgrid.exe` works. WRF itself, `ungrib.exe` and the WPS
+	utilities work in both. Until WPS 4.5 is rebuilt, run `geogrid.exe` (and
+	`metgrid.exe`) from `wrf/4.5.1-intel`, or use `wrf/4.8.0-craype-gnu` for the
+	whole workflow. `module unload` one WRF module before loading another.
 
 Each module prints a doc-file path on load (`module help <name>`). The
 authoritative run instructions, namelist examples, and validated benchmarks
@@ -157,11 +166,12 @@ For the parallel-metgrid fork (`wrf/4.5.1-craype-gnu-wps-pnetcdf`), also set
 `io_form_metgrid = 11` in `namelist.wps` (keep `io_form_geogrid = 2`). The
 forked `metgrid.exe` has been verified bit-identical to stock output (89
 variables, 1–32 ranks, single- and multi-node). Full recipes are in the
-maintainer guide at
+user guide at
 `/nopt/nlr/apps/kestrel-cpu/software/wrfRHEL9/wrf-4.5.1-wps-pnetcdf-guide.md`.
 
 For the bundled WPS in each module: `geogrid.exe` and `metgrid.exe` are built
-`dmpar` and can be launched with `srun` for parallelism; `ungrib.exe` is serial
+`dmpar` and can be launched with `srun` for parallelism (except where they
+don't run, see the known issue above); `ungrib.exe` is serial
 by design. GRIB2 output is **not** compiled into WRF itself — GRIB2 is only
 used on the WPS side (ungrib reading GRIB forcing via Jasper/libpng).
 
@@ -169,7 +179,15 @@ used on the WPS side (ungrib reading GRIB forcing via Jasper/libpng).
 
 All WRF versions are available for download at this [link](https://github.com/wrf-model/WRF/releases). To build WRF, load the `netcdf` module; this automatically loads `hdf5`, `pnetcdf`, and other necessary dependencies. After completing the WRF build, download and build the WRF Pre-processing System (WPS) version from [here](https://github.com/wrf-model/WPS/releases). Building WPS requires loading the `jasper` module, which will automatically load `libpng`. The instructions below will guide you through installing your chosen WRF and WPS versions.
 
-??? example "Building on Kestrel with the GNU Toolchain"
+!!! note "RHEL 9"
+	The instructions below are for **RHEL 8** nodes. The modules they load
+	(`PrgEnv-gnu/8.5.0`, `cray-mpich/8.1.28`, `cray-libsci/23.12.5`,
+	`netcdf/4.9.3-cray-mpich-gcc`, `jasper/1.900.1-cray-mpich-gcc`) don't exist
+	on RHEL 9, and there isn't yet a complete RHEL 9 module set for building
+	WRF yourself. On RHEL 9, use one of the prebuilt modules above, or contact
+	HPC support if you need a custom build.
+
+??? example "Building on Kestrel (RHEL 8) with the GNU Toolchain"
    	```
 	# Get a compute node
 	$ salloc --time=02:00:00 --account= <project account> --partition=shared --nodes=1 --ntasks-per-node=52
@@ -199,11 +217,11 @@ All WRF versions are available for download at this [link](https://github.com/wr
 	$ ./compile -j 48 em_real
 
 	# Configure WPS
-	$ cd ${WRF_DIR}
+	$ cd ${WPS_DIR}
 	$ ./configure
 	$ Enter selection [1-44] : 3
 
-	# Append “-fopenmp” to the WRF_LIB line in the configuration.wps file
+	# Append “-fopenmp” to the WRF_LIB line in the configure.wps file
 	WRF_LIB         = -L$(WRF_DIR)/external/io_grib1 -lio_grib1 \
                         -L$(WRF_DIR)/external/io_grib_share -lio_grib_share \
                         -L$(WRF_DIR)/external/io_int -lwrfio_int \
