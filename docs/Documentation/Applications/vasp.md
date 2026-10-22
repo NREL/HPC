@@ -209,7 +209,7 @@ GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When
     
 ### Building VASP on Kestrel
 
-Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kestrel can be found in our [Kestrel Repo](https://github.com/NatLabRockies/HPC/tree/master/kestrel) under the vasp folder.
+Sample Makefiles for VASP can be found on Kestrel at `/nopt/nlr/apps/kestrel-cpu/software/vasp/binaries` (CPU versions) and `/nopt/nlr/apps/kestrel-gpu/software/vasp/binaries` (GPU versions).
 
 !!! tip "Important"
     On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](../Systems/Kestrel/Environments/index.md) page for more details on programming environments.
@@ -220,26 +220,27 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
 ??? example "Build recommendations for VASP - CPU "
 
-    We recommend building vasp with a full intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
+    We recommend building vasp with a full Intel toolchain. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 
     ```
     salloc -N 1 -t <time> -A <account>
     ```
     Then, load appropriate modules for your mpi, compilers, and math packages:
     ```
-    module purge
-    module load craype-x86-spr  #specifies sapphire rapids architecture
-    module load intel-oneapi-compilers
-    module load intel-oneapi-mpi
-    module load intel-oneapi-mkl
+    ml restore
+    ml cpe-stack/25.03
+    ml craype-x86-spr
+    ml oneapi
+    ml intel-oneapi-mpi/2021.17.2
+    ml intel-oneapi-mkl/2025.3.1
+    ml intel-oneapi-tbb/2021.10.0
+
+    make DEPS=1 -j32 all
     ```
 
     Sample makefiles for vasp5 and vasp6 on Kestrel can be found in our [Kestrel Repo](https://github.com/NatLabRockies/HPC/tree/master/kestrel) under the vasp folder.
 
 ##### Running your build
-
-!!! tip "Important"
-    We have found that it is optimal to run an Intel toolchain build of VASP using cray-mpich-abi at runtime. Cray-mpich-abi has several dependencies on cray network modules, so the easiest way to load it is to first load ```PrgEnv-intel``` and then swap the default cray-mpich module for the cray-mpich-abi ```module swap cray-mpich cray-mpich-abi```. You must then load your intel compilers and math libraries, and unload cray's libsci. A sample script showing all of this is in the dropdown below.
 
 ??? example "Sample job script: How to run your own build - CPU "
 
@@ -251,14 +252,15 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
     #SBATCH --account=<your-account-name>
     #SBATCH --job-name=<your-job-name>
 
-    # Load cray-mpich-abi and its dependencies within PrgEnv-intel, intel compilers, mkl, and unload cray's libsci
-    module purge
-    module load PrgEnv-intel
-    module load craype-x86-spr
-    module swap cray-mpich cray-mpich-abi
-    module unload cray-libsci
-    module load intel-oneapi-compilers
-    module load intel-oneapi-mkl
+    ml restore
+    ml cpe-stack/25.03
+    ml craype-x86-spr
+    ml oneapi
+    ml intel-oneapi-mpi/2021.17.2
+    ml intel-oneapi-mkl/2025.3.1
+    ml intel-oneapi-tbb/2021.10.0
+	
+	export I_MPI_FABRICS=shm:ofi # Important change from RHEL 8!
 
     export VASP_PATH=/PATH/TO/YOUR/vasp_exe
 
@@ -277,12 +279,15 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     ```
     # Load appropriate modules for your build. For our example these are:
-    ml gcc-stdalone/13.1.0
-    ml PrgEnv-nvhpc/8.5.0
-    ml nvhpc/23.9   #do not use the default nvhpc/24.1
-    ml cray-libsci/23.05.1.4
+    ml restore
+    ml cpe-stack/25.03
+    ml craype-x86-genoa
+    ml PrgEnv-nvidia
+    ml cray-libsci
+    ml cudatoolkit/12.9
+    ml craype-accel-nvidia90
 
-    make DEPS=1 -j8 all
+    make DEPS=1 -j32 all
     ```
 
 ##### Running your build
@@ -293,10 +298,13 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     ```
     # Load modules appropriate for your build. For ours these are:
-    ml gcc-stdalone/13.1.0
-    ml PrgEnv-nvhpc/8.5.0
-    ml nvhpc/23.9   #do not use the default nvhpc/24.1
-    ml cray-libsci/23.05.1.4
+    ml restore
+    ml cpe-stack/25.03
+    ml craype-x86-genoa
+    ml PrgEnv-nvidia
+    ml cray-libsci
+    ml cudatoolkit/12.9
+    ml craype-accel-nvidia90
 
     # Export path to your buid
     export VASP_PATH=/PATH/TO/YOUR/BUILD/bin
@@ -580,16 +588,3 @@ Sample makefiles for vasp5 (cpu version) and vasp6 (cpu and gpu versions) on Kes
 
     Between all VASP versions running on a single node, the Grace Hopper version is the most performant. VASP multi-node jobs can only be run with Intel-MPI, and the performance in that can vary according to the size of the given system. Experimentation may be necessary to run the most optimal multi-node jobs using Intel-MPI.
     
-  
-
-
-
-
-
-
-
-
-
-
-
-
