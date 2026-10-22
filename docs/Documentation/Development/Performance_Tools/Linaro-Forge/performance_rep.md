@@ -29,9 +29,9 @@ All you need to do is load the module and prefix your execution command with `pe
 
 1. Start an interactive job session. Use the debug or other partitions as appropriate:   
 	`$ salloc --nodes=<N>  --time=<time> --account=<handle>`
-2. Load the linaro-forge module (formerly arm), and additionally load any other modules needed to run your program:  
-	`$ module load linaro-forge`  
-	`$ module load mkl intel-mpi #for VASP`
+2. Load the forge module (formerly arm), and additionally load any other modules needed to run your program:  
+	`$ module load forge`  
+	`$ module load oneapi intel-oneapi-mkl intel-oneapi-mpi #for VASP`
 3. Set MPI parameters and run your exe using `perf-report`:  
 	`$ perf-report srun -n 36 PATH/TO/YOUR/PROGRAM/exe`
 

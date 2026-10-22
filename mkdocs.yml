@@ -34,7 +34,7 @@ nav:
             - Kestrel Environments Overview: Documentation/Systems/Kestrel/Environments/index.md
             - Toolchains:
               - Intel: Documentation/Systems/Kestrel/Environments/Toolchains/intel.md
-              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/others.md
+              - MPI: Documentation/Systems/Kestrel/Environments/Toolchains/mpi.md
             - Environments Tutorial: Documentation/Systems/Kestrel/Environments/tutorial.md      
             - Building Applications for GPUs: Documentation/Systems/Kestrel/Environments/gpubuildandrun.md      
         - Swift:
@@ -167,7 +167,8 @@ nav:
          - Performance Tools:
              - Linaro-Forge:
                - Documentation/Development/Performance_Tools/Linaro-Forge/index.md
-               - MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
+               - Introduction to MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map_intro.md
+               - Running MAP: Documentation/Development/Performance_Tools/Linaro-Forge/map.md
                - Performance Reports: Documentation/Development/Performance_Tools/Linaro-Forge/performance_rep.md
              - oneAPI Tools:
                - Documentation/Development/Performance_Tools/Intel/index.md

@@ -1,6 +1,6 @@
 # Compiler Information
 
-*This document describes some of the important command line options for various compilers.  This includes gcc, gfortran, g++, Intel, Fortran, C, C++, as well as the Cray compilers. The infomation contained herein is not complete but only a small subset of what is available in man pages and full documentation.  For example, the man page for gcc is over 21,000 lines long.*
+This document describes some of the important command line options for various compilers.  This includes gcc, gfortran, g++, Intel, Fortran, C, C++, as well as the Cray compilers. The information contained herein is not complete but only a small subset of what is available in man pages and full documentation.  For example, the man page for gcc is over 21,000 lines long.
 
 
 ## Topics
@@ -27,10 +27,8 @@ The topics covered include:
 
 * gcc
 * gfortran
-* Intel icc (Classic)
-	* Moving to Intel's new icx compiler
-* Intel ifort (Fortran)
-	* Moving to Intel's new ifx compiler
+* Intel icx (icc replacement)
+* Intel ifx (ifort replacement)
 * Cray C (Clang based)
 * Cray Fortran (ftn)
 
@@ -41,6 +39,7 @@ The topics covered include:
 This discussion is for version 12.x. Most options are supported for recent versions of the compilers.  Also, most command line options for gcc and g++ are supported for each compiler.  It is recommended that C++ programs be compiled with g++ and C programs with gcc.
 
 #### Normal invocation
+
 ```
 # Compile and link a program with the executable sent to the indicated
   file
@@ -50,9 +49,10 @@ g++ mycode.C -o myexec
 # Compile a file but don't link 
 gcc -c mycode.c 
 g++ -c mycode.C 
-
 ```
+
 #### Default optimization
+
 The default optimization level is -O0 on most systems.  It is possible that a compiler might be configured to have a different default.  One easy way to determine the default is to build a simple application without specifying an optimization level and compare its size to a version compiled with optimization on.  
 
 #### Compiling for performance
@@ -83,6 +83,7 @@ gcc -Q  --help=optimizers
 ```
 
 #### Compiling for debugging and related purposes
+
 ```
 -Og Optimize debugging experience. Use instead of -O0. Does sopme
 	optimization but maintains debug information
@@ -94,7 +95,8 @@ gcc -Og -g myprog.c
 -p,-pg Generate extra code to write profile information suitable for
 	the analysis program prof (for -p) or gprof
 ```
-There are many potential options  for profiling.  See the man page and search for -pg. 
+
+There are many potential options for profiling. See the man page and search for `-pg`. 
 
 #### Some file extensions
 
@@ -164,11 +166,11 @@ c++17
  
 ```
     
-This is a subset of all of the options.  There are "gnu" specific versions of many of these which give slight variations.  Also, some fo these can be specified  in various deprecated flags. The dialects available for the compilers are highly version dependent.  Older versions of compiler will not support newer dialects.
+This is a subset of all of the options. There are "gnu" specific versions of many of these which give slight variations. Also, some of these can be specified in various deprecated flags. The dialects available for the compilers are highly version dependent. Older versions of compilers will not support newer dialects.
 
 #### Preprocessing
 
-Unless explicitly disabled by the file extension as described above files are preprocessed.  If you pass the **-E** option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output 
+Unless explicitly disabled by the file extension as described above files are preprocessed. If you pass the **-E** option the file will be preprocessed only and will not be compiled. The output is sent to the standard output.
 
 #### OpenMP support
 ```
@@ -180,7 +182,7 @@ Unless explicitly disabled by the file extension as described above files are pr
           Generate code for use in OpenMP offloading 
 ```
 
-Offlading will not work on all platforms and may require additional options.
+Offloading will not work on all platforms and may require additional options.
       
 #### OpenACC support
 
@@ -191,15 +193,13 @@ Offlading will not work on all platforms and may require additional options.
  -fopenacc-dim=geom
            Specify default compute dimensions for parallel offload
            regions that do not explicitly specify
- ```
-
-Offlading will not work on all platforms and may require additional options.          
-           
 ```
+
+Offloading will not work on all platforms and may require additional options.          
 
 #### Important compiler specific options
 
-
+```
 -Wall
      This enables all the warnings about constructions that some
      users consider questionable, and that are easy to avoid (or
@@ -207,26 +207,24 @@ Offlading will not work on all platforms and may require additional options.
            
 -Wextra 
      This enables some extra warning flags that are not enabled by
-     -Wall.
-     
-
+     -Wall.  
+```
 
 ## gfortran
 
 This discussion is for version 12.x. Most options are supported for recent versions of the compilers.  Also, most command line options for gcc and g++ are supported for gfortran.
 
-#### Normal invocation
+### Normal invocation
+#### Compile and link a program with the executable sent to the indicated file
 ```
-# Compile and link a program with the executable sent to the indicated
-  file
 gfortran mycode.f90  -o myexec
-
-# Compile a file but don't link 
+```
+##### Compile a file but don't link 
+```
 gfortran -c mycode.f90
-
 ```
 #### Default optimization
-The default optimization level is -O0 on most systems.  It is possible that a compiler might be configured to have a different default.  One easy way to determine the default is to build a simple application without specifying an optimization level and compare its size to a version compiled with optimization on.  
+The default optimization level is `-O0` on most systems.  It is possible that a compiler might be configured to have a different default.  One easy way to determine the default is to build a simple application without specifying an optimization level and compare its size to a version compiled with optimization on.  
 
 #### Compiling for performance
 
@@ -256,6 +254,7 @@ gfortran -Q  --help=optimizers
 ```
 
 #### Compiling for debugging and related purposes
+
 ```
 -Og Optimize debugging experience. Use instead of -O0. Does sopme
 	optimization but maintains debug information
@@ -278,7 +277,7 @@ gfortran -Og -g -fbacktrace -fcheck=all myprog.c
 
 
 ```
-There are many potential options  for profiling.  See the man page and search for -pg. 
+There are many potential options  for profiling.  See the man page and search for `-pg`. 
 
 #### Some file extensions
 
@@ -290,8 +289,6 @@ There are many potential options  for profiling.  See the man page and search fo
     preprocessor is not run automatically   
    
 ```
-
-
 
 #### Language standard settings (Dialect)
 
@@ -314,7 +311,7 @@ The Fortran 90 standard does not indicate the status of variables that leave sco
 
 For Fortran 95 and later local allocatable variables are automatically deallocated upon exit from a subroutine.
 
-The flags -fautomatic  and -fno-automatic change this behavior.
+The flags `-fautomatic`  and `-fno-automatic` change this behavior.
 
 ```
 
@@ -334,18 +331,11 @@ The above applies to allocatable arrays.  It is not clean what happens to scaler
 
 #### Language standard settings (argument mismatch)
 
-Some code contains calls to external procedures with mismatches
-between the calls and the procedure definition, or with
-mismatches between different calls. Such code is non-conforming,
-and will usually be flagged with an error.  This options degrades
-the error to a warning, which can only be disabled by disabling
-all warnings via -w.  Only a single occurrence per argument is
-flagged by this warning. -fallow-argument-mismatch is implied by
--std=legacy.
+Some code contains calls to external procedures with mismatches between the calls and the procedure definition, or with mismatches between different calls. Such code is non-conforming, and will usually be flagged with an error.  This options degrades the error to a warning, which can only be disabled by disabling all warnings via -w.  Only a single occurrence per argument is flagged by this warning. Note that `-fallow-argument-mismatch` is implied by `-std=legacy`.
 
 
 
-It is recomended that source code be modified to have interfaces for routines that are called iwth various types of arguments.  Fortran 2018 allows for a generic type for such interfaces.  For example here is an interface for MPI_Bcast 
+It is recommended that source code be modified to have interfaces for routines that are called with various types of arguments. Fortran 2018 allows for a generic type for such interfaces. For example here is an interface for `MPI_Bcast`:
 
 ```
 module bcast
@@ -361,12 +351,9 @@ end module
 
 ```
 
-       
-    
 #### Generating listing
 
-Gfortran does not produce listings.
-
+`gfortran` does not produce listings.
 
 #### Preprocessing
 
@@ -385,7 +372,7 @@ Automatic preprocessing is determined by the file name extension as discussed ab
 -mgomp          Generate code for use in OpenMP offloading 
 ```
 
-Offlading will not work on all platforms and may require additional options.
+Offloading will not work on all platforms and may require additional options.
       
 #### OpenACC support
 
@@ -394,59 +381,56 @@ Offlading will not work on all platforms and may require additional options.
            
  -fopenacc-dim=geom Specify default compute dimensions for parallel offload
      regions that do not explicitly specify
-
-
 ```
-Offlading will not work on all platforms and may require additional options.          
+
+Offloading will not work on all platforms and may require additional options.          
            
 #### Important compiler specific options
 
 ```
-
 -fimplicit-none 
-            Produce and error message if there are explicitly typed variables.  
+		Produce and error message if there are explicitly typed variables.  
 
 -fdefault-real-8
-            Set the default real type to an 8 byte wide type.  This option also affects the kind of non-double real constants like 1.0. 
+		Set the default real type to an 8 byte wide type.
+		This option also affects the kind of non-double real constants like 1.0. 
 
 -pedantic 
-            Issue warnings for uses of extensions to Fortran.
+		Issue warnings for uses of extensions to Fortran.
 
-       -fall-intrinsics
-           This option causes all intrinsic procedures (including the GNU-specific extensions) to be accepted.  This can
-           be useful with -std= to force standard-compliance but get access to the full range of intrinsics available
-           with gfortran.  
+-fall-intrinsics
+		This option causes all intrinsic procedures (including the GNU-specific 
+		extensions) to be accepted. This can be useful with -std= to force 
+		standard-compliance but get access to the full range of intrinsics 
+		available with gfortran.  
       
-
 ```           
 
+## Intel icx,icpx
 
-
-## icc/icpc
-
-This discussion is for version 2021.6.0.  Icc and icpc will be replaced with clang based alternatives in the near future, icx and icpx.  In the Cray environment if PrgEnv-intel is loaded the "cc" maps to icc.
-
+This discussion is for version 2025.3.*.  Intel's `icc` and `icpc` have been replaced with clang based alternatives, `icx` and `icpx`.  In the Cray environment if `PrgEnv-intel` is loaded the "cc" maps to `icx` and "CC" maps to `icpx`.
 
 #### Normal invocation
 
-```
-
-Compile and link a program with the executable sent to the indicated
-  file
-icc mycode.c -o myexec
-icpc mycode.C -o myexec
-
-Compile a file but don't link 
-icc -c mycode.c 
-icpc -c mycode.C 
+Compile and link a program with the executable sent to the indicated file: 
 
 ```
+icx mycode.c -o myexec
+icpx mycode.C -o myexec
+```
 
-NOTE: The icpc command uses the same compiler options as the icc command. Invoking the compiler using icpc compiles .c and .i files as C++. Invoking the compiler using icc compiles .c and .i files as C. Using icpc always  links in C++ libraries. Using icc only links in C++ libraries if C++ source is provided on the command line.
-       
+Compile a file but don't link:
+
+```
+icx-c mycode.c 
+icpx -c mycode.C 
+
+```
+
+NOTE: The `icpx` command uses the same compiler options as the `icx` command.        
        
 #### Default optimization
-The default optimization level is -O2.  
+The default optimization level is `-O2`.  
 
 #### Compiling for performance
 
@@ -455,11 +439,11 @@ The default optimization level is -O2.
 
 -O1  Enables optimizations for speed.
 
--O2 Optimize even more. 
+-O2  Optimize even more. 
 
--O  Same ans -O2
+-O   Same as -O2
 
--O3 Optimize yet more.
+-O3  Optimize yet more.
 
 -Ofast -O3, -no-prec-div, and -fp-model
 
@@ -474,7 +458,7 @@ The default optimization level is -O2.
 You can learn more about optimizations are at various levels of optimization as shown below.  
 
 ```
-icc -V -help opt
+icx -V -help opt
 ```
 
 #### Compiling for debugging and related purposes
@@ -511,8 +495,7 @@ file.C
    C++ source code that must be preprocessed.  
 ```
 
-You can specify explicitly the language for file indepenent of the extension using the -x option.  For example **icc -x c file.cc** will complie the program as C instead of C++.
-```
+You can specify explicitly the language for file independent of the extension using the -x option.  For example `icc -x c file.cc` will compile the program as C instead of C++.
 
 #### Language standard settings (Dialect)
 
@@ -565,18 +548,16 @@ gnu++17
     conforms to 2017 ISO C++ standard plus GNU extensions
 
 gnu++20 c
-    onforms to 2020 ISO C++ standard plus GNU extensions
-
-            
+    conforms to 2020 ISO C++ standard plus GNU extensions
+ 
 -strict-ansi 
     Implement a strict ANSI conformance dialect
 
-    ```
+```
     
-
 #### Preprocessing
 
-Unless explicitly disabled by the file extension as described above files are preprocessed.  If you pass the **-E** option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output 
+Unless explicitly disabled by the file extension as described above files are preprocessed. If you pass the `-E` option the file will be preprocessed only and will not be compiled. The output is sent to the standard output.
 
 #### OpenMP support
 ```
@@ -595,12 +576,11 @@ Unless explicitly disabled by the file extension as described above files are pr
 Not supported
 ```
 
-Offlading will not work on all platforms and may require additional options.          
+Offloading will not work on all platforms and may require additional options.          
            
-* Important compiler specific options
+#### Important compiler specific options
 
 ```
-
 -Wall
      This enables all the warnings about constructions that some
      users consider questionable, and that are easy to avoid (or
@@ -632,61 +612,50 @@ Valid categories include
        pgo             - Profile Guided Optimization (PGO)
        preproc         - Preprocessor
        reports         - Optimization Reports
-
        openmp          - OpenMP and Parallel Processing
 ```
            
-## Moving to Intel's new compiler icx
-The Intel compilers icc and icpc are being retired and being replaced with icx and icpx.  
-Other than the name change many people will not notice significant differences.  
+#### Moving to Intel's new compiler icx
+The Intel compilers `icc` and `icpc` have been retired and been replaced with `icx` and `icpx`.  Other than the name change many people will not notice significant differences.  
 
-The document [https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-icc-users-to-dpcpp-or-icx.html](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-icc-users-to-dpcpp-or-icx.html) 
-has details.  Here are some important blurbs from that page.
-
+The document from Intel [Porting Guide for icc Users](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-icc-users-to-dpcpp-or-icx.html) 
+has details. Here are some important blurbs from that page.
 
 
-ICX and ICC Classic use different compiler drivers. The Intel® C++ Compiler Classic 
-compiler drivers are icc, icpc, and icl.  The Intel® oneAPI DPC++/C++ Compiler drivers 
-are icx and icpx. Use icx to compile and link C programs, and icpx for C++ programs.
 
-Unlike the icc driver, icx does not use the file extension to determine whether to 
-compile as C or C+. Users must invoke icpx to compile C+ files. . In addition to 
-providing a core C++ Compiler, ICX/ICPX is also used to compile SYCL/DPC++ codes for the 
-Intel® oneAPI Data Parallel C++ Compiler when we pass an additional flag “-fsycl”. 
+> ICX and ICC Classic use different compiler drivers. The Intel® C++ Compiler Classic compiler drivers are `icc`, `icpc`, and `icl`.  The Intel® oneAPI DPC++/C++ Compiler drivers are icx and icpx. Use icx to compile and link C programs, and `icpx` for C++ programs.
+> 
+> Unlike the `icc` driver, `icx` does not use the file extension to determine whether to compile as C or C+. Users must invoke `icpx` to compile C+ files. . In addition to providing a core C++ Compiler, ICX/ICPX is also used to compile SYCL/DPC++ codes for the Intel® oneAPI Data Parallel C++ Compiler when we pass an additional flag `-fsycl`. 
 
 The major changes in compiler defaults are listed below:
 
-* The Intel® oneAPI DPC++/C++ Compiler drivers are icx and icpx.
-* Intel® C++ Compiler Classic uses icc, icpc or icl drivers but this compiler will be deprecated in the upcoming release.
-* DPC++/SYCL users can use the icx/icpx driver along with the -fsycl flag which invokes ICX with SYCL extensions. 
-* Unlike Clang, the ICX Default floating point model was chosen to match ICC behavior and by default it is -fp-model=fast .
+* The Intel® oneAPI DPC++/C++ Compiler drivers are `icx` and `icpx`.
+* Intel® C++ Compiler Classic uses `icc`, `icpc` or `icl` drivers but this compiler will be deprecated in the upcoming release.
+* DPC++/SYCL users can use the `icx`/`icpx` driver along with the `-fsycl` flag which invokes ICX with SYCL extensions. 
+* Unlike Clang, the ICX Default floating point model was chosen to match ICC behavior and by default it is `-fp-model=fast` .
 * MACRO naming is changing. Please be sure to check release notes for future macros to be included in ICX.
 * No diagnostics numbers are listed for remarks, warnings, or notes. Every diagnostic is emitted with the corresponding compiler option to disable it. 
 * Compiler intrinsics cannot be automatically recognized without processor targeting options, unlike the behavior in Intel® C++ Compiler Classic. If you use intrinsics, read more on the documentation about intrinsic behavior changes. 
 
+## ifx (ifort replacement)
 
-
-
-
-## ifort
-
-This discussion is for version 2021.6.0.  Ifort  will be replaced with a clang backend based alternative in the near future, ifx.  Ifx will have most of the same options as ifort with some clang additions.  In the Cray environment if PrgEnv-intel is loaded the "cc" maps to icc.
+This discussion is for version 2025.3.*. Note that `ifort` has been replaced with `ifx`, which has most of the same options as `ifort`. In the Cray environment, if `PrgEnv-intel` is loaded, then `ftn` maps to `ifx`.
 
 #### Normal invocation
 ```
 # Compile and link a program with the executable sent to the indicated
   file
-ifort mycode.f90 -o myexec
+ifx mycode.f90 -o myexec
 
 # Compile a file but don't link 
-ifort -c mycode.c 
+ifx -c mycode.c 
 
 ```
 
        
        
 #### Default optimization
-The default optimization level is -O2.  
+The default optimization level is `-O2`.  
 
 #### Compiling for performance
 
@@ -723,12 +692,12 @@ The default optimization level is -O2.
 You can learn more about optimizations are at various levels of optimization as shown below.  
 
 ```
-ifort -V -help opt
+ifx -V -help opt
 ```
 
 #### Compiling for debugging and related purposes
 ```
- -g[n] 
+-g[n] 
        0 Disables generation of symbolic debug information.
        1 Produces minimal debug information for performing stack traces.
        2 Produces complete debug information. This is the same as specifying -g with no n.
@@ -800,14 +769,14 @@ Filenames with the suffix .F90 are interpreted as free-form Fortran
 
 ```
 
-You can specify explicitly the language for file indepenent of the extension using the -x option.  For example **icc -x c file.cc** will complie the program as C instead of C++.
+You can specify explicitly the language for file independent of the extension using the `-x` option.  For example `icc -x c file.cc` will complie the program as C instead of C++.
 
 #### Language standard settings (Dialect)
 
 ```
 -stand 
 
-none    Tells the compiler to issue no messages for nonstandard
+none   Tells the compiler to issue no messages for nonstandard
 	language elements. This is the same as specifying nostand.
 
 f90    Tells the compiler to issue messages for language elements
@@ -836,7 +805,7 @@ f18    Tells the compiler to issue messages for language elements
 
 #### Preprocessing
 
-Unless explicitly enabled by the file extension as described above files are not preprocessed.  If you pass the **-E** option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output.  The option  **-fpp ** will force running the preprocessor.
+Unless explicitly enabled by the file extension as described above files are not preprocessed.  If you pass the `-E` option the file will be preprocessed only and will not be compiled.  The output is sent to the standard output.  The option  `-fpp` will force running the preprocessor.
 
 #### OpenMP support
 ```
@@ -859,76 +828,76 @@ Not supported
 
 ```
 -coarray[=keyword] Enables the coarray feature where keyword
-	Specifies the memory system where the coarrays will be
-	implemented. Possible values are:
+				   Specifies the memory system where the coarrays will be
+				   implemented. Possible values are:
 
-shared    Indicates a shared memory system. This is the default.
+shared             Indicates a shared memory system. This is the default.
 
-distributed    Indicates a distributed memory system.
+distributed        Indicates a distributed memory system.
 
-single     Indicates a configuration where the image does not
-	contain self-replication code. This results in an executable with
-	a single running image. This configuration can be useful for
-	debugging purposes, even though there are no inter-image
-	interactions.
+single             Indicates a configuration where the image does not
+				   contain self-replication code. This results in an executable with
+				   a single running image. This configuration can be useful for
+				   debugging purposes, even though there are no inter-image
+				   interactions.
 
 ```
 
            
-* Important compiler specific options
+Important compiler-specific options:
 
 ```
 
--save    Causes variables to be placed in static memory.
+-save          	Causes variables to be placed in static memory.
 
 
-Default:    This option saves all variables in static allocation
-	except local variables within a recursive routine and variables
-	declared as AUTOMATIC.
+Default:      	This option saves all variables in static allocation
+				except local variables within a recursive routine and variables
+				declared as AUTOMATIC.
+
+-auto-scalar   	Scalar variables of intrinsic types INTEGER, REAL,
+				COMPLEX, and LOGICAL are allocated  to the run-time stack unless
+				the routine is recursive of OpenMP For Fortran 95 and later
+				variables are not saved by default and allocatable arrays are
+				deallocated.  This appears to be true ifx even if the standard
+				is set to f90.  However, it is poor practice to rely on this
+				behavior.
+
+
+-Wall.         	This enables all the warnings about constructions that some
+				users consider questionable, and that are easy to avoid (or
+				modify to prevent the warning)
+
+-warn declarations   Generate warnings for variables that are not
+				explicitly typed.
+
+-Wextra     	This enables some extra warning flags that are not
+				enabled by -Wall.
+
+-save    		Causes variables to be placed in static memory.
+
+Default:    	This option saves all variables in static allocation
+				except local variables within a recursive routine and variables
+				declared as AUTOMATIC.
 
 -auto-scalar    Scalar variables of intrinsic types INTEGER, REAL,
-	COMPLEX, and LOGICAL are allocated  to the run-time stack unless
-	the routine is recursive of OpenMP For Fortran 95 and later
-	variables are not saved by default and allocatable arrays are
-	deallocated.  This appears to be true ifort even if the standard
-	is set to f90.  However, it is poor practice to rely on this
-	behavior.
+				COMPLEX, and LOGICAL are allocated  to the run-time stack unless
+				the routine is recursive of OpenMP For Fortran 95 and later
+				variables are not saved by default and allocatable arrays are
+				deallocated.  This appears to be true ifx even if the standard
+				is set to f90.  However, it is poor practice to rely on this
+				behavior.
 
 
--Wall.   This enables all the warnings about constructions that some
-	users consider questionable, and that are easy to avoid (or
-	modify to prevent the warning)
-
--warn declarations    Generate warnings for variables that are not
-	explicitly typed.
-
--Wextra     This enables some extra warning flags that are not
-	enabled by -Wall.
--save    Causes variables to be placed in static memory.
-
-
-Default:    This option saves all variables in static allocation
-	except local variables within a recursive routine and variables
-	declared as AUTOMATIC.
-
--auto-scalar    Scalar variables of intrinsic types INTEGER, REAL,
-	COMPLEX, and LOGICAL are allocated  to the run-time stack unless
-	the routine is recursive of OpenMP For Fortran 95 and later
-	variables are not saved by default and allocatable arrays are
-	deallocated.  This appears to be true ifort even if the standard
-	is set to f90.  However, it is poor practice to rely on this
-	behavior.
-
-
--Wall.   This enables all the warnings about constructions that some
-	users consider questionable, and that are easy to avoid (or
-	modify to prevent the warning)
+-Wall.   		This enables all the warnings about constructions that some
+				users consider questionable, and that are easy to avoid (or
+				modify to prevent the warning)
 
 -warn declarations    Generate warnings for variables that are not
-	explicitly typed.
+				explicitly typed.
 
--Wextra     This enables some extra warning flags that are not
-	enabled by -Wall.
+-Wextra     	This enables some extra warning flags that are not
+				enabled by -Wall.
 
      
 -help [category]    print full or category help message
@@ -959,38 +928,33 @@ Valid categories include
 
 ## Moving to Intel's new compiler ifx
 
-Intel® Fortran Compiler Classic (ifort) is now deprecated and will be discontinued in late 2024. 
-Intel recommends that customers transition now to using the LLVM-based Intel® Fortran Compiler (ifx).
-Other  than the name change some people will not notice significant differences.  The new compiler
-supports offloading to Intel GPU. Kestrel and Swift do not have Intel GPUs so this is not at NLR.  
+Intel® Fortran Compiler Classic (`ifort`) was discontinued in late 2024. 
+Intel recommends that customers transition now to using Intel® Fortran Compiler (`ifx`). Other  than the name change some people will not notice significant differences.  The new compiler supports offloading to Intel GPU. Kestrel and Swift do not have Intel GPUs so this is not relevant to NLR HPC users.
 
-One notable deletion from the new compiler is dropping of auto-parilization.  With ifort the 
--parallel compiler option auto-parallelization is enabled. That is not true for ifx; there
- is no auto-parallelization feature with ifx.
+One notable deletion from the new compiler is dropping of auto-parilization.  With ifort the -parallel compiler option auto-parallelization is enabled. That is not true for `ifx`; there is no auto-parallelization feature with `ifx`.
  
  
-For complete details please see: [https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html)
+For complete details please see the [Porting Guide for ifort to ifx](https://www.intel.com/content/www/us/en/developer/articles/guide/porting-guide-for-ifort-to-ifx.html) from Intel.
 
          
 ## Cray CC
 
-In the Cray environment cc is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray C : Version 14.0.4.  cc will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.  Cray C : Version 14.0.4 is clang based with Cray enhancements
-
+In the Cray environment cc is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray C : Version 19.0.0.  cc will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.  Cray C : Version 19.0.0 is clang based with Cray enhancements
 
 #### Normal invocation
+
+Compile and link a program with the executable sent to the indicated file:
 ```
-# Compile and link a program with the executable sent to the indicated
-  file
 cc mycode.c  -o myexec
-
-# Compile a file but don't link 
-cc -c mycode.c 
-
-
-
 ```
+
+Compile a file but don't link:
+```
+cc -c mycode.c 
+```
+
 #### Default optimization
-The default optimization level is -O0.
+The default optimization level is `-O0`.
 
 #### Compiling for performance
 
@@ -999,37 +963,37 @@ The default optimization level is -O0.
 -O0, -O1, -O2, -O3, -Ofast, -Os, -Oz, -Og, -O, -O4 Specify which
 	optimization level to use: 
 	
--O0    Means "no optimization": this
-	level compiles the fastest and generates the most debuggable
-	code.
+-O0 	Means "no optimization": this
+		level compiles the fastest and generates the most debuggable
+		code.
 
--O1    Somewhere between -O0 and -O2.
+-O1 	Somewhere between -O0 and -O2.
 
--O2    Moderate level of optimization which enables most
-	optimizations.
+-O2    	Moderate level of optimization which enables most
+		optimizations.
 
 -O3     Like -O2, except that it enables optimizations that take
-	longer to perform or that may generate larger code (in an attempt
-	to make the program run faster).
+		longer to perform or that may generate larger code (in an attempt
+		to make the program run faster).
 
--Ofast     Enables all the optimizations from -O3 along with other
-	aggressive optimizations that may violate strict compliance with
-	language standards.
+-Ofast  Enables all the optimizations from -O3 along with other
+		aggressive optimizations that may violate strict compliance with
+		language standards.
 
 -Os     Like -O2 with extra optimizations to reduce code size.
 
--Oz    Like -Os (and thus -O2), but reduces code size further.
+-Oz    	Like -Os (and thus -O2), but reduces code size further.
 
--Og    Like -O1. In future versions, this option might disable
-	different optimizations in order to improve debuggability.
+-Og    	Like -O1. In future versions, this option might disable
+		different optimizations in order to improve debuggability.
 
--O    Equivalent to -O1.
+-O    	Equivalent to -O1.
 
--O4    and higher Currently equivalent to -O3
+-O4    	and higher Currently equivalent to -O3
 
 	 
 ```
-For best performance, -Ofast with -flto is recommended where -flot = Generate  output  files  in  LLVM  formats,  suitable for link time optimization.  The performance improvement with high levels of optimmization.  Here are the run times for a simple finite difference code at various levels of optimization.
+For best performance, `-Ofast` with `-flto` is recommended where `-flto` generates  output  files  in  LLVM  formats,  suitable for link time optimization (`lto`).  The performance improvement with high levels of optimization.  Here are the run times for a simple finite difference code at various levels of optimization.
 
 ```
 Option       Run Time (sec)
@@ -1096,7 +1060,7 @@ file.upc
 
 #### Language standard settings (Dialect)
 
-Standards are determined by the file extension as given above.  Some addttional checks can be performed.
+Standards are determined by the file extension as given above.  Some additional checks can be performed.
 
       -std=<standard>
 Specify the language standard to compile for.
@@ -1125,7 +1089,7 @@ Specify the language standard to compile for.
 * ISO C 2017 with GNU extensions
 	* 	gnu17
 
-The default C language standard is gnu17
+The default C language standard is gnu17.
 
 ##### Supported values for the C++ language are:
 * ISO C++ 1998 with amendments
@@ -1174,13 +1138,13 @@ The default C language standard is gnu17
 #### Generating listing
 
 ```
--fsave-loopmark    Generate a loopmark listing file (.lst) that shows which optimizations 
-    were applied to which parts of the source code.
+-fsave-loopmark    			Generate a loopmark listing file (.lst) that shows which optimizations 
+    						were applied to which parts of the source code.
 
 -floopmark-style=<style>    Specifies the style of the loopmark listing file.
 
-    Valid values for <style> are:
-	    ''grouped''         Places all messages at the end of the listing.
+	Valid values for <style> are:
+		''grouped''         Places all messages at the end of the listing.
 		''interspersed''    Places each message after the relevant source code line.
 
 ```
@@ -1212,7 +1176,8 @@ Not suported
 
 ```
    Unified Parallel C (UPC) Options
--hupc, -hdefault -hupc    Configures the compiler driver to expect
+-hupc, -hdefault -hupc    
+	Configures the compiler driver to expect
 	UPC source code.  Source files with a .upc extension are
 	automatically treated as UPC code, but this option permits a file
 	with any other extension (typically .c) to be understood as UPC
@@ -1220,7 +1185,8 @@ Not suported
 	-hdefault appear in a command line, whichever appears last takes
 	precedence and applies to all source files in the command line.
 
--fupc-auto-amo, -fno-upc-auto-amo    Automatically use network
+-fupc-auto-amo, -fno-upc-auto-amo    
+	Automatically use network
 	atomics for remote updates to reduce latency.  For example, x +=
 	1 can be performed as a remote atomic add.  If an update is
 	recognized as local to the current  thread,  then  no  atomic  is
@@ -1228,26 +1194,26 @@ Not suported
 	only and shall not be relied upon to prevent race conditions. 
 	Enabled at -O1 and above.
 
--fupc-buffered-async, -fno-upc-buffered-async    Set aside memory in
-	the UPC runtime library for aggregating random remote accesses
-	designated with "#pragma pgas buffered_async".  Disabled by
-	default.
+-fupc-buffered-async, -fno-upc-buffered-async    
+	Set aside memory in the UPC runtime library for aggregating random 
+	remote accesses designated with "#pragma pgas buffered_async".
+	Disabled by default.
 
--fupc-pattern, -fno-upc-pattern    Identify simple communication
-	loops and aggregate the remote accesses into a single function
-	call which replaces the loop.  Enabled at -O1 and above.
+-fupc-pattern, -fno-upc-pattern    
+	Identify simple communication loops and aggregate the remote accesses 
+	into a single function call which replaces the loop. Enabled at 
+	-O1 and above.
 
--fupc-threads=<N>    Set  the number of threads for a static THREADS
-	translation.  This option causes __UPC_STATIC_THREADS__ to be
-	defined instead of __UPC_DYNAMIC_THREADS__ and replaces all uses
-	of the UPC keyword THREADS with the value N.
-      
-
+-fupc-threads=<N>
+	Set the number of threads for a static THREADS translation. This 
+	option causes __UPC_STATIC_THREADS__ to be defined instead of 
+	__UPC_DYNAMIC_THREADS__ and replaces all uses of the UPC keyword 
+	THREADS with the value N.
 ```          
 
 ## Cray ftn
 
-In the Cray environment ftn is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray Fortran : Version 14.0.4.  Ftn will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.
+In the Cray environment, `ftn` is a generic call for several different compilers.  The compile actually called is determined by the modules loaded.  Here we discuss Cray Fortran : Version 19.0.0.  Ftn will detect if the program being compiled calls MPI routines.  If so, it will call the program as MPI.
 
 #### Normal invocation
 ```
@@ -1260,7 +1226,7 @@ ftn -c mycode.f90
 
 ```
 #### Default optimization
-The default optimization level is -O 2.
+The default optimization level is `-O2`.
 
 #### Compiling for performance
 
@@ -1292,28 +1258,24 @@ The default optimization level is -O 2.
 	exists and the  allocation of the symbol to the cache is
 	predicted to increase the number of cache hits.
 
-fast    Same as 3.
-
-	 
+fast   Same as 3.
 ```           
-                   
-
 
 #### Compiling for debugging and related purposes
 ```
 -G (level)
 
-	0      Full   information is available for debugging, but at the cost
+	0      Full information is available for debugging, but at the cost
 		of a slower and larger executable.  Breakpoints can be set at
 		each line.  Most optimizations are disabled.
 
-	1      Most  information is available with partial optimization. Some
+	1      Most information is available with partial optimization. Some
 		optimizations make tracebacks and limited breakpoints available
 		in the debugger.  Some scalar optimizations and  all  loop  nest
-		reâ€ structuring  is  disabled,  but  the source code will be
+		structuring  is  disabled,  but  the source code will be
 		visible and most symbols will be available.
 
-	2      Partial information.  Most optimizations, tracebacks and very
+	2      Partial information. Most optimizations, tracebacks and very
 		limited breakpoints are available in the debugger.  The source
 		code will be visible and some symbols will be  available.
 
@@ -1321,7 +1283,6 @@ fast    Same as 3.
 -R runchk Specifies any of a group of runtime checks for your
 	program.  To specify more than one type of checking, specify
 	consecutive runchk arguments, as follows: -R bs.
-
 
 	b      Enables checking of array bounds.  Bounds checking is not
 		performed on arrays dimensioned as (1).  Enables -Ooverindex.
@@ -1337,24 +1298,19 @@ fast    Same as 3.
 		assumed-shape arrays.
 
 	s      Enables checking of character substring bounds.
-
-
 ```
 
 #### Some file extensions
 
-The default is fixed for source files that have .f, .F, .for, or .FOR
+The default is 'fixed' for source files that have .f, .F, .for, or .FOR
 
-The default is free for source files that have .f90, .F90, .f95, .F95, .f03, .F03, .f08, .F08, .f18, .F18,  .ftn,  or  .FTN
+The default is 'free' for source files that have .f90, .F90, .f95, .F95, .f03, .F03, .f08, .F08, .f18, .F18,  .ftn,  or  .FTN
 
 The upper-case file extensions, .F, .FOR, .F90, .F95, .F03, .F08, .F18, or .FTN, will enable source preprocessing by default.
 
-
-
-
 #### Language standard settings (Dialect)
 
-Standards are determined by the file extension as given above.  Some addttional checks can be performed.
+Standards are determined by the file extension as given above.  Some additional checks can be performed.
 
 ```
 
@@ -1406,16 +1362,15 @@ Standards are determined by the file extension as given above.  Some addttional 
 			functions and subroutines that have been defined with the RECURSIVE 
 			attribute.  The STACK compiler directive overrides this option.
 
-
-
 ```
 
        
     
 #### Generating listing
 
- -h list=a
-
+```
+-h list=a
+```
 
 #### Preprocessing
 
@@ -1436,53 +1391,47 @@ ftn file.f80
 
 #### OpenMP support
 ```
--homp    Enables OpenMP and links in OpenMP libraries when possible
-	using CCE-Classic.
+-homp    	Enables OpenMP and links in OpenMP libraries when possible
+			using CCE-Classic.
 
--hnoomp    Disables OpenMP and links in non-OpenMP libraries when
-	using CCE-classic.
+-hnoomp  	Disables OpenMP and links in non-OpenMP libraries when
+			using CCE-classic.
 
-THE FOLLOWING APPLIE IF THE BACKEND COMPILER IS NOT CRAY FORTRAN.
+THE FOLLOWING APPLY IF THE BACKEND COMPILER IS NOT CRAY FORTRAN.
 
--fopenmp   Enables OpenMP and links in OpenMP libraries when possible
-	using CCE, AOCC, and GNU.
+-fopenmp   	Enables OpenMP and links in OpenMP libraries when possible
+			using CCE, AOCC, and GNU.
 
--openmp	   Enables OpenMP and links in OpenMP libraries when
-	possible.
+-openmp	   	Enables OpenMP and links in OpenMP libraries when
+			possible.
 
--noopenmp		Disables OpenMP.
+-noopenmp	Disables OpenMP.
 
--mp		   Enables OpenMP and links in OpenMP libraries when
-	possible using PGI.
+-mp		   	Enables OpenMP and links in OpenMP libraries when
+			possible using PGI.
 
 -Mnoopenmp	Disables OpenMP and links in non-OpenMP libraries when
-	using PGI.
+			using PGI.
 
--qopenmp     Enables OpenMP and links in OpenMP libraries when
-	possible when using Intel.
+-qopenmp    Enables OpenMP and links in OpenMP libraries when
+			possible when using Intel.
 
--qno-openmp	 Disables OpenMP and links in non-OpenMP libraries
-	when possible when using Intel.
+-qno-openmp	Disables OpenMP and links in non-OpenMP libraries
+			when possible when using Intel.
 
 ```
       
 #### OpenACC support
 
 ```
- -h acc         
- 
+ -h acc
 ```
 
 #### Coarray
-The -h pgas_runtime option directs the compiler driver to link with the runtime libraries required when linking programs that use UPC or coarrays.  In general, a resource manager job launcher such as aprun  or
-                     srun must be used to launch the resulting executable.
+The `-h pgas_runtime` option directs the compiler driver to link with the runtime libraries required when linking programs that use UPC or coarrays. In general, a resource manager job launcher such as `srun` must be used to launch the resulting executable.
            
 #### Important compiler specific options
 
 ```
-
 -e I      Treat all variables as if an IMPLICIT NONE statement had been specified. 
-      
-
-```           
-
+```

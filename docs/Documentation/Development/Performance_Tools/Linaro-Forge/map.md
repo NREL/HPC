@@ -31,7 +31,7 @@ Once you have the client installed, you will need to configure it to connect to 
     For example:
     
     ```
-    module load forge/24.0.4
+    module load forge
     dirname $(dirname $(which map))
     /nopt/nrel/apps/cpu_stack/software/forge/24.0.4
     ```
@@ -41,13 +41,12 @@ Once you have the client installed, you will need to configure it to connect to 
 Once the remote client is correctly set up, start a terminal and connect to the desired HPC system.
 `$ ssh USER@$HOST.hpc.nlr.gov` 
 
-Continue to the [profiling section](map.md#profiling-a-program)
-
+Continue to the profiling section.
 
 ### Option 2: FastX Setup
-To run MAP with FastX, follow instructions to download and install the desktop client and connect to a host on the [FastX](../../../Viz_Analytics/virtualgl_fastx.md) page.
+To run MAP with FastX, follow instructions to download and install the desktop client and connect to a host on the [FastX](../../../Documentation/Viz_Analytics/virtualgl_fastx.md) page.
 
-Once you have FastX installed and an appropriate build of your program to profile, start an xterm window from within FastX connected to an HPC host (We recommend using DAV nodes if available on your system). Then continue to the [profiling section](map.md#profiling-a-program)
+Once you have FastX installed and an appropriate build of your program to profile, start an xterm window from within FastX connected to an HPC host (We recommend using DAV nodes if available on your system). Then continue to the profiling section
 
 ## Profiling a program
 Once you have an appropriate build of your program to profile and either the Linaro Forge Client or FastX installed, you can obtain profiling data through map with the following steps. We will profile VASP as an example.
@@ -56,10 +55,10 @@ Once you have an appropriate build of your program to profile and either the Lin
 2.	Start an interactive job session.  
     Use the debug or other partitions as appropriate.  
     `$ salloc --nodes=<N>  --time=<time> --account=<handle>`
-3.	Load the linaro-forge module (formerly arm)  
+3.	Load the forge module (formerly arm)  
     Additionally load any other modules needed to run your program  
-    `$ module load linaro-forge`  
-    `$ module load mkl intel-mpi #for VASP`  
+    `$ module load forge`  
+    `$ module load oneapi intel-oneapi-mkl intel-oneapi-mpi #for VASP`  
 4.	Start a map session using the command `map --connect` if you are using the desktop client or simply `map` if you are using FastX.   
     Optionally, navigate to your working directory and give map the path to your exe  
     `$ cd PATH/TO/YOUR/WORKING/DIRECTORY`  
@@ -75,7 +74,7 @@ Once you have an appropriate build of your program to profile and either the Lin
 
 5.	Start your profile by clicking “Run”
 
-You should now see the profiling data we described in the previous section [MAP](index.md). Please refer to that page as well as the [Linaro Forge Documentation](https://www.linaroforge.com/documentation/) for more details on what you can learn from such profiles.
+You should now see the profiling data we described in the previous section [MAP](map_example.md). Please refer to that page as well as the [Linaro Forge Documentation](https://www.linaroforge.com/documentation/) for more details on what you can learn from such profiles.
 
 ![Linaro-MAP-Profile](../../../../../assets/images/Profiling/MAP-7.png)
 
@@ -150,9 +149,3 @@ $echo `dirname $(dirname $(which ddt))`/doc
 ls /nopt/nrel/apps/cpu_stack/software/forge/24.0.4/doc
 RELEASE-NOTES  stacks.dtd  userguide-forge.pdf
 ```
-
-
- 
-
-
-
