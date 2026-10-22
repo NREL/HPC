@@ -220,7 +220,7 @@ Sample Makefiles for VASP can be found on Kestrel at `/nopt/nlr/apps/kestrel-cpu
 
 ??? example "Build recommendations for VASP - CPU "
 
-    We recommend building vasp with a full Intel toolchain and launching with the cray-mpich-abi at runtime. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
+    We recommend building vasp with a full Intel toolchain. Additionally, you should build on a compute node so that you have the same architecture as at runtime:
 
     ```
     salloc -N 1 -t <time> -A <account>
