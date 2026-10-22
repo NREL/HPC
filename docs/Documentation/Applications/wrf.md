@@ -122,18 +122,10 @@ Four WRF modules are available on RHEL 9. Every module provides a complete
 | Module | WRF / WPS | Compiler / MPI | Notes |
 |--------|-----------|----------------|-------|
 | `wrf/4.8.0-craype-gnu` | WRF 4.8.0 / WPS 4.6.0 | gfortran 14.2.0 (spack) + Cray MPICH 8.1.32 |  Parallel netCDF I/O (PnetCDF 1.14.1, `io_form=11`) and parallel HDF5 1.14.6 linked in. |
-| `wrf/4.5.1-craype-gnu` | WRF 4.5.1 / WPS 4.5 | gfortran 13.3.1 (PrgEnv-gnu) + Cray MPICH 8.1.32 | Supports PnetCDF (`io_form=11`). `geogrid.exe` and `metgrid.exe` don't run (see note below). |
-| `wrf/4.5.1-craype-gnu-wps-pnetcdf` | WRF 4.5.1 / WPS 4.5 | same as `4.5.1-craype-gnu` | Identical WRF binaries to `4.5.1-craype-gnu`; the **only** difference is the WPS `metgrid.exe`, a fork that writes `io_form_metgrid = 11` (parallel PnetCDF) across all MPI ranks. Use when metgrid I/O is a bottleneck at scale. `geogrid.exe` doesn't run (see note below). |
+| `wrf/4.5.1-craype-gnu` | WRF 4.5.1 / WPS 4.5 | gfortran 13.3.1 (PrgEnv-gnu) + Cray MPICH 8.1.32 | Supports PnetCDF (`io_form=11`). |
+| `wrf/4.5.1-craype-gnu-wps-pnetcdf` | WRF 4.5.1 / WPS 4.5 | same as `4.5.1-craype-gnu` | Identical WRF binaries to `4.5.1-craype-gnu`; the **only** difference is the WPS `metgrid.exe`, a fork that writes `io_form_metgrid = 11` (parallel PnetCDF) across all MPI ranks. Use when metgrid I/O is a bottleneck at scale. |
 | `wrf/4.5.1-intel` | WRF 4.5.1 / WPS 4.5 | Intel oneAPI 2025.3 (`ifx`) + Intel MPI 2021.17.2 | Default (`D`) on RHEL 9 when no version is specified. Supports PnetCDF (`io_form=11`). Launches with `mpirun`, or `srun` with `I_MPI_PMI_LIBRARY=/nopt/slurm/current/lib/libpmi2.so`. |
 
-!!! warning "Known issue: WPS in the GNU 4.5.1 modules"
-	In `wrf/4.5.1-craype-gnu`, `geogrid.exe` and `metgrid.exe` fail to start
-	(`libnetcdff.so.7: cannot open shared object file`). In
-	`wrf/4.5.1-craype-gnu-wps-pnetcdf`, `geogrid.exe` fails the same way; its
-	PnetCDF `metgrid.exe` works. WRF itself, `ungrib.exe` and the WPS
-	utilities work in both. Until WPS 4.5 is rebuilt, run `geogrid.exe` (and
-	`metgrid.exe`) from `wrf/4.5.1-intel`, or use `wrf/4.8.0-craype-gnu` for the
-	whole workflow. `module unload` one WRF module before loading another.
 
 Each module prints a doc-file path on load (`module help <name>`). The
 authoritative run instructions, namelist examples, and validated benchmarks
@@ -170,8 +162,7 @@ user guide at
 `/nopt/nlr/apps/kestrel-cpu/software/wrfRHEL9/wrf-4.5.1-wps-pnetcdf-guide.md`.
 
 For the bundled WPS in each module: `geogrid.exe` and `metgrid.exe` are built
-`dmpar` and can be launched with `srun` for parallelism (except where they
-don't run, see the known issue above); `ungrib.exe` is serial
+`dmpar` and can be launched with `srun` for parallelism; `ungrib.exe` is serial
 by design. GRIB2 output is **not** compiled into WRF itself — GRIB2 is only
 used on the WPS side (ungrib reading GRIB forcing via Jasper/libpng).
 
