@@ -209,7 +209,7 @@ GPU nodes can be shared so you may request fewer than all 4 GPUs on a node. When
     
 ### Building VASP on Kestrel
 
-Sample Makefiles for VASP can be found on Kestrel at `/nopt/nlr/apps/kestrel-cpu/software/vasp/builds` (CPU versions) and `/nopt/nlr/apps/kestrel-gpu/software/vasp/builds` (GPU versions).
+Sample Makefiles for VASP can be found on Kestrel at `/nopt/nlr/apps/kestrel-cpu/software/vasp/binaries` (CPU versions) and `/nopt/nlr/apps/kestrel-gpu/software/vasp/binaries` (GPU versions).
 
 !!! tip "Important"
     On Kestrel, any modules you have loaded on the login node will be copied to a compute node, and there are many loaded by default for the cray programming environment. Make sure you are using what you intend to. Please see the [Kestrel Environments](../Systems/Kestrel/Environments/index.md) page for more details on programming environments.
