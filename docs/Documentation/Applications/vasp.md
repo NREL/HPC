@@ -259,6 +259,8 @@ Sample Makefiles for VASP can be found on Kestrel at `/nopt/nlr/apps/kestrel-cpu
     ml intel-oneapi-mpi/2021.17.2
     ml intel-oneapi-mkl/2025.3.1
     ml intel-oneapi-tbb/2021.10.0
+	
+	export I_MPI_FABRICS=shm:ofi # Important change from RHEL 8!
 
     export VASP_PATH=/PATH/TO/YOUR/vasp_exe
 
