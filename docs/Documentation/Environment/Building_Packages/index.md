@@ -22,7 +22,7 @@ are only available as source code.
 
 * Other times, a package has dependencies on other ones with application programming interfaces that change rapidly. 
 A source code build might have code to adapt to the (older, newer) libraries you have available, whereas a binary distribution will likely not. 
-In other cases, a binary distribution may be associated with a particular Linux distribution and version different from Kestrel's or Eagle's. 
+In other cases, a binary distribution may be associated with a particular Linux distribution and version different from Kestrel's. 
 One example is a package for Linux version X+1 (with a shiny new libc). 
 If you try to run this on Linux version X, you will almost certainly get errors associated with the GLIBC version required. 
 If you build the application against your own, older libc version, those dependencies are not created.

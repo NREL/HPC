@@ -1,10 +1,26 @@
-## Cray-MPICH
+## Overview: Two MPI Workflows on Kestrel
+
+On Kestrel, MPI is available through two mutually-exclusive workflows (see [Kestrel Environments Overview](../../Systems/Kestrel/Environments/index.md)):
+
+1. **Cray Programming Environment (CPE)** — `module load cpe-stack/25.03` + a `PrgEnv-*` module. This gives you Cray-MPICH, pre-integrated and tuned for Kestrel's Slingshot network.
+2. **NLR-provided toolchains** — load a compiler base module (`gcc`, `oneapi`, or `llvm`) and then an MPI module (`openmpi`, `mpich`, or `intel-oneapi-mpi`) à la carte.
+
+Do not mix CPE and NLR toolchain modules in the same session; always start with `module reset` when switching workflows.
+
+## Cray-MPICH (CPE)
 
 **Documentation:** [Cray-MPICH](https://cpe.ext.hpe.com/docs/mpt/mpich/index.html)
 
 *Cray's MPICH is a high performance and widely portable implementation of the Message Passing Interface (MPI) standard.*
 
-Note Cray-MPICH is only available on Kestrel.
+Cray-MPICH is only available on Kestrel, through the CPE workflow:
+
+```bash
+module reset
+module load cpe-stack/25.03
+module load PrgEnv-gnu   # or PrgEnv-cray, PrgEnv-intel, PrgEnv-aocc, PrgEnv-nvidia
+```
+
 In order to use Cray-MPICH, it is recommended to use the HPE Cray complier wrappers `cc`, `CC` and `ftn`.
 The wrappers will find the necessary MPI headers and libraries as well as scientific libraries provided by LibSci. 
 
@@ -12,12 +28,11 @@ Depending on the compiler of choice, we can load a different instance of Cray-MP
 For example, if we decide to use `PrgEnv-intel`, we can load the module `PrgEnv-intel` which will invoke an Intel instance of `cray-mpich` that can be used through `cc`, `CC` and `ftn`.
 We can also use the usual MPI compilers `mpicc`, `mpicxx` and `mpif90`/`mpifort` but it is recommended to use the wrappers. 
 
-Cray-MPICH takes into consideration the processor architecture through `craype-x86-spr` and the network type through `craype-network-ofi`.
+Cray-MPICH takes into consideration the processor architecture and the network type (`ofi`) automatically as part of the `cpe-stack`/`PrgEnv-*` modules.
 
 ### cray-mpich-abi
 
-For codes compiled using `intel-mpi` or `mpich`, we can load the module `cray-mpich-abi`, an HPE provided MPI that allows pre-compiled software to leverage MPICH benefits on Kestrel's network topology. 
-
+For codes compiled using Intel oneAPI MPI or MPICH (NLR toolchain workflow), the module `cray-mpich-abi` allows pre-compiled software to leverage Cray-MPICH's performance on Kestrel's network topology at runtime. Check `module spider cray-mpich-abi` for current availability and load instructions, since this is an advanced, binary-compatibility feature that depends on how your executable was linked.
 
 
 
@@ -30,7 +45,18 @@ For codes compiled using `intel-mpi` or `mpich`, we can load the module `cray-mp
 
 The Open MPI framework is a free and open-source communications library that is commonly developed against by many programmers. As an open-source package with strong academic support, the latest ideas may appear as implementations here prior to commercial MPI libraries.
 
+On Kestrel, OpenMPI is loaded as an NLR-provided toolchain module, after a compiler base module:
+
+```bash
+module reset
+module load gcc/14.2.0
+module load openmpi/5.0.5
+```
+
 Note that the Slurm-integrated builds of OpenMPI do not create the `mpirun` or `mpiexec` wrapper scripts that you may be used to. Ideally you should use `srun` (to take advantage of Slurm integration), but you can also use OpenMPI's native job launcher `orterun`. Some have also had success simply symlinking `mpirun` to `orterun`.
+
+!!! warning "openmpi5 known issue"
+    `openmpi5` only works with `mpirun`, because Slurm is currently configured without PMIx support. Use `mpirun` rather than `srun` with `openmpi5` until this is resolved, and report persistent issues to [hpc-help@nlr.gov](mailto:hpc-help@nlr.gov).
 
 OpenMPI implements two Byte Transfer Layers for data transport between ranks in the same physical memory space: `sm` and `vader`. 
 Both use a memory-mapped file, which by default is placed in `/tmp`. 
@@ -39,34 +65,37 @@ Non-default locations of this file may be set through the `OMPI_TMPDIR` environm
 
 * If you are running only a few ranks per node with modest buffer space requirements, consider setting `OMPI_TMPDIR` to `/dev/shm` in your job script.
 
-* If you are running many nodes per rank, you should set i`OMPI_TMPDIR` to `/tmp/scratch`, which holds at least 1 TB depending on Eagle node type.
+* If you are running many ranks per node, you should set `OMPI_TMPDIR` to `$TMPDIR`, which Slurm automatically points at node-local scratch (`/tmp/scratch/$SLURM_JOB_ID`) and holds at least 1 TB depending on node type.
 
 
 ### Supported Versions
 
-|Kestrel                   | Swift          | Vermilion |
-|:------------------------:|:--------------:|:----------------:|
-|openmpi/4.1.6-gcc  (CPU)  |openmpi/4.1.1-6vr2flz |openmpi/4.1.4-gcc |
-|openmpi/4.1.6-intel(CPU)  |||  
-|openmpi/5.0.1-gcc  (CPU)  |||
-|openmpi/5.0.3-gcc  (CPU)  ||| 
-|openmpi/4.1.6-gcc (GPU)   |||
+Use `module spider openmpi` on each system for the current list; representative versions as of this writing:
 
-## IntelMPI
-**Documentation:** [IntelMPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html)
+|Kestrel            | Gila |
+|:--------------------------:|:----------------:|
+|openmpi/5.0.5 (load after `gcc` or `oneapi`) |openmpi (see `module spider`)  |
+|openmpi/5.0.3 (load after `gcc`)  ||
+|openmpi/5.0.3-gpu (load after `gcc`+`cuda`) ||
+
+## Intel oneAPI MPI
+**Documentation:** [Intel oneAPI MPI Library](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html)
 
 *Intel® MPI Library is a multifabric message-passing library that implements the open source MPICH specification. Use the library to create, maintain, and test advanced, complex applications that perform better on HPC clusters based on Intel® and compatible processors.*
 
-Intel's MPI library enables tight interoperability with its processors and software development framework, and is a solid choice for most HPC applications.
+Intel's MPI library enables tight interoperability with its processors and software development framework, and is a solid choice for most HPC applications. On Kestrel, it is revealed after loading the `oneapi` toolchain module:
+
+```bash
+module reset
+module load oneapi/2025.3.1
+module load intel-oneapi-mpi/2021.17.2
+```
 
 ### Supported Versions
 
-|Kestrel                          | Swift          | Vermilion |
-|--------------------------------:|:--------------:|:----------------:|
-|intel-oneapi-mpi/2021.10.0-intel (CPU) |intel-oneapi-mpi/2021.3.0-hcp2lkf  |intel-oneapi-mpi/2021.7.1-intel |   
-|intel-oneapi-mpi/2021.11.0-intel (CPU) |||   
-|intel-oneapi-mpi/2021.12.1-intel (CPU) |||
-|intel-oneapi-mpi/2021.13.0-intel (GPU) |||
+|Kestrel                      | Gila |
+|--------------------------------:|:----------------:|
+|intel-oneapi-mpi/2021.17.2 (load after `oneapi`) |intelmpi (see `module spider`) |
 
 
 ## MPICH
@@ -75,18 +104,24 @@ Intel's MPI library enables tight interoperability with its processors and softw
 *MPICH is a high performance and widely portable implementation of the Message Passing Interface (MPI) standard. 
 MPICH and its derivatives form the most widely used implementations of MPI in the world. They are used exclusively on nine of the top 10 supercomputers (June 2016 ranking), including the world’s fastest supercomputer: Taihu Light.*
 
+On Kestrel, MPICH is also loaded after a compiler base module:
+
+```bash
+module reset
+module load gcc/14.2.0
+module load mpich/5.0.0
+```
+
 ### Supported Versions
 
-|Kestrel                          | Swift          | Vermilion |
-|--------------------------------:|:--------------:|:----------------:|
-|mpich/4.1-gcc   (CPU)                 |mpich/3.4.2-h2s5tru | mpich/4.0.2-gcc  |   
-|mpich/4.1-intel (CPU)                 | || 
-|mpich/4.1-gcc (GPU)                   |||
+|Kestrel                      | Gila |
+|--------------------------------:|:----------------:|
+|mpich/5.0.0 (load after `gcc` or `oneapi`) |mpich (see `module spider`)  |
 
 ## Running MPI Jobs on Kestrel GPUs
 
 To run MPI (message-passing interface) jobs on Kestrel system's NVidia GPUs, the MPI library must be "CUDA-aware."
-All modules with `(GPU)` are gpu aware and built with `CUDA`. 
+On Kestrel, GPU-aware MPI modules are revealed by explicitly loading a compiler **and** a `cuda` module together, e.g. `module load gcc/14.2.0 cuda/13.2`; the resulting MPI modules are typically denoted with a `-gpu` suffix (e.g., `openmpi/5.0.3-gpu`). Use `module avail` after loading `gcc`+`cuda` to see what's available, or `module spider openmpi` to see all GPU and CPU variants.
 
 
 ### Interactive Use
@@ -129,7 +164,7 @@ An example batch script to run 4 MPI ranks across two nodes is as follows.
      #SBATCH --error=%x-%j.err
      #SBATCH --output=%x-%j.out
      
-     ml gcc cuda openmpi
+     ml gcc/14.2.0 cuda/13.2 openmpi/5.0.3-gpu
      
      cd $SLURM_SUBMIT_DIR
      srun ./jacobi
